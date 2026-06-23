@@ -41,7 +41,7 @@ find -L "$VIDEO_DIR" -maxdepth 1 -type f -name '*.mp4' -print | sort | while IFS
 done
 
 echo "==> verifying uploaded objects"
-uploaded="$(gcloud storage objects list "gs://$BUCKET/$PREFIX/**" --uri | grep -c '\.mp4' || true)"
+uploaded="$(gcloud storage objects list "gs://$BUCKET/$PREFIX/**" --uri | rg -c '\.mp4$' || true)"
 if [ "$uploaded" != "14" ]; then
   echo "expected 14 uploaded mp4 objects, found $uploaded"
   exit 1
@@ -51,4 +51,3 @@ first_url="https://storage.googleapis.com/$BUCKET/$PREFIX/01_Week_01_Intro_DP.mp
 echo "first video URL: $first_url"
 curl -fsSI -r 0-0 "$first_url" | sed -n '1,12p'
 echo "done"
-
