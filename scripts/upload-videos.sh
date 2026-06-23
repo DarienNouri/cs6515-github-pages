@@ -41,7 +41,7 @@ find -L "$VIDEO_DIR" -maxdepth 1 -type f -name '*.mp4' -print | sort | while IFS
 done
 
 echo "==> verifying uploaded objects"
-uploaded="$(gcloud storage objects list "gs://$BUCKET/$PREFIX/**" --uri | rg -c '\.mp4$' || true)"
+uploaded="$(gcloud storage ls "gs://$BUCKET/$PREFIX/" | rg -c '\.mp4$' || true)"
 if [ "$uploaded" != "14" ]; then
   echo "expected 14 uploaded mp4 objects, found $uploaded"
   exit 1
