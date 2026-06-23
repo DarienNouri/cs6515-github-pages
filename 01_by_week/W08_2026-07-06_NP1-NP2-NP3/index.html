@@ -1,0 +1,1466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Week 8 — NP-Completeness &amp; Reductions — CS6515</title>
+<link rel="stylesheet" href="../../vendor/fonts/fonts.css">
+<link rel="stylesheet" href="../../theme.css">
+<link rel="stylesheet" href="../../vendor/katex/katex.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="../../vendor/highlight/styles/tokyo-night-dark.min.css">
+
+</head>
+<body>
+<header class="topbar">
+  <a class="home" href="../../index.html">CS6515</a>
+  <span class="crumbloc">Week 8 — NP-Completeness &amp;
+Reductions</span>
+</header>
+<main class="content">
+<h1 id="week-8--np-completeness--reductions">Week 8 — NP-Completeness
+&amp; Reductions</h1>
+<blockquote>
+<p><strong>2026-07-06 → 07-12</strong> · Modules <strong>NP1</strong>
+(NP, Reductions), <strong>NP2</strong> (3-SAT), <strong>NP3</strong>
+(Graph Problems)</p>
+<p><a href="../W07_2026-06-29_MF4_EXAM2/index.html">◀ W07 Edmonds-Karp</a> · <a
+href="../index.html">All weeks</a> · <a
+href="../../00_START_HERE/INDEX.html">Index</a> · <a
+href="../W09_2026-07-13_LP1-LP2-LP3/index.html">W09 LP ▶</a></p>
+</blockquote>
+<h3 id="due-this-week">Due this week</h3>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Type</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>HW8</strong></td>
+<td>written</td>
+<td>reductions</td>
+</tr>
+<tr>
+<td><strong>Quiz 6</strong></td>
+<td>format</td>
+<td>NP answer format</td>
+</tr>
+</tbody>
+</table>
+<details>
+<summary><b>Watch the lecture</b> (NP & Reductions)</summary>
+
+<p><video controls preload="metadata" width="100%" src="https://storage.googleapis.com/darien-public-assets/cs6515-summer-2026/v20260623/videos/08_Week_08_NP_Reductions.mp4"></video></p>
+<p><a href="https://storage.googleapis.com/darien-public-assets/cs6515-summer-2026/v20260623/videos/08_Week_08_NP_Reductions.mp4">▶ Open video</a> · <a
+href="transcripts/08_Week_08_NP_Reductions.txt">Transcript</a></p>
+</details>
+
+<hr />
+<h2 id="learning-objectives">Learning objectives</h2>
+<ul>
+<li>Define <strong>P, NP, NP-hard, NP-complete</strong> precisely.</li>
+<li>Build a <strong>polynomial-time reduction</strong> <span
+class="math inline"><em>A</em>≤<sub><em>p</em></sub><em>B</em></span> in
+the <strong>correct direction</strong>.</li>
+<li>Know the standard NP-complete catalog and how the problems reduce to
+one another.</li>
+<li>Write a four-part reduction proof.</li>
+</ul>
+<h2 id="core-concepts">Core concepts</h2>
+<h3 id="decision-problems--certificates">Decision problems &amp;
+certificates</h3>
+<p><strong>Definition.</strong> Complexity classes here are defined over
+<strong>decision problems</strong> (yes/no output). A
+<em>certificate</em> is a candidate solution; a <em>verifier</em> checks
+it.</p>
+<h3 id="the-classes">The classes</h3>
+<ul>
+<li><strong>P</strong> — decidable in polynomial time.</li>
+<li><strong>NP</strong> — problems whose <em>yes</em>-instances have a
+<strong>polynomial-size certificate</strong> that a verifier can check
+in polynomial time. (e.g. for SAT: a satisfying assignment.)</li>
+<li><strong>NP-hard</strong> — at least as hard as everything in NP:
+every <span class="math inline"><em>A</em> ∈ NP</span> reduces to it
+(<span
+class="math inline"><em>A</em>≤<sub><em>p</em></sub><em>B</em></span>).
+Need <em>not</em> itself be in NP.</li>
+<li><strong>NP-complete</strong> — NP-hard <strong>and</strong> in NP.
+The "hardest problems in NP"; if any one has a polynomial algorithm,
+then <span class="math inline">P = NP</span>.</li>
+</ul>
+<p><span
+class="math display">P ⊆ NP,   NP-complete = NP-hard ∩ NP.</span></p>
+<h3 id="polynomial-time-reduction">Polynomial-time reduction</h3>
+<p><strong>Definition.</strong> <span
+class="math inline"><em>A</em>≤<sub><em>p</em></sub><em>B</em></span>
+means: a polynomial-time map sending each instance <span
+class="math inline"><em>x</em></span> of <span
+class="math inline"><em>A</em></span> to an instance <span
+class="math inline"><em>y</em></span> of <span
+class="math inline"><em>B</em></span> such that</p>
+<p><span
+class="math display"><em>x</em> ∈ <em>A</em> ⇔ <em>y</em> ∈ <em>B</em>.</span></p>
+<p>Intuition: "if I could solve <span
+class="math inline"><em>B</em></span>, I could solve <span
+class="math inline"><em>A</em></span>" — so <span
+class="math inline"><em>B</em></span> is at least as hard as <span
+class="math inline"><em>A</em></span>.</p>
+<h3 id="reduction-direction--the-1-exam-trap">Reduction DIRECTION — the
+#1 exam trap</h3>
+<p>To prove <strong><span class="math inline"><em>B</em></span> is
+NP-hard</strong>, reduce a <strong>known NP-hard</strong> problem <span
+class="math inline"><em>A</em></span> <strong>to</strong> <span
+class="math inline"><em>B</em></span> (i.e. <span
+class="math inline"><em>A</em>≤<sub><em>p</em></sub><em>B</em></span>):</p>
+<blockquote>
+<p><strong>Reduce FROM known-hard TO your target.</strong></p>
+</blockquote>
+<p>A reduction the wrong way (<span
+class="math inline"><em>B</em>≤<sub><em>p</em></sub><em>A</em></span>)
+shows <span class="math inline"><em>B</em></span> is <em>easy</em> if
+<span class="math inline"><em>A</em></span> is — it proves nothing about
+<span class="math inline"><em>B</em></span>'s hardness.</p>
+<h2 id="algorithms-proof-patterns">Algorithms (proof patterns)</h2>
+<h3 id="a-reduction-proof-has-4-parts">A reduction proof has 4
+parts</h3>
+<ol type="1">
+<li><strong>The map</strong> — describe the polynomial-time construction
+<span class="math inline"><em>x</em> ↦ <em>y</em></span>.</li>
+<li><strong>(⇒)</strong> If <span
+class="math inline"><em>x</em> ∈ <em>A</em></span> then <span
+class="math inline"><em>y</em> ∈ <em>B</em></span> (yes maps to
+yes).</li>
+<li><strong>(⇐)</strong> If <span
+class="math inline"><em>y</em> ∈ <em>B</em></span> then <span
+class="math inline"><em>x</em> ∈ <em>A</em></span> (yes only comes from
+yes) — usually the harder direction.</li>
+<li><strong>Poly-time</strong> — argue the construction runs in
+polynomial time.</li>
+</ol>
+<h2 id="key-theorems--results">Key theorems &amp; results</h2>
+<h3 id="cook-levin">Cook-Levin</h3>
+<p><strong>3-SAT</strong> (satisfiability of a CNF formula with exactly
+3 literals per clause) is NP-complete — the <em>root</em> of the
+reduction tree. Cook-Levin shows every NP problem reduces to SAT; from
+SAT/3-SAT we then reduce outward to graph problems.</p>
+<h3 id="standard-catalog">Standard catalog</h3>
+<table>
+<thead>
+<tr>
+<th>Problem</th>
+<th>Reduce from</th>
+<th>Key idea</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>3-SAT</strong></td>
+<td>SAT (Cook-Levin)</td>
+<td>the root NP-complete problem</td>
+</tr>
+<tr>
+<td><strong>Independent Set (IS)</strong></td>
+<td>3-SAT</td>
+<td>a triangle gadget per clause + variable-consistency edges</td>
+</tr>
+<tr>
+<td><strong>Vertex Cover (VC)</strong></td>
+<td>Independent Set</td>
+<td><span class="math inline"><em>S</em></span> is an IS <span
+class="math inline">⇔</span> <span
+class="math inline"><em>V</em> \ <em>S</em></span> is a VC</td>
+</tr>
+<tr>
+<td><strong>Clique</strong></td>
+<td>Independent Set</td>
+<td>clique in <span class="math inline"><em>G</em></span> <span
+class="math inline">⇔</span> IS in the complement <span
+class="math inline"><em>Ḡ</em></span></td>
+</tr>
+<tr>
+<td><strong>Hamiltonian path/cycle, TSP</strong></td>
+<td>3-SAT / others</td>
+<td>gadget constructions</td>
+</tr>
+</tbody>
+</table>
+<p>These complementary identities (IS ↔︎ VC ↔︎ Clique) are worth
+memorizing — they're one-line reductions that show up constantly.</p>
+<h2 id="worked-example-independent-set-ₚ-vertex-cover">Worked example
+(Independent Set ≤ₚ Vertex Cover)</h2>
+<p>Claim: <span class="math inline"><em>G</em></span> has an independent
+set of size <span class="math inline"> ≥ <em>k</em></span> <span
+class="math inline">⇔</span> <span class="math inline"><em>G</em></span>
+has a vertex cover of size <span
+class="math inline"> ≤ <em>n</em> − <em>k</em></span>.</p>
+<ul>
+<li><strong>Map:</strong> identity on the graph; just ask VC for
+threshold <span class="math inline"><em>n</em> − <em>k</em></span>.
+(Trivially poly-time.)</li>
+<li><strong>(⇒)</strong> If <span class="math inline"><em>S</em></span>
+is independent with <span
+class="math inline">|<em>S</em>| ≥ <em>k</em></span>, then no edge has
+<em>both</em> endpoints in <span class="math inline"><em>S</em></span>,
+so every edge has an endpoint in <span
+class="math inline"><em>V</em> \ <em>S</em></span> — i.e. <span
+class="math inline"><em>V</em> \ <em>S</em></span> (size <span
+class="math inline"> ≤ <em>n</em> − <em>k</em></span>) is a vertex
+cover.</li>
+<li><strong>(⇐)</strong> If <span class="math inline"><em>C</em></span>
+is a vertex cover with <span
+class="math inline">|<em>C</em>| ≤ <em>n</em> − <em>k</em></span>, then
+<span class="math inline"><em>V</em> \ <em>C</em></span> has no internal
+edge (every edge is covered by <span
+class="math inline"><em>C</em></span>), so <span
+class="math inline"><em>V</em> \ <em>C</em></span> (size <span
+class="math inline"> ≥ <em>k</em></span>) is independent.</li>
+</ul>
+<p>Since VC is in NP and this reduction is from the NP-hard IS, VC is
+NP-complete. <span class="math inline">◼</span></p>
+<h2 id="common-pitfalls--exam-traps">Common pitfalls / exam traps</h2>
+<ul>
+<li><strong>Wrong direction</strong> — reducing your target <em>to</em>
+a known-hard problem proves nothing.</li>
+<li>Forgetting the <strong>(⇐)</strong> direction — both directions of
+the iff are required.</li>
+<li>Confusing <strong>NP-hard</strong> (maybe not in NP) with
+<strong>NP-complete</strong> (in NP <em>and</em> NP-hard).</li>
+<li>Treating NP-complete as "unsolvable" — they're solvable
+(exponentially), just not known to be poly-time. (Contrast next-unit
+undecidability: <em>no</em> algorithm at all.)</li>
+</ul>
+<h2 id="how-to-answer-hw--exam">How to answer (HW / exam)</h2>
+<p>A reduction answer has the <strong>4 parts</strong> above. Always
+reduce <strong>from</strong> a known-hard problem (usually 3-SAT or one
+of the catalog), give <strong>both</strong> directions, and argue
+poly-time.</p>
+<details>
+<summary><b>Go deeper</b> — readings</summary>
+
+<ul>
+<li><a href="readings/DPV-ch8-np-complete-problems.pdf">DPV §8.1–8.3
+(NP-complete problems)</a> · <a
+href="readings/DPV-ch5-greedy-algorithms.pdf">§5.3 context</a></li>
+<li><a href="guidance/common-course-runtimes.html">Common
+runtimes</a></li>
+<li><a href="notes/full-course-notes.html">Full course notes</a> · <a
+href="notes/ga-notes.pdf">ga-notes.pdf</a></li>
+<li><a href="lectures/">lectures/</a> · <a
+href="transcripts/">transcripts/</a> · <a href="readings/">readings/</a>
+· <a href="guidance/">guidance/</a> · <a href="notes/">notes/</a></li>
+</ul>
+</details>
+
+<h2 id="comprehensive-notes">Comprehensive Notes</h2>
+<h3 id="np0-np-completeness">NP0: NP Completeness</h3>
+<p>This section deals with the classification of algorithms based on
+efficient runtimes. The run time to compute a solution, as well as the
+run time to verify a solution. Although this may seem like a simple
+division it turns out that in many cases it's difficult if not
+impossible to determine the runtime. In such cases determining if an
+efficient can exist is an even harder ask than it seems.</p>
+<p>First, some definitions:</p>
+<ul>
+<li><strong>Efficiency:</strong> for an algorithm to be efficient this
+means that, at a minimum, the runtime is bounded by a polynomial
+function on the input size — ie there exists a <span
+class="math inline"><em>c</em></span> for which the runtime is <span
+class="math inline"><em>O</em>(<em>n</em><sup><em>c</em></sup>)</span>.</li>
+<li><strong>P</strong> — in this section refers to <em>polynomial</em>
+<ul>
+<li>this is the set of search/decision problems that can be
+<strong>solved</strong> in polynomial time</li>
+</ul></li>
+<li><strong>NP</strong> — in this section refers to <em>nondeterministic
+polynomial</em>
+<ul>
+<li>this is the class, or set, of all search/decision problems where the
+solution can be <strong>verified</strong> in polynomial time</li>
+<li>some literature uses decision rather than search; this is a rather
+minor, insignificant distinction</li>
+<li>NP includes P for computable problems, such as those we've looked at
+up until now</li>
+</ul></li>
+</ul>
+<p><em>An alternative way of thinking of a nondeterministic
+problem:</em> it's one where you're allowed to just
+<strong>guess</strong> at each step, in order to arrive at an accepting
+state.</p>
+<blockquote>
+<p><strong>The open question.</strong> Is <span
+class="math inline"><em>P</em> ≠ <em>N</em><em>P</em></span> or is <span
+class="math inline"><em>P</em> = <em>N</em><em>P</em></span>? This is an
+outstanding question that the best mathematicians have yet to solve.</p>
+</blockquote>
+<p>The topic of P and NP can be difficult to understand, so hopefully
+these examples help.</p>
+<p>Consider the game of chess. Suppose that I presented to you a game
+with a well defined placement of pieces and told you the next best move
+is Y. How would you verify the correctness of Y? There are just so many
+different 2nd 3rd etc etc moves that computing all possible outcomes is
+challenging. This is an solution that cannot, in general, be verified in
+polynomial time. It's outside NP.</p>
+<p>Consider a Rubrik's cube, with only 6 sides and 9 squares per side,
+it is within our grasp to prove that given a rubik's cube in any state,
+it is solvable in polynomial time. This is considered to be an
+NP-Complete problem, for a 3x9 cube. However it has also been shown that
+for a more general NxNxN...xN cube this becomes intractable.</p>
+<p>In the following sections we will look at the following topics</p>
+<ul>
+<li>NP &amp; NP-complete reductions</li>
+<li>NP-Completeness (3SAT, Graph Problems, Knapsack)</li>
+<li>What does NP-completeness mean?</li>
+<li>What's <span
+class="math inline"><em>P</em> = <em>N</em><em>P</em></span> and <span
+class="math inline"><em>P</em> ≠ <em>N</em><em>P</em></span> mean?</li>
+<li>How do we show that a problem is intractable, meaning it is unlikely
+to be solvable in an efficient manner.</li>
+</ul>
+<p><strong>More Definitions</strong><br />
+Search Problem:</p>
+<p>Can be loosely defined as a problem where the solution can be
+verified efficiently</p>
+<pre><code>- given a solution you can verify the solution in polynomial time
+- time to generate a solution is irrelevant
+- NP = class of all search problems
+- P = class of all search problems that can be solved in polynomial time</code></pre>
+<p>It should be pretty clear that P is a subset of NP, <span
+class="math inline"><em>P</em> ⊂ <em>N</em><em>P</em></span></p>
+<p>More formally a Search problem is defined as</p>
+<ul>
+<li><p>First it has to be of the form</p>
+<ul>
+<li>given an instance I</li>
+<li>find a solution S for I if one exists</li>
+<li>output No if I has no solution</li>
+</ul></li>
+<li><p>Secondly it has to meet the following requirement</p>
+<ul>
+<li>If given an instance I and a solution S</li>
+<li>then S can be verified to be a solution to I in polynomial-time (
+polynomial in |I| )</li>
+</ul></li>
+<li><p>Note that S need not be a correct solution, it could be wrong, it
+still must be verifiable in polynomial time</p></li>
+</ul>
+<p><span class="math inline"><em>P</em> = <em>N</em><em>P</em></span>
+means that it is as difficult to solve a problem as it is to verify the
+solution. I feel that it is important to point out that this is talking
+about problem in the general tense. ie a Class of problem. Not any
+particular instance or example of a problem. For most of the problems
+considered so far solution verification is considerably easier than
+solution discovery. But equality would also imply the reverse. So if a
+solution can be verified in polynomial time then it can be solved in
+polynomial time, and this turns out to be impossible to prove. This has
+lead many to say that <span
+class="math inline"><em>P</em> ≠ <em>N</em><em>P</em></span>. Which
+allows for P implies NP, and doesn't require NP implies P. Unfortunately
+this is not all that easier to prove either.</p>
+<h3 id="np1-intro-and-examples">NP1: Intro and Examples</h3>
+<p>Most proofs of being NP tend towards being short and crisp, and quite
+trivial to be frank.</p>
+<h4 id="sat-problem">SAT Problem</h4>
+<p>Recall that we first introduced the <strong>SAT</strong> problem back
+in section GR2, where we looked at the <strong>2-SAT</strong>
+problem.</p>
+<blockquote>
+<p><strong>SAT (Satisfiability).</strong></p>
+<ul>
+<li><strong>Input:</strong> a Boolean formula <span
+class="math inline"><em>f</em></span> in <strong>CNF</strong> form, with
+<span class="math inline"><em>n</em></span> variables and <span
+class="math inline"><em>m</em></span> clauses.</li>
+<li><strong>Output:</strong> a satisfying assignment of variables if one
+exists, else <em>No</em> — where an assignment gives a True/False value
+to each of the <span class="math inline"><em>n</em></span> variables
+s.t. the formula <span class="math inline"><em>f</em></span> evaluates
+to True.</li>
+</ul>
+</blockquote>
+<p>Here's another example<br />
+<span class="math inline">$f = (x_3 \vee \bar{x_2} \vee
+\bar{x_1})\wedge(x_1)\wedge(x_2 \vee \bar{x_3})\wedge(\bar{x_1} \vee
+\bar{x_3})$</span><br />
+Rest assured this formula has a solution and we'll leave it as an
+exercise to find a solution to this</p>
+<p>Suppose we provided you with a solution to this. How long would take
+to verify the correctness of the solution? Pretty quick I would hope for
+such an easy problem instance.</p>
+<p>Let's generalize this type of problem. Suppose we provided you a
+formula f and an assignment of values to variables x_1,...,x_n. What
+would be the runtime of verification? For m clauses this would have a
+worst case of O(nm). O(n) for verifying that a clause is satisfied, then
+multiplied by m clauses. Since n x m is polynomial in the input size,
+this proves that SAT is in NP.</p>
+<h4 id="k-colorings-problem">K-Colorings Problem</h4>
+<ul>
+<li>Input: undirected G=(V,E), and integer k &gt; 0</li>
+<li>Output: Assign each vertex a color in {1,2,...,k}
+<ul>
+<li>s.t. no edge has the same color at it's endpoints, adjacent vertices
+are of different colors</li>
+<li>No, if the proper coloring doesn't exist</li>
+</ul></li>
+</ul>
+<p>What would it take to verify that for a given G and a coloring that
+the assignment is valid? Pretty easy when you consider that this boils
+down to an edge having ends of different colours. So we iterate through
+the m-edges and check colour(v) <span class="math inline">≠</span>
+colour(w). This should take no more than O(m). Which of course means
+that K-Colouring <span class="math inline">∈</span> NP.</p>
+<h4 id="mst-problem">MST Problem</h4>
+<ul>
+<li>Input: G=(V,E) with positive edge lengths</li>
+<li>Output: Tree T with minimum weight</li>
+</ul>
+<p>Is MST<span class="math inline">∈</span>NP? what about P, is MST<span
+class="math inline">∈</span>P?</p>
+<p>First notice that a solution is guaranteed, unlike in our previous
+example problems which could return No if a solution didn't exist. So we
+will always have a tree.</p>
+<p>Second, suppose we're given the graph G and the tree T. First we can
+run DFS/BFS to verify that T is in fact a tree. Recall that these run in
+O(|V|+|E|). Second we can run Kruskal or Prim to verify that T is of min
+weight. The weight of the Tree T given to us must be of the same weight
+as T' that is returned by prim/kruskal. It doesn't have to be the same
+tree with the same edges. Only the weight matters. Further, these both
+run in linear time so we can conclude that verifying MST can be done in
+Polynomial time. This concludes the proof of MST<span
+class="math inline">∈</span>NP.</p>
+<p>Now we move on to proving that MST<span
+class="math inline">∈</span>P. This of course is trivial as we've
+already proven that both Kruskal and Prim can compute/determine a min
+tree in O(m log n). Thus a solution can be found in polynomial time and
+thus MST<span class="math inline">∈</span>P.</p>
+<h4 id="knapsack-problem">Knapsack Problem</h4>
+<ul>
+<li>Inputs: capacity B, and n objects with integer weights <span
+class="math inline"><em>w</em><sub>1</sub>, ..., <em>w</em><sub><em>n</em></sub></span>
+and n integer values <span
+class="math inline"><em>v</em><sub>1</sub>, ..., <em>v</em><sub><em>n</em></sub></span></li>
+<li>Outputs: subset S of objects with a total weight<span
+class="math inline">≤</span>B, and max total value</li>
+<li>Note: recall that there are two variants of this problem, with and
+without repetition</li>
+</ul>
+<p>Is KP<span class="math inline">∈</span>NP? what about P, is KP<span
+class="math inline">∈</span>P?</p>
+<p>It's in neither! recall that the runtime of KP is O(nB) and we talked
+about why this is not efficient. It turns out that O(nB) is actually
+exponential.</p>
+<p>To prove in NP we need to prove that the capacity is less than B and
+that the values are at a max. Proving the capacity statement is rather
+trivial. Proving the max value is a bit trickier. For this problem we
+don't have a graph representation. All we have is a DP method that takes
+exponential time. So we have no way to verify the solution in polynomial
+time.</p>
+<p>You might be thinking well if KP<span class="math inline">∈</span>NP
+is false then KP<span class="math inline">∉</span>NP is true, but this
+wrong. Frankly we don't know if there exists an algorithm to check the
+solution in polynomial time, but we also cannot rule it out. So we're
+like Shrodeingers cat, we can say which is true. Similarly there may
+exist an algo that finds the max subset in polynomial time, but until
+the day it's announced to the world neither KP<span
+class="math inline">∈</span>P nor KP<span class="math inline">∉</span>P
+are true.</p>
+<p>Let's consider a small adjustment to the above. What if instead of
+maximizing the value we wanted to achieve a value V.</p>
+<h4 id="knapsack-search-modified-knapsack">Knapsack-Search Modified
+Knapsack</h4>
+<ul>
+<li>Inputs: capacity B, and n objects with integer weights <span
+class="math inline"><em>w</em><sub>1</sub>, ..., <em>w</em><sub><em>n</em></sub></span>
+and n integer values <span
+class="math inline"><em>v</em><sub>1</sub>, ..., <em>v</em><sub><em>n</em></sub></span>
+<ul>
+<li>and a goal g</li>
+</ul></li>
+<li>Output: subset S of objects with
+<ul>
+<li>total weight <span
+class="math inline">∑<sub><em>i</em> ∈ <em>S</em></sub><em>w</em><sub><em>i</em></sub>≤</span>B,</li>
+<li>and total value <span
+class="math inline">∑<sub><em>i</em> ∈ <em>S</em></sub><em>v</em><sub><em>i</em></sub> ≥ <em>g</em></span>
+(previously we tried to maximize sum)</li>
+<li>No if no such subset S exists</li>
+</ul></li>
+</ul>
+<p>Suppose for a moment we could solve this in polynomial time. If this
+were true then we could theoretically run a binary search on g to find
+the maximum. This begs the questions how many rounds of binary search
+would we need to perform to converge to an optimal value? Well the
+maximum possible of V is just the sum <span
+class="math inline"><em>V</em> = ∑<em>v</em><sub><em>i</em></sub></span>.
+So this implies a runtime of O(log V). So is this in NP? Yes! we can
+prove that now.</p>
+<p>Let's assume that we're given the weights and values, a capcity B, a
+goal g, and a Solution S. To check this solution we need to check the
+conditions: (1) total weight <span
+class="math inline">∑<sub><em>i</em> ∈ <em>S</em></sub><em>w</em><sub><em>i</em></sub>≤</span>B,
+and (2) total value <span
+class="math inline">∑<sub><em>i</em> ∈ <em>S</em></sub><em>v</em><sub><em>i</em></sub> ≥ <em>g</em></span>.
+We're just summing up at most order numbers which can be done/checked in
+O(n) time. We can check a proposed solution in polynomial time and thus
+this version of knapsack is in NP.</p>
+<p>You may ask, "Does this really take O(n) time to some of these
+numbers?"</p>
+<p>Well, if you really look at it in terms of the magnitude of these
+numbers, we had capital V as the sum of all values. That's led capital W
+to note the sum of all weights. Certainly to add up to these numbers,
+the time required is at most the number of bits. The number of bits in
+each of these numbers is at most log of capital W. So the time required
+to compute this sum is the most order n times log of capital W. To
+compute this sum is the most O(n log W). Since the input side is log W
+and log V, this is still polynomial in the input size.</p>
+<h4 id="intuition">Intuition</h4>
+<p><img src="../../.assets/CS6515_images/NP-001.png" alt="NP-001" /></p>
+<p>Now that we've looked at several we should be good to go a bit
+deeper.</p>
+<p>The donut area problems are generally called NP-Complete. These are
+problems that can be verified in polynomial time, but they cannot be
+solved in polynomial time. They are also known as the hardest problems
+in NP, you think of these as the outermost layer of the donut.</p>
+<p>Consider:</p>
+<ul>
+<li>if <span
+class="math inline"><em>P</em> ≠ <em>N</em><em>P</em></span> then all
+NP-Complete problems are not in P</li>
+<li>the complement / or negation of this is</li>
+<li>if a NP-Complete problem can be solved in poly-time then all
+problems in NP can be solved in poly-time</li>
+</ul>
+<p>What does it mean to be NP-complete?</p>
+<p>Consider the SAT problem from before. Recall from the previous
+section we demonstrated that 2-SAT is in NP, and we generalized this to
+show that SAP is in NP as well. Is SAT NP-Complete?</p>
+<p>A Problem is NP-Complete if it meets the requirements</p>
+<ul>
+<li>1 - it is in NP</li>
+<li>2 - it is the hardest problem in NP
+<ul>
+<li>This means it is the least likely to have an efficient solution</li>
+</ul></li>
+</ul>
+<p>For example if we use the SAT problem then "SAT is NP-Complete" means
+that SAT is the hardest problem in NP, which in turn means that If we
+can solve a problem like SAT in poly-time then this we can solve every
+problem in NP in poly-time. This would imply that there is what's called
+a reduction, from any problem in NP to SAT. ie MST, Colorings, TSP are
+reducible to SAT. Of course the reader is reminded that the reduction is
+an implication of being NP-Complete. See the visual below, Conversely if
+<span class="math inline"><em>P</em> ≠ <em>N</em><em>P</em></span> then
+of course <span
+class="math inline"><em>S</em><em>A</em><em>T</em> ≠ <em>P</em></span>.
+At this time there is no known polynomial time algo for SAT, there is
+also no known proof that <span
+class="math inline"><em>P</em> ≠ <em>N</em><em>P</em></span>. So we're
+in a bit of a limbo.</p>
+<p><img src="../../.assets/CS6515_images/NP-002.png" alt="NP-002" /></p>
+<p>Let's look at how reduction works. Suppose we have problems A &amp;
+B. For arguements sake think of A as the coloring problem and B as the
+SAT problem. We want to show/prove the reduction from A to B, denoted
+<span class="math inline"><em>A</em> → <em>B</em></span> or <span
+class="math inline"><em>A</em> ≤ <em>B</em></span>. This is read B is at
+least as computationally hard as A. It means that when we show a
+reduction from A to B, we're showing that B is at least as hard
+computationally as A. So if we can solve B then we can solve A.</p>
+<p><strong>Formally:</strong></p>
+<ul>
+<li>Both <span class="math inline"><em>A</em> → <em>B</em></span> read
+as A reduces to B, or as reduction from A to B
+<ul>
+<li>and <span class="math inline"><em>A</em> ≤ <em>B</em></span> : B is
+as least as Hard as A</li>
+</ul></li>
+<li>Are equivalent, and mean the same thing</li>
+<li>Both means that if we can solve problem B in polynomial time then we
+can use that algorithm to solve A in poly-time.</li>
+</ul>
+<p>Now let's look at the mechanics of the reduction:</p>
+<ul>
+<li>Suppose there is a poly-time algo for SAT,
+<ul>
+<li>we will use this like a black box to get a poly-time algo for the
+Colorings problem.</li>
+</ul></li>
+</ul>
+<p><img src="../../.assets/CS6515_images/NP-003.png" alt="NP-003" /></p>
+<p>Let's go through this model. I represents the input Instance for the
+problem, so let's Say we're working with a coloring problem. This would
+be a graph G and integer K, so we need a function f that can transform
+these into the appropriate input for SAT, which you may recall is a
+boolean set of assignments. In short F(G,k) is the input for SAT.</p>
+<p>Then SAT can do it's thing, we need not concern ourselves with what
+it's doing. And it spits out it's response. The No is trivial, but when
+we a solution S it will be in the form that SAT operates under.
+Consequently this will again need to be transformed back to the form
+that would represent a solution to the initial problem, Colorings.</p>
+<p>a) f(Colorings Input) <span class="math inline">→</span> f(G,K) input
+for SAT<br />
+b) Solution to f(G,k) S <span class="math inline">→</span> h(S) solution
+for Colorings</p>
+<p>We will need to prove that</p>
+<ul>
+<li>if S is a solution to f then h is a solution to the original
+G,k</li>
+<li>Also if there is no solution to f then there is no solution to the
+original G,k</li>
+<li>This means that we need both directions
+<ul>
+<li>S is a solution to f(G,k) <span class="math inline">⇔</span> h(S) is
+a solution to (G,k)</li>
+</ul></li>
+</ul>
+<p>Another Example<br />
+To show that Independent Sets (IS) problem is NP-Complete<br />
+Need to show that</p>
+<ul>
+<li>a) <span
+class="math inline"><em>I</em><em>S</em> ∈ <em>N</em><em>P</em></span></li>
+<li>b) <span
+class="math inline">∀<em>A</em> ∈ <em>N</em><em>P</em>, <em>A</em> → <em>I</em><em>S</em></span>
+<ul>
+<li>note that this has to hold for all problems in NP,</li>
+</ul></li>
+</ul>
+<p>Suppose we know that SAT is NP-Complete, then we have that <span
+class="math inline">∀<em>A</em> ∈ <em>N</em><em>P</em>, <em>A</em> → <em>S</em><em>A</em><em>T</em></span><br />
+We want to show that <span
+class="math inline"><em>S</em><em>A</em><em>T</em> → <em>I</em><em>S</em></span><br />
+Then: by composition <span
+class="math inline"><em>A</em> → <em>S</em><em>A</em><em>T</em> → <em>I</em><em>S</em></span><br />
+T/f : by transitivity <span
+class="math inline"><em>A</em> → <em>I</em><em>S</em></span></p>
+<p>In summary<br />
+Suppose we have a problem that is known to be NP-Complete (like the
+supposing above)<br />
+Then to show the IS problem is NP-Complete</p>
+<ul>
+<li><p>Show that <span
+class="math inline"><em>I</em><em>S</em> ∈ <em>N</em><em>P</em></span>,
+just means show that it can be verified in poly-time</p></li>
+<li><p>Show that <span
+class="math inline"><em>S</em><em>A</em><em>T</em> ∈ <em>N</em><em>P</em></span>,
+we can replace SAT with any known problem that is NP-Complete</p></li>
+<li><p>Then we've shown that <span
+class="math inline"><em>A</em> → <em>S</em><em>A</em><em>T</em> → <em>I</em><em>S</em></span></p></li>
+</ul>
+<h3 id="np2-np-complete-proofs---pt1">NP2: NP-Complete Proofs - Pt1</h3>
+<p>In this section we will illustrate an example of an NP-completeness
+proof. We will do prove that the 3SAT problem is NP-Complete. In doing
+so we will make use of the fact that SAT is NP-Complete, which was first
+proven by Steven Cook &amp; Leonid Levin in 1971. Incidentally, after
+Cook &amp; Levin proved SAT NP-Completeness, Dick Karp in 1972 used it
+to prove that another 21 problems were also NP-Complete. We will look at
+a few of these problems, beginning with 3SAT.</p>
+<h4 id="3sat-np-complete">3SAT NP-Complete</h4>
+<p>Recall the parameters of the 3SAT Problem</p>
+<ul>
+<li>Input:
+<ul>
+<li>Boolean formula f in CNF form</li>
+<li>n variables and m clauses</li>
+<li>each clause may contain at most 3 literals (<span
+class="math inline"> ≤ 3</span>)</li>
+</ul></li>
+<li>Output:
+<ul>
+<li>No, if no satisfying arguements exist</li>
+<li>else the satisfying assignment,</li>
+<li>where an assignment is a set of boolean, or true-false, values for n
+variables</li>
+</ul></li>
+</ul>
+<p>The goal of our proof is to show</p>
+<ol type="1">
+<li><span
+class="math inline">3<em>S</em><em>A</em><em>T</em> ∈ <em>N</em><em>P</em></span></li>
+<li><span
+class="math inline"><em>S</em><em>A</em><em>T</em> → 3<em>S</em><em>A</em><em>T</em></span>,
+Thus <span
+class="math inline">∀<em>A</em> ∈ <em>N</em><em>P</em>, <em>A</em> → 3<em>S</em><em>A</em><em>T</em></span>,</li>
+</ol>
+<p><strong>Part 1</strong> To prove that <span
+class="math inline">3<em>S</em><em>A</em><em>T</em> ∈ <em>N</em><em>P</em></span>
+we show that for a given Solution S, in this problem S is a satisfying
+assignment, that we can verify the solution in polynomial time. To this
+end suppose we are given a CNF formula f and an assignment <span
+class="math inline"><em>x</em><sub>1</sub>, <em>x</em><sub>2</sub>, ⋯, <em>x</em><sub><em>n</em></sub></span>.
+We will go through each of the m clauses, and check if at least 1
+literal in the clause is satisfied. This takes O(1) as each clause is
+limited to 3 literals. Thus to check all m clauses will require at most
+O(m) time. This is poly-time so our proof is complete.</p>
+<p><strong>Part 2</strong> Now let's see how we can reduce the 3SAT
+problem.<br />
+Recall</p>
+<ul>
+<li>We need to find an f' such that f' maps the input from a SAT problem
+to a 3SAT problem.</li>
+<li>We also need to find a <span
+class="math inline"><em>σ</em><sup>′</sup></span> that maps the output
+from the 3SAT problem back to <span
+class="math inline"><em>σ</em></span>, the solution to a SAT
+problem</li>
+<li>and of course
+<ul>
+<li><span class="math inline"><em>σ</em><sup>′</sup></span> satisfies f'
+<span class="math inline">⇔</span> <span
+class="math inline"><em>σ</em></span> satisifes f</li>
+</ul></li>
+</ul>
+<p><img src="../../.assets/CS6515_images/NP-004.png" alt="NP-004" /></p>
+<p>How do we find f'? f is the input to SAT and may very well contain
+clauses w more than 3 literals. So our f' must be able to transform any
+number of literals into clauses of at most 3 literals. Let's look at an
+example to see how we may transform</p>
+<p>Consider f = <span class="math inline">$(x_3) \wedge (\bar{x_2} \vee
+x_3 \vee \bar{x_1} \vee \bar{x_4}) \wedge (x_2 \vee x_1)$</span></p>
+<ul>
+<li>f contains a clause with 4 literals and so cannot be fed directly
+into a 3SAT algo</li>
+<li>clauses 1 and 3 are valid so we can leave them as is</li>
+<li>for clause 2
+<ul>
+<li>create a new variable y, and partition the clause as follows</li>
+<li><span class="math inline">$C'_2 = (\bar{x_2} \vee x_3 \vee y) \wedge
+(\bar{y} \vee \bar{x_1}     \vee \bar{x_4})$</span></li>
+<li>replace <span class="math inline"><em>C</em><sub>2</sub></span> with
+<span class="math inline"><em>C</em><sub>2</sub><sup>′</sup></span></li>
+<li>we claim that these are equivalent</li>
+</ul></li>
+<li>Claim: <span class="math inline"><em>C</em><sub>2</sub></span> is
+satisfiable <span class="math inline">⇔</span> <span
+class="math inline"><em>C</em><sub>2</sub><sup>′</sup></span> is
+satisfiable</li>
+<li>It follows then that if our claim is true then our formulas are also
+equivalent, and we have found our f' since the replacement of clauses
+would lead to an input that is valid for 3SAT</li>
+</ul>
+<p>We must prove our claim in order to move forward<br />
+Claim</p>
+<ul>
+<li><span class="math inline">$C_2 = (\bar{x_2} \vee x_3 \vee \bar{x_1}
+\vee \bar{x_4})$</span></li>
+<li>is equivalent to</li>
+<li><span class="math inline">$C'_2 = (\bar{x_2} \vee x_3 \vee y) \wedge
+(\bar{y} \vee \bar{x_1}   \vee \bar{x_4})$</span></li>
+</ul>
+<p>Forward <span
+class="math inline"><em>C</em><sub>2</sub> ⟹ <em>C</em><sub>2</sub><sup>′</sup></span>,
+take a satisfying assignment for <span
+class="math inline"><em>C</em><sub>2</sub></span></p>
+<ul>
+<li>if <span
+class="math inline"><em>x</em><sub>2</sub> = <em>F</em></span> or <span
+class="math inline"><em>x</em><sub>3</sub> = <em>T</em></span>, then we
+take y=F, we choose y to satisfy the other clause</li>
+<li>if <span
+class="math inline"><em>x</em><sub>2</sub> = <em>F</em></span> or <span
+class="math inline"><em>x</em><sub>3</sub> = <em>T</em></span>, then we
+take y=T, again we choose y to satisy the other clause</li>
+<li>In either case both clauses of <span
+class="math inline"><em>C</em><sub>2</sub><sup>′</sup></span> are
+satisfied</li>
+</ul>
+<p>Backwards: <span
+class="math inline"><em>C</em><sub>2</sub><sup>′</sup> ⟹ <em>C</em><sub>2</sub></span>,
+take a satisfying assignment for <span
+class="math inline"><em>C</em><sub>2</sub><sup>′</sup></span></p>
+<ul>
+<li>if y=T, then clause 1 is satisfied. This implies that <span
+class="math inline"><em>x</em><sub>1</sub> = <em>F</em></span> or <span
+class="math inline"><em>x</em><sub>4</sub> = <em>F</em></span>, either
+case will satisfy <span
+class="math inline"><em>C</em><sub>2</sub></span></li>
+<li>sim if y=F, then clause 2 is satisfied. This implies that <span
+class="math inline"><em>x</em><sub>2</sub> = <em>F</em></span> or <span
+class="math inline"><em>x</em><sub>3</sub> = <em>T</em></span>, either
+case will satisfy <span
+class="math inline"><em>C</em><sub>2</sub></span></li>
+<li>In either case <span
+class="math inline"><em>C</em><sub>2</sub></span> is satisfied</li>
+</ul>
+<p>We've shown both direction, and thus this completes the proof of our
+claim. However, we must generalize this for any clause where the number
+of literals is greater than 3.</p>
+<p>Let's look at another example, this time with 5 literals</p>
+<ul>
+<li>let <span class="math inline">$C = (\bar{x_2} \vee x_3 \vee
+\bar{x_1} \vee \bar{x_4} \vee   \bar{x_5})$</span></li>
+<li>This time let's create two new variables: y and z</li>
+<li>We will now find, or construct, <span
+class="math inline"><em>C</em><sup>′</sup></span> in a manner
+<ul>
+<li>such that it is equivalent to the original</li>
+<li>and its clauses are each of size <span
+class="math inline"> ≤ 3</span></li>
+</ul></li>
+<li>To this end we use</li>
+<li><span class="math inline">$C' = (\bar{x_2} \vee x_3 \vee y) \wedge (
+\bar{y} \vee \bar{x_1}   \vee z)\wedge ( \bar{z} \vee \bar{x_4} \vee
+\bar{x_5})$</span></li>
+<li>what we've done here is create clauses using the original literals
+along with a replacement literal for the overflow terms</li>
+</ul>
+<p>To prove that <span
+class="math inline"><em>C</em> ⟹ <em>C</em><sup>′</sup></span> all you
+need to</p>
+<ul>
+<li>select a literal from <span class="math inline"><em>C</em></span> at
+random and observe the values in <span
+class="math inline"><em>C</em><sup>′</sup></span></li>
+<li>Then set the values of y and z accordingly.</li>
+</ul>
+<p>To prove that <span
+class="math inline"><em>C</em><sup>′</sup> ⟹ <em>C</em></span> will
+require that we consider assignments of the new variables. Because of
+the 2nd clause which involves they are both assigned, and will imply
+values constraining the other two clauses</p>
+<ul>
+<li>Case 1: y=F</li>
+<li>Case 2: z=T</li>
+<li>Case 3: y=T and z=F,</li>
+</ul>
+<p>Now what if our clause had k literals? We've seen so far that for k=4
+we require 1 new variable, and we ended up with 2 clauses. For k=5 we
+needed 2 new variables, and created 3 new clauses. One may surmise that
+for k &gt; 3 we will need k-3 new variables, and k-2 clauses.</p>
+<p>Let's now consider a clause C of size k, ie <span
+class="math inline"><em>a</em><sub>1</sub>, <em>a</em><sub>2</sub>, ⋯, <em>a</em><sub><em>k</em></sub></span>
+where each <span
+class="math inline"><em>a</em><sub><em>i</em></sub></span> is a
+literal.</p>
+<ul>
+<li>first we will create k-3 new variables (<span
+class="math inline"><em>y</em><sub>1</sub>, <em>y</em><sub>2</sub>, ⋯, <em>a</em><sub><em>k</em> − 3</sub></span>)</li>
+<li>Second we replace C with k-2 clauses
+<ul>
+<li>$C' = (a_1 \vee a_2 \vee y_1) \wedge (\bar{y_1} \vee a_3 \vee y_2)
+\wedge \cdots $</li>
+<li>$\cdots \wedge (\bar{y_{k-4}} \vee a_{k-2} \vee y_{k-3}) \wedge
+(\bar{y_{k-3}} \vee a_{k-1} \vee a_{k}) $</li>
+</ul></li>
+</ul>
+<p>This will be our input to 3SAT, it defines a process or f'
+transformation that maps the input to a SAT problem to an input to the
+3SAT.</p>
+<p>Now we prove the <span
+class="math inline"><em>C</em> ⇔ <em>C</em><sup>′</sup></span><br />
+<span
+class="math inline"><em>C</em> ⟹ <em>C</em><sup>′</sup></span>,</p>
+<ul>
+<li>Take an assignement of <span
+class="math inline"><em>a</em><sub>1</sub>, <em>a</em><sub>2</sub>, ⋯, <em>a</em><sub><em>k</em></sub></span>
+that satisfies C</li>
+<li>Then <span
+class="math inline"><em>a</em><sub><em>i</em></sub> = <em>T</em><em>R</em><em>U</em><em>E</em></span>
+for some i</li>
+<li>So let <span
+class="math inline"><em>a</em><sub><em>i</em></sub></span> be the min i
+where <span class="math inline"><em>a</em><sub><em>i</em></sub></span>
+is satisfied</li>
+<li>Since <span
+class="math inline"><em>a</em><sub><em>i</em></sub> = <em>T</em><em>r</em><em>u</em><em>e</em></span>
+<ul>
+<li>we have that the (i-1)st clause of C' is also satisfied,</li>
+<li>we set <span
+class="math inline"><em>y</em><sub>1</sub> = <em>y</em><sub>2</sub> = ⋯ = <em>y</em><sub><em>i</em> − 2</sub> = <em>T</em><em>r</em><em>u</em><em>e</em></span>
+to satisfy clauses 1 to (i-2)</li>
+<li>we set <span
+class="math inline"><em>y</em><sub><em>i</em></sub> = <em>y</em><sub><em>i</em> + 1</sub> = ⋯ = <em>y</em><sub><em>k</em> − 2</sub> = <em>F</em><em>a</em><em>l</em><em>s</em><em>e</em></span>
+to satisfy the remaining clauses</li>
+</ul></li>
+</ul>
+<p><span
+class="math inline"><em>C</em><sup>′</sup> ⟹ <em>C</em></span>,</p>
+<ul>
+<li>Take an assignment of <span
+class="math inline"><em>a</em><sub>1</sub>, ⋯, <em>a</em><sub><em>k</em></sub>, <em>y</em><sub>1</sub>, ⋯, <em>y</em><sub><em>k</em> − 2</sub></span>
+that satisfies C'</li>
+<li>all we need to do is prove that at least one <span
+class="math inline"><em>a</em><sub><em>i</em></sub></span> is true</li>
+<li>So let's assume that <span
+class="math inline"><em>a</em><sub><em>i</em></sub></span> is false for
+all i, and just ignore the y's</li>
+<li>now we observe that
+<ul>
+<li>clause 1: <span class="math inline"><em>y</em><sub>1</sub></span> is
+true since a_1 and a_2 is false</li>
+<li>clause 2: <span class="math inline"><em>y</em><sub>2</sub></span> is
+true since <span class="math inline">$\bar{y_1}$</span> is false and a_3
+is false</li>
+<li>we keep going until the last clause</li>
+<li>clause k-2: <span class="math inline">$\bar{y_{k-3}}$</span> is
+false because of the previous clause, and <span
+class="math inline"><em>a</em><sub><em>k</em> − 1</sub>, <em>a</em><sub><em>k</em></sub></span>
+are false by assumption
+<ul>
+<li>this contradicts our initial supposition that <span
+class="math inline"><em>a</em><sub>1</sub>, ⋯, <em>a</em><sub><em>k</em></sub>, <em>y</em><sub>1</sub>, ⋯, <em>y</em><sub><em>k</em> − 2</sub></span>
+satisfies C'</li>
+</ul></li>
+<li>This means that a_i must be true for some i</li>
+<li>which in turns means that <span
+class="math inline"><em>a</em><sub>1</sub>, ⋯, <em>a</em><sub><em>k</em></sub></span>
+will satisfy C</li>
+</ul></li>
+</ul>
+<p>So now that we have all our pieces we can design an algorithm to
+reduce <span
+class="math inline"><em>S</em><em>A</em><em>T</em> → 3<em>S</em><em>A</em><em>T</em></span></p>
+<ul>
+<li>Consider f for SAT</li>
+<li>Create f' for 3SAT as follows
+<ul>
+<li>for each clause <span
+class="math inline"><em>C</em> ∈ <em>f</em></span>:
+<ul>
+<li>if <span class="math inline">|<em>C</em>| ≤ 3</span> then add C to
+f'</li>
+<li>if <span class="math inline">|<em>C</em>| &gt; 3</span> then
+<ul>
+<li>create k-3 new variables</li>
+<li>create c' as outlined above</li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li>output f'</li>
+</ul>
+<p>Claim: f is satisfiable <span class="math inline">⇔</span> f' is
+satisfiable</p>
+<p><span class="math inline">⟹</span>: Given an assignment S satisfying
+f</p>
+<ul>
+<li>for each clause C in f
+<ul>
+<li>if <span class="math inline">|<em>C</em>| ≤ 3</span> then C is also
+satified in f'</li>
+<li>if <span class="math inline">|<em>C</em>| &gt; 3</span> then C' is
+also satisfied whenever C is satisfied (this was proven in preceding
+section)</li>
+<li>thus f' is also satisfied</li>
+</ul></li>
+</ul>
+<p><span class="math inline">⟸</span> Given an assignment S' satisfying
+f'</p>
+<ul>
+<li>for some clause C' in f' at least one of the literals in C is also
+satisfied, this was proven in the preceding section where we showed that
+if all of them were false we would end up with a contradiction</li>
+</ul>
+<p>And that's all folks, we shown that: f is satisfiable <span
+class="math inline">⇔</span> f' is satisfiable</p>
+<p>Now we move onto finding <span
+class="math inline"><em>σ</em><sup>′</sup></span> which will transform
+the output of 3SAT back to the output for SAT. Luckily this turns out to
+be quite trivial. Simply ignore the new variables created by f'. That's
+all. The output from 3SAT still contains all the original literals so by
+ignoring them we end up with an assignment to the original variables.
+Which is what we need to verify.</p>
+<p><strong>Time Complexity</strong> One final thing to note is the size
+of f'. Recall that f has n variables and m clauses. So f' will have
+O(nm) variables and O(nm) clauses, since we added k-3 variables and k-2
+clauses. Regardless these are both polynomial in the input size which is
+what matters the most.</p>
+<p>Problems</p>
+<ul>
+<li>DPV 8.3 - Stingy SAT</li>
+<li>DPV 8.8 - Exact 4SAT (each clause has exactly 4 literals)</li>
+</ul>
+<h3 id="np3-np-complete-proofs---pt2">NP3: NP-Complete Proofs - Pt2</h3>
+<p>In this section we will look at some more examples of NP-completness
+proofs in particular those focused on Graph Problems.</p>
+<ul>
+<li>IS: Independent Sets</li>
+<li>IS Clique</li>
+<li>Vertex Cover</li>
+</ul>
+<h4 id="is-independent-sets">IS Independent Sets</h4>
+<p><strong>Problem Definition</strong><br />
+For an undirected graph G=(V,E), subset <span
+class="math inline"><em>S</em> ⊂ <em>V</em></span> is an independent set
+if no edges are contained in S.<br />
+ie <span class="math inline">$\forall x,y \in S; \\ (x,y) \not\in
+E$</span></p>
+<p>It's easy to find trivial independent sets. The null set is an
+independent set, as is the set containing just a single node, a
+singleton vertex. We will be looking for the maximum independent set,
+the set with the largest number of vertices. Consider the below
+illustration. The red vertices are an independent set as there is no
+edge between any two vertices in red. Also note that adding any of the
+white nodes would create a dependency and the set would no longer be
+independent.</p>
+<p><img src="../../.assets/CS6515_images/NP-005.png" alt="NP-005" /></p>
+<p>First, consider whether Maximum Independent Sets, MIS, is "known to
+be" in NP or not. If you guessed this to be false then you would be
+correct. Given a solution S there is no way to verify, in poly-time,
+that it is of max size without solving the source problem, ie running
+the base algorithm. This can only be done if P=NP. Recall that we
+encountered a similar situation when we examined the knapsack problem.
+Since we could not verify a maximum directly we took a search style
+approach where we verified that the solution value was less than a
+boundary value. We incremented the boundary value until we found no
+solution.</p>
+<p>We will take a similar approach and reformat the MIS problem to the a
+more general IS problem:</p>
+<ul>
+<li><p>Input : Undirected graph G=(V,E) and goal g</p></li>
+<li><p>Output: Independent set S with size <span
+class="math inline">|<em>S</em>| ≥ <em>g</em></span> is one
+exists</p></li>
+<li><p>: else No</p></li>
+<li><p>Theorem: Independent Set problem is NP-Complete</p></li>
+</ul>
+<p>It will be straight forward to show that this version of the problem
+is a search problem and t/f lies in the class NP.</p>
+<p><strong>Part 1:</strong> Recall that the first step is to show that
+the problem is in NP. This means that we must show that for a given
+solution S to the IS problem we can verify it's correctness in
+poly-time.</p>
+<p>Suppose we're given the inputs G &amp; g and a solution S. We can
+check each pair of vertices <span
+class="math inline">(<em>x</em>, <em>y</em>) ∈ <em>S</em></span> and
+verify if they are adjacent or not ie <span
+class="math inline">(<em>x</em>, <em>y</em>) ∉ <em>E</em></span>. This
+will require approx O(<span
+class="math inline"><em>n</em><sup>2</sup></span>) time. Then we check
+that <span class="math inline">|<em>S</em>| ≥ <em>g</em></span>, which
+will require O(n) time. If both of these are true then we have verified
+the correctness of S, and we have done so in O(<span
+class="math inline"><em>n</em><sup>2</sup></span>) time. This proves the
+claim that IS is in NP.</p>
+<p><strong>Part 2:</strong> Recall that the second step in an
+NP-Completeness proof is to show that the problem is at least as hard as
+every problem in the class NP. We take a problem that is known to be at
+least as hard as every other problem, like SAT or 3SAT, and we show a
+reduction to our new problem, IS. For this example we will use 3SAT as
+our known NP-complete problem and show it can be reduced to the IS
+problem. ie We prove <span
+class="math inline">3<em>S</em><em>A</em><em>T</em> → <em>I</em><em>S</em></span></p>
+<p>Recall that 3SAT takes a formula f with n variables and m clauses,
+where each clause is at most of size 3, ie <span
+class="math inline">|<em>C</em><sub><em>i</em></sub>| ≤ 3</span>. IS is
+a graph problem with inputs G=(V,E) and a boundary g.</p>
+<p>We first formulate a mapping h to transform the input to 3SAT into a
+graph G and boundary g. For the boundary we will take g=m, where m is
+the number of clauses and g is the upper bound on the max IS value, the
+size of the IS.</p>
+<p>For each clause <span
+class="math inline"><em>C</em><sub><em>i</em></sub></span>, we create
+<span class="math inline">|<em>C</em><sub><em>i</em></sub>|</span>
+vertices corresponding to each literal. Since we can have up to m
+clauses of size 3 we may have up to 3m vertices.</p>
+<p><strong>Clause Edges</strong><br />
+Consider a clause of size 3, <span class="math inline">$C=(x_1 \vee
+\bar{x_3} \vee x_2)$</span><br />
+We begin by creating a graph G with 3 vertices: <span
+class="math inline">$x_1,\bar{x_3},x_2)$</span>, and we add an edge
+between each pair of vertices.</p>
+<ul>
+<li>Observe that an Independent Set S has <span
+class="math inline"> ≤ 1</span> vertex per clause</li>
+<li>but since g=m, our solution must have exactly 1 vertex/clause. This
+corresponds to the satisfied literal in the clause</li>
+</ul>
+<p>Consider the following example, (NB the assignement here is random
+and produces a contradiction. It is not a valid Solution to the cnf
+formula on the left side.<br />
+<img src="../../.assets/CS6515_images/NP-006.png" alt="NP-006" /></p>
+<p>The above example can be further refined, by adding variable edges.
+This helps us to avoid invalid assignments that lead to
+contraditions.</p>
+<p><strong>Variable Edges</strong><br />
+Consider the example above, add an edge between literals of the same
+variable. In our case add an edge from <span
+class="math inline"><em>x</em><sub>1</sub></span> to <span
+class="math inline">$\bar{x_1}$</span>.</p>
+<ul>
+<li>For all <span
+class="math inline"><em>x</em><sub><em>i</em></sub></span>, add edge
+between all <span
+class="math inline"><em>x</em><sub><em>i</em></sub></span> and <span
+class="math inline">$\bar{x_i}$</span></li>
+</ul>
+<p><img src="../../.assets/CS6515_images/NP-007.png" alt="NP-007" /></p>
+<p>Here's another example which is more fulsome:</p>
+<p>The first step is to write out the literals as nodes, in groups
+corresponding to clauses <img
+src="../../.assets/CS6515_images/NP-008.png" alt="NP-008" /></p>
+<p>The next step is to connect the literals in a clause, these are our
+clause edges <img src="../../.assets/CS6515_images/NP-009.png"
+alt="NP-009" /></p>
+<p>The next step is to connect literals to their negations, these are
+our variable edges <img src="../../.assets/CS6515_images/NP-010.png"
+alt="NP-010" /></p>
+<p>Let's take an example of an IS, of size 4, from this graph. We've
+circled the 4 vertices in red <img
+src="../../.assets/CS6515_images/NP-011.png" alt="NP-011" /></p>
+<p>This leads to the assignment x=F,y=F,w=F,z=?. You'll observe that it
+doesn't matter what z is. Further more this assignment satisfies the
+original formula f. This observation can, and will, be generalized for
+our proof.</p>
+<p>More formally:</p>
+<ul>
+<li>f has a satisfying assignment <span class="math inline">⇔</span> G
+has an independent set of size <span class="math inline">≥</span> g</li>
+</ul>
+<p><strong>Part 1</strong> <span class="math inline">⟹</span> consider a
+satisfying assignment for f, we will construct a graph G with an IS of
+size <span class="math inline">≥</span> g.</p>
+<ul>
+<li>For each clause C, Take 1 of the satisfied literals. (f satified
+guarantees at least 1 satisfied literal in each clause)</li>
+<li>add the corresponding vertex to S</li>
+<li>Hence |S| will be of size at least m, (1 literal per clause * m
+clauses) and g = m - this proves S is of size <span
+class="math inline">≥</span> g</li>
+</ul>
+<p>Now we need to prove S is an independent set. Observe that S has
+exactly 1 vertex per clause &amp; never contains both <span
+class="math inline"><em>x</em></span> &amp; <span
+class="math inline"><em>x̄</em></span>. Together this means that</p>
+<ul>
+<li>S contains no clause edges (if it did there would be more than 1
+vertex per clause)</li>
+<li>S contains no variable edges (if it did it would contain <span
+class="math inline"><em>x</em><sub><em>i</em></sub></span> and <span
+class="math inline">$\bar{x_i}$</span> for some i)</li>
+</ul>
+<p>Together this means there are no edges in S, So S is an IS. and
+because S is of size <span class="math inline">≥</span> g = m. We have
+proven that G has an independent set of size <span
+class="math inline">≥</span> g. Now we move to the inverse direction</p>
+<p><strong>Part 2</strong> <span class="math inline">⟸</span> Consider
+an independent set S of size <span class="math inline">≥</span> g, and
+g=m. Then S will have exactly 1 vertex per clause. Each vertex
+corresponds to a literal in f so we set the corresponding literal to
+True. This means that every clause is will be satisfied and thus f is
+satisfied. But this doesn't mean that it is guaranteed to be a valid
+assignment. For that we note that there are no contradictory literals
+since there are no variable edges in S. This guarantees a valid
+assignment.</p>
+<p>Together this proves that a reduction from 3SAT to IS is correct, and
+it shows how to take an IS and construct a Satisfying assignment. This
+completes our proof</p>
+<p>Now Let's take a moment to go back to consider what this means to our
+original problem. Recall that when we began our discussion we considered
+the MAX independent set problem which is an optimization problem. We
+modified this to a Search problem by taking g=m rather than try to
+optimize g.</p>
+<p>In our proof above we have shown that IS is in the class NP, and
+consequently there is a reduction from any problem in NP to IS. IS is at
+least as hard as any problem in NP. But Max-IS is not known to be in NP.
+However, it can be shown that there is a reduction from IS to Max-IS.
+This follows a similar logic to our previous example with knapsack where
+can determine the optimal solution by repeated verification using
+increasing g.</p>
+<p>Since all problems in NP can be reduced to IS and IS can reduce to
+Max-IS. This means that Max-IS is at least as hard as every problem in
+NP. This doesn't mean that Max-IS in the class NP! In fact we've shown
+that Max-IS is not in NP. This leads us to the scenario called
+NP-hard.</p>
+<p><strong>Definition: NP-Hard</strong><br />
+A problem that is NP-Hard is a problem that is not known to be in NP,
+but is at least as hard as every problem in NP.</p>
+<h4 id="clique">Clique</h4>
+<p><strong>Define</strong></p>
+<ul>
+<li>A Clique is a fully connected subgraph.</li>
+<li>ie For an undirected graph G=(V,E) <span
+class="math inline"><em>S</em> ⊂ <em>V</em></span> is a clique if <span
+class="math inline">∀<em>x</em>, <em>y</em> ∈ <em>S</em>; (<em>x</em>, <em>y</em>) ∈ <em>E</em></span></li>
+<li>ie To be a clique all edges must be connected to each other</li>
+</ul>
+<p>Small cliques tend to be trivial to find. For instance 2 vertices
+with an edge between them is a trivial clique. The null set is also a
+trivial clique. We will generally want to focus on the largest Clique,
+or the clique of max size.</p>
+<p>Example, Clique elements are in red <img
+src="../../.assets/CS6515_images/NP-012.png" alt="NP-012" /></p>
+<p>This is in fact also a max clique. To understand why look/Consider
+each white node. Can any of the white nodes be added? No! none of them
+would retain the fully connected nature of the the red nodes.</p>
+<p>Let's now formalize the Clique problem structure:</p>
+<ul>
+<li>Input: G=(V,E) &amp; goal g</li>
+<li>Output: <span class="math inline"><em>S</em> ⊂ <em>V</em></span>
+where S is a clique of size <span
+class="math inline">|<em>S</em>| ≥ <em>g</em></span> where one exists
+<ul>
+<li>No otherwise</li>
+</ul></li>
+<li>Theorem: Clique Problem is NP-Complete</li>
+</ul>
+<p><strong>Part 1</strong> Clique problem is in NP<br />
+Suppose we're given a proposed solution to Clique, ie we're given input
+<span
+class="math inline">(<em>G</em>, <em>g</em>) ∈ <em>S</em></span></p>
+<ul>
+<li>First
+<ul>
+<li>we can check each edge in S: <span
+class="math inline">∀<em>x</em>, <em>y</em> ∈ <em>S</em></span> check
+that <span
+class="math inline">(<em>x</em>, <em>y</em>) ∈ <em>E</em></span></li>
+<li>This will take us <span
+class="math inline"><em>O</em>(<em>n</em><sup>2</sup>)</span> time</li>
+</ul></li>
+<li>Second
+<ul>
+<li>we check that <span
+class="math inline">|<em>S</em>| ≥ <em>g</em></span></li>
+<li>This is rather straight forward and will take O(n) time</li>
+</ul></li>
+<li>Together this will take poly-time to verify the correctness of S.
+This proves that Clique is in NP</li>
+</ul>
+<p><strong>Part 2</strong> Clique problem is as hard as every problem in
+NP<br />
+To prove this claim we will take a known NP-Complete problem and show
+that there is a reduction to the Clique problem. So far we've looked at
+and proven 3 NP-Complete problems. SAT, 3SAT, and IS. So these will be
+our only options which one will we choose? Since Clique is by nature a
+graph problem it stands to reason that IS will be the simplest to use in
+our reduction.</p>
+<p>Let's sketch out the differences between the two to better understand
+how we might perform a reduction. A Clique is a maximal set where every
+vertex is connected to every other vertex. IS is also a maximal set, but
+one where there are absolutely no edges between the vertices. In a way
+they are like complete opposites of one another. So we will look at the
+opposite of the Graph G for the IS problem.</p>
+<p>For a graph G=(V,E) Let's define the opposite as <span
+class="math inline"><em>Ḡ</em> = (<em>V</em>, <em>Ē</em>)</span>, we can
+think of this as the complement of the original graph. It doesn't make
+sense to take the complete of the vertices so we leave these alone. The
+Complement of the edges are the set of all edges between two vertices
+that are NOT in E. ie $\bar{E}=\(x,y):(x,y)\not\in E $. Armed with these
+new constructions we can formalize the notion of oppositeness.</p>
+<p><strong>Observation:</strong> S is a clique in <span
+class="math inline"><em>Ḡ</em></span> <span class="math inline">⇔</span>
+S is an independent set (IS) in G. It's important to note that this an
+observation that stems from the fact that edges in <span
+class="math inline"><em>Ē</em></span> cannot be in <span
+class="math inline"><em>E</em></span>. It simply follows, or is a
+consequence of being a complement. <span
+class="math inline">(<em>x</em>, <em>y</em>) ∉ <em>E</em></span> is
+basically a definition of an independent set S. if there's no edges
+connecting two vertices then the complement is the edge that connects
+them. Given this observation it should now be straight forward to show a
+reduction from $IS \rightarrow Clique $</p>
+<p><strong>Reduction</strong><br />
+Given the input G=(V,E) and a goal g for the IS problem</p>
+<ul>
+<li>Let <span class="math inline"><em>Ḡ</em></span> and g be the input
+to the clique problem</li>
+<li>Now apply the clique algo as a black box
+<ul>
+<li>if we get a solution S to our input then S is also a solution to IS
+in G with a size at least g</li>
+<li>else if clique returns no then a solution doesn't exist for IS</li>
+</ul></li>
+</ul>
+<p>This completes our reduction. Putting both parts together shows that
+Clique is NP-Complete.</p>
+<p>Finally, we move towards our last example. Vertex covers</p>
+<h4 id="vc-vertex-cover">VC Vertex Cover</h4>
+<p><a
+href="https://en.wikipedia.org/wiki/Vertex_cover">Wikipedia</a></p>
+<p><strong>Definition:</strong> For an undirected graph G=(V,E) <span
+class="math inline"><em>S</em> ⊂ <em>V</em></span> is vertex cover if S
+"covers every edge".<br />
+<strong>Alt Define:</strong> For an undirected graph G=(V,E) <span
+class="math inline"><em>S</em> ⊂ <em>V</em></span> is vertex cover if S
+includes one endpoint of every edge<br />
+Formally: For every <span
+class="math inline">(<em>x</em>, <em>y</em>) ∈ <em>E</em></span> either
+<span class="math inline"><em>x</em> ∈ <em>S</em></span> and/or <span
+class="math inline"><em>y</em> ∈ <em>S</em></span></p>
+<p>Consider the below image. At least one endpoint of each edge is
+included, both endpoints can be included but this is not required by the
+definition. Obviously there is the trivial case of simply including all
+vertices. So as you can imagine we will generally be searching for a
+minimum vertex cover <img src="../../.assets/CS6515_images/NP-013.png"
+alt="NP-013" /></p>
+<p><strong>Problem Structure</strong></p>
+<ul>
+<li>Input: undirected G=(V,E) &amp; budget b</li>
+<li>Output: Vertex cover of S of size <span
+class="math inline">|<em>S</em>| ≤ <em>b</em></span> if one exists
+<ul>
+<li>No otherwise</li>
+</ul></li>
+</ul>
+<p><strong>Claim</strong> Vertex Cover problem is NP complete.</p>
+<p><strong>Part A: VC in NP</strong><br />
+Given an input to VC, (G,b), and a proposed solution S, can we verify
+that S is a VC with size at most b in polytime?</p>
+<p>First we verify that for each edge in E one of it's endpoints are in
+S. ie <span
+class="math inline">∀(<em>x</em>, <em>y</em>) ∈ <em>E</em>;</span> <span
+class="math inline"><em>x</em> ∈ <em>S</em></span> or <span
+class="math inline"><em>y</em> ∈ <em>S</em></span>. This should take
+<span class="math inline"><em>O</em>(<em>n</em> + <em>m</em>)</span>.
+Then we check that <span
+class="math inline">|<em>S</em>| ≤ <em>b</em></span>, which takes O(n)
+time. Together these imply a ploynomial runtime so VC is in NP and
+required.</p>
+<p><strong>Part B: VC is at least as hard as any problem in
+NP</strong><br />
+As per our usual approach we want to choose a known problem in NP that
+we can use to perform a reduction. Because VC is a graph problem it
+makes the most sense to choose either IS or Clique. Since these are
+quite similar it shouldn't make much of a difference.</p>
+<p>We choose IS and proceed to construct our reduction: <span
+class="math inline"><em>I</em><em>S</em> → <em>V</em><em>C</em></span>.
+Take another look at the example of the vertex cover just above. Notice
+anything? Hint: Focus on the white nodes. You may notice that they form
+an independent set. Not maximal by any means but independent
+nonetheless.</p>
+<p>Here's our example graph again, but this time the nodes painted red
+form a minimal vertex cover. <img
+src="../../.assets/CS6515_images/NP-014.png" alt="NP-014" /> Again we
+see the white nodes forming an independent set.</p>
+<p>I'm sure you're beginning to pick up on where this is going.</p>
+<p><strong>Claim</strong> S is a Vertex Cover <span
+class="math inline">⇔</span> <span class="math inline"><em>S̄</em></span>
+is an independent set. Once we prove this claim the reduction of IS to
+VC will be much simpler. The proof of the claim is rather straight
+forward.</p>
+<p><span class="math inline">⟹</span> Take a vertex cover S. Then for
+each edge (x,y) in E at least 1 endpoint is in S. Thus at most one
+endpoint is in <span class="math inline"><em>S̄</em></span>. If at most
+one endpoint is in <span class="math inline"><em>S̄</em></span> then
+there cannot be any edges in <span
+class="math inline"><em>S̄</em></span>. This means that <span
+class="math inline"><em>S̄</em></span> is an independent set.</p>
+<p><span class="math inline">⟸</span> take an IS set <span
+class="math inline"><em>S̄</em></span> then <span
+class="math inline"><em>S̄</em></span> cannot contain any edges. This
+means that every vertex in <span class="math inline"><em>S̄</em></span>
+is an endpoint. ie for all edges <span
+class="math inline">(<em>x</em>, <em>y</em>) ∈ <em>E</em></span> only
+one can be in <span class="math inline"><em>S̄</em></span>. Thus S will
+contain the complementing endpoint. In fact S contains <span
+class="math inline"> ≥ 1</span> edge endpoint for each edge. thus S
+covers every edge in S and is therefore a vertex cover</p>
+<p>This completes the proof of the claim and we can move on to the
+reduction.</p>
+<p><strong>Proof: <span
+class="math inline"><em>I</em><em>S</em> → <em>V</em><em>C</em></span></strong><br />
+Suppose we're given G=(V,E) and g for an Independent Set problem</p>
+<ul>
+<li>Let b=n-g</li>
+<li>Run vertex cover on G,b</li>
+</ul>
+<p>From our claim we know that: G has VC of size <span
+class="math inline"> ≤ <em>n</em> − <em>g</em></span> <span
+class="math inline">⇔</span> G has an IS of size <span
+class="math inline"> ≥ <em>g</em></span>.<br />
+Given a solution S for VC we return <span
+class="math inline"><em>S̄</em></span> as a solution to IS. If there no
+solution for VC there likewise there is no solution to IS problem</p>
+<p>This completes the reduction and proves it's reduction</p>
+<h4 id="travelling-salesman-problem">Travelling Salesman Problem</h4>
+<p>from Youtube (<a
+href="https://www.youtube.com/watch?v=0sQ37m3whP4&amp;list=PLQfaHkBRINsxngvO_CIM74kUauPd-BGa3">https://www.youtube.com/watch?v=0sQ37m3whP4&amp;list=PLQfaHkBRINsxngvO_CIM74kUauPd-BGa3</a>)</p>
+<p><strong>Problem Formulation</strong><br />
+Given a graph G=(V,E) and vertices <span
+class="math inline"><em>v</em><sub>1</sub></span> and <span
+class="math inline"><em>v</em><sub><em>n</em></sub></span> in that
+graph, what is the minimum weight path from <span
+class="math inline"><em>v</em><sub>1</sub></span> to <span
+class="math inline"><em>v</em><sub><em>n</em></sub></span> that visits
+every vertex exactly once.</p>
+<p><img src="../../.assets/CS6515_images/NP-020.png" alt="NP-020" /></p>
+<h4 id="problems">Problems</h4>
+<ul>
+<li>DPV 8.4 NP Completeness Erro</li>
+<li>DPV 8.10 Proof by Generalization (Known <span
+class="math inline">→</span> New)</li>
+<li>DPV 8.14 Clique +IS</li>
+<li>DPV 8.19 Kite</li>
+</ul>
+<p>There are basically two styles/approaches to NP Completeness
+reductions: (Known <span class="math inline">→</span> New)</p>
+<h4 id="summary">Summary</h4>
+<p><strong>Method 1: Generalization</strong><br />
+In this approach we show that the NEW problem is a generalization of a
+known problem. The clique proof was a perfect example of this since we
+showed that Clique was just a modified reflection of the IS problem. VC
+was also of this flavour</p>
+<p><strong>Method 2: Gadget proof</strong><br />
+The proof of 3SAT followed this style. In this approach we take the
+inputs to the known problem and add some structure, possibly new, to
+make it fit the new problem. In the 3SAT proof we created new variables
+that allowed us to restructure a SAT input with arbitrarily sized
+clauses into a 3SAT problem with clauses of size at most 3.</p>
+<!-- WEEK-EXTRAS:START -->
+
+<h2 id="dpv-chapter-exercises">DPV chapter exercises</h2>
+<details>
+<summary><b>DPV chapter exercises (exact, from the textbook)</b></summary>
+
+<p><em>Exact end-of-chapter exercises, parsed from the DPV chapter
+PDFs.</em></p>
+<p><strong>DPV Ch 8 — Np Complete Problems</strong> — <a
+href="../../textbooks/examples-md/08-np-complete-problems-dpv-examples.html">open
+exercises</a> · <a href="readings/DPV-ch8-examples.pdf">chapter
+PDF</a></p>
+<iframe class="examples-frame" src="../../textbooks/examples-md/08-np-complete-problems-dpv-examples.html" title="DPV Ch 8 — Np Complete Problems exercises"></iframe>
+
+</details>
+
+<!-- WEEK-EXTRAS:END -->
+
+<h2 id="agent-hint">Agent hint</h2>
+<p>NP-hardness proof → reduce FROM a known NP-hard problem (usually
+3-SAT) TO the target; give both directions + poly-time. Catalog above
+lists the standard chain (IS ↔︎ VC ↔︎ Clique).</p>
+</main>
+
+<!-- code highlighting -->
+<link rel="modulepreload" href="../../vendor/mermaid/mermaid.esm.min.mjs">
+<script src="../../vendor/highlight/highlight.min.js"></script>
+<!-- math -->
+<script defer src="../../vendor/katex/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="../../vendor/katex/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+<script type="module">
+  // 1) Normalize mermaid blocks. Pandoc(gfm) emits <pre class="mermaid"><code>...</code></pre>.
+  //    Flatten to raw source text so mermaid parses cleanly; also catch the code-only variant.
+  document.querySelectorAll('pre > code.language-mermaid, pre > code.mermaid').forEach(c => {
+    const p = document.createElement('pre'); p.className = 'mermaid'; p.textContent = c.textContent;
+    c.parentElement.replaceWith(p);
+  });
+  document.querySelectorAll('pre.mermaid').forEach(p => { p.textContent = p.textContent; });
+  // 2) Syntax-highlight every code block EXCEPT mermaid (auto-detect language)
+  if (window.hljs) document.querySelectorAll('pre:not(.mermaid) > code').forEach(el => window.hljs.highlightElement(el));
+  // 3) Render mermaid (dark)
+  try {
+    const mermaid = (await import('../../vendor/mermaid/mermaid.esm.min.mjs')).default;
+    mermaid.initialize({ startOnLoad: false, theme: 'dark', securityLevel: 'loose' });
+    await mermaid.run({ querySelector: 'pre.mermaid' });
+  } catch (e) { /* offline: leave as text */ }
+</script>
+<script>
+  // 4) Math: render \( \) and \[ \] (pandoc converts dollar-math to these). Tolerate malformed legacy TeX.
+  window.addEventListener('DOMContentLoaded', () => {
+    if (window.renderMathInElement) renderMathInElement(document.querySelector('.content'), {
+      // dollar-delimiters included so KaTeX also renders math pandoc failed to parse (left raw):
+      // a space before a closing delim, cases-env inline, apostrophes in text, etc. Display before inline.
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '\\[', right: '\\]', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false }
+      ],
+      throwOnError: false,
+      // \n is used in the legacy notes as a homemade "arrow over" (directed edge); map it to \overrightarrow.
+      macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
+    });
+  });
+</script>
+</body>
+</html>

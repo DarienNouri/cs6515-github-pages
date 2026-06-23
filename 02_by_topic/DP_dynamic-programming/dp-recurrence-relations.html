@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dynamic Programming Recurrence Relations — CS6515</title>
+<link rel="stylesheet" href="../../vendor/fonts/fonts.css">
+<link rel="stylesheet" href="../../theme.css">
+<link rel="stylesheet" href="../../vendor/katex/katex.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="../../vendor/highlight/styles/tokyo-night-dark.min.css">
+
+</head>
+<body>
+<header class="topbar">
+  <a class="home" href="../../index.html">CS6515</a>
+  <span class="crumbloc">Dynamic Programming Recurrence Relations</span>
+</header>
+<main class="content">
+<h1 id="dynamic-programming-recurrence-relations">Dynamic Programming
+Recurrence Relations</h1>
+<p><strong>Category</strong>: Staff Use Only &gt; Supplemental Material
+<strong>Date</strong>: 2026-05-18 06:08 <strong>Link</strong>: <a
+href="https://edstem.org/us/courses/98593/discussion/8077944">https://edstem.org/us/courses/98593/discussion/8077944</a>
+<strong>Pinned</strong>: False | <strong>Votes</strong>: 12 |
+<strong>Views</strong>: 4030</p>
+<h2 id="post">Post</h2>
+<p>This post is a brief discussion on math notation and the nature of
+recurrence relations. See post #9 which details the solution format for
+Dynamic Programming.</p>
+<h1 id="-----table-of-contents------">---- Table of Contents -----</h1>
+<ul>
+<li><p>Context</p></li>
+<li><p>What is a Recurrence Relation?</p></li>
+<li><p>Examples</p></li>
+<li><p>FAQ</p></li>
+</ul>
+<h1 id="----">----</h1>
+<h2 id="1-context">1. Context:</h2>
+<p>Part 2, or the "<em>recurrence relation</em>", in a DP problem
+solution for this course is providing a mathematical definition of the
+table entries for the solution. In contrast, Part 1, or the
+"<em>subproblem definition</em>", is providing a short explanation in
+English explaining the meaning of each table entry, and Part 3, or the
+"I<em>mplementation Analysis</em>", is an assessment of building and
+using this table defined in the "<em>recurrence relation</em>" to solve
+the original problem.</p>
+<p>Think of it this way: the <em>recurrence relation</em> is the
+mathematical specification, and <em>implementation</em> would be the
+step by step algorithm or code that implements it.</p>
+<h2 id="2-what-is-a-recurrence-relation">2. What is a Recurrence
+Relation?</h2>
+<p>Dynamic Programming uses recurrence relations.
+<em><strong><strong>Without a recurrence relation, a solution is not a
+Dynamic Programming
+solution</strong></strong></em><strong><strong>.</strong></strong></p>
+<p>Key characteristics of a recurrence relation:</p>
+<ul>
+<li><p>A recurrence relation is an equation.</p></li>
+<li><p>The equation provides a general rule for the recurrence.</p></li>
+<li><p>The rule defines the next term as a function of the previous
+term(s).</p></li>
+</ul>
+<p>To generate the sequence (or table) using the general rule, your
+general rule may depend on values being pre-defined for some early
+elements in this sequence, which are called <strong>base cases</strong>.
+Typically, separate equations are used for the base case(s). For
+example, here is a recurrence relation and base cases for LCS (DP1
+lecture 24+):</p>
+<pre><code>Base cases:
+
+L(i,0) = 0, 0 &lt;= i &lt;= n
+L(0,j) = 0, 1 &lt;= j &lt;= n 
+
+Recurrence: 
+
+L(i,j) = max{L(i-1,j), L(i,j-1) },    if x_i != y_j 
+       = 1 + L(i-1, j-1),             if x_i = y_j 
+
+where i,j: 1 &lt;= i &lt;= n, 1 &lt;= j &lt;= n 
+</code></pre>
+<p>Note:</p>
+<ul>
+<li><p>There are multiple base cases, and the bounds for the indices
+<em>i</em> and <em>j</em> are specified. If no indices are used (such as
+when there are only one or two individual base case table entries),
+bounds are not required. For example, T[1] = 1 does not have bounds
+because no variable is used.</p></li>
+<li><p>The bounds for the indices in the base cases are different and
+specified separately from the bounds for recurrence relation.
+Frequently, the bounds will be slightly different between the base cases
+and the recurrence relation.</p></li>
+<li><p>The bounds as provided convey directionality of your table fill.
+That is, when the range is 0 &lt;= i &lt;= n, we assume a fill order of
+left to right. If your approach depends on a right to left fill order
+(common for suffix-based approaches), then your bounds need to reflect
+this as well, such as n &gt;= i &gt;= 0.</p></li>
+<li><p>Each unique table entry cannot be contradicted by setting it
+multiple times. In math, you cannot say "x=5" and "x=3" simultaneously.
+This should be reflected by comprehensive and mutually-exclusive
+conditions where <code>otherwise</code> can be used to specify "all
+other conditions".</p></li>
+<li><p>Similarly, a table entry defined mathematically can only have one
+value. For example, in this example definition, L(0,7) is defined under
+the base cases, and L(1, 5) would be defined by one of the two options
+in the recurrence relation.</p></li>
+<li><p>Exception: it is ok for the exact same table entry to be
+specified more than once in a recurrence relation, as long as it is set
+equal to the same value across all instances.</p></li>
+<li><p>Table entries cannot be overwritten. While this would be
+acceptable in pseudocode where there is a sense of "before", "after",
+and "iterations", these concepts are not present in a mathematical
+definition. A table entry is not a temporary variable to store data in
+this context; it is a clearly, mathematically defined value. This point
+is similar to the previous bullet.</p></li>
+<li><p>All table entries that are used to generate the value of any
+other table entry have a clearly defined value. In other words, there is
+no scenario where an undefined table entry is used to calculate the
+value of another table entry.</p></li>
+</ul>
+<h2 id="3-examples">3. Examples</h2>
+<p>Example 1:</p>
+<pre><code>Example 1: Incorrect version 1 
+
+Base Case: 
+T[i] = 0, 0 &lt;= i &lt;= n 
+
+Recurrence:
+T[i] = T[i-1]+1, 1 &lt;= i &lt;=n 
+</code></pre>
+<p><strong>What's wrong</strong>: Multiple assignments to the same
+elements. All the entries defined by the recurrence relation are
+overlapping with the base cases.</p>
+<pre><code>Example 1: Incorrect version 2 
+
+Base Case: 
+T[0] = 0 
+
+Recurrence:
+if i &gt;= 1 T[i] = T[i-1]+1 
+</code></pre>
+<p><strong>What's wrong</strong>: Incomplete bounds for <em>i</em> in
+the recurrence relation (needs to have a ceiling because our tables are
+finite in size), and use of an if statement construct (which is a
+pseudocode construct, and not a math construct).</p>
+<pre><code>Example 1: Incorrect Version 3 
+
+Base Case: 
+for i = 0-&gt;n: T[i] = 0 
+
+Recurrence: 
+for i = 1-&gt;n: T[i] = T[i-1]+1 
+</code></pre>
+<p><strong>What's wrong:</strong> This is completely pseudocode. for
+loop constructs are used, and the table entries are defined more than
+once. This is not a mathematical definition for table entries.</p>
+<pre><code>Example 1 (corrected):
+
+Base Case: 
+T[0] = 0 
+
+Recurrence: 
+T[i] = T[i-1]+1, 1 &lt;= i &lt;= n 
+</code></pre>
+<hr />
+<p>Example 2:</p>
+<pre><code>Example 2: Incorrect version 
+
+Base Case: 
+T[0] = 0 
+
+Recurrence: 
+T[i] = max{T[i],T[i-1]+1}, 1 &lt;= i &lt;= n 
+</code></pre>
+<p><strong>What's wrong:</strong> T[i] is on both the left and the right
+sides of the equation. The undefined T[i] is being used to define T[i].
+With this incorrect version, it looks like there is an attempt to use
+pseudocode, but the mathematical definition for a recurrence relation is
+an equation and not a step-by-step procedure. Each table entry can only
+be defined once, and there is no such thing as "prior value."</p>
+<p>Example 2 (corrected):</p>
+<pre><code>Base Case: 
+T[0] = 0 
+
+Recurrence: 
+
+T[i] = max{T[j]+1}, 1 &lt;= i &lt;= n and 0 &lt;= j &lt; i 
+</code></pre>
+<p>You can add helper indices if needed to access a range of previous
+table entries, as long as the helper indices are clearly defined
+(bounded).</p>
+<p>Other Notes:</p>
+<p>Some ways you can write a range:</p>
+<pre><code>T[i] = 0, 0 &lt;= i &lt;= n 
+T[i] = 0 where 0 &lt;= i &lt;= n 
+T[i] = 0 s.t. 0 &lt;= i &lt;= n 
+</code></pre>
+<h2 id="4-faq">4. FAQ:</h2>
+<ol type="1">
+<li><p>Q: Should table entries use [] or ()? A: Either is fine, just be
+consistent.</p></li>
+<li><p>Q: Would you define an empty set/list/array as {}? A: Yes, that's
+the standard notation. It can also be shown as the greek Phi ϕ, but do
+not use special symbols in Canvas submissions due to issues with porting
+format to the grading environment.</p></li>
+<li><p>Q: Can a base case be a non-discrete value, such as T[i,0] =
+T[i-1, 0]+1, 1&lt;=i&lt;=n as long as it's not the same as the
+recurrence function? A: We are expecting base cases to be a terminating
+scenario that does not use recursion to produce an answer, such as a
+hard-coded value for those earlier elements of the table.</p></li>
+<li><p>Q: Are we allowed to use "or", "and", "||", "&amp;&amp;", logical
+not (!x), "infinity" in our recurrence definition? A: Yes.</p></li>
+</ol>
+<p>5: Q: When is it ok to use "if" and not ok to use "if"? A: You can
+use "if" for conditions (frequently on the right side of a multiline
+equation) to specify which right-hand side to use for an equation when
+defining a value. You cannot use an if statement (control of flow
+construct).</p>
+<ol start="6" type="1">
+<li>Q. If we are using multiple tables, should each table have its own
+recurrence definition? A: The recurrence section is made up of base
+case(s) and a general recurrence. Both tables need to fit into this
+singular structure. [NOTE: while using multiple tables can be a valid
+approach, it is almost always more complicated than necessary to solve a
+problem in our class.]</li>
+</ol>
+<p><strong>Please use this thread for your questions about recurrence
+relations.</strong></p>
+<p>Given class size we ask that you avoid a flurry of "is this
+acceptable notation?" -- follow the examples above and those provided in
+the sample solutions and you will be fine. If we have provided multiple
+examples, then any of those examples are acceptable.</p>
+<h2 id="responses-10">Responses (10)</h2>
+<ul>
+<li><p><strong>Comment</strong> by User 1282049 on 2026-05-20 03:03
+(Votes: 1)</p>
+<blockquote>
+<p><img
+src="https://static.us.edusercontent.com/files/eQ1Zdm1IZuyBmaRKgwvtg0j8"
+alt="Image" /> Unless this is another recursion troll, I'm pretty sure
+this blue "#10" is supposed to refer to #9</p>
+</blockquote>
+<ul>
+<li><strong>Comment</strong> by User 135758 on 2026-05-20 03:05 (Votes:
+1)
+<blockquote>
+<p>Fixed, thanks!</p>
+</blockquote></li>
+</ul></li>
+<li><p><strong>Comment</strong> by User 638283 on 2026-05-21 02:49
+(Votes: 1)</p>
+<blockquote>
+<p>For 6.1 T[0] = 0</p>
+<p>T[1] = a[1]</p>
+<p>T[i] = a[i] + max(0, T[i - 1]), 2 &lt;= i &lt;= n</p>
+<p>Correct me if I'm wrong, but T[1] = a[1] could be redundant. But if I
+put that in an exam environment, would that affect grading?</p>
+</blockquote>
+<ul>
+<li><p><strong>Comment</strong> by User 135758 on 2026-05-21 02:54
+(Votes: 2)</p>
+<blockquote>
+<p>Do you mean like this, with the lower-bound of <span
+class="math inline">1 ≤ <em>i</em></span>?</p>
+<pre><code>T[0] = 0
+T[1] = a[1]
+T[i] = a[i] + max(0, T[i - 1]), 1 &lt;= i &lt;= n
+</code></pre>
+<p>In this scenario, even though the base-case and the general
+recurrence overlap, there is no possibility of a contradiction /
+overwriting values at <code>T[1]</code>. This table entry is
+mathematically guaranteed to get the same value. Therefore, this would
+be eligible for full credit.</p>
+</blockquote>
+<ul>
+<li><strong>Comment</strong> by User 638283 on 2026-05-21 07:18 (Votes:
+0)
+<blockquote>
+<p>Thank you</p>
+</blockquote></li>
+</ul></li>
+</ul></li>
+<li><p><strong>Comment</strong> by User 1510341 on 2026-05-21 10:00
+(Votes: 1)</p>
+<blockquote>
+<p>So for LCS, defining the base cases as follows is wrong?</p>
+<pre><code>Base cases:
+
+L(i,0) = 0, 0 &lt;= i &lt;= n
+L(0,j) = 0, **0** &lt;= j &lt;= n </code></pre>
+</blockquote>
+<ul>
+<li><p><strong>Comment</strong> by User 135758 on 2026-05-21 10:30
+(Votes: 1)</p>
+<blockquote>
+<p>That is equally correct, for the same reasons stated here: <a
+href="https://edstem.org/us/courses/98593/discussion/8077944?comment=18697115">https://edstem.org/us/courses/98593/discussion/8077944?comment=18697115</a></p>
+</blockquote>
+<ul>
+<li><p><strong>Comment</strong> by User 1510341 on 2026-05-21 10:33
+(Votes: 1)</p>
+<blockquote>
+<p>Hmm, okay, so the exception in the post above should actually read as
+follows then?</p>
+<blockquote>
+<p>Exception: it is ok for the exact same table entry to be specified
+more than once in a recurrence relation <strong>and/or base
+case</strong>, as long as it is set equal to the same value across all
+instances.</p>
+</blockquote>
+<p>My question is about the bases cases "overwriting" each other, not
+the base case and the recurrence relation.</p>
+</blockquote>
+<ul>
+<li><strong>Comment</strong> by User 135758 on 2026-05-21 11:14 (Votes:
+1)
+<blockquote>
+<p>Yes, the same principle applies to the base-case.</p>
+<p>In some sense, the base case really is part of the overall recurrence
+relation. In fact, we could write the entire base case &amp; general
+recurrence as a single, combined piecewise function (although it would
+be unconventional and less clear).</p>
+</blockquote></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li><p><strong>Comment</strong> by User 649126 on 2026-05-22 01:41
+(Votes: 1)</p>
+<blockquote>
+<p>Not sure whether anyone on the TA team has a more formal math
+background, but from a mathematical notation perspective, the
+expression</p>
+<p><span class="math inline"><em>T</em>[<em>i</em>] = 0 s.t.
+0 ≤ <em>i</em> ≤ <em>n</em></span></p>
+<p>is not really standard usage of “s.t.” (“such that”).</p>
+<p>Typically, “such that” is used either:</p>
+<ul>
+<li><p>in predicate/set-builder notation, e.g. <span
+class="math inline">{<em>x</em> ∣ <em>P</em>(<em>x</em>)}</span>,
+or</p></li>
+<li><p>to specify constraints in optimization/logic statements.</p></li>
+</ul>
+<p>For initialization statements like this, notation such as</p>
+<p><span
+class="math inline"><em>T</em>[<em>i</em>] = 0  ∀,0 ≤ <em>i</em> ≤ <em>n</em></span></p>
+<p>or</p>
+<p><span class="math inline"><em>T</em>[<em>i</em>] = 0 for
+0 ≤ <em>i</em> ≤ <em>n</em></span></p>
+<p>would be more mathematically conventional.</p>
+</blockquote>
+<ul>
+<li><p><strong>Comment</strong> by User 137215 on 2026-05-22 02:14
+(Votes: 1)</p>
+<blockquote>
+<p>Howdy Alex!</p>
+<p>I'm not sure if you were trying to use math notation in your post,
+but you can do so with the feature available in the post editor:</p>
+<p><img
+src="https://static.us.edusercontent.com/files/L0g48QRFuFjTAqrKQiubhaQi"
+alt="Image" /> <img
+src="https://static.us.edusercontent.com/files/gnx3PtNsE7gs2Z7ugX1iiLm6"
+alt="Image" /></p>
+</blockquote></li>
+<li><p><strong>Comment</strong> by User 494090 on 2026-05-22 06:21
+(Votes: 2)</p>
+<blockquote>
+<blockquote>
+<p>would be more mathematically conventional.</p>
+</blockquote>
+<p>There are definitely ways to portray things in a more mathematically
+conventional manner - but that is also kind of the point of this pinned
+post. There are <em>many</em> ways to portray the same concept within a
+solution to the team for full credit. We know the cohort of students
+come from a wide variety of backgrounds and comfort levels with various
+forms of notation. The point of this specific pinned post is to try to
+emphasize what we do, and don't, care about.</p>
+<p>Pseudocode? We'll mark it wrong every time. Using if/where/s.t./just
+a space before a condition? We'll accept it all. We do have to maintain
+some hard standards when it comes to recurrences, e.g. listing both
+upper and lower bounds, but for most things we just ask that it is
+clear.</p>
+</blockquote>
+<ul>
+<li><p><strong>Comment</strong> by User 137215 on 2026-05-22 07:03
+(Votes: 2)</p>
+<blockquote>
+<blockquote>
+<p>we just ask that it is clear</p>
+</blockquote>
+<p>Even cooler when it's correct though as well 🙂.</p>
+</blockquote></li>
+<li><p><strong>Comment</strong> by User 649126 on 2026-05-23 01:08
+(Votes: 2)</p>
+<blockquote>
+<p>Emily - Thanks, I understand that there are many ways to write
+recurrence relations. However, suggesting that <span
+class="math inline">$f(x)=\sqrt{x}$</span>, s.t. <span
+class="math inline"><em>x</em> &gt;  = 0</span> is one of the accepted
+notations is simply wrong. <span class="math inline"><em>x</em></span>
+takes proper values so that <span
+class="math inline"><em>f</em>(<em>x</em>)</span> is properly defined.
+Saying that <span class="math inline"><em>f</em>(<em>x</em>)</span> is
+equal to something such that <span class="math inline"><em>x</em></span>
+takes some values is simply incorrect and does not make any sense. I was
+expecting alternative notations but still correct ones from a top 10 CS
+school. :)</p>
+</blockquote>
+<ul>
+<li><strong>Comment</strong> by User 494090 on 2026-05-25 03:12 (Votes:
+1)
+<blockquote>
+<blockquote>
+<p>is one of the accepted notations is simply wrong</p>
+</blockquote>
+<p>I have been suggesting it is one of the accepted notations
+<em>here</em>. We are not a math class, and despite some TA's desire to
+we are not holding students to such a high standard of correctness with
+format presentation. This example of what we accept is on the second
+pinned post on the topic, at the very bottom after many examples, and
+never seen in any OH or provided practice problem solutions. Is it
+recommended? Not really - using the initial guidance was. But accepted
+by the grader? Yes.</p>
+</blockquote></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li><p><strong>Comment</strong> by User 1121341 on 2026-05-22 04:54
+(Votes: 1)</p>
+<blockquote>
+<p>Question related to FAQ #6 at the bottom there about multiple tables.
+I'm going through DPV practice problems and one of them looks for us to
+reconstitute a solution - specifically I'm looking at the string
+reconstitution problem from DPV 6.4.</p>
+<p>My understanding is the conventional way to do this would be to
+maintain a separate parent pointer table. Is the FAQ referring to this
+type of problem and recommending against using parent pointers (if so,
+any guidance on what to do instead)? Or are we not going to encounter
+that type of problem in exams?</p>
+</blockquote>
+<ul>
+<li><p><strong>Comment</strong> by User 135758 on 2026-05-22 05:13
+(Votes: 1)</p>
+<blockquote>
+<p>Typically reconstituting the output sequence is a technique we call
+<em>backtracking</em> by iterating over the DP table. This is presented
+at a high level in DP1, video 27.</p>
+<p>For a more detailed example of backtracking, see the walkthrough
+video for DPV 6.2 in Resources.</p>
+</blockquote></li>
+<li><p><strong>Comment</strong> by User 137215 on 2026-05-22 06:12
+(Votes: 1)</p>
+<blockquote>
+<p>Commentary on multiple tables for a separate question, but maybe
+useful to think about here too:</p>
+<ul>
+<li><a
+href="https://edstem.org/us/courses/98593/discussion/8077940?comment=18704036">https://edstem.org/us/courses/98593/discussion/8077940?comment=18704036</a></li>
+</ul>
+</blockquote></li>
+<li><p><strong>Comment</strong> by User 1121341 on 2026-05-22 07:07
+(Votes: 0)</p>
+<blockquote>
+<p>Thanks, both useful answers!</p>
+</blockquote></li>
+</ul></li>
+<li><p><strong>Comment</strong> by User 649126 on 2026-05-22 07:55
+(Votes: 3)</p>
+<blockquote>
+<p>Hi -</p>
+<p>Is 1&lt;=i&lt;j&lt;=n acceptable notation in recurrence
+relations?</p>
+</blockquote>
+<ul>
+<li><p><strong>Comment</strong> by User 137215 on 2026-05-22 08:20
+(Votes: 4)</p>
+<blockquote>
+<p><img
+src="https://static.us.edusercontent.com/files/yLEw7OZHvXceHMGwGjGg9TfJ"
+alt="Image" /></p>
+</blockquote>
+<ul>
+<li><p><strong>Comment</strong> by User 649126 on 2026-05-23 01:03
+(Votes: 5)</p>
+<blockquote>
+<p>There is not an example where the bounds of e.g. j use i as one of
+its left or right bound.</p>
+<p>Problem 6.6 among others requires this type of bounds for i and
+j:</p>
+<p>1&lt;=i&lt;j&lt;=n</p>
+<p>If this is not accepted, are the below accepted?</p>
+<p>1&lt;=i&lt;=n , i&lt;j&lt;=n</p>
+<p>You do not have a similar example in the provided toy examples, so I
+would appreciate a proper response instead of copy-pasting
+screenshots.</p>
+<p>Thanks</p>
+</blockquote>
+<ul>
+<li><strong>Comment</strong> by User 137215 on 2026-05-23 01:38 (Votes:
+0)
+<blockquote>
+<blockquote>
+<p>There is not an example where the bounds of e.g. j use i as one of
+its left or right bound.</p>
+</blockquote>
+<p>Have you checked the sample solutions?</p>
+<p>These are referenced in the blue box as "and those provided in the
+sample solutions".</p>
+</blockquote></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li><p><strong>Comment</strong> by User 494856 on 2026-05-25 06:41
+(Votes: 2)</p>
+<blockquote>
+<p>What would be the correct formatting for conditionally adding a
+constant? Say you have a recurrence like</p>
+<p><code>T(i, j) = &lt;some recurrence stuff here&gt;</code></p>
+<p>and you want to add 2 only if x[i] = y[j], could that be written
+as</p>
+<p><code>T(i, j) = &lt;some recurrence stuff here&gt; + (2 if x[i] = y[j] else 0)</code></p>
+<p>Is that too close to programming syntax? Basically I want to avoid
+having to write out</p>
+<p><code>T(i, j) = &lt;some recurrence stuff here&gt; + 2 if x[i] = y[j]</code>
+<code>= &lt;some recurrence stuff here&gt;     if x[i] != y[j]</code></p>
+</blockquote>
+<ul>
+<li><p><strong>Comment</strong> by User 137215 on 2026-05-25 06:48
+(Votes: 0)</p>
+<blockquote>
+<p><a
+href="https://edstem.org/us/courses/98593/discussion/8077944?comment=18704749">Follow
+the examples and sample solutions</a>.</p>
+</blockquote>
+<ul>
+<li><p><strong>Comment</strong> by User 494856 on 2026-05-25 06:54
+(Votes: 1)</p>
+<blockquote>
+<p>I'm sorry if I'm missing it but I don't see an example or sample
+solution that addresses the notation I'm asking about</p>
+</blockquote>
+<ul>
+<li><p><strong>Comment</strong> by User 137215 on 2026-05-25 06:55
+(Votes: 0)</p>
+<blockquote>
+<p>The very first example in this post shows how to do one thing when
+x[i] = y[j] and another when x[i] != y[j].</p>
+</blockquote>
+<ul>
+<li><p><strong>Comment</strong> by User 494856 on 2026-05-25 06:57
+(Votes: 1)</p>
+<blockquote>
+<p>That's not what I'm asking. I'm asking if this syntax is appropriate
+to avoid having to repeat a long recurrence twice. Clearly the answer is
+no, which you could have just said in the first place versus this back
+and forth.</p>
+</blockquote>
+<ul>
+<li><p><strong>Comment</strong> by User 137215 on 2026-05-25 06:58
+(Votes: 0)</p>
+<blockquote>
+<blockquote>
+<p>Clearly the answer is no, which you could have just said in the first
+place versus this back and forth.</p>
+</blockquote>
+<p><img
+src="https://static.us.edusercontent.com/files/2pGtSb31r2kbcc0Qz30LhKkS"
+alt="Image" /> There are many ways such a conversation could be
+avoided.</p>
+</blockquote>
+<ul>
+<li><p><strong>Comment</strong> by User 494856 on 2026-05-25 06:59
+(Votes: 1)</p>
+<blockquote>
+<p>If that's such a concern wouldn't answering no have been faster?</p>
+</blockquote>
+<ul>
+<li><strong>Comment</strong> by User 137215 on 2026-05-25 07:01 (Votes:
+0)
+<blockquote>
+<p>While we ask that assignments are optimized for speed, not everything
+else is.</p>
+<p>I do appreciate the concern though, and am nonetheless glad you were
+able to find the answer to the problem you had.</p>
+</blockquote></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li><p><strong>Comment</strong> by User 494090 on 2026-05-25 07:20
+(Votes: 2)</p>
+<blockquote>
+<p>A 2d helper table could be created to supplement if desired,
+with<br />
+P(i,j) = 2 if condition, = 0 otherwise And then this can be referred to
+within the general recurrence.</p>
+<p>But as a general rule - we recommend clear solutions (as well as
+correct). In this case it's likely best to keep as a single table
+recurrence, but there have been situations on other problems where I
+felt it was useful.</p>
+</blockquote>
+<ul>
+<li><strong>Comment</strong> by User 494856 on 2026-05-25 07:20 (Votes:
+2)
+<blockquote>
+<p>Thank you Emily, I very much appreciate your helpful response!</p>
+</blockquote></li>
+</ul></li>
+</ul></li>
+<li><p><strong>Comment</strong> by User 1015969 on 2026-05-27 09:20
+(Votes: 0)</p>
+<blockquote>
+<p>I've been working through some Base Cases for some DP algos, and had
+a question about lower bounding for said Base Cases.</p>
+<p>In previous discussions, it was provided by the TAs that we want to
+for recurrence relations have variables like i and j be array indexed
+starting at 1 rather than 0 unless the problem specifies. Does that same
+restriction also apply to base cases?</p>
+<p>I'm having a number of my DP designs have an additional base case for
+T[0,0] = 0 because I'm worried if I do:
+<code>T[i, 0] = 0, where 0 &lt;= i &lt;= n</code> I'll be docked</p>
+</blockquote>
+<ul>
+<li><strong>Comment</strong> by User 137215 on 2026-05-27 09:49 (Votes:
+1)
+<blockquote>
+<blockquote>
+<p>Does that same restriction also apply to base cases?</p>
+</blockquote>
+<p>"Yes, but".</p>
+<p>The <strong>input</strong> will be 1-indexed.</p>
+<p><strong>Your table</strong> can start at whatever number you would
+like, as Dr. Vigoda shows many tables starting at 0 during the
+lectures.</p>
+<p>You can even start with a -1th index, that comes before the 0th
+index, if that is necessary.</p>
+</blockquote></li>
+</ul></li>
+<li><p><strong>Comment</strong> by User 1135584 on 2026-06-10 07:27
+(Votes: 0)</p>
+<blockquote>
+<p>Will max of an empty set be accepted as 0, or will I need to spell
+out an otherwise case for if the set is empty. For example for LIS,
+would this be acceptable? T[i] = 1 + max { T[j] if x_i&gt; x_j : where 1
+&lt;= j &lt; i } where 1 &lt;= i &lt;= n</p>
+</blockquote>
+<ul>
+<li><strong>Comment</strong> by User 135758 on 2026-06-10 10:12 (Votes:
+0)
+<blockquote>
+<p>Discussed here: <a
+href="https://edstem.org/us/courses/98593/discussion/8077957?comment=18744030">https://edstem.org/us/courses/98593/discussion/8077957?comment=18744030</a></p>
+</blockquote></li>
+</ul></li>
+<li><p><strong>Comment</strong> by User 1135584 on 2026-06-10 09:24
+(Votes: 0)</p>
+<blockquote>
+<p>How can we denote the bounds for i and j in a problem like chain
+matrix multiply where we dont fill the table row by row. CMM for example
+iterates over diagonals</p>
+</blockquote>
+<ul>
+<li><strong>Comment</strong> by User 135758 on 2026-06-10 10:09 (Votes:
+0)
+<blockquote>
+<p>It's not possible to fully disambiguate. However, reversing the
+iteration on one term avoids issues here. See: <a
+href="https://edstem.org/us/courses/98593/discussion/8077957?comment=18774824">https://edstem.org/us/courses/98593/discussion/8077957?comment=18774824</a></p>
+</blockquote></li>
+</ul></li>
+</ul>
+</main>
+
+<!-- code highlighting -->
+<link rel="modulepreload" href="../../vendor/mermaid/mermaid.esm.min.mjs">
+<script src="../../vendor/highlight/highlight.min.js"></script>
+<!-- math -->
+<script defer src="../../vendor/katex/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="../../vendor/katex/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+<script type="module">
+  // 1) Normalize mermaid blocks. Pandoc(gfm) emits <pre class="mermaid"><code>...</code></pre>.
+  //    Flatten to raw source text so mermaid parses cleanly; also catch the code-only variant.
+  document.querySelectorAll('pre > code.language-mermaid, pre > code.mermaid').forEach(c => {
+    const p = document.createElement('pre'); p.className = 'mermaid'; p.textContent = c.textContent;
+    c.parentElement.replaceWith(p);
+  });
+  document.querySelectorAll('pre.mermaid').forEach(p => { p.textContent = p.textContent; });
+  // 2) Syntax-highlight every code block EXCEPT mermaid (auto-detect language)
+  if (window.hljs) document.querySelectorAll('pre:not(.mermaid) > code').forEach(el => window.hljs.highlightElement(el));
+  // 3) Render mermaid (dark)
+  try {
+    const mermaid = (await import('../../vendor/mermaid/mermaid.esm.min.mjs')).default;
+    mermaid.initialize({ startOnLoad: false, theme: 'dark', securityLevel: 'loose' });
+    await mermaid.run({ querySelector: 'pre.mermaid' });
+  } catch (e) { /* offline: leave as text */ }
+</script>
+<script>
+  // 4) Math: render \( \) and \[ \] (pandoc converts dollar-math to these). Tolerate malformed legacy TeX.
+  window.addEventListener('DOMContentLoaded', () => {
+    if (window.renderMathInElement) renderMathInElement(document.querySelector('.content'), {
+      // dollar-delimiters included so KaTeX also renders math pandoc failed to parse (left raw):
+      // a space before a closing delim, cases-env inline, apostrophes in text, etc. Display before inline.
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '\\[', right: '\\]', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false }
+      ],
+      throwOnError: false,
+      // \n is used in the legacy notes as a homemade "arrow over" (directed edge); map it to \overrightarrow.
+      macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
+    });
+  });
+</script>
+</body>
+</html>

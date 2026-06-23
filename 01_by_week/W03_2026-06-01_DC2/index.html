@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Week 3 — Linear-Time Median (D&amp;C) — CS6515</title>
+<link rel="stylesheet" href="../../vendor/fonts/fonts.css">
+<link rel="stylesheet" href="../../theme.css">
+<link rel="stylesheet" href="../../vendor/katex/katex.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="../../vendor/highlight/styles/tokyo-night-dark.min.css">
+
+</head>
+<body>
+<header class="topbar">
+  <a class="home" href="../../index.html">CS6515</a>
+  <span class="crumbloc">Week 3 — Linear-Time Median (D&amp;C)</span>
+</header>
+<main class="content">
+<h1 id="week-3--linear-time-median-dc">Week 3 — Linear-Time Median
+(D&amp;C)</h1>
+<blockquote>
+<p><strong>2026-06-01 → 06-07</strong> · Module <strong>DC2</strong>
+(Sorting, Linear-Time Median / Selection)</p>
+<p><a href="../W02_2026-05-25_DC3-DC1/index.html">◀ W02 D&amp;C</a> · <a
+href="../index.html">All weeks</a> · <a
+href="../../00_START_HERE/INDEX.html">Index</a> · <a
+href="../W04_2026-06-08_DP3-GR1-GR2_EXAM1/index.html">W04 Graphs + Exam 1
+▶</a></p>
+</blockquote>
+<h3 id="due-this-week">Due this week</h3>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Type</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>HW3</strong></td>
+<td>coding</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>HW4</strong></td>
+<td>coding</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>Quiz 3</strong></td>
+<td>content</td>
+<td>DP + D&amp;C</td>
+</tr>
+<tr>
+<td><strong>Mock Exam</strong></td>
+<td>practice</td>
+<td>no due date — exam-format rehearsal</td>
+</tr>
+</tbody>
+</table>
+<details>
+<summary><b>Watch the lecture</b> (Linear-Time Median)</summary>
+
+<p><video controls preload="metadata" width="100%" src="https://storage.googleapis.com/darien-public-assets/cs6515-summer-2026/v20260623/videos/03_Week_03_Linear_Time_Median.mp4"></video></p>
+<p><a href="https://storage.googleapis.com/darien-public-assets/cs6515-summer-2026/v20260623/videos/03_Week_03_Linear_Time_Median.mp4">▶ Open video</a>
+· <a
+href="transcripts/03_Week_03_Linear_Time_Median.txt">Transcript</a></p>
+</details>
+
+<hr />
+<h2 id="learning-objectives">Learning objectives</h2>
+<ul>
+<li>State the <strong>selection</strong> problem and solve it in
+<strong>worst-case <span
+class="math inline"><em>O</em>(<em>n</em>)</span></strong>.</li>
+<li>Explain the <strong>median-of-medians</strong> pivot and prove the
+linear bound from its recurrence.</li>
+<li>Relate QuickSelect, pivot quality, and the role of the "good pivot"
+guarantee.</li>
+</ul>
+<h2 id="core-concepts">Core concepts</h2>
+<h3 id="the-selection-problem">The selection problem</h3>
+<p><strong>Definition.</strong> <code>select(A, k)</code> returns the
+<span class="math inline"><em>k</em></span>-th smallest element of an
+unsorted array (median is <span
+class="math inline"><em>k</em> = ⌈<em>n</em>/2⌉</span>).
+<em>Intuition:</em> you want order statistics <strong>without paying
+<span
+class="math inline"><em>O</em>(<em>n</em>log <em>n</em>)</span></strong>
+to sort everything.</p>
+<h3 id="quickselect-and-why-pivots-matter">QuickSelect (and why pivots
+matter)</h3>
+<p><strong>QuickSelect.</strong> Partition <span
+class="math inline"><em>A</em></span> around a pivot <span
+class="math inline"><em>p</em></span>; the pivot lands in its sorted
+position <span class="math inline"><em>r</em></span>. If <span
+class="math inline"><em>r</em> = <em>k</em></span> done; else recurse
+into the side containing the <span
+class="math inline"><em>k</em></span>-th element — <strong>one side
+only</strong>.</p>
+<ul>
+<li>A <strong>good</strong> pivot (near median) gives <span
+class="math inline"><em>T</em>(<em>n</em>) = <em>T</em>(<em>n</em>/2) + <em>O</em>(<em>n</em>) = <em>O</em>(<em>n</em>)</span>.</li>
+<li>A <strong>bad</strong> pivot (min/max each time) gives <span
+class="math inline"><em>T</em>(<em>n</em>) = <em>T</em>(<em>n</em> − 1) + <em>O</em>(<em>n</em>) = <em>O</em>(<em>n</em><sup>2</sup>)</span>
+worst case.</li>
+<li>Random pivot is <span
+class="math inline"><em>O</em>(<em>n</em>)</span>
+<strong>expected</strong>, but the course wants a
+<strong>worst-case</strong> guarantee.</li>
+</ul>
+<h3 id="median-of-medians--the-deterministic-good-pivot">Median of
+medians — the deterministic good pivot</h3>
+<p><strong>Idea.</strong> Manufacture a provably-decent pivot:</p>
+<ol type="1">
+<li>Split the <span class="math inline"><em>n</em></span> elements into
+<span class="math inline">⌈<em>n</em>/5⌉</span> groups of 5.</li>
+<li>Find each group's median (constant work per group → <span
+class="math inline"><em>O</em>(<em>n</em>)</span> total).</li>
+<li><strong>Recursively</strong> select the median <strong>of those
+<span class="math inline"><em>n</em>/5</span> medians</strong>; use it
+as the pivot.</li>
+</ol>
+<p><strong>Why the pivot is good.</strong> That pivot is <span
+class="math inline">≥</span> at least <span class="math inline">3</span>
+elements in half the groups, so it is greater than <span
+class="math inline">$\ge \tfrac{3}{10}n$</span> and less than <span
+class="math inline">$\ge \tfrac{3}{10}n$</span> elements. Hence each
+recursive call discards <span class="math inline">$\ge
+\tfrac{3}{10}n$</span>, leaving <span class="math inline">$\le
+\tfrac{7}{10}n$</span>.</p>
+<h2 id="algorithms">Algorithms</h2>
+<h3 id="linear-time-selection-median-of-medians--on">Linear-time
+selection (median of medians) — <span
+class="math inline"><em>O</em>(<em>n</em>)</span></h3>
+<ol type="1">
+<li>Group into fives, find group medians — <span
+class="math inline"><em>O</em>(<em>n</em>)</span>.</li>
+<li>Pivot <span class="math inline">=</span> select the median of the
+medians <strong>recursively</strong> on <span
+class="math inline"><em>n</em>/5</span> items.</li>
+<li>Partition around the pivot — <span
+class="math inline"><em>O</em>(<em>n</em>)</span>.</li>
+<li>Recurse into the one side that holds the <span
+class="math inline"><em>k</em></span>-th element (size <span
+class="math inline"> ≤ 7<em>n</em>/10</span>).</li>
+</ol>
+<p>Recurrence and solution: <span class="math display">$$
+T(n)\ \le\ T\!\left(\tfrac{n}{5}\right) + T\!\left(\tfrac{7n}{10}\right)
++ O(n)\ \Rightarrow\ T(n)=O(n).
+$$</span></p>
+<table>
+<thead>
+<tr>
+<th>Algorithm</th>
+<th>Pivot</th>
+<th>Worst case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mergesort (full sort)</td>
+<td>—</td>
+<td><span
+class="math inline"><em>O</em>(<em>n</em>log <em>n</em>)</span></td>
+</tr>
+<tr>
+<td>QuickSelect</td>
+<td>random / first</td>
+<td><span class="math inline"><em>O</em>(<em>n</em><sup>2</sup>)</span>
+(expected <span class="math inline"><em>O</em>(<em>n</em>)</span>)</td>
+</tr>
+<tr>
+<td><strong>Median-of-medians select</strong></td>
+<td>median of group-of-5 medians</td>
+<td><strong><span
+class="math inline"><em>O</em>(<em>n</em>)</span></strong></td>
+</tr>
+</tbody>
+</table>
+<h2 id="key-theorems--results">Key theorems &amp; results</h2>
+<p><strong>Linear-selection theorem.</strong> The recurrence <span
+class="math inline"><em>T</em>(<em>n</em>) ≤ <em>T</em>(<em>n</em>/5) + <em>T</em>(7<em>n</em>/10) + <em>O</em>(<em>n</em>)</span>
+solves to <span
+class="math inline"><em>T</em>(<em>n</em>) = <em>O</em>(<em>n</em>)</span>.
+<em>Proof sketch (substitution).</em> Guess <span
+class="math inline"><em>T</em>(<em>n</em>) ≤ <em>c</em><em>n</em></span>.
+Then <span class="math display">$$
+T(n)\le \tfrac{cn}{5} + \tfrac{7cn}{10} + an =
+cn\!\left(\tfrac{1}{5}+\tfrac{7}{10}\right) + an = \tfrac{9}{10}cn + an.
+$$</span> This is <span
+class="math inline"> ≤ <em>c</em><em>n</em></span> whenever <span
+class="math inline">$\tfrac{1}{10}cn \ge an$</span>, i.e. <span
+class="math inline"><em>c</em> ≥ 10<em>a</em></span>. So <span
+class="math inline"><em>T</em>(<em>n</em>) = <em>O</em>(<em>n</em>)</span>.
+∎</p>
+<blockquote>
+<p>The crux is <span
+class="math inline">$\tfrac{1}{5}+\tfrac{7}{10}=\tfrac{9}{10}&lt;1$</span>:
+the two recursive pieces are <strong>strictly smaller than <span
+class="math inline"><em>n</em></span></strong>, so the linear combine
+cost doesn't accumulate. Groups of 3 give <span
+class="math inline">$\tfrac{2}{3}+\tfrac{1}{3}=1$</span> and fail;
+groups of 5 are the smallest odd size that works.</p>
+</blockquote>
+<h2 id="worked-example--unrolling-the-recurrence">Worked example —
+unrolling the recurrence</h2>
+<p>Total work <span class="math inline">$\le an\left(1 + \tfrac{9}{10} +
+\left(\tfrac{9}{10}\right)^2 + \cdots\right) =
+an\cdot\dfrac{1}{1-\tfrac{9}{10}} = 10\,an = O(n)$</span>. The geometric
+series in ratio <span class="math inline">$\tfrac{9}{10}$</span> is what
+bounds it.</p>
+<h2 id="common-pitfalls--exam-traps">Common pitfalls / exam traps</h2>
+<ul>
+<li>Claiming QuickSelect is worst-case <span
+class="math inline"><em>O</em>(<em>n</em>)</span> — it is only
+<strong>expected</strong> <span
+class="math inline"><em>O</em>(<em>n</em>)</span>; median-of-medians is
+the worst-case version.</li>
+<li>Forgetting the pivot itself is found by a <strong>recursive</strong>
+select on <span class="math inline"><em>n</em>/5</span> — both recursive
+terms must appear.</li>
+<li>Using groups of 3 (the fractions sum to 1, breaking linearity).</li>
+<li>Re-deriving the <span class="math inline">$\tfrac{3}{10}$</span>
+constants on an exam — usually cite the recurrence and the <span
+class="math inline"><em>O</em>(<em>n</em>)</span> result.</li>
+</ul>
+<h2 id="how-to-answer-hw--exam">How to answer (HW / exam)</h2>
+<p>Treat linear-time selection as a <strong>black box</strong> — cite
+the recurrence and the <span
+class="math inline"><em>O</em>(<em>n</em>)</span> result; don't
+re-derive the constant fractions unless asked. See <a
+href="guidance/divide-and-conquer-guidance.html">D&amp;C
+guidance</a>.</p>
+<details>
+<summary><b>Go deeper</b> — readings · guidance · notes</summary>
+
+<ul>
+<li><a href="readings/DPV-ch2-divide-and-conquer.pdf">DPV §2.3
+(sorting), §2.4 (median)</a></li>
+<li><a href="guidance/divide-and-conquer-guidance.html">D&amp;C
+guidance</a> · <a href="guidance/usable-dc-algorithms.html">Usable
+D&amp;C algorithms</a> · <a
+href="guidance/common-course-runtimes.html">Common runtimes</a></li>
+<li><a href="notes/full-course-notes.html">Full course notes</a> · <a
+href="notes/ga-notes.pdf">ga-notes.pdf</a></li>
+<li><a href="lectures/">lectures/</a> · <a
+href="transcripts/">transcripts/</a> · <a href="readings/">readings/</a>
+· <a href="guidance/">guidance/</a> · <a href="notes/">notes/</a></li>
+</ul>
+</details>
+
+<h2 id="comprehensive-notes">Comprehensive Notes</h2>
+<blockquote>
+<p>Full lecture notes for this week's module. The summary above is the
+quick-reference; this is the deep read.</p>
+</blockquote>
+<h3 id="dc2--linear-time-median-selection">DC2 — Linear-Time Median
+(Selection)</h3>
+<p><strong>Problem.</strong> Given an unsorted list <span
+class="math inline"><em>A</em> = [<em>a</em><sub>1</sub>, …, <em>a</em><sub><em>n</em></sub>]</span>,
+find the median, defined as the <span
+class="math inline">⌈<em>n</em>/2⌉</span>-th smallest element. We solve
+the more general <strong>selection</strong> problem: find the <span
+class="math inline"><em>k</em></span>-th smallest element (<span
+class="math inline">1 ≤ <em>k</em> ≤ <em>n</em></span>); median is <span
+class="math inline"><em>k</em> = <em>n</em>/2</span>.</p>
+<p><strong>Trivial bounds.</strong> If <span
+class="math inline"><em>A</em></span> is sorted, output <span
+class="math inline"><em>A</em>[<em>k</em>]</span>. Otherwise sort
+(mergesort, <span
+class="math inline"><em>O</em>(<em>n</em>log <em>n</em>)</span>) then
+index — <span
+class="math inline"><em>O</em>(<em>n</em>log <em>n</em>)</span>. Can we
+beat sorting? Yes — <span
+class="math inline"><em>O</em>(<em>n</em>)</span>.</p>
+<p><strong>QuickSelect — recurse on one side only.</strong> Like
+QuickSort but we only recurse into the one partition that must contain
+the <span class="math inline"><em>k</em></span>-th element:</p>
+<pre><code>Select(A, k):
+  choose a pivot p
+  partition A into A&lt;p, A=p, A&gt;p
+  if k &lt;= |A&lt;p|:                          return Select(A&lt;p, k)
+  if |A&lt;p| &lt; k &lt;= |A&lt;p| + |A=p|:          return p
+  if k &gt;  |A&lt;p| + |A=p|:                  return Select(A&gt;p, k - |A&lt;p| - |A=p|)</code></pre>
+<p><em>Example:</em> <span
+class="math inline"><em>A</em> = [5, 2, 20, 17, 11, 13, 8, 9, 11]</span>,
+<span class="math inline"><em>p</em> = 11</span> → <span
+class="math inline"><em>A</em><sub> &lt; <em>p</em></sub> = [5, 2, 8, 9]</span>,
+<span
+class="math inline"><em>A</em><sub> = <em>p</em></sub> = [11, 11]</span>,
+<span
+class="math inline"><em>A</em><sub> &gt; <em>p</em></sub> = [20, 17, 13]</span>.
+<span class="math inline"><em>k</em></span> is a
+<strong>position</strong>, not a value: if <span
+class="math inline"><em>k</em> &lt; 4</span> recurse left; if <span
+class="math inline">4 &lt; <em>k</em> ≤ 6</span> return <span
+class="math inline">11</span>; if <span
+class="math inline"><em>k</em> &gt; 6</span> recurse right on the <span
+class="math inline">(<em>k</em> − 6)</span>-th.</p>
+<blockquote>
+<p><strong>Key idea — pivot quality is everything.</strong> A worst
+pivot (min/max) shrinks the problem by <em>one</em> element → <span
+class="math inline"><em>O</em>(<em>n</em><sup>2</sup>)</span>; the
+<strong>true</strong> median gives <span
+class="math inline"><em>T</em>(<em>n</em>) = <em>T</em>(<em>n</em>/2) + <em>O</em>(<em>n</em>) = <em>O</em>(<em>n</em>)</span>
+— but that median is the very thing we're computing.</p>
+</blockquote>
+<p>An <strong>approximate</strong> median suffices: any pivot that
+discards a <em>constant fraction</em> keeps it linear (e.g. <span
+class="math inline"><em>T</em>(3<em>n</em>/4) + <em>O</em>(<em>n</em>) = <em>O</em>(<em>n</em>)</span>,
+even <span
+class="math inline"><em>T</em>(0.99<em>n</em>) + <em>O</em>(<em>n</em>) = <em>O</em>(<em>n</em>)</span>).</p>
+<p><strong>Good pivot, defined.</strong> <span
+class="math inline"><em>p</em></span> is <em>good</em> if <span
+class="math inline">|<em>A</em><sub> &lt; <em>p</em></sub>| ≤ 3<em>n</em>/4</span>
+and <span
+class="math inline">|<em>A</em><sub> &gt; <em>p</em></sub>| ≤ 3<em>n</em>/4</span>
+(both sides at most <span class="math inline">3<em>n</em>/4</span>). We
+must find one in <span
+class="math inline"><em>O</em>(<em>n</em>)</span>.</p>
+<ul>
+<li><strong>Random pivot?</strong> Half the elements are good, so <span
+class="math inline">Pr (good) = 1/2</span> — <span
+class="math inline"><em>O</em>(<em>n</em>)</span> <em>expected</em>
+time. But expected ≠ guaranteed, and we want a worst-case
+guarantee.</li>
+<li><strong>Median of medians.</strong> We have budget for <span
+class="math inline"><em>T</em>(3<em>n</em>/4) + <em>T</em>(<em>n</em>/5) + <em>O</em>(<em>n</em>)</span>
+(since <span class="math inline">$\tfrac34 + \tfrac15 &lt; 1$</span>).
+Pick <span class="math inline"><em>p</em></span> as the median of a
+representative subset <span class="math inline"><em>S</em></span> of
+size <span class="math inline"><em>n</em>/5</span>:
+<ol type="1">
+<li>Break <span class="math inline"><em>A</em></span> into <span
+class="math inline"><em>n</em>/5</span> groups of 5.</li>
+<li>Sort each group — <span class="math inline"><em>O</em>(1)</span>
+each (size is the constant 5), <span
+class="math inline"><em>O</em>(<em>n</em>)</span> total.</li>
+<li>Take each group's median; collect them into <span
+class="math inline"><em>S</em></span>.</li>
+<li>$p = $ median of <span class="math inline"><em>S</em></span> (a
+recursive <code>FastSelect</code> on <span
+class="math inline"><em>S</em></span>).</li>
+</ol></li>
+</ul>
+<pre><code>FastSelect(A, k):
+  break A into ceil(n/5) groups G_1..G_{n/5}
+  for each G_i: sort(G_i); m_i = median(G_i)
+  S = {m_1, ..., m_{n/5}}
+  p = FastSelect(S, n/10)            # median of medians
+  partition A into A&lt;p, A=p, A&gt;p
+  if k &lt;= |A&lt;p|:                     return FastSelect(A&lt;p, k)
+  if k &gt;  |A&gt;p| + |A=p|:             return FastSelect(A&gt;p, k - |A&lt;p| - |A=p|)
+  else                              return p</code></pre>
+<p><strong>Runtime.</strong> Grouping <span
+class="math inline"><em>O</em>(<em>n</em>)</span> + sorting groups <span
+class="math inline"><em>O</em>(<em>n</em>)</span> + median-of-medians
+<span class="math inline"><em>T</em>(<em>n</em>/5)</span> + recurse on
+one side <span class="math inline"><em>T</em>(3<em>n</em>/4)</span>:</p>
+<p><span
+class="math display"><em>T</em>(<em>n</em>) = <em>T</em>(3<em>n</em>/4) + <em>T</em>(<em>n</em>/5) + <em>O</em>(<em>n</em>) = <em>O</em>(<em>n</em>).</span></p>
+<p>The two recursive sizes sum to <span class="math inline">$\tfrac34 +
+\tfrac15 = \tfrac{19}{20} &lt; 1$</span>, which is exactly why it
+collapses to linear.</p>
+<p><img src="../../.assets/CS6515_images/DC2-001.png"
+alt="Why median-of-medians yields a good pivot" /></p>
+<blockquote>
+<p><strong>Exercise (worth pondering for the exam):</strong> why groups
+of <strong>5</strong> — why not 3 or 7?</p>
+</blockquote>
+<!-- WEEK-EXTRAS:START -->
+
+<h2 id="dpv-chapter-exercises">DPV chapter exercises</h2>
+<details>
+<summary><b>DPV chapter exercises (exact, from the textbook)</b></summary>
+
+<p><em>Exact end-of-chapter exercises, parsed from the DPV chapter
+PDFs.</em></p>
+<p><strong>DPV Ch 2 — Divide And Conquer</strong> — <a
+href="../../textbooks/examples-md/02-divide-and-conquer-dpv-examples.html">open
+exercises</a> · <a href="readings/DPV-ch2-examples.pdf">chapter
+PDF</a></p>
+<iframe class="examples-frame" src="../../textbooks/examples-md/02-divide-and-conquer-dpv-examples.html" title="DPV Ch 2 — Divide And Conquer exercises"></iframe>
+
+</details>
+
+<!-- WEEK-EXTRAS:END -->
+
+<h2 id="agent-hint">Agent hint</h2>
+<p>Selection question → use median-of-medians as a black box, cite <span
+class="math inline"><em>T</em>(<em>n</em>) ≤ <em>T</em>(<em>n</em>/5) + <em>T</em>(7<em>n</em>/10) + <em>O</em>(<em>n</em>) = <em>O</em>(<em>n</em>)</span>,
+and note the <span class="math inline">$\tfrac{9}{10}&lt;1$</span>
+collapse. This is the last unit before <strong>Exam 1</strong> (covers
+W1–3).</p>
+</main>
+
+<!-- code highlighting -->
+<link rel="modulepreload" href="../../vendor/mermaid/mermaid.esm.min.mjs">
+<script src="../../vendor/highlight/highlight.min.js"></script>
+<!-- math -->
+<script defer src="../../vendor/katex/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="../../vendor/katex/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+<script type="module">
+  // 1) Normalize mermaid blocks. Pandoc(gfm) emits <pre class="mermaid"><code>...</code></pre>.
+  //    Flatten to raw source text so mermaid parses cleanly; also catch the code-only variant.
+  document.querySelectorAll('pre > code.language-mermaid, pre > code.mermaid').forEach(c => {
+    const p = document.createElement('pre'); p.className = 'mermaid'; p.textContent = c.textContent;
+    c.parentElement.replaceWith(p);
+  });
+  document.querySelectorAll('pre.mermaid').forEach(p => { p.textContent = p.textContent; });
+  // 2) Syntax-highlight every code block EXCEPT mermaid (auto-detect language)
+  if (window.hljs) document.querySelectorAll('pre:not(.mermaid) > code').forEach(el => window.hljs.highlightElement(el));
+  // 3) Render mermaid (dark)
+  try {
+    const mermaid = (await import('../../vendor/mermaid/mermaid.esm.min.mjs')).default;
+    mermaid.initialize({ startOnLoad: false, theme: 'dark', securityLevel: 'loose' });
+    await mermaid.run({ querySelector: 'pre.mermaid' });
+  } catch (e) { /* offline: leave as text */ }
+</script>
+<script>
+  // 4) Math: render \( \) and \[ \] (pandoc converts dollar-math to these). Tolerate malformed legacy TeX.
+  window.addEventListener('DOMContentLoaded', () => {
+    if (window.renderMathInElement) renderMathInElement(document.querySelector('.content'), {
+      // dollar-delimiters included so KaTeX also renders math pandoc failed to parse (left raw):
+      // a space before a closing delim, cases-env inline, apostrophes in text, etc. Display before inline.
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '\\[', right: '\\]', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false }
+      ],
+      throwOnError: false,
+      // \n is used in the legacy notes as a homemade "arrow over" (directed edge); map it to \overrightarrow.
+      macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
+    });
+  });
+</script>
+</body>
+</html>

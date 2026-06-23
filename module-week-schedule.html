@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Module / Week Schedule — CS6515</title>
+<link rel="stylesheet" href="./vendor/fonts/fonts.css">
+<link rel="stylesheet" href="./theme.css">
+<link rel="stylesheet" href="./vendor/katex/katex.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="./vendor/highlight/styles/tokyo-night-dark.min.css">
+
+</head>
+<body>
+<header class="topbar">
+  <a class="home" href="./index.html">CS6515</a>
+  <span class="crumbloc">Module / Week Schedule</span>
+</header>
+<main class="content">
+<p><strong>Week # and</strong> <strong>date range</strong> </p>
+<p><strong>Assigned lectures</strong> </p>
+<p><strong>Assignment open</strong> </p>
+<p>1: 5/18 - 5/24</p>
+<p>Introduction and Readiness Check</p>
+<p>DP1: FIB - LIS - LCS </p>
+<p>DP2: Knapsack - Chain Multiply </p>
+<p>Readiness Check (no due date)      (Lessons + Coding environment
+check)</p>
+<p>Logistics Quizzes       (Communication, Academic Integrity,
+Onboarding)</p>
+<p>HW 1 </p>
+<p>Quiz 1: Format Quiz on DP </p>
+<p>2: 5/25 - 5/31<br />
+(5/25 Memorial Day)</p>
+<p>DC3: Solving Recurrences DC1: Fast Integer Multiplication </p>
+<p>HW 2 </p>
+<p>Quiz 2: Format Quiz on D&amp;C </p>
+<p>          Logistics Quizzes (Communication, Academic Integrity,
+Onboarding) due 6/1 8am ET </p>
+<p>3: 6/1 - 6/7</p>
+<p>DC2: Linear-Time Median </p>
+<p>HW 3 (coding homework) </p>
+<p>HW 4 (coding homework) </p>
+<p>Quiz 3: Content Quiz on DP + D&amp;C </p>
+<p>Mock Exam (no due date) </p>
+<p>4: 6/8 - 6/14</p>
+<p>DP3: Shortest Paths </p>
+<p>GR1: Strongly Connected Components</p>
+<p>GR2: 2-SAT </p>
+<p>n/a</p>
+<p>          <strong>EXAM 1</strong>: Opens Thursday, 6/11 @10am ET
+           Covers content WEEKS 1-3</p>
+<p>Closes Monday 6/15 @ 8am ET </p>
+<p>5: 6/15 - 6/21</p>
+<p>GR3: Minimum Spanning Tree (MST)  </p>
+<p>Quiz 4: Format Quiz on Graph Theory </p>
+<p>HW 5 </p>
+<p>6: 6/22 - 6/28</p>
+<p>MF1: Ford-Fulkerson  </p>
+<p>MF2: Max-flow=min-cut </p>
+<p>HW 6 </p>
+<p>HW 7 (coding homework)</p>
+<p>Quiz 5: Content Quiz on Graph Theory</p>
+<p>7: 6/29 - 7/5<br />
+(7/5 Withdrawal Deadline)</p>
+<p> MF4: Edmonds-Karp</p>
+<p> n/a</p>
+<p>        <strong>EXAM 2</strong>: Opens Thursday, 7/2 @10am ET </p>
+<p>         Covers content WEEKS 4-7</p>
+<p>Closes Monday 7/6 @ 8am ET </p>
+<p>8: 7/6 - 7/12</p>
+<p>NP1: NP, Reductions </p>
+<p>NP2: 3-SAT </p>
+<p>NP3: Graph Problems </p>
+<p>Quiz 6: Format Quiz on NP Theory </p>
+<p>HW 8</p>
+<p>9: 7/13 - 7/19</p>
+<p>LP1: LP Introduction </p>
+<p>LP2: Geometry </p>
+<p>LP3: Duality </p>
+<p>Quiz 7: Content Quiz on NP &amp; LP </p>
+<p>HW 9</p>
+<p>HW 10 </p>
+<p>10: 7/20 - 7/26</p>
+<p>LP4: Max-SAT approximation  </p>
+<p>NP4: Knapsack </p>
+<p>NP5: Halting Problem</p>
+<p>n/a</p>
+<p>         <strong>EXAM 3</strong>: Opens Thursday, 7/23 @10am ET </p>
+<p>         Covers content WEEKS 8-10</p>
+<p>Closes Monday 7/27 @ 8am ET </p>
+<p>11: 7/27 - 8/2</p>
+<p>All other lectures</p>
+<p>Quiz 8: Cumulative Content Quiz  </p>
+</main>
+
+<!-- code highlighting -->
+<link rel="modulepreload" href="./vendor/mermaid/mermaid.esm.min.mjs">
+<script src="./vendor/highlight/highlight.min.js"></script>
+<!-- math -->
+<script defer src="./vendor/katex/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="./vendor/katex/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+<script type="module">
+  // 1) Normalize mermaid blocks. Pandoc(gfm) emits <pre class="mermaid"><code>...</code></pre>.
+  //    Flatten to raw source text so mermaid parses cleanly; also catch the code-only variant.
+  document.querySelectorAll('pre > code.language-mermaid, pre > code.mermaid').forEach(c => {
+    const p = document.createElement('pre'); p.className = 'mermaid'; p.textContent = c.textContent;
+    c.parentElement.replaceWith(p);
+  });
+  document.querySelectorAll('pre.mermaid').forEach(p => { p.textContent = p.textContent; });
+  // 2) Syntax-highlight every code block EXCEPT mermaid (auto-detect language)
+  if (window.hljs) document.querySelectorAll('pre:not(.mermaid) > code').forEach(el => window.hljs.highlightElement(el));
+  // 3) Render mermaid (dark)
+  try {
+    const mermaid = (await import('./vendor/mermaid/mermaid.esm.min.mjs')).default;
+    mermaid.initialize({ startOnLoad: false, theme: 'dark', securityLevel: 'loose' });
+    await mermaid.run({ querySelector: 'pre.mermaid' });
+  } catch (e) { /* offline: leave as text */ }
+</script>
+<script>
+  // 4) Math: render \( \) and \[ \] (pandoc converts dollar-math to these). Tolerate malformed legacy TeX.
+  window.addEventListener('DOMContentLoaded', () => {
+    if (window.renderMathInElement) renderMathInElement(document.querySelector('.content'), {
+      // dollar-delimiters included so KaTeX also renders math pandoc failed to parse (left raw):
+      // a space before a closing delim, cases-env inline, apostrophes in text, etc. Display before inline.
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '\\[', right: '\\]', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false }
+      ],
+      throwOnError: false,
+      // \n is used in the legacy notes as a homemade "arrow over" (directed edge); map it to \overrightarrow.
+      macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
+    });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Course Map — CS 6515 Intro to Graduate Algorithms (Summer
+2026) — CS6515</title>
+<link rel="stylesheet" href="../vendor/fonts/fonts.css">
+<link rel="stylesheet" href="../theme.css">
+<link rel="stylesheet" href="../vendor/katex/katex.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="../vendor/highlight/styles/tokyo-night-dark.min.css">
+
+</head>
+<body>
+<header class="topbar">
+  <a class="home" href="../index.html">CS6515</a>
+  <span class="crumbloc">Course Map — CS 6515 Intro to Graduate
+Algorithms (Summer 2026)</span>
+</header>
+<main class="content">
+<h1
+id="course-map--cs-6515-intro-to-graduate-algorithms-summer-2026">Course
+Map — CS 6515 Intro to Graduate Algorithms (Summer 2026)</h1>
+<p>High-level mental model of the course. For the precise
+week/reading/exam table, see <a href="INDEX.html">INDEX.md</a>; for
+routing logic, <a href="AGENT_ROUTING.html">AGENT_ROUTING.md</a>.</p>
+<h2 id="the-five-and-a-half-big-units">The five-and-a-half big
+units</h2>
+<ol type="1">
+<li><strong>Dynamic Programming (DP)</strong> — break a problem into a
+table of overlapping subproblems; define a recurrence; fill bottom-up.
+<em>Weeks 1, 4.</em></li>
+<li><strong>Divide &amp; Conquer (DC)</strong> — split, recurse,
+combine; analyze with the Master theorem. <em>Weeks 2, 3</em> (FFT in
+Week 11).</li>
+<li><strong>Graphs (GR)</strong> — DFS/BFS as the foundation; SCCs,
+2-SAT, MST. <em>Weeks 4, 5.</em></li>
+<li><strong>Max-Flow (MF)</strong> — flows, residual graphs,
+max-flow/min-cut; Edmonds-Karp. <em>Weeks 6, 7.</em></li>
+<li><strong>NP-Completeness (NP)</strong> — reductions, 3-SAT, hardness;
+coping (approximation). <em>Weeks 8, 10.</em></li>
+<li><strong>Linear Programming (LP)</strong> — geometry, duality,
+LP-relaxation/approximation. <em>Weeks 9, 10.</em></li>
+</ol>
+<p>Plus a Week-11 <strong>advanced grab-bag</strong>: FFT, flow
+applications, number theory / RSA, Bloom filters.</p>
+<h2 id="how-the-topics-depend-on-each-other">How the topics depend on
+each other</h2>
+<pre class="mermaid"><code>graph TD
+    DP[Dynamic Programming&lt;br/&gt;W1, W4] --&gt; DP3[Shortest Paths&lt;br/&gt;W4]
+    DC[Divide &amp; Conquer&lt;br/&gt;W2, W3] --&gt; FFT[FFT&lt;br/&gt;W11]
+    GR0[Graph DFS/BFS&lt;br/&gt;W4] --&gt; SCC[SCCs / 2-SAT&lt;br/&gt;W4]
+    GR0 --&gt; MST[MST&lt;br/&gt;W5]
+    GR0 --&gt; MF[Max-Flow&lt;br/&gt;W6, W7]
+    SCC --&gt; NP[NP-Completeness&lt;br/&gt;W8, W10]
+    MF --&gt; LP[Linear Programming&lt;br/&gt;W9, W10]
+    NP --&gt; LP4[LP-relaxation &amp;&lt;br/&gt;approximation · W10]
+    LP --&gt; LP4</code></pre>
+<p><strong>Key throughlines</strong></p>
+<ul>
+<li>DFS (Week 4) is the linchpin: SCCs, 2-SAT, topological sort, and
+cycle detection all fall out of pre/post numbering.</li>
+<li>Max-flow (Week 6–7) is the bridge from graphs into LP —
+max-flow/min-cut is the first LP-duality example you meet.</li>
+<li>NP-completeness (Week 8) reframes everything: which of these
+problems are <em>easy</em>, and what do you do (approximate, LP-relax)
+when a problem is <em>hard</em> (Week 10)?</li>
+</ul>
+<h2 id="exam-rhythm">Exam rhythm</h2>
+<p>Three exams, each closing a unit block: <strong>Exam 1</strong> after
+DP+DC (W1–3), <strong>Exam 2</strong> after graphs+flow (W4–7),
+<strong>Exam 3</strong> after NP+LP (W8–10). Week 11 is cumulative
+review (Quiz 8). See the Exam Coverage Map in <a
+href="INDEX.html">INDEX.md</a>.</p>
+<h2 id="where-things-live">Where things live</h2>
+<table>
+<thead>
+<tr>
+<th>You want…</th>
+<th>Go to</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>This week's work</td>
+<td><a href="CURRENT_WEEK.html">CURRENT_WEEK.md</a></td>
+</tr>
+<tr>
+<td>A specific week</td>
+<td><a href="../01_by_week/index.html"><code>../01_by_week/</code></a></td>
+</tr>
+<tr>
+<td>All material on one topic</td>
+<td><a href="../02_by_topic/index.html"><code>../02_by_topic/</code></a></td>
+</tr>
+<tr>
+<td>The exact DPV sections</td>
+<td><a href="reading-index.html">reading-index.md</a></td>
+</tr>
+<tr>
+<td>How to <em>write</em> a graded answer</td>
+<td><a href="AGENT_ROUTING.html">AGENT_ROUTING.md</a> → "answer
+rules"</td>
+</tr>
+<tr>
+<td>The gold-standard graph notes</td>
+<td><a href="../notes/graphs/"><code>../notes/graphs/</code></a></td>
+</tr>
+</tbody>
+</table>
+</main>
+
+<!-- code highlighting -->
+<link rel="modulepreload" href="../vendor/mermaid/mermaid.esm.min.mjs">
+<script src="../vendor/highlight/highlight.min.js"></script>
+<!-- math -->
+<script defer src="../vendor/katex/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="../vendor/katex/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+<script type="module">
+  // 1) Normalize mermaid blocks. Pandoc(gfm) emits <pre class="mermaid"><code>...</code></pre>.
+  //    Flatten to raw source text so mermaid parses cleanly; also catch the code-only variant.
+  document.querySelectorAll('pre > code.language-mermaid, pre > code.mermaid').forEach(c => {
+    const p = document.createElement('pre'); p.className = 'mermaid'; p.textContent = c.textContent;
+    c.parentElement.replaceWith(p);
+  });
+  document.querySelectorAll('pre.mermaid').forEach(p => { p.textContent = p.textContent; });
+  // 2) Syntax-highlight every code block EXCEPT mermaid (auto-detect language)
+  if (window.hljs) document.querySelectorAll('pre:not(.mermaid) > code').forEach(el => window.hljs.highlightElement(el));
+  // 3) Render mermaid (dark)
+  try {
+    const mermaid = (await import('../vendor/mermaid/mermaid.esm.min.mjs')).default;
+    mermaid.initialize({ startOnLoad: false, theme: 'dark', securityLevel: 'loose' });
+    await mermaid.run({ querySelector: 'pre.mermaid' });
+  } catch (e) { /* offline: leave as text */ }
+</script>
+<script>
+  // 4) Math: render \( \) and \[ \] (pandoc converts dollar-math to these). Tolerate malformed legacy TeX.
+  window.addEventListener('DOMContentLoaded', () => {
+    if (window.renderMathInElement) renderMathInElement(document.querySelector('.content'), {
+      // dollar-delimiters included so KaTeX also renders math pandoc failed to parse (left raw):
+      // a space before a closing delim, cases-env inline, apostrophes in text, etc. Display before inline.
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '\\[', right: '\\]', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false }
+      ],
+      throwOnError: false,
+      // \n is used in the legacy notes as a homemade "arrow over" (directed edge); map it to \overrightarrow.
+      macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
+    });
+  });
+</script>
+</body>
+</html>

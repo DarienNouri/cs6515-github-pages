@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>By Week — CS6515</title>
+<link rel="stylesheet" href="../vendor/fonts/fonts.css">
+<link rel="stylesheet" href="../theme.css">
+<link rel="stylesheet" href="../vendor/katex/katex.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="../vendor/highlight/styles/tokyo-night-dark.min.css">
+
+</head>
+<body>
+<header class="topbar">
+  <a class="home" href="../index.html">CS6515</a>
+  <span class="crumbloc">By Week</span>
+</header>
+<main class="content">
+<h1 id="by-week--chronological-view">By Week — Chronological View</h1>
+<p>One folder per course week
+(<code>Wnn_&lt;start-date&gt;_&lt;modules&gt;</code>). Each contains a
+<code>README.md</code> plus <code>lectures/</code>,
+<code>readings/</code>, <code>guidance/</code>, <code>notes/</code>
+(symlinks to canonical sources). Start at <a
+href="../00_START_HERE/CURRENT_WEEK.html">CURRENT_WEEK.md</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Week</th>
+<th>Folder</th>
+<th>Modules</th>
+<th>Exam</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><a href="W01_2026-05-18_DP1-DP2/index.html">W01</a></td>
+<td>DP1, DP2</td>
+<td></td>
+</tr>
+<tr>
+<td>2</td>
+<td><a href="W02_2026-05-25_DC3-DC1/index.html">W02</a></td>
+<td>DC3, DC1</td>
+<td></td>
+</tr>
+<tr>
+<td>3</td>
+<td><a href="W03_2026-06-01_DC2/index.html">W03</a></td>
+<td>DC2</td>
+<td></td>
+</tr>
+<tr>
+<td>4</td>
+<td><a href="W04_2026-06-08_DP3-GR1-GR2_EXAM1/index.html">W04</a></td>
+<td>DP3, GR1, GR2</td>
+<td><strong>Exam 1</strong></td>
+</tr>
+<tr>
+<td>5</td>
+<td><a href="W05_2026-06-15_GR3/index.html">W05</a></td>
+<td>GR3</td>
+<td></td>
+</tr>
+<tr>
+<td>6</td>
+<td><a href="W06_2026-06-22_MF1-MF2/index.html">W06</a></td>
+<td>MF1, MF2</td>
+<td>◀ current</td>
+</tr>
+<tr>
+<td>7</td>
+<td><a href="W07_2026-06-29_MF4_EXAM2/index.html">W07</a></td>
+<td>MF4</td>
+<td><strong>Exam 2</strong></td>
+</tr>
+<tr>
+<td>8</td>
+<td><a href="W08_2026-07-06_NP1-NP2-NP3/index.html">W08</a></td>
+<td>NP1, NP2, NP3</td>
+<td></td>
+</tr>
+<tr>
+<td>9</td>
+<td><a href="W09_2026-07-13_LP1-LP2-LP3/index.html">W09</a></td>
+<td>LP1, LP2, LP3</td>
+<td></td>
+</tr>
+<tr>
+<td>10</td>
+<td><a href="W10_2026-07-20_LP4-NP4-NP5_EXAM3/index.html">W10</a></td>
+<td>LP4, NP4, NP5</td>
+<td><strong>Exam 3</strong></td>
+</tr>
+<tr>
+<td>11</td>
+<td><a href="W11_2026-07-27_Advanced-FFT-Crypto-Bloom/index.html">W11</a></td>
+<td>FFT, crypto, Bloom</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</main>
+
+<!-- code highlighting -->
+<link rel="modulepreload" href="../vendor/mermaid/mermaid.esm.min.mjs">
+<script src="../vendor/highlight/highlight.min.js"></script>
+<!-- math -->
+<script defer src="../vendor/katex/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="../vendor/katex/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+<script type="module">
+  // 1) Normalize mermaid blocks. Pandoc(gfm) emits <pre class="mermaid"><code>...</code></pre>.
+  //    Flatten to raw source text so mermaid parses cleanly; also catch the code-only variant.
+  document.querySelectorAll('pre > code.language-mermaid, pre > code.mermaid').forEach(c => {
+    const p = document.createElement('pre'); p.className = 'mermaid'; p.textContent = c.textContent;
+    c.parentElement.replaceWith(p);
+  });
+  document.querySelectorAll('pre.mermaid').forEach(p => { p.textContent = p.textContent; });
+  // 2) Syntax-highlight every code block EXCEPT mermaid (auto-detect language)
+  if (window.hljs) document.querySelectorAll('pre:not(.mermaid) > code').forEach(el => window.hljs.highlightElement(el));
+  // 3) Render mermaid (dark)
+  try {
+    const mermaid = (await import('../vendor/mermaid/mermaid.esm.min.mjs')).default;
+    mermaid.initialize({ startOnLoad: false, theme: 'dark', securityLevel: 'loose' });
+    await mermaid.run({ querySelector: 'pre.mermaid' });
+  } catch (e) { /* offline: leave as text */ }
+</script>
+<script>
+  // 4) Math: render \( \) and \[ \] (pandoc converts dollar-math to these). Tolerate malformed legacy TeX.
+  window.addEventListener('DOMContentLoaded', () => {
+    if (window.renderMathInElement) renderMathInElement(document.querySelector('.content'), {
+      // dollar-delimiters included so KaTeX also renders math pandoc failed to parse (left raw):
+      // a space before a closing delim, cases-env inline, apostrophes in text, etc. Display before inline.
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '\\[', right: '\\]', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false }
+      ],
+      throwOnError: false,
+      // \n is used in the legacy notes as a homemade "arrow over" (directed edge); map it to \overrightarrow.
+      macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
+    });
+  });
+</script>
+</body>
+</html>

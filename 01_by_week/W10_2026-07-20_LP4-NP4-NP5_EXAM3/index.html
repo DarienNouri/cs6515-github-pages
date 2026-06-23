@@ -1,0 +1,1416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Week 10 — Approximation &amp; Undecidability — CS6515</title>
+<link rel="stylesheet" href="../../vendor/fonts/fonts.css">
+<link rel="stylesheet" href="../../theme.css">
+<link rel="stylesheet" href="../../vendor/katex/katex.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="../../vendor/highlight/styles/tokyo-night-dark.min.css">
+
+</head>
+<body>
+<header class="topbar">
+  <a class="home" href="../../index.html">CS6515</a>
+  <span class="crumbloc">Week 10 — Approximation &amp;
+Undecidability</span>
+</header>
+<main class="content">
+<h1 id="week-10--approximation--undecidability">Week 10 — Approximation
+&amp; Undecidability</h1>
+<blockquote>
+<p><strong>2026-07-20 → 07-26</strong> · Modules <strong>LP4</strong>
+(Max-SAT approx / ILP), <strong>NP4</strong> (Knapsack),
+<strong>NP5</strong> (Halting Problem)</p>
+<p><a href="../W09_2026-07-13_LP1-LP2-LP3/index.html">◀ W09 LP</a> · <a
+href="../index.html">All weeks</a> · <a
+href="../../00_START_HERE/INDEX.html">Index</a> · <a
+href="../W11_2026-07-27_Advanced-FFT-Crypto-Bloom/index.html">W11 Advanced
+▶</a></p>
+</blockquote>
+<h3 id="exam-3-this-week">EXAM 3 this week</h3>
+<table>
+<tbody>
+<tr>
+<td><strong>Opens</strong></td>
+<td>Thu <strong>07-23</strong> 10am ET</td>
+</tr>
+<tr>
+<td><strong>Closes</strong></td>
+<td>Mon <strong>07-27</strong> 8am ET</td>
+</tr>
+<tr>
+<td><strong>Covers</strong></td>
+<td><strong>Weeks 8–10</strong> — NP1–NP5, LP1–LP4</td>
+</tr>
+</tbody>
+</table>
+<details>
+<summary><b>Watch the lecture</b> (Approximation & Undecidability)</summary>
+
+<p><video controls preload="metadata" width="100%" src="https://storage.googleapis.com/darien-public-assets/cs6515-summer-2026/v20260623/videos/10_Week_10_Approximation_Undecidability.mp4"></video></p>
+<p><a href="https://storage.googleapis.com/darien-public-assets/cs6515-summer-2026/v20260623/videos/10_Week_10_Approximation_Undecidability.mp4">▶ Open
+video</a> · <a
+href="transcripts/10_Week_10_Approximation_Undecidability.txt">Transcript</a></p>
+</details>
+
+<hr />
+<h2 id="learning-objectives">Learning objectives</h2>
+<ul>
+<li>Turn an NP-hard problem into a poly-time <strong>LP
+relaxation</strong>, round, and state a provable <strong>approximation
+ratio</strong>.</li>
+<li>Explain why <strong>ILP is NP-hard</strong> even though LP ∈ P.</li>
+<li>Classify Knapsack's DP as <strong>pseudo-polynomial</strong> and
+sketch an <strong>FPTAS</strong>.</li>
+<li>Distinguish <strong>hard</strong> (NP-complete, decidable) from
+<strong>impossible</strong> (undecidable).</li>
+</ul>
+<h2 id="core-concepts">Core concepts</h2>
+<h3 id="integer-lp-and-relaxation-lp4">Integer LP and relaxation
+(LP4)</h3>
+<p><strong>Integer Linear Program (ILP).</strong> An LP with the extra
+constraint <span
+class="math inline"><em>x</em> ∈ {0, 1}<sup><em>n</em></sup></span> (or
+<span class="math inline"><em>x</em> ∈ ℤ<sup><em>n</em></sup></span>).
+The integrality makes it <strong>NP-hard</strong> — the polytope's
+corners are no longer guaranteed integral, so you can't just read off a
+vertex.</p>
+<p><strong>LP relaxation.</strong> Drop integrality: replace <span
+class="math inline"><em>x</em><sub><em>j</em></sub> ∈ {0, 1}</span> with
+<span
+class="math inline">0 ≤ <em>x</em><sub><em>j</em></sub> ≤ 1</span>.</p>
+<p><span class="math display">ILP:
+<em>x</em><sub><em>j</em></sub> ∈ {0, 1}  →  LP relaxation:
+0 ≤ <em>x</em><sub><em>j</em></sub> ≤ 1.</span></p>
+<p>The relaxation is a poly-time LP whose optimum <span
+class="math inline">OPT<sub><em>L</em><em>P</em></sub></span>
+<strong>bounds</strong> the integer optimum (<span
+class="math inline">OPT<sub><em>L</em><em>P</em></sub> ≥ OPT<sub><em>I</em><em>L</em><em>P</em></sub></span>
+for a max problem). Solve it, then <strong>round</strong> the fractional
+<span class="math inline"><em>x</em><sup>⋆</sup></span> back to
+integers; the rounding loss is what you must bound.</p>
+<h3 id="approximation-ratio">Approximation ratio</h3>
+<p>An algorithm is an <strong><span
+class="math inline"><em>α</em></span>-approximation</strong> if it
+always returns a solution within factor <span
+class="math inline"><em>α</em></span> of optimal. For a maximization
+problem with <span class="math inline">0 &lt; <em>α</em> ≤ 1</span>:</p>
+<p><span class="math display">ALG ≥ <em>α</em> ⋅ OPT.</span></p>
+<p>This is a <strong>guaranteed fraction</strong> of optimal on
+<em>every</em> input — not an average, not a heuristic.</p>
+<h3 id="max-sat-approximation-lp4">Max-SAT approximation (LP4)</h3>
+<p>Given clauses, satisfy as many as possible. Two classic
+guarantees:</p>
+<ul>
+<li><strong>Random assignment</strong> (each variable true with prob ½)
+satisfies each <span class="math inline"><em>k</em></span>-literal
+clause with prob <span class="math inline">$1 - 2^{-k} \ge
+\tfrac12$</span>, giving a <span
+class="math inline">$\tfrac12$</span>-approximation in expectation.</li>
+<li><strong>LP rounding</strong> (randomized rounding of the relaxation)
+achieves <span class="math inline">$1 - \tfrac1e \approx 0.632$</span>;
+taking the <strong>better of random-and-LP</strong> yields a <span
+class="math inline">$\tfrac34$</span>-approximation.</li>
+</ul>
+<h3 id="knapsack-as-np-np4">Knapsack as NP (NP4)</h3>
+<p>0/1 Knapsack is <strong>NP-hard</strong>. Its DP <span
+class="math inline"><em>K</em>(<em>i</em>, <em>b</em>) = max {<em>K</em>(<em>i</em> − 1, <em>b</em>), <em>v</em><sub><em>i</em></sub> + <em>K</em>(<em>i</em> − 1, <em>b</em> − <em>w</em><sub><em>i</em></sub>)}</span>
+runs in <span
+class="math inline"><em>O</em>(<em>n</em><em>B</em>)</span> — but <span
+class="math inline"><em>B</em></span> (the capacity) is a
+<strong>numeric value</strong>, encoded in <span
+class="math inline">log <em>B</em></span> bits, so <span
+class="math inline"><em>O</em>(<em>n</em><em>B</em>)</span> is
+<strong>pseudo-polynomial</strong>: exponential in the input
+<em>size</em>, not the input <em>magnitude</em>.</p>
+<p><strong>FPTAS idea.</strong> Scale the values down by a factor
+depending on <span class="math inline"><em>ε</em></span>, run the
+value-indexed DP <span
+class="math inline"><em>O</em>(<em>n</em><sup>2</sup><em>v</em><sub>max</sub>/<em>ε</em>)</span>,
+and lose at most an <span class="math inline"><em>ε</em></span> fraction
+— a <span class="math inline">(1 − <em>ε</em>)</span>-approximation in
+time polynomial in <span class="math inline"><em>n</em></span> and <span
+class="math inline">1/<em>ε</em></span>.</p>
+<h3 id="undecidability-np5">Undecidability (NP5)</h3>
+<p>The <strong>Halting Problem</strong> — decide whether program <span
+class="math inline"><em>P</em></span> halts on input <span
+class="math inline"><em>x</em></span> — has <strong>no algorithm at
+all</strong>, for any running time. This is strictly beyond NP-hard.</p>
+<p><strong>Proof (diagonalization / self-reference).</strong> Suppose
+<span class="math inline"><em>H</em>(<em>P</em>, <em>x</em>)</span>
+decides halting. Build <span
+class="math inline"><em>D</em>(<em>P</em>)</span>: "if <span
+class="math inline"><em>H</em>(<em>P</em>, <em>P</em>)</span> says
+<em>halts</em>, loop forever; else halt." Now run <span
+class="math inline"><em>D</em>(<em>D</em>)</span>: it halts iff <span
+class="math inline"><em>H</em>(<em>D</em>, <em>D</em>)</span> says it
+loops iff it doesn't halt — contradiction. So <span
+class="math inline"><em>H</em></span> cannot exist. ∎</p>
+<h2 id="algorithms">Algorithms</h2>
+<h3 id="lp-relaxation--rounding--template">LP-relaxation + rounding —
+template</h3>
+<ol type="1">
+<li>Write the problem as a 0/1 ILP (variables, objective,
+constraints).</li>
+<li>Relax <span
+class="math inline"><em>x</em><sub><em>j</em></sub> ∈ {0, 1}</span> to
+<span
+class="math inline">0 ≤ <em>x</em><sub><em>j</em></sub> ≤ 1</span>;
+solve the LP in poly time.</li>
+<li>Round (deterministic threshold or randomized) to an integer
+solution.</li>
+<li>Prove the rounding loses at most factor <span
+class="math inline"><em>α</em></span> vs <span
+class="math inline">OPT<sub><em>L</em><em>P</em></sub> ≥ OPT</span>.</li>
+</ol>
+<h3 id="knapsack-fptas--sketch">Knapsack FPTAS — sketch</h3>
+<ol type="1">
+<li>Pick scaling <span
+class="math inline"><em>K</em> = <em>ε</em> <em>v</em><sub>max</sub>/<em>n</em></span>.
+2. Replace each value <span
+class="math inline"><em>v</em><sub><em>i</em></sub></span> by <span
+class="math inline">⌊<em>v</em><sub><em>i</em></sub>/<em>K</em>⌋</span>.
+3. Run the value-indexed DP. 4. Output that item set — guaranteed <span
+class="math inline"> ≥ (1 − <em>ε</em>) OPT</span>.</li>
+</ol>
+<h2 id="key-theorems--results">Key theorems &amp; results</h2>
+<table>
+<thead>
+<tr>
+<th>Class</th>
+<th>Algorithm exists?</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>In P</td>
+<td>yes, polynomial</td>
+<td>shortest path, MST, LP</td>
+</tr>
+<tr>
+<td>NP-complete</td>
+<td>yes, but (believed) exponential</td>
+<td>3-SAT, Knapsack, Vertex Cover</td>
+</tr>
+<tr>
+<td><strong>Undecidable</strong></td>
+<td><strong>no — none, ever</strong></td>
+<td>Halting Problem</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Relaxation bound:</strong> <span
+class="math inline">OPT<sub><em>L</em><em>P</em></sub> ≥ OPT<sub><em>I</em><em>L</em><em>P</em></sub></span>
+(max) — the LP can only do better than the integer-constrained version,
+which is what makes it a valid yardstick.</li>
+<li><strong>Hard ≠ impossible:</strong> NP-complete problems are
+<em>decidable</em> (an exponential algorithm exists); undecidable
+problems have <em>no</em> algorithm at any cost.</li>
+</ul>
+<h2 id="worked-example-relaxation-bound">Worked example (relaxation
+bound)</h2>
+<p>Vertex Cover ILP: <span
+class="math inline">min ∑<sub><em>v</em></sub><em>x</em><sub><em>v</em></sub></span>
+s.t. <span
+class="math inline"><em>x</em><sub><em>u</em></sub> + <em>x</em><sub><em>v</em></sub> ≥ 1</span>
+for every edge, <span
+class="math inline"><em>x</em><sub><em>v</em></sub> ∈ {0, 1}</span>.
+Relax to <span
+class="math inline">0 ≤ <em>x</em><sub><em>v</em></sub> ≤ 1</span>,
+solve the LP, then round <strong>up</strong> every <span
+class="math inline">$x_v \ge \tfrac12$</span> to 1. Each edge had <span
+class="math inline"><em>x</em><sub><em>u</em></sub> + <em>x</em><sub><em>v</em></sub> ≥ 1</span>,
+so at least one endpoint was <span class="math inline">$\ge
+\tfrac12$</span> → covered, and the rounding at most doubles the cost: a
+<strong>2-approximation</strong>.</p>
+<h2 id="common-pitfalls--exam-traps">Common pitfalls / exam traps</h2>
+<ul>
+<li>Calling <span
+class="math inline"><em>O</em>(<em>n</em><em>B</em>)</span> "polynomial"
+— it's <strong>pseudo-polynomial</strong> (<span
+class="math inline"><em>B</em></span> is a value, not a size).</li>
+<li>Claiming an approximation ratio without bounding the rounding
+against <span
+class="math inline">OPT<sub><em>L</em><em>P</em></sub></span>.</li>
+<li>Confusing <strong>NP-hard</strong> (decidable, just slow) with
+<strong>undecidable</strong> (no algorithm exists).</li>
+<li>Saying the LP relaxation <em>solves</em> the ILP — it only
+<strong>bounds</strong> it; you still must round.</li>
+</ul>
+<h2 id="how-to-answer-hw--exam">How to answer (HW / exam)</h2>
+<p>For approximation: write the ILP, relax, round, and prove the
+<strong>provable ratio</strong> against the LP bound. Keep "hard (still
+solvable, exponential)" cleanly separate from "undecidable (no
+algorithm)". For Knapsack, name the DP as pseudo-polynomial and cite the
+FPTAS for a true poly bound.</p>
+<details>
+<summary><b>Go deeper</b> — readings</summary>
+
+<ul>
+<li><a href="readings/DPV-ch7-flows-and-linear-programming.pdf">DPV §7.7
+(ILP)</a> · <a href="readings/DPV-ch8-np-complete-problems.pdf">§8.x
+(hardness)</a> · <a
+href="readings/DPV-ch9-coping-with-np-completeness.pdf">§9 (coping)</a>
+· <a href="readings/DPV-ch6-dynamic-programming.pdf">§6.7
+(knapsack)</a></li>
+<li><a href="guidance/common-course-runtimes.html">Common
+runtimes</a></li>
+<li><a href="notes/full-course-notes.html">Full course notes</a> · <a
+href="notes/ga-notes.pdf">ga-notes.pdf</a></li>
+<li><a href="lectures/">lectures/</a> · <a
+href="transcripts/">transcripts/</a> · <a href="readings/">readings/</a>
+· <a href="guidance/">guidance/</a> · <a href="notes/">notes/</a></li>
+</ul>
+</details>
+
+<h2 id="comprehensive-notes">Comprehensive Notes</h2>
+<blockquote>
+<p>Full lecture notes for this week's modules, figures inline. Source:
+course topic notes.</p>
+</blockquote>
+<h3 id="lp4--max-sat-approximation">LP4 — Max-SAT Approximation</h3>
+<h4 id="lp4-max-sat-approximation">LP4: Max-SAT Approximation</h4>
+<p>In several sections already we've looked at variations of the SAT
+problem. In the chapter we will look at yet another version called the
+max sat.</p>
+<p>SAT Input/output ( Search Problem )</p>
+<ul>
+<li>IN : Boolean formula f in CNF form with n variables and m
+clauses</li>
+<li>OUT: Assignment satisfying f or NO if no assignment exists</li>
+<li>Is NP-Complete</li>
+</ul>
+<p><strong>Max-SAT</strong> is just a slight variation — an
+<strong>optimization</strong> problem:</p>
+<ul>
+<li>IN : same as before</li>
+<li>OUT: Assignment that maximizes the # of satisfied clauses</li>
+<li><strong>Is NP-Hard!!</strong></li>
+</ul>
+<blockquote>
+<p><strong>Why Max-SAT is <em>not</em> in NP.</strong> Because it's an
+optimization (not a search) problem, we have no way to <em>verify</em>
+that a given count of satisfied clauses is the <em>maximum</em> — so it
+can't be in P. But Max-SAT is <em>at least as hard as</em> SAT: it's
+straightforward to reduce SAT to Max-SAT.</p>
+</blockquote>
+<p>Since Max-SAT is np-hard we cannot hope to solve this in polynomial
+time so we will attempt to approximate it using LP Programming.</p>
+<p>Problem Formulation:<br />
+For a formula f with m clauses, let <span
+class="math inline"><em>m</em><sup>*</sup></span> denote the max # of
+SAT clauses</p>
+<ul>
+<li>Clearly <span
+class="math inline"><em>m</em><sup>*</sup> ≤ <em>m</em></span>
+<ul>
+<li>when <span
+class="math inline"><em>m</em><sup>*</sup> = <em>m</em></span> then f is
+satisfiable</li>
+</ul></li>
+</ul>
+<p>We will construct an algorithm A on the input f to get l, where l is
+the number of clauses satisfied by assignment output of A.</p>
+<p>So how does l compare to <span
+class="math inline"><em>m</em><sup>*</sup></span>? We are going to
+guarantee that <span class="math inline">$l \ge \frac{m^*}{2}$</span>.
+If this holds for every/any input f then we this is a 1/2 approximation
+algorithm. later we will see how we can push this to formulate a 1/3
+approximation.</p>
+<p>We will look at three algorithms:</p>
+<ol type="1">
+<li>A simple algo that results in an 1/2 approx for Max-SAT</li>
+<li>An LP based algo that results in a (1-1/e) approximation. This is
+slightly better than the first</li>
+<li>Combo of the above - Best of 2: that results in a 3/4
+approximation</li>
+</ol>
+<h5 id="simple-algo">Simple Algo</h5>
+<p>Consider an input f in CNF form with</p>
+<ul>
+<li>variables <span
+class="math inline"><em>x</em><sub>1</sub>, ..., <em>x</em><sub><em>n</em></sub></span></li>
+<li>and clauses <span
+class="math inline"><em>c</em><sub>1</sub>, ..., <em>c</em><sub><em>m</em></sub></span></li>
+</ul>
+<p>We will choose a random assignment of true/false for each variable,
+for simplicity we choose each t/f value with probability of 0.5</p>
+<p>ie</p>
+<p><span class="math display">$$
+\text{Set } x_i = \begin{cases} T &amp; \text{with probability 0.5} \\ F
+&amp; \text{with probability 0.5} \end{cases}
+$$</span></p>
+<p>Now we measure the performance of this assignment</p>
+<ul>
+<li>Let w = number of satisified clauses, then</li>
+<li>Then we could compute the expected value of w as <span
+class="math inline">$E[W] = \sum_{l=0}^{m} l \cdot \Pr(W=l)$</span>
+<ul>
+<li>if you tried this it would be rather difficult. Problem here is that
+clauses can contain the same variables thus there is a high correlation
+that would make computing these probabilities challenging</li>
+<li>but we could look at each clause in isolation</li>
+</ul></li>
+</ul>
+<p>Let's consider a single clause <span
+class="math inline"><em>c</em><sub><em>j</em></sub></span>:</p>
+<p><span class="math display">$$
+w_i = \begin{cases} 1 &amp; \text{if } c_j \text{ is satisfied} \\ 0
+&amp; \text{otherwise} \end{cases}
+$$</span></p>
+<p>If we now sum these Ws we should get the number of satisfied clauses
+W. ie <span class="math inline">$W = \sum_{j=0}^m w_j$</span><br />
+So now we can work some magic on the original expected value as</p>
+<ul>
+<li><span class="math inline">$E[W] = E[\sum_{j=0}^m w_j]$</span></li>
+<li><span class="math inline">$= \sum_{j=0}^m E[w_j]$</span></li>
+<li>This is much easier to compute as it is just one clause</li>
+<li><span
+class="math inline"><em>E</em>[<em>w</em><sub><em>j</em></sub>] = 1 ⋅ Pr (<em>w</em><sub><em>j</em></sub> = 1) + 0 ⋅ Pr (<em>w</em><sub><em>j</em></sub> = 0)</span></li>
+<li>which can easily reduce to</li>
+<li><span
+class="math inline"><em>E</em>[<em>w</em><sub><em>j</em></sub>] = Pr (<em>w</em><sub><em>j</em></sub> = 1)</span></li>
+</ul>
+<p>Now that we know how to compute the expected value let's turn our
+attention back to the clauses</p>
+<ul>
+<li>Suppose <span class="math inline">$c_j = (x_1 \vee \bar{x_2} \vee
+\bar{x_3} \vee \cdots \vee \bar{x_k} )$</span></li>
+<li>What is the probability this is NOT, or is, satisifed</li>
+<li>In order to NOT be satisifed all the literals must be false</li>
+<li>this has probabilty of <span
+class="math inline">2<sup>−<em>k</em></sup></span></li>
+<li>thus the probabilty of being satisifed is <span
+class="math inline">1 − 2<sup>−<em>k</em></sup></span></li>
+</ul>
+<p>If you look at this long enough you may start to wonder how k affects
+this. As k grows in size (which is the number of variables) then <span
+class="math inline">2<sup>−<em>k</em></sup></span> approaches 0 and thus
+<span class="math inline">1 − 2<sup>−<em>k</em></sup></span> gets better
+and better. The worst case is when k is small like 1. In this case we
+get <span class="math inline">1 − 1/2</span> which is 1/2. So we can say
+that</p>
+<ul>
+<li>$E[w_j] \ge 1/2 $</li>
+<li>when we multiply this for the m clauses we get $\ge m/2 $</li>
+</ul>
+<blockquote>
+<p><strong>Result (½-approximation).</strong> We've shown <span
+class="math inline">$E[\#\text{ satisfied clauses}] = E[W] =
+\sum_{j=1}^m E[w_j] \ge \frac{m}{2}$</span>. The simple
+<strong>randomized</strong> algorithm satisfies at least half the
+clauses in expectation.</p>
+</blockquote>
+<p>We can de-randomize this algorithm to produce a deterministic
+algorithm based on conditional expectations.<br />
+Consider the following algo</p>
+<ul>
+<li>for i -&gt; n
+<ul>
+<li>Take <span
+class="math inline"><em>x</em>[<em>i</em>] = <em>T</em></span> and <span
+class="math inline"><em>x</em>[<em>i</em>] = <em>F</em></span></li>
+<li>Compute the expected performance of each possibility</li>
+<li>Take the best of the two settings</li>
+</ul></li>
+</ul>
+<h5 id="ek-sat">Ek-SAT</h5>
+<p>Let's now consider the Ek-SAT problem, Ek for Exact k SAT. In this
+problem we are looking of exactly k satisfied clauses.</p>
+<p>Furthermore for our purposes and for simplicity let's consider the
+case when k=3 and every clause has size exactly 3. Now what is the
+probability that Pr(<span
+class="math inline"><em>C</em><sub><em>j</em></sub></span> is
+satisfied)? There is one setting of three literals where the clause will
+not be satisfied which results in a 1/8 probability. Thus the Probabilty
+of satisfaction is 7/8. t/f for the max E3-SAT problem we achieve a 7/8
+approximation algorithm. We can generalize this to say that for size=k,
+we will achieve a (<span
+class="math inline">1 − 2<sup>−<em>k</em></sup></span>) approximation
+for max-Ek-SAT.</p>
+<blockquote>
+<p><strong>Tightness.</strong> It's been <em>proven</em> that doing
+better than <span class="math inline">7/8</span> for max-E3-SAT is
+itself <strong>NP-Hard</strong> — if you ever beat <span
+class="math inline">7/8</span>, you'd have shown <span
+class="math inline"><em>P</em> = <em>N</em><em>P</em></span> (so check
+your work again).</p>
+</blockquote>
+<h5 id="ilp---integer-lp">ILP - Integer LP</h5>
+<p>In this section we will look at the second topic: Which is using
+Linear programming to get an approximation algorithm for maxSAT. In
+order to do this we must first introduce a stronger form of LP
+programming called Integer Programming. Which is similar to regular LP
+but it adds the condition that our decision variables must be
+integers.</p>
+<p>Recall our general format for an LP problem in canonical form</p>
+<ul>
+<li>Obj max(<span
+class="math inline"><em>c</em><sup><em>T</em></sup><em>x</em></span>)</li>
+<li>Subject to
+<ul>
+<li><span
+class="math inline"><em>A</em><em>x</em> ≤ <em>b</em></span></li>
+<li><span class="math inline"><em>x</em> ≥ 0</span></li>
+</ul></li>
+<li>For integer programming we add a condition
+<ul>
+<li><span class="math inline"><em>x</em> ∈ ℤ</span>, Integers</li>
+<li>whereas in our previous LP x could be any number</li>
+</ul></li>
+</ul>
+<p>Although it may not be obvious this is a significant departure from
+the previous version. In the real LP we are looking at a feasible
+region, Now we are looking at a grid of points inside the feasible
+region. These are not necassarily the vertices as previous.</p>
+<p>Recall that LP has the <strong>convexity property</strong> that
+dictates the optimal point lies <em>at a vertex</em>. This helped us
+ensure we could find and target it. <strong>This property no longer
+holds in ILP</strong> — a direct consequence is that ILP becomes
+<strong>NP-Hard</strong>.</p>
+<blockquote>
+<p><strong>Key contrast.</strong> While LP is poly-time solvable (<span
+class="math inline"><em>L</em><em>P</em> ∈ <em>P</em></span>),
+<strong>Integer LP is NP-Hard</strong>. Shortly we'll reduce max-SAT to
+ILP — and in fact many problems we've already seen reduce to ILP.</p>
+</blockquote>
+<p>Since ILP is NP-Hard we know it can't be solved in polynomial time.
+So here's our game plan:</p>
+<ul>
+<li>First we will show how to reduce SAT, or max-SAT to ILP</li>
+<li>then we will look at LP relaxation
+<ul>
+<li>this allows us to ignore the integer value constraint.</li>
+<li>this also means we're going to look at the best real number point
+X</li>
+</ul></li>
+<li>then we're going to use this real number point X
+<ul>
+<li>which is the optimal solution to the Linear Program to find an
+integer point which is nearby.</li>
+<li>That's going to give us a feasible solution to the Integer Linear
+Program,</li>
+</ul></li>
+<li>then we'll see how far away it is from the optimal solution.
+<ul>
+<li>this will give us our approximation algorithm to the Max-SAT</li>
+</ul></li>
+</ul>
+<p>Let's now proceed to prove that ILP is NP-Hard. As stated above we
+will do this by reducing Max-SAT to ILP.</p>
+<p>Suppose we have input f for max_SAT. For arguement sakes f has n
+variables and m constraints.</p>
+<ul>
+<li>to construct our ILP program we will
+<ul>
+<li>add a variable <span
+class="math inline"><em>y</em><sub><em>i</em></sub></span> for each
+<span class="math inline"><em>x</em><sub><em>i</em></sub></span> in
+f</li>
+<li>and we will add a clause <span
+class="math inline"><em>z</em><sub><em>j</em></sub></span> for each
+clause <span class="math inline"><em>c</em><sub><em>i</em></sub></span>
+in f</li>
+</ul></li>
+<li>additionally we add an integer constraints on each
+<ul>
+<li>ie <span
+class="math inline">0 ≤ <em>y</em><sub><em>i</em></sub> ≤ 1</span> - is
+1 when <span
+class="math inline"><em>x</em><sub><em>i</em></sub> = <em>T</em><em>r</em><em>u</em><em>e</em></span>
+and 0 when <span
+class="math inline"><em>x</em><sub><em>i</em></sub> = <em>F</em><em>a</em><em>l</em><em>s</em><em>e</em></span></li>
+<li>ie <span
+class="math inline">0 ≤ <em>z</em><sub><em>i</em></sub> ≤ 1</span> -
+takes the value 1 when the clause <span
+class="math inline"><em>c</em><sub><em>j</em></sub></span> is satisfied
+otherwise 0</li>
+<li>where each can only take on a value of 1 or 0</li>
+</ul></li>
+</ul>
+<p>Let's do an example</p>
+<ul>
+<li>Let $C = (x_5 \vee x_3 \vee x_6) $ and suppose all three are set to
+false</li>
+<li>then <span
+class="math inline"><em>y</em><sub>5</sub> = 0, <em>y</em><sub>3</sub> = 0, <em>y</em><sub>6</sub> = 0</span>,
+consequently <span
+class="math inline"><em>z</em><sub><em>j</em></sub> = 0</span> since
+it's not satisfied</li>
+<li>for any other setting/assignment of variables <span
+class="math inline"><em>z</em><sub><em>j</em></sub></span> = 0 or
+1.</li>
+<li>we can't force, or set, <span
+class="math inline"><em>z</em><sub><em>j</em></sub></span> to be 1.
+<ul>
+<li>What we can and will do is use this as the optimal value</li>
+<li>optimizing our <span
+class="math inline"><em>z</em><sub><em>j</em></sub></span> will now be
+in the form of an objective function</li>
+</ul></li>
+<li>one other thing we need to do is create a constraint
+<ul>
+<li>to do this we add a simple constraint</li>
+<li>$y_5 + y_3 + y_6 \ge z_j $</li>
+<li>this ensures that <span
+class="math inline"><em>y</em><sub>5</sub> = 0, <em>y</em><sub>3</sub> = 0, <em>y</em><sub>6</sub> = 0</span>
+results in <span
+class="math inline"><em>z</em><sub><em>j</em></sub> = 0</span></li>
+</ul></li>
+</ul>
+<p>Here's another example</p>
+<ul>
+<li>Let <span class="math inline">$C=(\bar{x_1} \vee x_3 \vee x_2 \vee
+\bar{x_5})$</span>
+<ul>
+<li>furthermore, Suppose we have <span
+class="math inline"><em>x</em><sub>1</sub> = <em>T</em>, <em>x</em><sub>3</sub> = <em>F</em>, <em>x</em><sub>2</sub> = <em>F</em>, <em>x</em><sub>5</sub> = <em>T</em></span></li>
+</ul></li>
+<li>Then the corresponding y's are <span
+class="math inline"><em>y</em><sub>1</sub> = 1, <em>y</em><sub>3</sub> = 0, <em>y</em><sub>2</sub> = 0, <em>y</em><sub>5</sub> = 1</span></li>
+<li>and <span
+class="math inline"><em>z</em><sub><em>j</em></sub> = 0</span> since
+again the clause is not satisfied
+<ul>
+<li>This time around we can't use the same constraint as before as the
+sum of our y's would yield 2 and we need 0</li>
+<li>t/f we will need to tweak our constraints</li>
+<li>Consider <span
+class="math inline">(1 − <em>y</em><sub>1</sub>) + <em>y</em><sub>3</sub> + <em>y</em><sub>2</sub> + (1 − <em>y</em><sub>5</sub>) ≥ <em>z</em><sub><em>j</em></sub></span></li>
+<li>we've constructed our contraints to flip our positive values into
+negatives</li>
+<li>Now any other assignement will yield <span
+class="math inline"><em>z</em><sub><em>j</em></sub> ≥ 0</span></li>
+</ul></li>
+<li>more formally
+<ul>
+<li>take positive literals as <span
+class="math inline"><em>C</em><sub><em>j</em></sub><sup>+</sup></span></li>
+<li>take negative literals as <span
+class="math inline"><em>C</em><sub><em>j</em></sub><sup>−</sup></span></li>
+</ul></li>
+</ul>
+<p>Now we can formalize our reduction as</p>
+<ul>
+<li><strong>Objective:</strong> <span class="math inline">$\max
+\sum_{j=1}^m z_j$</span></li>
+<li>subject to the constraints
+<ul>
+<li><span
+class="math inline">∀<em>i</em> ∈ {1, 2, …, <em>n</em>}: 0 ≤ <em>y</em><sub><em>i</em></sub> ≤ 1</span></li>
+<li><span
+class="math inline">∀<em>j</em> ∈ {1, 2, …, <em>n</em>}: 0 ≤ <em>z</em><sub><em>i</em></sub> ≤ 1</span></li>
+<li>and <span
+class="math inline">∑<sub><em>i</em> ∈ <em>C</em><sub><em>j</em></sub><sup>+</sup></sub><em>y</em><sub><em>i</em></sub> + ∑<sub><em>i</em> ∈ <em>C</em><sub><em>j</em></sub><sup>−</sup></sub>(1 − <em>y</em><sub><em>i</em></sub>) ≥ <em>z</em><sub><em>j</em></sub></span></li>
+<li>and the <span
+class="math inline"><em>y</em><sub><em>i</em></sub></span>'s and <span
+class="math inline"><em>z</em><sub><em>j</em></sub></span>'s are
+<strong>integers</strong></li>
+</ul></li>
+</ul>
+<p>Now take a moment to consider the above</p>
+<ul>
+<li>What is the optimal value of the objective function?
+<ul>
+<li>well thats just <span
+class="math inline"><em>z</em><sub>1</sub><sup>*</sup> + <em>z</em><sub>2</sub> * +... + <em>z</em><sub><em>n</em></sub><sup>*</sup></span></li>
+<li>recall that this is <span
+class="math inline"><em>m</em><sup>*</sup></span> which is the max
+number of satisfied clauses</li>
+</ul></li>
+</ul>
+<p><strong>LP Integer Relaxation</strong></p>
+<p>Now all we will do is drop is the last constraint (<span
+class="math inline"><em>y</em><sub><em>i</em></sub><sup>′</sup><em>s</em>
+and <em>z</em><sub><em>j</em></sub><sup>′</sup><em>s</em></span> are
+integers). This doesn't break our formulation. What it does however is
+allow us to treat it like a standard LP problem.</p>
+<p>Of course we don't want to get confused, between the ILP version and
+the LP version so we create some different variables.</p>
+<ul>
+<li>Let <span class="math inline">$\hat{y}^* \\,\\ \hat{z}^*$</span> be
+the optimal values to the relaxed lp</li>
+<li>then the optimal solution is just <span
+class="math inline">$\hat{z_1}^* + \hat{z_2}^* + ... +
+\hat{z_n}^*$</span></li>
+</ul>
+<p>Now how can we relate this back to the ILP? The ILP solution lies
+<em>inside</em> the feasible region of the LP, so at most it equals the
+LP solution — it can never exceed it.</p>
+<blockquote>
+<p><strong>Key bound.</strong> The <strong>LP optimum is an upper bound
+on the ILP optimum</strong>: <span class="math inline">$m^* \le
+\hat{z_1}^* + \dots + \hat{z_n}^*$</span>. This is exactly what lets the
+rounded LP solution serve as a yardstick for the approximation
+ratio.</p>
+</blockquote>
+<p>Thus, we relate the two quite easily</p>
+<ul>
+<li><span class="math inline">$m^* = z_1^* + z_2^* + ... + z_n^* \le
+\hat{z_1}^* + \hat{z_2}^* + ... + \hat{z_n}^*$</span></li>
+<li>Unlike the hollywood walk of streets these are optimal, poor joke?
+perhaps</li>
+</ul>
+<p>Now how do we tranlate these back to integers? Quite simply: we round
+them. But we're too advanced now to do basic up/down rounding. We will
+use fancy probabilistic rounding.</p>
+<p><strong>Randomized Rounding</strong></p>
+<p>Continuing our goal of translating <span
+class="math inline">$\hat{y_i}^* \text{ and } \hat{z_i}^*$</span> to
+integers <span class="math inline"><em>y</em><sub><em>i</em></sub> and
+<em>z</em><sub><em>i</em></sub></span> that are as close as possible to
+<span class="math inline"><em>y</em><sub><em>i</em></sub><sup>*</sup>
+and <em>z</em><sub><em>i</em></sub><sup>*</sup></span></p>
+<p>Recall that in both our ILP as well as our LP formulation we have the
+constraints</p>
+<ul>
+<li><span
+class="math inline">∀<em>i</em> ∈ {1, 2, …, <em>n</em>}: 0 ≤ <em>y</em><sub><em>i</em></sub> ≤ 1</span></li>
+<li><span
+class="math inline">∀<em>j</em> ∈ {1, 2, …, <em>n</em>}: 0 ≤ <em>z</em><sub><em>i</em></sub> ≤ 1</span></li>
+</ul>
+<p>Consequently these will be between 0 and 1 and can be thought of as
+<em>probabilities</em>. So we will round up/down with the same
+probability. Note that we don't round the <span
+class="math inline"><em>z</em><sub><em>i</em></sub><sup>′</sup><em>s</em></span>
+we only care about the y's</p>
+<p>So <strong>round each <span
+class="math inline"><em>y</em><sub><em>i</em></sub></span>
+probabilistically</strong>:</p>
+<p><span class="math display">$$
+\text{Set } y_i = \begin{cases} 1 &amp; \text{with probability }
+\hat{y_i^*} \\ 0 &amp; \text{with probability } 1-\hat{y_i^*}
+\end{cases}
+$$</span></p>
+<p>All in all this is rather simple.</p>
+<p>Let's now take a look at the expected value of this randomized
+rounding</p>
+<ul>
+<li>Let W = # of satisfied clauses in ILP with randomized rounding
+<ul>
+<li>since the assignment is random W is t/f a Random Variable</li>
+</ul></li>
+</ul>
+<p>Similar to the previous analysis of expectations we will proceed
+clause by clause:</p>
+<p><span class="math display">$$
+w_j = \begin{cases} 1 &amp; \text{if } c_j \text{ is satisfied} \\ 0
+&amp; \text{if } c_j \text{ is NOT satisfied} \end{cases}
+$$</span></p>
+<p>If we sum over the j's then <span
+class="math inline"><em>W</em> = ∑<sub><em>j</em></sub><em>w</em><sub><em>j</em></sub></span><br />
+Then: <span class="math inline">$E[W] = \sum_j E[w_j] = \sum_j \Pr(c_j
+\text{ is satisfied}) \ge \left(1-\tfrac{1}{e}\right)
+\hat{z_j}^*$</span></p>
+<p>The final term here is the value of the objective function for the
+Linear program, which we've shown is <strong>at least</strong> the value
+of the Integer Linear program for the max-SAT, m*</p>
+<p>Thus</p>
+<ul>
+<li><span class="math inline">$E[W] = \Pr(c_j \text{ is satisfied}) \ge
+\left(1-\tfrac{1}{e}\right) \hat{z_j}^* \ge
+\left(1-\tfrac{1}{e}\right)m^*$</span></li>
+</ul>
+<p>Now it remains to show/prove</p>
+<ul>
+<li>Pr(<span class="math inline"><em>c</em><sub><em>j</em></sub></span>
+is satisifed) $\ge (1-\frac{1}{e}) \hat{z_j}^* $</li>
+</ul>
+<p>Consider the j'th clause <span
+class="math inline"><em>c</em><sub><em>j</em></sub></span> of size k, ie
+suppose <span
+class="math inline"><em>c</em><sub><em>j</em></sub> = (<em>x</em><sub>1</sub> ∨ ... ∨ <em>x</em><sub><em>k</em></sub>)</span>.
+We will stick to positive literals for now to make things simple. It
+does matter though, due to symmetry.</p>
+<ul>
+<li>Since all literals are positive we will have a constraint of the
+form
+<ul>
+<li><span class="math inline">$\hat{y_1^*} + \cdots + \hat{y_k^*} \ge
+\hat{z_j^*}$</span></li>
+</ul></li>
+<li>So what is the probability that this is satisfied?
+<ul>
+<li>ie Pr(<span
+class="math inline"><em>c</em><sub><em>j</em></sub></span> is
+satisfied)</li>
+<li>which we can also write as 1 - Pr(<span
+class="math inline"><em>c</em><sub><em>j</em></sub></span> is
+unsatisfied)</li>
+</ul></li>
+<li>Recall that Pr(<span
+class="math inline"><em>c</em><sub><em>j</em></sub></span> is
+unsatisfied)
+<ul>
+<li>is <span class="math inline">$\prod_i (1-\hat{y_i^*})$</span></li>
+</ul></li>
+<li>So how do we relate this product back to the sum in the
+constraint?</li>
+<li>To relate the two we'll need to use the arithmetic/geometric mean
+inequality</li>
+</ul>
+<h5 id="am-gm-inequality">AM-GM Inequality</h5>
+<blockquote>
+<p><strong>Arithmetic Mean ≥ Geometric Mean.</strong> For non-negative
+numbers, the arithmetic mean is always at least the geometric mean. This
+is the key inequality that relates the <em>product</em> (probability of
+being unsatisfied) back to the <em>sum</em> in the LP constraint.</p>
+</blockquote>
+<p>Suppose we have a series of positive numbers : <span
+class="math inline"><em>x</em><sub><em>i</em></sub>, ..., <em>x</em><sub><em>k</em></sub> ≥ 0</span></p>
+<ul>
+<li>The Arithmetic Mean is defined as : <span
+class="math inline">$\frac{1}{k} \sum_i x_i$</span></li>
+<li>The Geometric mean is defined as : <span
+class="math inline">(∏<sub><em>i</em></sub><em>x</em><sub><em>i</em></sub>)<sup>1/<em>k</em></sup></span></li>
+</ul>
+<p>Also recall the property that: Arthmetic Mean <span
+class="math inline">≥</span> Geometric Mean, which is always true for
+non-neg numbers</p>
+<p>For our problem</p>
+<ul>
+<li>we set <span class="math inline">$w_i = 1-\hat{y_i^*}$</span>, which
+results in a series of positive numbers</li>
+<li>Then our arithmetics mean is
+<ul>
+<li><span class="math inline">$\frac{1}{k} \sum_i
+(1-\hat{y_i^*})$</span></li>
+</ul></li>
+<li>Our geometric mean is
+<ul>
+<li><span class="math inline">$(\prod_i
+(1-\hat{y_i^*}))^{1/k}$</span></li>
+</ul></li>
+<li>put together this means
+<ul>
+<li><span class="math inline">$\frac{1}{k} \sum_i (1-\hat{y_i^*}) \ge
+\left[\prod_i (1-\hat{y_i^*})\right]^{1/k}$</span></li>
+</ul></li>
+<li>which we write slightly as
+<ul>
+<li><span class="math inline">$\left[\frac{1}{k} \sum_i
+(1-\hat{y_i^*})\right]^k \ge \prod_i (1-\hat{y_i^*})$</span></li>
+<li>we just moved the root from the left side to the right as an
+exponent</li>
+</ul></li>
+</ul>
+<p>Now let's derive our original result, the lemma, from this result</p>
+<ul>
+<li>Pr(<span class="math inline"><em>c</em><sub><em>j</em></sub></span>
+is satisfied)</li>
+<li><span class="math inline">$= 1 - \prod_i
+(1-\hat{y_i^*})$</span></li>
+<li>$\ge 1 - \left[\frac{1}{k} \sum_i (1-\hat{y_i^*})\right]^k $</li>
+<li>$= 1 - \left[1 - \frac{1}{k} \sum_i \hat{y_i^*}\right]^k $
+<ul>
+<li>focus for a moment on the last term <span
+class="math inline">$\sum_i \hat{y_i^*}$</span></li>
+<li>this is the contraint on <span
+class="math inline">$\hat{z_j^*}$</span>!!!</li>
+<li>so it must be at least 0</li>
+<li>now we substitute it into our equation to get another
+inequality</li>
+</ul></li>
+<li>$\ge 1 - \left[1 - \frac{1}{k} \hat{z_j^*} \right]^k $</li>
+</ul>
+<p>Now we will use a bit of calculus to move z outside the exponent.</p>
+<ul>
+<li>Let $\alpha = \hat{z_j^*} $</li>
+<li>We've shown above that : Pr(<span
+class="math inline"><em>c</em><sub><em>j</em></sub></span> is satisfied)
+$ge 1 - \left[1 - \frac{\alpha}{k} \right]^k $</li>
+</ul>
+<p>The next step will require a proof of it's own</p>
+<ul>
+<li>We claim that <span class="math inline">$f(\alpha) \ge \left(
+1-(1-\frac{1}{k})^k \right) \alpha$</span></li>
+<li>where $f(\alpha) = 1 - \left[1 - \frac{\alpha}{k} \right]^k $ from
+above</li>
+</ul>
+<p>At a high level the steps to the proof are as follows</p>
+<ul>
+<li>first we show that the second derivative is less than 0, ie <span
+class="math inline">$f"(\alpha) \&lt; 0$</span></li>
+<li>this means it's concave and has only one peak area</li>
+<li>next let $\beta = \left( 1-(1-\frac{1}{k})^k \right) $</li>
+<li>then what can you say about <span
+class="math inline"><em>β</em><em>α</em></span>? well it's just a
+line</li>
+<li>if you overlay the two atop each other you should see that
+<ul>
+<li>between [0,1], which are the possible values of <span
+class="math inline"><em>α</em></span></li>
+<li><span class="math inline"><em>f</em>(<em>α</em>)</span> is always
+greater</li>
+</ul></li>
+<li>so just check the values at 0 and 1, and you're good to go</li>
+</ul>
+<p><img src="../../.assets/CS6515_images/LP-004.png" alt="LP-004" /></p>
+<p>Finally we can put all the pieces together</p>
+<ul>
+<li>Pr(<span class="math inline"><em>C</em><sub><em>j</em></sub></span>
+is satisfied)</li>
+<li><span class="math inline">$= 1 - \prod_i (1-
+\hat{y_i^*})$</span></li>
+<li><span class="math inline">$\ge 1 - (1 -
+\hat{z_j^*}/k)^k$</span></li>
+<li><span class="math inline">$\ge \left[1 - (1 - 1/k)^k \right]
+\hat{z_j^*}$</span></li>
+<li><span class="math inline">$\ge \left[1 - 1/e \right]
+\hat{z_j^*}$</span></li>
+</ul>
+<p>The last line is just a geometric mean taylor expansion and
+reduction</p>
+<ul>
+<li>$e^{-x} = 1 - x + \frac{x^2}{2!} - \frac{x^3}{3!} \pm ... $</li>
+<li><span
+class="math inline"><em>e</em><sup>−<em>x</em></sup> ≥ 1 − <em>x</em></span></li>
+</ul>
+<h5 id="summary">Summary</h5>
+<p>The process we used here is quite widespread and deserves some
+attention. In many situations of NP-hard problems it can be applied as
+follows</p>
+<p>Given an NP-Hard problem</p>
+<ul>
+<li>reduce to ILP</li>
+<li>relax to LP and solve</li>
+<li>apply randomized rounding</li>
+</ul>
+<h5 id="comparison-simple-v-lp">Comparison: Simple v LP</h5>
+<p>At the start of this section we said there would be three possible
+methods.</p>
+<p>first let's compare the two previous methods on each of the problems
+examined so far</p>
+<p><img src="../../.assets/CS6515_images/LP-005.png" alt="LP-005" /></p>
+<p>Suppose we took the best of each approach? The max in that row? Then
+the min approximation would be 3/4. Caused by the k=2 case. Our third
+and final algo is the most basic of all, which just takes the max.</p>
+<p>Given a formula f:</p>
+<ul>
+<li>Run the <strong>simple</strong> algo to get <span
+class="math inline"><em>m</em><sub>1</sub></span></li>
+<li>Run the <strong>LP</strong> algo to get <span
+class="math inline"><em>m</em><sub>2</sub></span></li>
+<li>Take the <strong>best of the two</strong></li>
+</ul>
+<blockquote>
+<p><strong>Result (¾-approximation).</strong> <span
+class="math inline">$E[\max\{m_1,m_2\}] \ge \frac{3}{4} m^*$</span>.
+Taking the better of the simple and LP algorithms guarantees
+three-quarters of optimal.</p>
+</blockquote>
+<h3 id="np4--knapsack-np-hardness">NP4 — Knapsack (NP-hardness)</h3>
+<h4 id="np4-knapsack">NP4: Knapsack</h4>
+<p>In this section we will be looking at the subset-sum problem as an
+intermediate step in proving that Knapsack in NP-Complete. Recall that
+the runtime of the knapsack problem is O(nB). We explained earlier why
+O(nB) is not polynomial in it's runtime (due to the B term).</p>
+<h5 id="subset-sum">Subset-Sum</h5>
+<blockquote>
+<p><strong>Subset-Sum.</strong> Given positive integers <span
+class="math inline"><em>a</em><sub>1</sub>, …, <em>a</em><sub><em>n</em></sub></span>
+and a target <span class="math inline"><em>t</em></span>, find a subset
+<span class="math inline"><em>S</em> ⊆ {1, …, <em>n</em>}</span> with
+<span
+class="math inline">∑<sub><em>i</em> ∈ <em>S</em></sub><em>a</em><sub><em>i</em></sub> = <em>t</em></span>
+(or report <strong>No</strong>).</p>
+</blockquote>
+<p>The formal definition:</p>
+<ul>
+<li><strong>Input:</strong> positive integers <span
+class="math inline"><em>a</em><sub>1</sub>, ..., <em>a</em><sub><em>n</em></sub></span>
+&amp; t</li>
+<li><strong>Output:</strong> subset S of {1,...,n} s.t. <span
+class="math inline">∑<sub><em>i</em> ∈ <em>S</em></sub><em>a</em><sub><em>i</em></sub> = <em>t</em></span>
+if it exists
+<ul>
+<li>else No</li>
+</ul></li>
+</ul>
+<p>(NB: This is a great example of a dynamic programming problem: Find
+an algo to this that runs in O(nt) time.</p>
+<p>The first question we always ask is ... is subset-sum in P? Of course
+not! We've shown this before via knapsack. Due to the B term it is not
+polynomial in the input size and thus cannot be solved in poly-time. It
+takes O(nB) and we would need to replace it with log(B). Let's now look
+to see if it's NP-Complete</p>
+<p><strong>Proof Subset-sum <span class="math inline">∈</span>
+NP</strong><br />
+Given inputs <span
+class="math inline"><em>a</em><sub>1</sub>, ..., <em>a</em><sub><em>n</em></sub></span>,
+t and S</p>
+<ul>
+<li>Check that <span
+class="math inline">∑<sub><em>i</em> ∈ <em>S</em></sub><em>a</em><sub><em>i</em></sub> = <em>t</em></span>,
+this will take time O(n log t)</li>
+</ul>
+<p>Since log t is polynomial in the input size we can conlude that
+Subset-sum can be verified in poly-time.</p>
+<p><strong>Proof Subset-sum is at least as hard as every problem in the
+class NP</strong><br />
+We choose 3SAT as our known problem and demonstrate the reduction: <span
+class="math inline">3<em>S</em><em>A</em><em>T</em> → <em>S</em><em>u</em><em>b</em><em>s</em><em>e</em><em>t</em> − <em>s</em><em>u</em><em>m</em></span></p>
+<p>Input to subset-sum consists of 2n+2m+1 numbers:</p>
+<ul>
+<li>2n for the n variables, <span
+class="math inline"><em>v</em><sub>1</sub>, <em>v</em><sub>1</sub><sup>′</sup></span>
+for <span class="math inline">$x_1,\bar{x_1}$</span>, <span
+class="math inline"><em>v</em><sub>2</sub>, <em>v</em><sub>2</sub><sup>′</sup></span>
+for <span class="math inline">$x_2,\bar{x_2}$</span>, etc etc</li>
+<li>2m for the m clauses, <span
+class="math inline"><em>s</em><sub>1</sub>, <em>s</em><sub>1</sub><sup>′</sup></span>
+for 1st clause, <span
+class="math inline"><em>s</em><sub>2</sub>, <em>s</em><sub>2</sub><sup>′</sup></span>
+for 2nd clause, etc etc</li>
+<li>+1 for the sum, t</li>
+</ul>
+<p>Note that all these numbers can be quite large, up to <span
+class="math inline"> ≤ <em>n</em> + <em>m</em></span> digits long.
+Furthermore we will be working base 10, so as to avoid any carryover of
+bits when adding subsets of numbers. t is also quite large, of the
+magnitude <span
+class="math inline"><em>t</em> ≈ 10<sup><em>n</em> + <em>m</em></sup></span>.</p>
+<p>Let's begin by looking at the <span
+class="math inline"><em>v</em><sub><em>i</em></sub></span>'s. In
+particular each <span
+class="math inline"><em>v</em><sub><em>i</em></sub></span> corresponds
+to an <span class="math inline"><em>x</em><sub><em>i</em></sub></span>.
+So we include <span
+class="math inline"><em>v</em><sub><em>i</em></sub></span> in S whenever
+<span class="math inline"><em>x</em><sub><em>i</em></sub></span> is
+true. ie <span
+class="math inline"><em>v</em><sub><em>i</em></sub> ∈ <em>S</em> ⇔ <em>x</em><sub><em>i</em></sub> = <em>T</em><em>r</em><em>u</em><em>e</em></span>.
+Similarly <span
+class="math inline"><em>v</em><sub><em>i</em></sub><sup>′</sup></span>
+corresponds to <span class="math inline">$\bar{x_i}$</span> and we
+include <span
+class="math inline"><em>v</em><sub><em>i</em></sub><sup>′</sup></span>
+in S whenever <span
+class="math inline"><em>x</em><sub><em>i</em></sub></span> is false. Of
+course an assignment to a 3SAT problem cannot include both cases as that
+would be a contradiction. So for the subset-sum problem to work only one
+scenario must exist. Either <span
+class="math inline"><em>v</em><sub><em>i</em></sub> ∈ <em>S</em></span>
+or <span
+class="math inline"><em>v</em><sub><em>i</em></sub><sup>′</sup> ∈ <em>S</em></span>
+but we cannot include both nor can we include neither. We will achieve
+this by setting the i'th digit of <span
+class="math inline"><em>v</em><sub><em>i</em></sub>, <em>v</em><sub><em>i</em></sub><sup>′</sup>, <em>t</em></span>
+to 1, and for all other digits and numbers the i'th digit is set to 0.
+Recall as well that since we are using base 10 numbering each digit will
+behave independently of each other. Furthermore, the i'th digit of t
+will be 1 if only <span
+class="math inline"><em>v</em><sub><em>i</em></sub></span> or <span
+class="math inline"><em>v</em><sub><em>i</em></sub><sup>′</sup></span>
+is in S, but not both/neither.</p>
+<p>Here's an example. Rows represent literals and the columns represent
+the variables and the clauses. <img
+src="../../.assets/CS6515_images/NP-015.png" alt="NP-015" /></p>
+<p>We begin by placing ones along the diagonal for the variables <span
+class="math inline"><em>x</em><sub>1</sub>, <em>x</em><sub>2</sub>, <em>x</em><sub>3</sub></span>,
+and 0 in all other entries. Note that this is only for the variables so
+as to ensure each variable is in the solution/assignment. To ensure it
+is a satifying assignment we will use the columns for the clauses.</p>
+<p>So digit n+j correspond to clause <span
+class="math inline"><em>C</em><sub><em>j</em></sub></span>.</p>
+<ul>
+<li>if <span
+class="math inline"><em>x</em><sub><em>i</em></sub> ∈ <em>C</em><sub><em>j</em></sub></span>
+then place a 1 in digit n+j for <span
+class="math inline"><em>v</em><sub><em>i</em></sub></span></li>
+<li>if <span class="math inline">$\bar{x_i} \in C_j$</span> then place a
+1 in digit n+j for <span
+class="math inline"><em>v</em><sub><em>i</em></sub><sup>′</sup></span><br />
+What this does is encode the clause into the literals <span
+class="math inline"><em>v</em><sub><em>i</em></sub>, <em>v</em><sub><em>i</em></sub><sup>′</sup></span></li>
+</ul>
+<p>For our example we get the following <img
+src="../../.assets/CS6515_images/NP-016.png" alt="NP-016" /></p>
+<p>Now let's take a minute to think about the row t for each clause
+column. In order to satisfy the clause we require 1,2, or 3 of the
+literals to be satisfied. So we take the max, 3, as the sum for each
+column. Now of course all three literals may not be satisfied. If not
+then we will need the buffer numbers in order to make up the difference.
+The buffer numbers are represented by the s variables. Consequently if
+only 1 literal in a clause is satisfied then we can make use of the
+buffer numbers to ensure the summation which in turn will satisfy the
+clause. <img src="../../.assets/CS6515_images/NP-017.png"
+alt="NP-017" /></p>
+<p>Each row can now represent a number. Just read it from the left to
+the right <img src="../../.assets/CS6515_images/NP-018.png"
+alt="NP-018" /></p>
+<p>Let's summarize our clause reduction</p>
+<ul>
+<li>Digit n+j corresponds to clause <span
+class="math inline"><em>C</em><sub><em>j</em></sub></span>
+<ul>
+<li>if <span
+class="math inline"><em>x</em><sub><em>i</em></sub> ∈ <em>C</em><sub><em>j</em></sub></span>
+put a 1 in digit n+j for <span
+class="math inline"><em>v</em><sub><em>i</em></sub></span></li>
+<li>if <span class="math inline">$\bar{x_i} \in C_j$</span> put a 1 in
+digit n+j for <span
+class="math inline"><em>v</em><sub><em>i</em></sub><sup>′</sup></span></li>
+</ul></li>
+<li>Put a 3 in digit n+j of t</li>
+<li>Use <span
+class="math inline"><em>s</em><sub><em>j</em></sub>, <em>s</em><sub><em>j</em></sub><sup>′</sup></span>
+as buffers
+<ul>
+<li>put a 1 in digit n+j of <span
+class="math inline"><em>s</em><sub><em>j</em></sub></span> &amp; <span
+class="math inline"><em>s</em><sub><em>j</em></sub><sup>′</sup></span></li>
+</ul></li>
+<li>put a 0 in digit n+j of all other numbers</li>
+</ul>
+<blockquote>
+<p><strong>Reduction correctness.</strong> Subset-Sum has a solution
+<span class="math inline">⇔</span> the 3SAT formula <span
+class="math inline"><em>f</em></span> is satisfiable. We prove both
+directions below.</p>
+</blockquote>
+<p><strong>(<span class="math inline">⟹</span>) Take solution S to
+subset sum.</strong><br />
+For digit i where <span
+class="math inline">1 ≤ <em>i</em> ≤ <em>n</em></span>:</p>
+<ul>
+<li>to get 1 in digit i: include <span
+class="math inline"><em>v</em><sub><em>i</em></sub></span> or <span
+class="math inline"><em>v</em><sub><em>i</em></sub><sup>′</sup></span>
+<strong>but not both</strong>
+<ul>
+<li>if <span
+class="math inline"><em>v</em><sub><em>i</em></sub> ∈ <em>S</em></span>
+then set <span
+class="math inline"><em>x</em><sub><em>i</em></sub> = <em>T</em></span></li>
+<li>if <span
+class="math inline"><em>v</em><sub><em>i</em></sub><sup>′</sup> ∈ <em>S</em></span>
+then set <span
+class="math inline"><em>x</em><sub><em>i</em></sub> = <em>F</em></span></li>
+</ul></li>
+<li>This yields the required assignment, next we demonstrate that it is
+satisfying</li>
+</ul>
+<p>We just saw, if we take a solution to the subset sum instances that
+we specified, then using the first n digits that specifies a true-false
+assignment for the n variables <span
+class="math inline"><em>x</em><sub>1</sub></span> through <span
+class="math inline"><em>x</em><sub><em>n</em></sub></span>.</p>
+<p>Now, using the remaining m digits, we're going to show that that
+assignment that we just specify corresponds to a satisfying assignment.
+It satisfies the input formula f. The first n digits correspond to the
+variables, and the next m digits correspond to clauses. So let's look at
+digit n+j, where j varies between one and n, so digit n+j corresponds to
+clause <span
+class="math inline"><em>C</em><sub><em>j</em></sub></span>.</p>
+<p>In our definition of the subsets sum instance, we put a three in
+digit n+j of t. So we need to achieve a sum of 3 in digit n+j. In order
+to get a sum of three in n+j, we have to include at least one of the
+numbers corresponding to the literal appearing in clause <span
+class="math inline"><em>C</em><sub><em>j</em></sub></span>. If we
+satisfy exactly one literal in <span
+class="math inline"><em>C</em><sub><em>j</em></sub></span>, then we use
+both <span class="math inline"><em>s</em><sub><em>j</em></sub></span>
+and <span
+class="math inline"><em>s</em><sub><em>j</em></sub><sup>′</sup></span>
+as buffer numbers and get 3. If we satisfy exactly two literals in this
+clause, then we either include <span
+class="math inline"><em>s</em><sub><em>j</em></sub></span> and <span
+class="math inline"><em>s</em><sub><em>j</em></sub><sup>′</sup></span>
+in our subset S, and that gives us a sum of three. If we satisfy exactly
+three literals in this clause, then we don't need to use either of these
+buffer numbers, S_j or S_j prime. Just using these three satisfied
+literals gives us a sum of three in this digit n plus j. If we satisfy
+zero of the literals in this clause, then there is no way to achieve a
+sum of three, thus we don't have a solution to the subset sum problem.
+We're assuming we have a solution, therefore we must have at least one
+satisfied literal in this clause. Thus, C_j is satisfied and thus, every
+clause is satisfied. And therefore, we have a satisfying assignment for
+f.</p>
+<p>So we've shown that a solution to this subset sum instance
+corresponds to a satisfying assignment for our 3SAT formula. And we've
+actually shown how to transform this solution to the subset sum problem
+to find the satisfying assignment to the 3SAT's formula. Now let's prove
+the reverse implication. Let's prove that if we have a satisfying
+assignment for this 3SAT formula, it corresponds to the solution to the
+subset sum problem.</p>
+<p><span class="math inline">⟸</span> Let's take a satisfying assignment
+for f<br />
+We'll construct a solution to the subset-sum instance in the following
+manner.</p>
+<ul>
+<li><p>In our satisfying assignment</p>
+<ul>
+<li>if <span
+class="math inline"><em>x</em><sub><em>i</em></sub> = <em>T</em></span>:
+Add <span class="math inline"><em>v</em><sub><em>i</em></sub></span> to
+S</li>
+<li>if <span
+class="math inline"><em>x</em><sub><em>i</em></sub> = <em>F</em></span>:
+Add <span
+class="math inline"><em>v</em><sub><em>i</em></sub><sup>′</sup></span>
+to S</li>
+<li>This means that the i'th digit of t is exactly 1, so the i'th digit
+of t is correct</li>
+</ul></li>
+<li><p>Now let's look at the jth clause.</p>
+<ul>
+<li>for clause <span
+class="math inline"><em>C</em><sub><em>j</em></sub></span>, <span
+class="math inline"> ≥ 1</span> literal in <span
+class="math inline"><em>C</em><sub><em>j</em></sub></span> is
+satisfied</li>
+<li>The sum corresponding to these literals give us a sum of 1, 2, or 3
+in digit n+j.</li>
+<li>but recall that t has a 3 in each of the n+j digits</li>
+<li>so we can use S to the jth and/or S to the jth prime to get up to a
+sum of three</li>
+<li>This ensures that digit n+j is correct and thus the last m digits
+are correct and the first digits are correct.</li>
+</ul>
+<p>Therefore, we have a solution to the subset-sum instance. So we've
+proved this equivalence and we've proved that our reduction is
+correct.</p></li>
+</ul>
+<h5 id="knapsack">Knapsack</h5>
+<p>We leave it to the reader to prove that the knapsack problem is
+NP-Complete.<br />
+Some hints</p>
+<ul>
+<li>Use/build off the subset sum problem ( This will be your known
+NP-Complete problem )</li>
+<li>Use the correct version of Knapsack ( the one that lies in NP )</li>
+</ul>
+<h3 id="np5--halting-problem">NP5 — Halting Problem</h3>
+<h4 id="np5-halting-problem">NP5: Halting Problem</h4>
+<p><a
+href="https://en.wikipedia.org/wiki/Halting_problem">Wikipedia</a></p>
+<p>We've now seen many NP-complete problems. When a problem is
+NP-complete it signifies to us that it's computationally difficult.
+Formally what does that mean? That means it is the most difficult
+problem in the class NP. So, if we can solve this NP-complete problem in
+polynomial time, then we can solve all problems in the class NP in
+polynomial time. But there is literally thousands of problems in the
+class NP from all scientific fields it's unlikely that we're going to
+derive a polynomial time algorithm for our NP-complete problem.</p>
+<p>To be precise if P<span class="math inline">≠</span>NP, then that
+implies that there's no algorithm which can run in polynomial time on
+every input for this NP-complete problem. Notice the important
+distinction is on "every input". We may have an algorithm which takes
+polynomial time on some inputs or even on most inputs or almost every
+input, but there's no algorithm which is guaranteed to take polynomial
+time on every input.</p>
+<p>Now we're going to look at the class of <strong>undecidable</strong>
+problems — problems that are <em>computationally impossible</em>.</p>
+<blockquote>
+<p><strong>NP-complete vs undecidable.</strong> For an NP-complete
+problem it's <em>unlikely</em> we have a poly-time algorithm. For an
+<strong>undecidable</strong> problem there is <strong>no algorithm at
+all</strong> — for <em>any</em> running time, poly or exponential — that
+solves it on every input.</p>
+</blockquote>
+<blockquote>
+<p><strong>Theorem (Turing, 1936).</strong> The <strong>Halting
+Problem</strong> is <em>undecidable</em> on a Turing machine — and a
+Turing machine captures the power of a conventional computer.</p>
+</blockquote>
+<p>Now in 1936 the great Alan Turing proved that the halting problem is
+undecidable. And we're going to see the idea of that result now. Now
+this paper by Turing in 1936 introduced the notion which we now refer to
+as Turing Machine what Turing showed is that the halting problem is
+undecidable on a Turing Machine and a Turing Machine captures the power
+of a conventional computer. Now by conventional we're excluding things
+like quantum computer. Now later, many other problems were showed to be
+undecidable, but the halting problem is quite nice, so we're going to
+dive into that proof.</p>
+<h5 id="description">Description</h5>
+<p>Input to the Halting problem: Is a program P, and an input I</p>
+<ul>
+<li>This input can be almost anything computable. Pseudocode, python
+program or lisp. It's not limited to any language, although you can
+restrict it for some instance of the problem.</li>
+</ul>
+<p>Output of the Halting problem: True/False indicative of the program
+termination on the input</p>
+<ul>
+<li>In simpler terms all the Halting problem is concerned with is
+whether or not the program will terminate on the input I or if it will
+enter an infinite loop. It is not concerned with correctness. Another
+way to think of this is that the Halting problem answers the question:
+Will this program ever end?</li>
+</ul>
+<h5 id="example">Example</h5>
+<p>Let's consider a simple program in C</p>
+<pre><code>while ( x % 2 == 1){
+        x += 1
+    }</code></pre>
+<p>Suppose we use the input x=5, then we can easily see that x will
+always be odd, hence it will never terminate.</p>
+<ul>
+<li>so Halting(P,5) = False, since the program never ends using the
+input 5</li>
+</ul>
+<p>Now, let's prove the theorem that the halting problem is undecidable.
+The way we go about proving this theorem is by contradiction.</p>
+<p><strong>PROOF Outline</strong></p>
+<p>Suppose that we had an algorithm that solves the halting problem on
+every input. Now we're going to derive a contradiction and therefore,
+our assumption that there exists an algorithm which solves the halting
+problem is not true. And therefore, there is no algorithm which solves
+the halting problem.</p>
+<p>What we're going to do is for this particular algorithm which solves
+the halting problem, we're going to construct an input for which this
+algorithm is incorrect. And therefore, our assumption that this
+algorithm solves the halting problem on every input is incorrect. thus
+we have a contradiction and have proven the theorem.</p>
+<h5 id="proof">Proof</h5>
+<p>So let's call this algorithm "Terminator". Terminator takes a pair of
+inputs, P and I. where P is a program, and I is an input for this
+program, and Terminator outputs true or false depending on whether this
+program P, on this particular input I, terminates eventually or not.</p>
+<ul>
+<li>If it eventually terminates, then an output is true.</li>
+<li>If it has an infinite loop, then an output is false.</li>
+</ul>
+<p>Recall that we assumed that Terminator is correct, ie it solves the
+halting problem for every program P, and every input I.</p>
+<p>Now we're going to construct a program Q and an input J, and we're
+going to show that when we run Terminator on this input pair Q, J, then
+its output/result is incorrect. Since Terminator is incorrect on this
+pair of inputs, therefore, Terminator does not solve the halting problem
+on every input. This gives us our contradiction, and therefore, that
+would complete the proof by contradiction.</p>
+<p>How can we hope to construct this program Q? Well, one important
+piece is that we're assuming the existence of this program, Terminator.
+So we can use this algorithm, Terminator as a subroutine in our new
+algorithm Q. Now I don't know anything about the inner workings of
+Terminator so I have to use it as a black box, but I can use this as a
+subroutine. So we're going to use it as a subroutine to get our paradox
+or contradiction.</p>
+<p>Let's consider the following constructed program</p>
+<pre><code>HARMFUL(J):
+1:    if TERMINATOR(J,J)  /* J is both the program as well the input */ 
+2:        then GOTO(1)
+3:     else return</code></pre>
+<p>Remember that Terminator here is being used as a black box. All that
+matters is that it returns a boolean. Furthermore there is bit of a
+paradox happening here. In order to hit the else condition, terminator
+must return false. Which would imply that the terminator program
+encountered an infinite loop .... so how did it return?</p>
+<p>(Incidentally: This program is named after an article by Dijkstra in
+1968: "goto statement considered harmful")</p>
+<p>Terminator(J,J): runs program J on input J</p>
+<ul>
+<li>returns TRUE if J(J) terminates</li>
+<li>returns FALSE if J(J) never terminates</li>
+</ul>
+<p>This leads to two possible scenarios which we must examine</p>
+<ul>
+<li>if J(J) terminates: then Harmful(J) will never terminate</li>
+<li>if J(J) never terminates: then Harmful(J) will terminate</li>
+</ul>
+<p>What if we passed the Harmful program to the Harmful program? ie
+HARMFUL(HARMFUL)</p>
+<p>Let J = HARMFUL then</p>
+<ul>
+<li><strong>Scenario A:</strong> Harmful(J) terminates ⟹
+Harmful(Harmful) never terminates
+<ul>
+<li>an obvious contradiction</li>
+</ul></li>
+<li><strong>Scenario B:</strong> Harmful(J) never terminates ⟹
+Harmful(Harmful) terminates
+<ul>
+<li>another obvious contradiction</li>
+</ul></li>
+</ul>
+<blockquote>
+<p><strong>Conclusion.</strong> In <em>both</em> cases we reach a
+contradiction, so the assumption that <strong>Terminator()</strong>
+exists is impossible. The Halting Problem is undecidable. ∎</p>
+</blockquote>
+<!-- WEEK-EXTRAS:START -->
+
+<h2 id="dpv-chapter-exercises">DPV chapter exercises</h2>
+<details>
+<summary><b>DPV chapter exercises (exact, from the textbook)</b></summary>
+
+<p><em>Exact end-of-chapter exercises, parsed from the DPV chapter
+PDFs.</em></p>
+<p><strong>DPV Ch 7 — Linear Programming</strong> — <a
+href="../../textbooks/examples-md/07-linear-programming-dpv-examples.html">open
+exercises</a> · <a href="readings/DPV-ch7-examples.pdf">chapter
+PDF</a></p>
+<iframe class="examples-frame" src="../../textbooks/examples-md/07-linear-programming-dpv-examples.html" title="DPV Ch 7 — Linear Programming exercises"></iframe>
+
+<p><strong>DPV Ch 8 — Np Complete Problems</strong> — <a
+href="../../textbooks/examples-md/08-np-complete-problems-dpv-examples.html">open
+exercises</a> · <a href="readings/DPV-ch8-examples.pdf">chapter
+PDF</a></p>
+<iframe class="examples-frame" src="../../textbooks/examples-md/08-np-complete-problems-dpv-examples.html" title="DPV Ch 8 — Np Complete Problems exercises"></iframe>
+
+<p><strong>DPV Ch 9 — Coping With Np Completeness</strong> — <a
+href="../../textbooks/examples-md/09-coping-with-np-completeness-dpv-examples.html">open
+exercises</a> · <a href="readings/DPV-ch9-examples.pdf">chapter
+PDF</a></p>
+<iframe class="examples-frame" src="../../textbooks/examples-md/09-coping-with-np-completeness-dpv-examples.html" title="DPV Ch 9 — Coping With Np Completeness exercises"></iframe>
+
+</details>
+
+<!-- WEEK-EXTRAS:END -->
+
+<h2 id="agent-hint">Agent hint</h2>
+<p>Approximation → relax ILP→LP, round, prove the ratio against <span
+class="math inline">OPT<sub><em>L</em><em>P</em></sub></span>. "No
+algorithm" = undecidable (Halting), not just NP-hard. Knapsack DP is
+pseudo-polynomial; FPTAS for true poly. <strong>Exam 3 (W8–10) opens
+this week.</strong></p>
+</main>
+
+<!-- code highlighting -->
+<link rel="modulepreload" href="../../vendor/mermaid/mermaid.esm.min.mjs">
+<script src="../../vendor/highlight/highlight.min.js"></script>
+<!-- math -->
+<script defer src="../../vendor/katex/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="../../vendor/katex/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+<script type="module">
+  // 1) Normalize mermaid blocks. Pandoc(gfm) emits <pre class="mermaid"><code>...</code></pre>.
+  //    Flatten to raw source text so mermaid parses cleanly; also catch the code-only variant.
+  document.querySelectorAll('pre > code.language-mermaid, pre > code.mermaid').forEach(c => {
+    const p = document.createElement('pre'); p.className = 'mermaid'; p.textContent = c.textContent;
+    c.parentElement.replaceWith(p);
+  });
+  document.querySelectorAll('pre.mermaid').forEach(p => { p.textContent = p.textContent; });
+  // 2) Syntax-highlight every code block EXCEPT mermaid (auto-detect language)
+  if (window.hljs) document.querySelectorAll('pre:not(.mermaid) > code').forEach(el => window.hljs.highlightElement(el));
+  // 3) Render mermaid (dark)
+  try {
+    const mermaid = (await import('../../vendor/mermaid/mermaid.esm.min.mjs')).default;
+    mermaid.initialize({ startOnLoad: false, theme: 'dark', securityLevel: 'loose' });
+    await mermaid.run({ querySelector: 'pre.mermaid' });
+  } catch (e) { /* offline: leave as text */ }
+</script>
+<script>
+  // 4) Math: render \( \) and \[ \] (pandoc converts dollar-math to these). Tolerate malformed legacy TeX.
+  window.addEventListener('DOMContentLoaded', () => {
+    if (window.renderMathInElement) renderMathInElement(document.querySelector('.content'), {
+      // dollar-delimiters included so KaTeX also renders math pandoc failed to parse (left raw):
+      // a space before a closing delim, cases-env inline, apostrophes in text, etc. Display before inline.
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '\\[', right: '\\]', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false }
+      ],
+      throwOnError: false,
+      // \n is used in the legacy notes as a homemade "arrow over" (directed edge); map it to \overrightarrow.
+      macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
+    });
+  });
+</script>
+</body>
+</html>

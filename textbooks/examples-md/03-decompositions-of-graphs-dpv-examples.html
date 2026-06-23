@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DPV ch03 exercises — CS6515</title>
+<link rel="stylesheet" href="../../vendor/fonts/fonts.css">
+<link rel="stylesheet" href="../../theme.css">
+<link rel="stylesheet" href="../../vendor/katex/katex.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="../../vendor/highlight/styles/tokyo-night-dark.min.css">
+
+</head>
+<body>
+<header class="topbar">
+  <a class="home" href="../../index.html">CS6515</a>
+  <span class="crumbloc">DPV ch03 exercises</span>
+</header>
+<main class="content">
+<!-- toc:start -->
+
+<h2 id="table-of-contents">Table of Contents</h2>
+<ul>
+<li><a href="#exercises">Exercises</a></li>
+</ul>
+<!-- toc:end -->
+
+<h2 id="exercises">Exercises</h2>
+<h3 id="31">3.1</h3>
+<p>Perform a depth-first search on the following graph; whenever there's
+a choice of vertices, pick the one that is alphabetically first.
+Classify each edge as a tree edge or back edge, and give the pre and
+post number of each vertex. <img
+src="../../.assets/remote/eb5dd3e7f21a00e9.jpg" /></p>
+<h3 id="32">3.2</h3>
+<p>Perform depth-first search on each of the following graphs; whenever
+there's a choice of vertices, pick the one that is alphabetically first.
+Classify each edge as a tree edge, forward edge, back edge, or cross
+edge, and give the pre and post number of each vertex.</p>
+<p><strong>(a)</strong> <img
+src="../../.assets/remote/4d7ab863ce714696.jpg" /></p>
+<p><strong>(b)</strong> <img
+src="../../.assets/remote/998b1197333e15e1.jpg" /></p>
+<h3 id="33">3.3</h3>
+<p>Run the DFS-based topological ordering algorithm on the following
+graph. Whenever you have a choice of vertices to explore, always pick
+the one that is alphabetically first. <img
+src="../../.assets/remote/92fbfdad3b455fdf.jpg" /></p>
+<p><strong>(a)</strong> Indicate the pre and post numbers of the
+nodes.</p>
+<p><strong>(b)</strong> What are the sources and sinks of the graph?</p>
+<p><strong>(c)</strong> What topological ordering is found by the
+algorithm?</p>
+<p><strong>(d)</strong> How many topological orderings does this graph
+have?</p>
+<h3 id="34">3.4</h3>
+<p>Run the strongly connected components algorithm on the following
+directed graphs <span class="math inline"><em>G</em></span>. When doing
+DFS on <span class="math inline"><em>G</em><sup><em>R</em></sup></span>
+: whenever there is a choice of vertices to explore, always pick the one
+that is alphabetically first. <img
+src="../../.assets/remote/a1fdf724de30b1c1.jpg" /></p>
+<p>In each case answer the following questions.</p>
+<p><strong>(a)</strong> In what order are the strongly connected
+components (SCCs) found?</p>
+<p><strong>(b)</strong> Which are source SCCs and which are sink
+SCCs?</p>
+<p><strong>(c)</strong> Draw the "metagraph" (each meta-node is an SCC
+of <span class="math inline"><em>G</em></span> ).</p>
+<p><strong>(d)</strong> What is the minimum number of edges you must add
+to this graph to make it strongly connected?</p>
+<h3 id="35">3.5</h3>
+<p>The reverse of a directed graph <span
+class="math inline"><em>G</em> = (<em>V</em>, <em>E</em>)</span> is
+another directed graph <span
+class="math inline"><em>G</em><sup><em>R</em></sup> = (<em>V</em>, <em>E</em><sup><em>R</em></sup>)</span>
+on the same vertex set, but with all edges reversed; that is, <span
+class="math inline"><em>E</em><sup><em>R</em></sup> = {(<em>v</em>, <em>u</em>) : (<em>u</em>, <em>v</em>) ∈ <em>E</em>}</span>.
+Give a linear-time algorithm for computing the reverse of a graph in
+adjacency list format.</p>
+<h3 id="36">3.6</h3>
+<p>In an undirected graph, the degree <span
+class="math inline"><em>d</em>(<em>u</em>)</span> of a vertex <span
+class="math inline"><em>u</em></span> is the number of neighbors <span
+class="math inline"><em>u</em></span> has, or equivalently, the number
+of edges incident upon it. In a directed graph, we distinguish between
+the indegree <span class="math inline"><em>d</em><sub>in
+</sub>(<em>u</em>)</span>, which is the number of edges into <span
+class="math inline"><em>u</em></span>, and the outdegree <span
+class="math inline"><em>d</em><sub>out </sub>(<em>u</em>)</span>, the
+number of edges leaving <span class="math inline"><em>u</em></span>.</p>
+<p><strong>(a)</strong> Show that in an undirected graph, <span
+class="math inline">∑<sub><em>u</em> ∈ <em>V</em></sub><em>d</em>(<em>u</em>) = 2|<em>E</em>|</span>.</p>
+<p><strong>(b)</strong> Use part (a) to show that in an undirected
+graph, there must be an even number of vertices whose degree is odd.</p>
+<p><strong>(c)</strong> Does a similar statement hold for the number of
+vertices with odd indegree in a directed graph?</p>
+<h3 id="37">3.7</h3>
+<p>A bipartite graph is a graph <span
+class="math inline"><em>G</em> = (<em>V</em>, <em>E</em>)</span> whose
+vertices can be partitioned into two sets ( <span
+class="math inline"><em>V</em> = <em>V</em><sub>1</sub> ∪ <em>V</em><sub>2</sub></span>
+and <span
+class="math inline"><em>V</em><sub>1</sub> ∩ <em>V</em><sub>2</sub> = ∅</span>
+) such that there are no edges between vertices in the same set (for
+instance, if <span
+class="math inline"><em>u</em>, <em>v</em> ∈ <em>V</em><sub>1</sub></span>,
+then there is no edge between <span
+class="math inline"><em>u</em></span> and <span
+class="math inline"><em>v</em></span> ).</p>
+<p><strong>(a)</strong> Give a linear-time algorithm to determine
+whether an undirected graph is bipartite.</p>
+<p><strong>(b)</strong> There are many other ways to formulate this
+property. For instance, an undirected graph is bipartite if and only if
+it can be colored with just two colors. Prove the following formulation:
+an undirected graph is bipartite if and only if it contains no cycles of
+odd length.</p>
+<p><strong>(c)</strong> At most how many colors are needed to color in
+an undirected graph with exactly one oddlength cycle?</p>
+<h3 id="38">3.8</h3>
+<p>Pouring water. We have three containers whose sizes are 10 pints, 7
+pints, and 4 pints, respectively. The 7 -pint and 4 -pint containers
+start out full of water, but the 10 -pint container is initially empty.
+We are allowed one type of operation: pouring the contents of one
+container into another, stopping only when the source container is empty
+or the destination container is full. We want to know if there is a
+sequence of pourings that leaves exactly 2 pints in the 7 - or 4 -pint
+container.</p>
+<p><strong>(a)</strong> Model this as a graph problem: give a precise
+definition of the graph involved and state the specific question about
+this graph that needs to be answered.</p>
+<p><strong>(b)</strong> What algorithm should be applied to solve the
+problem?</p>
+<p><strong>(c)</strong> Find the answer by applying the algorithm.</p>
+<h3 id="39">3.9</h3>
+<p>For each node <span class="math inline"><em>u</em></span> in an
+undirected graph, let twodegree[ <span
+class="math inline"><em>u</em></span> ] be the sum of the degrees of
+<span class="math inline"><em>u</em></span> 's neighbors. Show how to
+compute the entire array of twodegree[•] values in linear time, given a
+graph in adjacency list format.</p>
+<h3 id="310">3.10</h3>
+<p>Rewrite the explore procedure (Figure 3.3) so that it is
+non-recursive (that is, explicitly use a stack). The calls to previsit
+and postvisit should be positioned so that they have the same effect as
+in the recursive procedure.</p>
+<h3 id="311">3.11</h3>
+<p>Design a linear-time algorithm which, given an undirected graph <span
+class="math inline"><em>G</em></span> and a particular edge <span
+class="math inline"><em>e</em></span> in it, determines whether <span
+class="math inline"><em>G</em></span> has a cycle containing <span
+class="math inline"><em>e</em></span>.</p>
+<h3 id="312">3.12</h3>
+<p>Either prove or give a counterexample: if <span
+class="math inline">{<em>u</em>, <em>v</em>}</span> is an edge in an
+undirected graph, and during depth-first search post <span
+class="math inline">(<em>u</em>) &lt; post (<em>v</em>)</span>, then
+<span class="math inline"><em>v</em></span> is an ancestor of <span
+class="math inline"><em>u</em></span> in the DFS tree.</p>
+<h3 id="313">3.13</h3>
+<p>Undirected vs. directed connectivity.</p>
+<p><strong>(a)</strong> Prove that in any connected undirected graph
+<span class="math inline"><em>G</em> = (<em>V</em>, <em>E</em>)</span>
+there is a vertex <span
+class="math inline"><em>v</em> ∈ <em>V</em></span> whose removal leaves
+<span class="math inline"><em>G</em></span> connected. (Hint: Consider
+the DFS search tree for <span
+class="math inline"><em>G</em></span>.)</p>
+<p><strong>(b)</strong> Give an example of a strongly connected directed
+graph <span
+class="math inline"><em>G</em> = (<em>V</em>, <em>E</em>)</span> such
+that, for every <span
+class="math inline"><em>v</em> ∈ <em>V</em></span>, removing <span
+class="math inline"><em>v</em></span> from <span
+class="math inline"><em>G</em></span> leaves a directed graph that is
+not strongly connected.</p>
+<p><strong>(c)</strong> In an undirected graph with 2 connected
+components it is always possible to make the graph connected by adding
+only one edge. Give an example of a directed graph with two strongly
+connected components such that no addition of one edge can make the
+graph strongly connected.</p>
+<h3 id="314">3.14</h3>
+<p>The chapter suggests an alternative algorithm for linearization
+(topological sorting), which repeatedly removes source nodes from the
+graph (page 101). Show that this algorithm can be implemented in linear
+time.</p>
+<h3 id="315">3.15</h3>
+<p>The police department in the city of Computopia has made all streets
+one-way. The mayor contends that there is still a way to drive legally
+from any intersection in the city to any other intersection, but the
+opposition is not convinced. A computer program is needed to determine
+whether the mayor is right. However, the city elections are coming up
+soon, and there is just enough time to run a linear-time algorithm.</p>
+<p><strong>(a)</strong> Formulate this problem graph-theoretically, and
+explain why it can indeed be solved in linear time.</p>
+<p><strong>(b)</strong> Suppose it now turns out that the mayor's
+original claim is false. She next claims something weaker: if you start
+driving from town hall, navigating one-way streets, then no matter where
+you reach, there is always a way to drive legally back to the town hall.
+Formulate this weaker property as a graph-theoretic problem, and
+carefully show how it too can be checked in linear time.</p>
+<h3 id="316">3.16</h3>
+<p>Suppose a CS curriculum consists of <span
+class="math inline"><em>n</em></span> courses, all of them mandatory.
+The prerequisite graph <span class="math inline"><em>G</em></span> has a
+node for each course, and an edge from course <span
+class="math inline"><em>v</em></span> to course <span
+class="math inline"><em>w</em></span> if and only if <span
+class="math inline"><em>v</em></span> is a prerequisite for <span
+class="math inline"><em>w</em></span>. Find an algorithm that works
+directly with this graph representation, and computes the minimum number
+of semesters necessary to complete the curriculum (assume that a student
+can take any number of courses in one semester). The running time of
+your algorithm should be linear.</p>
+<h3 id="317">3.17</h3>
+<p>Infinite paths. Let <span
+class="math inline"><em>G</em> = (<em>V</em>, <em>E</em>)</span> be a
+directed graph with a designated "start vertex" <span
+class="math inline"><em>s</em> ∈ <em>V</em></span>, a set <span
+class="math inline"><em>V</em><sub><em>G</em></sub> ⊆ <em>V</em></span>
+of "good" vertices, and a set <span
+class="math inline"><em>V</em><sub><em>B</em></sub> ⊆ <em>V</em></span>
+of "bad" vertices. An infinite trace <span
+class="math inline"><em>p</em></span> of <span
+class="math inline"><em>G</em></span> is an infinite sequence <span
+class="math inline"><em>v</em><sub>0</sub><em>v</em><sub>1</sub><em>v</em><sub>2</sub>⋯</span>
+of vertices <span
+class="math inline"><em>v</em><sub><em>i</em></sub> ∈ <em>V</em></span>
+such that (1) <span
+class="math inline"><em>v</em><sub>0</sub> = <em>s</em></span>, and (2)
+for all <span
+class="math inline"><em>i</em> ≥ 0, (<em>v</em><sub><em>i</em></sub>, <em>v</em><sub><em>i</em> + 1</sub>) ∈ <em>E</em></span>.
+That is, <span class="math inline"><em>p</em></span> is an infinite path
+in <span class="math inline"><em>G</em></span> starting at vertex <span
+class="math inline"><em>s</em></span>. Since the set <span
+class="math inline"><em>V</em></span> of vertices is finite, every
+infinite trace of <span class="math inline"><em>G</em></span> must visit
+some vertices infinitely often.</p>
+<p><strong>(a)</strong> If <span class="math inline"><em>p</em></span>
+is an infinite trace, let <span
+class="math inline">In <em>f</em>(<em>p</em>) ⊆ <em>V</em></span> be the
+set of vertices that occur infinitely often in <span
+class="math inline"><em>p</em></span>. Show that <span
+class="math inline">Inf (<em>p</em>)</span> is a subset of a strongly
+connected component of <span class="math inline"><em>G</em></span>.</p>
+<p><strong>(b)</strong> Describe an algorithm that determines if <span
+class="math inline"><em>G</em></span> has an infinite trace.</p>
+<p><strong>(c)</strong> Describe an algorithm that determines if <span
+class="math inline"><em>G</em></span> has an infinite trace that visits
+some good vertex in <span
+class="math inline"><em>V</em><sub><em>G</em></sub></span> infinitely
+often.</p>
+<p><strong>(d)</strong> Describe an algorithm that determines if <span
+class="math inline"><em>G</em></span> has an infinite trace that visits
+some good vertex in <span
+class="math inline"><em>V</em><sub><em>G</em></sub></span> infinitely
+often, but visits no bad vertex in <span
+class="math inline"><em>V</em><sub><em>B</em></sub></span> infinitely
+often.</p>
+<h3 id="318">3.18</h3>
+<p>You are given a binary tree <span
+class="math inline"><em>T</em> = (<em>V</em>, <em>E</em>)</span> (in
+adjacency list format), along with a designated root node <span
+class="math inline"><em>r</em> ∈ <em>V</em></span>. Recall that <span
+class="math inline"><em>u</em></span> is said to be an ancestor of <span
+class="math inline"><em>v</em></span> in the rooted tree, if the path
+from <span class="math inline"><em>r</em></span> to <span
+class="math inline"><em>v</em></span> in <span
+class="math inline"><em>T</em></span> passes through <span
+class="math inline"><em>u</em></span>. You wish to preprocess the tree
+so that queries of the form "is <span
+class="math inline"><em>u</em></span> an ancestor of <span
+class="math inline"><em>v</em></span> ?" can be answered in constant
+time. The preprocessing itself should take linear time. How can this be
+done?</p>
+<h3 id="319">3.19</h3>
+<p>As in the previous problem, you are given a binary tree <span
+class="math inline"><em>T</em> = (<em>V</em>, <em>E</em>)</span> with
+designated root node. In addition, there is an array <span
+class="math inline"><em>x</em>[⋅]</span> with a value for each node in
+<span class="math inline"><em>V</em></span>. Define a new array <span
+class="math inline"><em>z</em>[⋅]</span> as follows: for each <span
+class="math inline"><em>u</em> ∈ <em>V</em></span>,</p>
+<p><span class="math display"><em>z</em>[<em>u</em>] =  the maximum of
+the <em>x</em>-values associated with <em>u</em> ’s descendants.
+</span></p>
+<p>Give a linear-time algorithm which calculates the entire <span
+class="math inline"><em>z</em></span>-array.</p>
+<h3 id="320">3.20</h3>
+<p>You are given a tree <span
+class="math inline"><em>T</em> = (<em>V</em>, <em>E</em>)</span> along
+with a designated root node <span
+class="math inline"><em>r</em> ∈ <em>V</em></span>. The parent of any
+node <span class="math inline"><em>v</em> ≠ <em>r</em></span>, denoted
+<span class="math inline"><em>p</em>(<em>v</em>)</span>, is defined to
+be the node adjacent to <span class="math inline"><em>v</em></span> in
+the path from <span class="math inline"><em>r</em></span> to <span
+class="math inline"><em>v</em></span>. By convention, <span
+class="math inline"><em>p</em>(<em>r</em>) = <em>r</em></span>. For
+<span class="math inline"><em>k</em> &gt; 1</span>, define <span
+class="math inline"><em>p</em><sup><em>k</em></sup>(<em>v</em>) = <em>p</em><sup><em>k</em> − 1</sup>(<em>p</em>(<em>v</em>))</span>
+and <span
+class="math inline"><em>p</em><sup>1</sup>(<em>v</em>) = <em>p</em>(<em>v</em>)</span>
+(so <span
+class="math inline"><em>p</em><sup><em>k</em></sup>(<em>v</em>)</span>
+is the <span class="math inline"><em>k</em></span> th ancestor of <span
+class="math inline"><em>v</em></span> ). Each vertex <span
+class="math inline"><em>v</em></span> of the tree has an associated
+non-negative integer label <span
+class="math inline"><em>l</em>(<em>v</em>)</span>. Give a linear-time
+algorithm to update the labels of all the vertices in <span
+class="math inline"><em>T</em></span> according to the following rule:
+<span class="math inline"><em>l</em><sub>new
+</sub>(<em>v</em>) = <em>l</em>(<em>p</em><sup><em>l</em>(<em>v</em>)</sup>(<em>v</em>))</span>.</p>
+<h3 id="321">3.21</h3>
+<p>Give a linear-time algorithm to find an odd-length cycle in a
+directed graph. (Hint: First solve this problem under the assumption
+that the graph is strongly connected.)</p>
+<h3 id="322">3.22</h3>
+<p>Give an efficient algorithm which takes as input a directed graph
+<span class="math inline"><em>G</em> = (<em>V</em>, <em>E</em>)</span>,
+and determines whether or not there is a vertex <span
+class="math inline"><em>s</em> ∈ <em>V</em></span> from which all other
+vertices are reachable.</p>
+<h3 id="323">3.23</h3>
+<p>Give an efficient algorithm that takes as input a directed acyclic
+graph <span
+class="math inline"><em>G</em> = (<em>V</em>, <em>E</em>)</span>, and
+two vertices <span
+class="math inline"><em>s</em>, <em>t</em> ∈ <em>V</em></span>, and
+outputs the number of different directed paths from <span
+class="math inline"><em>s</em></span> to <span
+class="math inline"><em>t</em></span> in <span
+class="math inline"><em>G</em></span>.</p>
+<h3 id="324">3.24</h3>
+<p>Give a linear-time algorithm for the following task.</p>
+<p><strong>Input:</strong> A directed acyclic graph <span
+class="math inline"><em>G</em></span></p>
+<p><strong>Question:</strong> Does <span
+class="math inline"><em>G</em></span> contain a directed path that
+touches every vertex exactly once?</p>
+<h3 id="325">3.25</h3>
+<p>You are given a directed graph in which each node <span
+class="math inline"><em>u</em> ∈ <em>V</em></span> has an associated
+price <span class="math inline"><em>p</em><sub><em>u</em></sub></span>
+which is a positive integer. Define the array cost as follows: for each
+<span class="math inline"><em>u</em> ∈ <em>V</em></span>,</p>
+<p><span class="math display">cost [<em>u</em>] =  price of the cheapest
+node reachable from <em>u</em> (including <em>u</em> itself).
+</span></p>
+<p>For instance, in the graph below (with prices shown for each vertex),
+the cost values of the nodes <span
+class="math inline"><em>A</em>, <em>B</em>, <em>C</em>, <em>D</em>, <em>E</em>, <em>F</em></span>
+are <span class="math inline">2, 1, 4, 1, 4, 5</span>, respectively.
+<img
+src="../../.assets/remote/f2c44f577e96d679.jpg" /></p>
+<p>Your goal is to design an algorithm that fills in the entire cost
+array (i.e., for all vertices).</p>
+<p><strong>(a)</strong> Give a linear-time algorithm that works for
+directed acyclic graphs. (Hint: Handle the vertices in a particular
+order.)</p>
+<p><strong>(b)</strong> Extend this to a linear-time algorithm that
+works for all directed graphs. (Hint: Recall the "two-tiered" structure
+of directed graphs.)</p>
+<h3 id="326">3.26</h3>
+<p>An Eulerian tour in an undirected graph is a cycle that is allowed to
+pass through each vertex multiple times, but must use each edge exactly
+once.</p>
+<p>This simple concept was used by Euler in 1736 to solve the famous
+Konigsberg bridge problem, which launched the field of graph theory. The
+city of Konigsberg (now called Kaliningrad, in western Russia) is the
+meeting point of two rivers with a small island in the middle. There are
+seven bridges across the rivers, and a popular recreational question of
+the time was to determine whether it is possible to perform a tour in
+which each bridge is crossed exactly once.</p>
+<p>Euler formulated the relevant information as a graph with four nodes
+(denoting land masses) and seven edges (denoting bridges), as shown
+here. <img
+src="../../.assets/remote/6f80e4209d5ddc7a.jpg" /></p>
+<p>Notice an unusual feature of this problem: multiple edges between
+certain pairs of nodes.</p>
+<p><strong>(a)</strong> Show that an undirected graph has an Eulerian
+tour if and only if all its vertices have even degree. Conclude that
+there is no Eulerian tour of the Konigsberg bridges.</p>
+<p><strong>(b)</strong> An Eulerian path is a path which uses each edge
+exactly once. Can you give a similar if-and-only-if characterization of
+which undirected graphs have Eulerian paths?</p>
+<p><strong>(c)</strong> Can you give an analog of part (a) for directed
+graphs?</p>
+<h3 id="327">3.27</h3>
+<p>Two paths in a graph are called edge-disjoint if they have no edges
+in common. Show that in any undirected graph, it is possible to pair up
+the vertices of odd degree and find paths between each such pair so that
+all these paths are edge-disjoint.</p>
+<h3 id="328">3.28</h3>
+<p>In the 2SAT problem, you are given a set of clauses, where each
+clause is the disjunction (OR) of two literals (a literal is a Boolean
+variable or the negation of a Boolean variable). You are looking for a
+way to assign a value true or false to each of the variables so that all
+clauses are satisfied - that is, there is at least one true literal in
+each clause. For example, here's an instance of 2SAT:</p>
+<p><span
+class="math display">(<em>x</em><sub>1</sub> ∨ <em>x̄</em><sub>2</sub>) ∧ (<em>x̄</em><sub>1</sub> ∨ <em>x̄</em><sub>3</sub>) ∧ (<em>x</em><sub>1</sub> ∨ <em>x</em><sub>2</sub>) ∧ (<em>x̄</em><sub>3</sub> ∨ <em>x</em><sub>4</sub>) ∧ (<em>x̄</em><sub>1</sub> ∨ <em>x</em><sub>4</sub>).</span></p>
+<p>This instance has a satisfying assignment: set <span
+class="math inline"><em>x</em><sub>1</sub>, <em>x</em><sub>2</sub>, <em>x</em><sub>3</sub></span>,
+and <span class="math inline"><em>x</em><sub>4</sub></span> to true,
+false, false, and true, respectively.</p>
+<p><strong>(a)</strong> Are there other satisfying truth assignments of
+this 2SAT formula? If so, find them all.</p>
+<p><strong>(b)</strong> Give an instance of 2SAT with four variables,
+and with no satisfying assignment.</p>
+<p>The purpose of this problem is to lead you to a way of solving 2SAT
+efficiently by reducing it to the problem of finding the strongly
+connected components of a directed graph. Given an instance <span
+class="math inline"><em>I</em></span> of 2SAT with <span
+class="math inline"><em>n</em></span> variables and <span
+class="math inline"><em>m</em></span> clauses, construct a directed
+graph <span
+class="math inline"><em>G</em><sub><em>I</em></sub> = (<em>V</em>, <em>E</em>)</span>
+as follows.</p>
+<ul>
+<li><span class="math inline"><em>G</em><sub><em>I</em></sub></span> has
+<span class="math inline">2<em>n</em></span> nodes, one for each
+variable and its negation.</li>
+<li><span class="math inline"><em>G</em><sub><em>I</em></sub></span> has
+<span class="math inline">2<em>m</em></span> edges: for each clause
+<span class="math inline">(<em>α</em> ∨ <em>β</em>)</span> of <span
+class="math inline"><em>I</em></span> (where <span
+class="math inline"><em>α</em>, <em>β</em></span> are literals), <span
+class="math inline"><em>G</em><sub><em>I</em></sub></span> has an edge
+from from the negation of <span class="math inline"><em>α</em></span> to
+<span class="math inline"><em>β</em></span>, and one from the negation
+of <span class="math inline"><em>β</em></span> to <span
+class="math inline"><em>α</em></span>.</li>
+</ul>
+<p>Note that the clause ( <span
+class="math inline"><em>α</em> ∨ <em>β</em></span> ) is equivalent to
+either of the implications <span
+class="math inline"><em>ᾱ</em> ⇒ <em>β</em></span> or <span
+class="math inline"><em>β̄</em> ⇒ <em>α</em></span>. In this sense, <span
+class="math inline"><em>G</em><sub><em>I</em></sub></span> records all
+implications in <span class="math inline"><em>I</em></span>.</p>
+<p><strong>(c)</strong> Carry out this construction for the instance of
+2SAT given above, and for the instance you constructed in (b).</p>
+<p><strong>(d)</strong> Show that if <span
+class="math inline"><em>G</em><sub><em>I</em></sub></span> has a
+strongly connected component containing both <span
+class="math inline"><em>x</em></span> and <span
+class="math inline"><em>x̄</em></span> for some variable <span
+class="math inline"><em>x</em></span>, then <span
+class="math inline"><em>I</em></span> has no satisfying assignment.</p>
+<p><strong>(e)</strong> Now show the converse of (d): namely, that if
+none of <span class="math inline"><em>G</em><sub><em>I</em></sub></span>
+'s strongly connected components contain both a literal and its
+negation, then the instance <span class="math inline"><em>I</em></span>
+must be satisfiable. (Hint: Assign values to the variables as follows:
+repeatedly pick a sink strongly connected component of <span
+class="math inline"><em>G</em><sub><em>I</em></sub></span>. Assign value
+true to all literals in the sink, assign false to their negations, and
+delete all of these. Show that this ends up discovering a satisfying
+assignment.)</p>
+<p><strong>(f)</strong> Conclude that there is a linear-time algorithm
+for solving 2SAT.</p>
+<h3 id="329">3.29</h3>
+<p>Let <span class="math inline"><em>S</em></span> be a finite set. A
+binary relation on <span class="math inline"><em>S</em></span> is simply
+a collection <span class="math inline"><em>R</em></span> of ordered
+pairs <span
+class="math inline">(<em>x</em>, <em>y</em>) ∈ <em>S</em> × <em>S</em></span>.
+For instance, <span class="math inline"><em>S</em></span> might be a set
+of people, and each such pair <span
+class="math inline">(<em>x</em>, <em>y</em>) ∈ <em>R</em></span> might
+mean " <span class="math inline"><em>x</em></span> knows <span
+class="math inline"><em>y</em></span>."</p>
+<p>An equivalence relation is a binary relation which satisfies three
+properties:</p>
+<ul>
+<li>Reflexivity: <span
+class="math inline">(<em>x</em>, <em>x</em>) ∈ <em>R</em></span> for all
+<span class="math inline"><em>x</em> ∈ <em>S</em></span></li>
+<li>Symmetry: if <span
+class="math inline">(<em>x</em>, <em>y</em>) ∈ <em>R</em></span> then
+<span
+class="math inline">(<em>y</em>, <em>x</em>) ∈ <em>R</em></span></li>
+<li>Transitivity: if <span
+class="math inline">(<em>x</em>, <em>y</em>) ∈ <em>R</em></span> and
+<span class="math inline">(<em>y</em>, <em>z</em>) ∈ <em>R</em></span>
+then <span
+class="math inline">(<em>x</em>, <em>z</em>) ∈ <em>R</em></span></li>
+</ul>
+<p>For instance, the binary relation "has the same birthday as" is an
+equivalence relation, whereas "is the father of" is not, since it
+violates all three properties.</p>
+<p>Show that an equivalence relation partitions set <span
+class="math inline"><em>S</em></span> into disjoint groups <span
+class="math inline"><em>S</em><sub>1</sub>, <em>S</em><sub>2</sub>, …, <em>S</em><sub><em>k</em></sub></span>
+(in other words, <span
+class="math inline"><em>S</em> = <em>S</em><sub>1</sub> ∪ <em>S</em><sub>2</sub> ∪ ⋯ ∪ <em>S</em><sub><em>k</em></sub></span>
+and <span
+class="math inline"><em>S</em><sub><em>i</em></sub> ∩ <em>S</em><sub><em>j</em></sub> = ∅</span>
+for all <span class="math inline"><em>i</em> ≠ <em>j</em></span> ) such
+that:</p>
+<ul>
+<li>Any two members of a group are related, that is, <span
+class="math inline">(<em>x</em>, <em>y</em>) ∈ <em>R</em></span> for any
+<span
+class="math inline"><em>x</em>, <em>y</em> ∈ <em>S</em><sub><em>i</em></sub></span>,
+for any <span class="math inline"><em>i</em></span>.</li>
+<li>Members of different groups are not related, that is, for all <span
+class="math inline"><em>i</em> ≠ <em>j</em></span>, for all <span
+class="math inline"><em>x</em> ∈ <em>S</em><sub><em>i</em></sub></span>
+and <span
+class="math inline"><em>y</em> ∈ <em>S</em><sub><em>j</em></sub></span>,
+we have <span
+class="math inline">(<em>x</em>, <em>y</em>) ∉ <em>R</em></span>. (Hint:
+Represent an equivalence relation by an undirected graph.)</li>
+</ul>
+<h3 id="330">3.30</h3>
+<p>On page 102, we defined the binary relation "connected" on the set of
+vertices of a directed graph. Show that this is an equivalence relation
+(see Exercise 3.29), and conclude that it partitions the vertices into
+disjoint strongly connected components.</p>
+<h3 id="331">3.31</h3>
+<p>Biconnected components Let <span
+class="math inline"><em>G</em> = (<em>V</em>, <em>E</em>)</span> be an
+undirected graph. For any two edges <span
+class="math inline"><em>e</em>, <em>e</em><sup>′</sup> ∈ <em>E</em></span>,
+we'll say <span
+class="math inline"><em>e</em> ∼ <em>e</em><sup>′</sup></span> if either
+<span class="math inline"><em>e</em> = <em>e</em><sup>′</sup></span> or
+there is a (simple) cycle containing both <span
+class="math inline"><em>e</em></span> and <span
+class="math inline"><em>e</em><sup>′</sup></span>.</p>
+<p><strong>(a)</strong> Show that <span class="math inline">∼</span> is
+an equivalence relation (recall Exercise 3.29) on the edges.</p>
+<p>The equivalence classes into which this relation partitions the edges
+are called the biconnected components of <span
+class="math inline"><em>G</em></span>. A bridge is an edge which is in a
+biconnected component all by itself.</p>
+<p>A separating vertex is a vertex whose removal disconnects the
+graph.</p>
+<p><strong>(b)</strong> Partition the edges of the graph below into
+biconnected components, and identify the bridges and separating
+vertices. <img
+src="../../.assets/remote/98bee3304550a934.jpg" /></p>
+<p>Not only do biconnected components partition the edges of the graph,
+they also almost partition the vertices in the following sense.</p>
+<p><strong>(c)</strong> Associate with each biconnected component all
+the vertices that are endpoints of its edges. Show that the vertices
+corresponding to two different biconnected components are either
+disjoint or intersect in a single separating vertex.</p>
+<p><strong>(d)</strong> Collapse each biconnected component into a
+single meta-node, and retain individual nodes for each separating
+vertex. (So there are edges between each component-node and its
+separating vertices.) Show that the resulting graph is a tree.</p>
+<p>DFS can be used to identify the biconnected components, bridges, and
+separating vertices of a graph in linear time.</p>
+<p><strong>(e)</strong> Show that the root of the DFS tree is a
+separating vertex if and only if it has more than one child in the
+tree.</p>
+<p><strong>(f)</strong> Show that a non-root vertex <span
+class="math inline"><em>v</em></span> of the DFS tree is a separating
+vertex if and only if it has a child <span
+class="math inline"><em>v</em><sup>′</sup></span> none of whose
+descendants (including itself) has a backedge to a proper ancestor of
+<span class="math inline"><em>v</em></span>.</p>
+<p><strong>(g)</strong> For each vertex <span
+class="math inline"><em>u</em></span> define:</p>
+<p><span class="math display">$$
+\operatorname{low}(u)=\min \left\{\begin{array}{l}
+\operatorname{pre}(u) \\
+\operatorname{pre}(w)
+\end{array} \quad \text { where }(v, w) \text { is a backedge for some
+descendant } v \text { of } u\right.
+$$</span></p>
+<p>Show that the entire array of low values can be computed in linear
+time.</p>
+<p><strong>(h)</strong> Show how to compute all separating vertices,
+bridges, and biconnected components of a graph in linear time. (Hint:
+Use low to identify separating vertices, and run another DFS with an
+extra stack of edges to remove biconnected components one at a
+time.)</p>
+</main>
+
+<!-- code highlighting -->
+<link rel="modulepreload" href="../../vendor/mermaid/mermaid.esm.min.mjs">
+<script src="../../vendor/highlight/highlight.min.js"></script>
+<!-- math -->
+<script defer src="../../vendor/katex/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="../../vendor/katex/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+<script type="module">
+  // 1) Normalize mermaid blocks. Pandoc(gfm) emits <pre class="mermaid"><code>...</code></pre>.
+  //    Flatten to raw source text so mermaid parses cleanly; also catch the code-only variant.
+  document.querySelectorAll('pre > code.language-mermaid, pre > code.mermaid').forEach(c => {
+    const p = document.createElement('pre'); p.className = 'mermaid'; p.textContent = c.textContent;
+    c.parentElement.replaceWith(p);
+  });
+  document.querySelectorAll('pre.mermaid').forEach(p => { p.textContent = p.textContent; });
+  // 2) Syntax-highlight every code block EXCEPT mermaid (auto-detect language)
+  if (window.hljs) document.querySelectorAll('pre:not(.mermaid) > code').forEach(el => window.hljs.highlightElement(el));
+  // 3) Render mermaid (dark)
+  try {
+    const mermaid = (await import('../../vendor/mermaid/mermaid.esm.min.mjs')).default;
+    mermaid.initialize({ startOnLoad: false, theme: 'dark', securityLevel: 'loose' });
+    await mermaid.run({ querySelector: 'pre.mermaid' });
+  } catch (e) { /* offline: leave as text */ }
+</script>
+<script>
+  // 4) Math: render \( \) and \[ \] (pandoc converts dollar-math to these). Tolerate malformed legacy TeX.
+  window.addEventListener('DOMContentLoaded', () => {
+    if (window.renderMathInElement) renderMathInElement(document.querySelector('.content'), {
+      // dollar-delimiters included so KaTeX also renders math pandoc failed to parse (left raw):
+      // a space before a closing delim, cases-env inline, apostrophes in text, etc. Display before inline.
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '\\[', right: '\\]', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false }
+      ],
+      throwOnError: false,
+      // \n is used in the legacy notes as a homemade "arrow over" (directed edge); map it to \overrightarrow.
+      macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
+    });
+  });
+</script>
+</body>
+</html>

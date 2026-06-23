@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DPV ch05 exercises — CS6515</title>
+<link rel="stylesheet" href="../../vendor/fonts/fonts.css">
+<link rel="stylesheet" href="../../theme.css">
+<link rel="stylesheet" href="../../vendor/katex/katex.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="../../vendor/highlight/styles/tokyo-night-dark.min.css">
+
+</head>
+<body>
+<header class="topbar">
+  <a class="home" href="../../index.html">CS6515</a>
+  <span class="crumbloc">DPV ch05 exercises</span>
+</header>
+<main class="content">
+<!-- toc:start -->
+
+<h2 id="table-of-contents">Table of Contents</h2>
+<ul>
+<li><a href="#exercises">Exercises</a></li>
+</ul>
+<!-- toc:end -->
+
+<h2 id="exercises">Exercises</h2>
+<h3 id="51">5.1</h3>
+<p>Consider the following graph. <img
+src="../../.assets/remote/d778035789f06156.jpg" /></p>
+<p><strong>(a)</strong> What is the cost of its minimum spanning
+tree?</p>
+<p><strong>(b)</strong> How many minimum spanning trees does it
+have?</p>
+<p><strong>(c)</strong> Suppose Kruskal's algorithm is run on this
+graph. In what order are the edges added to the MST? For each edge in
+this sequence, give a cut that justifies its addition.</p>
+<h3 id="52">5.2</h3>
+<p>Suppose we want to find the minimum spanning tree of the following
+graph. <img
+src="../../.assets/remote/fdc6b2f9c9a50d13.jpg" /></p>
+<p><strong>(a)</strong> Run Prim's algorithm; whenever there is a choice
+of nodes, always use alphabetic ordering (e.g., start from node <span
+class="math inline"><em>A</em></span> ). Draw a table showing the
+intermediate values of the cost array.</p>
+<p><strong>(b)</strong> Run Kruskal's algorithm on the same graph. Show
+how the disjoint-sets data structure looks at every intermediate stage
+(including the structure of the directed trees), assuming path
+compression is used.</p>
+<h3 id="53">5.3</h3>
+<p>Design a linear-time algorithm for the following task.</p>
+<p><strong>Input:</strong> A connected, undirected graph <span
+class="math inline"><em>G</em></span>.</p>
+<p><strong>Question:</strong> Is there an edge you can remove from <span
+class="math inline"><em>G</em></span> while still leaving <span
+class="math inline"><em>G</em></span> connected? Can you reduce the
+running time of your algorithm to <span
+class="math inline"><em>O</em>(|<em>V</em>|)</span> ?</p>
+<h3 id="54">5.4</h3>
+<p>Show that if an undirected graph with <span
+class="math inline"><em>n</em></span> vertices has <span
+class="math inline"><em>k</em></span> connected components, then it has
+at least <span class="math inline"><em>n</em> − <em>k</em></span>
+edges.</p>
+<h3 id="55">5.5</h3>
+<p>Consider an undirected graph <span
+class="math inline"><em>G</em> = (<em>V</em>, <em>E</em>)</span> with
+nonnegative edge weights <span
+class="math inline"><em>w</em><sub><em>e</em></sub> ≥ 0</span>. Suppose
+that you have computed a minimum spanning tree of <span
+class="math inline"><em>G</em></span>, and that you have also computed
+shortest paths to all nodes from a particular node <span
+class="math inline"><em>s</em> ∈ <em>V</em></span>. Now suppose each
+edge weight is increased by 1 : the new weights are <span
+class="math inline"><em>w</em><sub><em>e</em></sub><sup>′</sup> = <em>w</em><sub><em>e</em></sub> + 1</span>.</p>
+<p><strong>(a)</strong> Does the minimum spanning tree change? Give an
+example where it changes or prove it cannot change.</p>
+<p><strong>(b)</strong> Do the shortest paths change? Give an example
+where they change or prove they cannot change.</p>
+<h3 id="56">5.6</h3>
+<p>Let <span
+class="math inline"><em>G</em> = (<em>V</em>, <em>E</em>)</span> be an
+undirected graph. Prove that if all its edge weights are distinct, then
+it has a unique minimum spanning tree.</p>
+<h3 id="57">5.7</h3>
+<p>Show how to find the maximum spanning tree of a graph, that is, the
+spanning tree of largest total weight.</p>
+<h3 id="58">5.8</h3>
+<p>Suppose you are given a weighted graph <span
+class="math inline"><em>G</em> = (<em>V</em>, <em>E</em>)</span> with a
+distinguished vertex <span class="math inline"><em>s</em></span> and
+where all edge weights are positive and distinct. Is it possible for a
+tree of shortest paths from <span class="math inline"><em>s</em></span>
+and a minimum spanning tree in <span
+class="math inline"><em>G</em></span> to not share any edges? If so,
+give an example. If not, give a reason.</p>
+<h3 id="59">5.9</h3>
+<p>The following statements may or may not be correct. In each case,
+either prove it (if it is correct) or give a counterexample (if it isn't
+correct). Always assume that the graph <span
+class="math inline"><em>G</em> = (<em>V</em>, <em>E</em>)</span> is
+undirected. Do not assume that edge weights are distinct unless this is
+specifically stated.</p>
+<p><strong>(a)</strong> If graph <span
+class="math inline"><em>G</em></span> has more than <span
+class="math inline">|<em>V</em>|−1</span> edges, and there is a unique
+heaviest edge, then this edge cannot be part of a minimum spanning
+tree.</p>
+<p><strong>(b)</strong> If <span class="math inline"><em>G</em></span>
+has a cycle with a unique heaviest edge <span
+class="math inline"><em>e</em></span>, then <span
+class="math inline"><em>e</em></span> cannot be part of any MST.</p>
+<p><strong>(c)</strong> Let <span class="math inline"><em>e</em></span>
+be any edge of minimum weight in <span
+class="math inline"><em>G</em></span>. Then <span
+class="math inline"><em>e</em></span> must be part of some MST.</p>
+<p><strong>(d)</strong> If the lightest edge in a graph is unique, then
+it must be part of every MST.</p>
+<p><strong>(e)</strong> If <span class="math inline"><em>e</em></span>
+is part of some MST of <span class="math inline"><em>G</em></span>, then
+it must be a lightest edge across some cut of <span
+class="math inline"><em>G</em></span>.</p>
+<p><strong>(f)</strong> If <span class="math inline"><em>G</em></span>
+has a cycle with a unique lightest edge <span
+class="math inline"><em>e</em></span>, then <span
+class="math inline"><em>e</em></span> must be part of every MST.</p>
+<p><strong>(g)</strong> The shortest-path tree computed by Dijkstra's
+algorithm is necessarily an MST.</p>
+<p><strong>(h)</strong> The shortest path between two nodes is
+necessarily part of some MST.</p>
+<p><strong>(i)</strong> Prim's algorithm works correctly when there are
+negative edges.</p>
+<p><strong>(j)</strong> (For any <span
+class="math inline"><em>r</em> &gt; 0</span>, define an <span
+class="math inline"><em>r</em></span>-path to be a path whose edges all
+have weight <span class="math inline"> &lt; <em>r</em></span>.) If <span
+class="math inline"><em>G</em></span> contains an <span
+class="math inline"><em>r</em></span>-path from node <span
+class="math inline"><em>s</em></span> to <span
+class="math inline"><em>t</em></span>, then every MST of <span
+class="math inline"><em>G</em></span> must also contain an <span
+class="math inline"><em>r</em></span>-path from node <span
+class="math inline"><em>s</em></span> to node <span
+class="math inline"><em>t</em></span>.</p>
+<h3 id="510">5.10</h3>
+<p>Let <span class="math inline"><em>T</em></span> be an MST of graph
+<span class="math inline"><em>G</em></span>. Given a connected subgraph
+<span class="math inline"><em>H</em></span> of <span
+class="math inline"><em>G</em></span>, show that <span
+class="math inline"><em>T</em> ∩ <em>H</em></span> is contained in some
+MST of <span class="math inline"><em>H</em></span>.</p>
+<h3 id="511">5.11</h3>
+<p>Give the state of the disjoint-sets data structure after the
+following sequence of operations, starting from singleton sets <span
+class="math inline">{1}, …, {8}</span>. Use path compression. In case of
+ties, always make the lower numbered root point to the higher numbered
+one. union( 1,2 ), union( 3,4 ), union( 5,6 ), union( 7,8 ), union( 1,4
+), union( 6,7 ), union( 4,5 ), find( 1 )</p>
+<h3 id="512">5.12</h3>
+<p>Suppose you implement the disjoint-sets data structure using
+union-by-rank but not path compression. Give a sequence of <span
+class="math inline"><em>m</em></span> union and find operations on <span
+class="math inline"><em>n</em></span> elements that take <span
+class="math inline"><em>Ω</em>(<em>m</em>log <em>n</em>)</span>
+time.</p>
+<h3 id="513">5.13</h3>
+<p>A long string consists of the four characters <span
+class="math inline"><em>A</em>, <em>C</em>, <em>G</em>, <em>T</em></span>;
+they appear with frequency <span
+class="math inline">31%, 20%, 9%</span>, and <span
+class="math inline">40%</span>, respectively. What is the Huffman
+encoding of these four characters?</p>
+<h3 id="514">5.14</h3>
+<p>Suppose the symbols <span
+class="math inline"><em>a</em>, <em>b</em>, <em>c</em>, <em>d</em>, <em>e</em></span>
+occur with frequencies <span
+class="math inline">1/2, 1/4, 1/8, 1/16, 1/16</span>, respectively.</p>
+<p><strong>(a)</strong> What is the Huffman encoding of the
+alphabet?</p>
+<p><strong>(b)</strong> If this encoding is applied to a file consisting
+of <span class="math inline">1, 000, 000</span> characters with the
+given frequencies, what is the length of the encoded file in bits?</p>
+<h3 id="515">5.15</h3>
+<p>We use Huffman's algorithm to obtain an encoding of alphabet <span
+class="math inline">{<em>a</em>, <em>b</em>, <em>c</em>}</span> with
+frequencies <span
+class="math inline"><em>f</em><sub><em>a</em></sub>, <em>f</em><sub><em>b</em></sub>, <em>f</em><sub><em>c</em></sub></span>.
+In each of the following cases, either give an example of frequencies (
+<span
+class="math inline"><em>f</em><sub><em>a</em></sub>, <em>f</em><sub><em>b</em></sub>, <em>f</em><sub><em>c</em></sub></span>
+) that would yield the specified code, or explain why the code cannot
+possibly be obtained (no matter what the frequencies are).</p>
+<p><strong>(a)</strong> Code: <span
+class="math inline">{0, 10, 11}</span></p>
+<p><strong>(b)</strong> Code: <span
+class="math inline">{0, 1, 00}</span></p>
+<p><strong>(c)</strong> Code: <span
+class="math inline">{10, 01, 00}</span></p>
+<h3 id="516">5.16</h3>
+<p>Prove the following two properties of the Huffman encoding
+scheme.</p>
+<p><strong>(a)</strong> If some character occurs with frequency more
+than <span class="math inline">2/5</span>, then there is guaranteed to
+be a codeword of length 1 .</p>
+<p><strong>(b)</strong> If all characters occur with frequency less than
+<span class="math inline">1/3</span>, then there is guaranteed to be no
+codeword of length 1 .</p>
+<h3 id="517">5.17</h3>
+<p>Under a Huffman encoding of <span
+class="math inline"><em>n</em></span> symbols with frequencies <span
+class="math inline"><em>f</em><sub>1</sub>, <em>f</em><sub>2</sub>, …, <em>f</em><sub><em>n</em></sub></span>,
+what is the longest a codeword could possibly be? Give an example set of
+frequencies that would produce this case.</p>
+<h3 id="518">5.18</h3>
+<p>The following table gives the frequencies of the letters of the
+English language (including the blank for separating words) in a
+particular corpus.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">blank</th>
+<th style="text-align: right;"><span
+class="math inline">18.3%</span></th>
+<th style="text-align: center;">r</th>
+<th style="text-align: right;"><span
+class="math inline">4.8%</span></th>
+<th style="text-align: center;">y</th>
+<th style="text-align: right;"><span
+class="math inline">1.6%</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">e</td>
+<td style="text-align: right;"><span
+class="math inline">10.2%</span></td>
+<td style="text-align: center;">d</td>
+<td style="text-align: right;"><span
+class="math inline">3.5%</span></td>
+<td style="text-align: center;">p</td>
+<td style="text-align: right;"><span
+class="math inline">1.6%</span></td>
+</tr>
+<tr>
+<td style="text-align: center;">t</td>
+<td style="text-align: right;"><span
+class="math inline">7.7%</span></td>
+<td style="text-align: center;">l</td>
+<td style="text-align: right;"><span
+class="math inline">3.4%</span></td>
+<td style="text-align: center;">b</td>
+<td style="text-align: right;"><span
+class="math inline">1.3%</span></td>
+</tr>
+<tr>
+<td style="text-align: center;">a</td>
+<td style="text-align: right;"><span
+class="math inline">6.8%</span></td>
+<td style="text-align: center;">c</td>
+<td style="text-align: right;"><span
+class="math inline">2.6%</span></td>
+<td style="text-align: center;">v</td>
+<td style="text-align: right;"><span
+class="math inline">0.9%</span></td>
+</tr>
+<tr>
+<td style="text-align: center;">o</td>
+<td style="text-align: right;"><span
+class="math inline">5.9%</span></td>
+<td style="text-align: center;">u</td>
+<td style="text-align: right;"><span
+class="math inline">2.4%</span></td>
+<td style="text-align: center;">k</td>
+<td style="text-align: right;"><span
+class="math inline">0.6%</span></td>
+</tr>
+<tr>
+<td style="text-align: center;">i</td>
+<td style="text-align: right;"><span
+class="math inline">5.8%</span></td>
+<td style="text-align: center;">m</td>
+<td style="text-align: right;"><span
+class="math inline">2.1%</span></td>
+<td style="text-align: center;">j</td>
+<td style="text-align: right;"><span
+class="math inline">0.2%</span></td>
+</tr>
+<tr>
+<td style="text-align: center;">n</td>
+<td style="text-align: right;"><span
+class="math inline">5.5%</span></td>
+<td style="text-align: center;">w</td>
+<td style="text-align: right;"><span
+class="math inline">1.9%</span></td>
+<td style="text-align: center;">x</td>
+<td style="text-align: right;"><span
+class="math inline">0.2%</span></td>
+</tr>
+<tr>
+<td style="text-align: center;">s</td>
+<td style="text-align: right;"><span
+class="math inline">5.1%</span></td>
+<td style="text-align: center;">f</td>
+<td style="text-align: right;"><span
+class="math inline">1.8%</span></td>
+<td style="text-align: center;">q</td>
+<td style="text-align: right;"><span
+class="math inline">0.1%</span></td>
+</tr>
+<tr>
+<td style="text-align: center;">h</td>
+<td style="text-align: right;"><span
+class="math inline">4.9%</span></td>
+<td style="text-align: center;">g</td>
+<td style="text-align: right;"><span
+class="math inline">1.7%</span></td>
+<td style="text-align: center;">z</td>
+<td style="text-align: right;"><span
+class="math inline">0.1%</span></td>
+</tr>
+</tbody>
+</table>
+<p><strong>(a)</strong> What is the optimum Huffman encoding of this
+alphabet?</p>
+<p><strong>(b)</strong> What is the expected number of bits per
+letter?</p>
+<p><strong>(c)</strong> Suppose now that we calculate the entropy of
+these frequencies</p>
+<p><span class="math display">$$
+H=\sum_{i=0}^{26} p_{i} \log \frac{1}{p_{i}}
+$$</span></p>
+<p>(see the box in page 156). Would you expect it to be larger or
+smaller than your answer above? Explain.</p>
+<p><strong>(d)</strong> Do you think that this is the limit of how much
+English text can be compressed? What features of the English language,
+besides letters and their frequencies, should a better compression
+scheme take into account?</p>
+<h3 id="519">5.19</h3>
+<p>Entropy. Consider a distribution over <span
+class="math inline"><em>n</em></span> possible outcomes, with
+probabilities <span
+class="math inline"><em>p</em><sub>1</sub>, <em>p</em><sub>2</sub>, …, <em>p</em><sub><em>n</em></sub></span>.</p>
+<p><strong>(a)</strong> Just for this part of the problem, assume that
+each <span class="math inline"><em>p</em><sub><em>i</em></sub></span> is
+a power of 2 (that is, of the form <span
+class="math inline">1/2<sup><em>k</em></sup></span> ). Suppose a long
+sequence of <span class="math inline"><em>m</em></span> samples is drawn
+from the distribution and that for all <span
+class="math inline">1 ≤ <em>i</em> ≤ <em>n</em></span>, the <span
+class="math inline"><em>i</em><sup>th </sup></span> outcome occurs
+exactly <span
+class="math inline"><em>m</em><em>p</em><sub><em>i</em></sub></span>
+times in the sequence. Show that if Huffman encoding is applied to this
+sequence, the resulting encoding will have length</p>
+<p><span class="math display">$$
+\sum_{i=1}^{n} m p_{i} \log \frac{1}{p_{i}} .
+$$</span></p>
+<p><strong>(b)</strong> Now consider arbitrary distributions-that is,
+the probabilities <span
+class="math inline"><em>p</em><sub><em>i</em></sub></span> are not
+restricted to powers of 2 . The most commonly used measure of the amount
+of randomness in the distribution is the entropy</p>
+<p><span class="math display">$$
+\sum_{i=1}^{n} p_{i} \log \frac{1}{p_{i}}
+$$</span></p>
+<p>For what distribution (over <span
+class="math inline"><em>n</em></span> outcomes) is the entropy the
+largest possible? The smallest possible?</p>
+<h3 id="520">5.20</h3>
+<p>Give a linear-time algorithm that takes as input a tree and
+determines whether it has a perfect matching: a set of edges that
+touches each node exactly once. A feedback edge set of an undirected
+graph <span
+class="math inline"><em>G</em> = (<em>V</em>, <em>E</em>)</span> is a
+subset of edges <span
+class="math inline"><em>E</em><sup>′</sup> ⊆ <em>E</em></span> that
+intersects every cycle of the graph. Thus, removing the edges <span
+class="math inline"><em>E</em><sup>′</sup></span> will render the graph
+acyclic. Give an efficient algorithm for the following problem:</p>
+<p><strong>Input:</strong> Undirected graph <span
+class="math inline"><em>G</em> = (<em>V</em>, <em>E</em>)</span> with
+positive edge weights <span
+class="math inline"><em>w</em><sub><em>e</em></sub></span></p>
+<p><strong>Output:</strong> A feedback edge set <span
+class="math inline"><em>E</em><sup>′</sup> ⊆ <em>E</em></span> of
+minimum total weight <span
+class="math inline">∑<sub><em>e</em> ∈ <em>E</em><sup>′</sup></sub><em>w</em><sub><em>e</em></sub></span></p>
+<h3 id="521">5.21</h3>
+<p>In this problem, we will develop a new algorithm for finding minimum
+spanning trees. It is based upon the following property:</p>
+<p>Pick any cycle in the graph, and let <span
+class="math inline"><em>e</em></span> be the heaviest edge in that
+cycle. Then there is a minimum spanning tree that does not contain <span
+class="math inline"><em>e</em></span>.</p>
+<p><strong>(a)</strong> Prove this property carefully.</p>
+<p><strong>(b)</strong> Here is the new MST algorithm. The input is some
+undirected graph <span
+class="math inline"><em>G</em> = (<em>V</em>, <em>E</em>)</span> (in
+adjacency list format) with edge weights <span
+class="math inline">{<em>w</em><sub><em>e</em></sub>}</span>.</p>
+<pre><code>sort the edges according to their weights
+for each edge $e \in E$, in decreasing order of $w_{e}$ :
+    if $e$ is part of a cycle of $G$ :
+        $G=G-e$ (that is, remove $e$ from $G$ )
+return $G$</code></pre>
+<p>Prove that this algorithm is correct.</p>
+<p><strong>(c)</strong> On each iteration, the algorithm must check
+whether there is a cycle containing a specific edge <span
+class="math inline"><em>e</em></span>. Give a linear-time algorithm for
+this task, and justify its correctness.</p>
+<p><strong>(d)</strong> What is the overall time taken by this
+algorithm, in terms of <span class="math inline">|<em>E</em>|</span> ?
+Explain your answer.</p>
+<h3 id="522">5.22</h3>
+<p>You are given a graph <span
+class="math inline"><em>G</em> = (<em>V</em>, <em>E</em>)</span> with
+positive edge weights, and a minimum spanning tree <span
+class="math inline"><em>T</em> = (<em>V</em>, <em>E</em><sup>′</sup>)</span>
+with respect to these weights; you may assume <span
+class="math inline"><em>G</em></span> and <span
+class="math inline"><em>T</em></span> are given as adjacency lists. Now
+suppose the weight of a particular edge <span
+class="math inline"><em>e</em> ∈ <em>E</em></span> is modified from
+<span class="math inline"><em>w</em>(<em>e</em>)</span> to a new value
+<span class="math inline"><em>ŵ</em>(<em>e</em>)</span>. You wish to
+quickly update the minimum spanning tree <span
+class="math inline"><em>T</em></span> to reflect this change, without
+recomputing the entire tree from scratch. There are four cases. In each
+case give a linear-time algorithm for updating the tree.</p>
+<p><strong>(a)</strong> <span
+class="math inline"><em>e</em> ∉ <em>E</em><sup>′</sup></span> and <span
+class="math inline"><em>ŵ</em>(<em>e</em>) &gt; <em>w</em>(<em>e</em>)</span>.</p>
+<p><strong>(b)</strong> <span
+class="math inline"><em>e</em> ∉ <em>E</em><sup>′</sup></span> and <span
+class="math inline"><em>ŵ</em>(<em>e</em>) &lt; <em>w</em>(<em>e</em>)</span>.</p>
+<p><strong>(c)</strong> <span
+class="math inline"><em>e</em> ∈ <em>E</em><sup>′</sup></span> and <span
+class="math inline"><em>ŵ</em>(<em>e</em>) &lt; <em>w</em>(<em>e</em>)</span>.</p>
+<p><strong>(d)</strong> <span
+class="math inline"><em>e</em> ∈ <em>E</em><sup>′</sup></span> and <span
+class="math inline"><em>ŵ</em>(<em>e</em>) &gt; <em>w</em>(<em>e</em>)</span>.</p>
+<h3 id="523">5.23</h3>
+<p>Sometimes we want light spanning trees with certain special
+properties. Here's an example.</p>
+<p><strong>Input:</strong> Undirected graph <span
+class="math inline"><em>G</em> = (<em>V</em>, <em>E</em>)</span>; edge
+weights <span
+class="math inline"><em>w</em><sub><em>e</em></sub></span>; subset of
+vertices <span class="math inline"><em>U</em> ⊂ <em>V</em></span></p>
+<p><strong>Output:</strong> The lightest spanning tree in which the
+nodes of <span class="math inline"><em>U</em></span> are leaves (there
+might be other leaves in this tree as well). (The answer isn't
+necessarily a minimum spanning tree.) Give an algorithm for this problem
+which runs in <span
+class="math inline"><em>O</em>(|<em>E</em>|log |<em>V</em>|)</span>
+time. (Hint: When you remove nodes <span
+class="math inline"><em>U</em></span> from the optimal solution, what is
+left?)</p>
+<h3 id="524">5.24</h3>
+<p>A binary counter of unspecified length supports two operations:
+increment (which increases its value by one) and reset (which sets its
+value back to zero). Show that, starting from an initially zero counter,
+any sequence of <span class="math inline"><em>n</em></span> increment
+and reset operations takes time <span
+class="math inline"><em>O</em>(<em>n</em>)</span>; that is, the
+amortized time per operation is <span
+class="math inline"><em>O</em>(1)</span>.</p>
+<h3 id="525">5.25</h3>
+<p>Here's a problem that occurs in automatic program analysis. For a set
+of variables <span
+class="math inline"><em>x</em><sub>1</sub>, …, <em>x</em><sub><em>n</em></sub></span>,
+you are given some equality constraints, of the form " <span
+class="math inline"><em>x</em><sub><em>i</em></sub> = <em>x</em><sub><em>j</em></sub></span>
+" and some disequality constraints, of the form " <span
+class="math inline"><em>x</em><sub><em>i</em></sub> ≠ <em>x</em><sub><em>j</em></sub></span>."
+Is it possible to satisfy all of them? For instance, the constraints</p>
+<p><span
+class="math display"><em>x</em><sub>1</sub> = <em>x</em><sub>2</sub>, <em>x</em><sub>2</sub> = <em>x</em><sub>3</sub>, <em>x</em><sub>3</sub> = <em>x</em><sub>4</sub>, <em>x</em><sub>1</sub> ≠ <em>x</em><sub>4</sub></span></p>
+<p>cannot be satisfied. Give an efficient algorithm that takes as input
+<span class="math inline"><em>m</em></span> constraints over <span
+class="math inline"><em>n</em></span> variables and decides whether the
+constraints can be satisfied.</p>
+<h3 id="526">5.26</h3>
+<p>Graphs with prescribed degree sequences. Given a list of <span
+class="math inline"><em>n</em></span> positive integers <span
+class="math inline"><em>d</em><sub>1</sub>, <em>d</em><sub>2</sub>, …, <em>d</em><sub><em>n</em></sub></span>,
+we want to efficiently determine whether there exists an undirected
+graph <span
+class="math inline"><em>G</em> = (<em>V</em>, <em>E</em>)</span> whose
+nodes have degrees precisely <span
+class="math inline"><em>d</em><sub>1</sub>, <em>d</em><sub>2</sub>, …, <em>d</em><sub><em>n</em></sub></span>.
+That is, if <span
+class="math inline"><em>V</em> = {<em>v</em><sub>1</sub>, …, <em>v</em><sub><em>n</em></sub>}</span>,
+then the degree of <span
+class="math inline"><em>v</em><sub><em>i</em></sub></span> should be
+exactly <span
+class="math inline"><em>d</em><sub><em>i</em></sub></span>. We call
+<span
+class="math inline">(<em>d</em><sub>1</sub>, …, <em>d</em><sub><em>n</em></sub>)</span>
+the degree sequence of <span class="math inline"><em>G</em></span>. This
+graph <span class="math inline"><em>G</em></span> should not contain
+self-loops (edges with both endpoints equal to the same node) or
+multiple edges between the same pair of nodes.</p>
+<p><strong>(a)</strong> Give an example of <span
+class="math inline"><em>d</em><sub>1</sub>, <em>d</em><sub>2</sub>, <em>d</em><sub>3</sub>, <em>d</em><sub>4</sub></span>
+where all the <span
+class="math inline"><em>d</em><sub><em>i</em></sub> ≤ 3</span> and <span
+class="math inline"><em>d</em><sub>1</sub> + <em>d</em><sub>2</sub> + <em>d</em><sub>3</sub> + <em>d</em><sub>4</sub></span>
+is even, but for which no graph with degree sequence ( <span
+class="math inline"><em>d</em><sub>1</sub>, <em>d</em><sub>2</sub>, <em>d</em><sub>3</sub>, <em>d</em><sub>4</sub></span>
+) exists.</p>
+<p><strong>(b)</strong> Suppose that <span
+class="math inline"><em>d</em><sub>1</sub> ≥ <em>d</em><sub>2</sub> ≥ ⋯ ≥ <em>d</em><sub><em>n</em></sub></span>
+and that there exists a graph <span
+class="math inline"><em>G</em> = (<em>V</em>, <em>E</em>)</span> with
+degree sequence <span
+class="math inline">(<em>d</em><sub>1</sub>, …, <em>d</em><sub><em>n</em></sub>)</span>.
+We want to show that there must exist a graph that has this degree
+sequence and where in addition the neighbors of <span
+class="math inline"><em>v</em><sub>1</sub></span> are <span
+class="math inline"><em>v</em><sub>2</sub>, <em>v</em><sub>3</sub>, …, <em>v</em><sub><em>d</em><sub>1</sub> + 1</sub></span>.
+The idea is to gradually transform <span
+class="math inline"><em>G</em></span> into a graph with the desired
+additional property. i. Suppose the neighbors of <span
+class="math inline"><em>v</em><sub>1</sub></span> in <span
+class="math inline"><em>G</em></span> are not <span
+class="math inline"><em>v</em><sub>2</sub>, <em>v</em><sub>3</sub>, …, <em>v</em><sub><em>d</em><sub>1</sub> + 1</sub></span>.
+Show that there exists <span
+class="math inline"><em>i</em> &lt; <em>j</em> ≤ <em>n</em></span> and
+<span class="math inline"><em>u</em> ∈ <em>V</em></span> such that <span
+class="math inline">{<em>v</em><sub>1</sub>, <em>v</em><sub><em>i</em></sub>}, {<em>u</em>, <em>v</em><sub><em>j</em></sub>} ∉ <em>E</em></span>
+and <span
+class="math inline">{<em>v</em><sub>1</sub>, <em>v</em><sub><em>j</em></sub>}, {<em>u</em>, <em>v</em><sub><em>i</em></sub>} ∈ <em>E</em></span>.
+ii. Specify the changes you would make to <span
+class="math inline"><em>G</em></span> to obtain a new graph <span
+class="math inline"><em>G</em><sup>′</sup> = (<em>V</em>, <em>E</em><sup>′</sup>)</span>
+with the same degree sequence as <span
+class="math inline"><em>G</em></span> and where <span
+class="math inline">(<em>v</em><sub>1</sub>, <em>v</em><sub><em>i</em></sub>) ∈ <em>E</em><sup>′</sup></span>.
+iii. Now show that there must be a graph with the given degree sequence
+but in which <span class="math inline"><em>v</em><sub>1</sub></span> has
+neighbors <span
+class="math inline"><em>v</em><sub>2</sub>, <em>v</em><sub>3</sub>, …, <em>v</em><sub><em>d</em><sub>1</sub> + 1</sub></span>.</p>
+<p><strong>(c)</strong> Using the result from part (b), describe an
+algorithm that on input <span
+class="math inline"><em>d</em><sub>1</sub>, …, <em>d</em><sub><em>n</em></sub></span>
+(not necessarily sorted) decides whether there exists a graph with this
+degree sequence. Your algorithm should run in time polynomial in <span
+class="math inline"><em>n</em></span> and in <span
+class="math inline">$m=\sum_{i=1}^{n} d_{i}$</span>.</p>
+<h3 id="527">5.27</h3>
+<p>Alice wants to throw a party and is deciding whom to call. She has
+<span class="math inline"><em>n</em></span> people to choose from, and
+she has made up a list of which pairs of these people know each other.
+She wants to pick as many people as possible, subject to two
+constraints: at the party, each person should have at least five other
+people whom they know and five other people whom they don't know. Give
+an efficient algorithm that takes as input the list of <span
+class="math inline"><em>n</em></span> people and the list of pairs who
+know each other and outputs the best choice of party invitees. Give the
+running time in terms of <span
+class="math inline"><em>n</em></span>.</p>
+<h3 id="528">5.28</h3>
+<p>A prefix-free encoding of a finite alphabet <span
+class="math inline"><em>Γ</em></span> assigns each symbol in <span
+class="math inline"><em>Γ</em></span> a binary codeword, such that no
+codeword is a prefix of another codeword. Show that such an encoding can
+be represented by a full binary tree in which each leaf corresponds to a
+unique element of <span class="math inline"><em>Γ</em></span>, whose
+codeword is generated by the path from the root to that leaf
+(interpreting a left branch as 0 and a right branch as 1 ).</p>
+<h3 id="529">5.29</h3>
+<p>Ternary Huffman. Trimedia Disks Inc. has developed "ternary" hard
+disks. Each cell on a disk can now store values 0,1 , or 2 (instead of
+just 0 or 1 ). To take advantage of this new technology, provide a
+modified Huffman algorithm for compressing sequences of characters from
+an alphabet of size <span class="math inline"><em>n</em></span>, where
+the characters occur with known frequencies <span
+class="math inline"><em>f</em><sub>1</sub>, <em>f</em><sub>2</sub>, …, <em>f</em><sub><em>n</em></sub></span>.
+Your algorithm should encode each character with a variable-length
+codeword over the values <span class="math inline">0, 1, 2</span> such
+that no codeword is a prefix of another codeword and so as to obtain the
+maximum possible compression. Prove that your algorithm is correct.</p>
+<h3 id="530">5.30</h3>
+<p>The basic intuition behind Huffman's algorithm, that frequent blocks
+should have short encodings and infrequent blocks should have long
+encodings, is also at work in English, where typical words like I, you,
+is, and, to, from, and so on are short, and rarely used words like
+velociraptor are longer. However, words like fire!, help!, and run! are
+short not because they are frequent, but perhaps because time is
+precious in situations where they are used. To make things theoretical,
+suppose we have a file composed of <span
+class="math inline"><em>m</em></span> different words, with frequencies
+<span
+class="math inline"><em>f</em><sub>1</sub>, …, <em>f</em><sub><em>m</em></sub></span>.
+Suppose also that for the <span class="math inline"><em>i</em></span> th
+word, the cost per bit of encoding is <span
+class="math inline"><em>c</em><sub><em>i</em></sub></span>. Thus, if we
+find a prefix-free code where the <span
+class="math inline"><em>i</em></span> th word has a codeword of length
+<span class="math inline"><em>l</em><sub><em>i</em></sub></span>, then
+the total cost of the encoding will be <span
+class="math inline">∑<sub><em>i</em></sub><em>f</em><sub><em>i</em></sub> ⋅ <em>c</em><sub><em>i</em></sub> ⋅ <em>l</em><sub><em>i</em></sub></span>.
+Show how to modify Huffman's algorithm to find the prefix-free encoding
+of minimum total cost.</p>
+<h3 id="531">5.31</h3>
+<p>A server has <span class="math inline"><em>n</em></span> customers
+waiting to be served. The service time required by each customer is
+known in advance: it is <span
+class="math inline"><em>t</em><sub><em>i</em></sub></span> minutes for
+customer <span class="math inline"><em>i</em></span>. So if, for
+example, the customers are served in order of increasing <span
+class="math inline"><em>i</em></span>, then the <span
+class="math inline"><em>i</em></span> th customer has to wait <span
+class="math inline">$\sum_{j=1}^{i} t_{j}$</span> minutes. We wish to
+minimize the total waiting time</p>
+<p><span class="math display">$$
+T=\sum_{i=1}^{n} \text { (time spent waiting by customer } i \text { ).
+}
+$$</span></p>
+<p>Give an efficient algorithm for computing the optimal order in which
+to process the customers.</p>
+<h3 id="532">5.32</h3>
+<p>Show how to implement the stingy algorithm for Horn formula
+satisfiability (Section 5.3) in time that is linear in the length of the
+formula (the number of occurrences of literals in it). (Hint: Use a
+directed graph, with one node per variable, to represent the
+implications.)</p>
+<h3 id="533">5.33</h3>
+<p>Show that for any integer <span class="math inline"><em>n</em></span>
+that is a power of 2 , there is an instance of the set cover problem
+(Section 5.4) with the following properties: i. There are <span
+class="math inline"><em>n</em></span> elements in the base set. ii. The
+optimal cover uses just two sets. iii. The greedy algorithm picks at
+least <span class="math inline">log <em>n</em></span> sets.</p>
+<p>Thus the approximation ratio we derived in the chapter is tight.</p>
+</main>
+
+<!-- code highlighting -->
+<link rel="modulepreload" href="../../vendor/mermaid/mermaid.esm.min.mjs">
+<script src="../../vendor/highlight/highlight.min.js"></script>
+<!-- math -->
+<script defer src="../../vendor/katex/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="../../vendor/katex/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+<script type="module">
+  // 1) Normalize mermaid blocks. Pandoc(gfm) emits <pre class="mermaid"><code>...</code></pre>.
+  //    Flatten to raw source text so mermaid parses cleanly; also catch the code-only variant.
+  document.querySelectorAll('pre > code.language-mermaid, pre > code.mermaid').forEach(c => {
+    const p = document.createElement('pre'); p.className = 'mermaid'; p.textContent = c.textContent;
+    c.parentElement.replaceWith(p);
+  });
+  document.querySelectorAll('pre.mermaid').forEach(p => { p.textContent = p.textContent; });
+  // 2) Syntax-highlight every code block EXCEPT mermaid (auto-detect language)
+  if (window.hljs) document.querySelectorAll('pre:not(.mermaid) > code').forEach(el => window.hljs.highlightElement(el));
+  // 3) Render mermaid (dark)
+  try {
+    const mermaid = (await import('../../vendor/mermaid/mermaid.esm.min.mjs')).default;
+    mermaid.initialize({ startOnLoad: false, theme: 'dark', securityLevel: 'loose' });
+    await mermaid.run({ querySelector: 'pre.mermaid' });
+  } catch (e) { /* offline: leave as text */ }
+</script>
+<script>
+  // 4) Math: render \( \) and \[ \] (pandoc converts dollar-math to these). Tolerate malformed legacy TeX.
+  window.addEventListener('DOMContentLoaded', () => {
+    if (window.renderMathInElement) renderMathInElement(document.querySelector('.content'), {
+      // dollar-delimiters included so KaTeX also renders math pandoc failed to parse (left raw):
+      // a space before a closing delim, cases-env inline, apostrophes in text, etc. Display before inline.
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '\\[', right: '\\]', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false }
+      ],
+      throwOnError: false,
+      // \n is used in the legacy notes as a homemade "arrow over" (directed edge); map it to \overrightarrow.
+      macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
+    });
+  });
+</script>
+</body>
+</html>

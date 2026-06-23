@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Week 7 — Edmonds-Karp — CS6515</title>
+<link rel="stylesheet" href="../../vendor/fonts/fonts.css">
+<link rel="stylesheet" href="../../theme.css">
+<link rel="stylesheet" href="../../vendor/katex/katex.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="../../vendor/highlight/styles/tokyo-night-dark.min.css">
+
+</head>
+<body>
+<header class="topbar">
+  <a class="home" href="../../index.html">CS6515</a>
+  <span class="crumbloc">Week 7 — Edmonds-Karp</span>
+</header>
+<main class="content">
+<h1 id="week-7--edmonds-karp">Week 7 — Edmonds-Karp</h1>
+<blockquote>
+<p><strong>2026-06-29 → 07-05</strong> (Withdrawal deadline 07-05) ·
+Module <strong>MF4</strong> (Edmonds-Karp)</p>
+<p><a href="../W06_2026-06-22_MF1-MF2/index.html">◀ W06 Max-Flow</a> · <a
+href="../index.html">All weeks</a> · <a
+href="../../00_START_HERE/INDEX.html">Index</a> · <a
+href="../W08_2026-07-06_NP1-NP2-NP3/index.html">W08 NP ▶</a></p>
+</blockquote>
+<h3 id="exam-2-this-week">EXAM 2 this week</h3>
+<table>
+<tbody>
+<tr>
+<td><strong>Opens</strong></td>
+<td>Thu <strong>07-02</strong> 10am ET</td>
+</tr>
+<tr>
+<td><strong>Closes</strong></td>
+<td>Mon <strong>07-06</strong> 8am ET</td>
+</tr>
+<tr>
+<td><strong>Covers</strong></td>
+<td><strong>Weeks 4–7</strong> — DP3, GR1–GR3, MF1–MF2, MF4</td>
+</tr>
+</tbody>
+</table>
+<details>
+<summary><b>Watch the lecture</b> (Edmonds-Karp)</summary>
+
+<p><video controls preload="metadata" width="100%" src="https://storage.googleapis.com/darien-public-assets/cs6515-summer-2026/v20260623/videos/07_Week_07_Edmonds_Karp.mp4"></video></p>
+<p><a href="https://storage.googleapis.com/darien-public-assets/cs6515-summer-2026/v20260623/videos/07_Week_07_Edmonds_Karp.mp4">▶ Open video</a> · <a
+href="transcripts/07_Week_07_Edmonds_Karp.txt">Transcript</a></p>
+</details>
+
+<hr />
+<h2 id="learning-objectives">Learning objectives</h2>
+<ul>
+<li>Explain Edmonds-Karp as Ford-Fulkerson with one rule: pick the
+<strong>shortest</strong> augmenting path.</li>
+<li>State the <strong>strongly-polynomial</strong> <span
+class="math inline"><em>O</em>(<em>m</em><sup>2</sup><em>n</em>)</span>
+runtime and why it's independent of capacities.</li>
+<li>Sketch <em>why</em> shortest augmenting paths bound the number of
+augmentations.</li>
+</ul>
+<h2 id="core-concepts">Core concepts</h2>
+<h3 id="the-one-change-from-ford-fulkerson">The one change from
+Ford-Fulkerson</h3>
+<p><strong>Definition.</strong> <em>Edmonds-Karp</em> is Ford-Fulkerson
+where each augmenting path is chosen as a <strong>shortest</strong>
+(fewest-edges) <span class="math inline"><em>s</em> → <em>t</em></span>
+path in the residual graph, found by <strong>BFS</strong>.</p>
+<p>Intuition: arbitrary path choice (plain Ford-Fulkerson) can take a
+huge number of tiny augmentations when capacities are large; always
+taking the shortest path forces steady, bounded progress that doesn't
+depend on the capacity values at all.</p>
+<h3 id="strongly-vs-pseudo-polynomial">Strongly vs pseudo
+polynomial</h3>
+<ul>
+<li><strong>Pseudo-polynomial</strong> (Ford-Fulkerson, <span
+class="math inline"><em>O</em>(<em>m</em><em>C</em>)</span>): runtime
+depends on the <em>magnitude</em> of the numbers (<span
+class="math inline"><em>C</em></span> = max-flow value).</li>
+<li><strong>Strongly polynomial</strong> (Edmonds-Karp, <span
+class="math inline"><em>O</em>(<em>m</em><sup>2</sup><em>n</em>)</span>):
+runtime depends only on the <em>size</em> of the graph (<span
+class="math inline"><em>n</em>, <em>m</em></span>), never on capacity
+magnitudes.</li>
+</ul>
+<h2 id="algorithms">Algorithms</h2>
+<h3 id="edmonds-karp--om2-n">Edmonds-Karp — <span
+class="math inline"><em>O</em>(<em>m</em><sup>2</sup><em>n</em>)</span></h3>
+<ol type="1">
+<li>Start with zero flow; build residual graph <span
+class="math inline"><em>G</em><sub><em>f</em></sub></span>.</li>
+<li><strong>BFS</strong> from <span
+class="math inline"><em>s</em></span> to <span
+class="math inline"><em>t</em></span> in <span
+class="math inline"><em>G</em><sub><em>f</em></sub></span> to find a
+<em>shortest</em> augmenting path.</li>
+<li>Push the bottleneck along it; update <span
+class="math inline"><em>G</em><sub><em>f</em></sub></span> (forward
+<span class="math inline">−</span>, backward <span
+class="math inline">+</span> as usual).</li>
+<li>Repeat until BFS finds no <span
+class="math inline"><em>s</em> → <em>t</em></span> path. Current flow is
+maximum.</li>
+</ol>
+<p>Each BFS costs <span
+class="math inline"><em>O</em>(<em>m</em>)</span>; there are <span
+class="math inline"><em>O</em>(<em>m</em><em>n</em>)</span>
+augmentations (see below) → <span
+class="math inline"><em>O</em>(<em>m</em><sup>2</sup><em>n</em>)</span>
+total.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Augmenting path</th>
+<th>Runtime</th>
+<th>Depends on capacities?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Ford-Fulkerson</strong> (W6)</td>
+<td>any <span class="math inline"><em>s</em></span>–<span
+class="math inline"><em>t</em></span> path (e.g. DFS)</td>
+<td><span
+class="math inline"><em>O</em>(<em>m</em><em>C</em>)</span></td>
+<td><strong>yes</strong> (pseudo-polynomial)</td>
+</tr>
+<tr>
+<td><strong>Edmonds-Karp</strong> (W7)</td>
+<td><strong>shortest</strong> via BFS</td>
+<td><span
+class="math inline"><em>O</em>(<em>m</em><sup>2</sup><em>n</em>)</span></td>
+<td><strong>no</strong> (strongly polynomial)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="key-theorems--results">Key theorems &amp; results</h2>
+<h3 id="augmentation-bound--omn">Augmentation bound — <span
+class="math inline"><em>O</em>(<em>m</em><em>n</em>)</span></h3>
+<p><em>Why shortest paths help.</em> Two facts drive the bound:</p>
+<ol type="1">
+<li><strong>Monotone distances.</strong> The BFS distance <span
+class="math inline">dist<sub><em>f</em></sub>(<em>s</em>, <em>v</em>)</span>
+is <strong>non-decreasing</strong> across augmentations for every vertex
+<span class="math inline"><em>v</em></span> (a shortest-path
+augmentation never shortens any distance).</li>
+<li><strong>Bounded saturations.</strong> Each edge can be the
+<strong>bottleneck</strong> (saturated) at most <span
+class="math inline"><em>O</em>(<em>n</em>)</span> times, because between
+two saturations of the same edge the relevant BFS distance must strictly
+increase by <span class="math inline"> ≥ 2</span>, and distances range
+over <span class="math inline">0..<em>n</em></span>.</li>
+</ol>
+<p>With <span class="math inline"><em>m</em></span> edges each saturated
+<span class="math inline"><em>O</em>(<em>n</em>)</span> times, there are
+<span class="math inline"><em>O</em>(<em>m</em><em>n</em>)</span>
+augmentations; each BFS is <span
+class="math inline"><em>O</em>(<em>m</em>)</span>, giving <span
+class="math display"><em>O</em>(<em>m</em>) × <em>O</em>(<em>m</em><em>n</em>) = <em>O</em>(<em>m</em><sup>2</sup><em>n</em>).</span></p>
+<h2 id="worked-example-where-ford-fulkerson-is-slow">Worked example
+(where Ford-Fulkerson is slow)</h2>
+<p>Classic "anti-Ford-Fulkerson" graph: two parallel high-capacity paths
+bridged by a capacity-1 middle edge. Plain Ford-Fulkerson, if it keeps
+choosing the bridge, augments <span
+class="math inline">2<em>C</em></span> times (once per unit).
+Edmonds-Karp's BFS ignores the bridge as a longer route and finishes in
+a constant number of augmentations — independent of <span
+class="math inline"><em>C</em></span>. This is the canonical motivation
+for BFS.</p>
+<h2 id="common-pitfalls--exam-traps">Common pitfalls / exam traps</h2>
+<ul>
+<li>Saying Edmonds-Karp is "faster because BFS is faster than DFS" —
+wrong reason. BFS gives <em>shortest</em> paths, which bounds the
+<em>number</em> of augmentations.</li>
+<li>Confusing the bounds: Ford-Fulkerson <span
+class="math inline"><em>O</em>(<em>m</em><em>C</em>)</span> vs
+Edmonds-Karp <span
+class="math inline"><em>O</em>(<em>m</em><sup>2</sup><em>n</em>)</span>.</li>
+<li>Thinking the algorithm or theorem changes — only the
+<strong>path-selection rule</strong> changes; the residual mechanics and
+max-flow/min-cut theorem are identical to W6.</li>
+</ul>
+<h2 id="how-to-answer-hw--exam">How to answer (HW / exam)</h2>
+<p>Same black-box rule as W6: <strong>reduce to max-flow</strong>; when
+runtime matters, choose Edmonds-Karp for the strongly-polynomial <span
+class="math inline"><em>O</em>(<em>m</em><sup>2</sup><em>n</em>)</span>
+bound. See <a href="guidance/usable-black-boxes-graphs.html">black
+boxes</a>.</p>
+<details>
+<summary><b>Go deeper</b> — readings · guidance</summary>
+
+<ul>
+<li><a href="readings/DPV-ch7-flows-and-linear-programming.pdf">DPV §7.2
+(flows)</a></li>
+<li><a href="guidance/graph-theory-guidance.html">Graph guidance</a> ·
+<a href="guidance/usable-black-boxes-graphs.html">Black boxes</a> · <a
+href="guidance/common-course-runtimes.html">Common runtimes</a></li>
+<li><a href="notes/full-course-notes.html">Full course notes</a> · <a
+href="notes/ga-notes.pdf">ga-notes.pdf</a></li>
+<li><a href="lectures/">lectures/</a> · <a
+href="transcripts/">transcripts/</a> · <a href="readings/">readings/</a>
+· <a href="guidance/">guidance/</a> · <a href="notes/">notes/</a></li>
+</ul>
+</details>
+
+<h2 id="comprehensive-notes">Comprehensive Notes</h2>
+<h3 id="mf4--edmonds-karp-algorithm">MF4 — Edmonds-Karp Algorithm</h3>
+<p>Previously we examined the Ford-Fulkerson algorithm; here we turn to
+the Edmonds-Karp algorithm. Key take-aways from each:</p>
+<ul>
+<li><strong>Ford-Fulkerson</strong>
+<ul>
+<li>finds augmenting paths using either DFS or BFS</li>
+<li>runtime: <span
+class="math inline"><em>O</em>(<em>m</em><em>C</em>)</span> where <span
+class="math inline"><em>C</em></span> = size of the max flow</li>
+<li>assumes integer capacities</li>
+</ul></li>
+<li><strong>Edmonds-Karp</strong>
+<ul>
+<li>finds augmenting paths using BFS only</li>
+<li>runtime: <span
+class="math inline"><em>O</em>(<em>m</em><sup>2</sup><em>n</em>)</span></li>
+<li>assumes nothing about capacities</li>
+</ul></li>
+</ul>
+<p>In some ways EK is an implementation of FF, but with a stronger
+runtime guarantee and relaxed assumptions. As a result their algorithms
+are highly similar.</p>
+<p><strong>Recall — the Ford-Fulkerson algorithm.</strong> Input: flow
+network <span
+class="math inline"><em>G</em> = (<em>V</em>, <em>E</em>)</span> with
+integer capacities <span
+class="math inline"><em>c</em>(<em>e</em>) &gt; 0</span>.</p>
+<ol type="1">
+<li>Initialize <span
+class="math inline"><em>f</em><sub><em>e</em></sub> = 0; ∀<em>e</em> ∈ <em>E</em></span></li>
+<li>Build residual network <span
+class="math inline"><em>G</em><sup><em>f</em></sup></span></li>
+<li>Check for an <span class="math inline"><em>s</em></span>-<span
+class="math inline"><em>t</em></span> path <span
+class="math inline"><em>P</em></span> in <span
+class="math inline"><em>G</em><sup><em>f</em></sup></span> (use DFS or
+BFS) — if no path: return <span
+class="math inline"><em>f</em></span></li>
+<li>Let <span class="math inline"><em>c</em>(<em>P</em>)</span> = min
+capacity along <span class="math inline"><em>P</em></span> in <span
+class="math inline"><em>G</em><sup><em>f</em></sup></span></li>
+<li>Augment <span class="math inline"><em>f</em></span> by <span
+class="math inline"><em>c</em>(<em>P</em>)</span> units along <span
+class="math inline"><em>P</em></span></li>
+<li>Repeat (goto 2) until no <span
+class="math inline"><em>s</em></span>-<span
+class="math inline"><em>t</em></span> path in <span
+class="math inline"><em>G</em><sup><em>f</em></sup></span></li>
+</ol>
+<p><strong>Edmonds-Karp</strong> (tweaks in bold). Input: flow network
+<span class="math inline"><em>G</em> = (<em>V</em>, <em>E</em>)</span>
+with capacities <span
+class="math inline"><em>c</em>(<em>e</em>) &gt; 0</span> —
+<strong>integers removed</strong>.</p>
+<ol type="1">
+<li>Initialize <span
+class="math inline"><em>f</em><sub><em>e</em></sub> = 0; ∀<em>e</em> ∈ <em>E</em></span></li>
+<li>Build residual network <span
+class="math inline"><em>G</em><sup><em>f</em></sup></span></li>
+<li>Check for an <span class="math inline"><em>s</em></span>-<span
+class="math inline"><em>t</em></span> path <span
+class="math inline"><em>P</em></span> in <span
+class="math inline"><em>G</em><sup><em>f</em></sup></span> (use
+<strong>BFS</strong> — <strong>DFS removed</strong>) — if no path:
+return <span class="math inline"><em>f</em></span></li>
+<li>Let <span class="math inline"><em>c</em>(<em>P</em>)</span> = min
+capacity along <span class="math inline"><em>P</em></span> in <span
+class="math inline"><em>G</em><sup><em>f</em></sup></span></li>
+<li>Augment <span class="math inline"><em>f</em></span> by <span
+class="math inline"><em>c</em>(<em>P</em>)</span> units along <span
+class="math inline"><em>P</em></span></li>
+<li>Repeat (goto 2) until no <span
+class="math inline"><em>s</em></span>-<span
+class="math inline"><em>t</em></span> path in <span
+class="math inline"><em>G</em><sup><em>f</em></sup></span></li>
+</ol>
+<p><strong>Observations</strong></p>
+<ul>
+<li>at least one edge will change in each round/iteration</li>
+<li>we keep augmenting until full capacity is reached along one of the
+edges</li>
+<li>once full capacity is reached along an edge, it is removed from the
+residual graph in the next round (others may be removed too, but at
+least 1 edge is removed each stage)</li>
+</ul>
+<p>We want to prove the running time is <span
+class="math inline"><em>O</em>(<em>m</em><sup>2</sup><em>n</em>)</span>.
+To do so we show the number of rounds is <span
+class="math inline"> ≤ <em>m</em><em>n</em></span> (also the number of
+augmentations). Each round calls BFS, which has linear runtime <span
+class="math inline"><em>O</em>(<em>m</em> + <em>n</em>)</span>; assuming
+<span class="math inline"><em>m</em> ≥ <em>n</em></span>, BFS simplifies
+to <span class="math inline"><em>O</em>(<em>m</em>)</span>, making the
+total runtime <span
+class="math inline"><em>O</em>(<em>m</em><sup>2</sup><em>n</em>)</span>.</p>
+<p>In every round the residual graph changes — in particular at least 1
+edge is deleted (the one with minimum capacity along the augmenting
+path), and some may be (re)inserted. This leads to the following
+lemma.</p>
+<blockquote>
+<p><strong>Lemma.</strong> For every edge <span
+class="math inline"><em>e</em></span>, <span
+class="math inline"><em>e</em></span> is deleted and reinserted later
+<span class="math inline"> ≤ <em>n</em>/2</span> times.</p>
+</blockquote>
+<p>Since every edge is deleted at most <span
+class="math inline"><em>n</em>/2</span> times and we have <span
+class="math inline"><em>m</em></span> edges, there are at most <span
+class="math inline"><em>m</em> ⋅ (<em>n</em>/2)</span> total rounds.
+This proves the number of rounds is at most <span
+class="math inline"><em>m</em><em>n</em></span>, and the runtime <span
+class="math inline"><em>O</em>(<em>m</em><sup>2</sup><em>n</em>)</span>
+follows. Now we prove the lemma.</p>
+<p><strong>Quick review of BFS properties</strong></p>
+<ul>
+<li>Input: directed graph <span
+class="math inline"><em>G</em> = (<em>V</em>, <em>E</em>)</span>, start
+vertex <span class="math inline"><em>s</em> ∈ <em>V</em></span>, weights
+ignored</li>
+<li>Output: <span class="math inline">dist (<em>v</em>)</span> = min
+number of edges from <span class="math inline"><em>s</em></span> to
+<span class="math inline"><em>v</em></span>, for all <span
+class="math inline"><em>v</em> ∈ <em>V</em></span></li>
+<li>think of the dist array as a set of <strong>levels</strong> — each
+new frontier creates a new level (the min number of edges to that
+vertex)</li>
+<li>let <span
+class="math inline">level(<em>v</em>) = dist (<em>v</em>)</span>: the
+level cannot go up by more than 1 across an edge, and it cannot stay the
+same nor go down along an edge (going down would imply a shorter
+path)</li>
+</ul>
+<p><img src="../../.assets/CS6515_images/MF4-001.png"
+alt="MF4-001" /></p>
+<p>The path from <span class="math inline"><em>s</em></span> to <span
+class="math inline"><em>t</em></span> found by BFS is the one where the
+level goes up by 1 at every edge. This is key to the proof: we track how
+<span class="math inline">level(<em>z</em>)</span> changes as the
+residual graph <span
+class="math inline"><em>G</em><sup><em>f</em></sup></span> changes.</p>
+<p>Consider removing edge <span
+class="math inline"><em>a</em> → <em>d</em></span> in the graph above;
+the level of <span class="math inline"><em>d</em></span> becomes 3, as
+it is no longer reachable in 2 steps. Inserting an edge will never
+decrease a level. For every <span
+class="math inline"><em>z</em> ∈ <em>V</em></span>, <span
+class="math inline">level(<em>z</em>)</span> does not decrease — it may
+increase or stay the same, but never decreases. To see why, consider
+which edges are inserted and removed for an original-flow edge <span
+class="math inline">$\overset{\rightarrow}{vw} \in E$</span> (4
+cases):</p>
+<ul>
+<li><strong>Add <span class="math inline">(<em>v</em><em>w</em>)</span>
+to <span
+class="math inline"><em>G</em><sup><em>f</em></sup></span>:</strong> the
+flow was full and then reduced (leftover capacity) — a reduction occurs
+when the back edge was in the augmenting path, <span
+class="math inline">(<em>w</em><em>v</em>) ∈ <em>P</em></span>.</li>
+<li><strong>Remove <span
+class="math inline">(<em>v</em><em>w</em>)</span> from <span
+class="math inline"><em>G</em><sup><em>f</em></sup></span>:</strong> the
+flow reaches capacity — we augmented along the forward edge, <span
+class="math inline">(<em>v</em><em>w</em>) ∈ <em>P</em></span>.</li>
+<li><strong>Add back edge <span
+class="math inline">(<em>w</em><em>v</em>)</span> to <span
+class="math inline"><em>G</em><sup><em>f</em></sup></span>:</strong> the
+flow was empty and we increased flow along the forward edge, <span
+class="math inline">(<em>v</em><em>w</em>) ∈ <em>P</em></span>.</li>
+<li><strong>Remove back edge <span
+class="math inline">(<em>w</em><em>v</em>)</span> from <span
+class="math inline"><em>G</em><sup><em>f</em></sup></span>:</strong> the
+flow was positive and is now empty — flow decreased along the forward
+edge <span class="math inline"><em>v</em> → <em>w</em></span> (sent
+along the backward edge), so <span
+class="math inline">(<em>w</em><em>v</em>) ∈ <em>P</em></span>.</li>
+</ul>
+<blockquote>
+<p><strong>Pattern.</strong> Adding an edge happens when the
+<em>opposite</em> edge is on the augmenting path (add <span
+class="math inline">(<em>y</em><em>z</em>)</span> to <span
+class="math inline"><em>G</em><sup><em>f</em></sup></span> <span
+class="math inline"> ⇒ (<em>z</em><em>y</em>) ∈ <em>P</em></span>);
+removing an edge means <em>that</em> edge is on the path (remove <span
+class="math inline">(<em>y</em><em>z</em>)</span> from <span
+class="math inline"><em>G</em><sup><em>f</em></sup></span> <span
+class="math inline"> ⇒ (<em>y</em><em>z</em>) ∈ <em>P</em></span>).</p>
+</blockquote>
+<blockquote>
+<p><strong>Claim.</strong> For every <span
+class="math inline"><em>z</em> ∈ <em>V</em></span>, <span
+class="math inline">level(<em>z</em>)</span> does not decrease.</p>
+</blockquote>
+<p>A level might decrease only if we add an edge <span
+class="math inline">(<em>y</em><em>z</em>)</span> giving a shorter path
+(removing an edge cannot). Suppose <span
+class="math inline">level(<em>z</em>) = <em>i</em></span> and we add
+<span class="math inline">(<em>y</em><em>z</em>)</span> to <span
+class="math inline"><em>G</em><sup><em>f</em></sup></span>; then the
+reverse edge is on the augmenting path, <span
+class="math inline">(<em>z</em><em>y</em>) ∈ <em>P</em></span>, and lies
+on a BFS path, so BFS gives <span
+class="math inline">level(<em>y</em>) = level(<em>z</em>) + 1 = <em>i</em> + 1</span>.
+Thus <span class="math inline">level(<em>z</em>)</span> has not
+decreased despite adding an edge from a higher to a lower level. <span
+class="math inline">▫</span></p>
+<p><strong>Delete/Add effect.</strong> Take <span
+class="math inline">level(<em>v</em>) = <em>i</em></span>.</p>
+<ul>
+<li>Delete <span class="math inline">$\overset{\rightarrow}{vw}$</span>
+from <span class="math inline"><em>G</em><sup><em>f</em></sup></span>:
+then <span class="math inline">$\overset{\rightarrow}{vw} \in P$</span>,
+implying <span
+class="math inline">level(<em>w</em>) = level(<em>v</em>) + 1 ≥ <em>i</em> + 1</span>.</li>
+<li>Later add it back: then <span
+class="math inline">$\overset{\rightarrow}{wv} \in P$</span>, implying
+<span
+class="math inline">level(<em>v</em>) = level(<em>w</em>) + 1 ≥ <em>i</em> + 2</span>.</li>
+</ul>
+<p>So <span class="math inline"><em>v</em></span> began at level <span
+class="math inline"><em>i</em></span>; after a remove+reinsert it has
+increased 2 levels. Levels range from 0 to <span
+class="math inline"><em>n</em></span>, and each delete+insert costs 2
+units, so each edge allows at most <span
+class="math inline"><em>n</em>/2</span> (delete+insert) operations. With
+<span class="math inline"><em>m</em></span> edges, this proves there are
+at most <span class="math inline"><em>n</em><em>m</em></span> rounds in
+Edmonds-Karp.</p>
+<!-- WEEK-EXTRAS:START -->
+
+<h2 id="dpv-chapter-exercises">DPV chapter exercises</h2>
+<details>
+<summary><b>DPV chapter exercises (exact, from the textbook)</b></summary>
+
+<p><em>Exact end-of-chapter exercises, parsed from the DPV chapter
+PDFs.</em></p>
+<p><strong>DPV Ch 7 — Linear Programming</strong> — <a
+href="../../textbooks/examples-md/07-linear-programming-dpv-examples.html">open
+exercises</a> · <a href="readings/DPV-ch7-examples.pdf">chapter
+PDF</a></p>
+<iframe class="examples-frame" src="../../textbooks/examples-md/07-linear-programming-dpv-examples.html" title="DPV Ch 7 — Linear Programming exercises"></iframe>
+
+</details>
+
+<!-- WEEK-EXTRAS:END -->
+
+<h2 id="agent-hint">Agent hint</h2>
+<p>Max-flow runtime question → Edmonds-Karp <span
+class="math inline"><em>O</em>(<em>m</em><sup>2</sup><em>n</em>)</span>
+(BFS, capacity-independent) vs Ford-Fulkerson <span
+class="math inline"><em>O</em>(<em>m</em><em>C</em>)</span>.
+<strong>Exam 2 (W4–7) opens this week.</strong></p>
+</main>
+
+<!-- code highlighting -->
+<link rel="modulepreload" href="../../vendor/mermaid/mermaid.esm.min.mjs">
+<script src="../../vendor/highlight/highlight.min.js"></script>
+<!-- math -->
+<script defer src="../../vendor/katex/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="../../vendor/katex/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+<script type="module">
+  // 1) Normalize mermaid blocks. Pandoc(gfm) emits <pre class="mermaid"><code>...</code></pre>.
+  //    Flatten to raw source text so mermaid parses cleanly; also catch the code-only variant.
+  document.querySelectorAll('pre > code.language-mermaid, pre > code.mermaid').forEach(c => {
+    const p = document.createElement('pre'); p.className = 'mermaid'; p.textContent = c.textContent;
+    c.parentElement.replaceWith(p);
+  });
+  document.querySelectorAll('pre.mermaid').forEach(p => { p.textContent = p.textContent; });
+  // 2) Syntax-highlight every code block EXCEPT mermaid (auto-detect language)
+  if (window.hljs) document.querySelectorAll('pre:not(.mermaid) > code').forEach(el => window.hljs.highlightElement(el));
+  // 3) Render mermaid (dark)
+  try {
+    const mermaid = (await import('../../vendor/mermaid/mermaid.esm.min.mjs')).default;
+    mermaid.initialize({ startOnLoad: false, theme: 'dark', securityLevel: 'loose' });
+    await mermaid.run({ querySelector: 'pre.mermaid' });
+  } catch (e) { /* offline: leave as text */ }
+</script>
+<script>
+  // 4) Math: render \( \) and \[ \] (pandoc converts dollar-math to these). Tolerate malformed legacy TeX.
+  window.addEventListener('DOMContentLoaded', () => {
+    if (window.renderMathInElement) renderMathInElement(document.querySelector('.content'), {
+      // dollar-delimiters included so KaTeX also renders math pandoc failed to parse (left raw):
+      // a space before a closing delim, cases-env inline, apostrophes in text, etc. Display before inline.
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '\\[', right: '\\]', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false }
+      ],
+      throwOnError: false,
+      // \n is used in the legacy notes as a homemade "arrow over" (directed edge); map it to \overrightarrow.
+      macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
+    });
+  });
+</script>
+</body>
+</html>

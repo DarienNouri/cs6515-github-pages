@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GR0: Graph Fundamentals — CS6515</title>
+<link rel="stylesheet" href="../../../vendor/fonts/fonts.css">
+<link rel="stylesheet" href="../../../theme.css">
+<link rel="stylesheet" href="../../../vendor/katex/katex.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="../../../vendor/highlight/styles/tokyo-night-dark.min.css">
+
+</head>
+<body>
+<header class="topbar">
+  <a class="home" href="../../../index.html">CS6515</a>
+  <span class="crumbloc">GR0: Graph Fundamentals</span>
+</header>
+<main class="content">
+<h1 id="gr0-graph-fundamentals">GR0: Graph Fundamentals</h1>
+<blockquote>
+<p>📚 <strong>Reference:</strong> DPV Chapter 3 (Decompositions of
+Graphs) This is the foundation for everything. If you struggled with
+graphs before, this is where we fix that.</p>
+</blockquote>
+<hr />
+<h2 id="1-what-is-a-graph">1. What Is a Graph?</h2>
+<p>A <strong>graph</strong> G = (V, E) consists of:</p>
+<ul>
+<li><strong>V</strong> — a set of <strong>vertices</strong> (aka
+nodes)</li>
+<li><strong>E</strong> — a set of <strong>edges</strong> connecting
+pairs of vertices</li>
+</ul>
+<pre class="mermaid"><code>graph LR
+    A --- B
+    A --- C
+    B --- C</code></pre>
+<p>Two flavors:</p>
+<ul>
+<li><strong>Undirected:</strong> edges are unordered pairs {u, v}. If A
+connects to B, then B connects to A.</li>
+<li><strong>Directed:</strong> edges are ordered pairs (u, v). A → B
+does NOT mean B → A.</li>
+</ul>
+<pre class="mermaid"><code>graph LR
+    A --&gt;|directed| B
+    A --&gt;|directed| C
+    B --&gt;|directed| C</code></pre>
+<p>We assume all graphs are <strong>simple</strong> — no self-loops (u,
+u) and no parallel edges.</p>
+<hr />
+<h2 id="2-terminology">2. Terminology</h2>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Adjacent</strong></td>
+<td>Two vertices sharing an edge</td>
+</tr>
+<tr>
+<td><strong>Neighborhood</strong> N(v)</td>
+<td>Set of vertices adjacent to v</td>
+</tr>
+<tr>
+<td><strong>Degree</strong> deg(v)</td>
+<td>Number of edges incident to v; equals |N(v)|</td>
+</tr>
+<tr>
+<td><strong>In-degree</strong> (directed)</td>
+<td>Number of edges coming <em>into</em> v</td>
+</tr>
+<tr>
+<td><strong>Out-degree</strong> (directed)</td>
+<td>Number of edges going <em>out of</em> v</td>
+</tr>
+<tr>
+<td><strong>Path</strong></td>
+<td>Sequence of vertices connected by edges</td>
+</tr>
+<tr>
+<td><strong>Cycle</strong></td>
+<td>Path that starts and ends at the same vertex</td>
+</tr>
+<tr>
+<td><strong>Connected</strong> (undirected)</td>
+<td>There's a path between every pair of vertices</td>
+</tr>
+<tr>
+<td><strong>Strongly connected</strong> (directed)</td>
+<td>For every u, v: path from u→v AND v→u</td>
+</tr>
+<tr>
+<td><strong>DAG</strong></td>
+<td>Directed Acyclic Graph — directed graph with no cycles</td>
+</tr>
+<tr>
+<td><strong>Source</strong></td>
+<td>Vertex with in-degree 0 (nothing points to it)</td>
+</tr>
+<tr>
+<td><strong>Sink</strong></td>
+<td>Vertex with out-degree 0 (it points to nothing)</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>Common Pitfall:</strong> In directed graphs, adjacency has
+direction. "A is adjacent to B" means there's an edge A → B. It does NOT
+mean B → A.</p>
+</blockquote>
+<hr />
+<h2 id="3-graph-representations">3. Graph Representations</h2>
+<h3 id="adjacency-matrix">Adjacency Matrix</h3>
+<p>An n × n matrix M where M[i][j] = 1 if edge (i, j) exists, 0
+otherwise.</p>
+<pre><code>Example (undirected):        Example (directed):
+    1  2  3                      1  2  3
+1 [ 0  1  1 ]               1 [ 0  1  1 ]
+2 [ 1  0  1 ]               2 [ 0  0  1 ]
+3 [ 1  1  0 ]               3 [ 0  1  0 ]</code></pre>
+<ul>
+<li><strong>Space:</strong> O(n²)</li>
+<li><strong>Check if edge exists:</strong> O(1) ✅</li>
+<li><strong>List all neighbors:</strong> O(n) ❌</li>
+<li><strong>Undirected → symmetric matrix</strong></li>
+</ul>
+<h3 id="adjacency-list">Adjacency List</h3>
+<p>Each vertex stores a list of its neighbors.</p>
+<pre><code>Example (directed):
+1 → [2, 3]
+2 → [3]
+3 → [2]</code></pre>
+<ul>
+<li><strong>Space:</strong> O(n + m) where m = |E|</li>
+<li><strong>Check if edge exists:</strong> O(degree) ❌</li>
+<li><strong>List all neighbors:</strong> O(degree) ✅</li>
+</ul>
+<blockquote>
+<p>💡 <strong>Intuition:</strong> For sparse graphs (m ≪ n²), adjacency
+lists win. Most real-world graphs are sparse. This course uses adjacency
+lists unless stated otherwise.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Adjacency Matrix</th>
+<th>Adjacency List</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Space</td>
+<td>O(n²)</td>
+<td>O(n + m)</td>
+</tr>
+<tr>
+<td>Edge lookup</td>
+<td>O(1)</td>
+<td>O(degree)</td>
+</tr>
+<tr>
+<td>Iterate neighbors</td>
+<td>O(n)</td>
+<td>O(degree)</td>
+</tr>
+<tr>
+<td>Best for</td>
+<td>Dense graphs</td>
+<td>Sparse graphs (most cases)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="4-bfs-breadth-first-search">4. BFS: Breadth-First Search</h2>
+<p>BFS explores the graph level by level, like ripples in a pond. It
+finds <strong>shortest paths</strong> in unweighted graphs.</p>
+<pre><code>BFS(G, s):
+    Input:  G = (V, E), source vertex s
+    Output: dist[v] = min edges from s to v
+            prev[v] = predecessor on shortest path
+
+    for all v ∈ V:
+        dist[v] = ∞
+        prev[v] = null
+
+    dist[s] = 0
+    Q = queue containing s
+
+    while Q is not empty:
+        v = dequeue(Q)
+        for all edges (v, w) ∈ E:
+            if dist[w] = ∞:          // not yet visited
+                dist[w] = dist[v] + 1
+                prev[w] = v
+                enqueue(Q, w)</code></pre>
+<p><strong>Runtime:</strong> O(n + m) — each vertex and edge visited
+once.</p>
+<h3 id="bfs-example">BFS Example</h3>
+<pre class="mermaid"><code>graph LR
+    A((A&lt;br/&gt;d=0)) --&gt; B((B&lt;br/&gt;d=1))
+    A --&gt; C((C&lt;br/&gt;d=1))
+    B --&gt; D((D&lt;br/&gt;d=2))
+    C --&gt; D
+    C --&gt; E((E&lt;br/&gt;d=2))</code></pre>
+<p>Starting from A: BFS visits {A} → {B, C} → {D, E}</p>
+<blockquote>
+<p>🎯 <strong>Exam Tip:</strong> BFS gives shortest paths in
+<strong>unweighted</strong> graphs only. For weighted graphs, you need
+Dijkstra's.</p>
+</blockquote>
+<hr />
+<h2 id="5-dijkstras-algorithm">5. Dijkstra's Algorithm</h2>
+<p>Dijkstra's is BFS for weighted graphs (with <strong>positive</strong>
+weights only).</p>
+<pre><code>Dijkstra(G, s, w):
+    Input:  G = (V, E), source s, weights w(e) &gt; 0 for all e
+    Output: dist[v] = shortest weighted path from s to v
+            prev[v] = predecessor on shortest path
+
+    for all v ∈ V:
+        dist[v] = ∞
+        prev[v] = null
+
+    dist[s] = 0
+    H = min-heap with all vertices, keyed by dist
+
+    while H is not empty:
+        v = extractMin(H)
+        for all edges (v, w) ∈ E:
+            if dist[v] + w(v,w) &lt; dist[w]:
+                dist[w] = dist[v] + w(v,w)
+                prev[w] = v
+                decreaseKey(H, w)</code></pre>
+<p><strong>Runtime:</strong> O((|V| + |E|) log |V|) using a binary
+min-heap.</p>
+<p><strong>Key lemmas:</strong></p>
+<ol type="1">
+<li>The subpath of any shortest path is itself a shortest path</li>
+<li><strong>Triangle inequality:</strong> dist(u, v) ≤ dist(u, x) +
+dist(x, v)</li>
+</ol>
+<blockquote>
+<p>⚠️ <strong>Common Pitfall:</strong> Dijkstra's does NOT work with
+negative edge weights. For negative weights, use Bellman-Ford (covered
+in DP3).</p>
+</blockquote>
+<hr />
+<h2 id="6-dfs-depth-first-search-undirected">6. DFS: Depth-First Search
+(Undirected)</h2>
+<p>DFS explores as deep as possible before backtracking. It's the
+foundation for SCCs, topological sort, and cycle detection.</p>
+<h3 id="dfs-for-finding-connected-components">DFS for Finding Connected
+Components</h3>
+<pre><code>DFS(G):
+    Input:  G = (V, E) undirected, adjacency list
+    Output: ccnum[v] = connected component number for each v
+
+    cc = 0
+    for all v ∈ V:
+        visited[v] = false
+
+    for all v ∈ V:
+        if not visited[v]:
+            cc = cc + 1
+            Explore(v)
+
+Explore(z):
+    visited[z] = true
+    ccnum[z] = cc
+    for all (z, w) ∈ E:
+        if not visited[w]:
+            Explore(w)</code></pre>
+<p><strong>Runtime:</strong> O(n + m)</p>
+<blockquote>
+<p>💡 <strong>Intuition:</strong> Each call to Explore from the main DFS
+loop discovers a new connected component. Everything reachable from z
+gets the same cc number.</p>
+</blockquote>
+<pre class="mermaid"><code>graph TD
+    subgraph &quot;Component 1&quot;
+        A --- B
+        B --- C
+    end
+    subgraph &quot;Component 2&quot;
+        D --- E
+    end
+    subgraph &quot;Component 3&quot;
+        F
+    end</code></pre>
+<hr />
+<h2 id="7-dfs-for-directed-graphs--prepost-numbering">7. DFS for
+Directed Graphs — Pre/Post Numbering</h2>
+<p>For directed graphs, we add a <strong>clock</strong> to track the
+order of discovery (pre) and completion (post) for each vertex.</p>
+<pre><code>DFS(G):
+    Input:  G = (V, E) directed, adjacency list
+    Output: pre[v], post[v] for each vertex
+
+    clock = 1
+    for all v ∈ V:
+        visited[v] = false
+
+    for all v ∈ V:
+        if not visited[v]:
+            Explore(v)
+
+Explore(z):
+    pre[z] = clock; clock++
+    visited[z] = true
+    for all (z, w) ∈ E:
+        if not visited[w]:
+            Explore(w)
+    post[z] = clock; clock++</code></pre>
+<p><strong>Runtime:</strong> O(n + m)</p>
+<h3 id="worked-example">Worked Example</h3>
+<pre class="mermaid"><code>graph LR
+    A --&gt; B
+    A --&gt; C
+    B --&gt; D
+    B --&gt; E
+    D --&gt; E
+    E --&gt; A</code></pre>
+<p>Running DFS starting from A:</p>
+<table>
+<thead>
+<tr>
+<th>Vertex</th>
+<th>pre</th>
+<th>post</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>1</td>
+<td>10</td>
+</tr>
+<tr>
+<td>B</td>
+<td>2</td>
+<td>9</td>
+</tr>
+<tr>
+<td>D</td>
+<td>3</td>
+<td>6</td>
+</tr>
+<tr>
+<td>E</td>
+<td>4</td>
+<td>5</td>
+</tr>
+<tr>
+<td>C</td>
+<td>7</td>
+<td>8</td>
+</tr>
+</tbody>
+</table>
+<p>The pre/post intervals tell us about the tree structure:</p>
+<ul>
+<li><strong>Containment:</strong> If [pre(u), post(u)] contains [pre(v),
+post(v)], then u is an ancestor of v</li>
+<li><strong>Disjoint:</strong> If intervals don't overlap, neither is an
+ancestor of the other</li>
+</ul>
+<hr />
+<h2 id="8-edge-types-in-dfs">8. Edge Types in DFS</h2>
+<p>When we run DFS on a directed graph, every edge falls into exactly
+one of four categories:</p>
+<table>
+<thead>
+<tr>
+<th>Edge Type</th>
+<th>Relationship</th>
+<th>Post Numbers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Tree edge</strong></td>
+<td>Parent → child in DFS tree</td>
+<td>post(z) &gt; post(w)</td>
+</tr>
+<tr>
+<td><strong>Back edge</strong></td>
+<td>Descendant → ancestor</td>
+<td>post(z) &lt; post(w) ⚠️</td>
+</tr>
+<tr>
+<td><strong>Forward edge</strong></td>
+<td>Ancestor → non-child descendant</td>
+<td>post(z) &gt; post(w)</td>
+</tr>
+<tr>
+<td><strong>Cross edge</strong></td>
+<td>Between unrelated vertices</td>
+<td>post(z) &gt; post(w)</td>
+</tr>
+</tbody>
+</table>
+<pre class="mermaid"><code>graph TD
+    A --&gt;|tree| B
+    A --&gt;|tree| C
+    B --&gt;|tree| D
+    D --&gt;|back| A
+    A --&gt;|forward| D
+    C --&gt;|cross| D</code></pre>
+<blockquote>
+<p>⚠️ <strong>Common Pitfall:</strong> Back edges are the ONLY type
+where post(z) &lt; post(w). For all other edges, post(z) &gt; post(w).
+This is critical for understanding cycles and topological sort.</p>
+</blockquote>
+<h3 id="the-cycle-theorem">The Cycle Theorem</h3>
+<blockquote>
+<p><strong>G has a cycle ⟺ its DFS tree has a back edge.</strong></p>
+</blockquote>
+<p><strong>Proof (→):</strong> Consider a cycle C. Let v_i be the first
+vertex of C visited by DFS. All other cycle vertices are reachable from
+v_i, so they become descendants. The edge v_{i-1} → v_i goes from
+descendant to ancestor = back edge. ✅</p>
+<p><strong>Proof (←):</strong> A back edge v → w means v is a descendant
+of w. So there's a path w ↝ v in the tree, plus the edge v → w. That's a
+cycle. ✅</p>
+<hr />
+<h2 id="9-topological-sorting">9. Topological Sorting</h2>
+<p>A <strong>topological ordering</strong> of a DAG is a linear ordering
+of vertices such that for every edge u → v, u comes before v.</p>
+<blockquote>
+<p>💡 <strong>Intuition:</strong> Think of it as a valid scheduling
+order. If task A must happen before task B, then A appears first.</p>
+</blockquote>
+<p><strong>The Algorithm:</strong> Run DFS, then sort vertices by
+<strong>decreasing post number</strong>.</p>
+<pre><code>TopologicalSort(G):
+    Input:  DAG G = (V, E)
+    Output: vertices in topological order
+
+    1. Run DFS(G) to compute post numbers
+    2. Return vertices sorted by decreasing post[v]</code></pre>
+<p><strong>Why it works:</strong> In a DAG, there are no back edges. So
+for every edge u → v, post(u) &gt; post(v). Sorting by decreasing post
+number gives a valid ordering.</p>
+<p><strong>Runtime:</strong> O(n + m) for DFS + O(n) for sorting =
+<strong>O(n + m)</strong></p>
+<h3 id="example">Example</h3>
+<pre class="mermaid"><code>graph LR
+    X[&quot;X (post=10)&quot;] --&gt; Y[&quot;Y (post=8)&quot;]
+    X --&gt; Z[&quot;Z (post=6)&quot;]
+    Y --&gt; Z
+    Z --&gt; U[&quot;U (post=4)&quot;]
+    Z --&gt; W[&quot;W (post=2)&quot;]</code></pre>
+<p>Topological order: X → Y → Z → U → W (sorted by decreasing post
+number)</p>
+<p><strong>Alternative algorithm</strong> (useful conceptually):</p>
+<ol type="1">
+<li>Find a sink vertex (no outgoing edges), output it</li>
+<li>Remove it from the graph</li>
+<li>Repeat until graph is empty</li>
+<li>Reverse the output list</li>
+</ol>
+<blockquote>
+<p>🎯 <strong>Exam Tip:</strong> Topological sort only works on DAGs. If
+the graph has a cycle, topological ordering is impossible. (The
+existence of a back edge proves the cycle.)</p>
+</blockquote>
+<hr />
+<h2 id="10-summary-table">10. Summary Table</h2>
+<table>
+<thead>
+<tr>
+<th>Algorithm</th>
+<th>Input</th>
+<th>Output</th>
+<th>Runtime</th>
+<th>Key Constraint</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>BFS</strong></td>
+<td>G, source s</td>
+<td>dist[], prev[]</td>
+<td>O(n + m)</td>
+<td>Unweighted edges</td>
+</tr>
+<tr>
+<td><strong>Dijkstra's</strong></td>
+<td>G, source s, weights</td>
+<td>dist[], prev[]</td>
+<td>O((V+E) log V)</td>
+<td>Positive weights only</td>
+</tr>
+<tr>
+<td><strong>DFS</strong> (undirected)</td>
+<td>G</td>
+<td>ccnum[]</td>
+<td>O(n + m)</td>
+<td>—</td>
+</tr>
+<tr>
+<td><strong>DFS</strong> (directed)</td>
+<td>G</td>
+<td>pre[], post[]</td>
+<td>O(n + m)</td>
+<td>—</td>
+</tr>
+<tr>
+<td><strong>Topo Sort</strong></td>
+<td>DAG G</td>
+<td>ordered vertices</td>
+<td>O(n + m)</td>
+<td>Must be a DAG</td>
+</tr>
+<tr>
+<td><strong>Explore</strong></td>
+<td>G, vertex v</td>
+<td>visited[]</td>
+<td>O(n + m)</td>
+<td>Finds all reachable from v</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>💡 <strong>The Big Picture:</strong> DFS is the Swiss Army knife of
+graph algorithms. Connected components, cycle detection, topological
+sorting, SCCs — they all build on DFS. Master DFS and the rest
+follows.</p>
+</blockquote>
+</main>
+
+<!-- code highlighting -->
+<link rel="modulepreload" href="../../../vendor/mermaid/mermaid.esm.min.mjs">
+<script src="../../../vendor/highlight/highlight.min.js"></script>
+<!-- math -->
+<script defer src="../../../vendor/katex/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="../../../vendor/katex/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+<script type="module">
+  // 1) Normalize mermaid blocks. Pandoc(gfm) emits <pre class="mermaid"><code>...</code></pre>.
+  //    Flatten to raw source text so mermaid parses cleanly; also catch the code-only variant.
+  document.querySelectorAll('pre > code.language-mermaid, pre > code.mermaid').forEach(c => {
+    const p = document.createElement('pre'); p.className = 'mermaid'; p.textContent = c.textContent;
+    c.parentElement.replaceWith(p);
+  });
+  document.querySelectorAll('pre.mermaid').forEach(p => { p.textContent = p.textContent; });
+  // 2) Syntax-highlight every code block EXCEPT mermaid (auto-detect language)
+  if (window.hljs) document.querySelectorAll('pre:not(.mermaid) > code').forEach(el => window.hljs.highlightElement(el));
+  // 3) Render mermaid (dark)
+  try {
+    const mermaid = (await import('../../../vendor/mermaid/mermaid.esm.min.mjs')).default;
+    mermaid.initialize({ startOnLoad: false, theme: 'dark', securityLevel: 'loose' });
+    await mermaid.run({ querySelector: 'pre.mermaid' });
+  } catch (e) { /* offline: leave as text */ }
+</script>
+<script>
+  // 4) Math: render \( \) and \[ \] (pandoc converts dollar-math to these). Tolerate malformed legacy TeX.
+  window.addEventListener('DOMContentLoaded', () => {
+    if (window.renderMathInElement) renderMathInElement(document.querySelector('.content'), {
+      // dollar-delimiters included so KaTeX also renders math pandoc failed to parse (left raw):
+      // a space before a closing delim, cases-env inline, apostrophes in text, etc. Display before inline.
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '\\[', right: '\\]', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false }
+      ],
+      throwOnError: false,
+      // \n is used in the legacy notes as a homemade "arrow over" (directed edge); map it to \overrightarrow.
+      macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
+    });
+  });
+</script>
+</body>
+</html>

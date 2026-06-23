@@ -1,0 +1,1310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Week 9 — Linear Programming — CS6515</title>
+<link rel="stylesheet" href="../../vendor/fonts/fonts.css">
+<link rel="stylesheet" href="../../theme.css">
+<link rel="stylesheet" href="../../vendor/katex/katex.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="../../vendor/highlight/styles/tokyo-night-dark.min.css">
+
+</head>
+<body>
+<header class="topbar">
+  <a class="home" href="../../index.html">CS6515</a>
+  <span class="crumbloc">Week 9 — Linear Programming</span>
+</header>
+<main class="content">
+<h1 id="week-9--linear-programming">Week 9 — Linear Programming</h1>
+<blockquote>
+<p><strong>2026-07-13 → 07-19</strong> · Modules <strong>LP1</strong>
+(Intro), <strong>LP2</strong> (Geometry), <strong>LP3</strong>
+(Duality)</p>
+<p><a href="../W08_2026-07-06_NP1-NP2-NP3/index.html">◀ W08 NP</a> · <a
+href="../index.html">All weeks</a> · <a
+href="../../00_START_HERE/INDEX.html">Index</a> · <a
+href="../W10_2026-07-20_LP4-NP4-NP5_EXAM3/index.html">W10 Approx + Exam 3
+▶</a></p>
+</blockquote>
+<h3 id="due-this-week">Due this week</h3>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Type</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>HW9</strong></td>
+<td>written</td>
+<td>LP formulation</td>
+</tr>
+<tr>
+<td><strong>HW10</strong></td>
+<td>written</td>
+<td>duality</td>
+</tr>
+<tr>
+<td><strong>Quiz 7</strong></td>
+<td>content</td>
+<td>NP + LP</td>
+</tr>
+</tbody>
+</table>
+<details>
+<summary><b>Watch the lecture</b> (Linear Programming)</summary>
+
+<p><video controls preload="metadata" width="100%" src="https://storage.googleapis.com/darien-public-assets/cs6515-summer-2026/v20260623/videos/09_Week_09_Linear_Programming.mp4"></video></p>
+<p><a href="https://storage.googleapis.com/darien-public-assets/cs6515-summer-2026/v20260623/videos/09_Week_09_Linear_Programming.mp4">▶ Open video</a>
+· <a
+href="transcripts/09_Week_09_Linear_Programming.txt">Transcript</a></p>
+</details>
+
+<hr />
+<h2 id="learning-objectives">Learning objectives</h2>
+<ul>
+<li>Translate a word problem into an <strong>LP in standard
+form</strong> (variables, objective, constraints).</li>
+<li>Reason geometrically: feasible region = polytope, optimum at a
+<strong>vertex</strong>.</li>
+<li>Mechanically construct the <strong>dual</strong>, and apply
+<strong>weak / strong duality</strong> and <strong>complementary
+slackness</strong>.</li>
+<li>Recognize max-flow / min-cut and shortest paths as LPs in
+disguise.</li>
+</ul>
+<h2 id="core-concepts">Core concepts</h2>
+<h3 id="standard-form">Standard form</h3>
+<p>A linear program optimizes a linear objective subject to linear
+inequalities:</p>
+<p><span
+class="math display">max  <em>c</em><sup>⊤</sup><em>x</em>  s.t.  <em>A</em><em>x</em> ≤ <em>b</em>,  <em>x</em> ≥ 0.</span></p>
+<p><strong>Intuition.</strong> <span
+class="math inline"><em>c</em></span> is the "value per unit" of each
+variable; rows of <span
+class="math inline"><em>A</em><em>x</em> ≤ <em>b</em></span> are
+resource limits. Everything is linear, so there are no curves — only
+flat faces meeting at corners.</p>
+<p><strong>Key facts.</strong></p>
+<ul>
+<li>Any LP can be put in standard form: a <code>min</code> becomes
+<code>max</code> by negating <span
+class="math inline"><em>c</em></span>; an equality <span
+class="math inline"><em>a</em><sup>⊤</sup><em>x</em> = <em>b</em></span>
+becomes two inequalities <span
+class="math inline"><em>a</em><sup>⊤</sup><em>x</em> ≤ <em>b</em></span>
+and <span
+class="math inline">−<em>a</em><sup>⊤</sup><em>x</em> ≤ −<em>b</em></span>;
+a free variable splits as <span
+class="math inline"><em>x</em> = <em>x</em><sup>+</sup> − <em>x</em><sup>−</sup></span>
+with <span
+class="math inline"><em>x</em><sup>+</sup>, <em>x</em><sup>−</sup> ≥ 0</span>.</li>
+<li>Three outcomes only: a unique/optimal solution,
+<strong>infeasible</strong> (no <span
+class="math inline"><em>x</em></span> satisfies the constraints), or
+<strong>unbounded</strong> (objective <span
+class="math inline"> → ∞</span>).</li>
+</ul>
+<h3 id="feasible-region--polytope">Feasible region = polytope</h3>
+<p>The set <span
+class="math inline">{<em>x</em> : <em>A</em><em>x</em> ≤ <em>b</em>, <em>x</em> ≥ 0}</span>
+is a <strong>convex polytope</strong> — an intersection of
+half-spaces.</p>
+<p><strong>Intuition.</strong> Each inequality cuts off a half-space;
+the feasible region is what survives all the cuts. Convexity means the
+segment between any two feasible points stays feasible.</p>
+<p><strong>Optimum-at-a-vertex.</strong> A linear objective pushed
+across a convex polytope is maximized at a <strong>vertex</strong>
+(corner). So you never need the interior — only the finitely many
+corners. This is exactly why simplex works.</p>
+<h3 id="geometry--simplex">Geometry &amp; simplex</h3>
+<p><strong>Simplex</strong> starts at a vertex and repeatedly moves to
+an <strong>adjacent vertex with a better objective</strong>, stopping
+when no neighbor improves (that vertex is optimal, by convexity).</p>
+<ul>
+<li>A vertex in <span class="math inline"><em>n</em></span> dimensions
+is where <span class="math inline"><em>n</em></span> linearly
+independent constraints are tight.</li>
+<li>Worst-case exponential, but fast in practice; polynomial-time LP
+solvers exist (ellipsoid, interior-point), so <strong>LP is in
+P</strong>.</li>
+</ul>
+<h3 id="duality">Duality</h3>
+<p>Every primal LP has a <strong>dual</strong> with one dual variable
+per primal constraint (and vice versa):</p>
+<table>
+<thead>
+<tr>
+<th>Primal (max)</th>
+<th>Dual (min)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span
+class="math inline">max  <em>c</em><sup>⊤</sup><em>x</em></span></td>
+<td><span
+class="math inline">min  <em>b</em><sup>⊤</sup><em>y</em></span></td>
+</tr>
+<tr>
+<td><span
+class="math inline"><em>A</em><em>x</em> ≤ <em>b</em></span></td>
+<td><span
+class="math inline"><em>A</em><sup>⊤</sup><em>y</em> ≥ <em>c</em></span></td>
+</tr>
+<tr>
+<td><span class="math inline"><em>x</em> ≥ 0</span></td>
+<td><span class="math inline"><em>y</em> ≥ 0</span></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Intuition.</strong> The dual variable <span
+class="math inline"><em>y</em><sub><em>i</em></sub></span> is the
+<strong>price</strong> of constraint <span
+class="math inline"><em>i</em></span> — how much the optimum would
+improve if you relaxed that constraint by one unit (its shadow
+price).</p>
+<h3 id="complementary-slackness">Complementary slackness</h3>
+<p>At optimality, primal and dual solutions interlock:</p>
+<p><span
+class="math display"><em>y</em><sub><em>i</em></sub> &gt; 0 ⇒ (<em>A</em><em>x</em>)<sub><em>i</em></sub> = <em>b</em><sub><em>i</em></sub>   and   <em>x</em><sub><em>j</em></sub> &gt; 0 ⇒ (<em>A</em><sup>⊤</sup><em>y</em>)<sub><em>j</em></sub> = <em>c</em><sub><em>j</em></sub>.</span></p>
+<p>In words: if a constraint isn't tight, its price is 0; if a variable
+is used, its dual constraint is tight. This is the certificate that a
+primal/dual pair is jointly optimal.</p>
+<h2 id="algorithms">Algorithms</h2>
+<h3 id="build-the-dual--mechanical-recipe">Build the dual — mechanical
+recipe</h3>
+<ol type="1">
+<li>Put the primal in standard form (<span
+class="math inline">max </span>, <span
+class="math inline"><em>A</em><em>x</em> ≤ <em>b</em></span>, <span
+class="math inline"><em>x</em> ≥ 0</span>).</li>
+<li>Introduce one dual variable <span
+class="math inline"><em>y</em><sub><em>i</em></sub> ≥ 0</span> per
+primal constraint.</li>
+<li>Objective <span
+class="math inline">min <em>b</em><sup>⊤</sup><em>y</em></span>.</li>
+<li>One dual constraint per primal variable: <span
+class="math inline"><em>A</em><sup>⊤</sup><em>y</em> ≥ <em>c</em></span>.</li>
+<li>Sanity check by counting: #dual variables = #primal constraints, and
+vice versa.</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>Primal</th>
+<th>Dual</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>variables <span
+class="math inline"><em>x</em><sub><em>j</em></sub></span></td>
+<td>constraints (one per <span
+class="math inline"><em>x</em><sub><em>j</em></sub></span>)</td>
+</tr>
+<tr>
+<td>constraints <span class="math inline">≤</span></td>
+<td>variables <span
+class="math inline"><em>y</em><sub><em>i</em></sub> ≥ 0</span></td>
+</tr>
+<tr>
+<td>objective <span
+class="math inline">max <em>c</em><sup>⊤</sup><em>x</em></span></td>
+<td>objective <span
+class="math inline">min <em>b</em><sup>⊤</sup><em>y</em></span></td>
+</tr>
+</tbody>
+</table>
+<h2 id="key-theorems--results">Key theorems &amp; results</h2>
+<h3 id="weak-duality">Weak duality</h3>
+<p>For <strong>any</strong> primal-feasible <span
+class="math inline"><em>x</em></span> and dual-feasible <span
+class="math inline"><em>y</em></span>:</p>
+<p><span
+class="math display"><em>c</em><sup>⊤</sup><em>x</em> ≤ <em>b</em><sup>⊤</sup><em>y</em>.</span></p>
+<p><em>Proof sketch:</em> <span
+class="math inline"><em>c</em><sup>⊤</sup><em>x</em> ≤ (<em>A</em><sup>⊤</sup><em>y</em>)<sup>⊤</sup><em>x</em> = <em>y</em><sup>⊤</sup>(<em>A</em><em>x</em>) ≤ <em>y</em><sup>⊤</sup><em>b</em></span>,
+using <span
+class="math inline"><em>c</em> ≤ <em>A</em><sup>⊤</sup><em>y</em></span>,
+<span class="math inline"><em>x</em> ≥ 0</span>, then <span
+class="math inline"><em>A</em><em>x</em> ≤ <em>b</em></span>, <span
+class="math inline"><em>y</em> ≥ 0</span>. Every dual-feasible <span
+class="math inline"><em>y</em></span> is thus an <strong>upper
+bound</strong> on the primal optimum. ∎</p>
+<h3 id="strong-duality">Strong duality</h3>
+<p>If both LPs are feasible, their optima are
+<strong>equal</strong>:</p>
+<p><span
+class="math display">max<sub><em>x</em></sub><em>c</em><sup>⊤</sup><em>x</em> = min<sub><em>y</em></sub><em>b</em><sup>⊤</sup><em>y</em>.</span></p>
+<p>So a matching pair <span
+class="math inline">(<em>x</em><sup>⋆</sup>, <em>y</em><sup>⋆</sup>)</span>
+with <span
+class="math inline"><em>c</em><sup>⊤</sup><em>x</em><sup>⋆</sup> = <em>b</em><sup>⊤</sup><em>y</em><sup>⋆</sup></span>
+proves both are optimal — no search needed, just exhibit the
+certificate.</p>
+<h3 id="max-flow--min-cut-is-lp-duality">Max-flow / min-cut is LP
+duality</h3>
+<p>Max-flow is a primal LP (maximize flow value subject to capacity +
+conservation); its dual is exactly <strong>min-cut</strong>. Strong
+duality <span class="math inline">⇒</span> max-flow <span
+class="math inline">=</span> min-cut (W6). This is the bridge from
+graphs into LP, and the canonical example of duality "meaning
+something."</p>
+<h2 id="worked-example">Worked example</h2>
+<p>Primal:</p>
+<p><span
+class="math display">max  3<em>x</em><sub>1</sub> + 2<em>x</em><sub>2</sub>  s.t.  <em>x</em><sub>1</sub> + <em>x</em><sub>2</sub> ≤ 4,  <em>x</em><sub>1</sub> ≤ 3,  <em>x</em><sub>1</sub>, <em>x</em><sub>2</sub> ≥ 0.</span></p>
+<p>Two constraints → two dual variables <span
+class="math inline"><em>y</em><sub>1</sub>, <em>y</em><sub>2</sub> ≥ 0</span>.
+Dual:</p>
+<p><span class="math display">$$
+\min\ 4y_1 + 3y_2 \quad\text{s.t.}\quad
+\underbrace{y_1 + y_2 \ge 3}_{x_1\text{'s column}},\ \ \underbrace{y_1
+\ge 2}_{x_2\text{'s column}},\ \ y_1,y_2 \ge 0.
+$$</span></p>
+<p>Primal optimum <span class="math inline"><em>x</em> = (3, 1)</span>
+gives <span class="math inline">11</span>; dual optimum <span
+class="math inline"><em>y</em> = (2, 1)</span> gives <span
+class="math inline">4(2) + 3(1) = 11</span> — equal, as strong duality
+promises.</p>
+<h2 id="common-pitfalls--exam-traps">Common pitfalls / exam traps</h2>
+<ul>
+<li>Forgetting to convert to standard form before dualizing
+(sign/direction errors follow).</li>
+<li>Swapping which gets a variable vs a constraint — <strong>primal
+constraint ↔︎ dual variable</strong>.</li>
+<li>Claiming a vertex optimum exists when the LP is
+<strong>unbounded</strong> or <strong>infeasible</strong>.</li>
+<li>Treating the dual objective sense wrong: primal <code>max</code> ↔︎
+dual <code>min</code>.</li>
+</ul>
+<h2 id="how-to-answer-hw--exam">How to answer (HW / exam)</h2>
+<p>"Write the LP" → list the variables, the objective, and
+<strong>every</strong> constraint explicitly (including <span
+class="math inline"> ≥ 0</span>). For duality, pair each primal
+constraint with a dual variable and flip max↔︎min via the table; verify
+with weak duality (dual value bounds primal) or complementary
+slackness.</p>
+<details>
+<summary><b>Go deeper</b> — readings</summary>
+
+<ul>
+<li><a href="readings/DPV-ch7-flows-and-linear-programming.pdf">DPV
+§7.1, §7.4, §7.6 (LP, duality, geometry)</a></li>
+<li><a href="guidance/common-course-runtimes.html">Common
+runtimes</a></li>
+<li><a href="notes/full-course-notes.html">Full course notes</a> · <a
+href="notes/ga-notes.pdf">ga-notes.pdf</a></li>
+<li><a href="lectures/">lectures/</a> · <a
+href="transcripts/">transcripts/</a> · <a href="readings/">readings/</a>
+· <a href="guidance/">guidance/</a> · <a href="notes/">notes/</a></li>
+</ul>
+</details>
+
+<h2 id="comprehensive-notes">Comprehensive Notes</h2>
+<h3 id="lp1-linear-programming">LP1: Linear Programming</h3>
+<p>Let's begin by looking at how we express <strong>max flow</strong> as
+a <strong>linear program</strong> — a problem of optimizing a linear
+objective subject to linear constraints.</p>
+<blockquote>
+<p><strong>Key idea.</strong> Many problems (max-flow among them) can be
+cast as an LP: choose values for a set of variables to <em>maximize or
+minimize a linear objective</em> while satisfying a system of <em>linear
+inequalities</em>. This reframing unlocks general-purpose LP machinery
+and the theory of duality.</p>
+</blockquote>
+<p>Recall, for the <strong>Max-Flow</strong> problem</p>
+<ul>
+<li>Input: Directed Graph G(V,E) with <span
+class="math inline"><em>c</em><sub><em>e</em></sub> &gt; 0</span> for
+<span class="math inline"><em>e</em> ∈ <em>E</em></span></li>
+</ul>
+<p>Our LP formulation will be somewhat different. We'll have m
+variables, one for each flow along an edge. <span
+class="math inline"><em>f</em><sub><em>e</em></sub></span> for each
+<span class="math inline"><em>e</em> ∈ <em>E</em></span>. Furthermore
+we'll have an objective function that we are trying optimize, Which
+should be a linear function of the variables.</p>
+<p>Recall that in a max flow, we're trying to maximize the size of the
+flow, as measured by the size of the flow (a) out of the source vertex,
+or (b) into the sink vertex. Which one we choose doesn't matter as they
+must be the same.</p>
+<ul>
+<li>Objective Function: <span
+class="math inline">$\max(\sum_{\overset{\rightarrow}{sv}}
+f_{sv})$</span></li>
+<li>Constraints:
+<ul>
+<li>for every <span class="math inline">$e \in E \\ 0 \le f_e \le
+c_e$</span> - the flow can be at most the capacity</li>
+<li>for every <span
+class="math inline"><em>v</em> ∈ <em>V</em> \ {<em>s</em>, <em>t</em>}</span>
+<ul>
+<li><span class="math inline">$\sum_{\overset{\rightarrow}{wv}} f_{wv} =
+\sum_{\overset{\rightarrow}{vz}} f_{vz}$</span> Flow in == Flow out of
+v</li>
+<li>flow must be conserved</li>
+</ul></li>
+</ul></li>
+</ul>
+<p>Consider the following toy example which models a basic
+production/manufacturing problem.</p>
+<h4 id="2-dimensional-example">2-Dimensional Example</h4>
+<p><strong>Problem statement.</strong> A company makes products
+<strong>A</strong> and <strong>B</strong>. We'd like to determine
+<em>how many of each should we produce</em> to maximize profit.</p>
+<p><strong>Details:</strong></p>
+<ul>
+<li>The profit on each unit of A is <span class="math inline">$1</span>,
+and for B it is <span class="math inline">$6</span></li>
+<li>The demand for A is <span class="math inline"> ≤ 300</span> units,
+and for B it is <span class="math inline"> ≤ 200</span> units</li>
+<li>We have a total of 700 hours capacity among our employees</li>
+<li>a unit of A requires 1 hour</li>
+<li>a unit of B requires 3 hours</li>
+</ul>
+<p>In order to move forward we need to format this as an LP problem and
+we need to formulate our objective function.</p>
+<ul>
+<li>let <span class="math inline"><em>x</em><sub>1</sub></span> be the #
+of units of A to produce in a day</li>
+<li>let <span class="math inline"><em>x</em><sub>2</sub></span> be the #
+of units of B to produce in a day</li>
+<li>then our objective function is: <span
+class="math inline">1<em>x</em><sub>1</sub> + 6<em>x</em><sub>2</sub></span>,
+which we will maximize</li>
+</ul>
+<p>Of course we can't forget about our constraints right?</p>
+<ul>
+<li>(supply) <span
+class="math inline">1<em>x</em><sub>1</sub> + 3<em>x</em><sub>2</sub> ≤ 700</span>,
+this ensures we have the available man power</li>
+<li>(demand) <span
+class="math inline">0 ≤ <em>x</em><sub>1</sub> ≤ 300</span> and <span
+class="math inline">0 ≤ <em>x</em><sub>2</sub> ≤ 200</span> to ensure we
+don't make more than the possible demand</li>
+</ul>
+<p><strong>Formally</strong></p>
+<ul>
+<li>Maximize <span
+class="math inline"><em>x</em><sub>1</sub> + 6<em>x</em><sub>2</sub></span></li>
+<li>Subject to the constraints
+<ul>
+<li><span class="math inline"><em>x</em><sub>1</sub> ≤ 300</span></li>
+<li><span class="math inline"><em>x</em><sub>2</sub> ≤ 200</span></li>
+<li><span class="math inline"><em>x</em><sub>1</sub> ≥ 0</span></li>
+<li><span class="math inline"><em>x</em><sub>2</sub> ≥ 0</span></li>
+<li><span
+class="math inline"><em>x</em><sub>1</sub> + 3<em>x</em><sub>2</sub> ≤ 700</span></li>
+</ul></li>
+</ul>
+<p>For a minute let's consider this from a geometric point of view in a
+2 dimensional plane. (2dim for the 2 variables). For now let's ignore
+the objective function and just look at the five constraints. Each of
+the five constraints is a half plane. (recall that equality would
+produce a line, so an inequality produces a half plane containing all
+feasible values). In this situation all 5 constraints will come together
+to form a bounded area that is the intersection of all their planes. All
+points in the intersection are the feasible values of X where X is a
+solution to the objective function. Of course only one of these will be
+a max, optimal, value.</p>
+<p><img src="../../.assets/CS6515_images/LP-001.png" alt="LP-001" /></p>
+<p>Consider the above diagram which illustrates our problem
+geometrically. Now we can apply our objective function using values
+inside our feasible region.</p>
+<p>Example 1: <span
+class="math inline"><em>x</em><sub>1</sub> + 6<em>x</em><sub>2</sub> = 600</span>
+is one solution in the feasible region but is certainly not
+optimal.<br />
+Example 2: <span
+class="math inline"><em>x</em><sub>1</sub> + 6<em>x</em><sub>2</sub> = 1300</span>
+is another solution and is in fact the optimal solution.</p>
+<p><img src="../../.assets/CS6515_images/LP-002.png" alt="LP-002" /></p>
+<p>Now, this was a simple two dimensional example. Let's look at a
+simple three dimensional example and then we'll get some idea of how it
+generalizes to higher dimensions.</p>
+<p>Let's pause for a moment to consider from key issues that could
+arise:</p>
+<ul>
+<li>Handling fractional values. In our example we got a bit lucky in
+that the optimal value occured at an integer valued point. But this is
+not always the case. If you only want integer values then you can round
+fractions to the closest feasible integer.</li>
+</ul>
+<blockquote>
+<p><strong>Key point 1 — LP is polynomial; integer-LP is not.</strong>
+Linear programming optimizes over the entire feasible set and so is
+solvable in <em>polynomial time</em> (ie <span
+class="math inline"><em>L</em><em>P</em> ∈ <em>P</em>)</span>. But the
+problem of looking for the optimal <em>integer-valued</em> solution is
+<strong>NP-complete</strong> (ie integer-LP is NP-Complete).</p>
+</blockquote>
+<p>Key Point(2) here is that in our problem the optimal solution lies at
+a vertex, or corner, of our feasible space. Suppose this optimal line
+intersects a point such z which is between two vertices, so it is not a
+vertex itself. Therefore, it must be the case that one of these two
+endpoints of this edge must be better than this point Z, or it has to be
+the case that this optimal line intersects this edge. If this optimal
+line intersects this edge, then all the points on this edge are optimal.
+Therefore, the two endpoints are both optimal and therefore an optimal
+point lies at a vertex.</p>
+<p>The last important concept is convexity. This feasible region, this
+tan region is convex. Because the feasible region is defined by the
+intersection of half spaces, it must be a convex set.</p>
+<p>Since it's convex, if we have a vertex such as this point (100, 200)
+which is better than its neighbors, these two points, well, the feasible
+region can't go down and then back up.</p>
+<p>So, if this point is better than its neighbors, then the entire
+convex region, the entire feasible region is below these two lines.
+Therefore, this point is optimal because if a point is better than its
+neighbors, then that vertex is an optimal point.</p>
+<blockquote>
+<p><strong>The key consequence of convexity.</strong> The optimal point
+<em>always</em> lies at a vertex of the feasible region. There may be
+other optimal points too, but there will always be a vertex that is
+optimal.</p>
+</blockquote>
+<p>These two key points lead to the <strong>simplex algorithm</strong>,
+which we'll detail later. For now, a brief sketch:</p>
+<ul>
+<li>We'll start at some vertex of the polygon.</li>
+<li>We'll check its neighbors and we'll look if any of its neighbors are
+better.</li>
+<li>Then we'll move to a neighbor which has a better objective
+function</li>
+<li>we continue until we find a vertex of the polygon in the feasible
+region
+<ul>
+<li>which is better than all of its neighbours</li>
+<li>and is therefore optimal</li>
+</ul></li>
+</ul>
+<p>That's the basic idea of the simplex algorithm. Now let's move on to
+another three dimensional example.</p>
+<h4 id="3dim-example">3Dim Example</h4>
+<p>Let's twist the previous example and make it a bit harder.</p>
+<ul>
+<li>Three products A,B, C</li>
+<li>Profit: <span class="math inline">$1</span> for A, <span
+class="math inline">$6</span> for B, and <span
+class="math inline">$10</span> for C</li>
+<li>demand: <span class="math inline"> ≤ 300</span> for A, <span
+class="math inline"> ≤ 200</span> for B, unlimited demand for C</li>
+<li>hourly Supply: <span class="math inline"> ≤ 1000</span> in total, A
+takes 1, B takes 3, C takes 2</li>
+<li>Packaging: <span class="math inline"> ≤ 500</span> in total, B takes
+1 and C takes 3, A takes nothing</li>
+</ul>
+<p>We formulate as an LP problem. Using three variables: <span
+class="math inline"><em>x</em><sub>1</sub></span> for A, <span
+class="math inline"><em>x</em><sub>2</sub></span> for B, <span
+class="math inline"><em>x</em><sub>3</sub></span> for C</p>
+<ul>
+<li>we want to <span
+class="math inline">max (<em>x</em><sub>1</sub> + 6<em>x</em><sub>2</sub> + 10<em>x</em><sub>3</sub>)</span></li>
+<li>subject to the constraints
+<ul>
+<li>demand : <span
+class="math inline"><em>x</em><sub>1</sub> ≤ 300</span> and <span
+class="math inline"><em>x</em><sub>2</sub> ≤ 200</span></li>
+<li>supply: <span
+class="math inline"><em>x</em><sub>1</sub> + 3<em>x</em><sub>2</sub> + 2<em>x</em><sub>3</sub> ≤ 1000</span></li>
+<li>Packaging: <span
+class="math inline"><em>x</em><sub>2</sub> + 3<em>x</em><sub>3</sub> ≤ 500</span></li>
+</ul></li>
+<li><span
+class="math inline"><em>x</em><sub>1</sub>, <em>x</em><sub>2</sub>, <em>x</em><sub>3</sub> ≥ 0</span></li>
+<li>we always add this as it doesn't make sense otherwise</li>
+</ul>
+<p>Here's a geometric view <img
+src="../../.assets/CS6515_images/NP-019.png" alt="NP-019" /></p>
+<h4 id="standard-formulation">Standard Formulation</h4>
+<p>By now you should see a bit of pattern emerging in these types of
+problems.<br />
+Now we look at how to formulate an arbitrary problem.</p>
+<ul>
+<li>for variables <span
+class="math inline"><em>x</em><sub>1</sub>, <em>x</em><sub>2</sub>, …, <em>x</em><sub><em>n</em></sub></span></li>
+<li>your objective function will be of the form
+<ul>
+<li><span
+class="math inline">max (<em>c</em><sub>1</sub><em>x</em><sub>1</sub> + <em>c</em><sub>2</sub><em>x</em><sub>2</sub> + … + <em>c</em><sub><em>n</em></sub><em>x</em><sub><em>n</em></sub>)</span></li>
+</ul></li>
+<li>you're contraints will be of the form
+<ul>
+<li><span
+class="math inline"><em>a</em><sub>11</sub><em>x</em><sub>1</sub> + … + <em>a</em><sub>1<em>n</em></sub><em>x</em><sub><em>n</em></sub> ≤ <em>b</em><sub>1</sub></span></li>
+<li>you can have up to m constraints</li>
+<li><span
+class="math inline"><em>a</em><sub><em>m</em>1</sub><em>x</em><sub>1</sub> + … + <em>a</em><sub><em>m</em><em>n</em></sub><em>x</em><sub><em>n</em></sub> ≤ <em>b</em><sub><em>m</em></sub></span></li>
+</ul></li>
+<li>of course, never forget your non negativity constraint
+<ul>
+<li><span
+class="math inline"><em>x</em><sub>1</sub>, <em>x</em><sub>2</sub>, …, <em>x</em><sub><em>n</em></sub> ≥ 0</span></li>
+</ul></li>
+</ul>
+<p>This is pretty annoying to type out so let's switch to matrix
+notation</p>
+<ul>
+<li>Variable Vector = <span
+class="math inline"><em>x</em><sup><em>T</em></sup></span> which is our
+variables <span
+class="math inline"><em>x</em><sub>1</sub>, <em>x</em><sub>2</sub>, …, <em>x</em><sub><em>n</em></sub></span></li>
+<li>Co-efficients = <span
+class="math inline"><em>c</em><sup><em>T</em></sup></span></li>
+<li>then our objective function is <span
+class="math inline">max (<em>c</em><sup><em>T</em></sup><em>x</em>)</span>
+( we will always use max - see comments below )</li>
+<li>similarly our contraints can be formulated as
+<ul>
+<li><span
+class="math inline"><em>A</em><em>x</em> ≤ <em>b</em></span></li>
+<li>where A is the constraint coefficients, m x n Matrix</li>
+<li>b is the boundary values vector</li>
+<li>x is the variable vector</li>
+</ul></li>
+<li>our non-negativity constraint is straigh forward
+<ul>
+<li><span class="math inline"><em>x</em> ≥ 0</span></li>
+</ul></li>
+</ul>
+<p>Some Considerations to formulate a problem into the standard form
+above:</p>
+<ul>
+<li>For minimum problems multiply by -1 and maximize</li>
+<li>for a problem of the form <span
+class="math inline"><em>A</em><em>x</em> ≥ <em>b</em></span>, where b is
+the lower bound,
+<ul>
+<li>we once again multiply by -1 to get the equivalent <span
+class="math inline">(−1)<em>A</em><em>x</em> ≥ <em>b</em></span></li>
+</ul></li>
+<li>for an equality problem <span
+class="math inline"><em>A</em><em>x</em> = <em>b</em></span>
+<ul>
+<li>we use two objective functions</li>
+<li><span
+class="math inline">(−1)<em>A</em><em>x</em> ≥ <em>b</em></span></li>
+<li>and $ A x \ge b$</li>
+</ul></li>
+<li>what about a constraint like <span class="math inline">$x \&lt;
+100$</span>
+<ul>
+<li>NOT ALLOWED - LP does not allow for this as it is ill-defined. LP
+problems must be well defined</li>
+</ul></li>
+<li>What about an unconstrained x? when the problem doesn't force it to
+be positive nor negative
+<ul>
+<li>This one is trickier, here we set <span
+class="math inline"><em>x</em> = <em>x</em><sup>+</sup> − <em>x</em><sup>−</sup></span></li>
+<li>where <span class="math inline"><em>x</em><sup>+</sup></span> and
+<span class="math inline"><em>x</em><sup>−</sup></span> represent the
+magnitude of x</li>
+<li>and <span class="math inline"><em>x</em><sup>+</sup> ≥ 0</span></li>
+<li>and <span class="math inline"><em>x</em><sup>−</sup> ≥ 0</span></li>
+</ul></li>
+</ul>
+<p>Geometric View</p>
+<ul>
+<li>We have n variables meaning n dimensions</li>
+<li>n+m constraints</li>
+<li>what is our feasible region?
+<ul>
+<li>Each constraint represents a half space</li>
+<li>and the feasible region is the area constrained by the n+m
+constraints</li>
+<li>so the feasible region is the region inside the n+m half spaces</li>
+<li>this is a convex polyhedron</li>
+</ul></li>
+</ul>
+<p>Let's now consider the vertices of the feasible region</p>
+<ul>
+<li>is the set of points satisfying</li>
+<li>(1) n constraints with = (equality)</li>
+<li>and (2) m constraints with <span class="math inline">≤</span>
+(inequality)</li>
+<li>this works out to ... <span class="math inline">$\le {n+m \choose
+n}$</span> vertices
+<ul>
+<li>this is exponential in n</li>
+</ul></li>
+<li>Further it has at most nm neighbours
+<ul>
+<li><span class="math inline"> ≤ <em>n</em><em>m</em></span>
+neighbours</li>
+</ul></li>
+</ul>
+<p>LP Algorithms: Polynomial-time</p>
+<ul>
+<li>Ellipsoid algos</li>
+<li>interior point methods</li>
+</ul>
+<p>Exponential time:</p>
+<ul>
+<li>Simplex Methods
+<ul>
+<li>this is by far the most widely used despite it's terrible
+runtime</li>
+<li>guaranteed to return the optimal solution</li>
+<li>Works great on huge LP problems</li>
+</ul></li>
+</ul>
+<h4 id="simplex-method">Simplex Method</h4>
+<pre><code>Start at x=0
+look for neighbour vertex with higher objective value
+if found then move to neighbor vertex
+    go back to look
+else 
+    output current vertex x
+
+# the x that is returned
+# is guaranteed to be the global optimal</code></pre>
+<p>In case you didn't notice the algo is walking from vertex to vertex
+in a strictly uphill fashion. The optimal value is at the top of this
+hill.</p>
+<h4 id="simplex-example-3dim">Simplex Example 3Dim</h4>
+<p>Let's demonstrate simplex on our 3dim problem from earlier</p>
+<p>Recall : We formulate as an LP problem. Using three variables: x1 for
+A, x2 for B, x3 for C</p>
+<ul>
+<li>we want to max(x1 + 6x2 + 10x3)</li>
+<li>subject to the constraints
+<ul>
+<li><span class="math inline"><em>x</em>1 ≤ 300</span></li>
+<li><span class="math inline"><em>x</em>2 ≤ 200</span></li>
+<li><span
+class="math inline"><em>x</em>1 + 3<em>x</em>2 + 2<em>x</em>3 ≤ 1000</span></li>
+<li><span
+class="math inline"><em>x</em>2 + 3<em>x</em>3 ≤ 500</span></li>
+<li><span
+class="math inline"><em>x</em>1, <em>x</em>2, <em>x</em>3 ≥ 0</span></li>
+</ul></li>
+</ul>
+<!-- -->
+
+<pre><code>start             profit
+(0  ,  0,  0)      0
+(300,  0,  0)    300
+(300,200,  0)   1500
+(300,200, 50)   2000
+(200,100,100)   2400     
+    -&gt; from here there are no neighbours with a higher obj value
+    -&gt; t/f we declare this to be the optimal point</code></pre>
+<h3 id="lp2-lp-geometry">LP2: LP Geometry</h3>
+<p>Recall our basic LP formulation:</p>
+<ul>
+<li>For n variables</li>
+<li>we may have up to m constraints in the form <span
+class="math inline"><em>A</em><em>x</em> ≤ <em>b</em></span> with <span
+class="math inline"><em>x</em> ≥ 0</span></li>
+<li>an objective function of the form <span
+class="math inline">max (<em>c</em><sup><em>T</em></sup><em>x</em>)</span></li>
+</ul>
+<p>With the characteristics</p>
+<ul>
+<li>the feasible region is a convex set
+<ul>
+<li>where the feasible region is the set of x values that satisfy the m
+constraints</li>
+</ul></li>
+<li>each m constraint defines a half space</li>
+<li>the intersections of these regions is the vertices</li>
+</ul>
+<p>What we get when the above is true is a convex polyhedron</p>
+<p>The simplex method walks along the vertices, or corners, of the
+polyhedron. In general the optimum will always lie at a vertex of the
+feasible region. However, there are a few situations which provoke an
+exception.</p>
+<ul>
+<li>Exception 1: when the LP is infeasible
+<ul>
+<li>this can happen when the feasible region is blank/empty</li>
+<li>consider
+<ul>
+<li>func: max(5x-7y)</li>
+<li>st: <span class="math inline"><em>x</em> + <em>y</em> ≤ 1</span>,
+<span class="math inline">3<em>x</em> + 2<em>y</em> ≥ 6</span>, <span
+class="math inline"><em>x</em>, <em>y</em> ≥ 0</span></li>
+</ul></li>
+<li>take the time to draw this out to see that the feasible region is in
+fact empty</li>
+<li>infeasiblity has nothing to do with the obj function</li>
+</ul></li>
+</ul>
+<p><img src="../../.assets/CS6515_images/LP-003.png" alt="LP-003" /></p>
+<ul>
+<li>Exception 2: When the LP is unbounded
+<ul>
+<li>this can happen when the optimal is arbitrarily large</li>
+<li>consider
+<ul>
+<li>func: max(x+y)</li>
+<li>st: $ x - y \le 1$, <span
+class="math inline"><em>x</em> + 5<em>y</em> ≥ 3</span>, <span
+class="math inline"><em>x</em>, <em>y</em> ≥ 0</span></li>
+</ul></li>
+<li>if you were to draw this out you'd see that the objective function
+can keep increasing as y increases up the y-axis</li>
+<li>consider, a slight change to the previous example
+<ul>
+<li>func: <span
+class="math inline">max (2<em>x</em> − 3<em>y</em>)</span></li>
+<li>st: $ x - y \le 1$, <span
+class="math inline"><em>x</em> + 5<em>y</em> ≥ 3</span>, <span
+class="math inline"><em>x</em>, <em>y</em> ≥ 0</span></li>
+</ul></li>
+<li>in this situation there is in fact in fact an optimum</li>
+<li>if you were to draw this out you would see a feasible region similar
+to the previous configuration</li>
+<li>However, the maximum of the objective function lies at the very
+bottom vertex</li>
+</ul></li>
+</ul>
+<p>There is a key difference between <span
+class="math inline">max (<em>x</em> + <em>y</em>)</span> and <span
+class="math inline">max (2<em>x</em> − 3<em>y</em>)</span>. Consider
+what the value is as x and y increase? In the first case the result is
+an increasing value, hence the difficulty.</p>
+<p>Both of these situations beg the question, how can we determine if a
+region is feasible/bounded? For now we consider the feasibility. In the
+next section we look at handling unbounded objective through the use of
+LP Duality</p>
+<h4 id="feasiblity">Feasiblity</h4>
+<p>In order to determine if an LP is feasible we begin with our LP in
+standard form:</p>
+<ul>
+<li><span
+class="math inline">max (<em>c</em><sup><em>T</em></sup><em>x</em>)</span></li>
+<li>Such that
+<ul>
+<li><span class="math inline"><em>A</em><em>x</em> ≤ <em>b</em></span>,
+and</li>
+<li><span class="math inline"><em>x</em> ≥ 0</span></li>
+</ul></li>
+</ul>
+<p>Is there an x that satisfies all the constraints?</p>
+<p>Here's how to answer this question:</p>
+<ul>
+<li>Step 1: make a new variable z ( not a vector, just a single variable
+)</li>
+<li>Step 2: Consider a single constraint
+<ul>
+<li>say <span
+class="math inline"><em>a</em><sub>1</sub><em>x</em><sub>1</sub> + <em>a</em><sub>2</sub><em>x</em><sub>2</sub> + ⋯ + <em>a</em><sub><em>n</em></sub><em>x</em><sub><em>n</em></sub> ≤ <em>b</em></span></li>
+<li>and <span
+class="math inline"><em>x</em><sub>1</sub>, <em>x</em><sub>2</sub>, ⋯, <em>x</em><sub><em>n</em></sub> ≥ 0</span></li>
+</ul></li>
+<li>Step 3: Add z into our constraint
+<ul>
+<li>i.e. <span
+class="math inline"><em>a</em><sub>1</sub><em>x</em><sub>1</sub> + <em>a</em><sub>2</sub><em>x</em><sub>2</sub> + ⋯ + <em>a</em><sub><em>n</em></sub><em>x</em><sub><em>n</em></sub> + <em>z</em> ≤ <em>b</em></span></li>
+<li>we make no change to the nonnegativity constraint</li>
+<li>z is unconstrained and can take on any value whatsoever (positive or
+negative)</li>
+<li>if z is sufficiently close to zero we get the trivial solution</li>
+<li>so we set $z = -\infty $ ( but in fact it will be a finite number
+and not actually infinity</li>
+</ul></li>
+<li>Step 4: find a solution
+<ul>
+<li>to <span
+class="math inline"><em>a</em><sub>1</sub><em>x</em><sub>1</sub> + <em>a</em><sub>2</sub><em>x</em><sub>2</sub> + ⋯ + <em>a</em><sub><em>n</em></sub><em>x</em><sub><em>n</em></sub> + <em>z</em> ≤ <em>b</em></span></li>
+<li>when <span class="math inline"><em>z</em> ≥ 0</span>
+<ul>
+<li>if a solution can be found when z is greater than 0</li>
+<li>then you can drop z and still have a solution</li>
+</ul></li>
+</ul></li>
+<li>Step 5: Generalize to all constraints
+<ul>
+<li>if you found a z in step 4 then you need to do this for all
+coefficients <span class="math inline"><em>a</em><sub>1</sub></span> to
+<span class="math inline"><em>a</em><sub><em>n</em></sub></span></li>
+<li>In other words you need to find a <span
+class="math inline"><em>z</em> ≥ 0</span> for the modified LP
+<ul>
+<li>max(z)</li>
+<li>for <span
+class="math inline"><em>A</em><em>x</em> + <em>z</em> ≤ <em>b</em></span></li>
+<li>with <span class="math inline"><em>x</em> ≥ 0</span></li>
+</ul></li>
+<li>This new LP will always be feasible,</li>
+<li>partly because there is always a trivial solution for a small enough
+z</li>
+<li>however, only when z is greater than 0 can the solution carry over
+to the original LP
+<ul>
+<li>because we can just ignore/drop the z term</li>
+</ul></li>
+<li>if the optimal value of z is negative,
+<ul>
+<li>then we can say the original LP is infeasible</li>
+</ul></li>
+</ul></li>
+</ul>
+<h4 id="lp-duality">LP Duality</h4>
+<p>Overview</p>
+<ul>
+<li>Motivating example to build our intuition</li>
+<li>General Form</li>
+<li>Weak duality Theorem</li>
+<li>Strong duality Theorem</li>
+</ul>
+<p>recall our earlier example</p>
+<ul>
+<li>we want to max(x1 + 6x2 + 10x3)</li>
+<li>subject to the constraints
+<ul>
+<li><span class="math inline"><em>x</em>1 ≤ 300</span></li>
+<li><span class="math inline"><em>x</em>2 ≤ 200</span></li>
+<li><span
+class="math inline"><em>x</em>1 + 3<em>x</em>2 + 2<em>x</em>3 ≤ 1000</span></li>
+<li><span
+class="math inline"><em>x</em>2 + 3<em>x</em>3 ≤ 500</span></li>
+<li><span
+class="math inline"><em>x</em>1, <em>x</em>2, <em>x</em>3 ≥ 0</span></li>
+</ul></li>
+</ul>
+<p>Also recall that we ran the simplex method to find that</p>
+<ul>
+<li>optimal point = (200,200,100)</li>
+<li>with objective value = 2400, profit</li>
+</ul>
+<p>So how do we verify that this is an optimal point? without running
+the algo again. What if someone told us this was the optimal solution,
+how can we check their claim?</p>
+<p>What we will try to do is find an upper bound on the objective
+function, such that the upper bound value is equal to/at most our profit
+solution. This will imply that our solution is in fact a maximum.</p>
+<p>For our above example</p>
+<ul>
+<li>consider y = <span
+class="math inline">(<em>y</em><sub>1</sub>, <em>y</em><sub>2</sub>, <em>y</em><sub>3</sub>, <em>y</em><sub>4</sub>) = (0, 1/3, 1, 8/3)</span>
+( we will show later how we came up with these values )</li>
+<li>here y is 4 dimensional</li>
+</ul>
+<p>for the purposes of our explanation we will number the number the
+constraints from above</p>
+<ul>
+<li><ol type="1">
+<li><span class="math inline"><em>x</em>1 ≤ 300</span></li>
+</ol></li>
+<li><ol type="1">
+<li><span class="math inline"><em>x</em>2 ≤ 200</span></li>
+</ol></li>
+<li><ol type="1">
+<li><span
+class="math inline"><em>x</em>1 + 3<em>x</em>2 + 2<em>x</em>3 ≤ 1000</span></li>
+</ol></li>
+<li><ol type="1">
+<li><span
+class="math inline"><em>x</em>2 + 3<em>x</em>3 ≤ 500</span></li>
+</ol></li>
+<li><ol type="1">
+<li>we ignore the non-negative constraint</li>
+</ol></li>
+</ul>
+<p>Now we know that any feasible point must satisfy all these
+constraints, but it must also satisfy any linear combination of the
+constraints</p>
+<ul>
+<li>so for example <span
+class="math inline"><em>y</em><sub>1</sub> * (1) + <em>y</em><sub>2</sub> * (2) + <em>y</em><sub>3</sub> * (3) + <em>y</em><sub>4</sub> * (4)</span>
+should also be satified</li>
+</ul>
+<p>Let's write this all out</p>
+<ul>
+<li><span
+class="math inline"><em>y</em><sub>1</sub> * (1) + <em>y</em><sub>2</sub> * (2) + <em>y</em><sub>3</sub> * (3) + <em>y</em><sub>4</sub> * (4)</span></li>
+<li>$\iff y_1 x1 + y_2 x2 + y_3(x1 + 3x2 + 2x3) + y_4(x2 + 3x3) \le 300
+y_1 + 200 y_2 + 1000y_3 + 500y_4 $
+<ul>
+<li>what we've done here is multiply the constraints by the y vector in
+rowwise fashion to get the linear combination</li>
+<li>each constraint, yn represents a row/constraint</li>
+</ul></li>
+<li>Now we can simplify and collect terms</li>
+<li><span
+class="math inline"> ⇔ <em>x</em>1(<em>y</em><sub>1</sub> + <em>y</em><sub>3</sub>) + <em>x</em>2(<em>y</em><sub>2</sub> + 3<em>y</em><sub>3</sub> + <em>y</em><sub>4</sub>) + <em>x</em><sub>3</sub>(2<em>y</em><sub>3</sub> + 3<em>y</em><sub>4</sub>) ≤ 300<em>y</em><sub>1</sub> + 200<em>y</em><sub>2</sub> + 1000<em>y</em><sub>3</sub> + 500<em>y</em><sub>4</sub></span></li>
+<li>Now we use the values to reduce</li>
+<li>for <span
+class="math inline">(<em>y</em><sub>1</sub>, <em>y</em><sub>2</sub>, <em>y</em><sub>3</sub>, <em>y</em><sub>4</sub>) = (0, 1/3, 1, 8/3)</span></li>
+<li>we get $x_1 + 6x_2 + 10x_3 \le 2400 $</li>
+<li>pretty funny right?</li>
+<li>We did all that work just to come up with the obj function of the
+original LP in our example. of course that's the point though.</li>
+<li>In doing so we have verified our original solution</li>
+</ul>
+<p>Let's turn our attention back to our y values. how did we come up
+with the y values? There must be some logic right?</p>
+<p>It should be noted that any solution that is at least the original
+obj value function is also valid so long as the inequality still holds.
+ie <span
+class="math inline"><em>x</em><sub>1</sub> + 9<em>x</em><sub>2</sub> + 25<em>x</em><sub>3</sub></span>
+is also valid because it still serves as an upper bound on the obj
+function</p>
+<p>What we need is our co-efficients to be at least the coefficients in
+the obj function.<br />
+t/f</p>
+<ul>
+<li><span
+class="math inline">(<em>y</em><sub>1</sub> + <em>y</em><sub>3</sub>) ≥ 1</span>
+due to x1 term</li>
+<li><span
+class="math inline">(<em>y</em><sub>2</sub> + 3<em>y</em><sub>3</sub> + <em>y</em><sub>4</sub>) ≥ 6</span>
+due to x2 term</li>
+<li><span
+class="math inline">(2<em>y</em><sub>3</sub> + 3<em>y</em><sub>4</sub>) ≥ 10</span>
+due to x3 term</li>
+</ul>
+<p>Since these serve as an upper bound on the obj function, We will want
+to determine the smallest upper bound. Which means we want to find the
+minimum of the right hand side of the inequality.</p>
+<ul>
+<li>ie <span
+class="math inline">min (300<em>y</em><sub>1</sub> + 200<em>y</em><sub>2</sub> + 1000<em>y</em><sub>3</sub> + 500<em>y</em><sub>4</sub>)</span></li>
+</ul>
+<p>Of course this should look very suspicious to you, it's another LP.
+In fact this is known as the DUAL LP. Where as in the original LP we had
+<span class="math inline">≤</span> constraints now we have <span
+class="math inline">≥</span> constraints. In the original LP, aka the
+PRIMAL LP we had a maximization objective function now we have a
+minimization function. Of course we know how to adjust an LP to get into
+a canonical form for solving so solving the dual lp is not much
+different than solving the original LP.</p>
+<p>It pays to take a moment to consider the symmetry between the two
+LPs.</p>
+<ul>
+<li>the number of constraints in the primal lp is the number of
+variables in the dual lp</li>
+<li>the number of variables in the primal lp is the number of
+constraints in the dual lp</li>
+<li>the coefficients of the primal objective function are the lower
+bounds of the constraints in the dual lp</li>
+<li>the upper bound constraints in the primal lp are the co-efficients
+of the dual lp obj. function</li>
+<li>the left hand side of the constraints in the dual lp
+<ul>
+<li>are a linear combination of the contributing constraints in the
+primal lp</li>
+</ul></li>
+</ul>
+<p><strong>NB: The Dual LP must also have non-negative
+constraints!!</strong></p>
+<p><img src="../../.assets/CS6515_images/NP-021.png" alt="NP-021" /></p>
+<p>Now things can get a little weird</p>
+<ul>
+<li>Suppose you have a primal lp, call it <span
+class="math inline"><em>L</em><em>P</em><sub><em>p</em><em>r</em><em>i</em><em>m</em><em>a</em><em>l</em></sub></span></li>
+<li>then we can find/create the dual LP, call it <span
+class="math inline"><em>L</em><em>P</em><sub><em>d</em><em>u</em><em>a</em><em>l</em></sub></span>
+<ul>
+<li>to put it in canonical form we multiply by -1,</li>
+<li>results in flipping the inequalities in the constraints</li>
+<li>as well as flipping the min to a max in the objective function</li>
+</ul></li>
+<li>Now what's the dual of -1*<span
+class="math inline"><em>L</em><em>P</em><sub><em>d</em><em>u</em><em>a</em><em>l</em></sub></span>?</li>
+<li>Suppose we compute the dual of the dual
+<ul>
+<li>we get another dual</li>
+<li>but then we go through the transformation process to get it into
+canonical form</li>
+</ul></li>
+<li>the result should be the original primal LP with a third variable
+<ul>
+<li>this third LP is for all intents and purposes the original primal
+LP</li>
+</ul></li>
+</ul>
+<p><strong>NP: The dual of the dual LP is simply the primal
+LP</strong><br />
+<strong>Dual(Dual) = Primal</strong></p>
+<h4 id="example">Example</h4>
+<p>You are given the following LP</p>
+<ul>
+<li><span
+class="math inline">max (5<em>x</em><sub>1</sub> − 7<em>x</em><sub>2</sub> + 2<em>x</em><sub>3</sub>)</span></li>
+<li>Subject to
+<ul>
+<li><span
+class="math inline"><em>x</em><sub>1</sub> + <em>x</em><sub>2</sub> − 4<em>x</em><sub>3</sub> ≤ 1</span></li>
+<li>$2x_1 - x_2 \ge 3 $</li>
+<li><span
+class="math inline"><em>x</em><sub>1</sub>, <em>x</em><sub>2</sub>, <em>x</em><sub>3</sub> ≥ 0</span></li>
+</ul></li>
+</ul>
+<p>You are asked the following questions:</p>
+<ul>
+<li><ol type="1">
+<li>How many variables/contraints are in the dual LP</li>
+</ol></li>
+<li><ol type="1">
+<li>What is the dual LP?</li>
+</ol></li>
+</ul>
+<ol type="1">
+<li>Should be rather straight forward.</li>
+</ol>
+<ul>
+<li>There will be 2 variables in the dual LP, one for each
+constraint</li>
+<li>There will be 3 constraints in the dual LP, one for each of the
+primal LPs variables</li>
+</ul>
+<ol type="1">
+<li>Computing the dual LP is purely mechanical.</li>
+</ol>
+<ul>
+<li>First we re-write the primal LP in canonical form</li>
+<li><span
+class="math inline">max (5<em>x</em><sub>1</sub> − 7<em>x</em><sub>2</sub> + 2<em>x</em><sub>3</sub>)</span></li>
+<li>Subject to
+<ul>
+<li>$ x_1 + x_2 - 4x_3 \le 1$</li>
+<li>$-2x_1 + x_2 \le -3 $ - we multiplied by -1 to flip the
+inequality</li>
+<li>$ x_1,x_2,x_3 \ge 0$</li>
+</ul></li>
+</ul>
+<p>now we can begin filling out the coefficients of the dual LP</p>
+<ul>
+<li><ol type="1">
+<li>we begin with our shell
+<ul>
+<li><span
+class="math inline">min (<em>a</em><em>y</em><sub>1</sub> + <em>b</em><em>y</em><sub>2</sub>)</span>
+s.t. <span class="math inline">? ≥ ?</span>; <span
+class="math inline">? ≥ ?</span>; <span
+class="math inline">? ≥ ?</span>; <span
+class="math inline"><em>y</em><sub>1</sub>, <em>y</em><sub>2</sub> ≥ 0</span></li>
+</ul></li>
+</ol></li>
+<li><ol type="1">
+<li>we can read off the lower bounds from the original LP
+<ul>
+<li><span
+class="math inline">min (<em>a</em><em>y</em><sub>1</sub> + <em>b</em><em>y</em><sub>2</sub>)</span>
+s.t. <span class="math inline">? ≥ 5</span>; <span
+class="math inline">? ≥ −7</span>; <span
+class="math inline">? ≥ 2</span>; <span
+class="math inline"><em>y</em><sub>1</sub>, <em>y</em><sub>2</sub> ≥ 0</span></li>
+</ul></li>
+</ol></li>
+<li><ol type="1">
+<li>the constraints upper bounds become the dual LP obj function
+co-efficients
+<ul>
+<li><span
+class="math inline">min (1<em>y</em><sub>1</sub> + −3<em>y</em><sub>2</sub>)</span>
+s.t. <span class="math inline">? ≥ 5</span>; <span
+class="math inline">? ≥ −7</span>; <span
+class="math inline">? ≥ 2</span>; <span
+class="math inline"><em>y</em><sub>1</sub>, <em>y</em><sub>2</sub> ≥ 0</span></li>
+</ul></li>
+</ol></li>
+<li><ol type="1">
+<li>Now we can fill in the co-efficients of the constraints by looking
+at each variable in the primal
+<ul>
+<li>think of this in terms of matrices, all the x1 variables should be a
+single column</li>
+<li><span
+class="math inline"><em>y</em><sub>1</sub> + −2<em>y</em><sub>2</sub> ≥ 5</span>;</li>
+<li><span
+class="math inline"><em>y</em><sub>1</sub> + <em>y</em><sub>2</sub> ≥ −7</span>;</li>
+<li><span class="math inline">−4<em>y</em><sub>1</sub> ≥ 2</span>;</li>
+</ul></li>
+</ol></li>
+<li><ol type="1">
+<li>Finally we can put this all together in a single LP. All we're doing
+here is clean up and presentation, no math :)
+<ul>
+<li><span
+class="math inline">min (1<em>y</em><sub>1</sub> + −3<em>y</em><sub>2</sub>)</span></li>
+<li>Subject to
+<ul>
+<li><span
+class="math inline"><em>y</em><sub>1</sub> + −2<em>y</em><sub>2</sub> ≥ 5</span>;</li>
+<li><span
+class="math inline"><em>y</em><sub>1</sub> + <em>y</em><sub>2</sub> ≥ −7</span>;</li>
+<li><span class="math inline">−4<em>y</em><sub>1</sub> ≥ 2</span>;</li>
+<li><span
+class="math inline"><em>y</em><sub>1</sub>, <em>y</em><sub>2</sub> ≥ 0</span></li>
+</ul></li>
+</ul></li>
+</ol></li>
+</ul>
+<h3 id="lp3-duality---weak-and-strong">LP3: Duality - Weak and
+Strong</h3>
+<p><strong>Weak Duality Theorem</strong><br />
+For a feasible point x for the primal lp, and a feasible point y for the
+dual LP</p>
+<ul>
+<li>we have <span
+class="math inline"><em>c</em><sup><em>T</em></sup><em>x</em> ≤ <em>b</em><sup><em>T</em></sup><em>y</em></span>
+<ul>
+<li>ie <span
+class="math inline"><em>L</em><em>P</em><sub><em>p</em><em>r</em><em>i</em><em>m</em><em>a</em><em>l</em></sub>(<em>x</em>) ≤ <em>L</em><em>P</em><sub><em>d</em><em>u</em><em>a</em><em>l</em></sub>(<em>y</em>)</span>
+for feasible points x and y</li>
+</ul></li>
+<li>in other words the dual LP at any feasible point is an upper bound
+on the primal LP</li>
+</ul>
+<p><strong>Corollary</strong></p>
+<ul>
+<li>if <span
+class="math inline"><em>c</em><sup><em>T</em></sup><em>x</em> = <em>b</em><sup><em>T</em></sup><em>y</em></span>
+for feasible points x,y then x,y are optimal
+<ul>
+<li>it should be stressed that this is a one-way implication.</li>
+<li>two optimal points need not imply equal objective values</li>
+<li>there are certain conditions where it is a two way implication and
+that is called the strong duality theorem. this will be covered a few
+lines below</li>
+</ul></li>
+</ul>
+<p><strong>Corollary 2</strong></p>
+<ul>
+<li>if the primal LP <span
+class="math inline"><em>c</em><sup><em>T</em></sup><em>x</em></span> is
+unbounded then the dual LP is infeasible</li>
+<li>similarly</li>
+<li>an unbounded dual LP would imply an unfeasible primal lp, since the
+primal is the dual of the dual</li>
+</ul>
+<p>You should be able to see why this is true. An unbounded lp cannot
+have an upper bound</p>
+<p>Recall how we check an LP</p>
+<ul>
+<li>Given an LP in canonical form
+<ul>
+<li><span
+class="math inline">max (<em>c</em><sup><em>T</em></sup><em>x</em>)</span>
+subject to <span
+class="math inline"><em>A</em><em>x</em> ≤ <em>b</em></span> and <span
+class="math inline"><em>x</em> ≥ 0</span></li>
+</ul></li>
+</ul>
+<!-- -->
+
+<ul>
+<li>to check for feasiblity
+<ul>
+<li>we add an extra variable z to the constrain ie <span
+class="math inline"><em>A</em><em>x</em> + <em>z</em> ≤ <em>b</em></span></li>
+</ul></li>
+</ul>
+<!-- -->
+
+<ul>
+<li>to check for unboundedness
+<ul>
+<li>we could check if the dual is feasible or not</li>
+<li>if the dual is infeasible then by weak duality the primal could be
+infeasible or it could be unbounded
+<ul>
+<li>so we check if the primal is feasible</li>
+<li>assuming it has one feasible point</li>
+<li>then we check if the dual is infeasible</li>
+</ul></li>
+<li>if the primal has at least one feasible point, then all that is left
+in unbounded</li>
+</ul></li>
+</ul>
+<p><strong>Strong Duality Theorem</strong></p>
+<ul>
+<li>Primal LP is feasible and bounded <span class="math inline">⇔</span>
+dual LP is feasible and unbounded</li>
+<li>Equivalently</li>
+<li>Primal LP has an optimal solution x <em><span
+class="math inline">⇔</span> Dual LP has an optimal solution y</em>
+<ul>
+<li>ie <span
+class="math inline"><em>c</em><sup><em>T</em></sup><em>x</em><sup>*</sup> = <em>b</em><sup><em>T</em></sup><em>y</em><sup>*</sup></span></li>
+</ul></li>
+</ul>
+<p>Although it is not very obvious the max-flow min-st.cut theorem is a
+mirror/reflection of this theorem. It turns out that</p>
+<ul>
+<li><span
+class="math inline"><em>c</em><sup><em>T</em></sup><em>x</em><sup>*</sup></span>
+- is the max-flow through a flow network</li>
+<li><span
+class="math inline"><em>b</em><sup><em>T</em></sup><em>y</em><sup>*</sup></span>
+- is the capacity of the min-st.cut</li>
+</ul>
+<!-- WEEK-EXTRAS:START -->
+
+<h2 id="dpv-chapter-exercises">DPV chapter exercises</h2>
+<details>
+<summary><b>DPV chapter exercises (exact, from the textbook)</b></summary>
+
+<p><em>Exact end-of-chapter exercises, parsed from the DPV chapter
+PDFs.</em></p>
+<p><strong>DPV Ch 7 — Linear Programming</strong> — <a
+href="../../textbooks/examples-md/07-linear-programming-dpv-examples.html">open
+exercises</a> · <a href="readings/DPV-ch7-examples.pdf">chapter
+PDF</a></p>
+<iframe class="examples-frame" src="../../textbooks/examples-md/07-linear-programming-dpv-examples.html" title="DPV Ch 7 — Linear Programming exercises"></iframe>
+
+</details>
+
+<!-- WEEK-EXTRAS:END -->
+
+<h2 id="agent-hint">Agent hint</h2>
+<p>LP question → standard form first; for duality use the primal↔︎dual
+table, then certify with weak duality / complementary slackness. If it's
+a flow or matching problem, it may <em>be</em> an LP in disguise
+(max-flow = min-cut is the prototype).</p>
+</main>
+
+<!-- code highlighting -->
+<link rel="modulepreload" href="../../vendor/mermaid/mermaid.esm.min.mjs">
+<script src="../../vendor/highlight/highlight.min.js"></script>
+<!-- math -->
+<script defer src="../../vendor/katex/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="../../vendor/katex/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+<script type="module">
+  // 1) Normalize mermaid blocks. Pandoc(gfm) emits <pre class="mermaid"><code>...</code></pre>.
+  //    Flatten to raw source text so mermaid parses cleanly; also catch the code-only variant.
+  document.querySelectorAll('pre > code.language-mermaid, pre > code.mermaid').forEach(c => {
+    const p = document.createElement('pre'); p.className = 'mermaid'; p.textContent = c.textContent;
+    c.parentElement.replaceWith(p);
+  });
+  document.querySelectorAll('pre.mermaid').forEach(p => { p.textContent = p.textContent; });
+  // 2) Syntax-highlight every code block EXCEPT mermaid (auto-detect language)
+  if (window.hljs) document.querySelectorAll('pre:not(.mermaid) > code').forEach(el => window.hljs.highlightElement(el));
+  // 3) Render mermaid (dark)
+  try {
+    const mermaid = (await import('../../vendor/mermaid/mermaid.esm.min.mjs')).default;
+    mermaid.initialize({ startOnLoad: false, theme: 'dark', securityLevel: 'loose' });
+    await mermaid.run({ querySelector: 'pre.mermaid' });
+  } catch (e) { /* offline: leave as text */ }
+</script>
+<script>
+  // 4) Math: render \( \) and \[ \] (pandoc converts dollar-math to these). Tolerate malformed legacy TeX.
+  window.addEventListener('DOMContentLoaded', () => {
+    if (window.renderMathInElement) renderMathInElement(document.querySelector('.content'), {
+      // dollar-delimiters included so KaTeX also renders math pandoc failed to parse (left raw):
+      // a space before a closing delim, cases-env inline, apostrophes in text, etc. Display before inline.
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '\\[', right: '\\]', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false }
+      ],
+      throwOnError: false,
+      // \n is used in the legacy notes as a homemade "arrow over" (directed edge); map it to \overrightarrow.
+      macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
+    });
+  });
+</script>
+</body>
+</html>

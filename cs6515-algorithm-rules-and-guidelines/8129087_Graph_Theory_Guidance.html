@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Graph Theory Guidance — CS6515</title>
+<link rel="stylesheet" href="../vendor/fonts/fonts.css">
+<link rel="stylesheet" href="../theme.css">
+<link rel="stylesheet" href="../vendor/katex/katex.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="../vendor/highlight/styles/tokyo-night-dark.min.css">
+
+</head>
+<body>
+<header class="topbar">
+  <a class="home" href="../index.html">CS6515</a>
+  <span class="crumbloc">Graph Theory Guidance</span>
+</header>
+<main class="content">
+<h1 id="graph-theory-guidance">Graph Theory Guidance</h1>
+<p><strong>Category</strong>: Staff Use Only &gt; Supplemental Material
+<strong>Date</strong>: 2026-06-15 17:47 <strong>Link</strong>: <a
+href="https://edstem.org/us/courses/98593/discussion/8129087">https://edstem.org/us/courses/98593/discussion/8129087</a>
+<strong>Pinned</strong>: True | <strong>Votes</strong>: 3 |
+<strong>Views</strong>: 1437</p>
+<h2 id="post">Post</h2>
+<p>Below you will find information on how you should approach solving
+Graph Theory problems in this class. Feel free to ask questions about
+writing a Graph Theory solution in this thread.</p>
+<h2 id="context">Context</h2>
+<p>A graph theory problem is a form of
+<em><strong>reduction</strong></em>. You are given some problem to
+solve, and the challenge is to solve that problem by using one of the
+graph algorithms we study this semester. In other words, you
+<em><strong>reduce</strong></em> your problem to a graph problem such
+that a known algorithm can solve it for you.</p>
+<p>The <em><strong>known algorithms</strong></em> (#192) are treated as
+a <em><strong>black-box</strong></em> - you are not allowed to change /
+modify them in any way. You can (and often will) modify the original
+problem input in some way or create a graph which represents the input -
+this becomes the input to the black-box. You then use the outputs from
+the black-box (possibly with modification) to output a solution to the
+original problem.</p>
+<h2 id="rules">Rules</h2>
+<ul>
+<li><p>NO PSEUDOCODE - YOU WILL LOSE A LOT OF POINTS</p></li>
+<li><p>You <strong>may</strong> <strong>only</strong> use known black
+box algorithms (#192).</p></li>
+<li><p>You <strong>must use</strong> <strong>one or more</strong> black
+box algorithms (#192) to solve problems.</p></li>
+<li><p>You <strong>must not modify</strong> any black box algorithms
+(#192).</p></li>
+<li><p>Re-creating a black box with modifications is the same
+thing.</p></li>
+<li><p>All graphs are in adjacency list format (see below)</p></li>
+<li><p>You can assume you always have <code>n</code> and <code>m</code>
+for purposes of runtime analysis, where <code>n</code> represents the
+number of vertices |V| and <code>m</code> represents the number of edges
+|E|.</p></li>
+<li><p>#192 isn't exactly relevant here, but it's worth another
+link.</p></li>
+<li><p>See #8 for common course runtimes, including operations performed
+to graphs.</p></li>
+</ul>
+<h2 id="required-parts-of-a-graph-theory-solution">Required Parts of a
+Graph Theory Solution</h2>
+<ul>
+<li><p><strong><strong>(a) Algorithm</strong></strong></p></li>
+<li><p>Describe "how" to solve the problem in words (narrative/paragraph
+form)</p></li>
+<li><p>Bulleted steps are fine, but pseudocode/code is not
+allowed</p></li>
+<li><p>"Pseudocode" includes line-by-line restatement of code as
+words.</p></li>
+<li><p>If you find yourself using a lot of nested bullets, you might be
+erring on the side of line-by-line conversion of code into words, which
+is not a narrative.</p></li>
+<li><p>Describe what <strong>modifications are</strong>
+<strong>performed to the</strong> <strong>input</strong>, if
+any</p></li>
+<li><p>Detail the black box algorithm(s) being used</p></li>
+<li><p>What is passed in as input</p></li>
+<li><p>What is being used from its output</p></li>
+<li><p>Describe what <strong>modifications are performed to the
+output</strong>, if any</p></li>
+<li><p>Repeat as needed for any other black boxes</p></li>
+<li><p>Detail the final return for the problem's solution</p></li>
+<li><p><strong><strong>(b) Justification of
+Correctness</strong></strong></p></li>
+<li><p>Describe "why" your algorithm solves the problem, in words
+(narrative).</p></li>
+<li><p>This is not a formal inductive proof; informal justification is
+ok.</p></li>
+<li><p>Explain how your problem is solved by the black boxes
+used</p></li>
+<li><p>Explain how changing the inputs and/or outputs gets what you
+want</p></li>
+<li><p><strong><strong>(c) Runtime Analysis</strong></strong></p></li>
+<li><p>Analyze <strong>all</strong> steps of the algorithm in
+<strong>Big-O notation</strong>.</p></li>
+<li><p>Always, <em>always</em> in this course - worst case
+Big-O.</p></li>
+<li><p>Can explain/analyze in words and assert known black-box runtimes
+without further justification.</p></li>
+<li><p>Must include run time analysis for any pre/post
+processing</p></li>
+<li><p>See #8 for common runtimes when dealing with graphs.</p></li>
+<li><p>Provide an overall final runtime in (you guessed it) Big-O
+notation, fully simplified.</p></li>
+<li><p>If the problem specifies a target runtime, you must meet that for
+full credit. If we do not specify a runtime, faster (and correct) in Big
+O notation are worth more credit.</p></li>
+<li><p>While we work with worse-case runtimes, we also work with
+<em>tightest-bound</em> runtimes.</p></li>
+<li><p>That is, even though the worst case for an O(n+m) operation
+occurs when m= n^2, it is incorrect to state O(n^2) for such an
+operation unless we know something about the graph (e.g., it is a
+clique). O(n+m) is the tightest worse-case bound on such an
+operation</p></li>
+<li><p>Similarly, if we know the graph is a tree, then m = n-1 and
+O(n+m) operations collapse to O(n).</p></li>
+<li><p>When conveying the well-known runtimes of usable black boxes, you
+are not required to simplify it, even if the graph's constraints would
+allow for it.</p></li>
+</ul>
+<h2 id="graph-representation">Graph Representation</h2>
+<p>Graphs in this class, <strong><strong>unless stated
+otherwise</strong></strong>:</p>
+<ul>
+<li><p>Are simple graphs (no multi-edges or self-loops)</p></li>
+<li><p>Are always given in adjacency list format (see DPV
+3.1.1)</p></li>
+<li><p>An array of vertices that are pointers to linked lists of
+adjacent vertices, such that each element in the list represents an edge
+to another vertex.</p></li>
+<li><p>Vertices are assumed to be labeled in such a way where they can
+be found by indexing into the array.</p></li>
+<li><p>Can be connected or disconnected, undirected or directed, sparse
+or dense</p></li>
+<li><p>If unstated by the problem, you should assume any of these could
+be true</p></li>
+<li><p>Are connected and undirected when working with MSTs</p></li>
+<li><p>Are connected and directed when working with flow
+networks</p></li>
+</ul>
+<p>When working with graphs, there are a number of common actions that
+can be presented without needing to go into details. Some examples as
+follows:</p>
+<ul>
+<li><p>Reversing a graph:</p></li>
+<li><p>"Reverse the edges in the graph".</p></li>
+<li><p>Copying a graph:</p></li>
+<li><p>"Create a copy of G and call it GCopy".</p></li>
+<li><p>Creating subgraphs:</p></li>
+<li><p>"Create a copy of G called GEven that only keeps edges with even
+numbered weights".</p></li>
+<li><p>"Create a copy of G called GK that only keeps vertices with a
+degree &gt; k".</p></li>
+<li><p>"Create a residual graph of G called Grs that uses the flows from
+our run of EK".</p></li>
+</ul>
+<p>Unless the task can't directly be completed in this runtime, each of
+these are assumed to be <code>O(n + m)</code> operations.</p>
+<p>Please ask questions regarding the expectations for Graph Theory
+problems in this thread.</p>
+<h2 id="responses-7">Responses (7)</h2>
+<ul>
+<li><p><strong>Comment</strong> by User 821283 on 2026-06-18 14:29
+(Votes: 2)</p>
+<blockquote>
+<p>Is that ok if my algorithm include 1 (or more) black box algorithm,
+but has also other non-trivial steps that traverse the graph? As an
+example, the 2nd part of the algorithm below is not a black box, but the
+1st part is. Is that acceptable?</p>
+<p>Examples for 3.16 (minimum number of semesters necessary to complete
+the curriculum)</p>
+<p>Run topological sort on the graph.</p>
+<p>Under topological order, find the first vertex with incoming edges,
+remove all vertices before that from the graph, and add one semester.
+Repeat this step until graph is empty.</p>
+</blockquote>
+<ul>
+<li><strong>Comment</strong> by User 137215 on 2026-06-18 23:49 (Votes:
+2)
+<blockquote>
+<p>Yes, it's common that, as part of your solutions, there may be
+pre-processing or post-processing work that takes place around the black
+box usage.</p>
+<p>This could be creating subgraphs, modifying graphs, performing graph
+traversal, doing calculations, etc.</p>
+</blockquote></li>
+</ul></li>
+<li><p><strong>Comment</strong> by User 813950 on 2026-06-19 08:41
+(Votes: 0)</p>
+<blockquote>
+<p>I see that it says its graded; only this homework is graded?</p>
+</blockquote>
+<ul>
+<li><p><strong>Comment</strong> by User 135758 on 2026-06-19 09:01
+(Votes: 0)</p>
+<blockquote>
+<p>Is this for Homework 5?</p>
+<p>"Graded" generally means "marked for feedback".</p>
+<p>The weighting of those markings is unchanged from the syllabus.</p>
+</blockquote>
+<ul>
+<li><p><strong>Comment</strong> by User 813950 on 2026-06-19 09:38
+(Votes: 0)</p>
+<blockquote>
+<p>yes; sorry I got confused when i saw highlighted word graded.
+Thanks</p>
+<p><img
+src="https://static.us.edusercontent.com/files/AU8WE2ivlBlQrqlh1MBpfXZg"
+alt="Image" /></p>
+</blockquote>
+<ul>
+<li><strong>Comment</strong> by User 137215 on 2026-06-19 09:43 (Votes:
+0)
+<blockquote>
+<p>Yes. If you make a submission, the graders grade and so it goes.</p>
+</blockquote></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li><p><strong>Comment</strong> by User 585876 on 2026-06-19 23:11
+(Votes: 0)</p>
+<blockquote>
+<p>Just to clarify wording:</p>
+<blockquote>
+
+</blockquote>
+<p>Similarly, if we know the graph is a tree, then m = n-1 and O(n+m)
+operations collapse to O(n).</p>
+<p>Is this saying that because we know that the graph is a tree, the
+tightest bound is O(n) or that even though we know it's a tree, the
+tightest bound should be reported as O(n+m) because that's what the
+operation runtime is</p>
+</blockquote>
+<ul>
+<li><p><strong>Comment</strong> by User 137215 on 2026-06-20 01:31
+(Votes: 2)</p>
+<blockquote>
+<p>When it is a tree, we know that we have <code>n</code> vertices and
+exactly <code>n-1</code> edges.</p>
+<p>If the input you are given <strong>is</strong> a tree, then
+<code>O(n)</code> and <code>O(n + m)</code> are the same, given that m
+has an exact definition, which enables simplification to
+<code>O(n)</code>.</p>
+<p>If the input you are given is not <strong>specified</strong> to be a
+tree (but we know it's connected), and you produce a tree (say with
+Kruskal's), then we have that <code>m &gt;= n-1</code> and
+<code>O(n)</code> becomes a tighter bound when performing work on the
+produced tree.</p>
+</blockquote>
+<ul>
+<li><p><strong>Comment</strong> by User 1282049 on 2026-06-20 15:02
+(Votes: 0)</p>
+<blockquote>
+<p>So just to clarify:</p>
+<p>Operate on the connected graph to produce your tree: O(m) but NOT
+O(n) (since graph is connected, m &gt;= n-1)</p>
+<p>Operate on the produced tree: O(n) or O(m) (equivalent, because m = n
+- 1 for tree)</p>
+</blockquote>
+<ul>
+<li><p><strong>Comment</strong> by User 137215 on 2026-06-20 23:50
+(Votes: 0)</p>
+<blockquote>
+<blockquote>
+<p>Operate on the produced tree: O(n) or O(m) (equivalent, because m = n
+- 1 for tree)</p>
+</blockquote>
+<p>For a <strong>produced</strong> tree - that is one like my example
+above, which could have come from a complete graph where m ~ n^2 - we
+have no assurance that m and n are equivalent.</p>
+<p>But we do know properties of a tree allow us to provide a tighter
+bound, if we go on to work on that tree.</p>
+<p>For a <strong>given</strong> tree - that is, the input to the problem
+is told to be a tree - then we do know they're equivalent, again based
+on a property of trees.</p>
+</blockquote>
+<ul>
+<li><strong>Comment</strong> by User 1282049 on 2026-06-21 02:07 (Votes:
+0)
+<blockquote>
+<p>I think I was a bit loose on my definitions here, so let me clarify
+once more:</p>
+<p>Operate on a tree (m = n - 1 for tree): O(n+m) = O(n) = O(m).</p>
+<p>Operate on a generic connected graph (n-1 &lt;= m &lt;= n(n-1) for
+directed graph). So m = O(n^2) and n = O(m). Hence: O(n+m) = O(O(m) + m)
+= O(m). And also, O(n+m) = O(n + O(n^2)) = O(n^2).</p>
+</blockquote></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li><p><strong>Comment</strong> by User 802900 on 2026-06-20 15:06
+(Votes: 0)</p>
+<blockquote>
+<p>Why is the size of the adjacency list O(|E|) if each edge is
+represented twice? I would assume O(2|E|). Is this like runtime where we
+remove constant factors?</p>
+</blockquote>
+<ul>
+<li><strong>Comment</strong> by User 1282049 on 2026-06-20 16:55 (Votes:
+1)
+<blockquote>
+<p>That's right, constant factors are ignored in Big-O notation. Just
+like how O(2n) == O(n).</p>
+</blockquote></li>
+</ul></li>
+<li><p><strong>Comment</strong> by User 1282049 on 2026-06-20 16:56
+(Votes: 0)</p>
+<blockquote>
+<p><img
+src="https://static.us.edusercontent.com/files/MaHOW6072D7vYsR7wXvglGfi"
+alt="Image" /> I was looking at this example, and I was wondering if the
+task "find the vertex with largest degree" would have runtime:</p>
+<p>O(n) - if the metadata "number of edges" is stored on each vertex</p>
+<p>OR</p>
+<p>O(n+m) - if you need to count the number of edges manually</p>
+<p>But I'm not sure what is stored as metadata on each vertex?</p>
+</blockquote>
+<ul>
+<li><p><strong>Comment</strong> by User 137215 on 2026-06-20 23:55
+(Votes: 1)</p>
+<blockquote>
+<p>The adjacency list, like our normal lists, do not store any metadata.
+So, no shortcuts on length finding.</p>
+<p>You'll see through the way the book and lectures talk, and when we
+get to the programming homework, that "metadata" such as lengths,
+weights, colors are actually separate structures entirely. The graph
+theory black boxes post in #192 also treats them this way.</p>
+<p>Given that, if you need to find the vertex with the largest degree,
+you'll need to count the number of neighbors for every vertex in the
+adjacency list, and you'd end up at <code>O(n + m)</code> overall.</p>
+</blockquote>
+<ul>
+<li><strong>Comment</strong> by User 1282049 on 2026-06-21 01:42 (Votes:
+0)
+<blockquote>
+<p>Thank you</p>
+</blockquote></li>
+</ul></li>
+</ul></li>
+<li><p><strong>Comment</strong> by User 1135584 on 2026-06-20 21:29
+(Votes: 1)</p>
+<blockquote>
+<p>The lectures spend a lot of time on the proofs of correctness for
+these black box algorithms. The ed posts and homeworks make it seem like
+it will be important for us to know the inputs and outputs and generally
+what these blackboxes are doing so we can use them to solve graph
+problems. How important is it to study/memorize the proofs from the
+lectures?</p>
+</blockquote>
+<ul>
+<li><strong>Comment</strong> by User 137215 on 2026-06-21 00:00 (Votes:
+0)
+<blockquote>
+<blockquote>
+<p>How important is it to study/memorize the proofs from the
+lectures?</p>
+</blockquote>
+<p>The information Dr. Vigoda covers in the lectures for the proofs of
+correctness will prove quite insightful for student justification of
+correctness, just at "the next level".</p>
+<p>While you do not need to rederive the correctness of the black box,
+your solution will depend on some or all of its behavior, which you will
+have exploited in some way to solve the problem. That would be a great
+thing to include for why your algorithm works.</p>
+<p>And then of course, there's the entire portion of the course that
+isn't free response questions...</p>
+</blockquote></li>
+</ul></li>
+<li><p><strong>Comment</strong> by User 1307404 on 2026-06-21 09:29
+(Votes: 0)</p>
+<blockquote>
+<p>Can we modify an input graph G directly during the pre-processing
+stage or would we have to create a new graph G' before running our
+implementation? For example: we can remove an edge from G in O(1) time
+but creating a copy without the same edge could cost us O(n+m).</p>
+</blockquote>
+<ul>
+<li><strong>Comment</strong> by User 135758 on 2026-06-21 10:18 (Votes:
+2)
+<blockquote>
+<p>Either could work, depending on whether or not <span
+class="math inline"><em>G</em></span> is needed again later in the
+algorithm.</p>
+</blockquote></li>
+</ul></li>
+</ul>
+</main>
+
+<!-- code highlighting -->
+<link rel="modulepreload" href="../vendor/mermaid/mermaid.esm.min.mjs">
+<script src="../vendor/highlight/highlight.min.js"></script>
+<!-- math -->
+<script defer src="../vendor/katex/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="../vendor/katex/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+<script type="module">
+  // 1) Normalize mermaid blocks. Pandoc(gfm) emits <pre class="mermaid"><code>...</code></pre>.
+  //    Flatten to raw source text so mermaid parses cleanly; also catch the code-only variant.
+  document.querySelectorAll('pre > code.language-mermaid, pre > code.mermaid').forEach(c => {
+    const p = document.createElement('pre'); p.className = 'mermaid'; p.textContent = c.textContent;
+    c.parentElement.replaceWith(p);
+  });
+  document.querySelectorAll('pre.mermaid').forEach(p => { p.textContent = p.textContent; });
+  // 2) Syntax-highlight every code block EXCEPT mermaid (auto-detect language)
+  if (window.hljs) document.querySelectorAll('pre:not(.mermaid) > code').forEach(el => window.hljs.highlightElement(el));
+  // 3) Render mermaid (dark)
+  try {
+    const mermaid = (await import('../vendor/mermaid/mermaid.esm.min.mjs')).default;
+    mermaid.initialize({ startOnLoad: false, theme: 'dark', securityLevel: 'loose' });
+    await mermaid.run({ querySelector: 'pre.mermaid' });
+  } catch (e) { /* offline: leave as text */ }
+</script>
+<script>
+  // 4) Math: render \( \) and \[ \] (pandoc converts dollar-math to these). Tolerate malformed legacy TeX.
+  window.addEventListener('DOMContentLoaded', () => {
+    if (window.renderMathInElement) renderMathInElement(document.querySelector('.content'), {
+      // dollar-delimiters included so KaTeX also renders math pandoc failed to parse (left raw):
+      // a space before a closing delim, cases-env inline, apostrophes in text, etc. Display before inline.
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '\\[', right: '\\]', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false }
+      ],
+      throwOnError: false,
+      // \n is used in the legacy notes as a homemade "arrow over" (directed edge); map it to \overrightarrow.
+      macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
+    });
+  });
+</script>
+</body>
+</html>

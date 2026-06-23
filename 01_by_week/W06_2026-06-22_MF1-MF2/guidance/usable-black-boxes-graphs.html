@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Usable Black Boxes for Graphs — CS6515</title>
+<link rel="stylesheet" href="../../../vendor/fonts/fonts.css">
+<link rel="stylesheet" href="../../../theme.css">
+<link rel="stylesheet" href="../../../vendor/katex/katex.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="../../../vendor/highlight/styles/tokyo-night-dark.min.css">
+
+</head>
+<body>
+<header class="topbar">
+  <a class="home" href="../../../index.html">CS6515</a>
+  <span class="crumbloc">Usable Black Boxes for Graphs</span>
+</header>
+<main class="content">
+<h1 id="usable-black-boxes-for-graphs">Usable Black Boxes for
+Graphs</h1>
+<p><strong>Category</strong>: Staff Use Only &gt; Supplemental Material
+<strong>Date</strong>: 2026-06-15 17:48 <strong>Link</strong>: <a
+href="https://edstem.org/us/courses/98593/discussion/8129088">https://edstem.org/us/courses/98593/discussion/8129088</a>
+<strong>Pinned</strong>: True | <strong>Votes</strong>: 5 |
+<strong>Views</strong>: 1850</p>
+<h2 id="post">Post</h2>
+<p>For the graphs section, you must use the algorithms presented in the
+course materials to help you solve presented problems.</p>
+<p>That is, solutions in this section <strong>must use</strong> one (or
+a combo) of the black boxes to solve the presented problem.</p>
+<p>Providing full implementation details of one of these black boxes,
+and adding in a twist or in-line tracking will be treated as a
+modification.Many graphs algorithms exist beyond what is covered in this
+course; however, only those explicitly mentioned here may be used. The
+use of extra-curricular algorithms will result in penalties, including
+for variations of these algorithms outside of the lectures, book, and
+this post.Wikipedia entries are provided for supplemental reading, such
+as history and discovery of these algorithms.</p>
+<p>Where differences exist, this post represents the version used in
+this course.All runtimes below are presented assuming
+<code>n = |vertices|</code> and <code>m = |edges|</code>.All outputs
+below are produced as <code>n-sized</code> lists, containing an entry
+for each <code>vertex</code> in the graph, and are able to be
+<strong>indexed by vertex</strong> in <code>O(1)</code> time to read its
+contents, unless otherwise noted.The following black boxes are available
+for use during the remainder of the course:</p>
+<p><strong>Depth-First Search (DFS)</strong> [see also: <a
+href="https://en.wikipedia.org/wiki/Depth-first_search"><span>https://en.wikipedia.org/wiki/Depth-first_search</span></a>]-
+Input:</p>
+<ul>
+<li><p>A simple graph in adjacency list format</p></li>
+<li><p>A starting vertex</p></li>
+<li><p>This is optional. If not provided, DFS will start from an
+arbitrary location.</p></li>
+<li><p>This is accomplished through adjacency list ordering, which we
+assume takes place when you provide a starting vertex.</p></li>
+<li><p>Internal <strong>(not accessible after run)</strong>:</p></li>
+<li><p><code>visited[]</code> - A list containing whether the indexed
+vertex was touched by DFS.</p></li>
+<li><p>All entries of this list will always be set to <code>true</code>
+when DFS completes.</p></li>
+<li><p>This is populated by Explore, an internal subroutine of
+DFS.</p></li>
+<li><p>Output:</p></li>
+<li><p><code>ccnum[]</code> - A list containing the connected component
+number of the indexed vertex.</p></li>
+<li><p>Vertices reachable from the starting vertex will have a connected
+component number of <code>1</code>.</p></li>
+<li><ul>
+<li><code>prev[]</code> - A list containing the parent vertex of the
+indexed vertex, which can be used to create a path from the starting
+vertex to any reachable vertex.</li>
+</ul></li>
+<li><p>Unreachable vertices and the starting vertex have a parent of
+<code>nil</code>.</p></li>
+<li><p><code>pre[]</code> - A list containing the pre-visit number for
+the indexed vertex.</p></li>
+<li><p><code>post[]</code> - A list containing the post-visit number for
+the indexed vertex.</p></li>
+<li><p>Runtime:</p></li>
+<li><p><code>O(n + m)</code></p></li>
+</ul>
+<p>Implementation details:</p>
+<ul>
+<li><p>DPV pp. 83-91</p></li>
+<li><p>GR1.3, GR1.6</p></li>
+</ul>
+<p>Common uses:</p>
+<ul>
+<li><p>Finding connected components on a graph</p></li>
+<li><p>Finding a cycle in a graph</p></li>
+<li><p>Producing a path from starting vertex to a reachable
+vertex</p></li>
+</ul>
+<p><strong>Topological Sort</strong> (see also: <a
+href="https://en.wikipedia.org/wiki/Topological_sorting"><span>https://en.wikipedia.org/wiki/Topological_sorting</span></a>)-
+Input:</p>
+<ul>
+<li><p>A simple, directed, acyclic graph in adjacency list
+format</p></li>
+<li><p>Output:</p></li>
+<li><p><code>order[]</code> - A list of vertices, sorted in topological
+ordering from source to sink.</p></li>
+<li><p><strong>Note:</strong> This output is indexed numerically rather
+than by vertex.</p></li>
+<li><p>All <strong>outputs</strong> from the run of
+<code>Depth-First Search (DFS)</code> are also available to
+you.</p></li>
+<li><p>Runtime:</p></li>
+<li><p><code>O(n + m)</code></p></li>
+</ul>
+<p>Implementation details:</p>
+<ul>
+<li><p>DPV pp. 89-91</p></li>
+<li><p>GR1.10</p></li>
+</ul>
+<p>Common uses:</p>
+<ul>
+<li>Finding the topological sorting in a DAG</li>
+</ul>
+<p><strong>Strongly Connected Components (SCC)</strong> [see also: <a
+href="https://en.wikipedia.org/wiki/Strongly_connected_component"><span>https://en.wikipedia.org/wiki/Strongly_connected_component</span></a>]-
+Input:</p>
+<ul>
+<li><p>A simple, directed graph in adjacency list format</p></li>
+<li><p>Output:</p></li>
+<li><p><code>G_SCC = (V_SCC, E_SCC)</code> - The strongly connected
+components metagraph, provided in adjacency list format.</p></li>
+<li><p>By construction, the metagraph is a DAG with vertices sorted from
+sink to source</p></li>
+<li><p>This ordering is known as reverse topological ordering.</p></li>
+<li><p>All <strong>outputs</strong> from the final run of
+<code>Depth-First Search (DFS)</code> are also available to
+you.</p></li>
+<li><p>This data is used to connect entities in the metagraph to the
+original input graph.</p></li>
+<li><p>For example, the first vertex in <code>V_SCC</code> represents
+all vertices with <code>ccnum[v] = 1</code> from the DFS outputs from
+the original input graph.</p></li>
+<li><p>Runtime:</p></li>
+<li><ul>
+<li><code>O(n + m)</code></li>
+</ul></li>
+</ul>
+<p>Implementation details:</p>
+<ul>
+<li><p>DPV pp. 91-95</p></li>
+<li><p>GR1.21</p></li>
+</ul>
+<p>Common uses:</p>
+<ul>
+<li><p>Finding strongly connected components on a graph</p></li>
+<li><p>Particularly useful for finding source and sink SCCs</p></li>
+</ul>
+<p><strong>Breadth-First Search (BFS)</strong> [see also: <a
+href="https://en.wikipedia.org/wiki/Breadth-first_search"><span>https://en.wikipedia.org/wiki/Breadth-first_search</span></a>]-
+Input:</p>
+<ul>
+<li><p>A simple graph in adjacency list format</p></li>
+<li><p>A starting vertex</p></li>
+<li><p>Output:</p></li>
+<li><p><code>dist[]</code> - A list containing the unweighted distance
+from the starting vertex to the indexed vertex for all vertices in the
+graph.</p></li>
+<li><p>Unreachable vertices have a distance of
+<code>inf</code>.</p></li>
+<li><p><code>prev[]</code> - A list containing the parent vertex of the
+indexed vertex, which can be used to create a path from the starting
+vertex to any reachable vertex.</p></li>
+<li><p>Unreachable vertices and the starting vertex have a parent of
+<code>nil</code>.</p></li>
+<li><p>Runtime:</p></li>
+<li><p><code>O(n + m)</code></p></li>
+</ul>
+<p>Implementation details:</p>
+<ul>
+<li><p>DPV pp. 105-106</p></li>
+<li><p>GR1.24</p></li>
+</ul>
+<p>Common uses:</p>
+<ul>
+<li><p>Reachability analysis</p></li>
+<li><p>Unweighted shortest path determination</p></li>
+<li><p>Producing a path from starting vertex to a reachable
+vertex</p></li>
+</ul>
+<p><strong>Dijkstra's</strong> (see also: <a
+href="https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm"><span>https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm</span></a>)-
+Input:</p>
+<ul>
+<li><p>A simple graph in adjacency list format</p></li>
+<li><p>A starting vertex</p></li>
+<li><p>A list of non-negative edge weights</p></li>
+<li><p>Output:</p></li>
+<li><ul>
+<li><code>dist[]</code> - A list containing the weighted distance from
+the starting vertex to the indexed vertex for all vertices in the
+graph.</li>
+</ul></li>
+<li><p>Unreachable vertices have a distance of
+<code>inf</code>.</p></li>
+<li><p><code>prev[]</code> - A list containing the parent vertex of the
+indexed vertex, which can be used to create a path from the starting
+vertex to any reachable vertex.</p></li>
+<li><p>Unreachable vertices and the starting vertex have a parent of
+<code>nil</code>.</p></li>
+<li><p>Runtime:</p></li>
+<li><p><code>O((n + m) log n)</code></p></li>
+</ul>
+<p>Implementation details:</p>
+<ul>
+<li><p>DPV pp. 109-115</p></li>
+<li><p>GR1.24</p></li>
+</ul>
+<p>Common uses:</p>
+<ul>
+<li><p>Reachability analysis</p></li>
+<li><p>Weighted shortest path determination</p></li>
+<li><p>Producing a path from starting vertex to a reachable
+vertex</p></li>
+</ul>
+<p><strong>Bellman-Ford (BF)</strong> [see also: <a
+href="https://en.wikipedia.org/wiki/Bellman%E2%80%93Ford_algorithm"><span>https://en.wikipedia.org/wiki/Bellman%E2%80%93Ford_algorithm</span></a>]-
+Input:</p>
+<ul>
+<li><p>A simple graph in adjacency list format</p></li>
+<li><p>A starting vertex</p></li>
+<li><p>A list of edge weights</p></li>
+<li><p>Output:</p></li>
+<li><ul>
+<li><code>dist[]</code> - A list containing the weighted distance from
+the starting vertex to the indexed vertex for all vertices in the
+graph.</li>
+</ul></li>
+<li><p>Unreachable vertices have a distance of
+<code>inf</code>.</p></li>
+<li><p>Values are based on the <code>n-1 th</code> iteration.</p></li>
+<li><p><code>prev[]</code> - A list containing the parent vertex of the
+indexed vertex, which can be used to create a path from the starting
+vertex to any reachable vertex.</p></li>
+<li><p>Unreachable vertices and the starting vertex have a parent of
+<code>nil</code>.</p></li>
+<li><p><code>iter[][]</code> - A 2-dimensional list containing the first
+indexed iteration's shortest path from the starting vertex to the second
+indexed vertex.</p></li>
+<li><p>For example, <code>iter[3][v]</code> contains the distance from
+the starting vertex to <code>v</code> at the end of the 3rd
+iteration.</p></li>
+<li><p>This table contains iterations <code>0</code> through
+<code>n</code>.</p></li>
+<li><p>Runtime:</p></li>
+<li><p><code>O(nm)</code></p></li>
+</ul>
+<p>Implementation details:</p>
+<ul>
+<li><p>DPV pp. 115-119</p></li>
+<li><p>DP3.6</p></li>
+</ul>
+<p>Common uses:</p>
+<ul>
+<li><p>Reachability analysis</p></li>
+<li><p>Weighted shortest path determination</p></li>
+<li><p>Negative cycle detection</p></li>
+<li><p>Producing a path from starting vertex to a reachable
+vertex</p></li>
+</ul>
+<p><strong>Floyd-Warshall (FW)</strong> [see also: <a
+href="https://en.wikipedia.org/wiki/Floyd%E2%80%93Warshall_algorithm"><span>https://en.wikipedia.org/wiki/Floyd%E2%80%93Warshall_algorithm</span></a>]-
+Input:</p>
+<ul>
+<li><p>A simple graph in adjacency list format</p></li>
+<li><p>A list of edge weights</p></li>
+<li><p>Output:</p></li>
+<li><ul>
+<li><code>dist[][]</code> - A 2-dimensional list containing the weighted
+distance from the first indexed vertex to the second indexed
+vertex.</li>
+</ul></li>
+<li><p>For example, <code>dist[u][v]</code> would contain the shortest
+path from vertex <code>u</code> to vertex <code>v</code>.</p></li>
+<li><p>Unreachable vertex pairs have a distance of
+<code>inf</code>.</p></li>
+<li><p>Values are based on the <code>nth</code> iteration.</p></li>
+<li><p><code>iter[][][]</code> - A 3-dimensional list containing the
+first indexed iteration's shortest path from the second indexed vertex
+to the third indexed vertex.</p></li>
+<li><p>For example, <code>iter[3][u][v]</code> contains the distance
+from <code>u</code> to <code>v</code> at the end of the 3rd
+iteration.</p></li>
+<li><p>This table contains iterations <code>0</code> through
+<code>n</code>.</p></li>
+<li><p>Runtime:</p></li>
+<li><p><code>O(n^3)</code></p></li>
+</ul>
+<p>Implementation details:</p>
+<ul>
+<li><p>DPV pp. 172-173</p></li>
+<li><p>DP3.17</p></li>
+</ul>
+<p>Common uses:</p>
+<ul>
+<li><p>Reachability analysis</p></li>
+<li><p>Weighted shortest path determination</p></li>
+<li><p>Negative cycle detection</p></li>
+</ul>
+<p><strong>Kruskal's</strong> (see also: <a
+href="https://en.wikipedia.org/wiki/Kruskal%27s_algorithm"><span>https://en.wikipedia.org/wiki/Kruskal%27s_algorithm</span></a>)-
+Input:</p>
+<ul>
+<li><p>A simple, connected, undirected graph in adjacency list
+format</p></li>
+<li><p>A list of edge weights</p></li>
+<li><p>Output:</p></li>
+<li><p><code>edges[]</code> - A list of <code>n-1</code> edges that
+represent a minimum spanning tree for the input graph.</p></li>
+<li><p>Runtime:</p></li>
+<li><p><code>O(m log n)</code></p></li>
+</ul>
+<p>Implementation details:</p>
+<ul>
+<li><p>DPV pp. 128-137</p></li>
+<li><p>GR3.6</p></li>
+</ul>
+<p>Common uses:</p>
+<ul>
+<li>Producing a minimum spanning tree</li>
+</ul>
+<p><strong>Prim's</strong> (see also: <a
+href="https://en.wikipedia.org/wiki/Prim%27s_algorithm"><span>https://en.wikipedia.org/wiki/Prim%27s_algorithm</span></a>)-
+Input:</p>
+<ul>
+<li><p>A simple, connected, undirected graph in adjacency list
+format</p></li>
+<li><p>A list of edge weights</p></li>
+<li><p>Output:</p></li>
+<li><ul>
+<li><code>prev[]</code> - A list containing the parent vertex of the
+indexed vertex, which represent the connecting edges of a minimum
+spanning tree for the input graph.</li>
+</ul></li>
+<li><p>The starting vertex is chosen arbitrarily and has a parent of
+<code>nil</code>.</p></li>
+<li><p>Runtime:</p></li>
+<li><p><code>O(m log n)</code></p></li>
+</ul>
+<p>Implementation details:</p>
+<ul>
+<li><p>DPV pp. 137-139</p></li>
+<li><p>GR3.15</p></li>
+</ul>
+<p>Common uses:</p>
+<ul>
+<li>Producing a minimum spanning tree</li>
+</ul>
+<p><strong>Ford-Fulkerson (FF)</strong> [see also: <a
+href="https://en.wikipedia.org/wiki/Ford%E2%80%93Fulkerson_algorithm"><span>https://en.wikipedia.org/wiki/Ford%E2%80%93Fulkerson_algorithm</span></a>]-
+Input:</p>
+<ul>
+<li><p>A simple, connected, directed graph in adjacency list
+format</p></li>
+<li><p>A list of positive, integer edge capacities</p></li>
+<li><p>A starting source vertex</p></li>
+<li><p>A terminating sink vertex</p></li>
+<li><p>Output:</p></li>
+<li><p><code>flow[]</code> - A list of edges representing the amount
+capacity used per each indexed edge such that the flow is maximized from
+the starting vertex to the terminating vertex.</p></li>
+<li><p><code>C</code> - The value of the maximum flow from the starting
+vertex to the terminating vertex.</p></li>
+<li><p>Runtime:</p></li>
+<li><p><code>O(mC)</code></p></li>
+</ul>
+<p>Implementation details:</p>
+<ul>
+<li><p>DPV pp. 198-204</p></li>
+<li><p>MF1.14</p></li>
+</ul>
+<p>Common uses:</p>
+<ul>
+<li>Finding max flows on a graph</li>
+</ul>
+<p><strong>Edmonds-Karp (EK)</strong> [see also: <a
+href="https://en.wikipedia.org/wiki/Edmonds%E2%80%93Karp_algorithm"><span>https://en.wikipedia.org/wiki/Edmonds%E2%80%93Karp_algorithm</span></a>]-
+Input:</p>
+<ul>
+<li><p>A simple, connected, directed graph in adjacency list
+format</p></li>
+<li><p>A list of positive edge capacities</p></li>
+<li><p>A starting source vertex</p></li>
+<li><p>A terminating sink vertex</p></li>
+<li><p>Output:</p></li>
+<li><p><code>flow[]</code> - A list of edges representing the amount
+capacity used per each indexed edge such that the flow is maximized from
+the starting vertex to the terminating vertex.</p></li>
+<li><p><code>C</code> - The value of the maximum flow from the starting
+vertex to the terminating vertex.</p></li>
+<li><p>Runtime:</p></li>
+<li><p><code>O(nm^2)</code></p></li>
+</ul>
+<p>Implementation details:</p>
+<ul>
+<li><p>DPV pp. 198-204</p></li>
+<li><p>MF4.3</p></li>
+</ul>
+<p>Common uses:</p>
+<ul>
+<li>Finding max flows on a graph</li>
+</ul>
+<p><strong>2-SAT</strong> (see also: <a
+href="https://en.wikipedia.org/wiki/2-satisfiability"><span>https://en.wikipedia.org/wiki/2-satisfiability</span></a>)-
+Input:</p>
+<ul>
+<li><p>A Boolean formula in conjunctive normal form such that each
+clause contains at most 2 literals.</p></li>
+<li><p>This formula is backed by a list of <code>n</code> variables,
+representing at most <code>2n</code> literals and <code>m</code>
+clauses.</p></li>
+<li><p>Output:</p></li>
+<li><p><code>assignments[]</code> - A list indexable by the variables
+that back the original input formula containing whether that variable is
+set to <code>true</code> or <code>false</code>.</p></li>
+<li><p>If the input is not satisfiable, this will instead return
+"NO"</p></li>
+<li><p>All <strong>outputs</strong> from the
+<code>Strongly Connected Components (SCC)</code> run are also available
+to you.</p></li>
+<li><p>Runtime:</p></li>
+<li><p><code>O(n + m)</code></p></li>
+</ul>
+<p>Implementation details:</p>
+<ul>
+<li><p>DPV p. 101</p></li>
+<li><p>GR2</p></li>
+</ul>
+<p>Common uses:</p>
+<ul>
+<li><p>Example of how graphs algorithms can be used to solve a problem
+that starts in a non-graphs domain</p></li>
+<li><p>Converting a graph representation into a Boolean formula to
+determine satisfiability of the task at hand</p></li>
+</ul>
+<h2 id="responses-9">Responses (9)</h2>
+<ul>
+<li><p><strong>Comment</strong> by User 821283 on 2026-06-16 11:40
+(Votes: 1)</p>
+<blockquote>
+<p>Thanks for posting this! I have two questions:</p>
+<ol type="1">
+<li><p>Will the name of each algorithm provided in exam 2? Or, do we
+need to memorize the name?</p></li>
+<li><p>For max flow algorithms, output <code>flow[]</code> is indexed by
+edge. Does that mean edges can be indexed as 1, 2, ... m, and looking up
+an edge takes O(1) time (similar to the indexing of vertices)?</p></li>
+</ol>
+</blockquote>
+<ul>
+<li><p><strong>Comment</strong> by User 137215 on 2026-06-16 11:44
+(Votes: 1)</p>
+<blockquote>
+<blockquote>
+<p>Will the name of each algorithm provided in exam 2?</p>
+</blockquote>
+<p>Questions on the exam will be presented similarly to the homework
+questions.</p>
+<p>This will include the list of black boxes available for use.</p>
+<blockquote>
+<p>For max flow algorithms, output flow[] is indexed by edge.</p>
+</blockquote>
+<p>The entries in <code>flow[]</code> are accessible in
+<code>O(1)</code>, the same as the entries in <code>weight[]</code> in
+the MST algorithms or shortest path algorithms.</p>
+</blockquote>
+<ul>
+<li><p><strong>Comment</strong> by User 821283 on 2026-06-16 12:29
+(Votes: 0)</p>
+<blockquote>
+<p>Thanks Jamie!</p>
+</blockquote></li>
+<li><p><strong>Comment</strong> by User 135944 on 2026-06-18 04:19
+(Votes: 1)</p>
+<blockquote>
+<p>So to be clear, we'll just be given a list of the names of all
+algorithms we can use as black boxes? Without information on their
+input/output/runtime?</p>
+</blockquote></li>
+</ul></li>
+</ul></li>
+<li><p><strong>Comment</strong> by User 1282049 on 2026-06-17 15:51
+(Votes: 0)</p>
+<blockquote>
+<p>If I use the term "UCS" (Uniform-Cost Search), is that understood to
+have the same meaning as Dijkstra's?</p>
+<p>I ask because I am more familiar with using the term UCS to describe
+a graph-search algorithm which explores nodes in increasing order of
+cumulative path cost. (And because I can never remember how to spell
+Dikjsta's name)</p>
+</blockquote>
+<ul>
+<li><p><strong>Comment</strong> by User 137215 on 2026-06-17 16:04
+(Votes: 1)</p>
+<blockquote>
+<p>The names for the black boxes as they are expected to be used are
+provided (see: <a
+href="https://edstem.org/us/courses/98593/discussion/8129088?comment=18812536">https://edstem.org/us/courses/98593/discussion/8129088?comment=18812536</a>),
+so knowing the black boxes you can use, and how to spell them, won't be
+an issue.</p>
+<p>Where applicable, understood abbreviations are provided, such as
+DFS.</p>
+</blockquote>
+<ul>
+<li><strong>Comment</strong> by User 1282049 on 2026-06-17 16:26 (Votes:
+0)
+<blockquote>
+<p>Fair enough, DJ's algorithm it is.</p>
+<p>(Though I'll actually spell out the whole name "Dijkstra" on
+submitted materials, as sadly there is no (DJ) in parens as an
+abbreviation)</p>
+</blockquote></li>
+</ul></li>
+</ul></li>
+<li><p><strong>Comment</strong> by User 658839 on 2026-06-18 02:45
+(Votes: 0)</p>
+<blockquote>
+<p>Will we be tested on performing these algorithms by hand? Or focus is
+on just using them?</p>
+</blockquote>
+<ul>
+<li><strong>Comment</strong> by User 137215 on 2026-06-18 08:23 (Votes:
+0)
+<blockquote>
+<p>See the intro to #191.</p>
+</blockquote></li>
+</ul></li>
+<li><p><strong>Comment</strong> by User 1510341 on 2026-06-18 11:38
+(Votes: 0)</p>
+<blockquote>
+<p>Unless otherwise stated, may we assume that DFS is always in
+alphabetical order?</p>
+</blockquote>
+<ul>
+<li><strong>Comment</strong> by User 137215 on 2026-06-18 13:00 (Votes:
+0)
+<blockquote>
+<p>No.</p>
+<p>The ordering for the lectures is purely for pedagogical purposes.</p>
+</blockquote></li>
+</ul></li>
+<li><p><strong>Comment</strong> by User 494856 on 2026-06-19 05:03
+(Votes: 0)</p>
+<blockquote>
+<p>for the post[] output to DFS, can we assume it's indexed by post
+number? meaning to get the vertex with highest post order number we can
+get it from the end of the list in O(1) time?</p>
+</blockquote>
+<ul>
+<li><strong>Comment</strong> by User 137215 on 2026-06-19 08:01 (Votes:
+0)
+<blockquote>
+<blockquote>
+<p>for the post[] output to DFS, can we assume it's indexed by post
+number?</p>
+</blockquote>
+<p>The list is specified as follows:</p>
+<blockquote>
+<p>A list containing the post-visit number for the <strong>indexed
+vertex</strong>.</p>
+</blockquote>
+<p>The order of vertex-as-indices would come from the order of the
+adjacency list, prior to execution of DFS.</p>
+</blockquote></li>
+</ul></li>
+<li><p><strong>Comment</strong> by User 821283 on 2026-06-19 09:26
+(Votes: 1)</p>
+<blockquote>
+<p>The max flow algorithms require the input to be a "connected directed
+graph" (but not necessarily strongly connected), and I am wondering what
+does that mean. Based on the <a
+href="https://en.wikipedia.org/wiki/Directed_graph">wiki</a>:</p>
+<p><em>A directed graph is weakly connected (or just connected) if the
+undirected underlying graph obtained by replacing all directed edges of
+the graph with undirected edges is a <em><a
+href="https://en.wikipedia.org/wiki/Connectivity_(graph_theory)"><em>connected
+graph</em></a></em>.</em></p>
+<p>Do we use the same definition in this course?</p>
+</blockquote>
+<ul>
+<li><strong>Comment</strong> by User 137215 on 2026-06-19 09:41 (Votes:
+2)
+<blockquote>
+<p>Yes, when we say connected for a directed graph, that is what we are
+saying.</p>
+</blockquote></li>
+</ul></li>
+<li><p><strong>Comment</strong> by User 1121341 on 2026-06-19 10:23
+(Votes: 1)</p>
+<blockquote>
+<p>Kruskal's runtime is labeled as <code>O(m log n)</code> . I
+understand the step where we iterate through edges and run union/find
+operations is <code>O(m log n)</code> . But the first step where we sort
+edges surely should be <code>O(m log m)</code> , no? The number of
+vertices doesn't play into the sorting step at all.</p>
+<p>If the reasoning behind this runtime definition is that log|E| is on
+the order of log|V|, so they are essentially interchangeable, then if we
+refer to Kruskal's runtime as <code>O(m log m)</code> on an exam, would
+we lose points?</p>
+</blockquote>
+<ul>
+<li><p><strong>Comment</strong> by User 137215 on 2026-06-19 10:29
+(Votes: 0)</p>
+<blockquote>
+<p>From the lectures:</p>
+<ul>
+<li><a
+href="https://edstem.org/us/courses/98593/lessons/171127/slides/988742">https://edstem.org/us/courses/98593/lessons/171127/slides/988742</a></li>
+</ul>
+<p>There are some notes explaining this in detail:</p>
+<p><img
+src="https://static.us.edusercontent.com/files/9u2xJpTmyqRgxfWIanEzMjQt"
+alt="Image" /> The runtimes in the post above can simply be asserted
+without detail. Other runtimes would require the runtime analysis to
+include additional analysis for the difference from the given
+runtimes.</p>
+</blockquote>
+<ul>
+<li><p><strong>Comment</strong> by User 1121341 on 2026-06-19 10:33
+(Votes: 1)</p>
+<blockquote>
+<p><img
+src="https://static.us.edusercontent.com/files/HT7WciNfAkXfdT7wa6aQfrAD"
+alt="Image" /> The lecture (in screenshot) is actually what led to my
+confusion. Why label the sorting step as <code>O(m log n)</code> rather
+than <code>O(m log m)</code>, even though the size of vertices is
+irrelevant in that step?</p>
+</blockquote>
+<ul>
+<li><p><strong>Comment</strong> by User 137215 on 2026-06-19 10:45
+(Votes: 1)</p>
+<blockquote>
+<blockquote>
+<p>Why label the sorting step</p>
+</blockquote>
+<p>Because Dr. Vigoda did not decide to go through all the details that
+the textbook provides for why O(log n) will be used here.</p>
+<p>This is a common Vigoda trope:</p>
+<ul>
+<li><a
+href="https://edstem.org/us/courses/98593/lessons/171110/slides/988468">https://edstem.org/us/courses/98593/lessons/171110/slides/988468</a></li>
+</ul>
+<p>You might say that the overall runtime being presented in the end as
+<code>O(m log n)</code> is <strong>by convention</strong>, and it how
+our lectures and the textbook present it, so it will be what we use.</p>
+<p>Part of why that convention exists is for direct comparability to
+Prim's from a Big-O perspective.</p>
+</blockquote>
+<ul>
+<li><strong>Comment</strong> by User 1121341 on 2026-06-19 10:47 (Votes:
+0)
+<blockquote>
+<p>Thanks, that makes sense to me</p>
+</blockquote></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li><p><strong>Comment</strong> by User 1510341 on 2026-06-21 01:15
+(Votes: 1)</p>
+<blockquote>
+<ul>
+<li><p>The book mentions on page 138 that Prim's is nearly identical to
+Dijkstra's and they have the same runtime. However, that is not what is
+stated for the black boxes listed above. Could you elaborate on what
+makes the runtime different for these two black boxes?</p></li>
+<li><p>For Kruskal's, does the black box perform path compression? If
+not, would path compression be available on the exam? It seems like a
+modification to me, so I would say no, but open to thoughts.</p></li>
+<li><p>Do we need to have any knowledge on priority queue
+implementations? Again, this seems like a modification to the black
+boxes, so I would say no.</p></li>
+</ul>
+</blockquote>
+<ul>
+<li><p><strong>Comment</strong> by User 137215 on 2026-06-21 01:44
+(Votes: 0)</p>
+<blockquote>
+<blockquote>
+<p>Could you elaborate on what makes the runtime different for these two
+black boxes?</p>
+</blockquote>
+<p>A precondition of using Prim's for this course is that the graph is
+connected, giving us <code>m &gt;= n-1</code>.</p>
+<blockquote>
+<p>For Kruskal's, does the black box perform path compression?</p>
+</blockquote>
+<p>The implementation is as described in the book in order to achieve
+its final runtime.</p>
+<p>Does having or not having path compression change the runtime?</p>
+<p>Does having or not having path compression prevent us from getting a
+valid answer?</p>
+<blockquote>
+<p>would path compression be available on the exam</p>
+</blockquote>
+<p>This is not a black box available to you.</p>
+<blockquote>
+<p>Do we need to have any knowledge on priority queue
+implementations?</p>
+</blockquote>
+<p>Knowing how they work, which feeds into how some of our black boxes
+work, is information students are expected to know.</p>
+<p>Nearly every attempt to use a priority queue I've seen in the course
+over the years boiled down to:</p>
+<ul>
+<li><p>I'm going to make a new algorithm never seen before. I'm going to
+call it Brad's Finite Search (BFS) for short.</p></li>
+<li><p>As part of this algorithm, as we process the graph, I'm going to
+ignore every vertex that is red.</p></li>
+</ul>
+<p>This is then flagged as modifying a black box algorithm.</p>
+<p>Every graph problem you will encounter can be answered optimally
+using nothing more than the data structures described in #8 and the
+black boxes described in this post.</p>
+</blockquote>
+<ul>
+<li><strong>Comment</strong> by User 1510341 on 2026-06-22 07:51 (Votes:
+0)
+<blockquote>
+<p>Thank you.</p>
+<p>A few thoughts:</p>
+<ul>
+<li><p>Your answer seems to connect path compression to runtime, which
+is not part of my question. My concern is that on an exam, when
+something along the lines of "What is the output of Kruskal's find?" is
+asked whether we can assume path compression or not.</p></li>
+<li><p>Given the data structures in #8, are we or are we not allowed to
+assume a different runtime for Dijkstra's when we use an array instead
+of a heap? The latter would be useful for dense graphs to have an
+overall runtime of <code>O(n^2)</code>. Otherwise I cannot see a way to
+solve 4.11 in <code>O(n^3)</code> with Dijkstra's having a runtime of
+<code>O((n + m) log n)</code></p></li>
+</ul>
+</blockquote></li>
+</ul></li>
+</ul></li>
+<li><p><strong>Comment</strong> by User 1282049 on 2026-06-22 06:51
+(Votes: 1)</p>
+<blockquote>
+<p><img
+src="https://static.us.edusercontent.com/files/HF21NoKxamjGclHaIL06nIIA"
+alt="Image" /> This final bullet point makes no sense to me. Shouldn't
+it be backwards (converting a Boolean formula into a graph
+representation...) ?</p>
+</blockquote>
+<ul>
+<li><p><strong>Comment</strong> by User 135758 on 2026-06-22 07:44
+(Votes: 2)</p>
+<blockquote>
+<p>You're right that the lectures converted (or more formally,
+<em>reduced</em>) the 2-SAT problem to the SCC problem to solve
+2-SAT.</p>
+<p>We can also go the other direction to solve graph problems. The
+walkthrough video for DPV 3.7 demonstrates solving a bipartite graph
+problem by reducing it to 2-SAT.</p>
+</blockquote>
+<ul>
+<li><p><strong>Comment</strong> by User 1282049 on 2026-06-22 09:47
+(Votes: 0)</p>
+<blockquote>
+<p>Ah right, so it's graph problem -&gt; boolean representation with
+clauses (2SAT problem) -&gt; graph algorithm to solve 2SAT (which also
+solves the original graph problem)</p>
+</blockquote>
+<ul>
+<li><strong>Comment</strong> by User 135758 on 2026-06-22 10:57 (Votes:
+0)
+<blockquote>
+<p>Kinda? 2-SAT was primarily introduced by the lectures as a nice
+application of SCC. However, we're allowing 2-SAT to be used directly as
+a black-box without explanation (as demonstrated in the walkthrough:
+graph representation → 2-SAT representation → 2-SAT black-box → 2-SAT
+satisfiability → boolean answer for whether a bipartite partition
+exists).</p>
+</blockquote></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</main>
+
+<!-- code highlighting -->
+<link rel="modulepreload" href="../../../vendor/mermaid/mermaid.esm.min.mjs">
+<script src="../../../vendor/highlight/highlight.min.js"></script>
+<!-- math -->
+<script defer src="../../../vendor/katex/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="../../../vendor/katex/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+<script type="module">
+  // 1) Normalize mermaid blocks. Pandoc(gfm) emits <pre class="mermaid"><code>...</code></pre>.
+  //    Flatten to raw source text so mermaid parses cleanly; also catch the code-only variant.
+  document.querySelectorAll('pre > code.language-mermaid, pre > code.mermaid').forEach(c => {
+    const p = document.createElement('pre'); p.className = 'mermaid'; p.textContent = c.textContent;
+    c.parentElement.replaceWith(p);
+  });
+  document.querySelectorAll('pre.mermaid').forEach(p => { p.textContent = p.textContent; });
+  // 2) Syntax-highlight every code block EXCEPT mermaid (auto-detect language)
+  if (window.hljs) document.querySelectorAll('pre:not(.mermaid) > code').forEach(el => window.hljs.highlightElement(el));
+  // 3) Render mermaid (dark)
+  try {
+    const mermaid = (await import('../../../vendor/mermaid/mermaid.esm.min.mjs')).default;
+    mermaid.initialize({ startOnLoad: false, theme: 'dark', securityLevel: 'loose' });
+    await mermaid.run({ querySelector: 'pre.mermaid' });
+  } catch (e) { /* offline: leave as text */ }
+</script>
+<script>
+  // 4) Math: render \( \) and \[ \] (pandoc converts dollar-math to these). Tolerate malformed legacy TeX.
+  window.addEventListener('DOMContentLoaded', () => {
+    if (window.renderMathInElement) renderMathInElement(document.querySelector('.content'), {
+      // dollar-delimiters included so KaTeX also renders math pandoc failed to parse (left raw):
+      // a space before a closing delim, cases-env inline, apostrophes in text, etc. Display before inline.
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '\\[', right: '\\]', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false }
+      ],
+      throwOnError: false,
+      // \n is used in the legacy notes as a homemade "arrow over" (directed edge); map it to \overrightarrow.
+      macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
+    });
+  });
+</script>
+</body>
+</html>

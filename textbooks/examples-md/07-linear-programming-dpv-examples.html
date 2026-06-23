@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DPV ch07 exercises — CS6515</title>
+<link rel="stylesheet" href="../../vendor/fonts/fonts.css">
+<link rel="stylesheet" href="../../theme.css">
+<link rel="stylesheet" href="../../vendor/katex/katex.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="../../vendor/highlight/styles/tokyo-night-dark.min.css">
+
+</head>
+<body>
+<header class="topbar">
+  <a class="home" href="../../index.html">CS6515</a>
+  <span class="crumbloc">DPV ch07 exercises</span>
+</header>
+<main class="content">
+<!-- toc:start -->
+
+<h2 id="table-of-contents">Table of Contents</h2>
+<ul>
+<li><a href="#exercises">Exercises</a></li>
+</ul>
+<!-- toc:end -->
+
+<h2 id="exercises">Exercises</h2>
+<h3 id="71">7.1</h3>
+<p>Consider the following linear program.</p>
+<p><span class="math display">$$
+\begin{aligned}
+\operatorname{maximize} &amp; 5 x+3 y \\
+5 x-2 y &amp; \geq 0 \\
+x+y &amp; \leq 7 \\
+x &amp; \leq 5 \\
+x &amp; \geq 0 \\
+y &amp; \geq 0
+\end{aligned}
+$$</span></p>
+<p>Plot the feasible region and identify the optimal solution.</p>
+<h3 id="72">7.2</h3>
+<p>Duckwheat is produced in Kansas and Mexico and consumed in New York
+and California. Kansas produces 15 shnupells of duckwheat and Mexico 8.
+Meanwhile, New York consumes 10 shnupells and California 13. The
+transportation costs per shnupell are <span
+class="math inline">$4</span> from Mexico to New York, <span
+class="math inline">$1</span> from Mexico to California, <span
+class="math inline">$2</span> from Kansas to New York, and <span
+class="math inline">$3</span> and from Kansas to California. Write a
+linear program that decides the amounts of duckwheat (in shnupells and
+fractions of a shnupell) to be transported from each producer to each
+consumer, so as to minimize the overall transportation cost.</p>
+<h3 id="73">7.3</h3>
+<p>A cargo plane can carry a maximum weight of 100 tons and a maximum
+volume of 60 cubic meters. There are three materials to be transported,
+and the cargo company may choose to carry any amount of each, upto the
+maximum available limits given below.</p>
+<ul>
+<li>Material 1 has density 2 tons/cubic meter, maximum available amount
+40 cubic meters, and revenue <span class="math inline">$1, 000</span>
+per cubic meter.</li>
+<li>Material 2 has density 1 ton/cubic meter, maximum available amount
+30 cubic meters, and revenue <span class="math inline">$1, 200</span>
+per cubic meter.</li>
+<li>Material 3 has density 3 tons/cubic meter, maximum available amount
+20 cubic meters, and revenue <span class="math inline">$12, 000</span>
+per cubic meter.</li>
+</ul>
+<p>Write a linear program that optimizes revenue within the
+constraints.</p>
+<h3 id="74">7.4</h3>
+<p>Moe is deciding how much Regular Duff beer and how much Duff Strong
+beer to order each week. Regular Duff costs Moe <span
+class="math inline">$1</span> per pint and he sells it at <span
+class="math inline">$2</span> per pint; Duff Strong costs Moe <span
+class="math inline">$1.50</span> per pint and he sells it at <span
+class="math inline">$3</span> per pint. However, as part of a
+complicated marketing scam, the Duff company will only sell a pint of
+Duff Strong for each two pints or more of Regular Duff that Moe buys.
+Furthermore, due to past events that are better left untold, Duff will
+not sell Moe more than 3,000 pints per week. Moe knows that he can sell
+however much beer he has. Formulate a linear program for deciding how
+much Regular Duff and how much Duff Strong to buy, so as to maximize
+Moe's profit. Solve the program geometrically.</p>
+<h3 id="75">7.5</h3>
+<p>The Canine Products company offers two dog foods, Frisky Pup and
+Husky Hound, that are made from a blend of cereal and meat. A package of
+Frisky Pup requires 1 pound of cereal and 1.5 pounds of meat, and sells
+for <span class="math inline">$7</span>. A package of Husky Hound uses 2
+pounds of cereal and 1 pound of meat, and sells for <span
+class="math inline">$6</span>. Raw cereal costs <span
+class="math inline">$1</span> per pound and raw meat costs <span
+class="math inline">$2</span> per pound. It also costs <span
+class="math inline">$1.40</span> to package the Frisky Pup and <span
+class="math inline">$0.60</span> to package the Husky Hound. A total of
+240,000 pounds of cereal and 180,000 pounds of meat are available each
+month. The only production bottleneck is that the factory can only
+package 110,000 bags of Frisky Pup per month. Needless to say,
+management would like to maximize profit.</p>
+<p><strong>(a)</strong> Formulate the problem as a linear program in two
+variables.</p>
+<p><strong>(b)</strong> Graph the feasible region, give the coordinates
+of every vertex, and circle the vertex maximizing profit. What is the
+maximum profit possible?</p>
+<h3 id="76">7.6</h3>
+<p>Give an example of a linear program in two variables whose feasible
+region is infinite, but such that there is an optimum solution of
+bounded cost.</p>
+<h3 id="77">7.7</h3>
+<p>Find necessary and sufficient conditions on the reals <span
+class="math inline"><em>a</em></span> and <span
+class="math inline"><em>b</em></span> under which the linear program</p>
+<p><span class="math display">$$
+\begin{array}{r}
+\max x+y \\
+a x+b y \leq 1 \\
+x, y \geq 0
+\end{array}
+$$</span></p>
+<p><strong>(a)</strong> Is infeasible.</p>
+<p><strong>(b)</strong> Is unbounded.</p>
+<p><strong>(c)</strong> Has a unique optimal solution.</p>
+<h3 id="78">7.8</h3>
+<p>You are given the following points in the plane:</p>
+<p><span
+class="math display">(1, 3), (2, 5), (3, 7), (5, 11), (7, 14), (8, 15), (10, 19).</span></p>
+<p>You want to find a line <span
+class="math inline"><em>a</em><em>x</em> + <em>b</em><em>y</em> = <em>c</em></span>
+that approximately passes through these points (no line is a perfect
+fit). Write a linear program (you don't need to solve it) to find the
+line that minimizes the maximum absolute error,</p>
+<p><span
+class="math display">max<sub>1 ≤ <em>i</em> ≤ 7</sub>|<em>a</em><em>x</em><sub><em>i</em></sub> + <em>b</em><em>y</em><sub><em>i</em></sub> − <em>c</em>|.</span></p>
+<h3 id="79">7.9</h3>
+<p>A quadratic programming problem seeks to maximize a quadratric
+objective function (with terms like <span
+class="math inline">3<em>x</em><sub>1</sub><sup>2</sup></span> or <span
+class="math inline">5<em>x</em><sub>1</sub><em>x</em><sub>2</sub></span>
+) subject to a set of linear constraints. Give an example of a quadratic
+program in two variables <span
+class="math inline"><em>x</em><sub>1</sub>, <em>x</em><sub>2</sub></span>
+such that the feasible region is nonempty and bounded, and yet none of
+the vertices of this region optimize the (quadratic) objective.</p>
+<h3 id="710">7.10</h3>
+<p>For the following network, with edge capacities as shown, find the
+maximum flow from <span class="math inline"><em>S</em></span> to <span
+class="math inline"><em>T</em></span>, along with a matching cut. <img
+src="../../.assets/remote/2a9d722d49736c27.jpg" /></p>
+<h3 id="711">7.11</h3>
+<p>Write the dual to the following linear program.</p>
+<p><span class="math display">$$
+\begin{array}{r}
+\max x+y \\
+2 x+y \leq 3 \\
+x+3 y \leq 5 \\
+x, y \geq 0
+\end{array}
+$$</span></p>
+<p>Find the optimal solutions to both primal and dual LPs.</p>
+<h3 id="712">7.12</h3>
+<p>For the linear program</p>
+<p><span class="math display">$$
+\begin{array}{r}
+\max x_{1}-2 x_{3} \\
+x_{1}-x_{2} \leq 1 \\
+2 x_{2}-x_{3} \leq 1 \\
+x_{1}, x_{2}, x_{3} \geq 0
+\end{array}
+$$</span></p>
+<p>prove that the solution <span
+class="math inline">(<em>x</em><sub>1</sub>, <em>x</em><sub>2</sub>, <em>x</em><sub>3</sub>) = (3/2, 1/2, 0)</span>
+is optimal.</p>
+<h3 id="713">7.13</h3>
+<p>Matching pennies. In this simple two-player game, the players (call
+them <span class="math inline"><em>R</em></span> and <span
+class="math inline"><em>C</em></span> ) each choose an outcome, heads or
+tails. If both outcomes are equal, <span
+class="math inline"><em>C</em></span> gives a dollar to <span
+class="math inline"><em>R</em></span>; if the outcomes are different,
+<span class="math inline"><em>R</em></span> gives a dollar to <span
+class="math inline"><em>C</em></span>.</p>
+<p><strong>(a)</strong> Represent the payoffs by a <span
+class="math inline">2 × 2</span> matrix.</p>
+<p><strong>(b)</strong> What is the value of this game, and what are the
+optimal strategies for the two players?</p>
+<h3 id="714">7.14</h3>
+<p>The pizza business in Little Town is split between two rivals, Tony
+and Joey. They are each investigating strategies to steal business away
+from the other. Joey is considering either lowering prices or cutting
+bigger slices. Tony is looking into starting up a line of gourmet
+pizzas, or offering outdoor seating, or giving free sodas at lunchtime.
+The effects of these various strategies are summarized in the following
+payoff matrix (entries are dozens of pizzas, Joey's gain and Tony's
+loss).</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"></th>
+<th style="text-align: center;"></th>
+<th style="text-align: right;">Tony</th>
+<th style="text-align: right;"></th>
+<th style="text-align: right;"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: right;">Gourmet</td>
+<td style="text-align: right;">Seating</td>
+<td style="text-align: right;">Free soda</td>
+</tr>
+<tr>
+<td style="text-align: left;">JOEY</td>
+<td style="text-align: center;">Lower price</td>
+<td style="text-align: right;">+2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">-3</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: center;">Bigger slices</td>
+<td style="text-align: right;">-1</td>
+<td style="text-align: right;">-2</td>
+<td style="text-align: right;">+1</td>
+</tr>
+</tbody>
+</table>
+<p>For instance, if Joey reduces prices and Tony goes with the gourmet
+option, then Tony will lose 2 dozen pizzas worth of business to Joey.
+What is the value of this game, and what are the optimal strategies for
+Tony and Joey?</p>
+<h3 id="715">7.15</h3>
+<p>Find the value of the game specified by the following payoff
+matrix.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">0</th>
+<th style="text-align: right;">0</th>
+<th style="text-align: right;">-1</th>
+<th style="text-align: right;">-1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">-2</td>
+<td style="text-align: right;">-1</td>
+</tr>
+<tr>
+<td style="text-align: right;">-1</td>
+<td style="text-align: right;">-1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr>
+<td style="text-align: right;">-1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">-2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">-3</td>
+</tr>
+<tr>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">-1</td>
+<td style="text-align: right;">-1</td>
+<td style="text-align: right;">-1</td>
+</tr>
+<tr>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">-3</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">-1</td>
+</tr>
+<tr>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">-2</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">-1</td>
+</tr>
+</tbody>
+</table>
+<p>(Hint: Consider the mixed strategies <span
+class="math inline">(1/3, 0, 0, 1/2, 1/6, 0, 0, 0)</span> and <span
+class="math inline">(2/3, 0, 0, 1/3)</span>.)</p>
+<h3 id="716">7.16</h3>
+<p>A salad is any combination of the following ingredients: (1) tomato,
+(2) lettuce, (3) spinach, (4) carrot, and (5) oil. Each salad must
+contain: (A) at least 15 grams of protein, (B) at least 2 and at most 6
+grams of fat, (C) at least 4 grams of carbohydrates, (D) at most 100
+milligrams of sodium. Furthermore, (E) you do not want your salad to be
+more than <span class="math inline">50%</span> greens by mass. The
+nutritional contents of these ingredients (per 100 grams) are</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">ingredient</th>
+<th style="text-align: left;">energy (kcal)</th>
+<th style="text-align: left;">protein (grams)</th>
+<th style="text-align: left;">fat (grams)</th>
+<th style="text-align: left;">carbohydrate (grams)</th>
+<th style="text-align: left;">sodium (milligrams)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">tomato</td>
+<td style="text-align: left;">21</td>
+<td style="text-align: left;">0.85</td>
+<td style="text-align: left;">0.33</td>
+<td style="text-align: left;">4.64</td>
+<td style="text-align: left;">9.00</td>
+</tr>
+<tr>
+<td style="text-align: left;">lettuce</td>
+<td style="text-align: left;">16</td>
+<td style="text-align: left;">1.62</td>
+<td style="text-align: left;">0.20</td>
+<td style="text-align: left;">2.37</td>
+<td style="text-align: left;">8.00</td>
+</tr>
+<tr>
+<td style="text-align: left;">spinach</td>
+<td style="text-align: left;">371</td>
+<td style="text-align: left;">12.78</td>
+<td style="text-align: left;">1.58</td>
+<td style="text-align: left;">74.69</td>
+<td style="text-align: left;">7.00</td>
+</tr>
+<tr>
+<td style="text-align: left;">carrot</td>
+<td style="text-align: left;">346</td>
+<td style="text-align: left;">8.39</td>
+<td style="text-align: left;">1.39</td>
+<td style="text-align: left;">80.70</td>
+<td style="text-align: left;">508.20</td>
+</tr>
+<tr>
+<td style="text-align: left;">oil</td>
+<td style="text-align: left;">884</td>
+<td style="text-align: left;">0.00</td>
+<td style="text-align: left;">100.00</td>
+<td style="text-align: left;">0.00</td>
+<td style="text-align: left;">0.00</td>
+</tr>
+</tbody>
+</table>
+<p>Find a linear programming applet on the Web and use it to make the
+salad with the fewest calories under the nutritional constraints.
+Describe your linear programming formulation and the optimal solution
+(the quantity of each ingredient and the value). Cite the Web resources
+that you used.</p>
+<h3 id="717">7.17</h3>
+<p>Consider the following network (the numbers are edge capacities).
+<img
+src="../../.assets/remote/e450d56288a1b3bc.jpg" /></p>
+<p><strong>(a)</strong> Find the maximum flow <span
+class="math inline"><em>f</em></span> and a minimum cut.</p>
+<p><strong>(b)</strong> Draw the residual graph <span
+class="math inline"><em>G</em><sub><em>f</em></sub></span> (along with
+its edge capacities). In this residual network, mark the vertices
+reachable from <span class="math inline"><em>S</em></span> and the
+vertices from which <span class="math inline"><em>T</em></span> is
+reachable.</p>
+<p><strong>(c)</strong> An edge of a network is called a bottleneck edge
+if increasing its capacity results in an increase in the maximum flow.
+List all bottleneck edges in the above network.</p>
+<p><strong>(d)</strong> Give a very simple example (containing at most
+four nodes) of a network which has no bottleneck edges.</p>
+<p><strong>(e)</strong> Give an efficient algorithm to identify all
+bottleneck edges in a network. (Hint: Start by running the usual network
+flow algorithm, and then examine the residual graph.)</p>
+<h3 id="718">7.18</h3>
+<p>There are many common variations of the maximum flow problem. Here
+are four of them.</p>
+<p><strong>(a)</strong> There are many sources and many sinks, and we
+wish to maximize the total flow from all sources to all sinks.</p>
+<p><strong>(b)</strong> Each vertex also has a capacity on the maximum
+flow that can enter it.</p>
+<p><strong>(c)</strong> Each edge has not only a capacity, but also a
+lower bound on the flow it must carry.</p>
+<p><strong>(d)</strong> The outgoing flow from each node <span
+class="math inline"><em>u</em></span> is not the same as the incoming
+flow, but is smaller by a factor of <span
+class="math inline">(1 − <em>ϵ</em><sub><em>u</em></sub>)</span>, where
+<span class="math inline"><em>ϵ</em><sub><em>u</em></sub></span> is a
+loss coefficient associated with node <span
+class="math inline"><em>u</em></span>.</p>
+<p>Each of these can be solved efficiently. Show this by reducing (a)
+and (b) to the original max-flow problem, and reducing (c) and (d) to
+linear programming.</p>
+<h3 id="719">7.19</h3>
+<p>Suppose someone presents you with a solution to a max-flow problem on
+some network. Give a linear time algorithm to determine whether the
+solution does indeed give a maximum flow.</p>
+<h3 id="720">7.20</h3>
+<p>Consider the following generalization of the maximum flow
+problem.</p>
+<p>You are given a directed network <span
+class="math inline"><em>G</em> = (<em>V</em>, <em>E</em>)</span> with
+edge capacities <span
+class="math inline">{<em>c</em><sub><em>e</em></sub>}</span>. Instead of
+a single <span class="math inline">(<em>s</em>, <em>t</em>)</span> pair,
+you are given multiple pairs <span
+class="math inline">(<em>s</em><sub>1</sub>, <em>t</em><sub>1</sub>), (<em>s</em><sub>2</sub>, <em>t</em><sub>2</sub>), …, (<em>s</em><sub><em>k</em></sub>, <em>t</em><sub><em>k</em></sub>)</span>,
+where the <span
+class="math inline"><em>s</em><sub><em>i</em></sub></span> are sources
+of <span class="math inline"><em>G</em></span> and the <span
+class="math inline"><em>t</em><sub><em>i</em></sub></span> are sinks of
+<span class="math inline"><em>G</em></span>. You are also given <span
+class="math inline"><em>k</em></span> demands <span
+class="math inline"><em>d</em><sub>1</sub>, …, <em>d</em><sub><em>k</em></sub></span>.
+The goal is to find <span class="math inline"><em>k</em></span> flows
+<span
+class="math inline"><em>f</em><sup>(1)</sup>, …, <em>f</em><sup>(<em>k</em>)</sup></span>
+with the following properties:</p>
+<ul>
+<li><span class="math inline"><em>f</em><sup>(<em>i</em>)</sup></span>
+is a valid flow from <span
+class="math inline"><em>s</em><sub><em>i</em></sub></span> to <span
+class="math inline"><em>t</em><sub><em>i</em></sub></span>.</li>
+<li>For each edge <span class="math inline"><em>e</em></span>, the total
+flow <span
+class="math inline"><em>f</em><sub><em>e</em></sub><sup>(1)</sup> + <em>f</em><sub><em>e</em></sub><sup>(2)</sup> + ⋯ + <em>f</em><sub><em>e</em></sub><sup>(<em>k</em>)</sup></span>
+does not exceed the capacity <span
+class="math inline"><em>c</em><sub><em>e</em></sub></span>.</li>
+<li>The size of each flow <span
+class="math inline"><em>f</em><sup>(<em>i</em>)</sup></span> is at least
+the demand <span
+class="math inline"><em>d</em><sub><em>i</em></sub></span>.</li>
+<li>The size of the total flow (the sum of the flows) is as large as
+possible.</li>
+</ul>
+<p>How would you solve this problem?</p>
+<h3 id="721">7.21</h3>
+<p>An edge of a flow network is called critical if decreasing the
+capacity of this edge results in a decrease in the maximum flow. Give an
+efficient algorithm that finds a critical edge in a network.</p>
+<h3 id="722">7.22</h3>
+<p>In a particular network <span
+class="math inline"><em>G</em> = (<em>V</em>, <em>E</em>)</span> whose
+edges have integer capacities <span
+class="math inline"><em>c</em><sub><em>e</em></sub></span>, we have
+already found the maximum flow <span
+class="math inline"><em>f</em></span> from node <span
+class="math inline"><em>s</em></span> to node <span
+class="math inline"><em>t</em></span>. However, we now find out that one
+of the capacity values we used was wrong: for edge ( <span
+class="math inline"><em>u</em>, <em>v</em></span> ) we used <span
+class="math inline"><em>c</em><sub><em>u</em><em>v</em></sub></span>
+whereas it should have been <span
+class="math inline"><em>c</em><sub><em>u</em><em>v</em></sub> − 1</span>.
+This is unfortunate because the flow <span
+class="math inline"><em>f</em></span> uses that particular edge at full
+capacity: <span
+class="math inline"><em>f</em><sub><em>u</em><em>v</em></sub> = <em>c</em><sub><em>u</em><em>v</em></sub></span>.
+We could redo the flow computation from scratch, but there's a faster
+way. Show how a new optimal flow can be computed in <span
+class="math inline"><em>O</em>(|<em>V</em>|+|<em>E</em>|)</span>
+time.</p>
+<h3 id="723">7.23</h3>
+<p>A vertex cover of an undirected graph <span
+class="math inline"><em>G</em> = (<em>V</em>, <em>E</em>)</span> is a
+subset of the vertices which touches every edge-that is, a subset <span
+class="math inline"><em>S</em> ⊂ <em>V</em></span> such that for each
+edge <span
+class="math inline">{<em>u</em>, <em>v</em>} ∈ <em>E</em></span>, one or
+both of <span class="math inline"><em>u</em>, <em>v</em></span> are in
+<span class="math inline"><em>S</em></span>. Show that the problem of
+finding the minimum vertex cover in a bipartite graph reduces to maximum
+flow. (Hint: Can you relate this problem to the minimum cut in an
+appropriate network?)</p>
+<h3 id="724">7.24</h3>
+<p>Direct bipartite matching. We've seen how to find a maximum matching
+in a bipartite graph via reduction to the maximum flow problem. We now
+develop a direct algorithm. Let <span
+class="math inline"><em>G</em> = (<em>V</em><sub>1</sub> ∪ <em>V</em><sub>2</sub>, <em>E</em>)</span>
+be a bipartite graph (so each edge has one endpoint in <span
+class="math inline"><em>V</em><sub>1</sub></span> and one endpoint in
+<span class="math inline"><em>V</em><sub>2</sub></span> ), and let <span
+class="math inline"><em>M</em> ∈ <em>E</em></span> be a matching in the
+graph (that is, a set of edges that don't touch). A vertex is said to be
+covered by <span class="math inline"><em>M</em></span> if it is the
+endpoint of one of the edges in <span
+class="math inline"><em>M</em></span>. An alternating path is a path of
+odd length that starts and ends with a non-covered vertex, and whose
+edges alternate between <span class="math inline"><em>M</em></span> and
+<span class="math inline"><em>E</em> − <em>M</em></span>.</p>
+<p><strong>(a)</strong> In the bipartite graph below, a matching <span
+class="math inline"><em>M</em></span> is shown in bold. Find an
+alternating path. <img
+src="../../.assets/remote/67f5f76376f55018.jpg" /></p>
+<p><strong>(b)</strong> Prove that a matching <span
+class="math inline"><em>M</em></span> is maximal if and only if there
+does not exist an alternating path with respect to it.</p>
+<p><strong>(c)</strong> Design an algorithm that finds an alternating
+path in <span
+class="math inline"><em>O</em>(|<em>V</em>|+|<em>E</em>|)</span> time
+using a variant of breadth-first search.</p>
+<p><strong>(d)</strong> Give a direct <span
+class="math inline"><em>O</em>(|<em>V</em>|⋅|<em>E</em>|)</span>
+algorithm for finding a maximal matching in a bipartite graph.</p>
+<h3 id="725">7.25</h3>
+<p>The dual of maximum flow. Consider the following network with edge
+capacities. <img
+src="../../.assets/remote/8bc975b464ba2e60.jpg" /></p>
+<p><strong>(a)</strong> Write the problem of finding the maximum flow
+from <span class="math inline"><em>S</em></span> to <span
+class="math inline"><em>T</em></span> as a linear program.</p>
+<p><strong>(b)</strong> Write down the dual of this linear program.
+There should be a dual variable for each edge of the network and for
+each vertex other than <span
+class="math inline"><em>S</em>, <em>T</em></span>.</p>
+<p>Now we'll solve the same problem in full generality. Recall the
+linear program for a general maximum flow problem (Section 7.2).</p>
+<p><strong>(c)</strong> Write down the dual of this general flow LP,
+using a variable <span
+class="math inline"><em>y</em><sub><em>e</em></sub></span> for each edge
+and <span class="math inline"><em>x</em><sub><em>u</em></sub></span> for
+each vertex <span
+class="math inline"><em>u</em> ≠ <em>s</em>, <em>t</em></span>.</p>
+<p><strong>(d)</strong> Show that any solution to the general dual LP
+must satisfy the following property: for any directed path from <span
+class="math inline"><em>s</em></span> to <span
+class="math inline"><em>t</em></span> in the network, the sum of the
+<span class="math inline"><em>y</em><sub><em>e</em></sub></span> values
+along the path must be at least 1 .</p>
+<p><strong>(e)</strong> What are the intuitive meanings of the dual
+variables? Show that any <span
+class="math inline"><em>s</em> − <em>t</em></span> cut in the network
+can be translated into a dual feasible solution whose cost is exactly
+the capacity of that cut.</p>
+<h3 id="726">7.26</h3>
+<p>In a satisfiable system of linear inequalities</p>
+<p><span class="math display">$$
+\begin{aligned}
+a_{11} x_{1}+\cdots+a_{1 n} x_{n} &amp; \leq b_{1} \\
+&amp; \vdots \\
+a_{m 1} x_{1}+\cdots+a_{m n} x_{n} &amp; \leq b_{m}
+\end{aligned}
+$$</span></p>
+<p>we describe the <span class="math inline"><em>j</em></span> th
+inequality as forced-equal if it is satisfied with equality by every
+solution <span
+class="math inline"><em>x</em> = (<em>x</em><sub>1</sub>, …, <em>x</em><sub><em>n</em></sub>)</span>
+of the system. Equivalently, <span
+class="math inline">∑<sub><em>i</em></sub><em>a</em><sub><em>j</em><em>i</em></sub><em>x</em><sub><em>i</em></sub> ≤ <em>b</em><sub><em>j</em></sub></span>
+is not forced-equal if there exists an <span
+class="math inline"><em>x</em></span> that satisfies the whole system
+and such that <span
+class="math inline">∑<sub><em>i</em></sub><em>a</em><sub><em>j</em><em>i</em></sub><em>x</em><sub><em>i</em></sub> &lt; <em>b</em><sub><em>j</em></sub></span>.
+For example, in</p>
+<p><span class="math display">$$
+\begin{aligned}
+x_{1}+x_{2} &amp; \leq 2 \\
+-x_{1}-x_{2} &amp; \leq-2 \\
+x_{1} &amp; \leq 1 \\
+-x_{2} &amp; \leq 0
+\end{aligned}
+$$</span></p>
+<p>the first two inequalities are forced-equal, while the third and
+fourth are not. A solution x to the system is called characteristic if,
+for every inequality <span class="math inline"><em>I</em></span> that is
+not forced-equal, x satisfies <span
+class="math inline"><em>I</em></span> without equality. In the instance
+above, such a solution is <span
+class="math inline">(<em>x</em><sub>1</sub>, <em>x</em><sub>2</sub>) = (−1, 3)</span>,
+for which <span class="math inline"><em>x</em><sub>1</sub> &lt; 1</span>
+and <span class="math inline">−<em>x</em><sub>2</sub> &lt; 0</span>
+while <span
+class="math inline"><em>x</em><sub>1</sub> + <em>x</em><sub>2</sub> = 2</span>
+and <span
+class="math inline">−<em>x</em><sub>1</sub> − <em>x</em><sub>2</sub> = −2</span>.</p>
+<p><strong>(a)</strong> Show that any satisfiable system has a
+characteristic solution.</p>
+<p><strong>(b)</strong> Given a satisfiable system of linear
+inequalities, show how to use linear programming to determine which
+inequalities are forced-equal, and to find a characteristic
+solution.</p>
+<h3 id="727">7.27</h3>
+<p>Show that the change-making problem (Exercise 6.17) can be formulated
+as an integer linear program. Can we solve this program as an LP, in the
+certainty that the solution will turn out to be integral (as in the case
+of bipartite matching)? Either prove it or give a counterexample.</p>
+<h3 id="728">7.28</h3>
+<p>A linear program for shortest path. Suppose we want to compute the
+shortest path from node <span class="math inline"><em>s</em></span> to
+node <span class="math inline"><em>t</em></span> in a directed graph
+with edge lengths <span
+class="math inline"><em>l</em><sub><em>e</em></sub> &gt; 0</span>.</p>
+<p><strong>(a)</strong> Show that this is equivalent to finding an <span
+class="math inline"><em>s</em> − <em>t</em></span> flow <span
+class="math inline"><em>f</em></span> that minimizes <span
+class="math inline">∑<sub><em>e</em></sub><em>l</em><sub><em>e</em></sub><em>f</em><sub><em>e</em></sub></span>
+subject to size <span class="math inline">(<em>f</em>) = 1</span>. There
+are no capacity constraints.</p>
+<p><strong>(b)</strong> Write the shortest path problem as a linear
+program.</p>
+<p><strong>(c)</strong> Show that the dual LP can be written as</p>
+<p><span class="math display">$$
+\begin{gathered}
+\max x_{s}-x_{t} \\
+x_{u}-x_{v} \leq l_{u v} \text { for all }(u, v) \in E
+\end{gathered}
+$$</span></p>
+<p><strong>(d)</strong> An interpretation for the dual is given in the
+box on page 223. Why isn't our dual LP identical to the one on that
+page?</p>
+<h3 id="729">7.29</h3>
+<p>Hollywood. A film producer is seeking actors and investors for his
+new movie. There are <span class="math inline"><em>n</em></span>
+available actors; actor <span class="math inline"><em>i</em></span>
+charges <span class="math inline"><em>s</em><sub><em>i</em></sub></span>
+dollars. For funding, there are <span
+class="math inline"><em>m</em></span> available investors. Investor
+<span class="math inline"><em>j</em></span> will provide <span
+class="math inline"><em>p</em><sub><em>j</em></sub></span> dollars, but
+only on the condition that certain actors <span
+class="math inline"><em>L</em><sub><em>j</em></sub> ⊆ {1, 2, …, <em>n</em>}</span>
+are included in the cast (all of these actors <span
+class="math inline"><em>L</em><sub><em>j</em></sub></span> must be
+chosen in order to receive funding from investor <span
+class="math inline"><em>j</em></span> ). The producer's profit is the
+sum of the payments from investors minus the payments to actors. The
+goal is to maximize this profit.</p>
+<p><strong>(a)</strong> Express this problem as an integer linear
+program in which the variables take on values <span
+class="math inline">{0, 1}</span>.</p>
+<p><strong>(b)</strong> Now relax this to a linear program, and show
+that there must in fact be an integral optimal solution (as is the case,
+for example, with maximum flow and bipartite matching).</p>
+<h3 id="730">7.30</h3>
+<p>Hall's theorem. Returning to the matchmaking scenario of Section 7.3,
+suppose we have a bipartite graph with boys on the left and an equal
+number of girls on the right. Hall's theorem says that there is a
+perfect matching if and only if the following condition holds: any
+subset <span class="math inline"><em>S</em></span> of boys is connected
+to at least <span class="math inline">|<em>S</em>|</span> girls. Prove
+this theorem. (Hint: The max-flow min-cut theorem should be
+helpful.)</p>
+<h3 id="731">7.31</h3>
+<p>Consider the following simple network with edge capacities as shown.
+<img
+src="../../.assets/remote/477bacbe0923621d.jpg" /></p>
+<p><strong>(a)</strong> Show that, if the Ford-Fulkerson algorithm is
+run on this graph, a careless choice of updates might cause it to take
+1000 iterations. Imagine if the capacities were a million instead of
+1000 !</p>
+<p>We will now find a strategy for choosing paths under which the
+algorithm is guaranteed to terminate in a reasonable number of
+iterations. Consider an arbitrary directed network <span
+class="math inline">(<em>G</em> = (<em>V</em>, <em>E</em>), <em>s</em>, <em>t</em>, {<em>c</em><sub><em>e</em></sub>})</span>
+in which we want to find the maximum flow. Assume for simplicity that
+all edge capacities are at least 1, and define the capacity of an <span
+class="math inline"><em>s</em> − <em>t</em></span> path to be the
+smallest capacity of its constituent edges. The fattest path from <span
+class="math inline"><em>s</em></span> to <span
+class="math inline"><em>t</em></span> is the path with the most
+capacity.</p>
+<p><strong>(b)</strong> Show that the fattest <span
+class="math inline"><em>s</em> − <em>t</em></span> path in a graph can
+be computed by a variant of Dijkstra's algorithm.</p>
+<p><strong>(c)</strong> Show that the maximum flow in <span
+class="math inline"><em>G</em></span> is the sum of individual flows
+along at most <span class="math inline">|<em>E</em>|</span> paths from
+<span class="math inline"><em>s</em></span> to <span
+class="math inline"><em>t</em></span>.</p>
+<p><strong>(d)</strong> Now show that if we always increase flow along
+the fattest path in the residual graph, then the Ford-Fulkerson
+algorithm will terminate in at most <span
+class="math inline"><em>O</em>(|<em>E</em>|log <em>F</em>)</span>
+iterations, where <span class="math inline"><em>F</em></span> is the
+size of the maximum flow. (Hint: It might help to recall the proof for
+the greedy set cover algorithm in Section 5.4.)</p>
+<p>In fact, an even simpler rule-finding a path in the residual graph
+using breadth-first searchguarantees that at most <span
+class="math inline"><em>O</em>(|<em>V</em>|⋅|<em>E</em>|)</span>
+iterations will be needed.</p>
+</main>
+
+<!-- code highlighting -->
+<link rel="modulepreload" href="../../vendor/mermaid/mermaid.esm.min.mjs">
+<script src="../../vendor/highlight/highlight.min.js"></script>
+<!-- math -->
+<script defer src="../../vendor/katex/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="../../vendor/katex/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+<script type="module">
+  // 1) Normalize mermaid blocks. Pandoc(gfm) emits <pre class="mermaid"><code>...</code></pre>.
+  //    Flatten to raw source text so mermaid parses cleanly; also catch the code-only variant.
+  document.querySelectorAll('pre > code.language-mermaid, pre > code.mermaid').forEach(c => {
+    const p = document.createElement('pre'); p.className = 'mermaid'; p.textContent = c.textContent;
+    c.parentElement.replaceWith(p);
+  });
+  document.querySelectorAll('pre.mermaid').forEach(p => { p.textContent = p.textContent; });
+  // 2) Syntax-highlight every code block EXCEPT mermaid (auto-detect language)
+  if (window.hljs) document.querySelectorAll('pre:not(.mermaid) > code').forEach(el => window.hljs.highlightElement(el));
+  // 3) Render mermaid (dark)
+  try {
+    const mermaid = (await import('../../vendor/mermaid/mermaid.esm.min.mjs')).default;
+    mermaid.initialize({ startOnLoad: false, theme: 'dark', securityLevel: 'loose' });
+    await mermaid.run({ querySelector: 'pre.mermaid' });
+  } catch (e) { /* offline: leave as text */ }
+</script>
+<script>
+  // 4) Math: render \( \) and \[ \] (pandoc converts dollar-math to these). Tolerate malformed legacy TeX.
+  window.addEventListener('DOMContentLoaded', () => {
+    if (window.renderMathInElement) renderMathInElement(document.querySelector('.content'), {
+      // dollar-delimiters included so KaTeX also renders math pandoc failed to parse (left raw):
+      // a space before a closing delim, cases-env inline, apostrophes in text, etc. Display before inline.
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '\\[', right: '\\]', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false }
+      ],
+      throwOnError: false,
+      // \n is used in the legacy notes as a homemade "arrow over" (directed edge); map it to \overrightarrow.
+      macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
+    });
+  });
+</script>
+</body>
+</html>

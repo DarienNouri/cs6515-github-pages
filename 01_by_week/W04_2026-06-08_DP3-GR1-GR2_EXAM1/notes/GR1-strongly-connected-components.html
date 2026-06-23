@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GR1: Strongly Connected Components — CS6515</title>
+<link rel="stylesheet" href="../../../vendor/fonts/fonts.css">
+<link rel="stylesheet" href="../../../theme.css">
+<link rel="stylesheet" href="../../../vendor/katex/katex.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="../../../vendor/highlight/styles/tokyo-night-dark.min.css">
+
+</head>
+<body>
+<header class="topbar">
+  <a class="home" href="../../../index.html">CS6515</a>
+  <span class="crumbloc">GR1: Strongly Connected Components</span>
+</header>
+<main class="content">
+<h1 id="gr1-strongly-connected-components">GR1: Strongly Connected
+Components</h1>
+<blockquote>
+<p>📚 <strong>Reference:</strong> DPV Chapter 3.4 SCCs are the
+directed-graph analog of connected components. The algorithm is elegant:
+just two passes of DFS.</p>
+</blockquote>
+<hr />
+<h2 id="1-definition">1. Definition</h2>
+<blockquote>
+<p><strong>Strongly Connected:</strong> Vertices v and w are strongly
+connected if there's a path v ↝ w AND a path w ↝ v.</p>
+</blockquote>
+<blockquote>
+<p><strong>Strongly Connected Component (SCC):</strong> A
+<em>maximal</em> set of mutually strongly connected vertices.</p>
+</blockquote>
+<p>"Maximal" means you can't add any more vertices and still have
+everyone strongly connected.</p>
+<pre class="mermaid"><code>graph LR
+    subgraph SCC1[&quot;SCC: A,B,E&quot;]
+        A --&gt; B
+        B --&gt; E
+        E --&gt; A
+    end
+    subgraph SCC2[&quot;SCC: C,D&quot;]
+        C --&gt; D
+        D --&gt; C
+    end
+    subgraph SCC3[&quot;SCC: F&quot;]
+        F
+    end
+    B --&gt; C
+    D --&gt; F
+    E --&gt; F</code></pre>
+<p>This graph has 3 SCCs: {A, B, E}, {C, D}, and {F}.</p>
+<hr />
+<h2 id="2-the-metagraph--every-directed-graph-is-a-dag-of-its-sccs">2.
+The Metagraph — Every Directed Graph Is a DAG of Its SCCs</h2>
+<p>If you collapse each SCC into a single "meta-vertex" and keep the
+edges between them, you get a DAG.</p>
+<pre class="mermaid"><code>graph LR
+    S1[&quot;SCC: A,B,E&quot;] --&gt; S2[&quot;SCC: C,D&quot;]
+    S1 --&gt; S3[&quot;SCC: F&quot;]
+    S2 --&gt; S3</code></pre>
+<blockquote>
+<p><strong>Key Property:</strong> The metagraph of SCCs is always a
+DAG.</p>
+</blockquote>
+<p><strong>Why?</strong> If there were a cycle between two SCCs S and
+S', then every vertex in S could reach every vertex in S' and vice versa
+— meaning they should be merged into one bigger SCC. Contradiction.</p>
+<hr />
+<h2 id="3-the-goal">3. The Goal</h2>
+<p>We want to find all SCCs of a directed graph in O(n + m) time.</p>
+<p><strong>Strategy:</strong> Think of the metagraph as a DAG. If we can
+identify the SCCs one at a time (say, starting from sinks), we can peel
+them off.</p>
+<p><strong>Key insight:</strong> If we pick any vertex v in a
+<strong>sink SCC</strong> and run Explore(v), we visit exactly the
+vertices in that SCC (and nothing else — because a sink SCC has no
+outgoing edges in the metagraph).</p>
+<p>So the plan is:</p>
+<ol type="1">
+<li>Find a vertex in a sink SCC</li>
+<li>Explore from it → discover the entire sink SCC</li>
+<li>Remove it</li>
+<li>Repeat</li>
+</ol>
+<hr />
+<h2 id="4-finding-a-sink-scc-via-the-reverse-graph">4. Finding a Sink
+SCC via the Reverse Graph</h2>
+<p><strong>Problem:</strong> How do we find a vertex guaranteed to be in
+a sink SCC?</p>
+<blockquote>
+<p>💡 <strong>Intuition:</strong> We can't directly find a sink SCC, but
+we CAN find a source SCC — it's the one containing the vertex with the
+<strong>highest post number</strong> after DFS.</p>
+</blockquote>
+<p>And here's the trick: <strong>sources in G^R are sinks in G</strong>
+(and vice versa).</p>
+<p><strong>G^R</strong> is the <strong>reverse graph</strong> — same
+vertices, all edges flipped:</p>
+<ul>
+<li>E^R = {(w, v) : (v, w) ∈ E}</li>
+</ul>
+<p>The SCCs are the same in G and G^R (reversing edges doesn't change
+strong connectivity). But sources and sinks swap!</p>
+<h3 id="the-key-lemma">The Key Lemma</h3>
+<blockquote>
+<p><strong>Lemma:</strong> The vertex with the highest post number (from
+DFS on G^R) lies in a source SCC of G^R, which is a <strong>sink SCC of
+G</strong>.</p>
+</blockquote>
+<p><strong>Proof sketch:</strong> For SCCs S and S' with an edge S → S'
+in the metagraph, the maximum post number in S is greater than the max
+post number in S'. The SCC with the globally highest post number must
+therefore be a source (nothing has a higher post number pointing into
+it). In G^R, this source corresponds to a sink in G.</p>
+<hr />
+<h2 id="5-the-scc-algorithm">5. The SCC Algorithm</h2>
+<pre><code>SCC(G):
+    Input:  Directed graph G = (V, E)
+    Output: ccnum[v] = SCC number for each vertex
+
+    1. Construct G^R (reverse all edges)
+    2. Run DFS(G^R) — compute post numbers
+    3. Order vertices by decreasing post number
+    4. Run DFS(G) using this vertex ordering
+       — each call to Explore from the main loop discovers a new SCC</code></pre>
+<p><strong>Runtime:</strong> O(n + m)</p>
+<ul>
+<li>Step 1: O(n + m) to construct reverse graph</li>
+<li>Step 2: O(n + m) for DFS</li>
+<li>Step 3: O(n) for ordering (or just process in decreasing order)</li>
+<li>Step 4: O(n + m) for DFS</li>
+</ul>
+<h3 id="why-step-4-works">Why Step 4 Works</h3>
+<p>In Step 4, we process vertices in decreasing post-number order from
+G^R. The first vertex we pick is in a sink SCC of G. Explore visits
+exactly that SCC (it can't escape — no outgoing metagraph edges). We
+mark it and continue. The next unvisited vertex with the highest
+remaining post number is in the next sink SCC (after removing the
+previous one). And so on.</p>
+<hr />
+<h2 id="6-full-worked-example">6. Full Worked Example</h2>
+<p>Consider this directed graph G:</p>
+<pre class="mermaid"><code>graph LR
+    A --&gt; B
+    B --&gt; C
+    C --&gt; A
+    B --&gt; D
+    D --&gt; E
+    E --&gt; D
+    C --&gt; E</code></pre>
+<p><strong>Step 1: Construct G^R</strong> (reverse all edges)</p>
+<pre class="mermaid"><code>graph LR
+    B --&gt; A
+    C --&gt; B
+    A --&gt; C
+    D --&gt; B
+    E --&gt; D
+    D --&gt; E
+    E --&gt; C</code></pre>
+<p><strong>Step 2: Run DFS on G^R</strong> (starting from, say, A)</p>
+<table>
+<thead>
+<tr>
+<th>Vertex</th>
+<th>pre</th>
+<th>post</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>1</td>
+<td>10</td>
+</tr>
+<tr>
+<td>C</td>
+<td>2</td>
+<td>9</td>
+</tr>
+<tr>
+<td>B</td>
+<td>3</td>
+<td>8</td>
+</tr>
+<tr>
+<td>D</td>
+<td>4</td>
+<td>7</td>
+</tr>
+<tr>
+<td>E</td>
+<td>5</td>
+<td>6</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Step 3: Order by decreasing post number</strong></p>
+<p>A (10), C (9), B (8), D (7), E (6)</p>
+<p><strong>Step 4: Run DFS on G (original) in this order</strong></p>
+<ul>
+<li>Start with A → Explore finds: A → B → C → (A already visited) → D →
+E → (D already visited). Wait — this visits everything!</li>
+</ul>
+<p>Hmm, let me redo this more carefully. Let's use a different example
+where SCCs are clearer.</p>
+<h3 id="better-example">Better Example</h3>
+<pre class="mermaid"><code>graph LR
+    A --&gt; B
+    B --&gt; A
+    B --&gt; C
+    C --&gt; D
+    D --&gt; C
+    D --&gt; E</code></pre>
+<p><strong>SCCs:</strong> {A, B}, {C, D}, {E}</p>
+<p><strong>Step 1: G^R:</strong></p>
+<pre class="mermaid"><code>graph LR
+    B --&gt; A
+    A --&gt; B
+    C --&gt; B
+    D --&gt; C
+    C --&gt; D
+    E --&gt; D</code></pre>
+<p><strong>Step 2: DFS on G^R</strong> (start from A):</p>
+<p>Explore A → B → (A visited) → C → D → (C visited) → E → done
+backtracking.</p>
+<table>
+<thead>
+<tr>
+<th>Vertex</th>
+<th>pre</th>
+<th>post</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>1</td>
+<td>10</td>
+</tr>
+<tr>
+<td>B</td>
+<td>2</td>
+<td>9</td>
+</tr>
+<tr>
+<td>C</td>
+<td>3</td>
+<td>8</td>
+</tr>
+<tr>
+<td>D</td>
+<td>4</td>
+<td>7</td>
+</tr>
+<tr>
+<td>E</td>
+<td>5</td>
+<td>6</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Step 3:</strong> Order by decreasing post: A, B, C, D, E</p>
+<p><strong>Step 4: DFS on G in this order:</strong></p>
+<ul>
+<li>Explore(A): visits A → B → (A visited) → C → D → (C visited) → E
+<ul>
+<li>Oops, this is because {A,B} can reach {C,D} can reach {E}</li>
+</ul></li>
+</ul>
+<p>OK — the trick is that the DFS in step 4 uses the
+<strong>undirected-style DFS</strong> (with component labeling). Each
+Explore call from the outer loop labels a new SCC. But within Explore,
+we only follow edges in G.</p>
+<p>Actually, let me reconsider. The key is that Step 4's DFS processes
+vertices in the order from Step 3. Since A has the highest post number
+in G^R, it's in a <strong>source SCC of G^R</strong> = <strong>sink SCC
+of G</strong>. But {A,B} is NOT a sink SCC here... Let me recheck.</p>
+<p>In G: {A,B} → {C,D} → {E}. So {E} is the sink SCC, {A,B} is the
+source.</p>
+<p>In G^R: edges are reversed, so {E} → {C,D} → {A,B}. So {A,B} is the
+sink SCC of G^R = source SCC of G^R... wait.</p>
+<p>The algorithm says: <strong>run DFS on G^R</strong> to find vertex
+ordering, then <strong>run DFS on G</strong>. The vertex with the
+highest post in G^R is in a <strong>source SCC of G^R</strong> =
+<strong>source SCC of G^R</strong>.</p>
+<p>But we want to find <strong>sink SCCs of G</strong> = <strong>source
+SCCs of G^R</strong>. ✅</p>
+<p>So in G^R, vertex A has post=10 (highest). A is in a source SCC of
+G^R. Source of G^R = Sink of G... but {A,B} is NOT the sink of G!</p>
+<p>Let me reconsider: In G^R: {A,B} has an incoming edge from C (C→B in
+G^R). So {A,B} is NOT a source in G^R. {E} has an outgoing edge E→D in
+G^R, and incoming? Nothing points to E in G^R. So {E} is a source in
+G^R. But E has post=6, the LOWEST.</p>
+<p>I think the issue is my DFS traversal on G^R. Let me redo it starting
+from E:</p>
+<p><strong>DFS on G^R starting from E:</strong> Explore(E): E → D → C →
+B → A → (B visited, back to A) → (back up) ...</p>
+<p>Starting vertex choice matters! DFS iterates over ALL vertices. Let's
+say the outer loop goes A, B, C, D, E:</p>
+<ul>
+<li>Explore(A): A → B (in G^R, edges from A are: A→C via C→A reversed?
+No: G has A→B, B→A, B→C, C→D, D→C, D→E. So G^R has: B→A, A→B, C→B, D→C,
+C→D, E→D.</li>
+</ul>
+<p>G^R adjacency list:</p>
+<ul>
+<li>A: [B] (from B→A in G^R; because A→B in G)</li>
+<li>B: [A] (from A→B in G^R; because B→A in G)</li>
+<li>C: [B, D] (from B→C reversed gives C→B; D→C reversed gives C→D)</li>
+<li>D: [C, E] (from C→D reversed gives D→C; but wait... C→D in G means
+D→C in G^R. And D→E in G means E→D in G^R)</li>
+</ul>
+<p>Let me redo:</p>
+<ul>
+<li>G edges: A→B, B→A, B→C, C→D, D→C, D→E</li>
+<li>G^R edges: B→A, A→B, C→B, D→C, C→D, E→D</li>
+</ul>
+<p>G^R adjacency list:</p>
+<ul>
+<li>A: [B]</li>
+<li>B: [A]</li>
+<li>C: [B, D]</li>
+<li>D: [C]</li>
+<li>E: [D]</li>
+</ul>
+<p>DFS on G^R, outer loop order A, B, C, D, E:</p>
+<ul>
+<li>Explore(A): visit A, go to B. Visit B, go to A (visited). Backtrack.
+post(B)=2, post(A)=3.</li>
+<li>B already visited. Skip.</li>
+<li>Explore(C): visit C, go to B (visited), go to D. Visit D, go to C
+(visited). Backtrack. post(D)=5, post(C)=6.</li>
+<li>D already visited. Skip.</li>
+<li>Explore(E): visit E, go to D (visited). Backtrack. post(E)=8.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Vertex</th>
+<th>post</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>3</td>
+</tr>
+<tr>
+<td>B</td>
+<td>2</td>
+</tr>
+<tr>
+<td>C</td>
+<td>6</td>
+</tr>
+<tr>
+<td>D</td>
+<td>5</td>
+</tr>
+<tr>
+<td>E</td>
+<td>8</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Step 3:</strong> Order by decreasing post: <strong>E(8),
+C(6), D(5), A(3), B(2)</strong></p>
+<p><strong>Step 4: DFS on G (original), process in order E, C, D, A,
+B:</strong></p>
+<p>G adjacency list:</p>
+<ul>
+<li><p>A: [B]</p></li>
+<li><p>B: [A, C]</p></li>
+<li><p>C: [D]</p></li>
+<li><p>D: [C, E]</p></li>
+<li><p>E: []</p></li>
+<li><p>Explore(E): visit E. No outgoing edges. <strong>SCC 1 =
+{E}</strong> ✅ (sink SCC!)</p></li>
+<li><p>Explore(C): visit C → D → C (visited) → E (visited). Backtrack.
+<strong>SCC 2 = {C, D}</strong> ✅</p></li>
+<li><p>D already visited. Skip.</p></li>
+<li><p>Explore(A): visit A → B → A (visited) → C (visited). Backtrack.
+<strong>SCC 3 = {A, B}</strong> ✅</p></li>
+<li><p>B already visited. Skip.</p></li>
+</ul>
+<p><strong>Result:</strong> SCCs are {E}, {C, D}, {A, B} — found in
+reverse topological order (sink first). ✅</p>
+<hr />
+<h2 id="7-the-proof--why-this-works">7. The Proof — Why This Works</h2>
+<h3 id="the-core-claim">The Core Claim</h3>
+<blockquote>
+<p><strong>Claim:</strong> For SCCs S and S', if there's an edge from S
+to S' in the metagraph, then: max post-number in S &gt; max post-number
+in S' (in the DFS on G^R)</p>
+</blockquote>
+<p>Wait — actually the claim is stated for G^R's DFS. Let me state it
+precisely.</p>
+<blockquote>
+<p><strong>Lemma:</strong> In DFS on G^R, the vertex with the highest
+post number lies in a source SCC of G^R (= sink SCC of G).</p>
+</blockquote>
+<p><strong>Proof:</strong></p>
+<p>Consider two SCCs S and S' where S' → S is an edge in G^R's metagraph
+(meaning S → S' in G's metagraph).</p>
+<p>Let u be the first vertex visited (by DFS on G^R) among all vertices
+in S ∪ S'.</p>
+<p><strong>Case 1:</strong> u ∈ S. Then from u, DFS can reach all of S
+(since S is an SCC). DFS will finish all of S before it can possibly
+finish exploring from u. But S has an edge to S' in G^R's metagraph, so
+DFS might also reach S'. Either way, post(u) ≥ max post in S', and u ∈
+S, so max post in S &gt; max post in S'.</p>
+<p><strong>Case 2:</strong> u ∈ S'. Then DFS explores all of S' from u.
+But S' has no edge to S in G^R, so DFS won't reach S from within S'. All
+of S' finishes before any of S is visited. So max post in S &gt; max
+post in S'.</p>
+<p>In both cases, max post in S &gt; max post in S'. The SCC with the
+globally highest post number has no SCC with a higher max-post pointing
+to it → it's a source in G^R → sink in G. ✅</p>
+<hr />
+<h2 id="8-dfs-vs-explore--an-important-distinction">8. DFS vs Explore —
+An Important Distinction</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th><strong>DFS</strong></th>
+<th><strong>Explore</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Visits</td>
+<td>ALL vertices</td>
+<td>Only vertices reachable from v</td>
+</tr>
+<tr>
+<td>Uses source vertex?</td>
+<td>No (iterates over all)</td>
+<td>Yes (starts from v)</td>
+</tr>
+<tr>
+<td>Output</td>
+<td>pre/post for everyone</td>
+<td>visited[] for reachable vertices</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>🎯 <strong>Exam Tip:</strong> Explore(v) in a sink SCC visits exactly
+that SCC and nothing else. This is why the SCC algorithm works — we pick
+vertices in sink SCCs first, Explore them, mark them done, and move
+on.</p>
+</blockquote>
+<hr />
+<h2 id="9-summary">9. Summary</h2>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Algorithm</strong></td>
+<td>2 passes of DFS (one on G^R, one on G)</td>
+</tr>
+<tr>
+<td><strong>Runtime</strong></td>
+<td>O(n + m)</td>
+</tr>
+<tr>
+<td><strong>Key idea</strong></td>
+<td>Highest post in G^R → sink SCC of G</td>
+</tr>
+<tr>
+<td><strong>Metagraph</strong></td>
+<td>Always a DAG</td>
+</tr>
+<tr>
+<td><strong>Output</strong></td>
+<td>SCC labels + topological ordering of SCCs</td>
+</tr>
+</tbody>
+</table>
+</main>
+
+<!-- code highlighting -->
+<link rel="modulepreload" href="../../../vendor/mermaid/mermaid.esm.min.mjs">
+<script src="../../../vendor/highlight/highlight.min.js"></script>
+<!-- math -->
+<script defer src="../../../vendor/katex/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="../../../vendor/katex/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+<script type="module">
+  // 1) Normalize mermaid blocks. Pandoc(gfm) emits <pre class="mermaid"><code>...</code></pre>.
+  //    Flatten to raw source text so mermaid parses cleanly; also catch the code-only variant.
+  document.querySelectorAll('pre > code.language-mermaid, pre > code.mermaid').forEach(c => {
+    const p = document.createElement('pre'); p.className = 'mermaid'; p.textContent = c.textContent;
+    c.parentElement.replaceWith(p);
+  });
+  document.querySelectorAll('pre.mermaid').forEach(p => { p.textContent = p.textContent; });
+  // 2) Syntax-highlight every code block EXCEPT mermaid (auto-detect language)
+  if (window.hljs) document.querySelectorAll('pre:not(.mermaid) > code').forEach(el => window.hljs.highlightElement(el));
+  // 3) Render mermaid (dark)
+  try {
+    const mermaid = (await import('../../../vendor/mermaid/mermaid.esm.min.mjs')).default;
+    mermaid.initialize({ startOnLoad: false, theme: 'dark', securityLevel: 'loose' });
+    await mermaid.run({ querySelector: 'pre.mermaid' });
+  } catch (e) { /* offline: leave as text */ }
+</script>
+<script>
+  // 4) Math: render \( \) and \[ \] (pandoc converts dollar-math to these). Tolerate malformed legacy TeX.
+  window.addEventListener('DOMContentLoaded', () => {
+    if (window.renderMathInElement) renderMathInElement(document.querySelector('.content'), {
+      // dollar-delimiters included so KaTeX also renders math pandoc failed to parse (left raw):
+      // a space before a closing delim, cases-env inline, apostrophes in text, etc. Display before inline.
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '\\[', right: '\\]', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false }
+      ],
+      throwOnError: false,
+      // \n is used in the legacy notes as a homemade "arrow over" (directed edge); map it to \overrightarrow.
+      macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
+    });
+  });
+</script>
+</body>
+</html>

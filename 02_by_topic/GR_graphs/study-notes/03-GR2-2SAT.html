@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GR2: 2-Satisfiability (2-SAT) — CS6515</title>
+<link rel="stylesheet" href="../../../vendor/fonts/fonts.css">
+<link rel="stylesheet" href="../../../theme.css">
+<link rel="stylesheet" href="../../../vendor/katex/katex.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="../../../vendor/highlight/styles/tokyo-night-dark.min.css">
+
+</head>
+<body>
+<header class="topbar">
+  <a class="home" href="../../../index.html">CS6515</a>
+  <span class="crumbloc">GR2: 2-Satisfiability (2-SAT)</span>
+</header>
+<main class="content">
+<h1 id="gr2-2-satisfiability-2-sat">GR2: 2-Satisfiability (2-SAT)</h1>
+<blockquote>
+<p>📚 <strong>Reference:</strong> DPV Chapter 3.4 (Applications of SCC)
+This is a beautiful application of SCCs. We reduce a logic problem to a
+graph problem and solve it in linear time.</p>
+</blockquote>
+<hr />
+<h2 id="1-sat-and-cnf--the-setup">1. SAT and CNF — The Setup</h2>
+<h3 id="boolean-formulas">Boolean Formulas</h3>
+<p>We work with <strong>boolean variables</strong> x₁, x₂, ..., xₙ, each
+either TRUE (1) or FALSE (0).</p>
+<p>For each variable xᵢ, we have two <strong>literals</strong>: xᵢ and
+x̄ᵢ (its negation/complement).</p>
+<h3 id="conjunctive-normal-form-cnf">Conjunctive Normal Form (CNF)</h3>
+<p>A formula in <strong>CNF</strong> is an AND of OR-clauses:</p>
+<p><span
+class="math display"><em>f</em> = (<em>x</em><sub>2</sub>) ∧ (<em>x̄</em><sub>3</sub> ∨ <em>x</em><sub>4</sub>) ∧ (<em>x</em><sub>3</sub> ∨ <em>x̄</em><sub>5</sub> ∨ <em>x̄</em><sub>1</sub> ∨ <em>x</em><sub>2</sub>)</span></p>
+<ul>
+<li><strong>Clause:</strong> An OR (∨) of literals, e.g., (x₃ ∨ x̄₅ ∨
+x̄₁)</li>
+<li><strong>Formula:</strong> An AND (∧) of clauses</li>
+<li><strong>Satisfying assignment:</strong> Values for each variable
+that make the entire formula TRUE
+<ul>
+<li>This means <strong>at least one literal in every clause</strong>
+must be TRUE</li>
+</ul></li>
+</ul>
+<h3 id="the-sat-problem">The SAT Problem</h3>
+<blockquote>
+<p><strong>Input:</strong> A formula f in CNF with n variables and m
+clauses <strong>Output:</strong> A satisfying assignment, or "NO" if
+none exists</p>
+</blockquote>
+<hr />
+<h2 id="2-k-sat">2. k-SAT</h2>
+<p><strong>k-SAT</strong> restricts every clause to have <strong>at most
+k literals</strong>.</p>
+<table>
+<thead>
+<tr>
+<th>k</th>
+<th>Complexity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Trivial (each clause forces a variable)</td>
+</tr>
+<tr>
+<td><strong>2</strong></td>
+<td><strong>Polynomial — O(n + m) via SCCs!</strong></td>
+</tr>
+<tr>
+<td>3+</td>
+<td>NP-complete (no known polynomial algorithm)</td>
+</tr>
+</tbody>
+</table>
+<p>The jump from k=2 to k=3 is one of the most important complexity
+boundaries in CS. We're going to solve 2-SAT.</p>
+<hr />
+<h2 id="3-the-implication-graph">3. The Implication Graph</h2>
+<p>Here's the key idea: every 2-SAT clause can be rewritten as two
+<strong>implications</strong>.</p>
+<p>For a clause (α ∨ β):</p>
+<ul>
+<li>If α is FALSE, then β MUST be TRUE → implication: ᾱ → β</li>
+<li>If β is FALSE, then α MUST be TRUE → implication: β̄ → α</li>
+</ul>
+<h3 id="construction">Construction</h3>
+<p>Given a 2-SAT formula with n variables and m clauses:</p>
+<ul>
+<li><strong>Vertices:</strong> 2n vertices — one for each literal xᵢ and
+x̄ᵢ</li>
+<li><strong>Edges:</strong> 2m directed edges — two implications per
+clause</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Clause</th>
+<th>Edge 1</th>
+<th>Edge 2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>(α ∨ β)</td>
+<td>ᾱ → β</td>
+<td>β̄ → α</td>
+</tr>
+</tbody>
+</table>
+<h3 id="example">Example</h3>
+<p><span
+class="math display"><em>f</em> = (<em>x̄</em><sub>1</sub> ∨ <em>x̄</em><sub>2</sub>) ∧ (<em>x</em><sub>2</sub> ∨ <em>x</em><sub>3</sub>) ∧ (<em>x̄</em><sub>3</sub> ∨ <em>x̄</em><sub>1</sub>)</span></p>
+<table>
+<thead>
+<tr>
+<th>Clause</th>
+<th>Implications</th>
+<th>Edges</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>(x̄₁ ∨ x̄₂)</td>
+<td>x₁ → x̄₂, x₂ → x̄₁</td>
+<td>x₁ → x̄₂, x₂ → x̄₁</td>
+</tr>
+<tr>
+<td>(x₂ ∨ x₃)</td>
+<td>x̄₂ → x₃, x̄₃ → x₂</td>
+<td>x̄₂ → x₃, x̄₃ → x₂</td>
+</tr>
+<tr>
+<td>(x̄₃ ∨ x̄₁)</td>
+<td>x₃ → x̄₁, x₁ → x̄₃</td>
+<td>x₃ → x̄₁, x₁ → x̄₃</td>
+</tr>
+</tbody>
+</table>
+<pre class="mermaid"><code>graph LR
+    x1[&quot;x1&quot;] --&gt; nx2[&quot;not-x2&quot;]
+    x2[&quot;x2&quot;] --&gt; nx1[&quot;not-x1&quot;]
+    nx2 --&gt; x3[&quot;x3&quot;]
+    nx3[&quot;not-x3&quot;] --&gt; x2
+    x3 --&gt; nx1
+    x1 --&gt; nx3</code></pre>
+<blockquote>
+<p>💡 <strong>Intuition:</strong> Paths in this graph are chains of
+logical implications. If there's a path x₁ ↝ x̄₁, it means "if x₁ is
+TRUE, then x₁ must be FALSE" — a contradiction (unless x₁ is just
+FALSE).</p>
+</blockquote>
+<hr />
+<h2 id="4-the-key-lemma">4. The Key Lemma</h2>
+<blockquote>
+<p><strong>Lemma:</strong> A 2-SAT formula f is satisfiable <strong>if
+and only if</strong> for all i, xᵢ and x̄ᵢ are in
+<strong>different</strong> SCCs of the implication graph.</p>
+</blockquote>
+<p>Equivalently: f is <strong>unsatisfiable</strong> ⟺ there exists some
+i where xᵢ and x̄ᵢ are in the <strong>same</strong> SCC.</p>
+<h3 id="why-same-scc--unsatisfiable">Why "same SCC = unsatisfiable"</h3>
+<p>If xᵢ and x̄ᵢ are in the same SCC, then:</p>
+<ul>
+<li>There's a path xᵢ ↝ x̄ᵢ (if xᵢ is TRUE, then x̄ᵢ must be TRUE →
+contradiction)</li>
+<li>There's a path x̄ᵢ ↝ xᵢ (if x̄ᵢ is TRUE, then xᵢ must be TRUE → same
+contradiction)</li>
+<li>Neither assignment works → unsatisfiable</li>
+</ul>
+<h3 id="why-different-sccs--satisfiable">Why "different SCCs =
+satisfiable"</h3>
+<p>This is the harder direction. We need to actually <em>construct</em>
+a satisfying assignment. That's where the algorithm comes in.</p>
+<hr />
+<h2 id="5-the-2-sat-algorithm">5. The 2-SAT Algorithm</h2>
+<pre><code>2SAT(f):
+    Input:  Formula f in 2-CNF with n variables, m clauses
+    Output: Satisfying assignment or &quot;unsatisfiable&quot;
+
+    1. Construct the implication graph G (2n vertices, 2m edges)
+    2. Run SCC algorithm on G
+       → get SCCs in reverse topological order (sink first)
+    3. For each i: if xᵢ and x̄ᵢ are in the same SCC, return &quot;unsatisfiable&quot;
+    4. For each SCC S (in reverse topological order, sink → source):
+         - If literals in S are unassigned:
+           - Set all literals in S to TRUE
+           - Set all complement literals (in S̄) to FALSE
+    5. Return assignment</code></pre>
+<p><strong>Runtime:</strong> O(n + m) — dominated by the SCC
+computation.</p>
+<hr />
+<h2 id="6-why-the-algorithm-is-correct">6. Why the Algorithm Is
+Correct</h2>
+<h3 id="the-assignment-strategy">The Assignment Strategy</h3>
+<blockquote>
+<p>💡 <strong>Intuition:</strong> Sink SCCs are "safe" to set TRUE
+because they have no outgoing implications to worry about. Their
+complements are source SCCs (safe to set FALSE because FALSE can imply
+anything).</p>
+</blockquote>
+<h3 id="claim-if-s-is-a-sink-scc-then-s̄-is-a-source-scc">Claim: If S is
+a sink SCC, then S̄ is a source SCC</h3>
+<p><strong>Proof:</strong></p>
+<p>First, we need a helper fact:</p>
+<blockquote>
+<p><strong>Fact:</strong> If there's a path α ↝ β in the implication
+graph, then there's a path β̄ ↝ ᾱ.</p>
+</blockquote>
+<p><em>Why?</em> Each edge ᾱ → β in the implication graph came from a
+clause (α ∨ β), which also produced the edge β̄ → ᾱ. Chaining these along
+a path gives us the complement path in reverse.</p>
+<p>Now, suppose S is a sink SCC. For any α ∈ S:</p>
+<ul>
+<li>There's no edge from α to any vertex outside S (sink property)</li>
+<li>By the helper fact, there's no edge from any vertex outside S̄ to
+ᾱ</li>
+<li>So S̄ has no incoming edges from outside → S̄ is a source SCC ✅</li>
+</ul>
+<h3 id="why-setting-sink--true-works">Why Setting Sink = TRUE Works</h3>
+<p>When we set a sink SCC S to TRUE:</p>
+<ul>
+<li>S has no outgoing edges → no implications to propagate</li>
+<li>S̄ is set to FALSE. S̄ is a source → all edges from S̄ go outward. But
+FALSE can imply anything (FALSE → anything is vacuously TRUE), so no
+contradictions arise.</li>
+</ul>
+<p>After removing S and S̄, the remaining graph still has valid SCCs, and
+we repeat.</p>
+<hr />
+<h2 id="7-worked-example">7. Worked Example</h2>
+<p><span
+class="math display"><em>f</em> = (<em>x</em><sub>1</sub> ∨ <em>x</em><sub>2</sub>) ∧ (<em>x̄</em><sub>1</sub> ∨ <em>x</em><sub>3</sub>) ∧ (<em>x̄</em><sub>2</sub> ∨ <em>x̄</em><sub>3</sub>) ∧ (<em>x</em><sub>1</sub> ∨ <em>x</em><sub>3</sub>)</span></p>
+<p><strong>Step 1: Build implication graph</strong></p>
+<table>
+<thead>
+<tr>
+<th>Clause</th>
+<th>Edge 1</th>
+<th>Edge 2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>(x₁ ∨ x₂)</td>
+<td>x̄₁ → x₂</td>
+<td>x̄₂ → x₁</td>
+</tr>
+<tr>
+<td>(x̄₁ ∨ x₃)</td>
+<td>x₁ → x₃</td>
+<td>x̄₃ → x̄₁</td>
+</tr>
+<tr>
+<td>(x̄₂ ∨ x̄₃)</td>
+<td>x₂ → x̄₃</td>
+<td>x₃ → x̄₂</td>
+</tr>
+<tr>
+<td>(x₁ ∨ x₃)</td>
+<td>x̄₁ → x₃</td>
+<td>x̄₃ → x₁</td>
+</tr>
+</tbody>
+</table>
+<pre class="mermaid"><code>graph LR
+    nx1[&quot;not-x1&quot;] --&gt; x2[&quot;x2&quot;]
+    nx2[&quot;not-x2&quot;] --&gt; x1[&quot;x1&quot;]
+    x1 --&gt; x3[&quot;x3&quot;]
+    nx3[&quot;not-x3&quot;] --&gt; nx1
+    x2 --&gt; nx3
+    x3 --&gt; nx2
+    nx1 --&gt; x3
+    nx3 --&gt; x1</code></pre>
+<p><strong>Step 2: Find SCCs</strong></p>
+<p>Let's trace the paths:</p>
+<ul>
+<li>x̄₁ → x₂ → x̄₃ → x₁ → x₃ → x̄₂ → x₁ (cycle: x₁, x₃, x̄₂, x̄₃ form paths
+but let's check)</li>
+<li>x̄₃ → x̄₁ → x₃ (via x̄₁ → x₃) — and x₃ → x̄₂ → x₁ → x₃ (cycle!)</li>
+</ul>
+<p>SCC analysis:</p>
+<ul>
+<li>x₁ → x₃ → x̄₂ → x₁: <strong>SCC A = {x₁, x₃, x̄₂}</strong></li>
+<li>x̄₁ → x₂ → x̄₃ → x̄₁: <strong>SCC B = {x̄₁, x₂, x̄₃}</strong></li>
+</ul>
+<p>Note: SCC A and SCC B are complements of each other! ✅</p>
+<p><strong>Step 3: Check</strong> — no xᵢ and x̄ᵢ in the same SCC. ✅
+Satisfiable!</p>
+<p><strong>Step 4: Assign</strong></p>
+<p>SCC A = {x₁, x₃, x̄₂} and SCC B = {x̄₁, x₂, x̄₃}</p>
+<p>Which is the sink? A has edges: x₁ → x₃ (internal), x₃ → x̄₂
+(internal), x̄₂ → x₁ (internal). Any outgoing? Check all edges from
+members of A to non-members... If A is the sink:</p>
+<ul>
+<li>Set SCC A = TRUE: x₁ = T, x₃ = T, x̄₂ = T → x₂ = F</li>
+<li>Set SCC B = FALSE: x̄₁ = F, x₂ = F, x̄₃ = F → x₁ = T, x₃ = T ✅
+(consistent!)</li>
+</ul>
+<p><strong>Verify:</strong> x₁ = T, x₂ = F, x₃ = T</p>
+<ul>
+<li>(x₁ ∨ x₂) = (T ∨ F) = T ✅</li>
+<li>(x̄₁ ∨ x₃) = (F ∨ T) = T ✅</li>
+<li>(x̄₂ ∨ x̄₃) = (T ∨ F) = T ✅</li>
+<li>(x₁ ∨ x₃) = (T ∨ T) = T ✅</li>
+</ul>
+<hr />
+<h2 id="8-unit-clause-simplification-preprocessing">8. Unit Clause
+Simplification (Preprocessing)</h2>
+<p>If a clause has only <strong>one</strong> literal (a unit clause), we
+can simplify:</p>
+<ol type="1">
+<li>Find unit clause with literal α</li>
+<li>Set α = TRUE</li>
+<li>Remove all clauses containing α</li>
+<li>Remove ᾱ from all remaining clauses (may create new unit clauses or
+empty clauses)</li>
+<li>If any clause becomes empty → unsatisfiable</li>
+<li>Repeat</li>
+</ol>
+<blockquote>
+<p>This preprocessing reduces the problem before building the
+implication graph. After removing all unit clauses, every clause has
+exactly 2 literals.</p>
+</blockquote>
+<hr />
+<h2 id="9-summary">9. Summary</h2>
+<table>
+<tbody>
+<tr>
+<td><strong>Problem</strong></td>
+<td>Given 2-CNF formula, find satisfying assignment</td>
+</tr>
+<tr>
+<td><strong>Key idea</strong></td>
+<td>Build implication graph, run SCC</td>
+</tr>
+<tr>
+<td><strong>Satisfiable iff</strong></td>
+<td>No xᵢ and x̄ᵢ in same SCC</td>
+</tr>
+<tr>
+<td><strong>Assignment</strong></td>
+<td>Sink SCC → TRUE, its complement (source) → FALSE</td>
+</tr>
+<tr>
+<td><strong>Runtime</strong></td>
+<td>O(n + m)</td>
+</tr>
+<tr>
+<td><strong>Contrast</strong></td>
+<td>3-SAT is NP-complete!</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>🎯 <strong>Exam Tip:</strong> The construction of the implication
+graph is the critical step. Remember: clause (α ∨ β) gives edges ᾱ → β
+and β̄ → α. Each clause contributes exactly 2 edges.</p>
+</blockquote>
+<blockquote>
+<p>⚠️ <strong>Common Pitfall:</strong> Don't confuse the implication
+graph edges. For (α ∨ β), the implication is "if NOT α, then β" — so the
+edge goes from ᾱ to β, not from α.</p>
+</blockquote>
+</main>
+
+<!-- code highlighting -->
+<link rel="modulepreload" href="../../../vendor/mermaid/mermaid.esm.min.mjs">
+<script src="../../../vendor/highlight/highlight.min.js"></script>
+<!-- math -->
+<script defer src="../../../vendor/katex/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="../../../vendor/katex/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+<script type="module">
+  // 1) Normalize mermaid blocks. Pandoc(gfm) emits <pre class="mermaid"><code>...</code></pre>.
+  //    Flatten to raw source text so mermaid parses cleanly; also catch the code-only variant.
+  document.querySelectorAll('pre > code.language-mermaid, pre > code.mermaid').forEach(c => {
+    const p = document.createElement('pre'); p.className = 'mermaid'; p.textContent = c.textContent;
+    c.parentElement.replaceWith(p);
+  });
+  document.querySelectorAll('pre.mermaid').forEach(p => { p.textContent = p.textContent; });
+  // 2) Syntax-highlight every code block EXCEPT mermaid (auto-detect language)
+  if (window.hljs) document.querySelectorAll('pre:not(.mermaid) > code').forEach(el => window.hljs.highlightElement(el));
+  // 3) Render mermaid (dark)
+  try {
+    const mermaid = (await import('../../../vendor/mermaid/mermaid.esm.min.mjs')).default;
+    mermaid.initialize({ startOnLoad: false, theme: 'dark', securityLevel: 'loose' });
+    await mermaid.run({ querySelector: 'pre.mermaid' });
+  } catch (e) { /* offline: leave as text */ }
+</script>
+<script>
+  // 4) Math: render \( \) and \[ \] (pandoc converts dollar-math to these). Tolerate malformed legacy TeX.
+  window.addEventListener('DOMContentLoaded', () => {
+    if (window.renderMathInElement) renderMathInElement(document.querySelector('.content'), {
+      // dollar-delimiters included so KaTeX also renders math pandoc failed to parse (left raw):
+      // a space before a closing delim, cases-env inline, apostrophes in text, etc. Display before inline.
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '\\[', right: '\\]', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false }
+      ],
+      throwOnError: false,
+      // \n is used in the legacy notes as a homemade "arrow over" (directed edge); map it to \overrightarrow.
+      macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
+    });
+  });
+</script>
+</body>
+</html>

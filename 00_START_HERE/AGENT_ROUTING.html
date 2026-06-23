@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agent Routing Guide — CS 6515 — CS6515</title>
+<link rel="stylesheet" href="../vendor/fonts/fonts.css">
+<link rel="stylesheet" href="../theme.css">
+<link rel="stylesheet" href="../vendor/katex/katex.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="../vendor/highlight/styles/tokyo-night-dark.min.css">
+
+</head>
+<body>
+<header class="topbar">
+  <a class="home" href="../index.html">CS6515</a>
+  <span class="crumbloc">Agent Routing Guide — CS 6515</span>
+</header>
+<main class="content">
+<h1 id="agent-routing-guide--cs-6515">Agent Routing Guide — CS 6515</h1>
+<p>How an AI agent (or a human in a hurry) should navigate this
+directory to answer a question correctly. Read this first.</p>
+<h2 id="default-routing-order">Default routing order</h2>
+<ol type="1">
+<li>If the question is about <em>what's happening now</em> → <a
+href="CURRENT_WEEK.html">CURRENT_WEEK.md</a>.</li>
+<li>If the question is <strong>chronological</strong> ("week 6", "before
+exam 2", "what's due") → <a
+href="../01_by_week/index.html"><code>../01_by_week/</code></a>.</li>
+<li>If the question is <strong>conceptual</strong> ("explain SCC", "how
+does max-flow work") → <a
+href="../02_by_topic/index.html"><code>../02_by_topic/</code></a>.</li>
+<li>To resolve any module/lecture/reading/exam cross-reference → <a
+href="INDEX.html">INDEX.md</a>.</li>
+<li>For grading-format / "how should I write the answer" claims →
+<strong>always</strong> read the relevant staff guidance doc in <a
+href="../cs6515-algorithm-rules-and-guidelines/"><code>../cs6515-algorithm-rules-and-guidelines/</code></a>
+before answering.</li>
+</ol>
+<h2 id="query--file-cheatsheet">Query → file cheatsheet</h2>
+<table>
+<thead>
+<tr>
+<th>User asks about</th>
+<th>Start with</th>
+<th>Then read</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Current week / what's due</td>
+<td><a href="CURRENT_WEEK.html">CURRENT_WEEK.md</a></td>
+<td>that week's <code>README.md</code>, its <code>guidance/</code></td>
+</tr>
+<tr>
+<td>DP subproblem / recurrence</td>
+<td><a href="../01_by_week/W01_2026-05-18_DP1-DP2/index.html">W01</a> or <a
+href="../01_by_week/W04_2026-06-08_DP3-GR1-GR2_EXAM1/index.html">W04</a></td>
+<td>DP guidance, DP recurrence relations</td>
+</tr>
+<tr>
+<td>Divide &amp; conquer / Master theorem</td>
+<td><a href="../01_by_week/W02_2026-05-25_DC3-DC1/index.html">W02</a>, <a
+href="../01_by_week/W03_2026-06-01_DC2/index.html">W03</a></td>
+<td>D&amp;C guidance, solving-recurrences approach</td>
+</tr>
+<tr>
+<td>SCC, 2-SAT</td>
+<td><a
+href="../01_by_week/W04_2026-06-08_DP3-GR1-GR2_EXAM1/index.html">W04</a></td>
+<td><code>notes/graphs</code> GR1/GR2, graph guidance</td>
+</tr>
+<tr>
+<td>MST (Kruskal/Prim)</td>
+<td><a href="../01_by_week/W05_2026-06-15_GR3/index.html">W05</a></td>
+<td><code>notes/graphs</code> GR3, DPV §5.1</td>
+</tr>
+<tr>
+<td>Max-flow / min-cut</td>
+<td><a href="../01_by_week/W06_2026-06-22_MF1-MF2/index.html">W06</a>, <a
+href="../01_by_week/W07_2026-06-29_MF4_EXAM2/index.html">W07</a></td>
+<td>graph guidance, black boxes, DPV §7.2</td>
+</tr>
+<tr>
+<td>NP-completeness / reductions</td>
+<td><a href="../01_by_week/W08_2026-07-06_NP1-NP2-NP3/index.html">W08</a>, <a
+href="../01_by_week/W10_2026-07-20_LP4-NP4-NP5_EXAM3/index.html">W10</a></td>
+<td>DPV Ch 8</td>
+</tr>
+<tr>
+<td>Linear programming / duality</td>
+<td><a href="../01_by_week/W09_2026-07-13_LP1-LP2-LP3/index.html">W09</a></td>
+<td>DPV §§7.1, 7.4, 7.6</td>
+</tr>
+<tr>
+<td>FFT, RSA, Bloom filters</td>
+<td><a
+href="../01_by_week/W11_2026-07-27_Advanced-FFT-Crypto-Bloom/index.html">W11</a></td>
+<td>DPV §2.6, Ch 1</td>
+</tr>
+<tr>
+<td>Runtime conventions</td>
+<td><a
+href="../cs6515-algorithm-rules-and-guidelines/8077881_Common_Course_Runtimes.html">common-course-runtimes</a></td>
+<td>—</td>
+</tr>
+<tr>
+<td>What does an exam cover?</td>
+<td><a href="INDEX.html">INDEX.md</a> (Exam Coverage Map)</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<h2
+id="course-specific-answer-rules-apply-when-writing-homeworkexam-style-answers">Course-specific
+answer rules (apply when writing homework/exam-style answers)</h2>
+<ul>
+<li><strong>Dynamic Programming</strong> — structure every answer as:
+(1) subproblem in words, (2) table entry + index ranges, (3) base cases,
+(4) recurrence with each <code>min</code>/<code>max</code> option
+explained, (5) fill order, (6) where the final answer lives, (7) runtime
+= #entries × work-per-entry. Course DP answers are
+<strong>bottom-up</strong>, <em>not</em> recursion/memoization sketches.
+See <a
+href="../cs6515-algorithm-rules-and-guidelines/8077940_Dynamic_Programming_Guidance.html">DP
+guidance</a> and <a
+href="../cs6515-algorithm-rules-and-guidelines/8077944_Dynamic_Programming_Recurrence_Relations.html">DP
+recurrences</a>.</li>
+<li><strong>Divide &amp; Conquer</strong> — narrative <em>algorithm /
+correctness / runtime</em>. Use words, not pseudocode, when the prompt
+asks for an algorithm. See <a
+href="../cs6515-algorithm-rules-and-guidelines/8093294_Divide_and_Conquer_Guidance.html">D&amp;C
+guidance</a>.</li>
+<li><strong>Graphs &amp; Flows</strong> — solve by <strong>transforming
+input/output around an allowed black box</strong> (BFS, DFS, Dijkstra,
+SCC, MST, max-flow). Do not rewrite a black box's internals. Use only
+the algorithms in <a
+href="../cs6515-algorithm-rules-and-guidelines/8129088_Usable_Black_Boxes_for_Graphs.html">usable
+black boxes</a>.</li>
+<li><strong>Runtimes</strong> — worst-case Big-O, using the course's
+conventions in <a
+href="../cs6515-algorithm-rules-and-guidelines/8077881_Common_Course_Runtimes.html">common
+runtimes</a> (e.g. graph as array-of-linked-lists, vertices enumerable /
+O(1)-indexable).</li>
+</ul>
+<h2 id="source-priority-for-graded-answer-claims">Source priority for
+graded-answer claims</h2>
+<ol type="1">
+<li>Current-semester staff guidance (the Ed-post docs above).</li>
+<li>The relevant week <code>README.md</code> and its linked
+lecture.</li>
+<li>DPV reading for the precise sections (see <a
+href="reading-index.html">reading-index.md</a>).</li>
+<li>Personal/generated notes (<code>notes/</code>) — only after the
+above.</li>
+</ol>
+<h2
+id="katex--math-formatting-rules-for-any-authored-markdown-here">KaTeX /
+math formatting rules (for any authored markdown here)</h2>
+<ul>
+<li>Inline math: <code>$T(i)$</code>, <code>$O(n \log n)$</code>,
+<code>$G=(V,E)$</code>.</li>
+<li>Display math fenced in <code>$$ … $$</code>; multi-case with
+<code>\begin{cases} … \end{cases}</code>.</li>
+</ul>
+<p><span class="math display">$$
+L(i,j)=
+\begin{cases}
+L(i-1,j-1)+1 &amp; \text{if } x_i=y_j,\\
+\max\{L(i-1,j),\,L(i,j-1)\} &amp; \text{otherwise.}
+\end{cases}
+$$</span></p>
+<ul>
+<li>Prefer <code>\operatorname{dist}</code>,
+<code>\text{capacity}</code>, <code>\le</code>, <code>\ge</code>,
+<code>\in</code>, <code>\setminus</code>, <code>\emptyset</code>. Avoid
+unsupported visual-styling commands in reference docs.</li>
+</ul>
+<h2 id="hard-exclusions-unless-explicitly-requested">Hard exclusions
+(unless explicitly requested)</h2>
+<ul>
+<li>Anything in the parent directory
+<code>/Users/darien/GT/CS-6515/</code> — it holds a <em>different</em>
+copy of lectures/notes/textbooks. <strong>Stay inside this
+repo.</strong> All links here are relative and resolve within this
+folder by design.</li>
+<li><code>textbooks/optional-additions/</code> (Kleinberg-Tardos) —
+supplementary, not the course text.</li>
+</ul>
+</main>
+
+<!-- code highlighting -->
+<link rel="modulepreload" href="../vendor/mermaid/mermaid.esm.min.mjs">
+<script src="../vendor/highlight/highlight.min.js"></script>
+<!-- math -->
+<script defer src="../vendor/katex/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="../vendor/katex/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+<script type="module">
+  // 1) Normalize mermaid blocks. Pandoc(gfm) emits <pre class="mermaid"><code>...</code></pre>.
+  //    Flatten to raw source text so mermaid parses cleanly; also catch the code-only variant.
+  document.querySelectorAll('pre > code.language-mermaid, pre > code.mermaid').forEach(c => {
+    const p = document.createElement('pre'); p.className = 'mermaid'; p.textContent = c.textContent;
+    c.parentElement.replaceWith(p);
+  });
+  document.querySelectorAll('pre.mermaid').forEach(p => { p.textContent = p.textContent; });
+  // 2) Syntax-highlight every code block EXCEPT mermaid (auto-detect language)
+  if (window.hljs) document.querySelectorAll('pre:not(.mermaid) > code').forEach(el => window.hljs.highlightElement(el));
+  // 3) Render mermaid (dark)
+  try {
+    const mermaid = (await import('../vendor/mermaid/mermaid.esm.min.mjs')).default;
+    mermaid.initialize({ startOnLoad: false, theme: 'dark', securityLevel: 'loose' });
+    await mermaid.run({ querySelector: 'pre.mermaid' });
+  } catch (e) { /* offline: leave as text */ }
+</script>
+<script>
+  // 4) Math: render \( \) and \[ \] (pandoc converts dollar-math to these). Tolerate malformed legacy TeX.
+  window.addEventListener('DOMContentLoaded', () => {
+    if (window.renderMathInElement) renderMathInElement(document.querySelector('.content'), {
+      // dollar-delimiters included so KaTeX also renders math pandoc failed to parse (left raw):
+      // a space before a closing delim, cases-env inline, apostrophes in text, etc. Display before inline.
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '\\[', right: '\\]', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false }
+      ],
+      throwOnError: false,
+      // \n is used in the legacy notes as a homemade "arrow over" (directed edge); map it to \overrightarrow.
+      macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
+    });
+  });
+</script>
+</body>
+</html>

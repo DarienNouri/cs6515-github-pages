@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>By Topic — CS6515</title>
+<link rel="stylesheet" href="../vendor/fonts/fonts.css">
+<link rel="stylesheet" href="../theme.css">
+<link rel="stylesheet" href="../vendor/katex/katex.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="../vendor/highlight/styles/tokyo-night-dark.min.css">
+
+</head>
+<body>
+<header class="topbar">
+  <a class="home" href="../index.html">CS6515</a>
+  <span class="crumbloc">By Topic</span>
+</header>
+<main class="content">
+<h1 id="by-topic--conceptual-view">By Topic — Conceptual View</h1>
+<p>Course modules <strong>scatter across the weekly schedule</strong>
+(DP = W1+W4, NP = W8+W10, LP = W9+W10), so this layer gathers each
+topic's lectures, readings, guidance, and notes in one place —
+independent of when they were taught.</p>
+<table>
+<thead>
+<tr>
+<th>Topic</th>
+<th>Folder</th>
+<th>Weeks</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Dynamic Programming</td>
+<td><a href="DP_dynamic-programming/index.html">DP_dynamic-programming</a></td>
+<td>1, 4</td>
+</tr>
+<tr>
+<td>Divide &amp; Conquer</td>
+<td><a href="DC_divide-and-conquer/index.html">DC_divide-and-conquer</a></td>
+<td>2, 3, 11</td>
+</tr>
+<tr>
+<td>Graphs</td>
+<td><a href="GR_graphs/index.html">GR_graphs</a></td>
+<td>4, 5</td>
+</tr>
+<tr>
+<td>Max-Flow</td>
+<td><a href="MF_max-flow/index.html">MF_max-flow</a></td>
+<td>6, 7</td>
+</tr>
+<tr>
+<td>NP-Completeness</td>
+<td><a href="NP_np-completeness/index.html">NP_np-completeness</a></td>
+<td>8, 10</td>
+</tr>
+<tr>
+<td>Linear Programming</td>
+<td><a href="LP_linear-programming/index.html">LP_linear-programming</a></td>
+<td>9, 10</td>
+</tr>
+<tr>
+<td>Advanced (FFT/crypto/Bloom)</td>
+<td><a href="ADV_advanced-topics/index.html">ADV_advanced-topics</a></td>
+<td>11</td>
+</tr>
+</tbody>
+</table>
+<p>For the chronological view, see <a
+href="../01_by_week/index.html"><code>../01_by_week/</code></a>. Full
+cross-reference: <a href="../00_START_HERE/INDEX.html">INDEX.md</a>.</p>
+</main>
+
+<!-- code highlighting -->
+<link rel="modulepreload" href="../vendor/mermaid/mermaid.esm.min.mjs">
+<script src="../vendor/highlight/highlight.min.js"></script>
+<!-- math -->
+<script defer src="../vendor/katex/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="../vendor/katex/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+<script type="module">
+  // 1) Normalize mermaid blocks. Pandoc(gfm) emits <pre class="mermaid"><code>...</code></pre>.
+  //    Flatten to raw source text so mermaid parses cleanly; also catch the code-only variant.
+  document.querySelectorAll('pre > code.language-mermaid, pre > code.mermaid').forEach(c => {
+    const p = document.createElement('pre'); p.className = 'mermaid'; p.textContent = c.textContent;
+    c.parentElement.replaceWith(p);
+  });
+  document.querySelectorAll('pre.mermaid').forEach(p => { p.textContent = p.textContent; });
+  // 2) Syntax-highlight every code block EXCEPT mermaid (auto-detect language)
+  if (window.hljs) document.querySelectorAll('pre:not(.mermaid) > code').forEach(el => window.hljs.highlightElement(el));
+  // 3) Render mermaid (dark)
+  try {
+    const mermaid = (await import('../vendor/mermaid/mermaid.esm.min.mjs')).default;
+    mermaid.initialize({ startOnLoad: false, theme: 'dark', securityLevel: 'loose' });
+    await mermaid.run({ querySelector: 'pre.mermaid' });
+  } catch (e) { /* offline: leave as text */ }
+</script>
+<script>
+  // 4) Math: render \( \) and \[ \] (pandoc converts dollar-math to these). Tolerate malformed legacy TeX.
+  window.addEventListener('DOMContentLoaded', () => {
+    if (window.renderMathInElement) renderMathInElement(document.querySelector('.content'), {
+      // dollar-delimiters included so KaTeX also renders math pandoc failed to parse (left raw):
+      // a space before a closing delim, cases-env inline, apostrophes in text, etc. Display before inline.
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '\\[', right: '\\]', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false }
+      ],
+      throwOnError: false,
+      // \n is used in the legacy notes as a homemade "arrow over" (directed edge); map it to \overrightarrow.
+      macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
+    });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DPV ch06 exercises — CS6515</title>
+<link rel="stylesheet" href="../../vendor/fonts/fonts.css">
+<link rel="stylesheet" href="../../theme.css">
+<link rel="stylesheet" href="../../vendor/katex/katex.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="../../vendor/highlight/styles/tokyo-night-dark.min.css">
+
+</head>
+<body>
+<header class="topbar">
+  <a class="home" href="../../index.html">CS6515</a>
+  <span class="crumbloc">DPV ch06 exercises</span>
+</header>
+<main class="content">
+<!-- toc:start -->
+
+<h2 id="table-of-contents">Table of Contents</h2>
+<ul>
+<li><a href="#exercises">Exercises</a></li>
+</ul>
+<!-- toc:end -->
+
+<p>Figure 6.10 The largest independent set in this graph has size 3.
+<img
+src="../../.assets/remote/cc8f25d73b0f78d0.jpg" /></p>
+<p>Figure <span class="math inline">6.11<em>I</em>(<em>u</em>)</span> is
+the size of the largest independent set of the subtree rooted at <span
+class="math inline"><em>u</em></span>. Two cases: either <span
+class="math inline"><em>u</em></span> is in this independent set, or it
+isn't. <img
+src="../../.assets/remote/d2518c96e36422f7.jpg" /></p>
+<h2 id="exercises">Exercises</h2>
+<h3 id="61">6.1</h3>
+<p>A contiguous subsequence of a list <span
+class="math inline"><em>S</em></span> is a subsequence made up of
+consecutive elements of <span class="math inline"><em>S</em></span>. For
+instance, if <span class="math inline"><em>S</em></span> is</p>
+<p><span class="math display">5, 15, −30, 10, −5, 40, 10,</span></p>
+<p>then <span class="math inline">15, −30</span>, 10 is a contiguous
+subsequence but <span class="math inline">5, 15, 40</span> is not. Give
+a linear-time algorithm for the following task:</p>
+<p><strong>Input:</strong> A list of numbers, <span
+class="math inline"><em>a</em><sub>1</sub>, <em>a</em><sub>2</sub>, …, <em>a</em><sub><em>n</em></sub></span>.</p>
+<p><strong>Output:</strong> The contiguous subsequence of maximum sum (a
+subsequence of length zero has sum zero).</p>
+<p>For the preceding example, the answer would be <span
+class="math inline">10, −5, 40, 10</span>, with a sum of 55 . (Hint: For
+each <span
+class="math inline"><em>j</em> ∈ {1, 2, …, <em>n</em>}</span>, consider
+contiguous subsequences ending exactly at position <span
+class="math inline"><em>j</em></span>.)</p>
+<h3 id="62">6.2</h3>
+<p>You are going on a long trip. You start on the road at mile post 0 .
+Along the way there are <span class="math inline"><em>n</em></span>
+hotels, at mile posts <span
+class="math inline"><em>a</em><sub>1</sub> &lt; <em>a</em><sub>2</sub> &lt; ⋯ &lt; <em>a</em><sub><em>n</em></sub></span>,
+where each <span
+class="math inline"><em>a</em><sub><em>i</em></sub></span> is measured
+from the starting point. The only places you are allowed to stop are at
+these hotels, but you can choose which of the hotels you stop at. You
+must stop at the final hotel (at distance <span
+class="math inline"><em>a</em><sub><em>n</em></sub></span> ), which is
+your destination.</p>
+<p>You'd ideally like to travel 200 miles a day, but this may not be
+possible (depending on the spacing of the hotels). If you travel <span
+class="math inline"><em>x</em></span> miles during a day, the penalty
+for that day is <span
+class="math inline">(200 − <em>x</em>)<sup>2</sup></span>. You want to
+plan your trip so as to minimize the total penalty-that is, the sum,
+over all travel days, of the daily penalties. Give an efficient
+algorithm that determines the optimal sequence of hotels at which to
+stop.</p>
+<h3 id="63">6.3</h3>
+<p>Yuckdonald's is considering opening a series of restaurants along
+Quaint Valley Highway (QVH). The <span
+class="math inline"><em>n</em></span> possible locations are along a
+straight line, and the distances of these locations from the start of
+QVH are, in miles and in increasing order, <span
+class="math inline"><em>m</em><sub>1</sub>, <em>m</em><sub>2</sub>, …, <em>m</em><sub><em>n</em></sub></span>.
+The constraints are as follows:</p>
+<ul>
+<li>At each location, Yuckdonald's may open at most one restaurant. The
+expected profit from opening a restaurant at location <span
+class="math inline"><em>i</em></span> is <span
+class="math inline"><em>p</em><sub><em>i</em></sub></span>, where <span
+class="math inline"><em>p</em><sub><em>i</em></sub> &gt; 0</span> and
+<span class="math inline"><em>i</em> = 1, 2, …, <em>n</em></span>.</li>
+<li>Any two restaurants should be at least <span
+class="math inline"><em>k</em></span> miles apart, where <span
+class="math inline"><em>k</em></span> is a positive integer.</li>
+</ul>
+<p>Give an efficient algorithm to compute the maximum expected total
+profit subject to the given constraints.</p>
+<h3 id="64">6.4</h3>
+<p>You are given a string of <span class="math inline"><em>n</em></span>
+characters <span class="math inline"><em>s</em>[1…<em>n</em>]</span>,
+which you believe to be a corrupted text document in which all
+punctuation has vanished (so that it looks something like
+"itwasthebestoftimes..."). You wish to reconstruct the document using a
+dictionary, which is available in the form of a Boolean function <span
+class="math inline">dict (⋅)</span> : for any string <span
+class="math inline"><em>w</em></span>,</p>
+<p><span class="math display">$$
+\operatorname{dict}(w)= \begin{cases}\text { true } &amp; \text { if } w
+\text { is a valid word } \\ \text { false } &amp; \text { otherwise
+}\end{cases}
+$$</span></p>
+<p><strong>(a)</strong> Give a dynamic programming algorithm that
+determines whether the string <span
+class="math inline"><em>s</em>[⋅]</span> can be reconstituted as a
+sequence of valid words. The running time should be at most <span
+class="math inline"><em>O</em>(<em>n</em><sup>2</sup>)</span>, assuming
+calls to dict take unit time.</p>
+<p><strong>(b)</strong> In the event that the string is valid, make your
+algorithm output the corresponding sequence of words.</p>
+<h3 id="65">6.5</h3>
+<p>Pebbling a checkerboard. We are given a checkerboard which has 4 rows
+and <span class="math inline"><em>n</em></span> columns, and has an
+integer written in each square. We are also given a set of <span
+class="math inline">2<em>n</em></span> pebbles, and we want to place
+some or all of these on the checkerboard (each pebble can be placed on
+exactly one square) so as to maximize the sum of the integers in the
+squares that are covered by pebbles. There is one constraint: for a
+placement of pebbles to be legal, no two of them can be on horizontally
+or vertically adjacent squares (diagonal adjacency is fine).</p>
+<p><strong>(a)</strong> Determine the number of legal patterns that can
+occur in any column (in isolation, ignoring the pebbles in adjacent
+columns) and describe these patterns.</p>
+<p>Call two patterns compatible if they can be placed on adjacent
+columns to form a legal placement. Let us consider subproblems
+consisting of the first <span class="math inline"><em>k</em></span>
+columns <span class="math inline">1 ≤ <em>k</em> ≤ <em>n</em></span>.
+Each subproblem can be assigned a type, which is the pattern occurring
+in the last column.</p>
+<p><strong>(b)</strong> Using the notions of compatibility and type,
+give an <span class="math inline"><em>O</em>(<em>n</em>)</span>-time
+dynamic programming algorithm for computing an optimal placement.</p>
+<h3 id="66">6.6</h3>
+<p>Let us define a multiplication operation on three symbols <span
+class="math inline"><em>a</em>, <em>b</em>, <em>c</em></span> according
+to the following table; thus <span
+class="math inline"><em>a</em><em>b</em> = <em>b</em>, <em>b</em><em>a</em> = <em>c</em></span>,
+and so on. Notice that the multiplication operation defined by the table
+is neither associative nor commutative.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"></th>
+<th style="text-align: left;"><span
+class="math inline"><em>a</em></span></th>
+<th style="text-align: left;"><span
+class="math inline"><em>b</em></span></th>
+<th style="text-align: left;"><span
+class="math inline"><em>c</em></span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><span
+class="math inline"><em>a</em></span></td>
+<td style="text-align: left;"><span
+class="math inline"><em>b</em></span></td>
+<td style="text-align: left;"><span
+class="math inline"><em>b</em></span></td>
+<td style="text-align: left;"><span
+class="math inline"><em>a</em></span></td>
+</tr>
+<tr>
+<td style="text-align: left;"><span
+class="math inline"><em>b</em></span></td>
+<td style="text-align: left;"><span
+class="math inline"><em>c</em></span></td>
+<td style="text-align: left;"><span
+class="math inline"><em>b</em></span></td>
+<td style="text-align: left;"><span
+class="math inline"><em>a</em></span></td>
+</tr>
+<tr>
+<td style="text-align: left;"><span
+class="math inline"><em>c</em></span></td>
+<td style="text-align: left;"><span
+class="math inline"><em>a</em></span></td>
+<td style="text-align: left;"><span
+class="math inline"><em>c</em></span></td>
+<td style="text-align: left;"><span
+class="math inline"><em>c</em></span></td>
+</tr>
+</tbody>
+</table>
+<p>Find an efficient algorithm that examines a string of these symbols,
+say <span
+class="math inline"><em>b</em><em>b</em><em>b</em><em>b</em><em>a</em><em>c</em></span>,
+and decides whether or not it is possible to parenthesize the string in
+such a way that the value of the resulting expression is <span
+class="math inline"><em>a</em></span>. For example, on input <span
+class="math inline"><em>b</em><em>b</em><em>b</em><em>b</em><em>a</em><em>c</em></span>
+your algorithm should return yes because <span
+class="math inline">((<em>b</em>(<em>b</em><em>b</em>))(<em>b</em><em>a</em>))<em>c</em> = <em>a</em></span>.</p>
+<h3 id="67">6.7</h3>
+<p>A subsequence is palindromic if it is the same whether read left to
+right or right to left. For instance, the sequence</p>
+<p><span
+class="math display"><em>A</em>, <em>C</em>, <em>G</em>, <em>T</em>, <em>G</em>, <em>T</em>, <em>C</em>, <em>A</em>, <em>A</em>, <em>A</em>, <em>A</em>, <em>T</em>, <em>C</em>, <em>G</em></span></p>
+<p>has many palindromic subsequences, including <span
+class="math inline"><em>A</em>, <em>C</em>, <em>G</em>, <em>C</em>, <em>A</em></span>
+and <span
+class="math inline"><em>A</em>, <em>A</em>, <em>A</em>, <em>A</em></span>
+(on the other hand, the subsequence <span
+class="math inline"><em>A</em>, <em>C</em>, <em>T</em></span> is not
+palindromic). Devise an algorithm that takes a sequence <span
+class="math inline"><em>x</em>[1…<em>n</em>]</span> and returns the
+(length of the) longest palindromic subsequence. Its running time should
+be <span
+class="math inline"><em>O</em>(<em>n</em><sup>2</sup>)</span>.</p>
+<h3 id="68">6.8</h3>
+<p>Given two strings <span
+class="math inline"><em>x</em> = <em>x</em><sub>1</sub><em>x</em><sub>2</sub>⋯<em>x</em><sub><em>n</em></sub></span>
+and <span
+class="math inline"><em>y</em> = <em>y</em><sub>1</sub><em>y</em><sub>2</sub>⋯<em>y</em><sub><em>m</em></sub></span>,
+we wish to find the length of their longest common substring, that is,
+the largest <span class="math inline"><em>k</em></span> for which there
+are indices <span class="math inline"><em>i</em></span> and <span
+class="math inline"><em>j</em></span> with <span
+class="math inline"><em>x</em><sub><em>i</em></sub><em>x</em><sub><em>i</em> + 1</sub>⋯<em>x</em><sub><em>i</em> + <em>k</em> − 1</sub> = <em>y</em><sub><em>j</em></sub><em>y</em><sub><em>j</em> + 1</sub>⋯<em>y</em><sub><em>j</em> + <em>k</em> − 1</sub></span>.
+Show how to do this in time <span
+class="math inline"><em>O</em>(<em>m</em><em>n</em>)</span>.</p>
+<h3 id="69">6.9</h3>
+<p>A certain string-processing language offers a primitive operation
+which splits a string into two pieces. Since this operation involves
+copying the original string, it takes <span
+class="math inline"><em>n</em></span> units of time for a string of
+length <span class="math inline"><em>n</em></span>, regardless of the
+location of the cut. Suppose, now, that you want to break a string into
+many pieces. The order in which the breaks are made can affect the total
+running time. For example, if you want to cut a 20 -character string at
+positions 3 and 10, then making the first cut at position 3 incurs a
+total cost of <span class="math inline">20 + 17 = 37</span>, while doing
+position 10 first has a better cost of <span
+class="math inline">20 + 10 = 30</span>. Give a dynamic programming
+algorithm that, given the locations of <span
+class="math inline"><em>m</em></span> cuts in a string of length <span
+class="math inline"><em>n</em></span>, finds the minimum cost of
+breaking the string into <span class="math inline"><em>m</em> + 1</span>
+pieces.</p>
+<h3 id="610">6.10</h3>
+<p>Counting heads. Given integers <span
+class="math inline"><em>n</em></span> and <span
+class="math inline"><em>k</em></span>, along with <span
+class="math inline"><em>p</em><sub>1</sub>, …, <em>p</em><sub><em>n</em></sub> ∈ [0, 1]</span>,
+you want to determine the probability of obtaining exactly <span
+class="math inline"><em>k</em></span> heads when <span
+class="math inline"><em>n</em></span> biased coins are tossed
+independently at random, where <span
+class="math inline"><em>p</em><sub><em>i</em></sub></span> is the
+probability that the <span class="math inline"><em>i</em></span> th coin
+comes up heads. Give an <span
+class="math inline"><em>O</em>(<em>n</em><sup>2</sup>)</span> algorithm
+for this task. <span class="math inline"><sup>2</sup></span> Assume you
+can multiply and add two numbers in <span
+class="math inline">[0, 1]</span> in <span
+class="math inline"><em>O</em>(1)</span> time.</p>
+<h3 id="611">6.11</h3>
+<p>Given two strings <span
+class="math inline"><em>x</em> = <em>x</em><sub>1</sub><em>x</em><sub>2</sub>⋯<em>x</em><sub><em>n</em></sub></span>
+and <span
+class="math inline"><em>y</em> = <em>y</em><sub>1</sub><em>y</em><sub>2</sub>⋯<em>y</em><sub><em>m</em></sub></span>,
+we wish to find the length of their longest common subsequence, that is,
+the largest <span class="math inline"><em>k</em></span> for which there
+are indices <span
+class="math inline"><em>i</em><sub>1</sub> &lt; <em>i</em><sub>2</sub> &lt; ⋯ &lt; <em>i</em><sub><em>k</em></sub></span>
+and <span
+class="math inline"><em>j</em><sub>1</sub> &lt; <em>j</em><sub>2</sub> &lt; ⋯ &lt; <em>j</em><sub><em>k</em></sub></span>
+with <span
+class="math inline"><em>x</em><sub><em>i</em><sub>1</sub></sub><em>x</em><sub><em>i</em><sub>2</sub></sub>⋯<em>x</em><sub><em>i</em><sub><em>k</em></sub></sub> = <em>y</em><sub><em>j</em><sub>1</sub></sub><em>y</em><sub><em>j</em><sub>2</sub></sub>⋯<em>y</em><sub><em>j</em><sub><em>k</em></sub></sub></span>.
+Show how to do this in time <span
+class="math inline"><em>O</em>(<em>m</em><em>n</em>)</span>.</p>
+<h3 id="612">6.12</h3>
+<p>You are given a convex polygon <span
+class="math inline"><em>P</em></span> on <span
+class="math inline"><em>n</em></span> vertices in the plane (specified
+by their <span class="math inline"><em>x</em></span> and <span
+class="math inline"><em>y</em></span> coordinates). A triangulation of
+<span class="math inline"><em>P</em></span> is a collection of <span
+class="math inline"><em>n</em> − 3</span> diagonals of <span
+class="math inline"><em>P</em></span> such that no two diagonals
+intersect (except possibly at their endpoints). Notice that a
+triangulation splits the polygon's interior into <span
+class="math inline"><em>n</em> − 2</span> disjoint triangles. The cost
+of a triangulation is the sum of the lengths of the diagonals in it.
+Give an efficient algorithm for finding a triangulation of minimum cost.
+(Hint: Label the vertices of <span class="math inline"><em>P</em></span>
+by <span class="math inline">1, …, <em>n</em></span>, starting from an
+arbitrary vertex and walking clockwise. For <span
+class="math inline">1 ≤ <em>i</em> &lt; <em>j</em> ≤ <em>n</em></span>,
+let the subproblem <span
+class="math inline"><em>A</em>(<em>i</em>, <em>j</em>)</span> denote the
+minimum cost triangulation of the polygon spanned by vertices <span
+class="math inline"><em>i</em>, <em>i</em> + 1, …, <em>j</em></span>.)</p>
+<p><a href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a></p>
+<p>6.13. Consider the following game. A "dealer" produces a sequence
+<span
+class="math inline"><em>s</em><sub>1</sub>⋯<em>s</em><sub><em>n</em></sub></span>
+of "cards," face up, where each card <span
+class="math inline"><em>s</em><sub><em>i</em></sub></span> has a value
+<span class="math inline"><em>v</em><sub><em>i</em></sub></span>. Then
+two players take turns picking a card from the sequence, but can only
+pick the first or the last card of the (remaining) sequence. The goal is
+to collect cards of largest total value. (For example, you can think of
+the cards as bills of different denominations.) Assume <span
+class="math inline"><em>n</em></span> is even.</p>
+<p><strong>(a)</strong> Show a sequence of cards such that it is not
+optimal for the first player to start by picking up the available card
+of larger value. That is, the natural greedy strategy is suboptimal.</p>
+<p><strong>(b)</strong> Give an <span
+class="math inline"><em>O</em>(<em>n</em><sup>2</sup>)</span> algorithm
+to compute an optimal strategy for the first player. Given the initial
+sequence, your algorithm should precompute in <span
+class="math inline"><em>O</em>(<em>n</em><sup>2</sup>)</span> time some
+information, and then the first player should be able to make each move
+optimally in <span class="math inline"><em>O</em>(1)</span> time by
+looking up the precomputed information.</p>
+<h3 id="614">6.14</h3>
+<p>Cutting cloth. You are given a rectangular piece of cloth with
+dimensions <span class="math inline"><em>X</em> × <em>Y</em></span>,
+where <span class="math inline"><em>X</em></span> and <span
+class="math inline"><em>Y</em></span> are positive integers, and a list
+of <span class="math inline"><em>n</em></span> products that can be made
+using the cloth. For each product <span
+class="math inline"><em>i</em> ∈ [1, <em>n</em>]</span> you know that a
+rectangle of cloth of dimensions <span
+class="math inline"><em>a</em><sub><em>i</em></sub> × <em>b</em><sub><em>i</em></sub></span>
+is needed and that the final selling price of the product is <span
+class="math inline"><em>c</em><sub><em>i</em></sub></span>. Assume the
+<span
+class="math inline"><em>a</em><sub><em>i</em></sub>, <em>b</em><sub><em>i</em></sub></span>,
+and <span class="math inline"><em>c</em><sub><em>i</em></sub></span> are
+all positive integers. You have a machine that can cut any rectangular
+piece of cloth into two pieces either horizontally or vertically. Design
+an algorithm that determines the best return on the <span
+class="math inline"><em>X</em> × <em>Y</em></span> piece of cloth, that
+is, a strategy for cutting the cloth so that the products made from the
+resulting pieces give the maximum sum of selling prices. You are free to
+make as many copies of a given product as you wish, or none if
+desired.</p>
+<h3 id="615">6.15</h3>
+<p>Suppose two teams, <span class="math inline"><em>A</em></span> and
+<span class="math inline"><em>B</em></span>, are playing a match to see
+who is the first to win <span class="math inline"><em>n</em></span>
+games (for some particular <span class="math inline"><em>n</em></span>
+). We can suppose that <span class="math inline"><em>A</em></span> and
+<span class="math inline"><em>B</em></span> are equally competent, so
+each has a <span class="math inline">50%</span> chance of winning any
+particular game. Suppose they have already played <span
+class="math inline"><em>i</em> + <em>j</em></span> games, of which <span
+class="math inline"><em>A</em></span> has won <span
+class="math inline"><em>i</em></span> and <span
+class="math inline"><em>B</em></span> has won <span
+class="math inline"><em>j</em></span>. Give an efficient algorithm to
+compute the probability that <span class="math inline"><em>A</em></span>
+will go on to win the match. For example, if <span
+class="math inline"><em>i</em> = <em>n</em> − 1</span> and <span
+class="math inline"><em>j</em> = <em>n</em> − 3</span> then the
+probability that <span class="math inline"><em>A</em></span> will win
+the match is <span class="math inline">7/8</span>, since it must win any
+of the next three games.</p>
+<h3 id="616">6.16</h3>
+<p>The garage sale problem (courtesy of Professor Lofti Zadeh). On a
+given Sunday morning, there are <span
+class="math inline"><em>n</em></span> garage sales going on, <span
+class="math inline"><em>g</em><sub>1</sub>, <em>g</em><sub>2</sub>, …, <em>g</em><sub><em>n</em></sub></span>.
+For each garage sale <span
+class="math inline"><em>g</em><sub><em>j</em></sub></span>, you have an
+estimate of its value to you, <span
+class="math inline"><em>v</em><sub><em>j</em></sub></span>. For any two
+garage sales you have an estimate of the transportation cost <span
+class="math inline"><em>d</em><sub><em>i</em><em>j</em></sub></span> of
+getting from <span
+class="math inline"><em>g</em><sub><em>i</em></sub></span> to <span
+class="math inline"><em>g</em><sub><em>j</em></sub></span>. You are also
+given the costs <span
+class="math inline"><em>d</em><sub>0<em>j</em></sub></span> and <span
+class="math inline"><em>d</em><sub><em>j</em>0</sub></span> of going
+between your home and each garage sale. You want to find a tour of a
+subset of the given garage sales, starting and ending at home, that
+maximizes your total benefit minus your total transportation costs. Give
+an algorithm that solves this problem in time <span
+class="math inline"><em>O</em>(<em>n</em><sup>2</sup>2<sup><em>n</em></sup>)</span>.
+(Hint: This is closely related to the traveling salesman problem.)</p>
+<h3 id="617">6.17</h3>
+<p>Given an unlimited supply of coins of denominations <span
+class="math inline"><em>x</em><sub>1</sub>, <em>x</em><sub>2</sub>, …, <em>x</em><sub><em>n</em></sub></span>,
+we wish to make change for a value <span
+class="math inline"><em>v</em></span>; that is, we wish to find a set of
+coins whose total value is <span class="math inline"><em>v</em></span>.
+This might not be possible: for instance, if the denominations are 5 and
+10 then we can make change for 15 but not for 12 . Give an <span
+class="math inline"><em>O</em>(<em>n</em><em>v</em>)</span>
+dynamic-programming algorithm for the following problem.</p>
+<p><strong>Input:</strong> <span
+class="math inline"><em>x</em><sub>1</sub>, …, <em>x</em><sub><em>n</em></sub>; <em>v</em></span>.</p>
+<p><strong>Question:</strong> Is it possible to make change for <span
+class="math inline"><em>v</em></span> using coins of denominations <span
+class="math inline"><em>x</em><sub>1</sub>, …, <em>x</em><sub><em>n</em></sub></span>
+?</p>
+<h3 id="618">6.18</h3>
+<p>Consider the following variation on the change-making problem
+(Exercise 6.17): you are given denominations <span
+class="math inline"><em>x</em><sub>1</sub>, <em>x</em><sub>2</sub>, …, <em>x</em><sub><em>n</em></sub></span>,
+and you want to make change for a value <span
+class="math inline"><em>v</em></span>, but you are allowed to use each
+denomination at most once. For instance, if the denominations are <span
+class="math inline">1, 5, 10, 20</span>, then you can make change for
+<span class="math inline">16 = 1 + 15</span> and for <span
+class="math inline">31 = 1 + 10 + 20</span> but not for 40 (because you
+can't use 20 twice).</p>
+<p>Figure 6.12 Two binary search trees for the keywords of a programming
+language. <img
+src="../../.assets/remote/022a2c7c4099e474.jpg" /></p>
+<p>Figure 6.12 Two binary search trees for the keywords of a programming
+language. <img
+src="../../.assets/remote/c86a112afa7eb911.jpg" /></p>
+<p><strong>Input:</strong> Positive integers <span
+class="math inline"><em>x</em><sub>1</sub>, <em>x</em><sub>2</sub>, …, <em>x</em><sub><em>n</em></sub></span>;
+another integer <span class="math inline"><em>v</em></span>.</p>
+<p><strong>Output:</strong> Can you make change for <span
+class="math inline"><em>v</em></span>, using each denomination <span
+class="math inline"><em>x</em><sub><em>i</em></sub></span> at most once?
+Show how to solve this problem in time <span
+class="math inline"><em>O</em>(<em>n</em><em>v</em>)</span>.</p>
+<h3 id="619">6.19</h3>
+<p>Here is yet another variation on the change-making problem (Exercise
+6.17).</p>
+<p>Given an unlimited supply of coins of denominations <span
+class="math inline"><em>x</em><sub>1</sub>, <em>x</em><sub>2</sub>, …, <em>x</em><sub><em>n</em></sub></span>,
+we wish to make change for a value <span
+class="math inline"><em>v</em></span> using at most <span
+class="math inline"><em>k</em></span> coins; that is, we wish to find a
+set of <span class="math inline"> ≤ <em>k</em></span> coins whose total
+value is <span class="math inline"><em>v</em></span>. This might not be
+possible: for instance, if the denominations are 5 and 10 and <span
+class="math inline"><em>k</em> = 6</span>, then we can make change for
+55 but not for 65 . Give an efficient dynamic-programming algorithm for
+the following problem.</p>
+<p><strong>Input:</strong> <span
+class="math inline"><em>x</em><sub>1</sub>, …, <em>x</em><sub><em>n</em></sub>; <em>k</em>; <em>v</em></span>.</p>
+<p><strong>Question:</strong> Is it possible to make change for <span
+class="math inline"><em>v</em></span> using at most <span
+class="math inline"><em>k</em></span> coins, of denominations <span
+class="math inline"><em>x</em><sub>1</sub>, …, <em>x</em><sub><em>n</em></sub></span>
+?</p>
+<h3 id="620">6.20</h3>
+<p>Optimal binary search trees. Suppose we know the frequency with which
+keywords occur in programs of a certain language, for instance:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">begin</th>
+<th style="text-align: left;"><span class="math inline">5%</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">do</td>
+<td style="text-align: left;"><span class="math inline">40%</span></td>
+</tr>
+<tr>
+<td style="text-align: left;">else</td>
+<td style="text-align: left;"><span class="math inline">8%</span></td>
+</tr>
+<tr>
+<td style="text-align: left;">end</td>
+<td style="text-align: left;"><span class="math inline">4%</span></td>
+</tr>
+<tr>
+<td style="text-align: left;">if</td>
+<td style="text-align: left;"><span class="math inline">10%</span></td>
+</tr>
+<tr>
+<td style="text-align: left;">then</td>
+<td style="text-align: left;"><span class="math inline">10%</span></td>
+</tr>
+<tr>
+<td style="text-align: left;">while</td>
+<td style="text-align: left;"><span class="math inline">23%</span></td>
+</tr>
+</tbody>
+</table>
+<p>We want to organize them in a binary search tree, so that the keyword
+in the root is alphabetically bigger than all the keywords in the left
+subtree and smaller than all the keywords in the right subtree (and this
+holds for all nodes). Figure 6.12 has a nicely-balanced example on the
+left. In this case, when a keyword is being looked up, the number of
+comparisons needed is at most three: for instance, in finding "while",
+only the three nodes "end", "then", and "while" get examined. But since
+we know the frequency with which keywords are accessed, we can use an
+even more fine-tuned cost function, the average number of comparisons to
+look up a word. For the search tree on the left, it is</p>
+<p><span class="math display"> cost
+ = 1(0.04) + 2(0.40 + 0.10) + 3(0.05 + 0.08 + 0.10 + 0.23) = 2.42.</span></p>
+<p>By this measure, the best search tree is the one on the right, which
+has a cost of 2.18 . Give an efficient algorithm for the following
+task.</p>
+<p><strong>Input:</strong> <span class="math inline"><em>n</em></span>
+words (in sorted order); frequencies of these words: <span
+class="math inline"><em>p</em><sub>1</sub>, <em>p</em><sub>2</sub>, …, <em>p</em><sub><em>n</em></sub></span>.</p>
+<p><strong>Output:</strong> The binary search tree of lowest cost
+(defined above as the expected number of comparisons in looking up a
+word).</p>
+<h3 id="621">6.21</h3>
+<p>A vertex cover of a graph <span
+class="math inline"><em>G</em> = (<em>V</em>, <em>E</em>)</span> is a
+subset of vertices <span
+class="math inline"><em>S</em> ⊆ <em>V</em></span> that includes at
+least one endpoint of every edge in <span
+class="math inline"><em>E</em></span>. Give a linear-time algorithm for
+the following task.</p>
+<p><strong>Input:</strong> An undirected tree <span
+class="math inline"><em>T</em> = (<em>V</em>, <em>E</em>)</span>.</p>
+<p><strong>Output:</strong> The size of the smallest vertex cover of
+<span class="math inline"><em>T</em></span>. For instance, in the
+following tree, possible vertex covers include <span
+class="math inline">{<em>A</em>, <em>B</em>, <em>C</em>, <em>D</em>, <em>E</em>, <em>F</em>, <em>G</em>}</span>
+and <span
+class="math inline">{<em>A</em>, <em>C</em>, <em>D</em>, <em>F</em>}</span>
+but not <span
+class="math inline">{<em>C</em>, <em>E</em>, <em>F</em>}</span>. The
+smallest vertex cover has size 3: <span
+class="math inline">{<em>B</em>, <em>E</em>, <em>G</em>}</span>. <img
+src="../../.assets/remote/423ea182df8033ed.jpg" /></p>
+<h3 id="622">6.22</h3>
+<p>Give an <span
+class="math inline"><em>O</em>(<em>n</em><em>t</em>)</span> algorithm
+for the following task.</p>
+<p><strong>Input:</strong> A list of <span
+class="math inline"><em>n</em></span> positive integers <span
+class="math inline"><em>a</em><sub>1</sub>, <em>a</em><sub>2</sub>, …, <em>a</em><sub><em>n</em></sub></span>;
+a positive integer <span class="math inline"><em>t</em></span>.</p>
+<p><strong>Question:</strong> Does some subset of the <span
+class="math inline"><em>a</em><sub><em>i</em></sub></span> 's add up to
+<span class="math inline"><em>t</em></span> ? (You can use each <span
+class="math inline"><em>a</em><sub><em>i</em></sub></span> at most
+once.) (Hint: Look at subproblems of the form "does a subset of <span
+class="math inline">{<em>a</em><sub>1</sub>, <em>a</em><sub>2</sub>, …, <em>a</em><sub><em>i</em></sub>}</span>
+add up to <span class="math inline"><em>s</em></span> ?")</p>
+<h3 id="623">6.23</h3>
+<p>A mission-critical production system has <span
+class="math inline"><em>n</em></span> stages that have to be performed
+sequentially; stage <span class="math inline"><em>i</em></span> is
+performed by machine <span
+class="math inline"><em>M</em><sub><em>i</em></sub></span>. Each machine
+<span class="math inline"><em>M</em><sub><em>i</em></sub></span> has a
+probability <span
+class="math inline"><em>r</em><sub><em>i</em></sub></span> of
+functioning reliably and a probability <span
+class="math inline">1 − <em>r</em><sub><em>i</em></sub></span> of
+failing (and the failures are independent). Therefore, if we implement
+each stage with a single machine, the probability that the whole system
+works is <span
+class="math inline"><em>r</em><sub>1</sub> ⋅ <em>r</em><sub>2</sub>⋯<em>r</em><sub><em>n</em></sub></span>.
+To improve this probability we add redundancy, by having <span
+class="math inline"><em>m</em><sub><em>i</em></sub></span> copies of the
+machine <span class="math inline"><em>M</em><sub><em>i</em></sub></span>
+that performs stage <span class="math inline"><em>i</em></span>. The
+probability that all <span
+class="math inline"><em>m</em><sub><em>i</em></sub></span> copies fail
+simultaneously is only <span
+class="math inline">(1 − <em>r</em><sub><em>i</em></sub>)<sup><em>m</em><sub><em>i</em></sub></sup></span>,
+so the probability that stage <span
+class="math inline"><em>i</em></span> is completed correctly is <span
+class="math inline">1 − (1 − <em>r</em><sub><em>i</em></sub>)<sup><em>m</em><sub><em>i</em></sub></sup></span>
+and the probability that the whole system works is <span
+class="math inline">$\prod_{i=1}^{n}\left(1-\left(1-r_{i}\right)^{m_{i}}\right)$</span>.
+Each machine <span
+class="math inline"><em>M</em><sub><em>i</em></sub></span> has a cost
+<span class="math inline"><em>c</em><sub><em>i</em></sub></span>, and
+there is a total budget <span class="math inline"><em>B</em></span> to
+buy machines. (Assume that <span class="math inline"><em>B</em></span>
+and <span class="math inline"><em>c</em><sub><em>i</em></sub></span> are
+positive integers.) Given the probabilities <span
+class="math inline"><em>r</em><sub>1</sub>, …, <em>r</em><sub><em>n</em></sub></span>,
+the costs <span
+class="math inline"><em>c</em><sub>1</sub>, …, <em>c</em><sub><em>n</em></sub></span>,
+and the budget <span class="math inline"><em>B</em></span>, find the
+redundancies <span
+class="math inline"><em>m</em><sub>1</sub>, …, <em>m</em><sub><em>n</em></sub></span>
+that are within the available budget and that maximize the probability
+that the system works correctly.</p>
+<h3 id="624">6.24</h3>
+<p>Time and space complexity of dynamic programming. Our dynamic
+programming algorithm for computing the edit distance between strings of
+length <span class="math inline"><em>m</em></span> and <span
+class="math inline"><em>n</em></span> creates a table of size <span
+class="math inline"><em>n</em> × <em>m</em></span> and therefore needs
+<span class="math inline"><em>O</em>(<em>m</em><em>n</em>)</span> time
+and space. In practice, it will run out of space long before it runs out
+of time. How can this space requirement be reduced?</p>
+<p><strong>(a)</strong> Show that if we just want to compute the value
+of the edit distance (rather than the optimal sequence of edits), then
+only <span class="math inline"><em>O</em>(<em>n</em>)</span> space is
+needed, because only a small portion of the table needs to be maintained
+at any given time.</p>
+<p><strong>(b)</strong> Now suppose that we also want the optimal
+sequence of edits. As we saw earlier, this problem can be recast in
+terms of a corresponding grid-shaped dag, in which the goal is to find
+the optimal path from node <span class="math inline">(0, 0)</span> to
+node <span class="math inline">(<em>n</em>, <em>m</em>)</span>. It will
+be convenient to work with this formulation, and while we're talking
+about convenience, we might as well also assume that <span
+class="math inline"><em>m</em></span> is a power of 2 . Let's start with
+a small addition to the edit distance algorithm that will turn out to be
+very useful. The optimal path in the dag must pass through an
+intermediate node ( <span
+class="math inline"><em>k</em>, <em>m</em>/2</span> ) for some <span
+class="math inline"><em>k</em></span>; show how the algorithm can be
+modified to also return this value <span
+class="math inline"><em>k</em></span>.</p>
+<p><strong>(c)</strong> Now consider a recursive scheme:</p>
+<pre><code>procedure find-path $((0,0) \rightarrow(n, m))$
+compute the value $k$ above
+find-path( $(0,0) \rightarrow(k, m / 2)$ )
+find-path $((k, m / 2) \rightarrow(n, m))$
+concatenate these two paths, with $k$ in the middle</code></pre>
+<p>Show that this scheme can be made to run in <span
+class="math inline"><em>O</em>(<em>m</em><em>n</em>)</span> time and
+<span class="math inline"><em>O</em>(<em>n</em>)</span> space.</p>
+<h3 id="625">6.25</h3>
+<p>Consider the following 3-PARTITION problem. Given integers <span
+class="math inline"><em>a</em><sub>1</sub>, …, <em>a</em><sub><em>n</em></sub></span>,
+we want to determine whether it is possible to partition of <span
+class="math inline">{1, …, <em>n</em>}</span> into three disjoint
+subsets <span
+class="math inline"><em>I</em>, <em>J</em>, <em>K</em></span> such
+that</p>
+<p><span class="math display">$$
+\sum_{i \in I} a_{i}=\sum_{j \in J} a_{j}=\sum_{k \in K}
+a_{k}=\frac{1}{3} \sum_{i=1}^{n} a_{i}
+$$</span></p>
+<p>For example, for input <span
+class="math inline">(1, 2, 3, 4, 4, 5, 8)</span> the answer is yes,
+because there is the partition <span class="math inline">(1, 8)</span>,
+<span class="math inline">(4, 5), (2, 3, 4)</span>. On the other hand,
+for input <span class="math inline">(2, 2, 3, 5)</span> the answer is
+no. Devise and analyze a dynamic programming algorithm for 3-PARTITION
+that runs in time polynomial in <span
+class="math inline"><em>n</em></span> and in <span
+class="math inline">∑<sub><em>i</em></sub><em>a</em><sub><em>i</em></sub></span>.</p>
+<h3 id="626">6.26</h3>
+<p>Sequence alignment. When a new gene is discovered, a standard
+approach to understanding its function is to look through a database of
+known genes and find close matches. The closeness of two genes is
+measured by the extent to which they are aligned. To formalize this,
+think of a gene as being a long string over an alphabet <span
+class="math inline"><em>Σ</em> = {<em>A</em>, <em>C</em>, <em>G</em>, <em>T</em>}</span>.
+Consider two genes (strings) <span
+class="math inline"><em>x</em> = <em>A</em><em>T</em><em>G</em><em>C</em><em>C</em></span>
+and <span
+class="math inline"><em>y</em> = <em>T</em><em>A</em><em>C</em><em>G</em><em>C</em><em>A</em></span>.
+An alignment of <span class="math inline"><em>x</em></span> and <span
+class="math inline"><em>y</em></span> is a way of matching up these two
+strings by writing them in columns, for instance:</p>
+<p>$$ \begin{array}{ccccccc}</p>
+<ul>
+<li>&amp; A &amp; T &amp; - &amp; G &amp; C &amp; C \ T &amp; A &amp; -
+&amp; C &amp; G &amp; C &amp; A \end{array} $$</li>
+</ul>
+<p>Here the "_" indicates a "gap." The characters of each string must
+appear in order, and each column must contain a character from at least
+one of the strings. The score of an alignment is specified by a scoring
+matrix <span class="math inline"><em>δ</em></span> of size <span
+class="math inline">(|<em>Σ</em>|+1) × (|<em>Σ</em>|+1)</span>, where
+the extra row and column are to accommodate gaps. For instance the
+preceding alignment has the following score:</p>
+<p><span
+class="math display"><em>δ</em>(−, <em>T</em>) + <em>δ</em>(<em>A</em>, <em>A</em>) + <em>δ</em>(<em>T</em>, −) + <em>δ</em>(−, <em>C</em>) + <em>δ</em>(<em>G</em>, <em>G</em>) + <em>δ</em>(<em>C</em>, <em>C</em>) + <em>δ</em>(<em>C</em>, <em>A</em>).</span></p>
+<p>Give a dynamic programming algorithm that takes as input two strings
+<span class="math inline"><em>x</em>[1…<em>n</em>]</span> and <span
+class="math inline"><em>y</em>[1…<em>m</em>]</span> and a scoring matrix
+<span class="math inline"><em>δ</em></span>, and returns the
+highest-scoring alignment. The running time should be <span
+class="math inline"><em>O</em>(<em>m</em><em>n</em>)</span>.</p>
+<h3 id="627">6.27</h3>
+<p>Alignment with gap penalties. The alignment algorithm of Exercise
+6.26 helps to identify DNA sequences that are close to one another. The
+discrepancies between these closely matched sequences are often caused
+by errors in DNA replication. However, a closer look at the biological
+replication process reveals that the scoring function we considered
+earlier has a qualitative problem: nature often inserts or removes
+entire substrings of nucleotides (creating long gaps), rather than
+editing just one position at a time. Therefore, the penalty for a gap of
+length 10 should not be 10 times the penalty for a gap of length 1 , but
+something significantly smaller. Repeat Exercise 6.26, but this time use
+a modified scoring function in which the penalty for a gap of length
+<span class="math inline"><em>k</em></span> is <span
+class="math inline"><em>c</em><sub>0</sub> + <em>c</em><sub>1</sub><em>k</em></span>,
+where <span class="math inline"><em>c</em><sub>0</sub></span> and <span
+class="math inline"><em>c</em><sub>1</sub></span> are given constants
+(and <span class="math inline"><em>c</em><sub>0</sub></span> is larger
+than <span class="math inline"><em>c</em><sub>1</sub></span> ).</p>
+<h3 id="628">6.28</h3>
+<p>Local sequence alignment. Often two DNA sequences are significantly
+different, but contain regions that are very similar and are highly
+conserved. Design an algorithm that takes an input two strings <span
+class="math inline"><em>x</em>[1…<em>n</em>]</span> and <span
+class="math inline"><em>y</em>[1…<em>m</em>]</span> and a scoring matrix
+<span class="math inline"><em>δ</em></span> (as defined in Exercise
+6.26), and outputs substrings <span
+class="math inline"><em>x</em><sup>′</sup></span> and <span
+class="math inline"><em>y</em><sup>′</sup></span> of <span
+class="math inline"><em>x</em></span> and <span
+class="math inline"><em>y</em></span>, respectively, that have the
+highest-scoring alignment over all pairs of such substrings. Your
+algorithm should take time <span
+class="math inline"><em>O</em>(<em>m</em><em>n</em>)</span>.</p>
+<h3 id="629">6.29</h3>
+<p>Exon chaining. Each gene corresponds to a subregion of the overall
+genome (the DNA sequence); however, part of this region might be "junk
+DNA." Frequently, a gene consists of several pieces called exons, which
+are separated by junk fragments called introns. This complicates the
+process of identifying genes in a newly sequenced genome. Suppose we
+have a new DNA sequence and we want to check whether a certain gene (a
+string) is present in it. Because we cannot hope that the gene will be a
+contiguous subsequence, we look for partial matches-fragments of the DNA
+that are also present in the gene (actually, even these partial matches
+will be approximate, not perfect). We then attempt to assemble these
+fragments. Let <span class="math inline"><em>x</em>[1…<em>n</em>]</span>
+denote the DNA sequence. Each partial match can be represented by a
+triple <span
+class="math inline">(<em>l</em><sub><em>i</em></sub>, <em>r</em><sub><em>i</em></sub>, <em>w</em><sub><em>i</em></sub>)</span>,
+where <span
+class="math inline"><em>x</em>[<em>l</em><sub><em>i</em></sub>…<em>r</em><sub><em>i</em></sub>]</span>
+is the fragment and <span
+class="math inline"><em>w</em><sub><em>i</em></sub></span> is a weight
+representing the strength of the match (it might be a local alignment
+score or some other statistical quantity). Many of these potential
+matches could be false, so the goal is to find a subset of the triples
+that are consistent (nonoverlapping) and have a maximum total weight.
+Show how to do this efficiently.</p>
+<h3 id="630">6.30</h3>
+<p>Reconstructing evolutionary trees by maximum parsimony. Suppose we
+manage to sequence a particular gene across a whole bunch of different
+species. For concreteness, say there are <span
+class="math inline"><em>n</em></span> species, and the sequences are
+strings of length <span class="math inline"><em>k</em></span> over
+alphabet <span
+class="math inline"><em>Σ</em> = {<em>A</em>, <em>C</em>, <em>G</em>, <em>T</em>}</span>.
+How can we use this information to reconstruct the evolutionary history
+of these species? Evolutionary history is commonly represented by a tree
+whose leaves are the different species, whose root is their common
+ancestor, and whose internal branches represent speciation events (that
+is, moments when a new species broke off from an existing one). Thus we
+need to find the following:</p>
+<ul>
+<li>An evolutionary tree with the given species at the leaves.</li>
+<li>For each internal node, a string of length <span
+class="math inline"><em>k</em></span> : the gene sequence for that
+particular ancestor.</li>
+</ul>
+<p>For each possible tree <span class="math inline"><em>T</em></span>,
+annotated with sequences <span
+class="math inline"><em>s</em>(<em>u</em>) ∈ <em>Σ</em><sup><em>k</em></sup></span>
+at each of its nodes <span class="math inline"><em>u</em></span>, we can
+assign a score based on the principle of parsimony: fewer mutations are
+more likely.</p>
+<p><span
+class="math display">score (<em>T</em>) = ∑<sub>(<em>u</em>, <em>v</em>) ∈ <em>E</em>(<em>T</em>)</sub>(
+number of positions on which <em>s</em>(<em>u</em>) and
+<em>s</em>(<em>v</em>) disagree). </span></p>
+<p>Finding the highest-score tree is a difficult problem. Here we will
+consider just a small part of it: suppose we know the structure of the
+tree, and we want to fill in the sequences <span
+class="math inline"><em>s</em>(<em>u</em>)</span> of the internal nodes
+<span class="math inline"><em>u</em></span>. Here's an example with
+<span class="math inline"><em>k</em> = 4</span> and <span
+class="math inline"><em>n</em> = 5</span> : <img
+src="../../.assets/remote/b79b6308c83d9553.jpg" /></p>
+<p><strong>(a)</strong> In this particular example, there are several
+maximum parsimony reconstructions of the internal node sequences. Find
+one of them.</p>
+<p><strong>(b)</strong> Give an efficient (in terms of <span
+class="math inline"><em>n</em></span> and <span
+class="math inline"><em>k</em></span> ) algorithm for this task. (Hint:
+Even though the sequences might be long, you can do just one position at
+a time.)</p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><pre><code>${ }^{2}$ In fact, there is also a $O\left(n \log ^{2} n\right)$ algorithm within your reach.</code></pre>
+<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></li>
+</ol>
+</section>
+</main>
+
+<!-- code highlighting -->
+<link rel="modulepreload" href="../../vendor/mermaid/mermaid.esm.min.mjs">
+<script src="../../vendor/highlight/highlight.min.js"></script>
+<!-- math -->
+<script defer src="../../vendor/katex/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="../../vendor/katex/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+<script type="module">
+  // 1) Normalize mermaid blocks. Pandoc(gfm) emits <pre class="mermaid"><code>...</code></pre>.
+  //    Flatten to raw source text so mermaid parses cleanly; also catch the code-only variant.
+  document.querySelectorAll('pre > code.language-mermaid, pre > code.mermaid').forEach(c => {
+    const p = document.createElement('pre'); p.className = 'mermaid'; p.textContent = c.textContent;
+    c.parentElement.replaceWith(p);
+  });
+  document.querySelectorAll('pre.mermaid').forEach(p => { p.textContent = p.textContent; });
+  // 2) Syntax-highlight every code block EXCEPT mermaid (auto-detect language)
+  if (window.hljs) document.querySelectorAll('pre:not(.mermaid) > code').forEach(el => window.hljs.highlightElement(el));
+  // 3) Render mermaid (dark)
+  try {
+    const mermaid = (await import('../../vendor/mermaid/mermaid.esm.min.mjs')).default;
+    mermaid.initialize({ startOnLoad: false, theme: 'dark', securityLevel: 'loose' });
+    await mermaid.run({ querySelector: 'pre.mermaid' });
+  } catch (e) { /* offline: leave as text */ }
+</script>
+<script>
+  // 4) Math: render \( \) and \[ \] (pandoc converts dollar-math to these). Tolerate malformed legacy TeX.
+  window.addEventListener('DOMContentLoaded', () => {
+    if (window.renderMathInElement) renderMathInElement(document.querySelector('.content'), {
+      // dollar-delimiters included so KaTeX also renders math pandoc failed to parse (left raw):
+      // a space before a closing delim, cases-env inline, apostrophes in text, etc. Display before inline.
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '\\[', right: '\\]', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false }
+      ],
+      throwOnError: false,
+      // \n is used in the legacy notes as a homemade "arrow over" (directed edge); map it to \overrightarrow.
+      macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
+    });
+  });
+</script>
+</body>
+</html>

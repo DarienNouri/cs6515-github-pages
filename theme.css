@@ -1,0 +1,191 @@
+/* CS6515 — dark theme (Tokyo-Night-ish, near-black, NOT github-dark).
+   First pass; tuned for readability on a near-black background. */
+:root {
+  --bg:        #101117;   /* page: deeper near-black, faint blue tint (not pure black) */
+  --bg-grad:   #0c0d12;
+  --panel:     #1a1b26;   /* cards / code / tables */
+  --panel-2:   #1e2030;
+  --border:    #2a2c3a;
+  --border-soft:#23242f;
+
+  --text:      #c8d0e8;   /* body */
+  --text-strong:#e8ecf8;  /* bold / emphasis */
+  --muted:     #8a90a8;   /* secondary */
+  --subtle:    #636a82;
+
+  --blue:      #7aa2f7;   /* headings */
+  --cyan:      #7dcfff;   /* links */
+  --purple:    #bb9af7;   /* h-accents */
+  --green:     #9ece6a;
+  --orange:    #ff9e64;
+  --red:       #f7768e;
+  --yellow:    #e0af68;
+
+  --link:      #7dcfff;
+  --link-hover:#a4dbff;
+  --accent:    #7aa2f7;
+
+  --code-bg:   #0b0c11;   /* deeper, darker code panel */
+  --inline-code-bg: #181a24;
+  --inline-code-fg: #c0caf5;
+
+  --radius: 10px;
+  --maxw: 47rem;   /* ~70ch measure at 16.5px Inter — comfortable for long reading */
+  --ui: "Inter", ui-sans-serif, -apple-system, "Segoe UI", sans-serif;
+  --serif: "Newsreader", Georgia, "Iowan Old Style", Charter, serif;
+}
+
+* { box-sizing: border-box; }
+html { color-scheme: dark; scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background:
+    radial-gradient(1100px 520px at 80% -10%, rgba(122,162,247,.08), transparent 60%),
+    linear-gradient(180deg, var(--bg) 0%, var(--bg-grad) 100%);
+  background-attachment: fixed;
+  color: var(--text);
+  font: 16.5px/1.72 "Inter", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-feature-settings: "cv05" 1, "ss01" 1, "tnum" 1;  /* Inter: nicer l, single-story a, tabular nums */
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* ---- top bar ---- */
+.topbar {
+  position: sticky; top: 0; z-index: 20;
+  display: flex; align-items: center; gap: .75rem;
+  padding: .6rem 1.1rem;
+  background: rgba(20,21,28,.82);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+}
+.topbar .home {
+  font-weight: 700; letter-spacing: .02em;
+  color: var(--text-strong); text-decoration: none;
+  padding: .15rem .5rem; border: 1px solid var(--border); border-radius: 7px;
+}
+.topbar .home:hover { border-color: var(--accent); color: #fff; }
+.topbar .crumbloc { color: var(--muted); font-size: .9rem; }
+
+/* ---- layout ---- */
+.content {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 1.1rem 1.3rem 6rem;   /* tighter top: get content higher */
+}
+/* compact top matter on week pages: smaller h1 gap, denser breadcrumb + due table */
+.content > h1:first-child { margin-top: .2rem; }
+.content > blockquote:first-of-type { margin: .5rem 0 .8rem; padding: .5rem .8rem; font-size: .88rem; }
+.content > h3:first-of-type { margin-top: .9rem; }
+.content table { margin: .5rem 0; }
+
+/* ---- headings (Inter, tight tracking) ---- */
+h1,h2,h3,h4,h5,h6 { font-family: var(--ui); color: var(--text-strong); line-height: 1.22; font-weight: 700; letter-spacing: -0.011em; }
+h1 { font-size: 1.95rem; margin: .2rem 0 1rem; font-weight: 800; letter-spacing: -0.02em; }
+h2 { font-size: 1.4rem; margin: 2.4rem 0 .85rem; padding-bottom: .35rem; border-bottom: 1px solid var(--border-soft); color: var(--blue); }
+h3 { font-size: 1.15rem; margin: 1.7rem 0 .6rem; color: var(--purple); }
+h4 { font-size: 1.02rem; margin: 1.3rem 0 .5rem; color: var(--text-strong); }
+h5 { font-size: .82rem; margin: 1.1rem 0 .4rem; color: var(--cyan); text-transform: uppercase; letter-spacing: .07em; font-weight: 700; }
+h6 { font-size: .9rem; margin: 1rem 0 .4rem; color: var(--muted); font-weight: 600; }
+
+p { margin: .7rem 0; }
+li { margin: .22rem 0; }
+ul, ol { padding-left: 1.4rem; }
+p, li { color: var(--text); }
+strong { color: var(--text-strong); font-weight: 700; }
+em { color: var(--text); font-style: italic; }
+hr { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
+
+a { color: var(--link); text-decoration: none; border-bottom: 1px solid transparent; }
+a:hover { color: var(--link-hover); border-bottom-color: currentColor; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
+/* visited prose links = study-progress signal (muted purple); nav chrome stays neutral */
+.content a:visited { color: #9d7cd8; }
+.topbar a:visited, .card:visited { color: inherit; }
+
+/* ---- blockquote: editorial serif callout (definitions, key ideas, theorems) ---- */
+blockquote {
+  margin: 1.2rem 0; padding: .8rem 1.1rem;
+  background: var(--panel);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  color: var(--muted);
+  font-family: var(--serif);
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+blockquote p { margin: .35rem 0; }
+blockquote strong { color: var(--text-strong); font-family: var(--ui); }
+/* the top breadcrumb/meta blockquote stays compact sans */
+.content > blockquote:first-of-type { font-family: var(--ui); font-size: .9rem; }
+
+/* ---- tables ---- */
+table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: .94rem; display: block; overflow-x: auto; }
+thead th { background: var(--panel-2); color: var(--text-strong); text-align: left; }
+th, td { border: 1px solid var(--border); padding: .5rem .7rem; }
+tbody tr:nth-child(odd) { background: rgba(255,255,255,.015); }
+tbody tr:hover { background: rgba(122,162,247,.06); }
+
+/* ---- inline + block code ---- */
+code { font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .9em; }
+:not(pre) > code {
+  background: var(--inline-code-bg); color: var(--inline-code-fg);
+  padding: .12em .4em; border-radius: 5px; border: 1px solid var(--border-soft);
+}
+pre {
+  background: var(--code-bg); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 1rem 1.1rem; overflow-x: auto;
+  margin: 1rem 0; font-size: .88rem; line-height: 1.55;
+}
+pre code { background: none; border: none; padding: 0; }
+/* force the darker code panel over the highlight.js theme's own background */
+pre code.hljs, .hljs { background: var(--code-bg) !important; }
+
+/* ---- details / collapsibles ---- */
+details {
+  margin: 1rem 0; border: 1px solid var(--border);
+  border-radius: var(--radius); background: var(--panel);
+  padding: 0 1rem;
+}
+details[open] { padding-bottom: .8rem; }
+summary {
+  cursor: pointer; padding: .7rem .2rem; font-weight: 600;
+  color: var(--text-strong); list-style: none;
+}
+summary::-webkit-details-marker { display: none; }
+summary::before { content: "▸ "; color: var(--accent); }
+details[open] > summary::before { content: "▾ "; }
+
+/* ---- media ---- */
+img { max-width: 100%; height: auto; border-radius: 8px; border: 1px solid var(--border); }
+video { width: 100%; border-radius: var(--radius); border: 1px solid var(--border); background: #000; }
+iframe { width: 100%; border: 1px solid var(--border); border-radius: var(--radius); }
+
+/* ---- KaTeX sizing ---- */
+.katex { font-size: 1.04em; }
+.katex-display { overflow-x: auto; overflow-y: hidden; padding: .4rem 0; }
+
+/* ---- landing grid ---- */
+.cardgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: .9rem; margin: 1.2rem 0; }
+.card {
+  display: block; padding: 1rem 1.1rem; background: var(--panel);
+  border: 1px solid var(--border); border-radius: var(--radius);
+  color: var(--text); border-bottom: 1px solid var(--border);
+}
+.card:hover { border-color: var(--accent); transform: translateY(-2px); transition: .15s; }
+.card .t { font-weight: 700; color: var(--text-strong); }
+.card .d { font-size: .85rem; color: var(--muted); margin-top: .25rem; }
+.card.current { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent) inset; }
+
+/* ---- figure gallery (lecture figures) ---- */
+.figgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: .7rem; margin: .6rem 0; }
+.figgrid img { width: 100%; height: auto; background: #fff; border: 1px solid var(--border); border-radius: 8px; }
+.figgrid figure { margin: 0; }
+.figgrid figcaption { font-size: .75rem; color: var(--subtle); text-align: center; margin-top: .2rem; }
+.examples-frame { width: 100%; height: 640px; background: #fff; border: 1px solid var(--border); border-radius: var(--radius); }
+
+/* ---- responsive ---- */
+@media (max-width: 640px) {
+  .content { padding: 1.3rem .9rem 4rem; }
+  h1 { font-size: 1.55rem; }
+}

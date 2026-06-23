@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Week 6 — Max-Flow Basics — CS6515</title>
+<link rel="stylesheet" href="../../vendor/fonts/fonts.css">
+<link rel="stylesheet" href="../../theme.css">
+<link rel="stylesheet" href="../../vendor/katex/katex.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="../../vendor/highlight/styles/tokyo-night-dark.min.css">
+
+</head>
+<body>
+<header class="topbar">
+  <a class="home" href="../../index.html">CS6515</a>
+  <span class="crumbloc">Week 6 — Max-Flow Basics</span>
+</header>
+<main class="content">
+<h1 id="week-6--max-flow-basics">Week 6 — Max-Flow Basics</h1>
+<blockquote>
+<p><strong><code>CURRENT WEEK</code></strong> · <strong>2026-06-22 →
+06-28</strong> · Modules <strong>MF1</strong> (Ford-Fulkerson),
+<strong>MF2</strong> (Max-Flow = Min-Cut)</p>
+<p><a href="../W05_2026-06-15_GR3/index.html">◀ W05 MST</a> · <a href="../index.html">All
+weeks</a> · <a href="../../00_START_HERE/INDEX.html">Index</a> · <a
+href="../W07_2026-06-29_MF4_EXAM2/index.html">W07 Edmonds-Karp ▶</a></p>
+</blockquote>
+<h3 id="due-this-week">Due this week</h3>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Type</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>HW6</strong></td>
+<td>written</td>
+<td>flow modeling / reductions</td>
+</tr>
+<tr>
+<td><strong>HW7</strong></td>
+<td>coding</td>
+<td>implement max-flow</td>
+</tr>
+<tr>
+<td><strong>Quiz 5</strong></td>
+<td>graph content</td>
+<td>covers graph theory</td>
+</tr>
+</tbody>
+</table>
+<details>
+<summary><b>Watch the lecture</b> (Max Flow Basics)</summary>
+
+<p><video controls preload="metadata" width="100%" src="https://storage.googleapis.com/darien-public-assets/cs6515-summer-2026/v20260623/videos/06_Week_06_Max_Flow_Basics.mp4"></video></p>
+<p><a href="https://storage.googleapis.com/darien-public-assets/cs6515-summer-2026/v20260623/videos/06_Week_06_Max_Flow_Basics.mp4">▶ Open video</a> ·
+<a href="transcripts/06_Week_06_Max_Flow_Basics.txt">Read
+transcript</a></p>
+</details>
+
+<hr />
+<h2 id="learning-objectives">Learning objectives</h2>
+<ul>
+<li>Model a real problem as a <strong>flow network</strong> and reduce
+it to a single max-flow call.</li>
+<li>Build the <strong>residual graph</strong> and run
+<strong>Ford-Fulkerson</strong> by hand.</li>
+<li>State and use the <strong>max-flow / min-cut theorem</strong>;
+recover a min-cut from a final residual graph.</li>
+<li>Quote the <span
+class="math inline"><em>O</em>(<em>m</em><em>C</em>)</span> runtime and
+explain why it's only <em>pseudo</em>-polynomial.</li>
+</ul>
+<h2 id="core-concepts">Core concepts</h2>
+<h3 id="flow-network">Flow network</h3>
+<p><strong>Definition.</strong> A directed graph <span
+class="math inline"><em>G</em> = (<em>V</em>, <em>E</em>)</span> with a
+<strong>source</strong> <span class="math inline"><em>s</em></span>, a
+<strong>sink</strong> <span class="math inline"><em>t</em></span>, and a
+capacity <span
+class="math inline"><em>c</em><sub><em>e</em></sub> ≥ 0</span> on every
+edge. (Course-clean form: no edge into <span
+class="math inline"><em>s</em></span>, none out of <span
+class="math inline"><em>t</em></span>.)</p>
+<p>Intuition: pipes with capacity limits; push as much "stuff" from
+<span class="math inline"><em>s</em></span> to <span
+class="math inline"><em>t</em></span> as the pipes allow.</p>
+<h3 id="feasible-flow">Feasible flow</h3>
+<p><strong>Definition.</strong> An assignment <span
+class="math inline"><em>f</em><sub><em>e</em></sub></span> to each edge
+is a <em>feasible flow</em> if it respects capacity and conserves flow
+at every internal vertex:</p>
+<p><span class="math display">$$
+\underbrace{0 \le f_e \le c_e}_{\text{capacity}}
+\qquad\text{and}\qquad
+\underbrace{\sum_{(u,v)\in E} f_{uv} \;=\; \sum_{(v,w)\in E}
+f_{vw}}_{\text{conservation, } \forall v\in V\setminus\{s,t\}}.
+$$</span></p>
+<p><strong>Value</strong> of a flow = net flow leaving the source: <span
+class="math display">|<em>f</em>| = ∑<sub>(<em>s</em>, <em>v</em>) ∈ <em>E</em></sub><em>f</em><sub><em>s</em><em>v</em></sub>.</span></p>
+<h3 id="residual-graph-g_f">Residual graph <span
+class="math inline"><em>G</em><sub><em>f</em></sub></span></h3>
+<p><strong>Definition.</strong> Given a flow <span
+class="math inline"><em>f</em></span>, the residual graph records
+remaining room to move flow. For each edge <span
+class="math inline">(<em>u</em>, <em>v</em>)</span> with flow <span
+class="math inline"><em>f</em><sub><em>u</em><em>v</em></sub></span> on
+capacity <span
+class="math inline"><em>c</em><sub><em>u</em><em>v</em></sub></span>:</p>
+<ul>
+<li>a <strong>forward</strong> residual edge <span
+class="math inline"><em>u</em> → <em>v</em></span> of capacity <span
+class="math inline"><em>c</em><sub><em>u</em><em>v</em></sub> − <em>f</em><sub><em>u</em><em>v</em></sub></span>
+(room to push more), and</li>
+<li>a <strong>backward</strong> residual edge <span
+class="math inline"><em>v</em> → <em>u</em></span> of capacity <span
+class="math inline"><em>f</em><sub><em>u</em><em>v</em></sub></span>
+(room to cancel / reroute).</li>
+</ul>
+<p>The backward edges are what let the algorithm <em>undo</em> earlier
+greedy choices — the key to correctness.</p>
+<h3 id="augmenting-path">Augmenting path</h3>
+<p><strong>Definition.</strong> Any <span
+class="math inline"><em>s</em> → <em>t</em></span> path in <span
+class="math inline"><em>G</em><sub><em>f</em></sub></span> using only
+edges of positive residual capacity. Its <strong>bottleneck</strong> is
+the minimum residual capacity along it; pushing that much strictly
+increases <span class="math inline">|<em>f</em>|</span>.</p>
+<h3 id="s-t-cut"><span class="math inline"><em>s</em></span>-<span
+class="math inline"><em>t</em></span> cut</h3>
+<p><strong>Definition.</strong> A cut <span
+class="math inline">(<em>S</em>, <em>T</em>)</span> partitions <span
+class="math inline"><em>V</em></span> with <span
+class="math inline"><em>s</em> ∈ <em>S</em></span>, <span
+class="math inline"><em>t</em> ∈ <em>T</em></span>. Its
+<strong>capacity</strong> counts only forward edges crossing it: <span
+class="math display"><em>c</em>(<em>S</em>, <em>T</em>) = ∑<sub><em>u</em> ∈ <em>S</em>, <em>v</em> ∈ <em>T</em></sub><em>c</em><sub><em>u</em><em>v</em></sub>.</span>
+Every cut is an upper bound on every flow (<span
+class="math inline">|<em>f</em>| ≤ <em>c</em>(<em>S</em>, <em>T</em>)</span>)
+— flow must cross the cut to reach <span
+class="math inline"><em>t</em></span>.</p>
+<h2 id="algorithms">Algorithms</h2>
+<h3 id="ford-fulkerson--omc">Ford-Fulkerson — <span
+class="math inline"><em>O</em>(<em>m</em><em>C</em>)</span></h3>
+<ol type="1">
+<li>Start with zero flow (<span
+class="math inline"><em>f</em><sub><em>e</em></sub> = 0</span>
+everywhere).</li>
+<li>Build the residual graph <span
+class="math inline"><em>G</em><sub><em>f</em></sub></span>.</li>
+<li>Find an augmenting <span
+class="math inline"><em>s</em> → <em>t</em></span> path in <span
+class="math inline"><em>G</em><sub><em>f</em></sub></span> (any search —
+DFS/BFS).</li>
+<li>Compute its bottleneck capacity <span
+class="math inline"><em>b</em></span>; push <span
+class="math inline"><em>b</em></span> units: <span
+class="math inline">+<em>b</em></span> on forward edges, <span
+class="math inline">−<em>b</em></span> on the matching backward edges.
+Update <span
+class="math inline"><em>G</em><sub><em>f</em></sub></span>.</li>
+<li>Repeat 3–4 until no augmenting path exists. The current <span
+class="math inline"><em>f</em></span> is maximum.</li>
+</ol>
+<p>Runtime <span
+class="math inline"><em>O</em>(<em>m</em><em>C</em>)</span> where <span
+class="math inline"><em>m</em> = |<em>E</em>|</span> and <span
+class="math inline"><em>C</em></span> is the max-flow value: each
+augmentation adds <span class="math inline"> ≥ 1</span> unit (integer
+capacities) and costs <span
+class="math inline"><em>O</em>(<em>m</em>)</span> to find a path.
+<strong>Pseudo-polynomial</strong> — depends on the <em>magnitude</em>
+<span class="math inline"><em>C</em></span>, not just the input size, so
+large capacities can blow it up. (Next week's Edmonds-Karp fixes this
+with BFS.)</p>
+<table>
+<thead>
+<tr>
+<th>Algorithm</th>
+<th>Augmenting path</th>
+<th>Runtime</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Ford-Fulkerson</strong></td>
+<td>any <span class="math inline"><em>s</em></span>–<span
+class="math inline"><em>t</em></span> path</td>
+<td><span
+class="math inline"><em>O</em>(<em>m</em><em>C</em>)</span></td>
+<td>pseudo-polynomial</td>
+</tr>
+<tr>
+<td><strong>Edmonds-Karp</strong> (W7)</td>
+<td>shortest via BFS</td>
+<td><span
+class="math inline"><em>O</em>(<em>m</em><sup>2</sup><em>n</em>)</span></td>
+<td>strongly polynomial</td>
+</tr>
+</tbody>
+</table>
+<h2 id="key-theorems--results">Key theorems &amp; results</h2>
+<h3 id="max-flow--min-cut-theorem">Max-Flow / Min-Cut theorem</h3>
+<p><span
+class="math display">max<sub><em>f</em> feasible</sub>|<em>f</em>| = min<sub>(<em>S</em>, <em>T</em>) cut</sub><em>c</em>(<em>S</em>, <em>T</em>).</span></p>
+<p>Three <strong>equivalent</strong> statements (each implies the
+others):</p>
+<ol type="1">
+<li><span class="math inline"><em>f</em></span> is a maximum flow.</li>
+<li><span class="math inline"><em>G</em><sub><em>f</em></sub></span> has
+<strong>no</strong> augmenting <span
+class="math inline"><em>s</em> → <em>t</em></span> path.</li>
+<li>There exists a cut <span
+class="math inline">(<em>S</em>, <em>T</em>)</span> with <span
+class="math inline"><em>c</em>(<em>S</em>, <em>T</em>) = |<em>f</em>|</span>.</li>
+</ol>
+<p><em>Recovering the min-cut.</em> When Ford-Fulkerson stops, let <span
+class="math inline"><em>S</em></span> = all vertices <strong>reachable
+from <span class="math inline"><em>s</em></span></strong> in the final
+residual graph (and <span class="math inline"><em>T</em></span> the
+rest). Then <span class="math inline">(<em>S</em>, <em>T</em>)</span> is
+a minimum cut, and every edge from <span
+class="math inline"><em>S</em></span> to <span
+class="math inline"><em>T</em></span> is saturated (<span
+class="math inline"><em>f</em><sub><em>e</em></sub> = <em>c</em><sub><em>e</em></sub></span>)
+while every edge from <span class="math inline"><em>T</em></span> to
+<span class="math inline"><em>S</em></span> carries <span
+class="math inline">0</span>.</p>
+<h2 id="worked-example-tiny-max-flow--min-cut">Worked example (tiny
+max-flow / min-cut)</h2>
+<p>Network: <span class="math inline"><em>s</em> → <em>a</em></span>
+(cap 3), <span class="math inline"><em>s</em> → <em>b</em></span> (cap
+2), <span class="math inline"><em>a</em> → <em>t</em></span> (cap 2),
+<span class="math inline"><em>b</em> → <em>t</em></span> (cap 3), <span
+class="math inline"><em>a</em> → <em>b</em></span> (cap 1).</p>
+<ul>
+<li>Augment <span
+class="math inline"><em>s</em> → <em>a</em> → <em>t</em></span>,
+bottleneck <span class="math inline">2</span> → <span
+class="math inline">|<em>f</em>| = 2</span>.</li>
+<li>Augment <span
+class="math inline"><em>s</em> → <em>b</em> → <em>t</em></span>,
+bottleneck <span class="math inline">2</span> → <span
+class="math inline">|<em>f</em>| = 4</span>.</li>
+<li>Augment <span
+class="math inline"><em>s</em> → <em>a</em> → <em>b</em> → <em>t</em></span>,
+bottleneck <span class="math inline">min (3 − 2, 1, 3 − 2) = 1</span> →
+<span class="math inline">|<em>f</em>| = 5</span>.</li>
+<li>No augmenting path remains. From <span
+class="math inline"><em>s</em></span> in <span
+class="math inline"><em>G</em><sub><em>f</em></sub></span> only <span
+class="math inline">{<em>s</em>}</span> (and maybe <span
+class="math inline"><em>a</em></span>) is reachable; the min-cut <span
+class="math inline">{<em>s</em>}</span> vs rest has capacity <span
+class="math inline">3 + 2 = 5 = |<em>f</em>|</span>. Max-flow = min-cut
+= <strong>5</strong>.</li>
+</ul>
+<h2 id="common-pitfalls--exam-traps">Common pitfalls / exam traps</h2>
+<ul>
+<li>Forgetting <strong>backward</strong> residual edges — without them
+you can't reroute and may report a non-max flow.</li>
+<li>Counting backward edges in a cut's capacity — only
+<strong>forward</strong> <span
+class="math inline"><em>S</em> → <em>T</em></span> edges count.</li>
+<li>Calling <span
+class="math inline"><em>O</em>(<em>m</em><em>C</em>)</span> "polynomial"
+— it's pseudo-polynomial.</li>
+<li>Re-deriving Ford-Fulkerson internals on an exam instead of
+<strong>reducing</strong> to the black box.</li>
+</ul>
+<h2 id="how-to-answer-hw--exam">How to answer (HW / exam)</h2>
+<p><strong>Reduce, don't reinvent.</strong> Transform the input/output
+around the <strong>max-flow black box</strong> — do <em>not</em>
+re-derive Ford-Fulkerson internals. State your network (vertices, edges,
+capacities, <span class="math inline"><em>s</em></span>, <span
+class="math inline"><em>t</em></span>), call max-flow, then interpret
+the result (e.g. min-cut = the bottleneck set). Cite runtime from the <a
+href="guidance/common-course-runtimes.html">common runtimes</a>
+conventions.</p>
+<details>
+<summary><b>Go deeper</b> — readings · guidance · transcript</summary>
+
+<ul>
+<li><strong>Reading:</strong> <a
+href="readings/DPV-ch7-flows-and-linear-programming.pdf">DPV §7.2 —
+Flows on networks</a></li>
+<li><strong>Rules:</strong> <a
+href="guidance/usable-black-boxes-graphs.html">Usable black boxes for
+graphs</a> · <a href="guidance/graph-theory-guidance.html">Graph theory
+guidance</a> · <a href="guidance/common-course-runtimes.html">Common
+runtimes</a></li>
+<li><strong>Notes:</strong> <a href="notes/full-course-notes.html">full
+course notes</a> · <a href="notes/ga-notes.pdf">ga-notes.pdf</a></li>
+<li><strong>All files:</strong> <a href="lectures/">lectures/</a> · <a
+href="transcripts/">transcripts/</a> · <a href="readings/">readings/</a>
+· <a href="guidance/">guidance/</a> · <a href="notes/">notes/</a></li>
+</ul>
+</details>
+
+<h2 id="comprehensive-notes">Comprehensive Notes</h2>
+<blockquote>
+<p>Full lecture notes for this week's modules, with the lecture figures
+inline. Built from the canonical topic notes (MF1, MF2).</p>
+</blockquote>
+<h3 id="mf1--ford-fulkerson-algorithm">MF1 — Ford-Fulkerson
+Algorithm</h3>
+<p><strong>Problem setup.</strong> We are sending a supply from a vertex
+<span class="math inline"><em>s</em></span> to a destination <span
+class="math inline"><em>t</em></span>. The supply could be internet
+traffic, electricity, or physical products — in every case there is a
+start <span class="math inline"><em>s</em></span>, an end <span
+class="math inline"><em>t</em></span>, and a medium with a
+<strong>capacity</strong>. An electrical wire has a maximum capacity
+(overload it and sparks fly); a sewage pipe can only carry so much
+before it backs up; a road has a maximum flow before gridlock. We model
+each situation as a network graph with a designated start <span
+class="math inline"><em>s</em></span>, end <span
+class="math inline"><em>t</em></span>, and capacity weights on the
+edges. Capacity is always positive.</p>
+<p><img src="../../.assets/CS6515_images/MF1-001.png"
+alt="MF1-001" /></p>
+<p><strong>Flow network (formal).</strong> A flow network consists
+of</p>
+<ul>
+<li>a directed graph <span
+class="math inline"><em>G</em> = (<em>V</em>, <em>E</em>)</span>,</li>
+<li>source and sink vertices <span
+class="math inline"><em>s</em>, <em>t</em></span>,</li>
+<li>a capacity <span
+class="math inline"><em>c</em><sub><em>e</em></sub> &gt; 0</span> for
+each edge <span class="math inline"><em>e</em> ∈ <em>E</em></span>.</li>
+</ul>
+<p>(Nomenclature varies: CLRS forbids both <span
+class="math inline">(<em>u</em>, <em>v</em>)</span> and <span
+class="math inline">(<em>v</em>, <em>u</em>)</span> being in <span
+class="math inline"><em>E</em></span>; Wikipedia does not.)</p>
+<p><strong>Max-flow problem.</strong> Given the network, find flows
+<span class="math inline"><em>f</em><sub><em>e</em></sub></span> for
+<span class="math inline"><em>e</em> ∈ <em>E</em></span> subject to:</p>
+<ul>
+<li><strong>Capacity constraint</strong> — flow cannot exceed capacity:
+<span
+class="math inline">∀<em>e</em> ∈ <em>E</em>, 0 ≤ <em>f</em><sub><em>e</em></sub> ≤ <em>c</em><sub><em>e</em></sub></span>.</li>
+<li><strong>Conservation of flow</strong> — at each internal vertex,
+inflow equals outflow: <span class="math display">$$
+\forall v \in V \setminus \{s,t\}:\quad
+\sum_{\overrightarrow{wv}\,\in E} f_{wv} \;=\;
+\sum_{\overrightarrow{vz}\,\in E} f_{vz}.
+$$</span> Find a valid flow of maximum <strong>size</strong>, where
+$\text{size}(f) = $ flow out of $s = $ flow into <span
+class="math inline"><em>t</em></span>.</li>
+</ul>
+<p>Consider the following flow network (capacities in red):</p>
+<p><img src="../../.assets/CS6515_images/MF1-002.png"
+alt="MF1-002" /></p>
+<p>Computing a max flow by hand is tedious and error-prone, and the
+answer is not unique. The network below has three distinct max flows,
+all of size <span class="math inline">size(<em>f</em>) = 12</span> (with
+<span class="math inline">5</span> and <span
+class="math inline">7</span> arriving at <span
+class="math inline"><em>t</em></span>):</p>
+<p><img src="../../.assets/CS6515_images/MF1-003.png"
+alt="MF1-003" /></p>
+<blockquote>
+<p><strong>Key idea.</strong> Note the cycle <span
+class="math inline"><em>c</em> → <em>f</em> → <em>e</em> → <em>d</em> → <em>c</em></span>.
+Cycles are <em>allowed</em> in a flow network, but routing flow around
+one never helps — by conservation it cannot increase the size. The
+problem is well-defined regardless of cycles.</p>
+</blockquote>
+<p><strong>Anti-parallel edges.</strong> Edges in opposite directions
+between the same two vertices are generally not allowed (a flow network
+direction is like a one-way street). To handle them, insert a vertex
+along one edge, keeping the new edges at the same capacity as the
+original so the network's character is preserved. Left: a network with
+anti-parallel edges; right: after handling them.</p>
+<p><img src="../../.assets/CS6515_images/MF1-004.png"
+alt="MF1-004" /></p>
+<p><strong>Toy example.</strong> We use this small network to visualize
+the algorithm.</p>
+<p><img src="../../.assets/CS6515_images/MF1-005.png"
+alt="MF1-005" /></p>
+<p>One iteration of the simple algorithm:</p>
+<ol type="1">
+<li><p>Begin with three graphs — the input, the flow initialized to
+<span class="math inline">0</span>, and the availability.</p>
+<p><img src="../../.assets/CS6515_images/MF1-006.png"
+alt="MF1-006" /></p></li>
+<li><p>Find a path <span class="math inline"><em>P</em></span> from
+<span class="math inline"><em>s</em></span> to <span
+class="math inline"><em>t</em></span> with available capacity
+(highlighted green in the middle availability graph).</p>
+<p><img src="../../.assets/CS6515_images/MF1-007.png"
+alt="MF1-007" /></p></li>
+<li><p>Compute the capacity along the path: <span
+class="math inline"><em>c</em>(<em>P</em>) = min<sub><em>e</em> ∈ <em>P</em></sub>(<em>c</em><sub><em>e</em></sub> − <em>f</em><sub><em>e</em></sub>)</span>
+— the max flow we can push along <span
+class="math inline"><em>P</em></span>.</p></li>
+<li><p>Augment the flow by <span
+class="math inline"><em>c</em>(<em>P</em>)</span> along <span
+class="math inline"><em>P</em></span>.</p>
+<p><img src="../../.assets/CS6515_images/MF1-008.png"
+alt="MF1-008" /></p>
+<p>Then repeat from step 2, updating available capacity to reflect the
+augmentation.</p>
+<p><img src="../../.assets/CS6515_images/MF1-009.png"
+alt="MF1-009" /></p></li>
+</ol>
+<p><strong>Summary of the approach:</strong></p>
+<ol type="1">
+<li>Start with <span
+class="math inline"><em>f</em><sub><em>e</em></sub> = 0, ∀<em>e</em> ∈ <em>E</em></span>.</li>
+<li>Find an <span class="math inline"><em>s</em></span>-<span
+class="math inline"><em>t</em></span> path <span
+class="math inline"><em>P</em></span> with available capacity.</li>
+<li>Let <span
+class="math inline"><em>c</em>(<em>P</em>) = min<sub><em>e</em> ∈ <em>P</em></sub>(<em>c</em><sub><em>e</em></sub> − <em>f</em><sub><em>e</em></sub>)</span>.</li>
+<li>Augment <span class="math inline"><em>f</em></span> by <span
+class="math inline"><em>c</em>(<em>P</em>)</span> along <span
+class="math inline"><em>P</em></span>.</li>
+<li>Go back to 2 and repeat until no <span
+class="math inline"><em>s</em></span>-<span
+class="math inline"><em>t</em></span> path with available capacity
+remains.</li>
+</ol>
+<h4 id="residual-networks">Residual networks</h4>
+<p>After the run above there is still capacity along some edges — e.g.
+<span class="math inline">(<em>s</em>, <em>b</em>)</span> has <span
+class="math inline">7</span> and <span
+class="math inline">(<em>a</em>, <em>t</em>)</span> has <span
+class="math inline">7</span> available. To use it we want a path <span
+class="math inline"><em>s</em> → <em>b</em> → <em>a</em> → <em>t</em></span>.
+We have <span class="math inline"><em>s</em> → <em>b</em></span> and
+<span class="math inline"><em>a</em> → <em>t</em></span>, but no edge
+<span class="math inline"><em>b</em> → <em>a</em></span>. The middle
+"availability" graph fails to represent everything the flow graph
+allows, precisely because there is no <span
+class="math inline"><em>b</em> → <em>a</em></span> edge.</p>
+<p>So we <strong>augment by adding a backward edge</strong> <span
+class="math inline"><em>b</em> → <em>a</em></span> with available
+capacity <span class="math inline">10</span> (matching the flow on <span
+class="math inline"><em>a</em> → <em>b</em></span>). Its flow offsets
+the flow along <span class="math inline"><em>a</em> → <em>b</em></span>.
+This is the <strong>residual network</strong>.</p>
+<p><img src="../../.assets/CS6515_images/MF1-010.png"
+alt="MF1-010" /></p>
+<p>Updating the flow, the size increases from <span
+class="math inline">10</span> to <span
+class="math inline">17</span>:</p>
+<p><img src="../../.assets/CS6515_images/MF1-011.png"
+alt="MF1-011" /></p>
+<p><strong>Residual network (formal).</strong> Let <span
+class="math inline"><em>G</em><sup><em>f</em></sup> = (<em>V</em>, <em>E</em><sup><em>f</em></sup>)</span>
+be the residual network for flow network <span
+class="math inline"><em>G</em> = (<em>V</em>, <em>E</em>)</span> with
+capacities <span
+class="math inline"><em>c</em><sub><em>e</em></sub></span> and flow
+<span class="math inline"><em>f</em><sub><em>e</em></sub></span>.
+Construct it by:</p>
+<ul>
+<li>if <span class="math inline">$\overrightarrow{vw} \in E$</span> and
+<span
+class="math inline"><em>f</em><sub><em>v</em><em>w</em></sub> &lt; <em>c</em><sub><em>v</em><em>w</em></sub></span>:
+add forward edge <span class="math inline">$\overrightarrow{vw}$</span>
+to <span class="math inline"><em>G</em><sup><em>f</em></sup></span> with
+residual capacity <span
+class="math inline"><em>c</em><sub><em>v</em><em>w</em></sub> − <em>f</em><sub><em>v</em><em>w</em></sub></span>;</li>
+<li>if <span class="math inline">$\overrightarrow{vw} \in E$</span> and
+<span
+class="math inline"><em>f</em><sub><em>v</em><em>w</em></sub> &gt; 0</span>:
+add backward edge <span class="math inline">$\overrightarrow{wv}$</span>
+to <span class="math inline"><em>G</em><sup><em>f</em></sup></span> with
+capacity <span
+class="math inline"><em>f</em><sub><em>v</em><em>w</em></sub></span>.</li>
+</ul>
+<p>As a residual-capacity case function: <span class="math display">$$
+C_f(u,v) = \begin{cases}
+c(u,v) - f(u,v) &amp; \text{if } (u,v) \in E,\\
+f(u,v) &amp; \text{if } (v,u) \in E,\\
+0 &amp; \text{otherwise.}
+\end{cases}
+$$</span></p>
+<h4 id="ford-fulkerson-algorithm">Ford-Fulkerson algorithm</h4>
+<ol type="1">
+<li>Set <span
+class="math inline"><em>f</em><sub><em>e</em></sub> = 0</span> for all
+<span class="math inline"><em>e</em> ∈ <em>E</em></span>.</li>
+<li>Build the residual network <span
+class="math inline"><em>G</em><sup><em>f</em></sup></span> for the
+current flow <span class="math inline"><em>f</em></span>.</li>
+<li>Check for an <span class="math inline"><em>s</em></span>-<span
+class="math inline"><em>t</em></span> path <span
+class="math inline"><em>P</em></span> in <span
+class="math inline"><em>G</em><sup><em>f</em></sup></span> (via DFS or
+BFS); if none, output <span class="math inline"><em>f</em></span>.</li>
+<li>Given <span class="math inline"><em>P</em></span>, let $c(P) = $ min
+capacity along <span class="math inline"><em>P</em></span> in <span
+class="math inline"><em>G</em><sup><em>f</em></sup></span>.</li>
+<li>Augment <span class="math inline"><em>f</em></span> by <span
+class="math inline"><em>c</em>(<em>P</em>)</span> units along <span
+class="math inline"><em>P</em></span> (increase every edge on the path
+by the largest amount that exceeds no capacity).</li>
+<li>Repeat until no such <span
+class="math inline"><em>s</em></span>-<span
+class="math inline"><em>t</em></span> path exists.</li>
+</ol>
+<p><strong>Correctness</strong> follows from the Max-Flow = Min-Cut
+theorem (next module).</p>
+<p><strong>Running time.</strong> Assume integer capacities; each round
+augments the flow by <span class="math inline"> ≥ 1</span> unit, so with
+$C = $ size of the max flow there are at most <span
+class="math inline"><em>C</em></span> rounds. Building the residual
+network and running DFS/BFS each cost <span
+class="math inline"><em>O</em>(|<em>V</em>|+|<em>E</em>|) = <em>O</em>(|<em>E</em>|)</span>,
+which dominates. Total: <span
+class="math inline"><em>O</em>(<em>C</em> ⋅ |<em>E</em>|)</span> —
+<strong>pseudo-polynomial</strong> (it depends on the magnitude of the
+max flow / capacities, not just the input size, and assumes integer
+capacities). The next module's Edmonds-Karp removes both issues with
+runtime <span
+class="math inline"><em>O</em>(<em>m</em><sup>2</sup><em>n</em>)</span>;
+Orlin (2013) achieves <span
+class="math inline"><em>O</em>(<em>m</em><em>n</em>)</span>, beyond this
+course's scope.</p>
+<h3 id="mf2--max-flow--min-cut">MF2 — Max-Flow = Min-Cut</h3>
+<p>Recall Ford-Fulkerson: it stops when there is no augmenting path in
+the residual graph <span
+class="math inline"><em>G</em><sup><em>f</em><sup>*</sup></sup></span>
+of the final flow <span
+class="math inline"><em>f</em><sup>*</sup></span>.</p>
+<p><strong>Lemma.</strong> For a flow <span
+class="math inline"><em>f</em><sup>*</sup></span>, if there is no
+augmenting path in <span
+class="math inline"><em>G</em><sup><em>f</em><sup>*</sup></sup></span>
+then <span class="math inline"><em>f</em><sup>*</sup></span> is a max
+flow. (Checking whether a given <span
+class="math inline"><em>f</em></span> is max takes <span
+class="math inline"><em>O</em>(|<em>E</em>|)</span>: build the residual
+graph, then look for an <span
+class="math inline"><em>s</em></span>-<span
+class="math inline"><em>t</em></span> path with available capacity.)</p>
+<p><strong>Cut.</strong> A <strong>cut</strong> partitions <span
+class="math inline"><em>V</em></span> into two sets, <span
+class="math inline"><em>V</em> = <em>L</em> ∪ <em>R</em></span> (left
+and right). An <strong><span class="math inline"><em>s</em></span>-<span
+class="math inline"><em>t</em></span> cut</strong> is a cut with <span
+class="math inline"><em>s</em> ∈ <em>L</em></span> and <span
+class="math inline"><em>t</em> ∈ <em>R</em></span>. The
+<strong>capacity</strong> of the cut is the total capacity from <span
+class="math inline"><em>L</em></span> to <span
+class="math inline"><em>R</em></span>: <span class="math display">$$
+\text{capacity}(L,R) = \sum_{\overrightarrow{vw}\,\in E,\ v\in L,\ w\in
+R} c_{vw}.
+$$</span> Only <span class="math inline"><em>L</em> → <em>R</em></span>
+edges count — flow goes from the source in <span
+class="math inline"><em>L</em></span> to the sink in <span
+class="math inline"><em>R</em></span>; <span
+class="math inline"><em>R</em> → <em>L</em></span> edges do not help. A
+cut is any partition of vertices (it ignores edges), need not be a
+simple linear partition, and may disconnect vertices.</p>
+<p><img src="../../.assets/CS6515_images/MF2-001.png"
+alt="MF2-001" /></p>
+<p><strong>Min <span class="math inline"><em>s</em></span>-<span
+class="math inline"><em>t</em></span>-cut problem.</strong> Input: a
+flow network with positive capacities. Output: the <span
+class="math inline"><em>s</em></span>-<span
+class="math inline"><em>t</em></span> cut <span
+class="math inline">(<em>L</em>, <em>R</em>)</span> of minimum capacity.
+One cut of our example has capacity <span
+class="math inline">27 = 8 + 2 + 2 + 5 + 3 + 7</span>:</p>
+<p><img src="../../.assets/CS6515_images/MF2-002.png"
+alt="MF2-002" /></p>
+<p>A better cut has capacity <span class="math inline">12</span> — which
+equals the max flow:</p>
+<p><img src="../../.assets/CS6515_images/MF2-003.png"
+alt="MF2-003" /></p>
+<p><strong>Max-Flow / Min-Cut Theorem.</strong> <em>For any flow
+network, the size of the max flow equals the minimum capacity of an
+<span class="math inline"><em>s</em></span>-<span
+class="math inline"><em>t</em></span> cut.</em></p>
+<p><strong>Proof outline.</strong> Prove (1) max flow <span
+class="math inline">≤</span> min <span
+class="math inline"><em>s</em></span>-<span
+class="math inline"><em>t</em></span> cut, and (2) max flow <span
+class="math inline">≥</span> min <span
+class="math inline"><em>s</em></span>-<span
+class="math inline"><em>t</em></span> cut; together they give
+equality.</p>
+<p><strong>Part (1):</strong> for any flow <span
+class="math inline"><em>f</em></span> and any <span
+class="math inline"><em>s</em></span>-<span
+class="math inline"><em>t</em></span> cut <span
+class="math inline">(<em>L</em>, <em>R</em>)</span>, <span
+class="math inline">size(<em>f</em>) ≤ capacity(<em>L</em>, <em>R</em>)</span>.
+The flow must leave <span class="math inline"><em>L</em></span> to reach
+<span class="math inline"><em>t</em></span>, and it can only leave
+through <span class="math inline"><em>L</em> → <em>R</em></span> edges,
+whose total capacity bounds it (e.g. <span class="math inline">27</span>
+above).</p>
+<p>Claim: <span
+class="math inline">size(<em>f</em>) = <em>f</em><sub><em>o</em><em>u</em><em>t</em></sub>(<em>L</em>) − <em>f</em><sub><em>i</em><em>n</em></sub>(<em>L</em>)</span>
+(not a typo), where <span class="math display">$$
+f_{out}(L) = \sum_{\overrightarrow{vw}\,\in E,\ v\in L} f_{vw}, \qquad
+f_{in}(L) = \sum_{\overrightarrow{wv}\,\in E,\ v\in L} f_{wv}.
+$$</span> Summing outflow minus inflow over all vertices of <span
+class="math inline"><em>L</em></span>, the internal <span
+class="math inline"><em>L</em></span>-<span
+class="math inline"><em>L</em></span> edges cancel; the source has
+inflow <span class="math inline">0</span>; conservation makes every
+other internal balance vanish, leaving <span
+class="math inline"><em>f</em><sub><em>o</em><em>u</em><em>t</em></sub>(<em>s</em>) = size(<em>f</em>)</span>.</p>
+<p><img src="../../.assets/CS6515_images/MF2-004.png"
+alt="MF2-004" /></p>
+<p>Since <span
+class="math inline"><em>f</em><sub><em>i</em><em>n</em></sub>(<em>L</em>) ≥ 0</span>
+and <span
+class="math inline"><em>f</em><sub><em>o</em><em>u</em><em>t</em></sub>(<em>L</em>) ≤ capacity(<em>L</em>, <em>R</em>)</span>:
+<span
+class="math display">size(<em>f</em>) = <em>f</em><sub><em>o</em><em>u</em><em>t</em></sub>(<em>L</em>) − <em>f</em><sub><em>i</em><em>n</em></sub>(<em>L</em>) ≤ <em>f</em><sub><em>o</em><em>u</em><em>t</em></sub>(<em>L</em>) ≤ capacity(<em>L</em>, <em>R</em>),</span>
+so max flow <span class="math inline">≤</span> min <span
+class="math inline"><em>s</em></span>-<span
+class="math inline"><em>t</em></span> cut capacity.</p>
+<p><strong>Part (2):</strong> take <span
+class="math inline"><em>f</em><sup>*</sup></span> from Ford-Fulkerson —
+it has no <span class="math inline"><em>s</em></span>-<span
+class="math inline"><em>t</em></span> path in <span
+class="math inline"><em>G</em><sup><em>f</em><sup>*</sup></sup></span>,
+so <span class="math inline"><em>t</em></span> is unreachable from <span
+class="math inline"><em>s</em></span> there. Let $L = $ vertices
+reachable from <span class="math inline"><em>s</em></span> in <span
+class="math inline"><em>G</em><sup><em>f</em><sup>*</sup></sup></span>
+(so <span class="math inline"><em>t</em> ∉ <em>L</em></span>) and <span
+class="math inline"><em>R</em> = <em>V</em> − <em>L</em></span>. This
+<span class="math inline">(<em>L</em>, <em>R</em>)</span> is a valid
+<span class="math inline"><em>s</em></span>-<span
+class="math inline"><em>t</em></span> cut, and we show <span
+class="math inline">size(<em>f</em><sup>*</sup>) = capacity(<em>L</em>, <em>R</em>)</span>,
+giving <span
+class="math display">max<sub><em>f</em></sub>size(<em>f</em>) ≥ size(<em>f</em><sup>*</sup>) = capacity(<em>L</em>, <em>R</em>) ≥ min<sub><em>L</em>, <em>R</em></sub>capacity(<em>L</em>, <em>R</em>).</span></p>
+<p><strong>Properties used.</strong> Left: a network with capacities
+(red) and a max flow (green); right: the residual <span
+class="math inline"><em>G</em><sup><em>f</em><sup>*</sup></sup></span>.</p>
+<p><img src="../../.assets/CS6515_images/MF2-005.png"
+alt="MF2-005" /></p>
+<p>Every potential outflow edge from <span
+class="math inline"><em>L</em></span> (e.g. <span
+class="math inline">(<em>d</em>, <em>t</em>), (<em>d</em>, <em>c</em>), (<em>s</em>, <em>c</em>)</span>)
+is <strong>absent</strong> from the residual — only its inverse appears
+— because if a forward residual edge survived, <span
+class="math inline"><em>t</em></span> would be reachable from <span
+class="math inline"><em>s</em></span>, contradicting "no <span
+class="math inline"><em>s</em></span>-<span
+class="math inline"><em>t</em></span> path." So these <span
+class="math inline"><em>L</em> → <em>R</em></span> edges are
+<strong>saturated</strong>: <span class="math display">$$
+\forall \overrightarrow{vw}\in E,\ v\in L,\ w\in R:\quad f^*_{vw} =
+c_{vw},
+\qquad f^{*}_{out}(L) = \text{capacity}(L,R).
+$$</span> And every <span
+class="math inline"><em>R</em> → <em>L</em></span> edge carries <span
+class="math inline">0</span> flow: <span class="math display">$$
+\forall \overrightarrow{zy}\in E,\ z\in R,\ y\in L:\quad f^*_{zy} = 0,
+\qquad f^{*}_{in}(L) = 0.
+$$</span> Therefore <span
+class="math inline">size(<em>f</em><sup>*</sup>) = <em>f</em><sub><em>o</em><em>u</em><em>t</em></sub><sup>*</sup>(<em>L</em>) − <em>f</em><sub><em>i</em><em>n</em></sub><sup>*</sup>(<em>L</em>) = capacity(<em>L</em>, <em>R</em>) − 0</span>,
+as wanted. This simultaneously proves the earlier lemma, the
+<strong>correctness of Ford-Fulkerson</strong>, and shows how to
+<strong>construct a min <span
+class="math inline"><em>s</em></span>-<span
+class="math inline"><em>t</em></span> cut</strong> (the reachable set
+<span class="math inline"><em>L</em></span>).</p>
+<!-- WEEK-EXTRAS:START -->
+
+<h2 id="dpv-chapter-exercises">DPV chapter exercises</h2>
+<details>
+<summary><b>DPV chapter exercises (exact, from the textbook)</b></summary>
+
+<p><em>Exact end-of-chapter exercises, parsed from the DPV chapter
+PDFs.</em></p>
+<p><strong>DPV Ch 7 — Linear Programming</strong> — <a
+href="../../textbooks/examples-md/07-linear-programming-dpv-examples.html">open
+exercises</a> · <a href="readings/DPV-ch7-examples.pdf">chapter
+PDF</a></p>
+<iframe class="examples-frame" src="../../textbooks/examples-md/07-linear-programming-dpv-examples.html" title="DPV Ch 7 — Linear Programming exercises"></iframe>
+
+</details>
+
+<!-- WEEK-EXTRAS:END -->
+
+<h2 id="agent-hint">Agent hint</h2>
+<p>Flow question → confirm it's Week 6 via <a
+href="../../00_START_HERE/CURRENT_WEEK.html">CURRENT_WEEK</a>, model as
+a network, call max-flow, read the min-cut from reachability in <span
+class="math inline"><em>G</em><sub><em>f</em></sub></span>. Never modify
+the black box. Compare with W07 (Edmonds-Karp, <span
+class="math inline"><em>O</em>(<em>m</em><sup>2</sup><em>n</em>)</span>)
+if asked about runtime.</p>
+</main>
+
+<!-- code highlighting -->
+<link rel="modulepreload" href="../../vendor/mermaid/mermaid.esm.min.mjs">
+<script src="../../vendor/highlight/highlight.min.js"></script>
+<!-- math -->
+<script defer src="../../vendor/katex/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="../../vendor/katex/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+<script type="module">
+  // 1) Normalize mermaid blocks. Pandoc(gfm) emits <pre class="mermaid"><code>...</code></pre>.
+  //    Flatten to raw source text so mermaid parses cleanly; also catch the code-only variant.
+  document.querySelectorAll('pre > code.language-mermaid, pre > code.mermaid').forEach(c => {
+    const p = document.createElement('pre'); p.className = 'mermaid'; p.textContent = c.textContent;
+    c.parentElement.replaceWith(p);
+  });
+  document.querySelectorAll('pre.mermaid').forEach(p => { p.textContent = p.textContent; });
+  // 2) Syntax-highlight every code block EXCEPT mermaid (auto-detect language)
+  if (window.hljs) document.querySelectorAll('pre:not(.mermaid) > code').forEach(el => window.hljs.highlightElement(el));
+  // 3) Render mermaid (dark)
+  try {
+    const mermaid = (await import('../../vendor/mermaid/mermaid.esm.min.mjs')).default;
+    mermaid.initialize({ startOnLoad: false, theme: 'dark', securityLevel: 'loose' });
+    await mermaid.run({ querySelector: 'pre.mermaid' });
+  } catch (e) { /* offline: leave as text */ }
+</script>
+<script>
+  // 4) Math: render \( \) and \[ \] (pandoc converts dollar-math to these). Tolerate malformed legacy TeX.
+  window.addEventListener('DOMContentLoaded', () => {
+    if (window.renderMathInElement) renderMathInElement(document.querySelector('.content'), {
+      // dollar-delimiters included so KaTeX also renders math pandoc failed to parse (left raw):
+      // a space before a closing delim, cases-env inline, apostrophes in text, etc. Display before inline.
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '\\[', right: '\\]', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false }
+      ],
+      throwOnError: false,
+      // \n is used in the legacy notes as a homemade "arrow over" (directed edge); map it to \overrightarrow.
+      macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
+    });
+  });
+</script>
+</body>
+</html>

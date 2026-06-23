@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DPV ch00 exercises — CS6515</title>
+<link rel="stylesheet" href="../../vendor/fonts/fonts.css">
+<link rel="stylesheet" href="../../theme.css">
+<link rel="stylesheet" href="../../vendor/katex/katex.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="../../vendor/highlight/styles/tokyo-night-dark.min.css">
+
+</head>
+<body>
+<header class="topbar">
+  <a class="home" href="../../index.html">CS6515</a>
+  <span class="crumbloc">DPV ch00 exercises</span>
+</header>
+<main class="content">
+<!-- toc:start -->
+
+<h2 id="table-of-contents">Table of Contents</h2>
+<ul>
+<li><a href="#exercises">Exercises</a></li>
+</ul>
+<!-- toc:end -->
+
+<h2 id="exercises">Exercises</h2>
+<h3 id="01">0.1</h3>
+<p>In each of the following situations, indicate whether <span
+class="math inline"><em>f</em> = <em>O</em>(<em>g</em>)</span>, or <span
+class="math inline"><em>f</em> = <em>Ω</em>(<em>g</em>)</span>, or both
+(in which case <span
+class="math inline"><em>f</em> = <em>Θ</em>(<em>g</em>)</span> ). <span
+class="math inline"><em>f</em>(<em>n</em>)  <em>g</em>(<em>n</em>)</span></p>
+<p><strong>(a)</strong> <span
+class="math inline"><em>n</em> − 100  <em>n</em> − 200</span></p>
+<p><strong>(b)</strong> <span
+class="math inline"><em>n</em><sup>1/2</sup>  <em>n</em><sup>2/3</sup></span></p>
+<p><strong>(c)</strong> <span
+class="math inline">  100<em>n</em> + log <em>n</em>  <em>n</em> + (log <em>n</em>)<sup>2</sup></span></p>
+<p><strong>(d)</strong> <span
+class="math inline">  <em>n</em>log <em>n</em>  10<em>n</em>log 10<em>n</em></span></p>
+<p><strong>(e)</strong> <span
+class="math inline">  log 2<em>n</em>  log 3<em>n</em></span></p>
+<p><strong>(f)</strong> <span
+class="math inline">  10log <em>n</em>  log (<em>n</em><sup>2</sup>)</span></p>
+<p><strong>(g)</strong> <span
+class="math inline"><em>n</em><sup>1.01</sup>  <em>n</em>log<sup>2</sup><em>n</em></span></p>
+<p><strong>(h)</strong> <span
+class="math inline">  <em>n</em><sup>2</sup>/log <em>n</em>  <em>n</em>(log <em>n</em>)<sup>2</sup></span></p>
+<p><strong>(i)</strong> <span
+class="math inline">  <em>n</em><sup>0.1</sup>  (log <em>n</em>)<sup>10</sup></span></p>
+<p><strong>(j)</strong> <span
+class="math inline">  (log <em>n</em>)<sup>log <em>n</em></sup>  <em>n</em>/log <em>n</em></span></p>
+<p><strong>(k)</strong> <span class="math inline">$\sqrt{n} \quad(\log
+n)^{3}$</span></p>
+<p><strong>(l)</strong> <span
+class="math inline"><em>n</em><sup>1/2</sup>5<sup>log<sub>2</sub><em>n</em></sup></span></p>
+<p><strong>(m)</strong> <span
+class="math inline"><em>n</em>2<sup><em>n</em></sup>  3<sup><em>n</em></sup></span></p>
+<p><strong>(n)</strong> <span
+class="math inline">2<sup><em>n</em></sup>  2<sup><em>n</em> + 1</sup></span></p>
+<p><strong>(o)</strong> <span
+class="math inline"><em>n</em>!  2<sup><em>n</em></sup></span></p>
+<p><strong>(p)</strong> <span
+class="math inline">  (log <em>n</em>)<sup>log <em>n</em></sup>  2<sup>(log<sub>2</sub><em>n</em>)<sup>2</sup></sup></span></p>
+<p><strong>(q)</strong> <span class="math inline">$\sum_{i=1}^{n} i^{k}
+\quad n^{k+1}$</span></p>
+<h3 id="02">0.2</h3>
+<p>Show that, if <span class="math inline"><em>c</em></span> is a
+positive real number, then <span
+class="math inline"><em>g</em>(<em>n</em>) = 1 + <em>c</em> + <em>c</em><sup>2</sup> + ⋯ + <em>c</em><sup><em>n</em></sup></span>
+is:</p>
+<p><strong>(a)</strong> <span class="math inline"><em>Θ</em>(1)</span>
+if <span class="math inline"><em>c</em> &lt; 1</span>.</p>
+<p><strong>(b)</strong> <span
+class="math inline"><em>Θ</em>(<em>n</em>)</span> if <span
+class="math inline"><em>c</em> = 1</span>.</p>
+<p><strong>(c)</strong> <span
+class="math inline"><em>Θ</em>(<em>c</em><sup><em>n</em></sup>)</span>
+if <span class="math inline"><em>c</em> &gt; 1</span>.</p>
+<p>The moral: in big- <span class="math inline"><em>Θ</em></span> terms,
+the sum of a geometric series is simply the first term if the series is
+strictly decreasing, the last term if the series is strictly increasing,
+or the number of terms if the series is unchanging.</p>
+<h3 id="03">0.3</h3>
+<p>The Fibonacci numbers <span
+class="math inline"><em>F</em><sub>0</sub>, <em>F</em><sub>1</sub>, <em>F</em><sub>2</sub>, …</span>,
+are defined by the rule</p>
+<p><span
+class="math display"><em>F</em><sub>0</sub> = 0, <em>F</em><sub>1</sub> = 1, <em>F</em><sub><em>n</em></sub> = <em>F</em><sub><em>n</em> − 1</sub> + <em>F</em><sub><em>n</em> − 2</sub>.</span></p>
+<p>In this problem we will confirm that this sequence grows
+exponentially fast and obtain some bounds on its growth.</p>
+<p><strong>(a)</strong> Use induction to prove that <span
+class="math inline"><em>F</em><sub><em>n</em></sub> ≥ 2<sup>0.5<em>n</em></sup></span>
+for <span class="math inline"><em>n</em> ≥ 6</span>.</p>
+<p><strong>(b)</strong> Find a constant <span
+class="math inline"><em>c</em> &lt; 1</span> such that <span
+class="math inline"><em>F</em><sub><em>n</em></sub> ≤ 2<sup><em>c</em><em>n</em></sup></span>
+for all <span class="math inline"><em>n</em> ≥ 0</span>. Show that your
+answer is correct.</p>
+<p><strong>(c)</strong> What is the largest <span
+class="math inline"><em>c</em></span> you can find for which <span
+class="math inline"><em>F</em><sub><em>n</em></sub> = <em>Ω</em>(2<sup><em>c</em><em>n</em></sup>)</span>
+?</p>
+<h3 id="04">0.4</h3>
+<p>Is there a faster way to compute the <span
+class="math inline"><em>n</em></span>th Fibonacci number than by fib2
+(page 13)? One idea involves matrices. We start by writing the equations
+<span
+class="math inline"><em>F</em><sub>1</sub> = <em>F</em><sub>1</sub></span>
+and <span
+class="math inline"><em>F</em><sub>2</sub> = <em>F</em><sub>0</sub> + <em>F</em><sub>1</sub></span>
+in matrix notation:</p>
+<p><span class="math display">$$
+\binom{F_{1}}{F_{2}}=\left(\begin{array}{ll}
+0 &amp; 1 \\
+1 &amp; 1
+\end{array}\right) \cdot\binom{F_{0}}{F_{1}} .
+$$</span></p>
+<p>Similarly,</p>
+<p><span class="math display">$$
+\binom{F_{2}}{F_{3}}=\left(\begin{array}{ll}
+0 &amp; 1 \\
+1 &amp; 1
+\end{array}\right) \cdot\binom{F_{1}}{F_{2}}=\left(\begin{array}{ll}
+0 &amp; 1 \\
+1 &amp; 1
+\end{array}\right)^{2} \cdot\binom{F_{0}}{F_{1}}
+$$</span></p>
+<p>and in general</p>
+<p><span class="math display">$$
+\binom{F_{n}}{F_{n+1}}=\left(\begin{array}{ll}
+0 &amp; 1 \\
+1 &amp; 1
+\end{array}\right)^{n} \cdot\binom{F_{0}}{F_{1}}
+$$</span></p>
+<p>So, in order to compute <span
+class="math inline"><em>F</em><sub><em>n</em></sub></span>, it suffices
+to raise this <span class="math inline">2 × 2</span> matrix, call it
+<span class="math inline"><em>X</em></span>, to the <span
+class="math inline"><em>n</em></span>th power.</p>
+<p><strong>(a)</strong> Show that two <span
+class="math inline">2 × 2</span> matrices can be multiplied using 4
+additions and 8 multiplications.</p>
+<p>But how many matrix multiplications does it take to compute <span
+class="math inline"><em>X</em><sup><em>n</em></sup></span> ?</p>
+<p><strong>(b)</strong> Show that <span
+class="math inline"><em>O</em>(log <em>n</em>)</span> matrix
+multiplications suffice for computing <span
+class="math inline"><em>X</em><sup><em>n</em></sup></span>. (Hint:Think
+about computing <span
+class="math inline"><em>X</em><sup>8</sup></span>.)</p>
+<p>Thus the number of arithmetic operations needed by our matrix-based
+algorithm, call it fib3, is just <span
+class="math inline"><em>O</em>(log <em>n</em>)</span>, as compared to
+<span class="math inline"><em>O</em>(<em>n</em>)</span> for fib2. Have
+we broken another exponential barrier? The catch is that our new
+algorithm involves multiplication, not just addition; and
+multiplications of large numbers are slower than additions. We have
+already seen that, when the complexity of arithmetic operations is taken
+into account, the running time of fib2 becomes <span
+class="math inline"><em>O</em>(<em>n</em><sup>2</sup>)</span>.</p>
+<p><strong>(c)</strong> Show that all intermediate results of fib3 are
+<span class="math inline"><em>O</em>(<em>n</em>)</span> bits long.</p>
+<p><strong>(d)</strong> Let <span
+class="math inline"><em>M</em>(<em>n</em>)</span> be the running time of
+an algorithm for multiplying <span
+class="math inline"><em>n</em></span>-bit numbers, and assume that <span
+class="math inline"><em>M</em>(<em>n</em>) = <em>O</em>(<em>n</em><sup>2</sup>)</span>
+(the school method for multiplication, recalled in Chapter 1, achieves
+this). Prove that the running time of fib3 is <span
+class="math inline"><em>O</em>(<em>M</em>(<em>n</em>)log <em>n</em>)</span>.</p>
+<p><strong>(e)</strong> Can you prove that the running time of fib3 is
+<span class="math inline"><em>O</em>(<em>M</em>(<em>n</em>))</span> ?
+(Hint: The lengths of the numbers being multiplied get doubled with
+every squaring.)</p>
+<p>In conclusion, whether fib3 is faster than fib2 depends on whether we
+can multiply <span class="math inline"><em>n</em></span>-bit integers
+faster than <span
+class="math inline"><em>O</em>(<em>n</em><sup>2</sup>)</span>. Do you
+think this is possible? (The answer is in Chapter 2.) Finally, there is
+a formula for the Fibonacci numbers:</p>
+<p><span class="math display">$$
+F_{n}=\frac{1}{\sqrt{5}}\left(\frac{1+\sqrt{5}}{2}\right)^{n}-\frac{1}{\sqrt{5}}\left(\frac{1-\sqrt{5}}{2}\right)^{n}
+$$</span></p>
+<p>So, it would appear that we only need to raise a couple of numbers to
+the <span class="math inline"><em>n</em></span>th power in order to
+compute <span
+class="math inline"><em>F</em><sub><em>n</em></sub></span>. The problem
+is that these numbers are irrational, and computing them to sufficient
+accuracy is nontrivial. In fact, our matrix method fib3 can be seen as a
+roundabout way of raising these irrational numbers to the <span
+class="math inline"><em>n</em></span>th power. If you know your linear
+algebra, you should see why. (Hint: What are the eigenvalues of the
+matrix <span class="math inline"><em>X</em></span> ?)</p>
+</main>
+
+<!-- code highlighting -->
+<link rel="modulepreload" href="../../vendor/mermaid/mermaid.esm.min.mjs">
+<script src="../../vendor/highlight/highlight.min.js"></script>
+<!-- math -->
+<script defer src="../../vendor/katex/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="../../vendor/katex/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+<script type="module">
+  // 1) Normalize mermaid blocks. Pandoc(gfm) emits <pre class="mermaid"><code>...</code></pre>.
+  //    Flatten to raw source text so mermaid parses cleanly; also catch the code-only variant.
+  document.querySelectorAll('pre > code.language-mermaid, pre > code.mermaid').forEach(c => {
+    const p = document.createElement('pre'); p.className = 'mermaid'; p.textContent = c.textContent;
+    c.parentElement.replaceWith(p);
+  });
+  document.querySelectorAll('pre.mermaid').forEach(p => { p.textContent = p.textContent; });
+  // 2) Syntax-highlight every code block EXCEPT mermaid (auto-detect language)
+  if (window.hljs) document.querySelectorAll('pre:not(.mermaid) > code').forEach(el => window.hljs.highlightElement(el));
+  // 3) Render mermaid (dark)
+  try {
+    const mermaid = (await import('../../vendor/mermaid/mermaid.esm.min.mjs')).default;
+    mermaid.initialize({ startOnLoad: false, theme: 'dark', securityLevel: 'loose' });
+    await mermaid.run({ querySelector: 'pre.mermaid' });
+  } catch (e) { /* offline: leave as text */ }
+</script>
+<script>
+  // 4) Math: render \( \) and \[ \] (pandoc converts dollar-math to these). Tolerate malformed legacy TeX.
+  window.addEventListener('DOMContentLoaded', () => {
+    if (window.renderMathInElement) renderMathInElement(document.querySelector('.content'), {
+      // dollar-delimiters included so KaTeX also renders math pandoc failed to parse (left raw):
+      // a space before a closing delim, cases-env inline, apostrophes in text, etc. Display before inline.
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '\\[', right: '\\]', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false }
+      ],
+      throwOnError: false,
+      // \n is used in the legacy notes as a homemade "arrow over" (directed edge); map it to \overrightarrow.
+      macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
+    });
+  });
+</script>
+</body>
+</html>

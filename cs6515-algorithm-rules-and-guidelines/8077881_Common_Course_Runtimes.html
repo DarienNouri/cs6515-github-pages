@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Common Course Runtimes — CS6515</title>
+<link rel="stylesheet" href="../vendor/fonts/fonts.css">
+<link rel="stylesheet" href="../theme.css">
+<link rel="stylesheet" href="../vendor/katex/katex.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="../vendor/highlight/styles/tokyo-night-dark.min.css">
+
+</head>
+<body>
+<header class="topbar">
+  <a class="home" href="../index.html">CS6515</a>
+  <span class="crumbloc">Common Course Runtimes</span>
+</header>
+<main class="content">
+<h1 id="common-course-runtimes">Common Course Runtimes</h1>
+<p><strong>Category</strong>: Staff Use Only &gt; Supplemental Material
+<strong>Date</strong>: 2026-05-18 05:34 <strong>Link</strong>: <a
+href="https://edstem.org/us/courses/98593/discussion/8077881">https://edstem.org/us/courses/98593/discussion/8077881</a>
+<strong>Pinned</strong>: True | <strong>Votes</strong>: 11 |
+<strong>Views</strong>: 1866</p>
+<h2 id="post">Post</h2>
+<p>When performing runtime analysis for this course, we expect the
+analysis to be presented as the worst-case runtime analysis, presented
+in fully simplified Big-O notation.</p>
+<p>For example, <code>O(2n + 3n)</code> is expected to be presented as
+<code>O(n)</code>.</p>
+<p>As most assessable material for this course is written, this post
+exists to present the runtimes associated with common actions you may
+describe in your algorithms.</p>
+<p>When no supporting details are presented for special handling in a
+submission, the default action (<strong>underlined</strong>) and
+associated runtimes will prevail.</p>
+<p>For the runtimes presented below, <code>n</code> represents the
+length or size of the object being used.</p>
+<p><strong>List</strong>In the context of the course, we will treat
+lists as standard arrays, indexable by integers starting at 1.</p>
+<p><strong>Creating a list</strong> (empty)</p>
+<ul>
+<li>O(1)</li>
+</ul>
+<p>Creating a list with initial contents</p>
+<ul>
+<li>O(n)</li>
+</ul>
+<p><strong>Adding an item to a list</strong> (appends to the end)</p>
+<ul>
+<li>O(1)</li>
+</ul>
+<p>Adding an item to a specific non-tail location of a list</p>
+<ul>
+<li>O(n)</li>
+</ul>
+<p><strong>Remove an item from a list</strong> (swap tail element and
+pop)</p>
+<ul>
+<li>O(1)</li>
+</ul>
+<p>Remove an item from the list while maintaining order</p>
+<ul>
+<li>O(n)</li>
+</ul>
+<p><strong>Check the length of a list</strong> (via counting)</p>
+<ul>
+<li>O(n)</li>
+</ul>
+<p><strong>Check if a list contains an element</strong> (via
+scanning)</p>
+<ul>
+<li>O(n)</li>
+</ul>
+<p><strong>Hash Table / Hash Set / Map / Set</strong>While common and
+practical for software development, these data types have worst-case
+performance that generally makes them undesirable.</p>
+<p>Unless the problem gives you data in this format (typically as a
+<code>set</code>), you are unlikely to need this.</p>
+<p><strong>Creating a hash table</strong> (empty)</p>
+<ul>
+<li>O(1)</li>
+</ul>
+<p>Creating a hash table with initial contents</p>
+<ul>
+<li>O(n^2)</li>
+</ul>
+<p><strong>Adding an item to a hash table</strong></p>
+<ul>
+<li>O(n)</li>
+</ul>
+<p><strong>Remove an item from a hash table</strong></p>
+<ul>
+<li>O(n)</li>
+</ul>
+<p><strong>Check the length of a hash table</strong> (via counting)</p>
+<ul>
+<li>O(n)</li>
+</ul>
+<p><strong>Check if a hash table contains an element</strong> (via
+scanning)</p>
+<ul>
+<li>O(n)</li>
+</ul>
+<p><strong>Graph</strong>In this course, we will always treat graphs as
+adjacency lists, with an indexable list of vertices each pointing to a
+linked list of adjacent vertices. You can assume you know <code>n</code>
+(number of vertices |V|) and <code>m</code> (number of edges |E|).</p>
+<p><strong>Traversing a graph</strong></p>
+<ul>
+<li>O(n+m)</li>
+</ul>
+<p>(Includes reversing, copying, subgraphing, or anything that requires
+working with all vertices and edges in a graph)</p>
+<p><strong>Operating on a single vertex <code>v</code></strong></p>
+<ul>
+<li>O(1)</li>
+</ul>
+<p>(Includes find, read, removal)</p>
+<p><strong>Operating on all (or a subset of) vertices
+<code>V</code></strong></p>
+<ul>
+<li>O(n)</li>
+</ul>
+<p>(Includes find, read, removal)</p>
+<p><strong>Operating on a single edge <code>e=(u,v)</code></strong></p>
+<ul>
+<li><p>O(n)</p></li>
+<li><p>This is due to the need to traverse up to n vertices in the
+adjacency list for vertex <code>u</code>, to find and operate on
+adjacency <code>v</code>.</p></li>
+</ul>
+<p>(Includes find, read, removal)</p>
+<p><strong>Operating on all edges <code>|E|</code></strong></p>
+<ul>
+<li>O(n+m)</li>
+</ul>
+<p>(Includes find, read, removal)</p>
+<p><strong>Accessing properties of an edge or vertex</strong></p>
+<ul>
+<li><p>O(1)</p></li>
+<li><p>This assumes you already have access to the vertex or edge itself
+- that is, you have paid the runtime costs above for finding that
+vertex/edge,</p></li>
+</ul>
+<p>(e.g. weight, color, cost, capacity, etc.)</p>
+<p><strong>Special note about simplifications</strong></p>
+<p>If you KNOW something about the connectivity of the graph (e.g. MST,
+Flow, or the problem states it), it is possible to simplify some
+runtimes:</p>
+<ul>
+<li><p>We know the graph is connected and m &gt;= n-1</p></li>
+<li><p>O(n+m) = O(m+m) = O(2m) = O(m)</p></li>
+<li><p>We know the graph is a clique and m = n(n-1)/2</p></li>
+<li><p>O(n+m) = O(n+n^2) = O(n^2)</p></li>
+</ul>
+<h2 id="responses-4">Responses (4)</h2>
+<ul>
+<li><p><strong>Comment</strong> by User 1282049 on 2026-05-19 15:58
+(Votes: 0)</p>
+<blockquote>
+<p>Hi, I was wondering if "remove an item" refers to an index in the
+List section, and "remove an item" refers to a value in the Hash Table
+section?</p>
+<p>For the list, I couldn't see how you would get O(1) removal without
+first knowing where the item is. For the hash table (assuming chaining),
+I'm guessing that with the worst possible hash function (100%
+collisions), you would need an O(n) scan of the collided bucket to find
+the item to remove.</p>
+<p><img
+src="https://static.us.edusercontent.com/files/CdP2hp7DyKBGOQDXBeXcdXgm"
+alt="Image" /> <img
+src="https://static.us.edusercontent.com/files/5IfI2Hanl591jLNfW4nBDJKq"
+alt="Image" /></p>
+</blockquote>
+<ul>
+<li><p><strong>Comment</strong> by User 137215 on 2026-05-19 16:21
+(Votes: 1)</p>
+<blockquote>
+<blockquote>
+<p>For the list, I couldn't see how you would get O(1) removal without
+first knowing where the item is.</p>
+</blockquote>
+<p>The operation assumes you have some index <code>i</code> you want to
+remove.</p>
+<p>Of course if you have to "find" that index <code>i</code>, that will
+first take <code>O(n)</code> which is what the post above says:</p>
+<blockquote>
+<p><strong>Check if a list contains an element</strong> (via scanning) *
+O(n)</p>
+</blockquote>
+<p>Once you have <code>i</code> and you have <code>n</code>, then you
+can do what it says and we will consider it <code>O(1)</code>.</p>
+<p>It is important to note that if you care about maintaining the
+remaining relative order, then you don't get this speedup.</p>
+</blockquote>
+<ul>
+<li><p><strong>Comment</strong> by User 1015969 on 2026-05-20 13:21
+(Votes: 0)</p>
+<blockquote>
+<p>Can you explain what "maintaining the remaining relative order"
+means? If you remove an element, the remaining elements in my mind still
+maintain their order. Ex. 1, 2, 3, 4 -&gt; Remove 2 -&gt; 1, 3, 4. The
+"order" is still ascending, or in other cases the "order" is the same
+minus a single element, but the river still flows</p>
+</blockquote>
+<ul>
+<li><p><strong>Comment</strong> by User 215685 on 2026-05-20 23:20
+(Votes: 0)</p>
+<blockquote>
+<p>you have to shift the other elements to not have the removed element
+there which is why removal is O(n) for arrays and O(1) for linked lists
+(assuming you have the pointer already).</p>
+<p>In practice some people will put a tombstone value for removals and
+won't have to shift all the other elements, but most often that's not
+the case.</p>
+</blockquote>
+<ul>
+<li><strong>Comment</strong> by User 137215 on 2026-05-21 09:08 (Votes:
+0)
+<blockquote>
+<blockquote>
+<p>In practice some people will put a tombstone value for removals</p>
+</blockquote>
+<p>This can be a clever way for keeping order and performing
+removals.</p>
+<p>Unfortunately, the most common use of this is students picking a
+tombstone value that is also a valid input value...</p>
+</blockquote></li>
+</ul></li>
+<li><p><strong>Comment</strong> by User 1282049 on 2026-05-21 04:39
+(Votes: 0)</p>
+<blockquote>
+<p>want to remove the 2 1,2,3,4 step 1: swap with last 1,4,3,2 step 2:
+pop the tail element 1,4,3 congratulations, you have done an O(1)
+removal (but you decided to not care about relative order)</p>
+</blockquote></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li><p><strong>Comment</strong> by User 649126 on 2026-05-22 07:47
+(Votes: 1)</p>
+<blockquote>
+<p>Accessing T(n) in a 1-d list, let T(i), where 1&lt;=i&lt;=n, which is
+treated as an array we assume it takes O(1) and not O(n), right?</p>
+<p>Similarly, for 2-d lists, let T(i,j) for 1&lt;=i, j &lt;=n (treated
+as 2-d arrays) T(1,n) is extracted in O(1) and not O(n), correct?</p>
+<p>Thanks</p>
+</blockquote>
+<ul>
+<li><p><strong>Comment</strong> by User 137215 on 2026-05-22 08:19
+(Votes: 0)</p>
+<blockquote>
+<p>The DP tables follow the list runtimes above.</p>
+<p>If you go from 1D to 2D (<code>n x n</code>), then it goes from
+<code>O(n)</code> to <code>O(n^2)</code> and <code>O(1)</code> to
+<code>O(1)</code> for their respective operations.</p>
+</blockquote>
+<ul>
+<li><strong>Comment</strong> by User 649126 on 2026-05-23 00:52 (Votes:
+0)
+<blockquote>
+<p>To summarize,</p>
+<p>Building/Creating a 1-D T(i) vector with 1&lt;=i&lt;=n takes <span
+class="math inline">𝒪</span>(n) Building/Creating a 2-D T(i,j) table
+with 1&lt;=i&lt;=n and 1&lt;=j&lt;=n takes <span
+class="math inline">𝒪</span>(<span
+class="math inline"><em>n</em><sup>2</sup></span>)</p>
+<p>Accessing the i-th element of an 1-D T(i) vector with 1&lt;=i&lt;=n
+takes <span class="math inline">𝒪</span>(1) Accessing the (i-th, j-th)
+element a 2-D T(i,j) table with 1&lt;=i&lt;=n and 1&lt;=j&lt;=n takes
+<span class="math inline">𝒪</span>(1)</p>
+</blockquote></li>
+</ul></li>
+</ul></li>
+<li><p><strong>Comment</strong> by User 281747 on 2026-05-22 11:43
+(Votes: 0)</p>
+<blockquote>
+<p>Can we have this and the list of black box runtimes as reference on
+the exams?</p>
+</blockquote>
+<ul>
+<li><p><strong>Comment</strong> by User 137215 on 2026-05-22 12:09
+(Votes: 0)</p>
+<blockquote>
+<p>The problems on the exam will be presented similarly to how the
+problems are presented to you on the homework.</p>
+<p>Historically, the information you're asking for is not part of the
+exam 1 experience.</p>
+</blockquote>
+<ul>
+<li><p><strong>Comment</strong> by User 281747 on 2026-05-23 09:38
+(Votes: 1)</p>
+<blockquote>
+<p>Just curious why that is the case that there isn't a simple
+"note-card" provided for runtimes and blackbox functions and such? State
+licensing exams for traditional engineering like mechanical, electrical,
+civil, etc. all provide an equation sheet that's nearly 500 pages long.
+I imagine the goal of this course is to prove that we can apply our
+knowledge of these algorithms to unique problems rather than memorizing
+little details that can easily be referenced in real life.</p>
+</blockquote>
+<ul>
+<li><strong>Comment</strong> by User 137215 on 2026-05-23 09:40 (Votes:
+0)
+<blockquote>
+<blockquote>
+<p>Just curious why that is the case that there isn't a simple
+"note-card" provided for runtimes and blackbox functions and such?</p>
+</blockquote>
+<p>The first half of the information is prerequisite knowledge students
+are expected to have prior to coming into the course. The ability to
+demonstrate that through the <strong>analysis</strong> of algorithms is
+being assessed.</p>
+<p>The second half is that there are a trivially few number of black
+boxes for exam 1, so knowing what they are, how to work them, and all
+those trivial details is part of what is being assessed.</p>
+<p>For future exams, when the number of black boxes are more, their
+names will likely be provided on the exam (at least, they have been
+historically).</p>
+</blockquote></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li><p><strong>Comment</strong> by User 1015969 on 2026-06-20 13:00
+(Votes: 0)</p>
+<blockquote>
+<p>For this item: __Operating on a single edge
+__<code>__e=(u,v)__</code></p>
+<ul>
+<li><p>O(n)</p></li>
+<li><p>This is due to the need to traverse up to n vertices in the
+adjacency list for vertex <code>u</code>, to find and operate on
+adjacency <code>v</code>.</p></li>
+</ul>
+<p>I guess silly question; can we not use the same method mentioned here
+to find <code>v</code> in the adjacency list of <code>u</code>:</p>
+<ul>
+<li>Vertices are assumed to be labeled in such a way where they can be
+found by indexing into the array.</li>
+</ul>
+</blockquote>
+<ul>
+<li><strong>Comment</strong> by User 137215 on 2026-06-20 23:45 (Votes:
+0)
+<blockquote>
+<p>You cannot.</p>
+<p>Finding <code>u</code> takes <code>O(1)</code>, but finding where
+<code>v</code> is under <code>u</code> is what takes the time.</p>
+<p>The adjacency list is a list of <strong>linked lists</strong>, and
+the endpoints of the edges are stored in the linked list portion, which
+requires traversal to discover what it contains.</p>
+<p>For a general graph, any given vertex may have <strong>at
+most</strong> <code>n-1</code> edges in its linked list, giving us the
+worst case runtime for a single edge of <code>O(n)</code> listed
+above.</p>
+</blockquote></li>
+</ul></li>
+</ul>
+</main>
+
+<!-- code highlighting -->
+<link rel="modulepreload" href="../vendor/mermaid/mermaid.esm.min.mjs">
+<script src="../vendor/highlight/highlight.min.js"></script>
+<!-- math -->
+<script defer src="../vendor/katex/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="../vendor/katex/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+<script type="module">
+  // 1) Normalize mermaid blocks. Pandoc(gfm) emits <pre class="mermaid"><code>...</code></pre>.
+  //    Flatten to raw source text so mermaid parses cleanly; also catch the code-only variant.
+  document.querySelectorAll('pre > code.language-mermaid, pre > code.mermaid').forEach(c => {
+    const p = document.createElement('pre'); p.className = 'mermaid'; p.textContent = c.textContent;
+    c.parentElement.replaceWith(p);
+  });
+  document.querySelectorAll('pre.mermaid').forEach(p => { p.textContent = p.textContent; });
+  // 2) Syntax-highlight every code block EXCEPT mermaid (auto-detect language)
+  if (window.hljs) document.querySelectorAll('pre:not(.mermaid) > code').forEach(el => window.hljs.highlightElement(el));
+  // 3) Render mermaid (dark)
+  try {
+    const mermaid = (await import('../vendor/mermaid/mermaid.esm.min.mjs')).default;
+    mermaid.initialize({ startOnLoad: false, theme: 'dark', securityLevel: 'loose' });
+    await mermaid.run({ querySelector: 'pre.mermaid' });
+  } catch (e) { /* offline: leave as text */ }
+</script>
+<script>
+  // 4) Math: render \( \) and \[ \] (pandoc converts dollar-math to these). Tolerate malformed legacy TeX.
+  window.addEventListener('DOMContentLoaded', () => {
+    if (window.renderMathInElement) renderMathInElement(document.querySelector('.content'), {
+      // dollar-delimiters included so KaTeX also renders math pandoc failed to parse (left raw):
+      // a space before a closing delim, cases-env inline, apostrophes in text, etc. Display before inline.
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '\\[', right: '\\]', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false }
+      ],
+      throwOnError: false,
+      // \n is used in the legacy notes as a homemade "arrow over" (directed edge); map it to \overrightarrow.
+      macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
+    });
+  });
+</script>
+</body>
+</html>

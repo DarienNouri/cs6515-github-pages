@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Week 1 — Intro &amp; Dynamic Programming — CS6515</title>
+<link rel="stylesheet" href="../../vendor/fonts/fonts.css">
+<link rel="stylesheet" href="../../theme.css">
+<link rel="stylesheet" href="../../vendor/katex/katex.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="../../vendor/highlight/styles/tokyo-night-dark.min.css">
+
+</head>
+<body>
+<header class="topbar">
+  <a class="home" href="../../index.html">CS6515</a>
+  <span class="crumbloc">Week 1 — Intro &amp; Dynamic Programming</span>
+</header>
+<main class="content">
+<h1 id="week-1--intro--dynamic-programming">Week 1 — Intro &amp; Dynamic
+Programming</h1>
+<blockquote>
+<p><strong>2026-05-18 → 05-24</strong> · Modules <strong>DP1</strong>
+(FIB, LIS, LCS), <strong>DP2</strong> (Knapsack, Chain Multiply)</p>
+<p><a href="../index.html">All weeks</a> · <a
+href="../../00_START_HERE/INDEX.html">Index</a> · <a
+href="../W02_2026-05-25_DC3-DC1/index.html">W02 Divide &amp; Conquer ▶</a></p>
+</blockquote>
+<h3 id="due-this-week">Due this week</h3>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Type</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Readiness Check</strong></td>
+<td>self-assess</td>
+<td>no due date — confirms prerequisites</td>
+</tr>
+<tr>
+<td><strong>Logistics quizzes</strong></td>
+<td>onboarding</td>
+<td>communication, academic integrity</td>
+</tr>
+<tr>
+<td><strong>HW1</strong></td>
+<td>written</td>
+<td>DP problems</td>
+</tr>
+<tr>
+<td><strong>Quiz 1</strong></td>
+<td>format</td>
+<td>how DP answers are graded</td>
+</tr>
+</tbody>
+</table>
+<details>
+<summary><b>Watch the lecture</b> (Intro & DP)</summary>
+
+<p><video controls preload="metadata" width="100%" src="https://storage.googleapis.com/darien-public-assets/cs6515-summer-2026/v20260623/videos/01_Week_01_Intro_DP.mp4"></video></p>
+<p><a href="https://storage.googleapis.com/darien-public-assets/cs6515-summer-2026/v20260623/videos/01_Week_01_Intro_DP.mp4">▶ Open video</a> · <a
+href="transcripts/01_Week_01_Intro_DP.txt">Transcript</a></p>
+</details>
+
+<hr />
+<h2 id="learning-objectives">Learning objectives</h2>
+<ul>
+<li>Convert an optimization problem into a <strong>bottom-up
+table</strong> with a clear subproblem, recurrence, fill order, and
+runtime.</li>
+<li>Distinguish a course-acceptable <strong>bottom-up</strong> DP answer
+from a recursion/memoization sketch.</li>
+<li>Recognize the <strong>state shape</strong> — one index, two indices,
+or capacity — and pick the matching recurrence pattern.</li>
+<li>Read the final answer out of the right table cell and state runtime
+as #entries × work-per-entry.</li>
+</ul>
+<h2 id="core-concepts">Core concepts</h2>
+<h3 id="what-dynamic-programming-is">What dynamic programming
+<em>is</em></h3>
+<p><strong>Definition.</strong> DP solves a problem by combining answers
+to <strong>overlapping subproblems</strong>, each solved once and stored
+in a table. <em>Intuition:</em> recursion that would recompute the same
+calls is turned into a table you fill in a safe order.</p>
+<ul>
+<li>Works when the problem has <strong>optimal substructure</strong>
+(optimal answer built from optimal sub-answers) and <strong>overlapping
+subproblems</strong> (the same sub-answer is reused).</li>
+<li>Course style is <strong>bottom-up</strong>: define the table, fill
+smallest-to-largest, no recursion in the final write-up.</li>
+</ul>
+<h3 id="the-7-step-dp-template-apply-to-every-dp-answer">The 7-step DP
+template (apply to <em>every</em> DP answer)</h3>
+<ol type="1">
+<li><strong>Subproblem in words</strong> — define exactly what one table
+entry means.</li>
+<li><strong>Table entry + index ranges</strong> — name it (e.g. <span
+class="math inline"><em>T</em>(<em>i</em>)</span>, <span
+class="math inline"><em>K</em>(<em>i</em>, <em>b</em>)</span>) and give
+the ranges.</li>
+<li><strong>Base cases.</strong></li>
+<li><strong>Recurrence</strong> — and explain <em>every</em> branch of
+the <code>min</code>/<code>max</code>.</li>
+<li><strong>Fill order</strong> — the order that guarantees dependencies
+are ready.</li>
+<li><strong>Where the answer lives</strong> — which cell holds the final
+result.</li>
+<li><strong>Runtime</strong> = (number of entries) × (work per
+entry).</li>
+</ol>
+<h3 id="one-sequence-dp">One-sequence DP</h3>
+<p><strong>Fibonacci</strong> — warm-up for overlapping subproblems.
+<span
+class="math display"><em>F</em><sub><em>i</em></sub> = <em>F</em><sub><em>i</em> − 1</sub> + <em>F</em><sub><em>i</em> − 2</sub>,   <em>F</em><sub>0</sub> = 0, <em>F</em><sub>1</sub> = 1.</span>
+Fill <span class="math inline"><em>i</em> = 2 → <em>n</em></span>;
+answer <span class="math inline"><em>F</em><sub><em>n</em></sub></span>;
+runtime <span class="math inline"><em>O</em>(<em>n</em>)</span>.</p>
+<p><strong>Longest Increasing Subsequence (LIS).</strong> Subproblem
+<span class="math inline"><em>L</em>(<em>i</em>)</span> = length of the
+longest increasing subsequence <strong>ending at</strong> index <span
+class="math inline"><em>i</em></span>. <span
+class="math display"><em>L</em>(<em>i</em>) = 1 + max ({ 0 } ∪ { <em>L</em>(<em>j</em>) : <em>j</em> &lt; <em>i</em>, <em>a</em><sub><em>j</em></sub> &lt; <em>a</em><sub><em>i</em></sub> }).</span></p>
+<ul>
+<li>Base: every <span
+class="math inline"><em>L</em>(<em>i</em>) ≥ 1</span> (the element
+itself).</li>
+<li>Fill <span class="math inline"><em>i</em> = 1 → <em>n</em></span>;
+<strong>answer</strong> <span
+class="math inline"> = max<sub><em>i</em></sub><em>L</em>(<em>i</em>)</span>
+(not <span class="math inline"><em>L</em>(<em>n</em>)</span> — the LIS
+can end anywhere).</li>
+<li>Runtime <span
+class="math inline"><em>O</em>(<em>n</em><sup>2</sup>)</span>: <span
+class="math inline"><em>n</em></span> entries, <span
+class="math inline"><em>O</em>(<em>n</em>)</span> scan each.</li>
+</ul>
+<h3 id="two-sequence-dp">Two-sequence DP</h3>
+<p><strong>Longest Common Subsequence (LCS).</strong> Subproblem <span
+class="math inline"><em>L</em>(<em>i</em>, <em>j</em>)</span> on
+prefixes <span
+class="math inline"><em>x</em><sub>1..<em>i</em></sub></span>, <span
+class="math inline"><em>y</em><sub>1..<em>j</em></sub></span>. <span
+class="math display">$$
+L(i,j)=
+\begin{cases}
+0 &amp; i=0 \text{ or } j=0,\\
+L(i-1,j-1)+1 &amp; x_i = y_j,\\
+\max\{L(i-1,j),\,L(i,j-1)\} &amp; \text{otherwise.}
+\end{cases}
+$$</span></p>
+<ul>
+<li>Fill row-by-row (each cell needs up, left, up-left).
+<strong>Answer</strong> <span
+class="math inline"><em>L</em>(<em>n</em>, <em>m</em>)</span>; runtime
+<span class="math inline"><em>O</em>(<em>n</em><em>m</em>)</span>.</li>
+</ul>
+<h3 id="capacity-dp">Capacity DP</h3>
+<p><strong>0/1 Knapsack.</strong> Subproblem <span
+class="math inline"><em>K</em>(<em>i</em>, <em>b</em>)</span> = max
+value using items <span class="math inline"> ≤ <em>i</em></span> within
+capacity <span class="math inline"><em>b</em></span>. <span
+class="math display"><em>K</em>(<em>i</em>, <em>b</em>) = max { <em>K</em>(<em>i</em> − 1, <em>b</em>),  <em>v</em><sub><em>i</em></sub> + <em>K</em>(<em>i</em> − 1, <em>b</em> − <em>w</em><sub><em>i</em></sub>) }  (second
+option only if <em>w</em><sub><em>i</em></sub> ≤ <em>b</em>).</span></p>
+<ul>
+<li>Two choices: <strong>skip</strong> item <span
+class="math inline"><em>i</em></span> (row <span
+class="math inline"><em>i</em> − 1</span>, same <span
+class="math inline"><em>b</em></span>) or <strong>take</strong> it (row
+<span class="math inline"><em>i</em> − 1</span>, reduced capacity).</li>
+<li>Base <span class="math inline"><em>K</em>(0, <em>b</em>) = 0</span>.
+<strong>Answer</strong> <span
+class="math inline"><em>K</em>(<em>n</em>, <em>B</em>)</span>; runtime
+<span class="math inline"><em>O</em>(<em>n</em><em>B</em>)</span> —
+<strong>pseudo-polynomial</strong> (<span
+class="math inline"><em>B</em></span> is a value, not input bits).</li>
+</ul>
+<p><strong>Knapsack with repetition</strong> — items reusable. The
+"take" branch stays on the <strong>same row</strong>: <span
+class="math display"><em>K</em>(<em>i</em>, <em>b</em>) = max { <em>K</em>(<em>i</em> − 1, <em>b</em>),  <em>v</em><sub><em>i</em></sub> + <em>K</em>(<em>i</em>, <em>b</em> − <em>w</em><sub><em>i</em></sub>) }.</span></p>
+<blockquote>
+<p>The single change — <span
+class="math inline"><em>K</em>(<em>i</em>, ⋅)</span> instead of <span
+class="math inline"><em>K</em>(<em>i</em> − 1, ⋅)</span> in the take
+branch — is the entire difference between 0/1 and unbounded knapsack.
+Know which one a problem wants.</p>
+</blockquote>
+<h3 id="interval-dp">Interval DP</h3>
+<p><strong>Chain Matrix Multiply.</strong> Subproblem <span
+class="math inline"><em>C</em>(<em>i</em>, <em>j</em>)</span> = min
+scalar multiplications to compute <span
+class="math inline"><em>A</em><sub><em>i</em></sub>⋯<em>A</em><sub><em>j</em></sub></span>
+(dimensions <span
+class="math inline"><em>m</em><sub><em>i</em> − 1</sub> × <em>m</em><sub><em>i</em></sub></span>).
+<span
+class="math display"><em>C</em>(<em>i</em>, <em>j</em>) = min<sub><em>i</em> ≤ <em>k</em> &lt; <em>j</em></sub> [ <em>C</em>(<em>i</em>, <em>k</em>) + <em>C</em>(<em>k</em> + 1, <em>j</em>) + <em>m</em><sub><em>i</em> − 1</sub> <em>m</em><sub><em>k</em></sub> <em>m</em><sub><em>j</em></sub> ],   <em>C</em>(<em>i</em>, <em>i</em>) = 0.</span></p>
+<ul>
+<li>Fill by <strong>increasing interval length</strong> <span
+class="math inline"><em>j</em> − <em>i</em></span>.
+<strong>Answer</strong> <span
+class="math inline"><em>C</em>(1, <em>n</em>)</span>; runtime <span
+class="math inline"><em>O</em>(<em>n</em><sup>3</sup>)</span> (<span
+class="math inline"><em>O</em>(<em>n</em><sup>2</sup>)</span> entries ×
+<span class="math inline"><em>O</em>(<em>n</em>)</span> split
+choices).</li>
+</ul>
+<h2 id="algorithms--summary">Algorithms — summary</h2>
+<table>
+<thead>
+<tr>
+<th>Problem</th>
+<th>Subproblem</th>
+<th>Recurrence kernel</th>
+<th>Entries × work</th>
+<th>Runtime</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fibonacci</td>
+<td><span
+class="math inline"><em>F</em><sub><em>i</em></sub></span></td>
+<td><span
+class="math inline"><em>F</em><sub><em>i</em> − 1</sub> + <em>F</em><sub><em>i</em> − 2</sub></span></td>
+<td><span class="math inline"><em>n</em> × <em>O</em>(1)</span></td>
+<td><span class="math inline"><em>O</em>(<em>n</em>)</span></td>
+</tr>
+<tr>
+<td>LIS</td>
+<td><span class="math inline"><em>L</em>(<em>i</em>)</span> end at <span
+class="math inline"><em>i</em></span></td>
+<td><span class="math inline">1 + max <em>L</em>(<em>j</em>)</span></td>
+<td><span
+class="math inline"><em>n</em> × <em>O</em>(<em>n</em>)</span></td>
+<td><span
+class="math inline"><em>O</em>(<em>n</em><sup>2</sup>)</span></td>
+</tr>
+<tr>
+<td>LCS</td>
+<td><span
+class="math inline"><em>L</em>(<em>i</em>, <em>j</em>)</span></td>
+<td>match / drop</td>
+<td><span
+class="math inline"><em>n</em><em>m</em> × <em>O</em>(1)</span></td>
+<td><span
+class="math inline"><em>O</em>(<em>n</em><em>m</em>)</span></td>
+</tr>
+<tr>
+<td>0/1 Knapsack</td>
+<td><span
+class="math inline"><em>K</em>(<em>i</em>, <em>b</em>)</span></td>
+<td>take / skip</td>
+<td><span
+class="math inline"><em>n</em><em>B</em> × <em>O</em>(1)</span></td>
+<td><span
+class="math inline"><em>O</em>(<em>n</em><em>B</em>)</span></td>
+</tr>
+<tr>
+<td>Chain Multiply</td>
+<td><span
+class="math inline"><em>C</em>(<em>i</em>, <em>j</em>)</span></td>
+<td>best split <span class="math inline"><em>k</em></span></td>
+<td><span
+class="math inline"><em>n</em><sup>2</sup> × <em>O</em>(<em>n</em>)</span></td>
+<td><span
+class="math inline"><em>O</em>(<em>n</em><sup>3</sup>)</span></td>
+</tr>
+</tbody>
+</table>
+<h2 id="worked-example--lcs-of-x--abcb-y--bdcab">Worked example — LCS of
+<code>X = ABCB</code>, <code>Y = BDCAB</code></h2>
+<p>Fill <span
+class="math inline"><em>L</em>(<em>i</em>, <em>j</em>)</span> (rows = X,
+cols = Y). Diagonal +1 on a match, else max(up, left):</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>∅</th>
+<th>B</th>
+<th>D</th>
+<th>C</th>
+<th>A</th>
+<th>B</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>∅</strong></td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td><strong>A</strong></td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td><strong>B</strong></td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+</tr>
+<tr>
+<td><strong>C</strong></td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+<td>2</td>
+<td>2</td>
+</tr>
+<tr>
+<td><strong>B</strong></td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+<td>2</td>
+<td>3</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Answer</strong> <span
+class="math inline"><em>L</em>(4, 5) = 3</span> (one LCS is
+<code>BCB</code>).</p>
+<h2 id="common-pitfalls--exam-traps">Common pitfalls / exam traps</h2>
+<ul>
+<li><strong>LIS answer is <span
+class="math inline">max<sub><em>i</em></sub><em>L</em>(<em>i</em>)</span></strong>,
+not <span class="math inline"><em>L</em>(<em>n</em>)</span> — a frequent
+mistake.</li>
+<li>Writing a <strong>recursive/memoized</strong> function instead of a
+bottom-up table loses credit in this course.</li>
+<li>Mixing <strong>0/1</strong> and <strong>repetition</strong> knapsack
+recurrences (the <span class="math inline"><em>i</em></span> vs <span
+class="math inline"><em>i</em> − 1</span> in the take branch).</li>
+<li>Forgetting capacity guard <span
+class="math inline"><em>w</em><sub><em>i</em></sub> ≤ <em>b</em></span>
+on the take branch.</li>
+<li>Reporting runtime without the #entries × work justification.</li>
+</ul>
+<h2 id="how-to-answer-hw--exam">How to answer (HW / exam)</h2>
+<p>Give the <strong>bottom-up</strong> recurrence + table, not a
+recursive/memoized function. Always finish with the runtime as #entries
+× work-per-entry. See <a
+href="guidance/dynamic-programming-guidance.html">DP guidance</a> and <a
+href="guidance/dp-recurrence-relations.html">DP recurrence
+relations</a>.</p>
+<details>
+<summary><b>Go deeper</b> — readings · guidance · notes</summary>
+
+<ul>
+<li><a href="readings/DPV-ch6-dynamic-programming.pdf">DPV §0.2,
+§6.2–6.5 (DP)</a> · <a href="readings/DPV-ch0-prologue.pdf">§0
+prologue</a></li>
+<li><a href="guidance/dynamic-programming-guidance.html">DP guidance</a>
+· <a href="guidance/dp-recurrence-relations.html">DP recurrences</a> ·
+<a href="guidance/course-readiness.html">Course readiness</a> · <a
+href="guidance/common-course-runtimes.html">Common runtimes</a></li>
+<li><a href="notes/full-course-notes.html">Full course notes</a> · <a
+href="notes/ga-notes.pdf">ga-notes.pdf</a></li>
+<li><a href="lectures/">lectures/</a> · <a
+href="transcripts/">transcripts/</a> · <a href="readings/">readings/</a>
+· <a href="guidance/">guidance/</a> · <a href="notes/">notes/</a></li>
+</ul>
+</details>
+
+<h2 id="comprehensive-notes">Comprehensive Notes</h2>
+<blockquote>
+<p>Full lecture notes for this week's modules, figures inline. The
+summary above is the quick-reference; this is the deep read.</p>
+</blockquote>
+<h3 id="dp1--dynamic-programming-fib-lis-lcs">DP1 — Dynamic Programming
+(FIB, LIS, LCS)</h3>
+<blockquote>
+<p><strong>Definition.</strong> <em>Dynamic programming</em> combines
+solutions of <strong>subproblems</strong> to solve a larger problem
+efficiently — typically for <strong>optimization</strong> problems that
+have many feasible outcomes but one optimal value.</p>
+</blockquote>
+<p>General design methodology:</p>
+<ol type="1">
+<li>Characterize the structure of an optimal solution.</li>
+<li>Define the value of the optimal solution in recursive terms.</li>
+<li>Compute the value of an optimal solution (typically
+<strong>bottom-up</strong>).</li>
+<li><em>(optional)</em> Reconstruct an optimal solution from the
+computed table.</li>
+</ol>
+<p><strong>Class methodology (what graders expect):</strong></p>
+<ul>
+<li><strong>First — define the subproblem in words.</strong> Almost
+every DP problem is an array of 1+ dimensions; say in English what each
+entry means (e.g. "<span
+class="math inline"><em>T</em>(<em>i</em>, <em>j</em>)</span> is the min
+sum of values up to index <span
+class="math inline"><em>i</em>, <em>j</em></span>"). Consider
+constraints/boundaries (there almost always is one).</li>
+<li><strong>Second — write the recurrence</strong> in terms of
+subproblems, <em>including base cases</em> (often <span
+class="math inline"><em>T</em>(0)</span> or <span
+class="math inline"><em>T</em>(<em>i</em>, 0)</span>). The base case
+cannot be part of the recurrence; if <span
+class="math inline"><em>T</em>(0)</span> is the base, the recurrence
+starts at <span class="math inline">1</span>. You may need a
+<code>max</code>/<code>min</code> or a piecewise function.</li>
+<li><strong>Third — pseudocode</strong> (math + programming; if it would
+compile cleanly it's probably too code-like).</li>
+<li><strong>Fourth — runtime</strong> in Big-O.</li>
+</ul>
+<p>Good subproblems on a sequence <span
+class="math inline"><em>X</em></span> of length <span
+class="math inline"><em>n</em></span>: <strong>prefixes</strong> <span
+class="math inline"><em>x</em>[ : <em>i</em>]</span>,
+<strong>suffixes</strong> <span
+class="math inline"><em>x</em>[<em>i</em> : ]</span>,
+<strong>substrings</strong> <span
+class="math inline"><em>x</em>[<em>i</em> : <em>j</em>]</span> (first
+two linear, last polynomial).</p>
+<h4 id="fibonacci--why-dp">Fibonacci — why DP</h4>
+<p>Recursive definition <span
+class="math inline"><em>F</em><sub><em>n</em></sub> = <em>F</em><sub><em>n</em> − 1</sub> + <em>F</em><sub><em>n</em> − 2</sub></span>,
+<span
+class="math inline"><em>F</em><sub>0</sub> = 0, <em>F</em><sub>1</sub> = 1</span>.
+The naive recursive algorithm recomputes the same calls:</p>
+<pre><code>Fib1(n):
+  if n = 0 return 0
+  if n = 1 return 1
+  return Fib1(n-1) + Fib1(n-2)</code></pre>
+<p>Runtime <span
+class="math inline"><em>T</em>(<em>n</em>) ≤ <em>O</em>(1) + <em>T</em>(<em>n</em> − 1) + <em>T</em>(<em>n</em> − 2)</span>.
+Since <span class="math inline">$F_n \approx \phi^n/\sqrt{5}$</span>
+(<span class="math inline"><em>ϕ</em> ≈ 1.618</span>), this is
+<strong>exponential</strong> — each branch recomputes shared values
+(e.g. both <span class="math inline">Fib1(<em>n</em> − 1)</span> and
+<span class="math inline">Fib1(<em>n</em> − 2)</span> need <span
+class="math inline">Fib1(<em>n</em> − 3)</span>). Fill a table
+instead:</p>
+<pre><code>Fib2(n):
+  F[0]=0; F[1]=1
+  for i = 2 to n: F[i] = F[i-1] + F[i-2]
+  return F[n]</code></pre>
+<p>Runtime <span class="math inline"><em>O</em>(<em>n</em>)</span>.</p>
+<blockquote>
+<p><strong>Key idea.</strong> A DP solution uses <strong>no
+recursion</strong> and <strong>no memoization/hashtables</strong> — you
+fill a table <em>bottom-up</em>.</p>
+</blockquote>
+<h4 id="lis--longest-increasing-subsequence">LIS — Longest Increasing
+Subsequence</h4>
+<p>Goal: the <strong>length</strong> of the longest increasing
+subsequence of <span
+class="math inline"><em>a</em><sub>1</sub>, …, <em>a</em><sub><em>n</em></sub></span>
+(not the subsequence itself). A <em>substring</em> is consecutive
+elements; a <em>subsequence</em> is any in-order subset (skipping
+allowed).</p>
+<ul>
+<li><strong>Subproblem:</strong> <span
+class="math inline"><em>L</em>(<em>i</em>)</span> = length of the LIS
+<strong>ending at</strong> index <span
+class="math inline"><em>i</em></span>.</li>
+</ul>
+<blockquote>
+<p><strong>Key idea.</strong> It's the <em>last</em> element that
+matters — the LIS ending at <span class="math inline"><em>i</em></span>
+extends the best earlier LIS whose final value is smaller than <span
+class="math inline"><em>a</em><sub><em>i</em></sub></span>.</p>
+</blockquote>
+<p><span
+class="math display"><em>L</em>(<em>i</em>) = 1 + max<sub><em>j</em></sub>{ <em>L</em>(<em>j</em>) : <em>a</em><sub><em>j</em></sub> &lt; <em>a</em><sub><em>i</em></sub>, <em>j</em> &lt; <em>i</em> }  (max 
+of ⌀ = 0).</span></p>
+<pre><code>LIS(a):
+  for i = 1 to n:
+    L(i) = 1
+    for j = 1 to i-1:
+      if a_j &lt; a_i and L(i) &lt; 1 + L(j):
+        L(i) = 1 + L(j)
+  return max(L(:))          # NOT L(n)</code></pre>
+<p>Runtime <span
+class="math inline"><em>O</em>(<em>n</em><sup>2</sup>) + <em>O</em>(<em>n</em>) = <em>O</em>(<em>n</em><sup>2</sup>)</span>.</p>
+<h4 id="lcs--longest-common-subsequence">LCS — Longest Common
+Subsequence</h4>
+<p>Input two strings <span
+class="math inline"><em>X</em> = <em>x</em><sub>1</sub>⋯<em>x</em><sub><em>n</em></sub></span>,
+<span
+class="math inline"><em>Y</em> = <em>y</em><sub>1</sub>⋯<em>y</em><sub><em>m</em></sub></span>;
+goal is the length of the longest string that is a subsequence of
+<strong>both</strong>. First instinct is a single index <span
+class="math inline"><em>L</em>(<em>i</em>)</span> on equal-length
+prefixes, but that <strong>fails</strong>: when the last characters
+<span
+class="math inline"><em>x</em><sub><em>i</em></sub> ≠ <em>y</em><sub><em>j</em></sub></span>
+the LCS may drop <span
+class="math inline"><em>x</em><sub><em>i</em></sub></span> <em>or</em>
+<span class="math inline"><em>y</em><sub><em>j</em></sub></span>,
+leaving prefixes of <em>different</em> lengths — which a one-parameter
+table cannot express.</p>
+<p>Fix: two parameters. <span
+class="math inline"><em>L</em>(<em>i</em>, <em>j</em>)</span> = length
+of the LCS of <span class="math inline"><em>X</em>[1..<em>i</em>]</span>
+and <span class="math inline"><em>Y</em>[1..<em>j</em>]</span>.</p>
+<p><span class="math display">$$
+L(i,j)=
+\begin{cases}
+0 &amp; i=0 \text{ or } j=0,\\
+1 + L(i-1,j-1) &amp; x_i = y_j,\\
+\max\{\,L(i-1,j),\ L(i,j-1)\,\} &amp; x_i \ne y_j.
+\end{cases}
+$$</span></p>
+<ul>
+<li><strong>Equal case:</strong> the LCS must end in that common
+character (else append it for a longer one) — so <span
+class="math inline">+1</span> and recurse on <span
+class="math inline"><em>L</em>(<em>i</em> − 1, <em>j</em> − 1)</span>.</li>
+<li><strong>Unequal case:</strong> the LCS drops <span
+class="math inline"><em>x</em><sub><em>i</em></sub></span> or <span
+class="math inline"><em>y</em><sub><em>j</em></sub></span> (or both) —
+take the better of <span
+class="math inline"><em>L</em>(<em>i</em> − 1, <em>j</em>)</span> and
+<span
+class="math inline"><em>L</em>(<em>i</em>, <em>j</em> − 1)</span>.</li>
+</ul>
+<pre><code>LCS(X,Y):
+  for i = 0 to n: L(i,0) = 0
+  for j = 0 to m: L(0,j) = 0
+  for i = 1 to n:
+    for j = 1 to m:
+      if X[i] = Y[j]: L(i,j) = 1 + L(i-1,j-1)
+      else:           L(i,j) = max{ L(i,j-1), L(i-1,j) }
+  return L(n,m)</code></pre>
+<p><span class="math inline"><em>L</em></span> is a
+<strong>table</strong> (not a vector like the earlier problems); runtime
+<span class="math inline"><em>O</em>(<em>n</em><em>m</em>)</span>.</p>
+<p><img src="../../.assets/CS6515_images/DP1-002.png"
+alt="LCS table fill" /></p>
+<h4 id="contiguous-subsequence-dpv-61">Contiguous subsequence (DPV
+6.1)</h4>
+<p>Max-sum contiguous subsequence. Subproblem <span
+class="math inline"><em>T</em>(<em>i</em>)</span> = max sum of a
+contiguous subsequence <strong>ending at</strong> <span
+class="math inline"><em>i</em></span>. Working small cases by hand shows
+a negative last element should not be ended on — zero it out:</p>
+<p><span
+class="math display"><em>T</em>(0) = 0,   <em>T</em>(<em>i</em>) = <em>a</em><sub><em>i</em></sub> + max { <em>T</em>(<em>i</em> − 1), 0 }  (1 ≤ <em>i</em> ≤ <em>n</em>).</span></p>
+<p>Answer <span
+class="math inline">max<sub><em>i</em></sub><em>T</em>(<em>i</em>)</span>,
+runtime <span class="math inline"><em>O</em>(<em>n</em>)</span>. Trace
+on <span
+class="math inline">5, 15, −30, 10, −5, 40, 10 ⇒ 5, 20, −10, 10, 5, 45, 55</span>.</p>
+<h4 id="coin-game-substring-dp">Coin game (substring DP)</h4>
+<p>A row of coins <span
+class="math inline"><em>v</em><sub>0</sub>, …, <em>v</em><sub><em>n</em> − 1</sub></span>;
+two players alternately take the left-most or right-most coin; maximize
+your total. Neither prefixes nor suffixes work (either side is
+takeable), so use a <strong>substring</strong> with a player index.
+<span
+class="math inline"><em>X</em>(<em>i</em>, <em>j</em>, <em>p</em>)</span>
+= max value player <span class="math inline"><em>p</em></span> gets from
+coins <span
+class="math inline"><em>v</em><sub><em>i</em></sub>, …, <em>v</em><sub><em>j</em></sub></span>:</p>
+<p><span
+class="math display"><em>X</em>(<em>i</em>, <em>j</em>, me) = max { <em>X</em>(<em>i</em> + 1, <em>j</em>, you) + <em>v</em><sub><em>i</em></sub>, <em>X</em>(<em>i</em>, <em>j</em> − 1, you) + <em>v</em><sub><em>j</em></sub> },</span>
+<span
+class="math display"><em>X</em>(<em>i</em>, <em>j</em>, you) = min { <em>X</em>(<em>i</em> + 1, <em>j</em>, me), <em>X</em>(<em>i</em>, <em>j</em> − 1, me) }.</span></p>
+<p>(The opponent minimizes your score; you don't gain <span
+class="math inline"><em>v</em><sub><em>i</em></sub>/<em>v</em><sub><em>j</em></sub></span>
+on their move.) Topological order: increasing <span
+class="math inline"><em>j</em> − <em>i</em></span>. Base <span
+class="math inline"><em>X</em>(<em>i</em>, <em>i</em>, me) = <em>v</em><sub><em>i</em></sub></span>,
+<span
+class="math inline"><em>X</em>(<em>i</em>, <em>i</em>, you) = 0</span>.
+Answer <span class="math inline"><em>X</em>(0, <em>n</em>, me)</span>,
+runtime <span
+class="math inline"><em>O</em>(<em>n</em><sup>2</sup>)</span>.</p>
+<h3 id="dp2--knapsack--chain-multiply">DP2 — Knapsack &amp; Chain
+Multiply</h3>
+<h4 id="edit-distance-bonus">Edit distance (bonus)</h4>
+<p>Cheapest sequence of Insert / Delete / Replace turning <span
+class="math inline"><em>x</em> → <em>y</em></span> (cost 1 each). With
+<span class="math inline"><em>E</em>(<em>i</em>, <em>j</em>)</span> over
+prefixes:</p>
+<p><span
+class="math display"><em>E</em>(<em>i</em>, <em>j</em>) = min { replace + <em>E</em>(<em>i</em> − 1, <em>j</em> − 1),  insert + <em>E</em>(<em>i</em>, <em>j</em> − 1),  delete + <em>E</em>(<em>i</em> − 1, <em>j</em>) }.</span></p>
+<p>Base <span
+class="math inline"><em>E</em>(<em>i</em>, 0) = <em>i</em></span>, <span
+class="math inline"><em>E</em>(0, <em>j</em>) = <em>j</em></span>;
+runtime <span
+class="math inline"><em>O</em>(<em>n</em><em>m</em>)</span>.</p>
+<h4 id="knapsack">Knapsack</h4>
+<p>Input: <span class="math inline"><em>n</em></span> objects with
+integer weights <span
+class="math inline"><em>w</em><sub>1</sub>, …, <em>w</em><sub><em>n</em></sub></span>
+and values <span
+class="math inline"><em>v</em><sub>1</sub>, …, <em>v</em><sub><em>n</em></sub></span>,
+capacity <span class="math inline"><em>B</em></span>. Find <span
+class="math inline"><em>S</em></span> with <span
+class="math inline">∑<sub><em>i</em> ∈ <em>S</em></sub><em>w</em><sub><em>i</em></sub> ≤ <em>B</em></span>
+maximizing <span
+class="math inline">∑<sub><em>i</em> ∈ <em>S</em></sub><em>v</em><sub><em>i</em></sub></span>.
+Two variants: <strong>V1</strong> one copy of each object;
+<strong>V2</strong> unlimited supply.</p>
+<blockquote>
+<p><strong>Watch out — greedy fails.</strong> Sorting by
+value-per-weight <span
+class="math inline"><em>r</em><sub><em>i</em></sub> = <em>v</em><sub><em>i</em></sub>/<em>w</em><sub><em>i</em></sub></span>
+and taking greedily is <em>suboptimal</em> for knapsack.</p>
+</blockquote>
+<p>Example (capacity 22):</p>
+<pre><code>objects  1   2   3   4
+values  15  10   8   1
+weights 15  12  10   5</code></pre>
+<p>Greedy takes object 1 (weight 15), can't fit 2 or 3, adds 4 → value
+<span class="math inline">15 + 1 = 16</span>. <strong>Optimal</strong>
+is objects <span class="math inline">{2, 3}</span>: weight <span
+class="math inline">12 + 10 = 22</span>, value <span
+class="math inline">10 + 8 = 18</span>.</p>
+<p><strong>V1 (0/1).</strong> A one-parameter <span
+class="math inline"><em>K</em>(<em>i</em>)</span> fails — reaching the
+optimum at <span class="math inline"><em>i</em> = 3</span> requires
+having taken a <em>suboptimal</em> set at <span
+class="math inline"><em>i</em> = 2</span> (take object 2, not 1, to
+leave capacity for 3). Fix: add capacity to the state. <span
+class="math inline"><em>K</em>(<em>i</em>, <em>b</em>)</span> = max
+value using a subset of objects <span
+class="math inline">1..<em>i</em></span> with total weight <span
+class="math inline"> ≤ <em>b</em></span>:</p>
+<p><span class="math display">$$
+K(i,b)=
+\begin{cases}
+\max\{\,v_i + K(i{-}1,\,b-w_i),\ \ K(i{-}1,b)\,\} &amp; w_i \le b,\\
+K(i{-}1,b) &amp; w_i &gt; b.
+\end{cases}
+$$</span></p>
+<p>Base <span class="math inline"><em>K</em>(0, <em>b</em>) = 0</span>,
+<span class="math inline"><em>K</em>(<em>i</em>, 0) = 0</span>. Answer
+<span class="math inline"><em>K</em>(<em>n</em>, <em>B</em>)</span>,
+runtime <span
+class="math inline"><em>O</em>(<em>n</em><em>B</em>)</span>.</p>
+<blockquote>
+<p><strong>Watch out — pseudo-polynomial.</strong> <span
+class="math inline"><em>O</em>(<em>n</em><em>B</em>)</span> is
+<strong>not</strong> polynomial in the input: <span
+class="math inline"><em>B</em></span> is a single number taking <span
+class="math inline">log <em>B</em></span> bits, so doubling <span
+class="math inline"><em>B</em></span> from 16 to 32 adds only
+<em>one</em> input bit but doubles the work.</p>
+</blockquote>
+<p><strong>V2 (unlimited / multiset).</strong> Either add no more copies
+of <span class="math inline"><em>i</em></span> (→ <span
+class="math inline"><em>K</em>(<em>i</em> − 1, <em>b</em>)</span>) or
+add another copy of <span class="math inline"><em>i</em></span> (→ <span
+class="math inline"><em>v</em><sub><em>i</em></sub> + <em>K</em>(<em>i</em>, <em>b</em> − <em>w</em><sub><em>i</em></sub>)</span>,
+note the <strong>same row</strong> <span
+class="math inline"><em>i</em></span>):</p>
+<p><span
+class="math display"><em>K</em>(<em>i</em>, <em>b</em>) = max { <em>K</em>(<em>i</em> − 1, <em>b</em>),  <em>v</em><sub><em>i</em></sub> + <em>K</em>(<em>i</em>, <em>b</em> − <em>w</em><sub><em>i</em></sub>) }  (second
+term if <em>w</em><sub><em>i</em></sub> ≤ <em>b</em>).</span></p>
+<p>This is valid because <span
+class="math inline"><em>K</em>(<em>i</em>, <em>b</em> − <em>w</em><sub><em>i</em></sub>)</span>
+is a previous <em>column</em> in the same row. It collapses to a
+one-parameter form:</p>
+<p><span
+class="math display"><em>K</em>(<em>b</em>) = max<sub><em>i</em></sub>{ <em>v</em><sub><em>i</em></sub> + <em>K</em>(<em>b</em> − <em>w</em><sub><em>i</em></sub>) : 1 ≤ <em>i</em> ≤ <em>n</em>, <em>w</em><sub><em>i</em></sub> ≤ <em>b</em> }.</span></p>
+<p><img src="../../.assets/CS6515_images/DP1-003.png"
+alt="Knapsack V1" /></p>
+<p><img src="../../.assets/CS6515_images/DP1-004.png"
+alt="Knapsack V2 (multiset)" /></p>
+<h4 id="electoral-college-knapsack-style">Electoral College
+(knapsack-style)</h4>
+<p>Pick states with <strong>smallest total population</strong> giving
+<span class="math inline"> ≥ <em>Z</em></span> electoral votes. <span
+class="math inline"><em>T</em>(<em>i</em>, <em>z</em>)</span> = min
+population to reach <span class="math inline"> ≥ <em>z</em></span> votes
+using states <span class="math inline">1..<em>i</em></span>. Base <span
+class="math inline"><em>T</em>(0, <em>z</em>) = ∞</span> (no states ⇒
+can't reach <span class="math inline"><em>Z</em></span>).</p>
+<p><span class="math display">$$
+T(i,z)=
+\begin{cases}
+\min\{\,T(i{-}1,z),\ \ p_i + T(i{-}1,\,z-v_i)\,\} &amp; v_i &lt; z,\\
+\min\{\,p_i,\ \ T(i{-}1,z)\,\} &amp; v_i \ge z.
+\end{cases}
+$$</span></p>
+<p>Answer <span
+class="math inline"><em>T</em>(<em>n</em>, <em>Z</em>)</span>, runtime
+<span class="math inline"><em>O</em>(<em>n</em><em>Z</em>)</span>.</p>
+<h4 id="chain-matrix-multiply">Chain Matrix Multiply</h4>
+<p>Compute <span
+class="math inline"><em>A</em><sub>1</sub> × ⋯ × <em>A</em><sub><em>n</em></sub></span>
+(<span class="math inline"><em>A</em><sub><em>i</em></sub></span> is
+<span
+class="math inline"><em>m</em><sub><em>i</em> − 1</sub> × <em>m</em><sub><em>i</em></sub></span>)
+with the fewest scalar multiplications. Multiplication is associative,
+so parenthesization is free to choose but changes cost: multiplying a
+<span class="math inline"><em>a</em> × <em>b</em></span> by a <span
+class="math inline"><em>b</em> × <em>c</em></span> matrix costs <span
+class="math inline"><em>a</em><em>c</em><em>b</em></span>. Represent a
+parenthesization as a <strong>binary tree</strong>:</p>
+<p><img src="../../.assets/CS6515_images/DP1-005.png"
+alt="Parenthesization as a binary tree" /></p>
+<p><img src="../../.assets/CS6515_images/DP1-006.png"
+alt="Binary-tree form of the problem" /></p>
+<p>Substring subproblem: <span
+class="math inline"><em>C</em>(<em>i</em>, <em>j</em>)</span> = min cost
+to compute <span
+class="math inline"><em>A</em><sub><em>i</em></sub>⋯<em>A</em><sub><em>j</em></sub></span>.
+Split at <span class="math inline"><em>l</em></span> into <span
+class="math inline"><em>A</em><sub><em>i</em></sub>⋯<em>A</em><sub><em>l</em></sub></span>
+and <span
+class="math inline"><em>A</em><sub><em>l</em> + 1</sub>⋯<em>A</em><sub><em>j</em></sub></span>,
+merge cost <span
+class="math inline"><em>m</em><sub><em>i</em> − 1</sub><em>m</em><sub><em>l</em></sub><em>m</em><sub><em>j</em></sub></span>:</p>
+<p><span
+class="math display"><em>C</em>(<em>i</em>, <em>i</em>) = 0,   <em>C</em>(<em>i</em>, <em>j</em>) = min<sub> <em>i</em> ≤ <em>l</em> ≤ <em>j</em> − 1</sub>[ <em>C</em>(<em>i</em>, <em>l</em>) + <em>C</em>(<em>l</em> + 1, <em>j</em>) + <em>m</em><sub><em>i</em> − 1</sub> <em>m</em><sub><em>l</em></sub> <em>m</em><sub><em>j</em></sub> ].</span></p>
+<p>Fill by <strong>increasing interval length</strong> <span
+class="math inline"><em>s</em> = <em>j</em> − <em>i</em></span>: first
+the diagonal <span
+class="math inline"><em>C</em>(<em>i</em>, <em>i</em>)</span>, then
+<span class="math inline"><em>C</em>(<em>i</em>, <em>i</em> + 1)</span>,
+etc., up to <span
+class="math inline"><em>C</em>(1, <em>n</em>)</span>.</p>
+<p><img src="../../.assets/CS6515_images/DP1-007.png"
+alt="Table fill order by diagonal" /></p>
+<pre><code>ChainMultiply(m0,...,mn):
+  for i = 1 to n: C(i,i) = 0
+  for s = 1 to n-1:
+    for i = 1 to n-s:
+      j = i + s
+      C(i,j) = infinity
+      for l = i to j-1:
+        curr = m[i-1]*m[l]*m[j] + C(i,l) + C(l+1,j)
+        if C(i,j) &gt; curr: C(i,j) = curr
+  return C(1,n)</code></pre>
+<p>Runtime <span
+class="math inline"><em>O</em>(<em>n</em><sup>3</sup>)</span> (<span
+class="math inline"><em>O</em>(<em>n</em><sup>2</sup>)</span> entries ×
+<span class="math inline"><em>O</em>(<em>n</em>)</span> split
+choices).</p>
+<!-- WEEK-EXTRAS:START -->
+
+<h2 id="dpv-chapter-exercises">DPV chapter exercises</h2>
+<details>
+<summary><b>DPV chapter exercises (exact, from the textbook)</b></summary>
+
+<p><em>Exact end-of-chapter exercises, parsed from the DPV chapter
+PDFs.</em></p>
+<p><strong>DPV Ch 6 — Dynamic Programming</strong> — <a
+href="../../textbooks/examples-md/06-dynamic-programming-dpv-examples.html">open
+exercises</a> · <a href="readings/DPV-ch6-examples.pdf">chapter
+PDF</a></p>
+<iframe class="examples-frame" src="../../textbooks/examples-md/06-dynamic-programming-dpv-examples.html" title="DPV Ch 6 — Dynamic Programming exercises"></iframe>
+
+<p><strong>DPV Ch 0 — Prologue</strong> — <a
+href="../../textbooks/examples-md/00-prologue-dpv-examples.html">open
+exercises</a> · <a href="readings/DPV-ch0-examples.pdf">chapter
+PDF</a></p>
+<iframe class="examples-frame" src="../../textbooks/examples-md/00-prologue-dpv-examples.html" title="DPV Ch 0 — Prologue exercises"></iframe>
+
+</details>
+
+<!-- WEEK-EXTRAS:END -->
+
+<h2 id="agent-hint">Agent hint</h2>
+<p>DP question → apply the 7-step template; pick the recurrence pattern
+by state shape (1-index / 2-index / capacity / interval); verify it's
+bottom-up; end with runtime = #entries × work. Pull exact grading
+expectations from the DP guidance docs.</p>
+</main>
+
+<!-- code highlighting -->
+<link rel="modulepreload" href="../../vendor/mermaid/mermaid.esm.min.mjs">
+<script src="../../vendor/highlight/highlight.min.js"></script>
+<!-- math -->
+<script defer src="../../vendor/katex/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="../../vendor/katex/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+<script type="module">
+  // 1) Normalize mermaid blocks. Pandoc(gfm) emits <pre class="mermaid"><code>...</code></pre>.
+  //    Flatten to raw source text so mermaid parses cleanly; also catch the code-only variant.
+  document.querySelectorAll('pre > code.language-mermaid, pre > code.mermaid').forEach(c => {
+    const p = document.createElement('pre'); p.className = 'mermaid'; p.textContent = c.textContent;
+    c.parentElement.replaceWith(p);
+  });
+  document.querySelectorAll('pre.mermaid').forEach(p => { p.textContent = p.textContent; });
+  // 2) Syntax-highlight every code block EXCEPT mermaid (auto-detect language)
+  if (window.hljs) document.querySelectorAll('pre:not(.mermaid) > code').forEach(el => window.hljs.highlightElement(el));
+  // 3) Render mermaid (dark)
+  try {
+    const mermaid = (await import('../../vendor/mermaid/mermaid.esm.min.mjs')).default;
+    mermaid.initialize({ startOnLoad: false, theme: 'dark', securityLevel: 'loose' });
+    await mermaid.run({ querySelector: 'pre.mermaid' });
+  } catch (e) { /* offline: leave as text */ }
+</script>
+<script>
+  // 4) Math: render \( \) and \[ \] (pandoc converts dollar-math to these). Tolerate malformed legacy TeX.
+  window.addEventListener('DOMContentLoaded', () => {
+    if (window.renderMathInElement) renderMathInElement(document.querySelector('.content'), {
+      // dollar-delimiters included so KaTeX also renders math pandoc failed to parse (left raw):
+      // a space before a closing delim, cases-env inline, apostrophes in text, etc. Display before inline.
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '\\[', right: '\\]', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false }
+      ],
+      throwOnError: false,
+      // \n is used in the legacy notes as a homemade "arrow over" (directed edge); map it to \overrightarrow.
+      macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
+    });
+  });
+</script>
+</body>
+</html>

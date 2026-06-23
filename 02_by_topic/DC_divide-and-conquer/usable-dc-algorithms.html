@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Usable D&amp;C Algorithms — CS6515</title>
+<link rel="stylesheet" href="../../vendor/fonts/fonts.css">
+<link rel="stylesheet" href="../../theme.css">
+<link rel="stylesheet" href="../../vendor/katex/katex.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="../../vendor/highlight/styles/tokyo-night-dark.min.css">
+
+</head>
+<body>
+<header class="topbar">
+  <a class="home" href="../../index.html">CS6515</a>
+  <span class="crumbloc">Usable D&amp;C Algorithms</span>
+</header>
+<main class="content">
+<h1 id="usable-dc-algorithms">Usable D&amp;C Algorithms</h1>
+<p><strong>Category</strong>: Staff Use Only &gt; Supplemental Material
+<strong>Date</strong>: 2026-05-25 15:20 <strong>Link</strong>: <a
+href="https://edstem.org/us/courses/98593/discussion/8093303">https://edstem.org/us/courses/98593/discussion/8093303</a>
+<strong>Pinned</strong>: False | <strong>Votes</strong>: 8 |
+<strong>Views</strong>: 3834</p>
+<h2 id="post">Post</h2>
+<p>For the divide and conquer section, you may use the algorithms
+presented in the course materials to help you solve presented
+problems.</p>
+<p>It may also be that the problem does not lend itself directly to one
+(or a combo) of the course algorithms, so you may choose to:</p>
+<ul>
+<li><p>Leverage divide and conquer techniques directly, avoiding the use
+of course algorithms; or,</p></li>
+<li><p>Make modifications to one or more of the course algorithms to
+make it fit the problem at hand</p></li>
+</ul>
+<p>Any modifications made to the course algorithms must be described and
+have the impact of the changes accounted for in the runtime
+analysis.</p>
+<p>Modifications listed below under "common modifications" do not need
+to be described in depth, but the use of a modified algorithm must be
+explicitly stated and an impact analysis must still be accounted for in
+the runtime analysis.</p>
+<p>Many divide and conquer algorithms exist beyond what is covered in
+this course; however, only those explicitly mentioned here may be used.
+The use of extra-curricular algorithms will result in
+penalties.Wikipedia entries are provided for supplemental reading, such
+as history and discovery of these algorithms.</p>
+<p>Where differences exist, this post represents the version used in
+this course.The following algorithms are available for use during the
+remainder of the course:</p>
+<p><strong>Binary Search</strong> (see also: <a
+href="https://en.wikipedia.org/wiki/Binary_search_algorithm"><span>https://en.wikipedia.org/wiki/Binary_search_algorithm</span></a>)-
+Input:</p>
+<ul>
+<li><p>A sorted list of comparable elements.</p></li>
+<li><p>A starting index.</p></li>
+<li><p>1 is assumed if not provided.</p></li>
+<li><p>An ending index.</p></li>
+<li><p>The size of the list (i.e., <code>n</code>) is assumed if the
+value is known.</p></li>
+<li><p>The target value.</p></li>
+<li><p>Output:</p></li>
+<li><p>The index of the first <strong>encountered</strong> match if one
+exists or "NOT FOUND" if no match could be found.</p></li>
+<li><p>Runtime:</p></li>
+<li><p><code>O(log n)</code></p></li>
+</ul>
+<p>Reference implementation:</p>
+<pre><code>binary_search(A, s=1, n, T)
+    L = s
+    R = n
+    while L ≤ R do
+        m = floor((L + R) / 2)
+        if A[m] &lt; T
+            L = m + 1
+        else if A[m] &gt; T
+            R = m − 1
+        else
+            return m
+    return unsuccessful
+</code></pre>
+<p>Common modifications:</p>
+<ul>
+<li><p>Finding the <strong>leftmost</strong> matching value.</p></li>
+<li><p>Finding the <strong>rightmost</strong> matching value.</p></li>
+<li><p>Finding the <strong>insertion point</strong> for a missing
+matching value.</p></li>
+</ul>
+<p><strong>Merge Sort</strong> (see also: <a
+href="https://en.wikipedia.org/wiki/Merge_sort"><span>https://en.wikipedia.org/wiki/Merge_sort</span></a>)-
+Input:</p>
+<ul>
+<li><p>A list of comparable elements.</p></li>
+<li><p>A starting index.</p></li>
+<li><p>1 is assumed if not provided.</p></li>
+<li><p>An ending index.</p></li>
+<li><p>The size of the list (i.e., <code>n</code>) is assumed if the
+value is known.</p></li>
+<li><p>Output:</p></li>
+<li><p>The original list, sorted in ascending order.</p></li>
+<li><p>Runtime:</p></li>
+<li><p><code>O(n log n)</code></p></li>
+</ul>
+<p>Reference implementation (based on DPV pp. 50-51):</p>
+<pre><code>merge_sort(A, s=1, n)
+    if n &gt; 1
+        return merge(merge_sort(A[s ... n/2]),
+                     merge_sort(A[n/2 + 1 ... n]))
+    else
+        return A
+
+merge(L[1 ... i], R[1 ... j])
+    if i = 0
+        return R
+    if j = 0
+        return L
+
+    if L[1] ≤ R[1]
+        return L[1] + merge(L[2 ... i], R[1 ... j])
+    else
+        return R[1] + merge(L[1 ... i], R[2 ... j])</code></pre>
+<p>Common modifications:</p>
+<ul>
+<li>Returning the list in <strong>descending</strong> order.</li>
+</ul>
+<p><strong>Fast Select</strong> (see also: <a
+href="https://en.wikipedia.org/wiki/Selection_algorithm"><span>https://en.wikipedia.org/wiki/Selection_algorithm</span></a>)-
+Input:</p>
+<ul>
+<li><p>A list of comparable elements.</p></li>
+<li><p>A starting index.</p></li>
+<li><p>1 is assumed if not provided.</p></li>
+<li><p>An ending index.</p></li>
+<li><p>The size of the list (i.e., <code>n</code>) is assumed if the
+value is known.</p></li>
+<li><p>An integer <code>k</code></p></li>
+<li><p>Output:</p></li>
+<li><p>The <code>kth</code> smallest element from the original
+list.</p></li>
+<li><p>Runtime:</p></li>
+<li><p><code>O(n)</code></p></li>
+</ul>
+<p>Reference implementation (based on DC2.12):</p>
+<pre><code>fast_select(A, s=1, n, k)
+    if n = 1
+        return A[1]
+
+    i = s
+    size = 0
+    medians = []
+
+    while (i + 4) ≤ n do
+        medians += merge_sort(A, i, i+4)[3]
+        size += 1
+        i += 5
+
+    if i ≤ n
+        medians += merge_sort(A, i, n)[ceil((n - i + 1) / 2)]
+        size += 1
+
+    pivot = fast_select(medians, size / 2)
+
+    lows = []
+    mids = []
+    highs = []
+
+    lowSize = 0
+    midSize = 0
+
+    for i = s to n
+        if A[i] &lt; pivot
+            lows += A[i]
+            lowSize += 1
+        else if A[i] &gt; pivot
+            highs += A[i]
+        else
+            mids += A[i]
+            midSize += 1
+
+    if k ≤ lowSize
+        return fast_select(lows, k)
+    else if k &gt; lowSize + midSize
+        return fast_select(highs, k - lowSize - midSize)
+    else
+        return pivot</code></pre>
+<p>Common modifications:</p>
+<ul>
+<li>Return the <code>kth</code> <strong>largest</strong> element.</li>
+</ul>
+<p><strong>Fast Multiply</strong> (see also: <a
+href="https://en.wikipedia.org/wiki/Karatsuba_algorithm"><span>https://en.wikipedia.org/wiki/Karatsuba_algorithm</span></a>)-
+Input:</p>
+<ul>
+<li><p>An <code>n</code>-bit integer <code>x</code> such that
+<code>n = 2^k</code>.</p></li>
+<li><p>An <code>n</code>-bit integer <code>y</code> such that
+<code>n = 2^k</code>.</p></li>
+<li><p>Output:</p></li>
+<li><p>The product of <code>x</code> and <code>y</code>.</p></li>
+<li><p>Runtime:</p></li>
+<li><p><code>O(n^(log``2`` 3))</code></p></li>
+</ul>
+<p>Reference implementation (based on DPV p. 47, DC1.10)</p>
+<pre><code>fast_multiply(x[1 ... n], y[1 ... n])
+    if n = 1
+        return x * y
+
+    xl = extract_bits(x, 1, n/2)
+    xr = extract_bits(x, n/2 + 1, n)
+    yl = extract_bits(y, 1, n/2)
+    yr = extract_bits(y, n/2 + 1, n)
+
+    A = fast_multiply(xl, yl)
+    B = fast_multiply(xr, yr)
+    C = fast_multiply(xl + xr, yl + yr)
+
+    return 2^n * A + 2^(n/2) * (C - A - B) + B</code></pre>
+<p>Common modifications:</p>
+<ul>
+<li>None.</li>
+</ul>
+<h2 id="responses-4">Responses (4)</h2>
+<ul>
+<li><p><strong>Comment</strong> by User 817332 on 2026-05-26 07:22
+(Votes: 1)</p>
+<blockquote>
+<p>Should we / are we supposed to memorize these algorithms?</p>
+</blockquote>
+<ul>
+<li><p><strong>Comment</strong> by User 137215 on 2026-05-26 09:27
+(Votes: 1)</p>
+<blockquote>
+<p>You are expected to know, know how to use, and know how to modify any
+of the algorithms above.</p>
+</blockquote>
+<ul>
+<li><p><strong>Comment</strong> by User 1314770 on 2026-05-28 05:02
+(Votes: 0)</p>
+<blockquote>
+<p>Does this include full reference implementation or just the items
+presented in #9 (no code/pseudocode) ?</p>
+</blockquote>
+<ul>
+<li><strong>Comment</strong> by User 137215 on 2026-05-28 08:02 (Votes:
+2)
+<blockquote>
+<p>How you think about the internals is up to you.</p>
+<p>We've presented them as pseudocode above, as a way to concisely share
+the implementation details.</p>
+<p>In your submission, you would used words, and would modify them with
+words.</p>
+<p>As an example:</p>
+<blockquote>
+<p>I will modify the FastMultiply algorithm for this problem. Instead of
+splitting each n-bit integer into an right and left half, I will split
+it into four parts: upper right, lower right, upper left, lower
+left.</p>
+</blockquote>
+<p>The recursive pair-wise calls are replaced with [some new grouping
+using the 4-part split].</p>
+<p>And for the return calculation, it will now be [some fancy math
+here].</p>
+<p>In order to be able to give those details to make the modification,
+you will need to know how the FastMultiply algorithm works internally,
+to detail the changes you plan to make.</p>
+<p>And then, in the correctness, you'll cover why that modification
+allows you to correctly solve the original problem, along with whatever
+pre- and post-steps you perofrm.</p>
+<p>And finally, your runtime analysis will include the impact of the
+changes you've made. For example:</p>
+<blockquote>
+<p>Splitting the n-bit integer into 4 sets of n/4 bits instead of 2 sets
+of n/2 bits still only requires a single pass of the bits, so this step
+remains O(n).</p>
+</blockquote>
+</blockquote></li>
+</ul></li>
+</ul></li>
+<li><p><strong>Comment</strong> by User 977644 on 2026-05-28 05:38
+(Votes: 13)</p>
+<blockquote>
+<p>You don't need to memorize the code necessarily, you need to
+"memorize" something like this:</p>
+<p>"binary search takes a sorted array A and a target t. You keep two
+indices, L and R, that define the current search range. Each step you
+look at the middle index, mid. If A[mid] == t, you return it. If A[mid]
+&lt; t, you move L to mid + 1; otherwise you move R to mid - 1. This
+process keeps discarding half the remaining range until it is empty or
+you find the target." Then you need to know and explain why binary
+search is O(log n) time.</p>
+<p>That's the basic idea, but like Jamie said, you should know the
+algorithms above well enough to apply variations to them to solve
+problems that aren't just a trivial merge sort or binary search. Plus
+you need to explain what the final runtime is and how you derive it.</p>
+</blockquote></li>
+</ul></li>
+<li><p><strong>Comment</strong> by User 137535 on 2026-05-30 06:45
+(Votes: 1)</p>
+<blockquote>
+<p>Just a quick note for anyone who have the same problem as me. DC2.12
+and DC1.10 actually means the pseudocodes from the lecture. DC is just
+Divide&amp;Conquer not a textbook name like DPV.</p>
+</blockquote></li>
+<li><p><strong>Comment</strong> by User 457782 on 2026-06-01 11:35
+(Votes: 0)</p>
+<blockquote>
+<p>For mergesort, do we somehow have access to the original indexes of
+the values after sorting?</p>
+</blockquote>
+<ul>
+<li><strong>Comment</strong> by User 137215 on 2026-06-01 11:43 (Votes:
+1)
+<blockquote>
+<p>You could make a copy of the original inputs, if the original order
+is important.</p>
+<p>Otherwise, the range sorted will modify in place and that information
+will be lost.</p>
+<p>Since <code>O(n log n)</code> will dominate <code>O(n)</code>, this
+extra copy should not impact the overall optimality of an algorithm.</p>
+</blockquote></li>
+</ul></li>
+<li><p><strong>Comment</strong> by User 1229880 on 2026-06-07 03:35
+(Votes: 0)</p>
+<blockquote>
+<p>merge_sort(A, s=1, n) if n &gt; 1 return merge(merge_sort(A[s ...
+n/2], merge_sort(A[n/2 + 1 ... n]) else return A</p>
+<p>some parentheses missing here I think. should be like this? -&gt;</p>
+<pre><code>    return merge(merge_sort(A[s ... n/2]),
+                 merge_sort(A[n/2 + 1 ... n]))</code></pre>
+</blockquote>
+<ul>
+<li><strong>Comment</strong> by User 137215 on 2026-06-07 05:54 (Votes:
+1)
+<blockquote>
+<p>Looks like it!</p>
+</blockquote></li>
+</ul></li>
+</ul>
+</main>
+
+<!-- code highlighting -->
+<link rel="modulepreload" href="../../vendor/mermaid/mermaid.esm.min.mjs">
+<script src="../../vendor/highlight/highlight.min.js"></script>
+<!-- math -->
+<script defer src="../../vendor/katex/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="../../vendor/katex/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+<script type="module">
+  // 1) Normalize mermaid blocks. Pandoc(gfm) emits <pre class="mermaid"><code>...</code></pre>.
+  //    Flatten to raw source text so mermaid parses cleanly; also catch the code-only variant.
+  document.querySelectorAll('pre > code.language-mermaid, pre > code.mermaid').forEach(c => {
+    const p = document.createElement('pre'); p.className = 'mermaid'; p.textContent = c.textContent;
+    c.parentElement.replaceWith(p);
+  });
+  document.querySelectorAll('pre.mermaid').forEach(p => { p.textContent = p.textContent; });
+  // 2) Syntax-highlight every code block EXCEPT mermaid (auto-detect language)
+  if (window.hljs) document.querySelectorAll('pre:not(.mermaid) > code').forEach(el => window.hljs.highlightElement(el));
+  // 3) Render mermaid (dark)
+  try {
+    const mermaid = (await import('../../vendor/mermaid/mermaid.esm.min.mjs')).default;
+    mermaid.initialize({ startOnLoad: false, theme: 'dark', securityLevel: 'loose' });
+    await mermaid.run({ querySelector: 'pre.mermaid' });
+  } catch (e) { /* offline: leave as text */ }
+</script>
+<script>
+  // 4) Math: render \( \) and \[ \] (pandoc converts dollar-math to these). Tolerate malformed legacy TeX.
+  window.addEventListener('DOMContentLoaded', () => {
+    if (window.renderMathInElement) renderMathInElement(document.querySelector('.content'), {
+      // dollar-delimiters included so KaTeX also renders math pandoc failed to parse (left raw):
+      // a space before a closing delim, cases-env inline, apostrophes in text, etc. Display before inline.
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '\\[', right: '\\]', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false }
+      ],
+      throwOnError: false,
+      // \n is used in the legacy notes as a homemade "arrow over" (directed edge); map it to \overrightarrow.
+      macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
+    });
+  });
+</script>
+</body>
+</html>

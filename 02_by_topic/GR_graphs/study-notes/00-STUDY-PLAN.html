@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>📋 Graphs Module — Master Study Plan — CS6515</title>
+<link rel="stylesheet" href="../../../vendor/fonts/fonts.css">
+<link rel="stylesheet" href="../../../theme.css">
+<link rel="stylesheet" href="../../../vendor/katex/katex.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="../../../vendor/highlight/styles/tokyo-night-dark.min.css">
+
+</head>
+<body>
+<header class="topbar">
+  <a class="home" href="../../../index.html">CS6515</a>
+  <span class="crumbloc">📋 Graphs Module — Master Study Plan</span>
+</header>
+<main class="content">
+<h1 id="clipboard-graphs-module--master-study-plan">📋 Graphs Module —
+Master Study Plan</h1>
+<h2 id="prerequisites-checklist">Prerequisites Checklist</h2>
+<p>Before diving in, make sure you're comfortable with:</p>
+<ul class="task-list">
+<li><label><input type="checkbox" />Basic set notation (unions,
+intersections, complements)</label></li>
+<li><label><input type="checkbox" />Big-O notation and analyzing
+loops</label></li>
+<li><label><input type="checkbox" />Recursion and recursive
+thinking</label></li>
+<li><label><input type="checkbox" />Basic proof techniques
+(contradiction, induction)</label></li>
+<li><label><input type="checkbox" />Matrix multiplication (for
+GR4)</label></li>
+<li><label><input type="checkbox" />Basic probability (for
+GR4)</label></li>
+<li><label><input type="checkbox" />What a tree is (connected, acyclic
+graph)</label></li>
+</ul>
+<p>If any of these feel shaky, spend 30 minutes reviewing before
+starting Day 1.</p>
+<hr />
+<h2 id="10-day-study-plan-2-hoursday">10-Day Study Plan (~2
+hours/day)</h2>
+<h3 id="day-1-graph-fundamentals--representations--traversals">Day 1:
+Graph Fundamentals — Representations &amp; Traversals</h3>
+<p>📖 <strong>Read:</strong> <code>01-GR0-Graph-Fundamentals.md</code>
+(Sections 1–4: Terminology through BFS) 📚 <strong>Reference:</strong>
+DPV Chapter 3.1–3.2</p>
+<p><strong>Focus:</strong></p>
+<ul>
+<li>Terminology: vertices, edges, directed vs undirected, degree</li>
+<li>Adjacency list vs adjacency matrix — know the tradeoffs</li>
+<li>BFS algorithm and its O(n+m) runtime</li>
+<li>Dijkstra's as "BFS with weights"</li>
+</ul>
+<p><strong>✅ Checkpoint:</strong> Can you trace BFS on a 6-node graph
+and produce dist/prev arrays?</p>
+<hr />
+<h3 id="day-2-dfs-deep-dive">Day 2: DFS Deep Dive</h3>
+<p>📖 <strong>Read:</strong> <code>01-GR0-Graph-Fundamentals.md</code>
+(Sections 5–8: DFS through Edge Types) 📚 <strong>Reference:</strong>
+DPV Chapter 3.2–3.3</p>
+<p><strong>Focus:</strong></p>
+<ul>
+<li>DFS for undirected graphs (connected components)</li>
+<li>DFS for directed graphs (pre/post numbering)</li>
+<li>The four edge types: tree, back, forward, cross</li>
+<li><strong>Key fact:</strong> G has a cycle ⟺ DFS tree has a back
+edge</li>
+</ul>
+<p><strong>✅ Checkpoint:</strong> Given a directed graph, can you run
+DFS and label every edge by type?</p>
+<hr />
+<h3 id="day-3-topological-sort--scc-setup">Day 3: Topological Sort + SCC
+Setup</h3>
+<p>📖 <strong>Read:</strong> <code>01-GR0-Graph-Fundamentals.md</code>
+(Section 9: Topological Sort) +
+<code>02-GR1-Strongly-Connected-Components.md</code> (Sections 1–3) 📚
+<strong>Reference:</strong> DPV Chapter 3.3–3.4</p>
+<p><strong>Focus:</strong></p>
+<ul>
+<li>Topological sorting via DFS (sort by decreasing post number)</li>
+<li>Only works on DAGs — why?</li>
+<li>Definition of strongly connected components</li>
+<li>The metagraph is always a DAG</li>
+</ul>
+<p><strong>✅ Checkpoint:</strong> Can you topologically sort a DAG by
+hand using post numbers?</p>
+<hr />
+<h3 id="day-4-scc-algorithm--the-main-event">Day 4: SCC Algorithm — The
+Main Event</h3>
+<p>📖 <strong>Read:</strong>
+<code>02-GR1-Strongly-Connected-Components.md</code> (Sections 4–7) 📚
+<strong>Reference:</strong> DPV Chapter 3.4</p>
+<p><strong>Focus:</strong></p>
+<ul>
+<li>The two-pass DFS algorithm for finding SCCs</li>
+<li>Why we reverse the graph (swap sources/sinks)</li>
+<li>The key lemma: highest post-number vertex is in a source SCC</li>
+<li>Full worked example</li>
+</ul>
+<p><strong>✅ Checkpoint:</strong> Can you find all SCCs of a 10-node
+directed graph by hand? Can you explain <em>why</em> the algorithm
+works?</p>
+<hr />
+<h3 id="day-5-2-sat">Day 5: 2-SAT</h3>
+<p>📖 <strong>Read:</strong> <code>03-GR2-2SAT.md</code> 📚
+<strong>Reference:</strong> DPV Chapter 3.4 (applications)</p>
+<p><strong>Focus:</strong></p>
+<ul>
+<li>CNF notation, k-SAT definition</li>
+<li>Constructing the implication graph from 2-SAT clauses</li>
+<li>The lemma: satisfiable ⟺ no x_i and ¬x_i in same SCC</li>
+<li>The full algorithm: build graph → find SCCs → assign truth
+values</li>
+</ul>
+<p><strong>✅ Checkpoint:</strong> Given a 2-SAT formula with 4
+variables, can you construct the implication graph, find SCCs, and
+determine satisfiability?</p>
+<hr />
+<h3 id="day-6-mst--kruskals--the-cut-property">Day 6: MST — Kruskal's
+&amp; The Cut Property</h3>
+<p>📖 <strong>Read:</strong>
+<code>04-GR3-Minimum-Spanning-Tree.md</code> (Sections 1–5) 📚
+<strong>Reference:</strong> DPV Chapter 5.1</p>
+<p><strong>Focus:</strong></p>
+<ul>
+<li>MST definition and tree properties</li>
+<li>Kruskal's algorithm with Union-Find</li>
+<li>The Cut Property (statement AND proof)</li>
+<li>Why Kruskal's is correct (via Cut Property)</li>
+</ul>
+<p><strong>✅ Checkpoint:</strong> Can you state and prove the Cut
+Property? Can you trace Kruskal's on a weighted graph?</p>
+<hr />
+<h3 id="day-7-mst--prims--review">Day 7: MST — Prim's + Review</h3>
+<p>📖 <strong>Read:</strong>
+<code>04-GR3-Minimum-Spanning-Tree.md</code> (Sections 6–7) 📚
+<strong>Reference:</strong> DPV Chapter 5.1</p>
+<p><strong>Focus:</strong></p>
+<ul>
+<li>Prim's algorithm and its connection to Cut Property</li>
+<li>Kruskal's vs Prim's comparison</li>
+<li>Review all MST material</li>
+</ul>
+<p><strong>✅ Checkpoint:</strong> Can you explain how both Kruskal's
+and Prim's are special cases of the Cut Property?</p>
+<hr />
+<h3 id="day-8-markov-chains">Day 8: Markov Chains</h3>
+<p>📖 <strong>Read:</strong>
+<code>05-GR4-Markov-Chains-PageRank.md</code> (Sections 1–5: through
+Ergodic)</p>
+<p><strong>Focus:</strong></p>
+<ul>
+<li>Markov chain definition, transition matrices</li>
+<li>k-step transitions via matrix powers</li>
+<li>Stationary distribution: πP = π</li>
+<li>Ergodic = aperiodic + irreducible (strongly connected)</li>
+</ul>
+<p><strong>✅ Checkpoint:</strong> Given a 3-state Markov chain, can you
+write the transition matrix and compute P²?</p>
+<hr />
+<h3 id="day-9-pagerank">Day 9: PageRank</h3>
+<p>📖 <strong>Read:</strong>
+<code>05-GR4-Markov-Chains-PageRank.md</code> (Sections 6–9: PageRank
+onward)</p>
+<p><strong>Focus:</strong></p>
+<ul>
+<li>Citation count intuition → random surfer model</li>
+<li>The damping parameter α and why it's needed</li>
+<li>Handling sink nodes</li>
+<li>The transition matrix for PageRank</li>
+<li>Finding π in practice</li>
+</ul>
+<p><strong>✅ Checkpoint:</strong> Can you explain why the random surfer
+model guarantees ergodicity? What happens with sink nodes?</p>
+<hr />
+<h3 id="day-10-comprehensive-review">Day 10: Comprehensive Review</h3>
+<p>📖 <strong>Read:</strong> <code>06-Graphs-Cheat-Sheet.md</code> — use
+this as your self-test</p>
+<p><strong>Activities:</strong></p>
+<ul class="task-list">
+<li><label><input type="checkbox" />Work through the cheat sheet: cover
+each algorithm's entry, try to recall it before reading</label></li>
+<li><label><input type="checkbox" />Do 2–3 practice problems from each
+module</label></li>
+<li><label><input type="checkbox" />Re-read any sections where you got
+stuck</label></li>
+<li><label><input type="checkbox" />Write your own 1-page summary from
+memory</label></li>
+</ul>
+<p><strong>✅ Final Checkpoint:</strong> Can you explain every
+algorithm's input/output/runtime without looking? Can you prove the Cut
+Property and the 2-SAT lemma?</p>
+<hr />
+<h2 id="module-dependency-graph">Module Dependency Graph</h2>
+<pre class="mermaid"><code>graph TD
+    GR0[GR0: Graph Fundamentals&lt;br/&gt;BFS, DFS, Topo Sort] --&gt; GR1[GR1: SCCs&lt;br/&gt;2-pass DFS]
+    GR1 --&gt; GR2[GR2: 2-SAT&lt;br/&gt;Implication Graphs]
+    GR0 --&gt; GR3[GR3: MST&lt;br/&gt;Kruskal&#39;s, Prim&#39;s]
+    GR1 --&gt; GR4[GR4: Markov Chains&lt;br/&gt;&amp; PageRank]</code></pre>
+<p><strong>Key dependency:</strong> GR1 (SCCs) is the linchpin — it's
+needed for both 2-SAT and PageRank.</p>
+<hr />
+<h2 id="practice-problem-sources">Practice Problem Sources</h2>
+<table>
+<thead>
+<tr>
+<th>Module</th>
+<th>Suggested Practice</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GR0</td>
+<td>DPV Ch 3, Exercises 3.1–3.5</td>
+</tr>
+<tr>
+<td>GR1</td>
+<td>DPV Ch 3, Exercises 3.10–3.14</td>
+</tr>
+<tr>
+<td>GR2</td>
+<td>DPV Ch 3, Exercise 3.28 (2-SAT)</td>
+</tr>
+<tr>
+<td>GR3</td>
+<td>DPV Ch 5, Exercises 5.1–5.9</td>
+</tr>
+<tr>
+<td>GR4</td>
+<td>Past exam problems on Markov chains</td>
+</tr>
+</tbody>
+</table>
+<p>Also check the <code>homework/</code> and
+<code>ed-discussions/</code> folders for course-specific practice.</p>
+</main>
+
+<!-- code highlighting -->
+<link rel="modulepreload" href="../../../vendor/mermaid/mermaid.esm.min.mjs">
+<script src="../../../vendor/highlight/highlight.min.js"></script>
+<!-- math -->
+<script defer src="../../../vendor/katex/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="../../../vendor/katex/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+<script type="module">
+  // 1) Normalize mermaid blocks. Pandoc(gfm) emits <pre class="mermaid"><code>...</code></pre>.
+  //    Flatten to raw source text so mermaid parses cleanly; also catch the code-only variant.
+  document.querySelectorAll('pre > code.language-mermaid, pre > code.mermaid').forEach(c => {
+    const p = document.createElement('pre'); p.className = 'mermaid'; p.textContent = c.textContent;
+    c.parentElement.replaceWith(p);
+  });
+  document.querySelectorAll('pre.mermaid').forEach(p => { p.textContent = p.textContent; });
+  // 2) Syntax-highlight every code block EXCEPT mermaid (auto-detect language)
+  if (window.hljs) document.querySelectorAll('pre:not(.mermaid) > code').forEach(el => window.hljs.highlightElement(el));
+  // 3) Render mermaid (dark)
+  try {
+    const mermaid = (await import('../../../vendor/mermaid/mermaid.esm.min.mjs')).default;
+    mermaid.initialize({ startOnLoad: false, theme: 'dark', securityLevel: 'loose' });
+    await mermaid.run({ querySelector: 'pre.mermaid' });
+  } catch (e) { /* offline: leave as text */ }
+</script>
+<script>
+  // 4) Math: render \( \) and \[ \] (pandoc converts dollar-math to these). Tolerate malformed legacy TeX.
+  window.addEventListener('DOMContentLoaded', () => {
+    if (window.renderMathInElement) renderMathInElement(document.querySelector('.content'), {
+      // dollar-delimiters included so KaTeX also renders math pandoc failed to parse (left raw):
+      // a space before a closing delim, cases-env inline, apostrophes in text, etc. Display before inline.
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '\\[', right: '\\]', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false }
+      ],
+      throwOnError: false,
+      // \n is used in the legacy notes as a homemade "arrow over" (directed edge); map it to \overrightarrow.
+      macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
+    });
+  });
+</script>
+</body>
+</html>

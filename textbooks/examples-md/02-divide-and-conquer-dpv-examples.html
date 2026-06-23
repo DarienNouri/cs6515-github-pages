@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DPV ch02 exercises — CS6515</title>
+<link rel="stylesheet" href="../../vendor/fonts/fonts.css">
+<link rel="stylesheet" href="../../theme.css">
+<link rel="stylesheet" href="../../vendor/katex/katex.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="../../vendor/highlight/styles/tokyo-night-dark.min.css">
+
+</head>
+<body>
+<header class="topbar">
+  <a class="home" href="../../index.html">CS6515</a>
+  <span class="crumbloc">DPV ch02 exercises</span>
+</header>
+<main class="content">
+<!-- toc:start -->
+
+<h2 id="table-of-contents">Table of Contents</h2>
+<ul>
+<li><a href="#exercises">Exercises</a></li>
+</ul>
+<!-- toc:end -->
+
+<h2 id="exercises">Exercises</h2>
+<h3 id="21">2.1</h3>
+<p>Use the divide-and-conquer integer multiplication algorithm to
+multiply the two binary integers 10011011 and 10111010.</p>
+<h3 id="22">2.2</h3>
+<p>Show that for any positive integers <span
+class="math inline"><em>n</em></span> and any base <span
+class="math inline"><em>b</em></span>, there must some power of <span
+class="math inline"><em>b</em></span> lying in the range <span
+class="math inline">[<em>n</em>, <em>b</em><em>n</em>]</span>.</p>
+<h3 id="23">2.3</h3>
+<p>Section 2.2 describes a method for solving recurrence relations which
+is based on analyzing the recursion tree and deriving a formula for the
+work done at each level. Another (closely related) method is to expand
+out the recurrence a few times, until a pattern emerges. For instance,
+let's start with the familiar <span
+class="math inline"><em>T</em>(<em>n</em>) = 2<em>T</em>(<em>n</em>/2) + <em>O</em>(<em>n</em>)</span>.
+Think of <span class="math inline"><em>O</em>(<em>n</em>)</span> as
+being <span class="math inline"> ≤ <em>c</em><em>n</em></span> for some
+constant <span class="math inline"><em>c</em></span>, so: <span
+class="math inline"><em>T</em>(<em>n</em>) ≤ 2<em>T</em>(<em>n</em>/2) + <em>c</em><em>n</em></span>.
+By repeatedly applying this rule, we can bound <span
+class="math inline"><em>T</em>(<em>n</em>)</span> in terms of <span
+class="math inline"><em>T</em>(<em>n</em>/2)</span>, then <span
+class="math inline"><em>T</em>(<em>n</em>/4)</span>, then <span
+class="math inline"><em>T</em>(<em>n</em>/8)</span>, and so on, at each
+step getting closer to the value of <span
+class="math inline"><em>T</em>(⋅)</span> we do know, namely <span
+class="math inline"><em>T</em>(1) = <em>O</em>(1)</span>.</p>
+<p><span class="math display">$$
+\begin{aligned}
+T(n) &amp; \leq 2 T(n / 2)+c n \\
+&amp; \leq 2[2 T(n / 4)+c n / 2]+c n=4 T(n / 4)+2 c n \\
+&amp; \leq 4[2 T(n / 8)+c n / 4]+2 c n=8 T(n / 8)+3 c n \\
+&amp; \leq 8[2 T(n / 16)+c n / 8]+3 c n=16 T(n / 16)+4 c n \\
+&amp; \vdots
+\end{aligned}
+$$</span></p>
+<p>A pattern is emerging... the general term is</p>
+<p><span
+class="math display"><em>T</em>(<em>n</em>) ≤ 2<sup><em>k</em></sup><em>T</em>(<em>n</em>/2<sup><em>k</em></sup>) + <em>k</em><em>c</em><em>n</em></span></p>
+<p>Plugging in <span
+class="math inline"><em>k</em> = log<sub>2</sub><em>n</em></span>, we
+get <span
+class="math inline"><em>T</em>(<em>n</em>) ≤ <em>n</em><em>T</em>(1) + <em>c</em><em>n</em>log<sub>2</sub><em>n</em> = <em>O</em>(<em>n</em>log <em>n</em>)</span>.</p>
+<p><strong>(a)</strong> Do the same thing for the recurrence <span
+class="math inline"><em>T</em>(<em>n</em>) = 3<em>T</em>(<em>n</em>/2) + <em>O</em>(<em>n</em>)</span>.
+What is the general <span class="math inline"><em>k</em></span> th term
+in this case? And what value of <span
+class="math inline"><em>k</em></span> should be plugged in to get the
+answer?</p>
+<p><strong>(b)</strong> Now try the recurrence <span
+class="math inline"><em>T</em>(<em>n</em>) = <em>T</em>(<em>n</em> − 1) + <em>O</em>(1)</span>,
+a case which is not covered by the master theorem. Can you solve this
+too?</p>
+<h3 id="24">2.4</h3>
+<p>Suppose you are choosing between the following three algorithms:</p>
+<ul>
+<li>Algorithm <span class="math inline"><em>A</em></span> solves
+problems by dividing them into five subproblems of half the size,
+recursively solving each subproblem, and then combining the solutions in
+linear time.</li>
+<li>Algorithm <span class="math inline"><em>B</em></span> solves
+problems of size <span class="math inline"><em>n</em></span> by
+recursively solving two subproblems of size <span
+class="math inline"><em>n</em> − 1</span> and then combining the
+solutions in constant time.</li>
+<li>Algorithm <span class="math inline"><em>C</em></span> solves
+problems of size <span class="math inline"><em>n</em></span> by dividing
+them into nine subproblems of size <span
+class="math inline"><em>n</em>/3</span>, recursively solving each
+subproblem, and then combining the solutions in <span
+class="math inline"><em>O</em>(<em>n</em><sup>2</sup>)</span> time.</li>
+</ul>
+<p>What are the running times of each of these algorithms (in big- <span
+class="math inline"><em>O</em></span> notation), and which would you
+choose?</p>
+<h3 id="25">2.5</h3>
+<p>Solve the following recurrence relations and give a <span
+class="math inline"><em>Θ</em></span> bound for each of them.</p>
+<p><strong>(a)</strong> <span
+class="math inline"><em>T</em>(<em>n</em>) = 2<em>T</em>(<em>n</em>/3) + 1</span></p>
+<p><strong>(b)</strong> <span
+class="math inline"><em>T</em>(<em>n</em>) = 5<em>T</em>(<em>n</em>/4) + <em>n</em></span></p>
+<p><strong>(c)</strong> <span
+class="math inline"><em>T</em>(<em>n</em>) = 7<em>T</em>(<em>n</em>/7) + <em>n</em></span></p>
+<p><strong>(d)</strong> <span
+class="math inline"><em>T</em>(<em>n</em>) = 9<em>T</em>(<em>n</em>/3) + <em>n</em><sup>2</sup></span></p>
+<p><strong>(e)</strong> <span
+class="math inline"><em>T</em>(<em>n</em>) = 8<em>T</em>(<em>n</em>/2) + <em>n</em><sup>3</sup></span></p>
+<p><strong>(f)</strong> <span
+class="math inline"><em>T</em>(<em>n</em>) = 49<em>T</em>(<em>n</em>/25) + <em>n</em><sup>3/2</sup>log <em>n</em></span></p>
+<p><strong>(g)</strong> <span
+class="math inline"><em>T</em>(<em>n</em>) = <em>T</em>(<em>n</em> − 1) + 2</span></p>
+<p><strong>(h)</strong> <span
+class="math inline"><em>T</em>(<em>n</em>) = <em>T</em>(<em>n</em> − 1) + <em>n</em><sup><em>c</em></sup></span>,
+where <span class="math inline"><em>c</em> ≥ 1</span> is a constant</p>
+<p><strong>(i)</strong> <span
+class="math inline"><em>T</em>(<em>n</em>) = <em>T</em>(<em>n</em> − 1) + <em>c</em><sup><em>n</em></sup></span>,
+where <span class="math inline"><em>c</em> &gt; 1</span> is some
+constant</p>
+<p><strong>(j)</strong> <span
+class="math inline"><em>T</em>(<em>n</em>) = 2<em>T</em>(<em>n</em> − 1) + 1</span></p>
+<p><strong>(k)</strong> <span
+class="math inline">$T(n)=T(\sqrt{n})+1$</span></p>
+<h3 id="26">2.6</h3>
+<p>A linear, time-invariant system has the following impulse response:
+<img
+src="../../.assets/remote/aab1c1d84f1c07c1.jpg" /></p>
+<p><strong>(a)</strong> Describe in words the effect of this system.</p>
+<p><strong>(b)</strong> What is the corresponding polynomial?</p>
+<h3 id="27">2.7</h3>
+<p>What is the sum of the <span class="math inline"><em>n</em></span>th
+roots of unity? What is their product if <span
+class="math inline"><em>n</em></span> is odd? If <span
+class="math inline"><em>n</em></span> is even?</p>
+<h3 id="28">2.8</h3>
+<p>Practice with the fast Fourier transform.</p>
+<p><strong>(a)</strong> What is the FFT of <span
+class="math inline">(1, 0, 0, 0)</span> ? What is the appropriate value
+of <span class="math inline"><em>ω</em></span> in this case? And of
+which sequence is <span class="math inline">(1, 0, 0, 0)</span> the
+FFT?</p>
+<p><strong>(b)</strong> Repeat for <span
+class="math inline">(1, 0, 1, −1)</span>.</p>
+<h3 id="29">2.9</h3>
+<p>Practice with polynomial multiplication by FFT.</p>
+<p><strong>(a)</strong> Suppose that you want to multiply the two
+polynomials <span class="math inline"><em>x</em> + 1</span> and <span
+class="math inline"><em>x</em><sup>2</sup> + 1</span> using the FFT.
+Choose an appropriate power of two, find the FFT of the two sequences,
+multiply the results componentwise, and compute the inverse FFT to get
+the final result.</p>
+<p><strong>(b)</strong> Repeat for the pair of polynomials <span
+class="math inline">1 + <em>x</em> + 2<em>x</em><sup>2</sup></span> and
+<span class="math inline">2 + 3<em>x</em></span>.</p>
+<h3 id="210">2.10</h3>
+<p>Find the unique polynomial of degree 4 that takes on values <span
+class="math inline"><em>p</em>(1) = 2, <em>p</em>(2) = 1, <em>p</em>(3) = 0, <em>p</em>(4) = 4</span>,
+and <span class="math inline"><em>p</em>(5) = 0</span>. Write your
+answer in the coefficient representation.</p>
+<h3 id="211">2.11</h3>
+<p>In justifying our matrix multiplication algorithm (Section 2.5), we
+claimed the following blockwise property: if <span
+class="math inline"><em>X</em></span> and <span
+class="math inline"><em>Y</em></span> are <span
+class="math inline"><em>n</em> × <em>n</em></span> matrices, and</p>
+<p><span class="math display">$$
+X=\left[\begin{array}{ll}
+A &amp; B \\
+C &amp; D
+\end{array}\right], \quad Y=\left[\begin{array}{ll}
+E &amp; F \\
+G &amp; H
+\end{array}\right]
+$$</span></p>
+<p>where <span
+class="math inline"><em>A</em>, <em>B</em>, <em>C</em>, <em>D</em>, <em>E</em>, <em>F</em>, <em>G</em></span>,
+and <span class="math inline"><em>H</em></span> are <span
+class="math inline"><em>n</em>/2 × <em>n</em>/2</span> submatrices, then
+the product <span class="math inline"><em>X</em><em>Y</em></span> can be
+expressed in terms of these blocks:</p>
+<p><span class="math display">$$
+X Y=\left[\begin{array}{ll}
+A &amp; B \\
+C &amp; D
+\end{array}\right]\left[\begin{array}{ll}
+E &amp; F \\
+G &amp; H
+\end{array}\right]=\left[\begin{array}{ll}
+A E+B G &amp; A F+B H \\
+C E+D G &amp; C F+D H
+\end{array}\right]
+$$</span></p>
+<p>Prove this property.</p>
+<h3 id="212">2.12</h3>
+<p>How many lines, as a function of <span
+class="math inline"><em>n</em></span> (in <span
+class="math inline"><em>Θ</em>(⋅)</span> form), does the following
+program print? Write a recurrence and solve it. You may assume <span
+class="math inline"><em>n</em></span> is a power of 2 .</p>
+<pre><code>function f(n)
+    if n &gt; 1:
+        print_line(&#39;&#39;still going&#39;&#39;)
+        f(n/2)
+        f(n/2)</code></pre>
+<h3 id="213">2.13</h3>
+<p>A binary tree is full if all of its vertices have either zero or two
+children. Let <span
+class="math inline"><em>B</em><sub><em>n</em></sub></span> denote the
+number of full binary trees with <span
+class="math inline"><em>n</em></span> vertices.</p>
+<p><strong>(a)</strong> By drawing out all full binary trees with 3, 5,
+or 7 vertices, determine the exact values of <span
+class="math inline"><em>B</em><sub>3</sub>, <em>B</em><sub>5</sub></span>,
+and <span class="math inline"><em>B</em><sub>7</sub></span>. Why have we
+left out even numbers of vertices, like <span
+class="math inline"><em>B</em><sub>4</sub></span> ?</p>
+<p><strong>(b)</strong> For general <span
+class="math inline"><em>n</em></span>, derive a recurrence relation for
+<span class="math inline"><em>B</em><sub><em>n</em></sub></span>.</p>
+<p><strong>(c)</strong> Show by induction that <span
+class="math inline"><em>B</em><sub><em>n</em></sub></span> is <span
+class="math inline"><em>Ω</em>(2<sup><em>n</em></sup>)</span>.</p>
+<h3 id="214">2.14</h3>
+<p>You are given an array of <span class="math inline"><em>n</em></span>
+elements, and you notice that some of the elements are duplicates; that
+is, they appear more than once in the array. Show how to remove all
+duplicates from the array in time <span
+class="math inline"><em>O</em>(<em>n</em>log <em>n</em>)</span>.</p>
+<h3 id="215">2.15</h3>
+<p>In our median-finding algorithm (Section 2.4), a basic primitive is
+the split operation, which takes as input an array <span
+class="math inline"><em>S</em></span> and a value <span
+class="math inline"><em>v</em></span> and then divides <span
+class="math inline"><em>S</em></span> into three sets: the elements less
+than <span class="math inline"><em>v</em></span>, the elements equal to
+<span class="math inline"><em>v</em></span>, and the elements greater
+than <span class="math inline"><em>v</em></span>. Show how to implement
+this split operation in place, that is, without allocating new
+memory.</p>
+<h3 id="216">2.16</h3>
+<p>You are given an infinite array <span
+class="math inline"><em>A</em>[⋅]</span> in which the first <span
+class="math inline"><em>n</em></span> cells contain integers in sorted
+order and the rest of the cells are filled with <span
+class="math inline">∞</span>. You are not given the value of <span
+class="math inline"><em>n</em></span>. Describe an algorithm that takes
+an integer <span class="math inline"><em>x</em></span> as input and
+finds a position in the array containing <span
+class="math inline"><em>x</em></span>, if such a position exists, in
+<span class="math inline"><em>O</em>(log <em>n</em>)</span> time. (If
+you are disturbed by the fact that the array <span
+class="math inline"><em>A</em></span> has infinite length, assume
+instead that it is of length <span
+class="math inline"><em>n</em></span>, but that you don't know this
+length, and that the implementation of the array data type in your
+programming language returns the error message <span
+class="math inline">∞</span> whenever elements <span
+class="math inline"><em>A</em>[<em>i</em>]</span> with <span
+class="math inline"><em>i</em> &gt; <em>n</em></span> are accessed.)</p>
+<h3 id="217">2.17</h3>
+<p>Given a sorted array of distinct integers <span
+class="math inline"><em>A</em>[1, …, <em>n</em>]</span>, you want to
+find out whether there is an index <span
+class="math inline"><em>i</em></span> for which <span
+class="math inline"><em>A</em>[<em>i</em>] = <em>i</em></span>. Give a
+divide-and-conquer algorithm that runs in time <span
+class="math inline"><em>O</em>(log <em>n</em>)</span>.</p>
+<h3 id="218">2.18</h3>
+<p>Consider the task of searching a sorted array <span
+class="math inline"><em>A</em>[1…<em>n</em>]</span> for a given element
+<span class="math inline"><em>x</em></span> : a task we usually perform
+by binary search in time <span
+class="math inline"><em>O</em>(log <em>n</em>)</span>. Show that any
+algorithm that accesses the array only via comparisons (that is, by
+asking questions of the form "is <span
+class="math inline"><em>A</em>[<em>i</em>] ≤ <em>z</em></span> ?"), must
+take <span class="math inline"><em>Ω</em>(log <em>n</em>)</span>
+steps.</p>
+<h3 id="219">2.19</h3>
+<p>A <span class="math inline"><em>k</em></span>-way merge operation.
+Suppose you have <span class="math inline"><em>k</em></span> sorted
+arrays, each with <span class="math inline"><em>n</em></span> elements,
+and you want to combine them into a single sorted array of <span
+class="math inline"><em>k</em><em>n</em></span> elements.</p>
+<p><strong>(a)</strong> Here's one strategy: Using the merge procedure
+from Section 2.3, merge the first two arrays, then merge in the third,
+then merge in the fourth, and so on. What is the time complexity of this
+algorithm, in terms of <span class="math inline"><em>k</em></span> and
+<span class="math inline"><em>n</em></span> ?</p>
+<p><strong>(b)</strong> Give a more efficient solution to this problem,
+using divide-and-conquer.</p>
+<h3 id="220">2.20</h3>
+<p>Show that any array of integers <span
+class="math inline"><em>x</em>[1…<em>n</em>]</span> can be sorted in
+<span class="math inline"><em>O</em>(<em>n</em> + <em>M</em>)</span>
+time, where</p>
+<p><span
+class="math display"><em>M</em> = max<sub><em>i</em></sub><em>x</em><sub><em>i</em></sub> − min<sub><em>i</em></sub><em>x</em><sub><em>i</em></sub>.</span></p>
+<p>For small <span class="math inline"><em>M</em></span>, this is linear
+time: why doesn't the <span
+class="math inline"><em>Ω</em>(<em>n</em>log <em>n</em>)</span> lower
+bound apply in this case?</p>
+<h3 id="221">2.21</h3>
+<p>Mean and median. One of the most basic tasks in statistics is to
+summarize a set of observations <span
+class="math inline">{<em>x</em><sub>1</sub>, <em>x</em><sub>2</sub>, …, <em>x</em><sub><em>n</em></sub>} ⊆ <em>R</em></span>
+by a single number. Two popular choices for this summary statistic
+are:</p>
+<ul>
+<li>The median, which we'll call <span
+class="math inline"><em>μ</em><sub>1</sub></span></li>
+<li>The mean, which we'll call <span
+class="math inline"><em>μ</em><sub>2</sub></span></li>
+</ul>
+<p><strong>(a)</strong> Show that the median is the value of <span
+class="math inline"><em>μ</em></span> that minimizes the function</p>
+<p><span
+class="math display">∑<sub><em>i</em></sub>|<em>x</em><sub><em>i</em></sub> − <em>μ</em>|.</span></p>
+<p>You can assume for simplicity that <span
+class="math inline"><em>n</em></span> is odd. (Hint: Show that for any
+<span class="math inline"><em>μ</em> ≠ <em>μ</em><sub>1</sub></span>,
+the function decreases if you move <span
+class="math inline"><em>μ</em></span> either slightly to the left or
+slightly to the right.)</p>
+<p><strong>(b)</strong> Show that the mean is the value of <span
+class="math inline"><em>μ</em></span> that minimizes the function</p>
+<p><span
+class="math display">∑<sub><em>i</em></sub>(<em>x</em><sub><em>i</em></sub> − <em>μ</em>)<sup>2</sup>.</span></p>
+<p>One way to do this is by calculus. Another method is to prove that
+for any <span class="math inline"><em>μ</em> ∈ <em>R</em></span>,</p>
+<p><span
+class="math display">∑<sub><em>i</em></sub>(<em>x</em><sub><em>i</em></sub> − <em>μ</em>)<sup>2</sup> = ∑<sub><em>i</em></sub>(<em>x</em><sub><em>i</em></sub> − <em>μ</em><sub>2</sub>)<sup>2</sup> + <em>n</em>(<em>μ</em> − <em>μ</em><sub>2</sub>)<sup>2</sup>.</span></p>
+<p>Notice how the function for <span
+class="math inline"><em>μ</em><sub>2</sub></span> penalizes points that
+are far from <span class="math inline"><em>μ</em></span> much more
+heavily than the function for <span
+class="math inline"><em>μ</em><sub>1</sub></span>. Thus <span
+class="math inline"><em>μ</em><sub>2</sub></span> tries much harder to
+be close to all the observations. This might sound like a good thing at
+some level, but it is statistically undesirable because just a few
+outliers can severely throw off the estimate of <span
+class="math inline"><em>μ</em><sub>2</sub></span>. It is therefore
+sometimes said that <span
+class="math inline"><em>μ</em><sub>1</sub></span> is a more robust
+estimator than <span class="math inline"><em>μ</em><sub>2</sub></span>.
+Worse than either of them, however, is <span
+class="math inline"><em>μ</em><sub>∞</sub></span>, the value of <span
+class="math inline"><em>μ</em></span> that minimizes the function</p>
+<p><span
+class="math display">max<sub><em>i</em></sub>|<em>x</em><sub><em>i</em></sub> − <em>μ</em>|.</span></p>
+<p><strong>(c)</strong> Show that <span
+class="math inline"><em>μ</em><sub>∞</sub></span> can be computed in
+<span class="math inline"><em>O</em>(<em>n</em>)</span> time (assuming
+the numbers <span
+class="math inline"><em>x</em><sub><em>i</em></sub></span> are small
+enough that basic arithmetic operations on them take unit time).</p>
+<h3 id="222">2.22</h3>
+<p>You are given two sorted lists of size <span
+class="math inline"><em>m</em></span> and <span
+class="math inline"><em>n</em></span>. Give an <span
+class="math inline"><em>O</em>(log <em>m</em> + log <em>n</em>)</span>
+time algorithm for computing the <span
+class="math inline"><em>k</em></span> th smallest element in the union
+of the two lists.</p>
+<h3 id="223">2.23</h3>
+<p>An array <span class="math inline"><em>A</em>[1…<em>n</em>]</span> is
+said to have a majority element if more than half of its entries are the
+same. Given an array, the task is to design an efficient algorithm to
+tell whether the array has a majority element, and, if so, to find that
+element. The elements of the array are not necessarily from some ordered
+domain like the integers, and so there can be no comparisons of the form
+"is <span
+class="math inline"><em>A</em>[<em>i</em>] &gt; <em>A</em>[<em>j</em>]</span>
+?". (Think of the array elements as GIF files, say.) However you can
+answer questions of the form: "is <span
+class="math inline"><em>A</em>[<em>i</em>] = <em>A</em>[<em>j</em>]</span>
+?" in constant time.</p>
+<p><strong>(a)</strong> Show how to solve this problem in <span
+class="math inline"><em>O</em>(<em>n</em>log <em>n</em>)</span> time.
+(Hint: Split the array <span class="math inline"><em>A</em></span> into
+two arrays <span class="math inline"><em>A</em><sub>1</sub></span> and
+<span class="math inline"><em>A</em><sub>2</sub></span> of half the
+size. Does knowing the majority elements of <span
+class="math inline"><em>A</em><sub>1</sub></span> and <span
+class="math inline"><em>A</em><sub>2</sub></span> help you figure out
+the majority element of <span class="math inline"><em>A</em></span> ? If
+so, you can use a divide-and-conquer approach.)</p>
+<p><strong>(b)</strong> Can you give a linear-time algorithm? (Hint:
+Here's another divide-and-conquer approach:</p>
+<ul>
+<li>Pair up the elements of <span class="math inline"><em>A</em></span>
+arbitrarily, to get <span class="math inline"><em>n</em>/2</span>
+pairs</li>
+<li>Look at each pair: if the two elements are different, discard both
+of them; if they are the same, keep just one of them Show that after
+this procedure there are at most <span
+class="math inline"><em>n</em>/2</span> elements left, and that they
+have a majority element if and only if <span
+class="math inline"><em>A</em></span> does.)</li>
+</ul>
+<h3 id="224">2.24</h3>
+<p>On page 66 there is a high-level description of the quicksort
+algorithm.</p>
+<p><strong>(a)</strong> Write down the pseudocode for quicksort.</p>
+<p><strong>(b)</strong> Show that its worst-case running time on an
+array of size <span class="math inline"><em>n</em></span> is <span
+class="math inline"><em>Θ</em>(<em>n</em><sup>2</sup>)</span>.</p>
+<p><strong>(c)</strong> Show that its expected running time satisfies
+the recurrence relation</p>
+<p><span class="math display">$$
+T(n) \leq O(n)+\frac{1}{n} \sum_{i=1}^{n-1}(T(i)+T(n-i)) .
+$$</span></p>
+<p>Then, show that the solution to this recurrence is <span
+class="math inline"><em>O</em>(<em>n</em>log <em>n</em>)</span>.</p>
+<h3 id="225">2.25</h3>
+<p>In Section 2.1 we described an algorithm that multiplies two <span
+class="math inline"><em>n</em></span>-bit binary integers <span
+class="math inline"><em>x</em></span> and <span
+class="math inline"><em>y</em></span> in time <span
+class="math inline"><em>n</em><sup><em>a</em></sup></span>, where <span
+class="math inline"><em>a</em> = log<sub>2</sub>3</span>. Call this
+procedure fastmultiply( <span
+class="math inline"><em>x</em>, <em>y</em></span> ).</p>
+<p><strong>(a)</strong> We want to convert the decimal integer <span
+class="math inline">10<sup><em>n</em></sup></span> (a 1 followed by
+<span class="math inline"><em>n</em></span> zeros) into binary. Here is
+the algorithm (assume <span class="math inline"><em>n</em></span> is a
+power of 2 ):</p>
+<pre><code>function pwr2bin(n)
+    if n=1: return 10102
+    else:
+        z=???
+        return fastmultiply( z, z)</code></pre>
+<p>Fill in the missing details. Then give a recurrence relation for the
+running time of the algorithm, and solve the recurrence.</p>
+<p><strong>(b)</strong> Next, we want to convert any decimal integer
+<span class="math inline"><em>x</em></span> with <span
+class="math inline"><em>n</em></span> digits (where <span
+class="math inline"><em>n</em></span> is a power of 2 ) into binary. The
+algorithm is the following:</p>
+<pre><code>function dec2bin(x)
+    if $n=1$ : return binary $[x]$
+    else:
+        split $x$ into two decimal numbers $x_{L}, x_{R}$ with $n / 2$ digits each
+        return ???</code></pre>
+<p>Here binary[.] is a vector that contains the binary representation of
+all one-digit integers. That is, binary <span
+class="math inline">[0] = 0<sub>2</sub></span>, binary <span
+class="math inline">[1] = 1<sub>2</sub></span>, up to binary <span
+class="math inline">[9] = 1001<sub>2</sub></span>. Assume that a lookup
+in binary takes <span class="math inline"><em>O</em>(1)</span> time.
+Fill in the missing details. Once again, give a recurrence for the
+running time of the algorithm, and solve it.</p>
+<h3 id="226">2.26</h3>
+<p>Professor F. Lake tells his class that it is asymptotically faster to
+square an <span class="math inline"><em>n</em></span>-bit integer than
+to multiply two <span class="math inline"><em>n</em></span>-bit
+integers. Should they believe him?</p>
+<h3 id="227">2.27</h3>
+<p>The square of a matrix <span class="math inline"><em>A</em></span> is
+its product with itself, <span
+class="math inline"><em>A</em><em>A</em></span>.</p>
+<p><strong>(a)</strong> Show that five multiplications are sufficient to
+compute the square of a <span class="math inline">2 × 2</span>
+matrix.</p>
+<p><strong>(b)</strong> What is wrong with the following algorithm for
+computing the square of an <span
+class="math inline"><em>n</em> × <em>n</em></span> matrix? "Use a
+divide-and-conquer approach as in Strassen's algorithm, except that
+instead of getting 7 subproblems of size <span
+class="math inline"><em>n</em>/2</span>, we now get 5 subproblems of
+size <span class="math inline"><em>n</em>/2</span> thanks to part (a).
+Using the same analysis as in Strassen's algorithm, we can conclude that
+the algorithm runs in time <span
+class="math inline"><em>O</em>(<em>n</em><sup>log<sub>2</sub>5</sup>)</span>."</p>
+<p><strong>(c)</strong> In fact, squaring matrices is no easier than
+matrix multiplication. In this part, you will show that if <span
+class="math inline"><em>n</em> × <em>n</em></span> matrices can be
+squared in time <span
+class="math inline"><em>S</em>(<em>n</em>) = <em>O</em>(<em>n</em><sup><em>c</em></sup>)</span>,
+then any two <span class="math inline"><em>n</em> × <em>n</em></span>
+matrices can be multiplied in time <span
+class="math inline"><em>O</em>(<em>n</em><sup><em>c</em></sup>)</span>.
+i. Given two <span class="math inline"><em>n</em> × <em>n</em></span>
+matrices <span class="math inline"><em>A</em></span> and <span
+class="math inline"><em>B</em></span>, show that the matrix <span
+class="math inline"><em>A</em><em>B</em> + <em>B</em><em>A</em></span>
+can be computed in time <span
+class="math inline">3<em>S</em>(<em>n</em>) + <em>O</em>(<em>n</em><sup>2</sup>)</span>.
+ii. Given two <span class="math inline"><em>n</em> × <em>n</em></span>
+matrices <span class="math inline"><em>X</em></span> and <span
+class="math inline"><em>Y</em></span>, define the <span
+class="math inline">2<em>n</em> × 2<em>n</em></span> matrices <span
+class="math inline"><em>A</em></span> and <span
+class="math inline"><em>B</em></span> as follows:</p>
+<p><span class="math display">$$
+A=\left[\begin{array}{cc}
+X &amp; 0 \\
+0 &amp; 0
+\end{array}\right] \text { and } B=\left[\begin{array}{cc}
+0 &amp; Y \\
+0 &amp; 0
+\end{array}\right]
+$$</span></p>
+<p>What is <span
+class="math inline"><em>A</em><em>B</em> + <em>B</em><em>A</em></span>,
+in terms of <span class="math inline"><em>X</em></span> and <span
+class="math inline"><em>Y</em></span> ? iii. Using (i) and (ii), argue
+that the product <span class="math inline"><em>X</em><em>Y</em></span>
+can be computed in time <span
+class="math inline">3<em>S</em>(2<em>n</em>) + <em>O</em>(<em>n</em><sup>2</sup>)</span>.
+Conclude that matrix multiplication takes time <span
+class="math inline"><em>O</em>(<em>n</em><sup><em>c</em></sup>)</span>.</p>
+<h3 id="228">2.28</h3>
+<p>The Hadamard matrices <span
+class="math inline"><em>H</em><sub>0</sub>, <em>H</em><sub>1</sub>, <em>H</em><sub>2</sub>, …</span>
+are defined as follows:</p>
+<ul>
+<li><span class="math inline"><em>H</em><sub>0</sub></span> is the <span
+class="math inline">1 × 1</span> matrix [1]</li>
+<li>For <span
+class="math inline"><em>k</em> &gt; 0, <em>H</em><sub><em>k</em></sub></span>
+is the <span
+class="math inline">2<sup><em>k</em></sup> × 2<sup><em>k</em></sup></span>
+matrix</li>
+</ul>
+<p><span class="math display">$$
+H_{k}=\left[\begin{array}{c|c}
+H_{k-1} &amp; H_{k-1} \\
+\hline H_{k-1} &amp; -H_{k-1}
+\end{array}\right]
+$$</span></p>
+<p>Show that if <span class="math inline"><em>v</em></span> is a column
+vector of length <span
+class="math inline"><em>n</em> = 2<sup><em>k</em></sup></span>, then the
+matrix-vector product <span
+class="math inline"><em>H</em><sub><em>k</em></sub><em>v</em></span> can
+be calculated using <span
+class="math inline"><em>O</em>(<em>n</em>log <em>n</em>)</span>
+operations. Assume that all the numbers involved are small enough that
+basic arithmetic operations like addition and multiplication take unit
+time.</p>
+<h3 id="229">2.29</h3>
+<p>Suppose we want to evaluate the polynomial <span
+class="math inline"><em>p</em>(<em>x</em>) = <em>a</em><sub>0</sub> + <em>a</em><sub>1</sub><em>x</em> + <em>a</em><sub>2</sub><em>x</em><sup>2</sup> + ⋯ + <em>a</em><sub><em>n</em></sub><em>x</em><sup><em>n</em></sup></span>
+at point <span class="math inline"><em>x</em></span>.</p>
+<p><strong>(a)</strong> Show that the following simple routine, known as
+Horner's rule, does the job and leaves the answer in <span
+class="math inline"><em>z</em></span>.</p>
+<p><span class="math display">$$
+\begin{aligned}
+&amp; z=a_{n} \\
+&amp; \text { for } i=n-1 \text { downto } 0 \text { : } \\
+&amp; \quad z=z x+a_{i}
+\end{aligned}
+$$</span></p>
+<p><strong>(b)</strong> How many additions and multiplications does this
+routine use, as a function of <span
+class="math inline"><em>n</em></span> ? Can you find a polynomial for
+which an alternative method is substantially better?</p>
+<h3 id="230">2.30</h3>
+<p>This problem illustrates how to do the Fourier Transform (FT) in
+modular arithmetic, for example, modulo 7.</p>
+<p><strong>(a)</strong> There is a number <span
+class="math inline"><em>ω</em></span> such that all the powers <span
+class="math inline"><em>ω</em>, <em>ω</em><sup>2</sup>, …, <em>ω</em><sup>6</sup></span>
+are distinct (modulo 7). Find this <span
+class="math inline"><em>ω</em></span>, and show that <span
+class="math inline"><em>ω</em> + <em>ω</em><sup>2</sup> + ⋯ + <em>ω</em><sup>6</sup> = 0</span>.
+(Interestingly, for any prime modulus there is such a number.)</p>
+<p><strong>(b)</strong> Using the matrix form of the FT, produce the
+transform of the sequence ( <span
+class="math inline">0, 1, 1, 1, 5, 2</span> ) modulo 7 ; that is,
+multiply this vector by the matrix <span
+class="math inline"><em>M</em><sub>6</sub>(<em>ω</em>)</span>, for the
+value of <span class="math inline"><em>ω</em></span> you found earlier.
+In the matrix multiplication, all calculations should be performed
+modulo 7 .</p>
+<p><strong>(c)</strong> Write down the matrix necessary to perform the
+inverse FT. Show that multiplying by this matrix returns the original
+sequence. (Again all arithmetic should be performed modulo 7.)</p>
+<p><strong>(d)</strong> Now show how to multiply the polynomials <span
+class="math inline"><em>x</em><sup>2</sup> + <em>x</em> + 1</span> and
+<span
+class="math inline"><em>x</em><sup>3</sup> + 2<em>x</em> − 1</span>
+using the FT modulo 7.</p>
+<h3 id="231">2.31</h3>
+<p>In Section 1.2.3, we studied Euclid's algorithm for computing the
+greatest common divisor (gcd) of two positive integers: the largest
+integer which divides them both. Here we will look at an alternative
+algorithm based on divide-and-conquer.</p>
+<p><strong>(a)</strong> Show that the following rule is true.</p>
+<p><span class="math display">$$
+\operatorname{gcd}(a, b)= \begin{cases}2 \operatorname{gcd}(a / 2, b /
+2) &amp; \text { if } a, b \text { are even } \\ \operatorname{gcd}(a, b
+/ 2) &amp; \text { if } a \text { is odd, } b \text { is even } \\
+\operatorname{gcd}((a-b) / 2, b) &amp; \text { if } a, b \text { are odd
+}\end{cases}
+$$</span></p>
+<p><strong>(b)</strong> Give an efficient divide-and-conquer algorithm
+for greatest common divisor.</p>
+<p><strong>(c)</strong> How does the efficiency of your algorithm
+compare to Euclid's algorithm if <span
+class="math inline"><em>a</em></span> and <span
+class="math inline"><em>b</em></span> are <span
+class="math inline"><em>n</em></span>-bit integers? (In particular,
+since <span class="math inline"><em>n</em></span> might be large you
+cannot assume that basic arithmetic operations like addition take
+constant time.)</p>
+<h3 id="232">2.32</h3>
+<p>In this problem we will develop a divide-and-conquer algorithm for
+the following geometric task.</p>
+<p>Closest pair</p>
+<p><strong>Input:</strong> A set of points in the plane, <span
+class="math inline">{<em>p</em><sub>1</sub> = (<em>x</em><sub>1</sub>, <em>y</em><sub>1</sub>), <em>p</em><sub>2</sub> = (<em>x</em><sub>2</sub>, <em>y</em><sub>2</sub>), …, <em>p</em><sub><em>n</em></sub> = (<em>x</em><sub><em>n</em></sub>, <em>y</em><sub><em>n</em></sub>)}</span></p>
+<p><strong>Output:</strong> The closest pair of points: that is, the
+pair <span
+class="math inline"><em>p</em><sub><em>i</em></sub> ≠ <em>p</em><sub><em>j</em></sub></span>
+for which the distance between <span
+class="math inline"><em>p</em><sub><em>i</em></sub></span> and <span
+class="math inline"><em>p</em><sub><em>j</em></sub></span>, that is,</p>
+<p><span class="math display">$$
+\sqrt{\left(x_{i}-x_{j}\right)^{2}+\left(y_{i}-y_{j}\right)^{2}}
+$$</span></p>
+<p>is minimized. For simplicity, assume that <span
+class="math inline"><em>n</em></span> is a power of two, and that all
+the <span class="math inline"><em>x</em></span>-coordinates <span
+class="math inline"><em>x</em><sub><em>i</em></sub></span> are distinct,
+as are the <span class="math inline"><em>y</em></span>-coordinates.
+Here's a high-level overview of the algorithm:</p>
+<ul>
+<li>Find a value <span class="math inline"><em>x</em></span> for which
+exactly half the points have <span
+class="math inline"><em>x</em><sub><em>i</em></sub> &lt; <em>x</em></span>,
+and half have <span
+class="math inline"><em>x</em><sub><em>i</em></sub> &gt; <em>x</em></span>.
+On this basis, split the points into two groups, <span
+class="math inline"><em>L</em></span> and <span
+class="math inline"><em>R</em></span>.</li>
+<li>Recursively find the closest pair in <span
+class="math inline"><em>L</em></span> and in <span
+class="math inline"><em>R</em></span>. Say these pairs are <span
+class="math inline"><em>p</em><sub><em>L</em></sub>, <em>q</em><sub><em>L</em></sub> ∈ <em>L</em></span>
+and <span
+class="math inline"><em>p</em><sub><em>R</em></sub>, <em>q</em><sub><em>R</em></sub> ∈ <em>R</em></span>,
+with distances <span
+class="math inline"><em>d</em><sub><em>L</em></sub></span> and <span
+class="math inline"><em>d</em><sub><em>R</em></sub></span> respectively.
+Let <span class="math inline"><em>d</em></span> be the smaller of these
+two distances.</li>
+<li>It remains to be seen whether there is a point in <span
+class="math inline"><em>L</em></span> and a point in <span
+class="math inline"><em>R</em></span> that are less than distance <span
+class="math inline"><em>d</em></span> apart from each other. To this
+end, discard all points with <span
+class="math inline"><em>x</em><sub><em>i</em></sub> &lt; <em>x</em> − <em>d</em></span>
+or <span
+class="math inline"><em>x</em><sub><em>i</em></sub> &gt; <em>x</em> + <em>d</em></span>
+and sort the remaining points by <span
+class="math inline"><em>y</em></span>-coordinate.</li>
+<li>Now, go through this sorted list, and for each point, compute its
+distance to the seven subsequent points in the list. Let <span
+class="math inline"><em>p</em><sub><em>M</em></sub>, <em>q</em><sub><em>M</em></sub></span>
+be the closest pair found in this way.</li>
+<li>The answer is one of the three pairs <span
+class="math inline">{<em>p</em><sub><em>L</em></sub>, <em>q</em><sub><em>L</em></sub>}, {<em>p</em><sub><em>R</em></sub>, <em>q</em><sub><em>R</em></sub>}, {<em>p</em><sub><em>M</em></sub>, <em>q</em><sub><em>M</em></sub>}</span>,
+whichever is closest.</li>
+</ul>
+<p><strong>(a)</strong> In order to prove the correctness of this
+algorithm, start by showing the following property: any square of size
+<span class="math inline"><em>d</em> × <em>d</em></span> in the plane
+contains at most four points of <span
+class="math inline"><em>L</em></span>.</p>
+<p><strong>(b)</strong> Now show that the algorithm is correct. The only
+case which needs careful consideration is when the closest pair is split
+between <span class="math inline"><em>L</em></span> and <span
+class="math inline"><em>R</em></span>.</p>
+<p><strong>(c)</strong> Write down the pseudocode for the algorithm, and
+show that its running time is given by the recurrence:</p>
+<p><span
+class="math display"><em>T</em>(<em>n</em>) = 2<em>T</em>(<em>n</em>/2) + <em>O</em>(<em>n</em>log <em>n</em>)</span></p>
+<p>Show that the solution to this recurrence is <span
+class="math inline"><em>O</em>(<em>n</em>log<sup>2</sup><em>n</em>)</span>.</p>
+<p><strong>(d)</strong> Can you bring the running time down to <span
+class="math inline"><em>O</em>(<em>n</em>log <em>n</em>)</span> ?</p>
+</main>
+
+<!-- code highlighting -->
+<link rel="modulepreload" href="../../vendor/mermaid/mermaid.esm.min.mjs">
+<script src="../../vendor/highlight/highlight.min.js"></script>
+<!-- math -->
+<script defer src="../../vendor/katex/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="../../vendor/katex/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+<script type="module">
+  // 1) Normalize mermaid blocks. Pandoc(gfm) emits <pre class="mermaid"><code>...</code></pre>.
+  //    Flatten to raw source text so mermaid parses cleanly; also catch the code-only variant.
+  document.querySelectorAll('pre > code.language-mermaid, pre > code.mermaid').forEach(c => {
+    const p = document.createElement('pre'); p.className = 'mermaid'; p.textContent = c.textContent;
+    c.parentElement.replaceWith(p);
+  });
+  document.querySelectorAll('pre.mermaid').forEach(p => { p.textContent = p.textContent; });
+  // 2) Syntax-highlight every code block EXCEPT mermaid (auto-detect language)
+  if (window.hljs) document.querySelectorAll('pre:not(.mermaid) > code').forEach(el => window.hljs.highlightElement(el));
+  // 3) Render mermaid (dark)
+  try {
+    const mermaid = (await import('../../vendor/mermaid/mermaid.esm.min.mjs')).default;
+    mermaid.initialize({ startOnLoad: false, theme: 'dark', securityLevel: 'loose' });
+    await mermaid.run({ querySelector: 'pre.mermaid' });
+  } catch (e) { /* offline: leave as text */ }
+</script>
+<script>
+  // 4) Math: render \( \) and \[ \] (pandoc converts dollar-math to these). Tolerate malformed legacy TeX.
+  window.addEventListener('DOMContentLoaded', () => {
+    if (window.renderMathInElement) renderMathInElement(document.querySelector('.content'), {
+      // dollar-delimiters included so KaTeX also renders math pandoc failed to parse (left raw):
+      // a space before a closing delim, cases-env inline, apostrophes in text, etc. Display before inline.
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '\\[', right: '\\]', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false }
+      ],
+      throwOnError: false,
+      // \n is used in the legacy notes as a homemade "arrow over" (directed edge); map it to \overrightarrow.
+      macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
+    });
+  });
+</script>
+</body>
+</html>

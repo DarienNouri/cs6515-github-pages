@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Week 2 — Divide &amp; Conquer Foundations — CS6515</title>
+<link rel="stylesheet" href="../../vendor/fonts/fonts.css">
+<link rel="stylesheet" href="../../theme.css">
+<link rel="stylesheet" href="../../vendor/katex/katex.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="../../vendor/highlight/styles/tokyo-night-dark.min.css">
+
+</head>
+<body>
+<header class="topbar">
+  <a class="home" href="../../index.html">CS6515</a>
+  <span class="crumbloc">Week 2 — Divide &amp; Conquer
+Foundations</span>
+</header>
+<main class="content">
+<h1 id="week-2--divide--conquer-foundations">Week 2 — Divide &amp;
+Conquer Foundations</h1>
+<blockquote>
+<p><strong>2026-05-25 → 05-31</strong> (Memorial Day 05-25) · Modules
+<strong>DC3</strong> (Solving Recurrences), <strong>DC1</strong> (Fast
+Integer Multiplication)</p>
+<p><a href="../W01_2026-05-18_DP1-DP2/index.html">◀ W01 DP</a> · <a href="../index.html">All
+weeks</a> · <a href="../../00_START_HERE/INDEX.html">Index</a> · <a
+href="../W03_2026-06-01_DC2/index.html">W03 Median ▶</a></p>
+</blockquote>
+<h3 id="due-this-week">Due this week</h3>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Type</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>HW2</strong></td>
+<td>written</td>
+<td>D&amp;C problems</td>
+</tr>
+<tr>
+<td><strong>Quiz 2</strong></td>
+<td>format</td>
+<td>how D&amp;C answers are graded</td>
+</tr>
+<tr>
+<td><strong>Logistics quizzes</strong></td>
+<td>onboarding</td>
+<td>due 06-01 8am ET</td>
+</tr>
+</tbody>
+</table>
+<details>
+<summary><b>Watch the lecture</b> (D&C Foundations)</summary>
+
+<p><video controls preload="metadata" width="100%" src="https://storage.googleapis.com/darien-public-assets/cs6515-summer-2026/v20260623/videos/02_Week_02_Divide_Conquer_Foundations.mp4"></video></p>
+<p><a href="https://storage.googleapis.com/darien-public-assets/cs6515-summer-2026/v20260623/videos/02_Week_02_Divide_Conquer_Foundations.mp4">▶ Open
+video</a> · <a
+href="transcripts/02_Week_02_Divide_Conquer_Foundations.txt">Transcript</a></p>
+</details>
+
+<hr />
+<h2 id="learning-objectives">Learning objectives</h2>
+<ul>
+<li>Set up and solve a divide-and-conquer recurrence with the
+<strong>Master theorem</strong>.</li>
+<li>Use the <strong>recursion-tree</strong> view to explain <em>why</em>
+each Master case holds.</li>
+<li>Derive <strong>Karatsuba</strong> integer multiplication and its
+<span
+class="math inline"><em>O</em>(<em>n</em><sup>log<sub>2</sub>3</sup>)</span>
+exponent.</li>
+<li>Write a D&amp;C answer as a <strong>narrative</strong>: algorithm →
+correctness → runtime (no pseudocode when words are asked).</li>
+</ul>
+<h2 id="core-concepts">Core concepts</h2>
+<h3 id="the-divide-and-conquer-schema">The divide-and-conquer
+schema</h3>
+<p><strong>Definition.</strong> Split the input into <span
+class="math inline"><em>a</em></span> subproblems of size <span
+class="math inline"><em>n</em>/<em>b</em></span>, solve recursively,
+then combine in <span
+class="math inline"><em>O</em>(<em>n</em><sup><em>d</em></sup>)</span>.
+<em>Intuition:</em> the recurrence's behavior is a race between
+<strong>how fast subproblems multiply</strong> (<span
+class="math inline"><em>a</em></span>) and <strong>how fast they
+shrink</strong> (<span class="math inline"><em>b</em></span>), measured
+against the combine cost (<span
+class="math inline"><em>n</em><sup><em>d</em></sup></span>).</p>
+<h3 id="master-theorem">Master theorem</h3>
+<p>For <span
+class="math inline"><em>T</em>(<em>n</em>) = <em>a</em> <em>T</em>(<em>n</em>/<em>b</em>) + <em>O</em>(<em>n</em><sup><em>d</em></sup>)</span>
+with <span
+class="math inline"><em>a</em> ≥ 1, <em>b</em> &gt; 1, <em>d</em> ≥ 0</span>:
+<span class="math display">$$
+T(n)=
+\begin{cases}
+O(n^d) &amp; d &gt; \log_b a \quad(\text{top-heavy: root dominates}),\\
+O(n^d \log n) &amp; d = \log_b a \quad(\text{balanced: } \log n \text{
+equal levels}),\\
+O\!\left(n^{\log_b a}\right) &amp; d &lt; \log_b a
+\quad(\text{leaf-heavy: leaves dominate}).
+\end{cases}
+$$</span></p>
+<blockquote>
+<p><strong>Key idea.</strong> One comparison decides everything:
+<strong><span class="math inline"><em>d</em></span> vs <span
+class="math inline">log<sub><em>b</em></sub><em>a</em></span></strong>
+is <em>work-at-the-root</em> vs <em>work-at-the-leaves</em>.</p>
+</blockquote>
+<h3 id="recursion-tree-intuition-why-the-cases-hold">Recursion-tree
+intuition (why the cases hold)</h3>
+<ul>
+<li>Level <span class="math inline"><em>k</em></span> has <span
+class="math inline"><em>a</em><sup><em>k</em></sup></span> nodes, each
+of size <span
+class="math inline"><em>n</em>/<em>b</em><sup><em>k</em></sup></span>,
+doing <span
+class="math inline"><em>O</em>((<em>n</em>/<em>b</em><sup><em>k</em></sup>)<sup><em>d</em></sup>)</span>
+work.</li>
+<li>Per-level work <span
+class="math inline"> = <em>a</em><sup><em>k</em></sup>(<em>n</em>/<em>b</em><sup><em>k</em></sup>)<sup><em>d</em></sup> = <em>n</em><sup><em>d</em></sup>(<em>a</em>/<em>b</em><sup><em>d</em></sup>)<sup><em>k</em></sup></span>
+— a <strong>geometric series</strong> in ratio <span
+class="math inline"><em>a</em>/<em>b</em><sup><em>d</em></sup></span>.
+<ul>
+<li>ratio <span class="math inline"> &lt; 1</span> → series dominated by
+the <strong>top</strong> level → <span
+class="math inline"><em>O</em>(<em>n</em><sup><em>d</em></sup>)</span>.</li>
+<li>ratio <span class="math inline"> = 1</span> → all <span
+class="math inline">log<sub><em>b</em></sub><em>n</em></span> levels
+equal → <span
+class="math inline"><em>O</em>(<em>n</em><sup><em>d</em></sup>log <em>n</em>)</span>.</li>
+<li>ratio <span class="math inline"> &gt; 1</span> → dominated by the
+<strong>bottom</strong> (leaves, count <span
+class="math inline"><em>n</em><sup>log<sub><em>b</em></sub><em>a</em></sup></span>)
+→ <span
+class="math inline"><em>O</em>(<em>n</em><sup>log<sub><em>b</em></sub><em>a</em></sup>)</span>.</li>
+</ul></li>
+</ul>
+<h3 id="fast-integer-multiplication-karatsuba">Fast integer
+multiplication (Karatsuba)</h3>
+<p>Split each <span class="math inline"><em>n</em></span>-digit number:
+<span
+class="math inline"><em>x</em> = <em>a</em> <em>B</em> + <em>b</em></span>,
+<span
+class="math inline"><em>y</em> = <em>c</em> <em>B</em> + <em>d</em></span>
+with <span
+class="math inline"><em>B</em> = 10<sup><em>n</em>/2</sup></span>.
+Naively <span class="math inline"><em>x</em><em>y</em></span> needs
+<strong>4</strong> half-size products (<span
+class="math inline"><em>a</em><em>c</em>, <em>a</em><em>d</em>, <em>b</em><em>c</em>, <em>b</em><em>d</em></span>).
+Karatsuba computes it with <strong>3</strong> using the identity <span
+class="math display"><em>x</em><em>y</em> = <em>a</em><em>c</em> <em>B</em><sup>2</sup> + [(<em>a</em> + <em>b</em>)(<em>c</em> + <em>d</em>) − <em>a</em><em>c</em> − <em>b</em><em>d</em>]<em>B</em> + <em>b</em><em>d</em>,</span>
+where the middle term reuses <span
+class="math inline"><em>a</em><em>c</em></span> and <span
+class="math inline"><em>b</em><em>d</em></span>. Recurrence and
+solution: <span
+class="math display"><em>T</em>(<em>n</em>) = 3 <em>T</em>(<em>n</em>/2) + <em>O</em>(<em>n</em>) ⇒ <em>T</em>(<em>n</em>) = <em>O</em> (<em>n</em><sup>log<sub>2</sub>3</sup>) = <em>O</em>(<em>n</em><sup>1.585</sup>).</span></p>
+<blockquote>
+<p><strong>Why it wins.</strong> Dropping 4→3 subproblems lowers <span
+class="math inline">log<sub><em>b</em></sub><em>a</em></span> from <span
+class="math inline">log<sub>2</sub>4 = 2</span> to <span
+class="math inline">log<sub>2</sub>3 ≈ 1.585</span>; since <span
+class="math inline"><em>d</em> = 1 &lt; log<sub>2</sub>3</span>, the
+<em>leaf-heavy</em> case applies.</p>
+</blockquote>
+<h2 id="algorithms--recurrence-reference">Algorithms — recurrence
+reference</h2>
+<table>
+<thead>
+<tr>
+<th>Recurrence</th>
+<th><span
+class="math inline"><em>a</em>, <em>b</em>, <em>d</em></span></th>
+<th>vs <span
+class="math inline">log<sub><em>b</em></sub><em>a</em></span></th>
+<th>Solves to</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span
+class="math inline"><em>T</em>(<em>n</em>) = 2<em>T</em>(<em>n</em>/2) + <em>O</em>(<em>n</em>)</span></td>
+<td><span class="math inline">2, 2, 1</span></td>
+<td><span
+class="math inline"><em>d</em> = log<sub><em>b</em></sub><em>a</em></span></td>
+<td><span
+class="math inline"><em>O</em>(<em>n</em>log <em>n</em>)</span></td>
+<td>mergesort, binary D&amp;C</td>
+</tr>
+<tr>
+<td><span
+class="math inline"><em>T</em>(<em>n</em>) = 3<em>T</em>(<em>n</em>/2) + <em>O</em>(<em>n</em>)</span></td>
+<td><span class="math inline">3, 2, 1</span></td>
+<td><span
+class="math inline"><em>d</em> &lt; log<sub><em>b</em></sub><em>a</em></span></td>
+<td><span
+class="math inline"><em>O</em>(<em>n</em><sup>1.585</sup>)</span></td>
+<td>Karatsuba</td>
+</tr>
+<tr>
+<td><span
+class="math inline"><em>T</em>(<em>n</em>) = 4<em>T</em>(<em>n</em>/2) + <em>O</em>(<em>n</em>)</span></td>
+<td><span class="math inline">4, 2, 1</span></td>
+<td><span
+class="math inline"><em>d</em> &lt; log<sub><em>b</em></sub><em>a</em></span></td>
+<td><span
+class="math inline"><em>O</em>(<em>n</em><sup>2</sup>)</span></td>
+<td>naive multiply</td>
+</tr>
+<tr>
+<td><span
+class="math inline"><em>T</em>(<em>n</em>) = 2<em>T</em>(<em>n</em>/2) + <em>O</em>(1)</span></td>
+<td><span class="math inline">2, 2, 0</span></td>
+<td><span
+class="math inline"><em>d</em> &lt; log<sub><em>b</em></sub><em>a</em></span></td>
+<td><span class="math inline"><em>O</em>(<em>n</em>)</span></td>
+<td>tree traversal</td>
+</tr>
+<tr>
+<td><span
+class="math inline"><em>T</em>(<em>n</em>) = <em>T</em>(<em>n</em>/2) + <em>O</em>(1)</span></td>
+<td><span class="math inline">1, 2, 0</span></td>
+<td><span
+class="math inline"><em>d</em> = log<sub><em>b</em></sub><em>a</em></span></td>
+<td><span class="math inline"><em>O</em>(log <em>n</em>)</span></td>
+<td>binary search</td>
+</tr>
+</tbody>
+</table>
+<h2 id="worked-example--solving-tn3tn2on">Worked example — solving <span
+class="math inline"><em>T</em>(<em>n</em>) = 3<em>T</em>(<em>n</em>/2) + <em>O</em>(<em>n</em>)</span></h2>
+<ol type="1">
+<li>Identify <span
+class="math inline"><em>a</em> = 3, <em>b</em> = 2, <em>d</em> = 1</span>.</li>
+<li>Compute <span
+class="math inline">log<sub><em>b</em></sub><em>a</em> = log<sub>2</sub>3 ≈ 1.585</span>.</li>
+<li>Compare: <span class="math inline"><em>d</em> = 1 &lt; 1.585</span>
+→ <strong>leaf-heavy</strong> (third Master case).</li>
+<li>Result: <span
+class="math inline"><em>T</em>(<em>n</em>) = <em>O</em> (<em>n</em><sup>log<sub>2</sub>3</sup>) = <em>O</em>(<em>n</em><sup>1.585</sup>)</span>.
+(Matches Karatsuba.)</li>
+</ol>
+<h2 id="common-pitfalls--exam-traps">Common pitfalls / exam traps</h2>
+<ul>
+<li>Plugging into Master with the <strong>wrong <span
+class="math inline"><em>d</em></span></strong> — <span
+class="math inline"><em>d</em></span> is the exponent of the
+<em>combine</em> cost, not the recursion.</li>
+<li>Using Master when it <strong>doesn't apply</strong> (non-constant
+<span class="math inline"><em>a</em>/<em>b</em></span>, subtractive
+recurrences like <span
+class="math inline"><em>T</em>(<em>n</em> − 1)</span>) — solve by
+tree/substitution instead.</li>
+<li>Writing <strong>pseudocode</strong> when the prompt asks for an
+algorithm — this course wants narrative.</li>
+<li>Claiming Karatsuba is <span
+class="math inline"><em>O</em>(<em>n</em>log <em>n</em>)</span> — it is
+<span class="math inline"><em>O</em>(<em>n</em><sup>1.585</sup>)</span>;
+FFT-based multiply (Week 11) is the <span
+class="math inline"><em>O</em>(<em>n</em>log <em>n</em>)</span>
+one.</li>
+</ul>
+<h2 id="how-to-answer-hw--exam">How to answer (HW / exam)</h2>
+<p>Describe the split/recurse/combine <strong>in words</strong>, argue
+correctness, then write &amp; solve the recurrence. No pseudocode when
+the prompt asks for an algorithm. See <a
+href="guidance/divide-and-conquer-guidance.html">D&amp;C guidance</a>
+and <a href="guidance/solving-recurrences-approach.html">solving
+recurrences</a>.</p>
+<details>
+<summary><b>Go deeper</b> — readings · guidance · notes</summary>
+
+<ul>
+<li><a href="readings/DPV-ch2-divide-and-conquer.pdf">DPV §2.1 (fast
+multiply), §2.2 (recurrences)</a></li>
+<li><a href="guidance/divide-and-conquer-guidance.html">D&amp;C
+guidance</a> · <a href="guidance/usable-dc-algorithms.html">Usable
+D&amp;C algorithms</a> · <a
+href="guidance/solving-recurrences-approach.html">Solving
+recurrences</a> · <a href="guidance/common-course-runtimes.html">Common
+runtimes</a></li>
+<li><a href="notes/full-course-notes.html">Full course notes</a> · <a
+href="notes/ga-notes.pdf">ga-notes.pdf</a></li>
+<li><a href="lectures/">lectures/</a> · <a
+href="transcripts/">transcripts/</a> · <a href="readings/">readings/</a>
+· <a href="guidance/">guidance/</a> · <a href="notes/">notes/</a></li>
+</ul>
+</details>
+
+<h2 id="comprehensive-notes">Comprehensive Notes</h2>
+<blockquote>
+<p>Full lecture notes for this week's modules. The summary above is the
+quick-reference; this is the deep read.</p>
+</blockquote>
+<h3 id="dc1--fast-integer-multiplication">DC1 — Fast Integer
+Multiplication</h3>
+<p><strong>Problem.</strong> Given two <span
+class="math inline"><em>n</em></span>-bit integers <span
+class="math inline"><em>x</em>, <em>y</em></span>, compute <span
+class="math inline"><em>z</em> = <em>x</em> ⋅ <em>y</em></span>; measure
+runtime in the number of bits <span
+class="math inline"><em>n</em></span>.</p>
+<blockquote>
+<p><strong>Key idea (Gauss's trick).</strong> Addition/subtraction are
+cheap, multiplication is expensive — so <em>trade multiplications for
+additions</em>.</p>
+</blockquote>
+<p>For complex numbers, <span
+class="math inline">(<em>a</em> + <em>b</em><em>i</em>)(<em>c</em> + <em>d</em><em>i</em>) = (<em>a</em><em>c</em> − <em>b</em><em>d</em>) + (<em>b</em><em>c</em> + <em>a</em><em>d</em>)<em>i</em></span>
+naively needs <strong>4</strong> real multiplications. But the cross
+term <span
+class="math inline"><em>b</em><em>c</em> + <em>a</em><em>d</em></span>
+hides inside <span
+class="math inline">(<em>a</em> + <em>b</em>)(<em>c</em> + <em>d</em>) = <em>a</em><em>c</em> + <em>b</em><em>d</em> + <em>b</em><em>c</em> + <em>a</em><em>d</em></span>,
+so</p>
+<p><span
+class="math display"><em>b</em><em>c</em> + <em>a</em><em>d</em> = (<em>a</em> + <em>b</em>)(<em>c</em> + <em>d</em>) − <em>a</em><em>c</em> − <em>b</em><em>d</em>.</span></p>
+<p>That gives <strong>3</strong> multiplications: <span
+class="math inline"><em>a</em><em>c</em></span>, <span
+class="math inline"><em>b</em><em>d</em></span>, and <span
+class="math inline">(<em>a</em> + <em>b</em>)(<em>c</em> + <em>d</em>)</span>.</p>
+<p><strong>Divide &amp; conquer split.</strong> Take <span
+class="math inline"><em>n</em></span> a power of 2. Split <span
+class="math inline"><em>x</em></span> into high/low halves <span
+class="math inline"><em>x</em><sub><em>ℓ</em></sub>, <em>x</em><sub><em>r</em></sub></span>
+(and likewise <span class="math inline"><em>y</em></span>), so</p>
+<p><span
+class="math display"><em>x</em> = <em>x</em><sub><em>ℓ</em></sub> ⋅ 2<sup><em>n</em>/2</sup> + <em>x</em><sub><em>r</em></sub>,   <em>x</em> ⋅ <em>y</em> = 2<sup><em>n</em></sup>(<em>x</em><sub><em>ℓ</em></sub><em>y</em><sub><em>ℓ</em></sub>) + 2<sup><em>n</em>/2</sup>(<em>x</em><sub><em>ℓ</em></sub><em>y</em><sub><em>r</em></sub> + <em>x</em><sub><em>r</em></sub><em>y</em><sub><em>ℓ</em></sub>) + <em>x</em><sub><em>r</em></sub><em>y</em><sub><em>r</em></sub>.</span></p>
+<p>E.g. <span class="math inline">182 = (10110110)<sub>2</sub></span>,
+<span
+class="math inline"><em>x</em><sub><em>ℓ</em></sub> = 1011 = 11</span>,
+<span
+class="math inline"><em>x</em><sub><em>r</em></sub> = 0110 = 6</span>,
+and <span class="math inline">182 = 11 ⋅ 2<sup>4</sup> + 6</span>.</p>
+<p><img src="../../.assets/CS6515_images/DC1-001.png"
+alt="Integer multiplication, divide-and-conquer split" /></p>
+<p><strong>Naive version — 4 recursive multiplies:</strong></p>
+<pre><code>EasyMultiply(x, y):        # x,y are n-bit, n = 2^k
+  x_l,x_r = halves of x;  y_l,y_r = halves of y
+  A = EasyMultiply(x_l, y_l)
+  B = EasyMultiply(x_r, y_r)
+  C = EasyMultiply(x_l, y_r)
+  D = EasyMultiply(x_r, y_l)
+  return 2^n A + 2^(n/2)(C + D) + B</code></pre>
+<p><span
+class="math inline"><em>T</em>(<em>n</em>) = 4<em>T</em>(<em>n</em>/2) + <em>O</em>(<em>n</em>) = <em>O</em>(<em>n</em><sup>2</sup>)</span>
+— no better than schoolbook.</p>
+<p><strong>Karatsuba — apply Gauss to cut to 3 multiplies.</strong> Note
+<span
+class="math inline"><em>x</em><sub><em>ℓ</em></sub><em>y</em><sub><em>r</em></sub> + <em>x</em><sub><em>r</em></sub><em>y</em><sub><em>ℓ</em></sub> = (<em>x</em><sub><em>ℓ</em></sub> + <em>x</em><sub><em>r</em></sub>)(<em>y</em><sub><em>ℓ</em></sub> + <em>y</em><sub><em>r</em></sub>) − <em>x</em><sub><em>ℓ</em></sub><em>y</em><sub><em>ℓ</em></sub> − <em>x</em><sub><em>r</em></sub><em>y</em><sub><em>r</em></sub></span>,
+reusing <span class="math inline"><em>A</em></span> and <span
+class="math inline"><em>B</em></span>:</p>
+<pre><code>FastMultiply(x, y):
+  x_l,x_r = halves of x;  y_l,y_r = halves of y
+  A = FastMultiply(x_l, y_l)
+  B = FastMultiply(x_r, y_r)
+  E = FastMultiply(x_l + x_r, y_l + y_r)
+  return 2^n A + 2^(n/2)(E - A - B) + B</code></pre>
+<p>Now only <span class="math inline">3</span> recursive multiplications
+of size <span class="math inline"><em>n</em>/2</span>:</p>
+<p><span
+class="math display"><em>T</em>(<em>n</em>) = 3<em>T</em>(<em>n</em>/2) + <em>O</em>(<em>n</em>).</span></p>
+<p>Expanding gives a geometric series <span
+class="math inline">$cn\big(1 + \tfrac32 + (\tfrac32)^2 + \cdots +
+(\tfrac32)^{\log_2 n}\big)$</span>; since <span
+class="math inline">$\tfrac32 &gt; 1$</span> the <strong>last term
+dominates</strong>, so</p>
+<p><span class="math display">$$
+T(n) = O\!\big(n \cdot (\tfrac32)^{\log_2 n}\big) = O(3^{\log_2 n}) =
+O\!\big(n^{\log_2 3}\big),\qquad \log_2 3 \approx 1.59.
+$$</span></p>
+<p>(Splitting into more than 2 parts can lower the exponent, but
+recombination gets harder.)</p>
+<p><strong>Worked example.</strong> <span
+class="math inline"><em>x</em> = 182 = (1011 0110)<sub>2</sub></span>,
+<span
+class="math inline"><em>y</em> = 154 = (1001 1010)<sub>2</sub></span>:
+<span
+class="math inline"><em>x</em><sub><em>ℓ</em></sub><em>y</em><sub><em>ℓ</em></sub> = 11 ⋅ 9 = 99</span>,
+<span
+class="math inline"><em>x</em><sub><em>r</em></sub><em>y</em><sub><em>r</em></sub> = 6 ⋅ 10 = 60</span>,
+<span
+class="math inline">(<em>x</em><sub><em>ℓ</em></sub> + <em>x</em><sub><em>r</em></sub>)(<em>y</em><sub><em>ℓ</em></sub> + <em>y</em><sub><em>r</em></sub>) = 17 ⋅ 19 = 323</span>.
+Then <span
+class="math inline">182 × 154 = 99 ⋅ 256 + (323 − 99 − 60) ⋅ 16 + 60 = 28028</span>.</p>
+<h3 id="dc3--solving-recurrences">DC3 — Solving Recurrences</h3>
+<p>Recurrences that arise in divide &amp; conquer (and their
+solutions):</p>
+<table>
+<thead>
+<tr>
+<th>Recurrence</th>
+<th>Solves to</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span
+class="math inline"><em>T</em>(<em>n</em>) = 2<em>T</em>(<em>n</em>/2) + <em>O</em>(<em>n</em>)</span></td>
+<td><span
+class="math inline"><em>O</em>(<em>n</em>log <em>n</em>)</span></td>
+<td>mergesort</td>
+</tr>
+<tr>
+<td><span
+class="math inline"><em>T</em>(<em>n</em>) = 4<em>T</em>(<em>n</em>/2) + <em>O</em>(<em>n</em>)</span></td>
+<td><span
+class="math inline"><em>O</em>(<em>n</em><sup>2</sup>)</span></td>
+<td>naive multiplication</td>
+</tr>
+<tr>
+<td><span
+class="math inline"><em>T</em>(<em>n</em>) = 3<em>T</em>(<em>n</em>/2) + <em>O</em>(<em>n</em>)</span></td>
+<td><span
+class="math inline"><em>O</em>(<em>n</em><sup>log<sub>2</sub>3</sup>)</span></td>
+<td>Karatsuba</td>
+</tr>
+<tr>
+<td><span
+class="math inline"><em>T</em>(<em>n</em>) = <em>T</em>(3<em>n</em>/4) + <em>O</em>(<em>n</em>)</span></td>
+<td><span class="math inline"><em>O</em>(<em>n</em>)</span></td>
+<td>median finding</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Method — unroll into a geometric series.</strong> Replace
+<span class="math inline"><em>O</em>(<em>n</em>)</span> with <span
+class="math inline"><em>c</em><em>n</em></span> and substitute
+repeatedly. For <span
+class="math inline"><em>T</em>(<em>n</em>) = 4<em>T</em>(<em>n</em>/2) + <em>c</em><em>n</em></span>:</p>
+<p><span class="math display">$$
+T(n) \le cn\Big(1 + \tfrac42 + (\tfrac42)^2 + \cdots +
+(\tfrac42)^{i-1}\Big) + 4^i\,T(n/2^i).
+$$</span></p>
+<p>Set <span
+class="math inline"><em>i</em> = log<sub>2</sub><em>n</em></span> so
+<span class="math inline"><em>n</em>/2<sup><em>i</em></sup> = 1</span>:
+the series sum is <span
+class="math inline"><em>O</em>((4/2)<sup>log<sub>2</sub><em>n</em></sup>) = <em>O</em>(<em>n</em><sup>2</sup>/<em>n</em>) = <em>O</em>(<em>n</em>)</span>
+and <span
+class="math inline">4<sup>log<sub>2</sub><em>n</em></sup><em>T</em>(1) = <em>O</em>(<em>n</em><sup>2</sup>)</span>,
+giving <span
+class="math inline"><em>T</em>(<em>n</em>) = <em>O</em>(<em>n</em><sup>2</sup>)</span>.</p>
+<p><strong>Geometric series.</strong> For <span
+class="math inline"><em>α</em> &gt; 0</span>,</p>
+<p><span class="math display">$$
+\sum_{j=0}^{k}\alpha^j = 1 + \alpha + \cdots + \alpha^k =
+\begin{cases}
+O(\alpha^k) &amp; \alpha &gt; 1\ \ (\text{last term dominates}),\\
+O(k) &amp; \alpha = 1,\\
+O(1) &amp; \alpha &lt; 1\ \ (\text{first term dominates}).
+\end{cases}
+$$</span></p>
+<p><strong>Exponential ↔︎ polynomial.</strong> Since <span
+class="math inline">3 = 2<sup>log<sub>2</sub>3</sup></span>,</p>
+<p><span
+class="math display">3<sup>log<sub>2</sub><em>n</em></sup> = (2<sup>log<sub>2</sub>3</sup>)<sup>log<sub>2</sub><em>n</em></sup> = (2<sup>log<sub>2</sub><em>n</em></sup>)<sup>log<sub>2</sub>3</sup> = <em>n</em><sup>log<sub>2</sub>3</sup>.</span></p>
+<p><strong>Master theorem.</strong> If <span
+class="math inline"><em>T</em>(<em>n</em>) = <em>a</em> <em>T</em>(<em>n</em>/<em>b</em>) + <em>O</em>(<em>n</em><sup><em>d</em></sup>)</span>
+with <span
+class="math inline"><em>a</em> &gt; 0, <em>b</em> &gt; 1, <em>d</em> ≥ 0</span>:</p>
+<p><span class="math display">$$
+T(n)=
+\begin{cases}
+O(n^d) &amp; d &gt; \log_b a,\\
+O(n^d \log n) &amp; d = \log_b a,\\
+O(n^{\log_b a}) &amp; d &lt; \log_b a.
+\end{cases}
+$$</span></p>
+<p><strong>Special case <span
+class="math inline"><em>T</em>(<em>n</em>) = <em>a</em><em>T</em>(<em>n</em>/<em>b</em>) + <em>O</em>(<em>n</em>)</span></strong>
+(i.e. <span class="math inline"><em>d</em> = 1</span>): if <span
+class="math inline"><em>a</em> &lt; <em>b</em></span> then <span
+class="math inline"><em>O</em>(<em>n</em>)</span> (first term
+dominates); if <span class="math inline"><em>a</em> = <em>b</em></span>
+then <span
+class="math inline"><em>O</em>(<em>n</em>log <em>n</em>)</span>; if
+<span class="math inline"><em>a</em> &gt; <em>b</em></span> then <span
+class="math inline"><em>O</em>(<em>n</em><sup>log<sub><em>b</em></sub><em>a</em></sup>)</span>
+(last term dominates).</p>
+<p><em>Examples:</em> <span
+class="math inline"><em>T</em>(<em>n</em>/2) + <em>O</em>(1)</span>:
+<span
+class="math inline"><em>a</em> = 1, <em>b</em> = 2, <em>d</em> = 0</span>,
+<span
+class="math inline">log<sub>2</sub>1 = 0 = <em>d</em> ⇒ <em>O</em>(<em>n</em><sup>0</sup>log <em>n</em>) = <em>O</em>(log <em>n</em>)</span>.
+<span
+class="math inline"> 2<em>T</em>(<em>n</em>/3) + <em>O</em>(1)</span>:
+<span
+class="math inline"><em>a</em> = 2, <em>b</em> = 3, <em>d</em> = 0</span>,
+<span
+class="math inline">log<sub>3</sub>2 &gt; 0 = <em>d</em> ⇒ <em>O</em>(<em>n</em><sup>log<sub>3</sub>2</sup>)</span>.</p>
+<!-- WEEK-EXTRAS:START -->
+
+<h2 id="dpv-chapter-exercises">DPV chapter exercises</h2>
+<details>
+<summary><b>DPV chapter exercises (exact, from the textbook)</b></summary>
+
+<p><em>Exact end-of-chapter exercises, parsed from the DPV chapter
+PDFs.</em></p>
+<p><strong>DPV Ch 2 — Divide And Conquer</strong> — <a
+href="../../textbooks/examples-md/02-divide-and-conquer-dpv-examples.html">open
+exercises</a> · <a href="readings/DPV-ch2-examples.pdf">chapter
+PDF</a></p>
+<iframe class="examples-frame" src="../../textbooks/examples-md/02-divide-and-conquer-dpv-examples.html" title="DPV Ch 2 — Divide And Conquer exercises"></iframe>
+
+</details>
+
+<!-- WEEK-EXTRAS:END -->
+
+<h2 id="agent-hint">Agent hint</h2>
+<p>D&amp;C question → identify <span
+class="math inline"><em>a</em>, <em>b</em>, <em>d</em></span>, compare
+<span class="math inline"><em>d</em></span> vs <span
+class="math inline">log<sub><em>b</em></sub><em>a</em></span>, apply the
+matching Master case; for multiplication cite Karatsuba's <span
+class="math inline"><em>T</em>(<em>n</em>) = 3<em>T</em>(<em>n</em>/2) + <em>O</em>(<em>n</em>) = <em>O</em>(<em>n</em><sup>log<sub>2</sub>3</sup>)</span>.
+Keep the algorithm narrative, not pseudocode.</p>
+</main>
+
+<!-- code highlighting -->
+<link rel="modulepreload" href="../../vendor/mermaid/mermaid.esm.min.mjs">
+<script src="../../vendor/highlight/highlight.min.js"></script>
+<!-- math -->
+<script defer src="../../vendor/katex/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="../../vendor/katex/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+<script type="module">
+  // 1) Normalize mermaid blocks. Pandoc(gfm) emits <pre class="mermaid"><code>...</code></pre>.
+  //    Flatten to raw source text so mermaid parses cleanly; also catch the code-only variant.
+  document.querySelectorAll('pre > code.language-mermaid, pre > code.mermaid').forEach(c => {
+    const p = document.createElement('pre'); p.className = 'mermaid'; p.textContent = c.textContent;
+    c.parentElement.replaceWith(p);
+  });
+  document.querySelectorAll('pre.mermaid').forEach(p => { p.textContent = p.textContent; });
+  // 2) Syntax-highlight every code block EXCEPT mermaid (auto-detect language)
+  if (window.hljs) document.querySelectorAll('pre:not(.mermaid) > code').forEach(el => window.hljs.highlightElement(el));
+  // 3) Render mermaid (dark)
+  try {
+    const mermaid = (await import('../../vendor/mermaid/mermaid.esm.min.mjs')).default;
+    mermaid.initialize({ startOnLoad: false, theme: 'dark', securityLevel: 'loose' });
+    await mermaid.run({ querySelector: 'pre.mermaid' });
+  } catch (e) { /* offline: leave as text */ }
+</script>
+<script>
+  // 4) Math: render \( \) and \[ \] (pandoc converts dollar-math to these). Tolerate malformed legacy TeX.
+  window.addEventListener('DOMContentLoaded', () => {
+    if (window.renderMathInElement) renderMathInElement(document.querySelector('.content'), {
+      // dollar-delimiters included so KaTeX also renders math pandoc failed to parse (left raw):
+      // a space before a closing delim, cases-env inline, apostrophes in text, etc. Display before inline.
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '\\[', right: '\\]', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false }
+      ],
+      throwOnError: false,
+      // \n is used in the legacy notes as a homemade "arrow over" (directed edge); map it to \overrightarrow.
+      macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
+    });
+  });
+</script>
+</body>
+</html>

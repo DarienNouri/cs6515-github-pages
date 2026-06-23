@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Week 4 — DP Shortest Paths + Graph Intro (SCC,
+2-SAT) — CS6515</title>
+<link rel="stylesheet" href="../../vendor/fonts/fonts.css">
+<link rel="stylesheet" href="../../theme.css">
+<link rel="stylesheet" href="../../vendor/katex/katex.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="../../vendor/highlight/styles/tokyo-night-dark.min.css">
+
+</head>
+<body>
+<header class="topbar">
+  <a class="home" href="../../index.html">CS6515</a>
+  <span class="crumbloc">Week 4 — DP Shortest Paths + Graph Intro (SCC,
+2-SAT)</span>
+</header>
+<main class="content">
+<h1 id="week-4--dp-shortest-paths--graph-intro-scc-2-sat">Week 4 — DP
+Shortest Paths + Graph Intro (SCC, 2-SAT)</h1>
+<blockquote>
+<p><strong>2026-06-08 → 06-14</strong> · Modules <strong>DP3</strong>
+(Shortest Paths), <strong>GR1</strong> (SCC), <strong>GR2</strong>
+(2-SAT)</p>
+<p><a href="../W03_2026-06-01_DC2/index.html">◀ W03 Median</a> · <a href="../index.html">All
+weeks</a> · <a href="../../00_START_HERE/INDEX.html">Index</a> · <a
+href="../W05_2026-06-15_GR3/index.html">W05 MST ▶</a></p>
+</blockquote>
+<h3 id="exam-1-this-week">EXAM 1 this week</h3>
+<table>
+<tbody>
+<tr>
+<td><strong>Opens</strong></td>
+<td>Thu <strong>06-11</strong> 10am ET</td>
+</tr>
+<tr>
+<td><strong>Closes</strong></td>
+<td>Mon <strong>06-15</strong> 8am ET</td>
+</tr>
+<tr>
+<td><strong>Covers</strong></td>
+<td><strong>Weeks 1–3</strong> — DP1–DP2, DC1–DC3</td>
+</tr>
+</tbody>
+</table>
+<details>
+<summary><b>Watch the lecture</b> (DP & Graph Intro)</summary>
+
+<p><video controls preload="metadata" width="100%" src="https://storage.googleapis.com/darien-public-assets/cs6515-summer-2026/v20260623/videos/04_Week_04_DP_Graph_Intro.mp4"></video></p>
+<p><a href="https://storage.googleapis.com/darien-public-assets/cs6515-summer-2026/v20260623/videos/04_Week_04_DP_Graph_Intro.mp4">▶ Open video</a> ·
+<a href="transcripts/04_Week_04_DP_Graph_Intro.txt">Transcript</a></p>
+</details>
+
+<hr />
+<h2 id="learning-objectives">Learning objectives</h2>
+<ul>
+<li>Run <strong>DFS</strong>, compute pre/post numbers, classify the
+four edge types, detect cycles, topologically sort.</li>
+<li>Find <strong>SCCs</strong> with the two-pass algorithm and explain
+<em>why</em> graph reversal works.</li>
+<li>Build a <strong>2-SAT implication graph</strong> and decide
+satisfiability via SCCs.</li>
+<li>Choose the right <strong>shortest-path</strong> DP (Bellman-Ford /
+Floyd-Warshall / DAG) for weights and structure.</li>
+</ul>
+<h2 id="core-concepts">Core concepts</h2>
+<h3 id="dfs-and-prepost-numbers--the-graph-foundation">DFS and pre/post
+numbers — the graph foundation</h3>
+<p><strong>Definition.</strong> DFS stamps each vertex with a
+<strong>pre</strong> number (when first visited) and a
+<strong>post</strong> number (when finished). These intervals nest like
+parentheses.</p>
+<ul>
+<li><strong>Topological sort</strong> (DAGs only): order vertices by
+<strong>decreasing post</strong> number.</li>
+<li><strong>Cycle ⟺ a back edge</strong> exists — an edge <span
+class="math inline">(<em>u</em>, <em>v</em>)</span> to an ancestor, i.e.
+with <code>post[u] &lt; post[v]</code>.</li>
+<li><strong>Four edge types</strong> (directed DFS):
+<strong>tree</strong>, <strong>back</strong> (to ancestor → cycle),
+<strong>forward</strong> (to descendant), <strong>cross</strong>
+(between subtrees).</li>
+</ul>
+<h3 id="strongly-connected-components-gr1">Strongly Connected Components
+(GR1)</h3>
+<p><strong>Definition.</strong> <span
+class="math inline"><em>u</em> ∼ <em>v</em></span> iff <span
+class="math inline"><em>u</em></span> reaches <span
+class="math inline"><em>v</em></span> <strong>and</strong> <span
+class="math inline"><em>v</em></span> reaches <span
+class="math inline"><em>u</em></span>. SCCs partition <span
+class="math inline"><em>V</em></span>; the <strong>metagraph</strong>
+(contract each SCC) is always a <strong>DAG</strong>.
+<em>Intuition:</em> SCCs are the "two-way reachable" blobs; between
+blobs reachability is one-way.</p>
+<ul>
+<li><strong>Source lemma:</strong> the vertex with the <strong>highest
+post</strong> number (in DFS on <span
+class="math inline"><em>G</em><sup><em>R</em></sup></span>) lies in a
+<strong>sink</strong> SCC of <span
+class="math inline"><em>G</em></span>. Peeling sink SCCs in that order
+isolates one SCC per DFS tree.</li>
+</ul>
+<h3 id="2-sat-gr2">2-SAT (GR2)</h3>
+<p><strong>Definition.</strong> Decide a 2-CNF formula (each clause has
+2 literals). Build the <strong>implication graph</strong> on <span
+class="math inline">2<em>n</em></span> literal vertices: clause <span
+class="math inline">(<em>a</em> ∨ <em>b</em>)</span> adds the two
+implications <span
+class="math display">¬<em>a</em> ⇒ <em>b</em>   and   ¬<em>b</em> ⇒ <em>a</em>.</span>
+<strong>Satisfiability criterion:</strong> <span
+class="math display"><em>f</em>
+satisfiable ⇔ ∀<em>i</em>, <em>x</em><sub><em>i</em></sub> and
+¬<em>x</em><sub><em>i</em></sub> lie in <strong>different
+SCCs</strong>.</span> <em>Intuition:</em> if <span
+class="math inline"><em>x</em><sub><em>i</em></sub></span> and <span
+class="math inline">¬<em>x</em><sub><em>i</em></sub></span> are mutually
+reachable, the clauses force <span
+class="math inline"><em>x</em><sub><em>i</em></sub> ⇒ ¬<em>x</em><sub><em>i</em></sub></span>
+and back — a contradiction.</p>
+<h3 id="shortest-paths-as-dp-dp3">Shortest paths as DP (DP3)</h3>
+<p><strong>Bellman-Ford</strong> — DP over <strong>number of
+edges</strong>. Let <span
+class="math inline">dist<sup>(<em>k</em>)</sup>(<em>v</em>)</span> =
+shortest <span class="math inline"><em>s</em> → <em>v</em></span> path
+using <span class="math inline"> ≤ <em>k</em></span> edges: <span
+class="math display">dist<sup>(<em>k</em>)</sup>(<em>v</em>) = min (dist<sup>(<em>k</em> − 1)</sup>(<em>v</em>), min<sub>(<em>u</em>, <em>v</em>) ∈ <em>E</em></sub> dist<sup>(<em>k</em> − 1)</sup>(<em>u</em>) + <em>w</em>(<em>u</em>, <em>v</em>)).</span></p>
+<ul>
+<li>Run <span class="math inline"><em>k</em> = 1…<em>n</em> − 1</span>.
+A further decrease at <span
+class="math inline"><em>k</em> = <em>n</em></span> means a
+<strong>negative cycle</strong>. Runtime <span
+class="math inline"><em>O</em>(<em>n</em><em>m</em>)</span>.</li>
+</ul>
+<h2 id="algorithms">Algorithms</h2>
+<h3 id="scc-decomposition-two-pass--onm">SCC decomposition (two-pass) —
+<span
+class="math inline"><em>O</em>(<em>n</em> + <em>m</em>)</span></h3>
+<ol type="1">
+<li>Run DFS on the <strong>reverse</strong> graph <span
+class="math inline"><em>G</em><sup><em>R</em></sup></span>; record post
+numbers.</li>
+<li>Process vertices of <span class="math inline"><em>G</em></span> in
+<strong>decreasing <span
+class="math inline"><em>G</em><sup><em>R</em></sup></span> post</strong>
+order; each new DFS tree in <span class="math inline"><em>G</em></span>
+is one SCC.</li>
+</ol>
+<h3 id="2-sat-solver--onm">2-SAT solver — <span
+class="math inline"><em>O</em>(<em>n</em> + <em>m</em>)</span></h3>
+<ol type="1">
+<li>Build the implication graph (2 implications per clause).</li>
+<li>Compute SCCs.</li>
+<li>If any <span
+class="math inline"><em>x</em><sub><em>i</em></sub>, ¬<em>x</em><sub><em>i</em></sub></span>
+share an SCC → <strong>UNSAT</strong>.</li>
+<li>Else assign each variable by <strong>reverse topological</strong>
+SCC order (later SCC = true).</li>
+</ol>
+<h3 id="shortest-path-chooser">Shortest-path chooser</h3>
+<table>
+<thead>
+<tr>
+<th>Algorithm</th>
+<th>Graph</th>
+<th>Negative weights</th>
+<th>Runtime</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>BFS</strong></td>
+<td>unweighted</td>
+<td>—</td>
+<td><span
+class="math inline"><em>O</em>(<em>n</em> + <em>m</em>)</span></td>
+</tr>
+<tr>
+<td><strong>Dijkstra</strong></td>
+<td>non-negative weights</td>
+<td>no</td>
+<td><span
+class="math inline"><em>O</em>((<em>n</em> + <em>m</em>)log <em>n</em>)</span></td>
+</tr>
+<tr>
+<td><strong>Bellman-Ford</strong> (DP)</td>
+<td>general, detects neg cycles</td>
+<td>yes</td>
+<td><span
+class="math inline"><em>O</em>(<em>n</em><em>m</em>)</span></td>
+</tr>
+<tr>
+<td><strong>Floyd-Warshall</strong> (DP)</td>
+<td>all-pairs</td>
+<td>yes (no neg cycle)</td>
+<td><span
+class="math inline"><em>O</em>(<em>n</em><sup>3</sup>)</span></td>
+</tr>
+<tr>
+<td><strong>DAG shortest path</strong></td>
+<td>DAG</td>
+<td>yes</td>
+<td><span class="math inline"><em>O</em>(<em>n</em> + <em>m</em>)</span>
+(topo order)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="key-theorems--results">Key theorems &amp; results</h2>
+<ul>
+<li><strong>Cycle ⟺ back edge.</strong> DFS on <span
+class="math inline"><em>G</em></span> has a back edge iff <span
+class="math inline"><em>G</em></span> has a directed cycle.</li>
+<li><strong>Metagraph is a DAG.</strong> Contracting SCCs never creates
+a cycle (else the blobs would merge).</li>
+<li><strong>2-SAT lemma.</strong> <span
+class="math inline"><em>f</em></span> is satisfiable iff no variable
+shares an SCC with its negation; assignment by reverse-topo SCC order is
+consistent.</li>
+</ul>
+<h2 id="worked-example--scc-ordering">Worked example — SCC ordering</h2>
+<p>Graph <span
+class="math inline"><em>A</em> → <em>B</em> → <em>C</em> → <em>A</em></span>
+(one SCC <span
+class="math inline">{<em>A</em>, <em>B</em>, <em>C</em>}</span>) plus
+<span class="math inline"><em>C</em> → <em>D</em></span>, <span
+class="math inline"><em>D</em></span> a sink.</p>
+<ul>
+<li><span class="math inline"><em>G</em><sup><em>R</em></sup></span>:
+<span
+class="math inline"><em>A</em> → <em>C</em> → <em>B</em> → <em>A</em></span>,
+<span class="math inline"><em>D</em> → <em>C</em></span>. DFS on <span
+class="math inline"><em>G</em><sup><em>R</em></sup></span> gives highest
+post in <span
+class="math inline">{<em>A</em>, <em>B</em>, <em>C</em>}</span> (a
+source SCC of <span
+class="math inline"><em>G</em><sup><em>R</em></sup></span> = sink-side
+of <span class="math inline"><em>G</em></span>).</li>
+<li>Processing <span class="math inline"><em>G</em></span> by decreasing
+<span class="math inline"><em>G</em><sup><em>R</em></sup></span> post
+peels <span
+class="math inline">{<em>A</em>, <em>B</em>, <em>C</em>}</span> first as
+one tree, then <span class="math inline">{<em>D</em>}</span>. Metagraph:
+<span
+class="math inline">{<em>A</em>, <em>B</em>, <em>C</em>} → {<em>D</em>}</span>
+— a DAG.</li>
+</ul>
+<h2 id="common-pitfalls--exam-traps">Common pitfalls / exam traps</h2>
+<ul>
+<li>Sorting by <strong>increasing</strong> post for topo order (it is
+<strong>decreasing</strong>).</li>
+<li>Reducing graph problems by rewriting a black box's internals —
+instead transform input/output.</li>
+<li>Using <strong>Dijkstra with negative weights</strong> (invalid) —
+switch to Bellman-Ford.</li>
+<li>In 2-SAT, forgetting <strong>both</strong> implications per clause,
+or mis-assigning truth (later SCC in topo order = true).</li>
+</ul>
+<h2 id="how-to-answer-hw--exam">How to answer (HW / exam)</h2>
+<p>Graph problems = <strong>transform input/output around a black
+box</strong> (DFS, SCC, BFS, Dijkstra). Don't rewrite the black box. See
+<a href="guidance/graph-theory-guidance.html">graph guidance</a> · <a
+href="guidance/usable-black-boxes-graphs.html">usable black
+boxes</a>.</p>
+<details>
+<summary><b>Go deeper</b> — readings · guidance · deep notes</summary>
+
+<ul>
+<li><a href="readings/DPV-ch3-graph-decompositions.pdf">DPV §3.1–3.4
+(graphs)</a> · <a href="readings/DPV-ch4-paths-in-graphs.pdf">§4.x
+(paths)</a> · <a href="readings/DPV-ch6-dynamic-programming.pdf">§6.x
+(DP shortest path)</a></li>
+<li><a href="guidance/graph-theory-guidance.html">Graph guidance</a> ·
+<a href="guidance/usable-black-boxes-graphs.html">Black boxes</a> · <a
+href="guidance/dynamic-programming-guidance.html">DP guidance</a></li>
+<li>Deep notes: <a href="notes/GR0-graph-fundamentals.html">GR0
+fundamentals</a> · <a
+href="notes/GR1-strongly-connected-components.html">GR1 SCC</a> · <a
+href="notes/GR2-2sat.html">GR2 2-SAT</a> · <a
+href="notes/graphs-cheat-sheet.html">cheat sheet</a></li>
+<li><a href="lectures/">lectures/</a> · <a
+href="transcripts/">transcripts/</a> · <a href="readings/">readings/</a>
+· <a href="guidance/">guidance/</a> · <a href="notes/">notes/</a></li>
+</ul>
+</details>
+
+<h2 id="comprehensive-notes">Comprehensive Notes</h2>
+<blockquote>
+<p>Full lecture notes for this week's modules (DP3 shortest paths, GR0
+graph foundations, GR1 SCCs, GR2 2-SAT), with figures and diagrams
+inline.</p>
+</blockquote>
+<h3 id="gr0--graph-fundamentals">GR0 — Graph Fundamentals</h3>
+<p><strong>Graph.</strong> <span
+class="math inline"><em>G</em> = (<em>V</em>, <em>E</em>)</span>:
+vertices <span class="math inline"><em>V</em></span> and edges <span
+class="math inline"><em>E</em></span> connecting pairs.
+<strong>Undirected</strong> edges are unordered <span
+class="math inline">{<em>u</em>, <em>v</em>}</span>;
+<strong>directed</strong> edges are ordered <span
+class="math inline">(<em>u</em>, <em>v</em>)</span> (so <span
+class="math inline"><em>A</em> → <em>B</em></span> does not imply <span
+class="math inline"><em>B</em> → <em>A</em></span>). We assume
+<strong>simple</strong> graphs (no self-loops, no parallel edges).</p>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Degree <span class="math inline">deg (<em>v</em>)</span></td>
+<td>number of incident edges; in-/out-degree for directed</td>
+</tr>
+<tr>
+<td>Path / Cycle</td>
+<td>sequence of edges; cycle returns to start</td>
+</tr>
+<tr>
+<td>Connected (undirected)</td>
+<td>a path between every pair</td>
+</tr>
+<tr>
+<td>Strongly connected (directed)</td>
+<td>for every <span class="math inline"><em>u</em>, <em>v</em></span>:
+paths <span class="math inline"><em>u</em> → <em>v</em></span>
+<strong>and</strong> <span
+class="math inline"><em>v</em> → <em>u</em></span></td>
+</tr>
+<tr>
+<td>DAG</td>
+<td>directed acyclic graph</td>
+</tr>
+<tr>
+<td>Source / Sink</td>
+<td>in-degree <span class="math inline">0</span> / out-degree <span
+class="math inline">0</span></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Representations.</strong> Adjacency <strong>matrix</strong>:
+<span class="math inline"><em>O</em>(<em>n</em><sup>2</sup>)</span>
+space, <span class="math inline"><em>O</em>(1)</span> edge lookup, <span
+class="math inline"><em>O</em>(<em>n</em>)</span> to list neighbors.
+Adjacency <strong>list</strong>: <span
+class="math inline"><em>O</em>(<em>n</em> + <em>m</em>)</span> space,
+<span class="math inline"><em>O</em>(deg )</span> lookup/iterate. This
+course uses adjacency lists (most graphs are sparse).</p>
+<p><strong>BFS</strong> explores level by level and finds shortest paths
+in <strong>unweighted</strong> graphs, <span
+class="math inline"><em>O</em>(<em>n</em> + <em>m</em>)</span>:</p>
+<p><img src="../../.assets/CS6515_images/Animated_BFS.gif"
+alt="BFS animation" /></p>
+<pre><code>BFS(G, s):
+    for all v: dist[v] = ∞; prev[v] = null
+    dist[s] = 0;  Q = queue containing s
+    while Q not empty:
+        v = dequeue(Q)
+        for all (v,w) ∈ E:
+            if dist[w] = ∞:
+                dist[w] = dist[v] + 1; prev[w] = v; enqueue(Q, w)</code></pre>
+<p><strong>Dijkstra</strong> = BFS for
+<strong>positive</strong>-weighted graphs, <span
+class="math inline"><em>O</em>((|<em>V</em>|+|<em>E</em>|)log |<em>V</em>|)</span>
+with a min-heap; it fails on negative weights (use Bellman-Ford). Key
+facts: any subpath of a shortest path is shortest; triangle inequality
+<span
+class="math inline">dist (<em>u</em>, <em>v</em>) ≤ dist (<em>u</em>, <em>x</em>) + dist (<em>x</em>, <em>v</em>)</span>.</p>
+<p><strong>DFS</strong> explores as deep as possible, backtracking — the
+foundation for SCCs, topological sort, and cycle detection. For directed
+graphs add a <strong>clock</strong> recording <code>pre</code>
+(discovery) and <code>post</code> (completion):</p>
+<pre><code>Explore(z):
+    pre[z] = clock++; visited[z] = true
+    for all (z,w) ∈ E:
+        if not visited[w]: Explore(w)
+    post[z] = clock++</code></pre>
+<p>Pre/post intervals nest: if <span
+class="math inline">[pre(<em>u</em>), post(<em>u</em>)]</span> contains
+<span class="math inline">[pre(<em>v</em>), post(<em>v</em>)]</span>
+then <span class="math inline"><em>u</em></span> is an ancestor of <span
+class="math inline"><em>v</em></span>; disjoint intervals mean neither
+is an ancestor.</p>
+<p><strong>Edge types</strong> (directed DFS): tree,
+<strong>back</strong> (descendant→ancestor, the only type with <span
+class="math inline">post(<em>z</em>) &lt; post(<em>w</em>)</span>),
+forward, cross.</p>
+<blockquote>
+<p><strong>Theorem (cycle).</strong> <span
+class="math inline"><em>G</em></span> has a cycle <span
+class="math inline">⇔</span> its DFS tree has a <strong>back
+edge</strong>.</p>
+</blockquote>
+<p>(<span class="math inline">→</span>) the edge into the first-visited
+cycle vertex is a back edge; (<span class="math inline">←</span>) a back
+edge <span class="math inline"><em>v</em> → <em>w</em></span> plus the
+tree path <span class="math inline"><em>w</em> ⇝ <em>v</em></span> forms
+a cycle.</p>
+<p><strong>Topological sort</strong> (DAGs only): run DFS, output
+vertices by <strong>decreasing post number</strong>, <span
+class="math inline"><em>O</em>(<em>n</em> + <em>m</em>)</span>. Works
+because a DAG has no back edges, so every edge <span
+class="math inline"><em>u</em> → <em>v</em></span> has <span
+class="math inline">post(<em>u</em>) &gt; post(<em>v</em>)</span>.</p>
+<h3 id="gr1--strongly-connected-components">GR1 — Strongly Connected
+Components</h3>
+<p><strong>SCC.</strong> A <em>maximal</em> set of mutually strongly
+connected vertices (<span
+class="math inline"><em>v</em> ⇝ <em>w</em></span> and <span
+class="math inline"><em>w</em> ⇝ <em>v</em></span> for all pairs).</p>
+<pre class="mermaid"><code>graph LR
+    subgraph SCC1[&quot;SCC: A,B,E&quot;]
+        A --&gt; B
+        B --&gt; E
+        E --&gt; A
+    end
+    subgraph SCC2[&quot;SCC: C,D&quot;]
+        C --&gt; D
+        D --&gt; C
+    end
+    subgraph SCC3[&quot;SCC: F&quot;]
+        F
+    end
+    B --&gt; C
+    D --&gt; F
+    E --&gt; F</code></pre>
+<p><strong>Metagraph.</strong> Collapse each SCC to a meta-vertex: the
+result is always a <strong>DAG</strong> (a cycle between two SCCs would
+merge them).</p>
+<p><strong>Goal:</strong> find all SCCs in <span
+class="math inline"><em>O</em>(<em>n</em> + <em>m</em>)</span>.</p>
+<blockquote>
+<p><strong>Key insight.</strong> Running <code>Explore(v)</code> from a
+vertex in a <strong>sink SCC</strong> visits <em>exactly</em> that SCC —
+there are no outgoing metagraph edges to escape through. So: find a
+sink-SCC vertex, Explore it, remove it, repeat.</p>
+</blockquote>
+<p><strong>Finding a sink SCC.</strong> We can't directly find a sink,
+but the vertex with the <strong>highest post number</strong> after DFS
+lies in a <strong>source</strong> SCC. Trick: run DFS on the
+<strong>reverse graph</strong> <span
+class="math inline"><em>G</em><sup><em>R</em></sup></span> (<span
+class="math inline"><em>E</em><sup><em>R</em></sup> = {(<em>w</em>, <em>v</em>) : (<em>v</em>, <em>w</em>) ∈ <em>E</em>}</span>)
+— SCCs are unchanged but sources and sinks swap, so the highest-post
+vertex in <span
+class="math inline"><em>G</em><sup><em>R</em></sup></span> is in a
+<strong>source SCC of <span
+class="math inline"><em>G</em><sup><em>R</em></sup></span> = sink SCC of
+<span class="math inline"><em>G</em></span></strong>.</p>
+<p><strong>SCC algorithm</strong> (<span
+class="math inline"><em>O</em>(<em>n</em> + <em>m</em>)</span>):</p>
+<pre><code>SCC(G):
+    1. Construct G^R (reverse all edges)
+    2. Run DFS(G^R) — compute post numbers
+    3. Order vertices by decreasing post number
+    4. Run DFS(G) in that order — each outer Explore call labels a new SCC</code></pre>
+<p><strong>Worked example.</strong> <span
+class="math inline"><em>G</em></span>: <span
+class="math inline"><em>A</em> → <em>B</em>, <em>B</em> → <em>A</em>, <em>B</em> → <em>C</em>, <em>C</em> → <em>D</em>, <em>D</em> → <em>C</em>, <em>D</em> → <em>E</em></span>
+(SCCs <span
+class="math inline">{<em>A</em>, <em>B</em>}, {<em>C</em>, <em>D</em>}, {<em>E</em>}</span>,
+with <span
+class="math inline">{<em>A</em>, <em>B</em>} → {<em>C</em>, <em>D</em>} → {<em>E</em>}</span>).
+DFS on <span class="math inline"><em>G</em><sup><em>R</em></sup></span>
+gives posts <span
+class="math inline"><em>E</em>(8), <em>C</em>(6), <em>D</em>(5), <em>A</em>(3), <em>B</em>(2)</span>.
+Processing <span class="math inline"><em>G</em></span> in
+decreasing-post order <span
+class="math inline"><em>E</em>, <em>C</em>, <em>D</em>, <em>A</em>, <em>B</em></span>:</p>
+<ul>
+<li><code>Explore(E)</code> → <span
+class="math inline">{<em>E</em>}</span> (sink SCC),</li>
+<li><code>Explore(C)</code> → <span
+class="math inline"><em>C</em>, <em>D</em></span> → <span
+class="math inline">{<em>C</em>, <em>D</em>}</span>,</li>
+<li><code>Explore(A)</code> → <span
+class="math inline"><em>A</em>, <em>B</em></span> → <span
+class="math inline">{<em>A</em>, <em>B</em>}</span>.</li>
+</ul>
+<p>SCCs emerge sink-first (reverse topological order).</p>
+<p><strong>Why it works (lemma).</strong> In DFS on <span
+class="math inline"><em>G</em><sup><em>R</em></sup></span>, the
+highest-post vertex lies in a source SCC of <span
+class="math inline"><em>G</em><sup><em>R</em></sup></span> (= sink SCC
+of <span class="math inline"><em>G</em></span>). For SCCs <span
+class="math inline"><em>S</em>, <em>S</em><sup>′</sup></span> with <span
+class="math inline"><em>S</em><sup>′</sup> → <em>S</em></span> in <span
+class="math inline"><em>G</em><sup><em>R</em></sup></span>'s metagraph:
+whichever is entered first by DFS, all of <span
+class="math inline"><em>S</em></span> finishes with a higher max-post
+than <span class="math inline"><em>S</em><sup>′</sup></span>. So the
+globally-highest-post SCC is a source of <span
+class="math inline"><em>G</em><sup><em>R</em></sup></span>.</p>
+<h3 id="gr2--2-satisfiability">GR2 — 2-Satisfiability</h3>
+<p><strong>SAT / CNF.</strong> Boolean variables <span
+class="math inline"><em>x</em><sub>1</sub>, …, <em>x</em><sub><em>n</em></sub></span>;
+literals <span
+class="math inline"><em>x</em><sub><em>i</em></sub></span> and <span
+class="math inline"><em>x̄</em><sub><em>i</em></sub></span>. A
+<strong>CNF</strong> formula is an AND of OR-clauses; a satisfying
+assignment makes <span class="math inline"> ≥ 1</span> literal true in
+every clause. <strong>k-SAT</strong> caps clause size at <span
+class="math inline"><em>k</em></span>: <span
+class="math inline"><em>k</em> = 2</span> is polynomial (<span
+class="math inline"><em>O</em>(<em>n</em> + <em>m</em>)</span> via
+SCCs); <span class="math inline"><em>k</em> ≥ 3</span> is NP-complete —
+one of the most important complexity boundaries.</p>
+<p><strong>Implication graph.</strong> Each clause <span
+class="math inline">(<em>α</em> ∨ <em>β</em>)</span> becomes two
+implications: if <span class="math inline"><em>α</em></span> is false
+then <span class="math inline"><em>β</em></span> must be true (<span
+class="math inline"><em>ᾱ</em> → <em>β</em></span>), and <span
+class="math inline"><em>β̄</em> → <em>α</em></span>. Build <span
+class="math inline">2<em>n</em></span> literal vertices and <span
+class="math inline">2<em>m</em></span> edges:</p>
+<table>
+<thead>
+<tr>
+<th>Clause</th>
+<th>Edges</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="math inline">(<em>α</em> ∨ <em>β</em>)</span></td>
+<td><span class="math inline"><em>ᾱ</em> → <em>β</em></span>, <span
+class="math inline"><em>β̄</em> → <em>α</em></span></td>
+</tr>
+</tbody>
+</table>
+<pre class="mermaid"><code>graph LR
+    nx1[&quot;not-x1&quot;] --&gt; x2[&quot;x2&quot;]
+    nx2[&quot;not-x2&quot;] --&gt; x1[&quot;x1&quot;]
+    x1 --&gt; x3[&quot;x3&quot;]
+    nx3[&quot;not-x3&quot;] --&gt; nx1
+    x2 --&gt; nx3
+    x3 --&gt; nx2
+    nx1 --&gt; x3
+    nx3 --&gt; x1</code></pre>
+<blockquote>
+<p><strong>Key lemma (2-SAT).</strong> <span
+class="math inline"><em>f</em></span> is satisfiable <span
+class="math inline">⇔</span> for every <span
+class="math inline"><em>i</em></span>, <span
+class="math inline"><em>x</em><sub><em>i</em></sub></span> and <span
+class="math inline"><em>x̄</em><sub><em>i</em></sub></span> lie in
+<strong>different SCCs</strong> of the implication graph.</p>
+</blockquote>
+<p>(Same SCC means paths <span
+class="math inline"><em>x</em><sub><em>i</em></sub> ⇝ <em>x̄</em><sub><em>i</em></sub></span>
+<em>and</em> <span
+class="math inline"><em>x̄</em><sub><em>i</em></sub> ⇝ <em>x</em><sub><em>i</em></sub></span>
+— a contradiction either way.)</p>
+<p><strong>Algorithm</strong> (<span
+class="math inline"><em>O</em>(<em>n</em> + <em>m</em>)</span>):</p>
+<pre><code>2SAT(f):
+    1. Build implication graph (2n vertices, 2m edges)
+    2. Run SCC (sink-first order)
+    3. If any x_i, ¬x_i share an SCC → &quot;unsatisfiable&quot;
+    4. In reverse topological order, set each unassigned sink SCC&#39;s literals
+       TRUE and their complements FALSE
+    5. Return assignment</code></pre>
+<p><strong>Correctness.</strong> Helper fact: a path <span
+class="math inline"><em>α</em> ⇝ <em>β</em></span> implies a path <span
+class="math inline"><em>β̄</em> ⇝ <em>ᾱ</em></span> (each clause's two
+edges are complementary). Hence if <span
+class="math inline"><em>S</em></span> is a sink SCC, <span
+class="math inline"><em>S̄</em></span> is a source SCC. Setting a sink
+SCC TRUE creates no outgoing-implication violations; its complement
+source set FALSE can imply anything vacuously. Worked example: <span
+class="math inline"><em>f</em> = (<em>x</em><sub>1</sub> ∨ <em>x</em><sub>2</sub>) ∧ (<em>x̄</em><sub>1</sub> ∨ <em>x</em><sub>3</sub>) ∧ (<em>x̄</em><sub>2</sub> ∨ <em>x̄</em><sub>3</sub>) ∧ (<em>x</em><sub>1</sub> ∨ <em>x</em><sub>3</sub>)</span>
+gives SCCs <span
+class="math inline">{<em>x</em><sub>1</sub>, <em>x</em><sub>3</sub>, <em>x̄</em><sub>2</sub>}</span>
+and <span
+class="math inline">{<em>x̄</em><sub>1</sub>, <em>x</em><sub>2</sub>, <em>x̄</em><sub>3</sub>}</span>
+(complements), so it is satisfiable; assignment <span
+class="math inline"><em>x</em><sub>1</sub> = <em>T</em>, <em>x</em><sub>2</sub> = <em>F</em>, <em>x</em><sub>3</sub> = <em>T</em></span>
+satisfies all clauses.</p>
+<h3 id="dp3--shortest-paths-dynamic-programming">DP3 — Shortest Paths
+(Dynamic Programming)</h3>
+<p>Setting: a directed graph <span
+class="math inline"><em>G⃗</em> = (<em>V</em>, <em>E</em>)</span> with
+edge weights <span class="math inline"><em>w</em>(<em>e</em>)</span>
+that may be <strong>negative</strong>, possibly with anti-parallel
+edges.</p>
+<p><img src="../../.assets/CS6515_images/DP1-008.png"
+alt="shortest-path setup" /></p>
+<p>For <span class="math inline"><em>z</em> ∈ <em>V</em></span>, <span
+class="math inline">dist (<em>z</em>)</span> = length of the shortest
+path from <span class="math inline"><em>s</em></span> to <span
+class="math inline"><em>z</em></span> (an array of length <span
+class="math inline"><em>n</em></span>). Dijkstra solves this in <span
+class="math inline"><em>O</em>((<em>n</em> + <em>m</em>)log <em>n</em>)</span>
+but <strong>only for positive weights</strong> — it never revisits a
+vertex, so a later negative edge can't fix an already-finalized
+distance.</p>
+<blockquote>
+<p><strong>Watch out — negative cycles.</strong> If a reachable cycle
+has <em>negative</em> total weight, repeatedly walking it lowers the
+path length without bound, so the shortest path is ill-defined. (A
+repeated-vertex route is a <em>walk</em>, not a path.)</p>
+</blockquote>
+<p><img src="../../.assets/CS6515_images/DP1-009.png"
+alt="negative-weight cycle" /></p>
+<p>Generalized goal: find a negative-weight cycle reachable from <span
+class="math inline"><em>s</em></span> if one exists, else find <span
+class="math inline">dist (<em>z</em>)</span> for all <span
+class="math inline"><em>z</em></span> (single-source shortest path).</p>
+<h4 id="bellman-ford-single-source">Bellman-Ford (single source)</h4>
+<p>With no negative cycle, a shortest path visits each vertex at most
+once, so it has <span class="math inline"> ≤ <em>n</em> − 1</span>
+edges. Condition on the <strong>number of edges</strong>: let <span
+class="math inline"><em>D</em>(<em>i</em>, <em>z</em>)</span> = length
+of the shortest <span class="math inline"><em>s</em> → <em>z</em></span>
+path using <span class="math inline"> ≤ <em>i</em></span> edges, <span
+class="math inline">0 ≤ <em>i</em> ≤ <em>n</em> − 1</span>, <span
+class="math inline"><em>z</em> ∈ <em>V</em></span>.</p>
+<p><strong>Base case:</strong> <span
+class="math inline"><em>D</em>(0, <em>s</em>) = 0</span> and <span
+class="math inline"><em>D</em>(0, <em>z</em>) = ∞</span> for <span
+class="math inline"><em>z</em> ≠ <em>s</em></span>.</p>
+<p><strong>Recurrence</strong> (consider the last edge <span
+class="math inline"><em>y</em> → <em>z</em></span>, or use fewer edges):
+<span class="math display">$$
+D(i,z) = \min\Big\{\, D(i-1,z),\ \ \min_{y:\,\overrightarrow{yz}\in
+E}\big[D(i-1,y)+w(y,z)\big] \,\Big\}.
+$$</span></p>
+<p><img src="../../.assets/CS6515_images/DP1-010.png"
+alt="Bellman recurrence" /></p>
+<p><img
+src="../../.assets/CS6515_images/Bellman-Ford_algorithm_example.gif"
+alt="Bellman-Ford animation" /></p>
+<pre><code>Bellman-Ford(G, s, w):
+    for all z in V: D(0,z) = ∞
+    D(0,s) = 0
+    for i = 1 -&gt; n-1:
+        for all z in V:
+            D(i,z) = D(i-1,z)
+            for all edges (y,z) into z:
+                if D(i,z) &gt; D(i-1,y) + w(y,z):
+                    D(i,z) = D(i-1,y) + w(y,z)
+    Return D(n-1, :)</code></pre>
+<p>(Adjacency lists give edges <em>out of</em> a node; reverse once at
+<span class="math inline"><em>O</em>(<em>n</em> + <em>m</em>)</span> to
+get edges <em>into</em> <span class="math inline"><em>z</em></span>.)
+<strong>Runtime:</strong> <span
+class="math inline"><em>O</em>(<em>n</em><em>m</em>)</span> — worse than
+Dijkstra but handles negative weights.</p>
+<p><strong>Detecting a negative cycle.</strong> Run one extra round, to
+<span class="math inline"><em>i</em> = <em>n</em></span>. If <span
+class="math inline"><em>D</em>(<em>n</em>, <em>z</em>) &lt; <em>D</em>(<em>n</em> − 1, <em>z</em>)</span>
+for some <span class="math inline"><em>z</em></span>, a negative-weight
+cycle exists (backtrack to recover it); otherwise <span
+class="math inline"><em>D</em>(<em>n</em> − 1, ⋅)</span> is the
+answer.</p>
+<p><img src="../../.assets/CS6515_images/DP1-012.png"
+alt="Bellman table fill" /></p>
+<h4 id="floyd-warshall-all-pairs">Floyd-Warshall (all pairs)</h4>
+<p>Now find <span
+class="math inline">dist (<em>y</em>, <em>z</em>)</span> for
+<strong>all</strong> pairs (no fixed source). Running Bellman-Ford from
+every vertex is <span
+class="math inline"><em>O</em>(<em>n</em><sup>2</sup><em>m</em>) = <em>O</em>(<em>n</em><sup>4</sup>)</span>
+worst case; Floyd-Warshall does it in <span
+class="math inline"><em>O</em>(<em>n</em><sup>3</sup>)</span> by
+conditioning on <strong>intermediate vertices</strong>. Let <span
+class="math inline"><em>V</em> = {1, …, <em>n</em>}</span> and <span
+class="math inline"><em>D</em>(<em>i</em>, <em>s</em>, <em>t</em>)</span>
+= length of the shortest <span
+class="math inline"><em>s</em> → <em>t</em></span> path using only <span
+class="math inline">{1, …, <em>i</em>}</span> as intermediates.</p>
+<p><strong>Base:</strong> <span
+class="math inline"><em>D</em>(0, <em>s</em>, <em>t</em>) = <em>w</em>(<em>s</em>, <em>t</em>)</span>
+if <span
+class="math inline">(<em>s</em>, <em>t</em>) ∈ <em>E</em></span>, else
+<span class="math inline">∞</span>. <span
+class="math display"><em>D</em>(<em>i</em>, <em>s</em>, <em>t</em>) = min { <em>D</em>(<em>i</em> − 1, <em>s</em>, <em>t</em>),  <em>D</em>(<em>i</em> − 1, <em>s</em>, <em>i</em>) + <em>D</em>(<em>i</em> − 1, <em>i</em>, <em>t</em>) }.</span></p>
+<pre><code>Floyd-Warshall(G, w):
+    for s,t: D(0,s,t) = w(s,t) if (s,t)∈E else ∞
+    for i = 1 -&gt; n:
+        for s = 1 -&gt; n:
+            for t = 1 -&gt; n:
+                D(i,s,t) = min{ D(i-1,s,t), D(i-1,s,i) + D(i-1,i,t) }
+    Return D(n, :, :)</code></pre>
+<p><strong>Runtime:</strong> <span
+class="math inline"><em>O</em>(<em>n</em><sup>3</sup>)</span>.
+<strong>Negative cycle</strong> <span class="math inline">⇔</span> some
+diagonal entry <span
+class="math inline"><em>D</em>(<em>n</em>, <em>a</em>, <em>a</em>) &lt; 0</span>
+(a negative path from a vertex to itself).</p>
+<p><strong>Bellman-Ford vs Floyd-Warshall.</strong> Bellman-Ford from a
+fixed start <span class="math inline"><em>d</em></span> misses a
+negative cycle that <span class="math inline"><em>d</em></span> cannot
+reach; Floyd-Warshall examines all vertex pairs and always finds it.</p>
+<p><img src="../../.assets/CS6515_images/DP1-011.png"
+alt="Ford vs Floyd" /></p>
+<!-- WEEK-EXTRAS:START -->
+
+<h2 id="dpv-chapter-exercises">DPV chapter exercises</h2>
+<details>
+<summary><b>DPV chapter exercises (exact, from the textbook)</b></summary>
+
+<p><em>Exact end-of-chapter exercises, parsed from the DPV chapter
+PDFs.</em></p>
+<p><strong>DPV Ch 3 — Decompositions Of Graphs</strong> — <a
+href="../../textbooks/examples-md/03-decompositions-of-graphs-dpv-examples.html">open
+exercises</a> · <a href="readings/DPV-ch3-examples.pdf">chapter
+PDF</a></p>
+<iframe class="examples-frame" src="../../textbooks/examples-md/03-decompositions-of-graphs-dpv-examples.html" title="DPV Ch 3 — Decompositions Of Graphs exercises"></iframe>
+
+<p><strong>DPV Ch 4 — Paths In Graphs</strong> — <a
+href="../../textbooks/examples-md/04-paths-in-graphs-dpv-examples.html">open
+exercises</a> · <a href="readings/DPV-ch4-examples.pdf">chapter
+PDF</a></p>
+<iframe class="examples-frame" src="../../textbooks/examples-md/04-paths-in-graphs-dpv-examples.html" title="DPV Ch 4 — Paths In Graphs exercises"></iframe>
+
+<p><strong>DPV Ch 6 — Dynamic Programming</strong> — <a
+href="../../textbooks/examples-md/06-dynamic-programming-dpv-examples.html">open
+exercises</a> · <a href="readings/DPV-ch6-examples.pdf">chapter
+PDF</a></p>
+<iframe class="examples-frame" src="../../textbooks/examples-md/06-dynamic-programming-dpv-examples.html" title="DPV Ch 6 — Dynamic Programming exercises"></iframe>
+
+</details>
+
+<!-- WEEK-EXTRAS:END -->
+
+<h2 id="agent-hint">Agent hint</h2>
+<p>SCC/2-SAT/DFS question → DFS pre/post is the lever; topo = decreasing
+post; SCC = DFS on <span
+class="math inline"><em>G</em><sup><em>R</em></sup></span> then <span
+class="math inline"><em>G</em></span> by decreasing post. For 2-SAT
+build the implication graph, run SCC, check <span
+class="math inline"><em>x</em><sub><em>i</em></sub></span> vs <span
+class="math inline">¬<em>x</em><sub><em>i</em></sub></span>. Deep
+walkthroughs in <a href="notes/">notes/</a>. Exam 1 (W1–3) opens this
+week.</p>
+</main>
+
+<!-- code highlighting -->
+<link rel="modulepreload" href="../../vendor/mermaid/mermaid.esm.min.mjs">
+<script src="../../vendor/highlight/highlight.min.js"></script>
+<!-- math -->
+<script defer src="../../vendor/katex/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="../../vendor/katex/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+<script type="module">
+  // 1) Normalize mermaid blocks. Pandoc(gfm) emits <pre class="mermaid"><code>...</code></pre>.
+  //    Flatten to raw source text so mermaid parses cleanly; also catch the code-only variant.
+  document.querySelectorAll('pre > code.language-mermaid, pre > code.mermaid').forEach(c => {
+    const p = document.createElement('pre'); p.className = 'mermaid'; p.textContent = c.textContent;
+    c.parentElement.replaceWith(p);
+  });
+  document.querySelectorAll('pre.mermaid').forEach(p => { p.textContent = p.textContent; });
+  // 2) Syntax-highlight every code block EXCEPT mermaid (auto-detect language)
+  if (window.hljs) document.querySelectorAll('pre:not(.mermaid) > code').forEach(el => window.hljs.highlightElement(el));
+  // 3) Render mermaid (dark)
+  try {
+    const mermaid = (await import('../../vendor/mermaid/mermaid.esm.min.mjs')).default;
+    mermaid.initialize({ startOnLoad: false, theme: 'dark', securityLevel: 'loose' });
+    await mermaid.run({ querySelector: 'pre.mermaid' });
+  } catch (e) { /* offline: leave as text */ }
+</script>
+<script>
+  // 4) Math: render \( \) and \[ \] (pandoc converts dollar-math to these). Tolerate malformed legacy TeX.
+  window.addEventListener('DOMContentLoaded', () => {
+    if (window.renderMathInElement) renderMathInElement(document.querySelector('.content'), {
+      // dollar-delimiters included so KaTeX also renders math pandoc failed to parse (left raw):
+      // a space before a closing delim, cases-env inline, apostrophes in text, etc. Display before inline.
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '\\[', right: '\\]', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false }
+      ],
+      throwOnError: false,
+      // \n is used in the legacy notes as a homemade "arrow over" (directed edge); map it to \overrightarrow.
+      macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
+    });
+  });
+</script>
+</body>
+</html>

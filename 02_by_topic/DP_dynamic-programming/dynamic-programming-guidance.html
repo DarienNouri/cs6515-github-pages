@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dynamic Programming Guidance — CS6515</title>
+<link rel="stylesheet" href="../../vendor/fonts/fonts.css">
+<link rel="stylesheet" href="../../theme.css">
+<link rel="stylesheet" href="../../vendor/katex/katex.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="../../vendor/highlight/styles/tokyo-night-dark.min.css">
+
+</head>
+<body>
+<header class="topbar">
+  <a class="home" href="../../index.html">CS6515</a>
+  <span class="crumbloc">Dynamic Programming Guidance</span>
+</header>
+<main class="content">
+<h1 id="dynamic-programming-guidance">Dynamic Programming Guidance</h1>
+<p><strong>Category</strong>: Staff Use Only &gt; Supplemental Material
+<strong>Date</strong>: 2026-05-18 06:07 <strong>Link</strong>: <a
+href="https://edstem.org/us/courses/98593/discussion/8077940">https://edstem.org/us/courses/98593/discussion/8077940</a>
+<strong>Pinned</strong>: False | <strong>Votes</strong>: 12 |
+<strong>Views</strong>: 4939</p>
+<h2 id="post">Post</h2>
+<p>Solutions for <strong>Dynamic Programming</strong> (DP) Homework are
+in a written format with required components. This post is intended to
+give a general overview of those parts of such a solution. You will also
+see quiz and exam questions based on what constitutes a complete
+solution for DP.</p>
+<h2 id="general-rules">General Rules</h2>
+<ul>
+<li><p>Submissions must be a Dynamic Programming approach to be eligible
+for points.</p></li>
+<li><p>No recursion or memoization.</p></li>
+<li><p><em><strong>Inputs</strong></em> are always indexed starting from
+1, unless stated otherwise (i.e. <code>A[0]</code> is usually
+invalid).</p></li>
+<li><p><em><strong>Inputs</strong></em> may not be modified - they are
+to be treated as immutable.</p></li>
+<li><p>Tables may start from anywhere. If you need <code>T[0]</code> or
+<code>T[-1]</code> for a base case, this is valid as long as it is
+defined.</p></li>
+<li><p>Tables may <strong>only</strong> store primitive values:
+integers, decimals, characters, or Booleans.</p></li>
+</ul>
+<h2 id="required-sections">Required Sections</h2>
+<ul>
+<li><p><strong>(a) Subproblem Definition</strong></p></li>
+<li><p><strong>ALWAYS</strong> build on a
+<em><strong><strong>subset</strong></strong></em> of the input (e.g.,
+<code>A[1..i]</code>).</p></li>
+<li><p>Conceptually, the subproblem should always be defined against
+"previous" subproblems and not on the entire input.</p></li>
+<li><p>Is represented using words: "<code>T(i,j)</code> is the
+....."</p></li>
+<li><p>Should use words from the problem statement without redefining
+their meaning</p></li>
+<li><p>May or may not require inclusion of the last element: ",
+including <code>A[i]</code>"</p></li>
+<li><p>The lectures use the phrase "which includes <code>a[i]</code>" to
+add the constraint "element <code>a[i]</code> must be used in the
+subproblem output." The phrases "which includes <code>i</code>" and
+"ending at <code>a[i]</code>" would also imply this constraint. These
+are <em><strong>not</strong></em> referring to the range of indices
+considered for the subproblem, <code>1,2,...,i</code>, which is assumed
+inclusive <span class="math inline">[1, <em>i</em>]</span>.</p></li>
+<li><p><strong>(b) Recurrence Definition</strong></p></li>
+<li><p>#10 #10 #10 Read, absorb, and love #10 #10 #10</p></li>
+<li><p>Expressed using <strong>mathematical</strong> notation - no
+programming constructs and not in words</p></li>
+<li><p>The table gets a <strong>single</strong> mathematical definition
+for all entries - there is no logic/flow control structure other than
+stating a set of conditional definitions.</p></li>
+<li><p>Defines the value of all table entries recursively to smaller
+subproblems</p></li>
+<li><p>Any referenced table entry must also be well-defined</p></li>
+<li><p>i.e. a reference for <code>T(i-2)</code> for
+<code>1 &lt;= i &lt;= n</code> requires a definition for
+<code>T(-1)</code></p></li>
+<li><p>It cannot be defined self-referentially (e.g.
+<code>T(i) = max(T(i), ...)</code>)</p></li>
+<li><p>When base case(s) are necessary, include them and their
+applicable bounds</p></li>
+<li><p>Example: <code>T(i,0) = 0 for 1 &lt;= i &lt;= n</code></p></li>
+<li><p>Always provide bounds for any variables used, scoped to where
+they are used</p></li>
+<li><p>Focus on table definitions, not a final solution (i.e. no return
+value)</p></li>
+<li><p><strong>(c) Implementation Analysis (1,2,3,4)</strong></p></li>
+<li><p>These parts should be based on the recurrence you use in the
+previous section.</p></li>
+<li><p><strong>(1) State the number of subproblems in big-O
+notation</strong></p></li>
+<li><p>This scales similar to runtime complexity</p></li>
+<li><p>A one-dimensional table ranging from indices -1 to n would be
+<code>O(n)</code>.</p></li>
+<li><p>e.g. <code>O(n)</code>, <code>O(n*m)</code></p></li>
+<li><p><strong>(2) State the runtime to fill this
+table</strong></p></li>
+<li><p>Always, <em>always</em> in this course - worst case Big-O
+notation.</p></li>
+<li><ul>
+<li>e.g. <code>O(n^2)</code></li>
+</ul></li>
+<li><p><strong>(3) State how/where the final return is extracted from
+that table</strong></p></li>
+<li><p>e.g. <code>sum{T(*)}</code>, <code>max{T(*)}</code>,
+<code>T(n)</code>, <code>max(T(n), T(n-1))</code></p></li>
+<li></li>
+<li><p><strong>(4) State the runtime to extract the final return in
+big-O notation</strong></p></li>
+</ul>
+<h2 id="tips-and-tricks">Tips and Tricks</h2>
+<ul>
+<li><p>You will be tempted to start with code. This is a terrible idea.
+Starting with code ensures your recurrence will be nearly impossible to
+craft. Do these sections in order - Dr. Vigoda does the same thing, and
+you should see how seamlessly the final solution comes together. Define
+a subproblem, which can then be translated to the mathematical
+recurrence, and the analysis can be easily derived from that.</p></li>
+<li><p>The lectures contain multiple approaches (LIS, LCS, Knapsack,
+CMM, etc.). When solving a new problem, first try to think of which
+approach makes the most sense to adapt for a solution to the new
+problem.</p></li>
+</ul>
+<h2 id="example-solution">Example Solution</h2>
+<p>Expand the spoiler below for an example of what a complete DP
+solution looks like:</p>
+<h2 id="longest-increasing-subsequence-lis">Longest Increasing
+Subsequence (LIS)</h2>
+<p><strong>a. Define the entries of your table in words. E.g., T(i) or
+T(i, j) is ...</strong></p>
+<p>Let T(i) = length of LIS in a[1...i] which includes a[i]</p>
+<p><strong>b. State recurrence for entries of your table in terms of
+smaller subproblems.</strong></p>
+<pre><code>T(1) = 1
+
+T(i) = 1 + max{T(j) if a[i] &gt; a[j] : where 1 &lt;= j &lt;= i-1} 
+     where 2 &lt;= i &lt;= n 
+</code></pre>
+<p><strong>c. Implementation Analysis</strong></p>
+<p><strong>(1) State the number of subproblems:</strong>
+<code>O(n)</code> <strong>(2) State the runtime for table fill:</strong>
+<code>O(n^2)</code> <strong>(3) State how the return is
+extracted:</strong> <code>return max{T(*)}</code> <strong>(4) State the
+runtime of that return extraction:</strong> <code>O(n)</code></p>
+<p>Please use this thread to ask any follow-up questions regarding what
+constitutes a complete DP solution, or clarifications on the above
+information.</p>
+<h2 id="responses-12">Responses (12)</h2>
+<ul>
+<li><p><strong>Comment</strong> by User 0 on 2026-05-19 00:53 (Votes:
+0)</p>
+<blockquote>
+<p>On exams, will the required formats for solutions to various types of
+problems be written down, or is the expectation that students memorize
+the solution templates for each type of problem?</p>
+</blockquote>
+<ul>
+<li><strong>Comment</strong> by User 99740 on 2026-05-19 00:56 (Votes:
+2)
+<blockquote>
+<p>The Homework questions throughout the semester are formatted in the
+same way you'll see on the exam itself.</p>
+<p>So, in this case you'll get the main categories of things required,
+but of course not this entire post.</p>
+</blockquote></li>
+</ul></li>
+<li><p><strong>Comment</strong> by User 649126 on 2026-05-19 09:23
+(Votes: 1)</p>
+<blockquote>
+<p>Hi -</p>
+<ul>
+<li><p>My intention is not to get into the weeds but I am trying to
+understand why correctness (and exhaustiveness) do(es) not have to be
+proved in this course. Is it because a properly formulated and correct
+recurring relation guarantees correctness and exhaustiveness? IF we had
+to prove those two separately (for personal fun), are there 2 ways to
+prove correctness &amp; exhaustiveness (either proof by induction
+assuming the optimal solution or by proving that the problem formulation
+can be seen as an acyclic DAG)?</p></li>
+<li><p>Also, in some problems we may be able to avoid storing the entire
+T[i] table in memory by storing a prev pointer. Should we always aim for
+best space complexity in our algorithms?</p></li>
+<li><p>For c (2) and c (4) - do we need a pseudocode block to justify
+our answer or for DP problems the pseudocode block is not
+required?</p></li>
+</ul>
+<p>Thanks,</p>
+<p>Alex</p>
+</blockquote>
+<ul>
+<li><p><strong>Comment</strong> by User 137215 on 2026-05-19 10:43
+(Votes: 0)</p>
+<blockquote>
+<blockquote>
+<p>Should we always aim for best space complexity in our algorithms?</p>
+</blockquote>
+<p>A noble goal, but not a factor your submission will be assessed on,
+unless the space itself causes a runtime issue.</p>
+<blockquote>
+<p>For c (2) and c (4) - do we need a pseudocode block to justify our
+answer or for DP problems the pseudocode block is not required?</p>
+</blockquote>
+<p>What does the embedded example solution in the post suggest?</p>
+</blockquote>
+<ul>
+<li><p><strong>Comment</strong> by User 1282049 on 2026-05-23 14:52
+(Votes: 0)</p>
+<blockquote>
+<p>The example suggests that no pseudocode is required for HW solutions
+nor for exam solutions.</p>
+</blockquote>
+<ul>
+<li><strong>Comment</strong> by User 137215 on 2026-05-23 15:01 (Votes:
+0)
+<blockquote>
+<p>One mystery solved, <a
+href="https://edstem.org/us/courses/98593/discussion/8077944?comment=18708000">one
+mystery</a> remains.</p>
+</blockquote></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li><p><strong>Comment</strong> by User 1312670 on 2026-05-19 21:05
+(Votes: 0)</p>
+<blockquote>
+<p>SPOILER ALERT--this is about your solution</p>
+<p>in this line:</p>
+<p>T(1) = 1</p>
+<p>T(i) = 1 + max{T(j) if a[i] &gt; a[j] : where 1 &lt;= j &lt;= i-1}
+where 2 &lt;= i &lt;= n</p>
+<p>Don't you also need to cover the case where there is no such j?</p>
+<p>i.e.</p>
+<p>if there exists j, 1&lt;=j&lt;=i-1, s.t. a(j)&lt;a(i)...</p>
+<p>otherwise T(i)=1</p>
+</blockquote>
+<ul>
+<li><p><strong>Comment</strong> by User 135758 on 2026-05-19 23:10
+(Votes: 1)</p>
+<blockquote>
+<p>This is discussed in Course Readiness: <a
+href="https://edstem.org/us/courses/98593/lessons/171116/slides/988492"><span>https://edstem.org/us/courses/98593/lessons/171116/slides/988492</span></a></p>
+<p>Dr. Vigoda is taking advantage of null set evaluation to assume
+<code>max{}</code> would evaluate to 0 in those cases.</p>
+<p>We can definitely make this more explicit:</p>
+<pre><code>T(i) = 1 + max{T(j)} if a[i] &gt; a[j]
+     = 1             otherwise
+1 &lt;= j &lt; i &lt;= n</code></pre>
+</blockquote>
+<ul>
+<li><p><strong>Comment</strong> by User 971631 on 2026-05-21 06:39
+(Votes: 0)</p>
+<blockquote>
+<p>Should the <code>otherwise</code> be <code>1</code>? In the explicit
+branch it'd be <code>1 + max{} = 1 + 0 = 1</code>, since
+<code>T(i)</code> includes <code>a[i]</code> so the minimum is the lone
+element. Does the <code>+1</code> carry into the otherwise too?</p>
+</blockquote>
+<ul>
+<li><strong>Comment</strong> by User 135758 on 2026-05-21 06:44 (Votes:
+1)
+<blockquote>
+<p>Yes, fixed! Thank you for the correction.</p>
+</blockquote></li>
+</ul></li>
+<li><p><strong>Comment</strong> by User 0 on 2026-05-22 06:15 (Votes:
+1)</p>
+<blockquote>
+<p>Hey Tim - just to check, on exams are we also allowed to use null set
+evaluation (i.e. assume that the maximum of an empty set is equal to 0)
+or do we have to be explicit by defining something piecewise or using
+unions with a singleton set containing 0? I saw in your walkthrough for
+6.3 you also use null set evaluation.</p>
+</blockquote>
+<ul>
+<li><strong>Comment</strong> by User 137215 on 2026-05-22 07:00 (Votes:
+1)
+<blockquote>
+<p>This is the <strong>expected behavior</strong>. You do not need to
+call it out or do anything special.</p>
+</blockquote></li>
+</ul></li>
+</ul></li>
+<li><p><strong>Comment</strong> by User 137215 on 2026-05-19 23:39
+(Votes: 0)</p>
+<blockquote>
+<blockquote>
+<p>SPOILER ALERT--this is about your solution</p>
+</blockquote>
+<p>You can use</p>
+<p><img
+src="https://static.us.edusercontent.com/files/0GEQYAXHep4TGIAUlG4geQVh"
+alt="Image" /> This little guy if you want to make your spoiler less
+spoiler-y.</p>
+</blockquote></li>
+</ul></li>
+<li><p><strong>Comment</strong> by User 0 on 2026-05-22 05:41 (Votes:
+1)</p>
+<blockquote>
+<p>Question: For problems that require us to output a sequence or string
+(rather than just the cost or value of the sequence), are we allowed to
+use additional tables that we also fill using a dynamic programming
+approach or may we only define a single table containing primitive
+values and then extract the sequence using that table? E.g. for 6.2
+Tim's solution uses the T table to backtrack and output the sequence of
+hotels but it's also possible to define some table H where H[i] gives
+the previous hotel in the optimal sequence.</p>
+</blockquote>
+<ul>
+<li><strong>Comment</strong> by User 137215 on 2026-05-22 06:05 (Votes:
+6)
+<blockquote>
+<blockquote>
+<p>are we allowed to use additional tables that we also fill using a
+dynamic programming approach</p>
+</blockquote>
+<p>You are not limited to a single table, nor are you limited to only
+1D, 2D, or 3D tables.</p>
+<p>With that said, <strong>commonly</strong> when attempting to solve a
+problem, if you believe you need multiple tables, or if you think you
+need more dimensions, you may want to consider whether something about
+the problem that would allow a <strong>simplification</strong> has been
+missed.</p>
+<p>Additionally, any secondary/helper table is constrained to the same
+storage limitations as the primary table. Which is to say, you can't
+"use a second table" and start filling it with tuples or other
+non-primitive data.</p>
+<p>For (c3) "State how the return is extracted", if you need to extract
+a solution instead of returning a single value, you can describe it in a
+few sentences - it does not need to be in the limited math notation that
+the recurrence itself requires.</p>
+</blockquote></li>
+</ul></li>
+<li><p><strong>Comment</strong> by User 137657 on 2026-05-24 08:15
+(Votes: 1)</p>
+<blockquote>
+<p>Is this a valid answer for <strong>6.7</strong>? Specifically:</p>
+<p>Are we allowed to <strong>create modified copies of the
+input</strong> such as creating a reversed copy of the input sequence
+x?</p>
+<p>Are we allowed to **redefine the problem **as "the length of the
+longest common subsequence" if the original problem states finding the
+" longest palindromic subsequence"?</p>
+<p>Subproblem Definiton:</p>
+<p>Let y = the reversed sequence of x</p>
+<p>Let T(i,j) = the length of the longest common subsequence between
+x[1...i] and y[1...j]</p>
+<p>Base Case:</p>
+<p>T(0,j) = 0 for 0&lt;=j&lt;=n</p>
+<p>T(i,0) = 0 for 0&lt;=i&lt;=n</p>
+<p>Recurrence:</p>
+<p>T(i,j) = T(i-1,j-1) + 1 if x[i] == y[j]; where 1&lt;=j&lt;=n</p>
+<p>T(i,j) = max{T(i-1,j),T(i,j-1)} if x[i] != y[j]; where
+1&lt;=j&lt;=n</p>
+<p>where 1&lt;=i&lt;=n</p>
+<p>Number of Subproblems = O(n^2)</p>
+<p>Time to fill = O(n^2)</p>
+<p>Extract answer : Return T(n,n)</p>
+<p>Time to return O(1)</p>
+</blockquote>
+<ul>
+<li><p><strong>Comment</strong> by User 135758 on 2026-05-24 08:22
+(Votes: 3) (ENDORSED)</p>
+<blockquote>
+<p>This would be acceptable <em>if</em> there is a proper mathematical
+definition for <span class="math inline"><em>y</em></span>.
+Specifically:</p>
+<p><span
+class="math display"><em>y</em><sub><em>i</em></sub> = <em>x</em><sub><em>n</em> − <em>i</em> + 1</sub>
+for 1 ≤ <em>i</em> ≤ <em>n</em></span></p>
+</blockquote>
+<ul>
+<li><p><strong>Comment</strong> by User 665931 on 2026-06-09 05:49
+(Votes: 0)</p>
+<blockquote>
+<p>Where would something like this be stated in solution format? To me
+it makes just as much logical sense to state in Part 1 that we are
+"reversing and storing the input sequence" and aware that this is +O(n)
+time-wise, but saying it must be stated mathematically makes me think it
+would be couched in part two (which significantly changes the face of
+this part vs. other more standard problems). Can you give a rough
+estimate of how much would be deducted in the exam for stating only in
+words?</p>
+</blockquote>
+<ul>
+<li><strong>Comment</strong> by User 135758 on 2026-06-09 05:50 (Votes:
+1)
+<blockquote>
+<p>This type of structure should be stated as part of the general
+recurrence. This is true for any type of helper function or auxiliary
+table used in the recurrence.</p>
+</blockquote></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li><p><strong>Comment</strong> by User 1282049 on 2026-05-25 04:47
+(Votes: 0)</p>
+<blockquote>
+<p><img
+src="https://static.us.edusercontent.com/files/dfsdmYhozJ0MQzwYtKmdc76z"
+alt="Image" /> In the "define subproblem in words" section, do we need
+to specify bounds of indices?</p>
+</blockquote>
+<ul>
+<li><strong>Comment</strong> by User 135758 on 2026-05-25 04:49 (Votes:
+3)
+<blockquote>
+<p>We typically don't recommend including bounds in the Subproblem
+Definition.</p>
+<p>The reason is revealed in the lectures: sometimes Dr. Vigoda includes
+bounds relevant for the *table *that otherwise would be invalid for the
+range of the inputs. This is explicitly resolved in a complete
+recurrence relation so we recommend omitting the bounds in the
+Subproblem Definition.</p>
+</blockquote></li>
+</ul></li>
+<li><p><strong>Comment</strong> by User 495006 on 2026-05-25 18:02
+(Votes: 0)</p>
+<blockquote>
+<p>In the case that the result is a list, for example, the items used in
+a knapsack problem, how do we write it without using pseudo code? Could
+you give us an example?</p>
+</blockquote>
+<ul>
+<li><strong>Comment</strong> by User 137215 on 2026-05-25 22:51 (Votes:
+0)
+<blockquote>
+<ul>
+<li><p><a
+href="https://edstem.org/us/courses/98593/discussion/8077940?comment=18704036"><span>https://edstem.org/us/courses/98593/discussion/8077940?comment=18704036</span></a></p></li>
+<li><p><a
+href="https://edstem.org/us/courses/98593/discussion/8079608?comment=18709407"><span>https://edstem.org/us/courses/98593/discussion/8079608?comment=18709407</span></a></p></li>
+</ul>
+</blockquote></li>
+</ul></li>
+<li><p><strong>Comment</strong> by User 488161 on 2026-05-28 23:38
+(Votes: 0)</p>
+<blockquote>
+<p>Just for clarification, in the Recurrence Definition section, would
+it be acceptable to explicitly break it into the following
+subsections?</p>
+<p><strong>(b) Recurrence Definition: ** ** 1. The base case: (e.g. T(0)
+= 0)</strong> ** 2. The general case: T(i) = ...** ** 3. The Bounds: 1
+&lt;= i &lt;= n**</p>
+<p>Just wanted to check as following this format helps me to ensure that
+I am addressing all of the necessary parts of the recurrence.</p>
+</blockquote>
+<ul>
+<li><p><strong>Comment</strong> by User 135758 on 2026-05-29 00:29
+(Votes: 0)</p>
+<blockquote>
+<p>yes. This is totally fine.</p>
+</blockquote>
+<ul>
+<li><p><strong>Comment</strong> by User 488161 on 2026-05-29 00:36
+(Votes: 0)</p>
+<blockquote>
+<p>Thanks, appreciate it.</p>
+</blockquote>
+<ul>
+<li><p><strong>Comment</strong> by User 137215 on 2026-05-29 01:27
+(Votes: 0)</p>
+<blockquote>
+<p>To add some clarification, since "The Bounds" feels awfully
+ominous:</p>
+<ul>
+<li>If both the base case(s) and the general recurrence need bounds,
+they both need their own set of bounds, even if they are the same</li>
+</ul>
+<p>Which is to say:</p>
+<p>The Base Case: T(i, 0) = 0 The General Case: T(i, j) = T(i-1, j-1) +
+1 The Bounds: 1 &lt;= i &lt;= n, 1 &lt;= j &lt;= n</p>
+<p>Is problematic.</p>
+<p>Even replacing</p>
+<p>The Bounds: 0 &lt;= i &lt;= n, 1 &lt;= i &lt;= n, 1 &lt;= j &lt;=
+n</p>
+<p>remains problematic, as graders are not going to map the correct
+bounds to parts of your recurrence for you.</p>
+<hr />
+<p>It would appear your 3 part structure can work without ambiguity for
+constant-time base cases though.</p>
+<p>With the trade-off being that you've now got to determine how you
+want to handle the two different variants while practicing.</p>
+</blockquote>
+<ul>
+<li><p><strong>Comment</strong> by User 488161 on 2026-05-29 01:44
+(Votes: 0)</p>
+<blockquote>
+<p>That makes sense, and is something I wasn't certain about. Do you
+feel it would be better from a graders perspective to have the bounds
+included in the general case (e.g. T(i,j) = T(i-1, j-1) + 1, where 1
+&lt;= i &lt;=n and 1 &lt;= j &lt;=n)?</p>
+</blockquote>
+<ul>
+<li><p><strong>Comment</strong> by User 137215 on 2026-05-29 02:01
+(Votes: 0)</p>
+<blockquote>
+<p>Yes. In the example above, the clearest / most common way would
+be:</p>
+<pre><code>T(i, 0) = 0, for 0 &lt;= i &lt;= n
+
+for 1 &lt;= i &lt;= n, 1 &lt;= j &lt;= n
+T(i, j) = 1 + T(i-1, j-1)</code></pre>
+<p>Or you can put it at the bottom:</p>
+<pre><code>T(i, 0) = 0
+where 0 &lt;= i &lt;= n
+
+T(i, j) = 1 + T(i-1, j-1)
+where 1 &lt;= i &lt;= n, 1 &lt;= j &lt;= n
+</code></pre>
+<p>Or you can use where and put it at the top.</p>
+<p>Or you can exclude for/where honorariums and just have the bounds
+colocated.</p>
+<p>Making it as easy as possible for the grader to see which bounds
+belong to which parts improves first-pass grading accuracy (when the
+bounds are correct or even when they are incorrect) and avoids sadness
+(when the bounds might be correct, but are ambiguous or incomplete).</p>
+</blockquote>
+<ul>
+<li><strong>Comment</strong> by User 488161 on 2026-05-29 03:15 (Votes:
+0)
+<blockquote>
+<p>I'll make sure to use this format moving forward. Thanks, I
+appreciate it.</p>
+</blockquote></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li><p><strong>Comment</strong> by User 1664716 on 2026-05-29 16:47
+(Votes: 0)</p>
+<blockquote>
+<p>From the perspective of exam/quiz/homework, is
+<code>Approach 2</code> considered optimal/better? Or both are
+considered same as overall time complexity remains O(n^2)?</p>
+<p><code>Approach 1</code>: Time to fill table is O(n^2). Time to
+extract result is O(n).</p>
+<p><code>Approach 2</code>: Time to fill table is O(n^2). Time to
+extract result is O(1).</p>
+<p>Assuming space is not a limiting factor in either. Also, assuming
+that filling the table can't improve beyond O(n^2).</p>
+</blockquote>
+<ul>
+<li><strong>Comment</strong> by User 135758 on 2026-05-30 02:47 (Votes:
+2)
+<blockquote>
+<p>Both of these approaches would be eligible for full credit assuming
+the corresponding output procedures are matching.</p>
+</blockquote></li>
+</ul></li>
+<li><p><strong>Comment</strong> by User 495006 on 2026-06-02 13:08
+(Votes: 0)</p>
+<blockquote>
+<p>Would it be possible for the staff to release an example solution of
+how you would like the chain matrix multiple to be written in a way that
+gets full credit on an exam. Asking because it has all of the cases and
+conditions that would be hit in a dynamic programming question.</p>
+<p>For example, I'm assuming both of these two lines permissible:</p>
+<p>C(i,j) = min i≤k&lt;j {C(i,k) + C(k +1,j) +mi−1 ·mk ·mj}</p>
+<p>C(i,j) = min{C(i,k) +C(k +1,j) +mi−1 ·mk ·mj : i ≤ k &lt; j}</p>
+<p>but how do you represent an intermediate variable in the solution
+such as</p>
+<p>j =i+s</p>
+</blockquote>
+<ul>
+<li><strong>Comment</strong> by User 135758 on 2026-06-02 13:37 (Votes:
+0)
+<blockquote>
+<p>The intermediate term <span class="math inline"><em>s</em></span> in
+the pseudocode is useful for controlling the iteration but isn't
+actually needed. Specifically, we control the iteration of <span
+class="math inline"><em>i</em></span> in reverse. Here's CMM pseudocode
+without <span class="math inline"><em>s</em></span>:</p>
+<pre><code>for i = 1 to n:
+  C[i, i] = 0
+for j = 2 to n:
+  for i = j - 1 to 1:
+    C[i, j] = ∞
+    for k = i to j - 1:
+      cur = C[i, k] + C[k+1, j] + m[i-1] * m[k] * m[j]
+      if cost &lt; C[i, j]:
+        C[i, j] = cur
+return C[1, n]
+</code></pre>
+<p>See the video walkthrough for DPV 6.7 for how this type of substring
+iteration manifests in the recurrence relation.</p>
+</blockquote></li>
+</ul></li>
+<li><p><strong>Comment</strong> by User 649238 on 2026-06-04 07:48
+(Votes: 0)</p>
+<blockquote>
+<p>Hello, I can't seem to find the guideline for this. For the
+extraction, if the problem asks to find the sequence, is pseudocode
+allowed here? I know we can write sentences as shown in the official
+solution.</p>
+</blockquote>
+<ul>
+<li><p><strong>Comment</strong> by User 137215 on 2026-06-04 09:25
+(Votes: 1)</p>
+<blockquote>
+<p><a
+href="https://edstem.org/us/courses/98593/discussion/8077940?comment=18704036">https://edstem.org/us/courses/98593/discussion/8077940?comment=18704036</a></p>
+<p>And</p>
+<p><a
+href="https://edstem.org/us/courses/98593/discussion/8079608?comment=18709407">https://edstem.org/us/courses/98593/discussion/8079608?comment=18709407</a></p>
+</blockquote>
+<ul>
+<li><strong>Comment</strong> by User 649238 on 2026-06-04 10:03 (Votes:
+0)
+<blockquote>
+<p>Thanks. i had full pseudocode for extraction and the grader commented
+that I should avoid pseudo code Your comment recommends little pseudo
+code is okay. So I guess sentences are safe.</p>
+</blockquote></li>
+</ul></li>
+</ul></li>
+<li><p><strong>Comment</strong> by User 1664716 on 2026-06-09 01:58
+(Votes: 0)</p>
+<blockquote>
+<ul>
+<li><p>Is it ok to prefill state tables with values like
+<code>-Infinity</code>, <code>+Infinity</code>? Doing so made the
+recurrence easier to write in some cases, especially with
+<code>min()</code>, <code>max()</code> operations.</p></li>
+<li><p>Is defining a base like <code>T[i]=0, -Infinity&lt;i&lt;=0</code>
+acceptable? This too made the recurrence succinct in some
+cases.</p></li>
+</ul>
+</blockquote>
+<ul>
+<li><strong>Comment</strong> by User 135758 on 2026-06-09 21:01 (Votes:
+1)
+<blockquote>
+<p>”pre-filling” sounds like a proposal which would later overwrite
+table values. This is not mathematically viable.</p>
+<p>Base-cases with infinite bounds would require infinite time to
+complete. This also does not sound viable for an optimal solution.</p>
+</blockquote></li>
+</ul></li>
+</ul>
+</main>
+
+<!-- code highlighting -->
+<link rel="modulepreload" href="../../vendor/mermaid/mermaid.esm.min.mjs">
+<script src="../../vendor/highlight/highlight.min.js"></script>
+<!-- math -->
+<script defer src="../../vendor/katex/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="../../vendor/katex/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+<script type="module">
+  // 1) Normalize mermaid blocks. Pandoc(gfm) emits <pre class="mermaid"><code>...</code></pre>.
+  //    Flatten to raw source text so mermaid parses cleanly; also catch the code-only variant.
+  document.querySelectorAll('pre > code.language-mermaid, pre > code.mermaid').forEach(c => {
+    const p = document.createElement('pre'); p.className = 'mermaid'; p.textContent = c.textContent;
+    c.parentElement.replaceWith(p);
+  });
+  document.querySelectorAll('pre.mermaid').forEach(p => { p.textContent = p.textContent; });
+  // 2) Syntax-highlight every code block EXCEPT mermaid (auto-detect language)
+  if (window.hljs) document.querySelectorAll('pre:not(.mermaid) > code').forEach(el => window.hljs.highlightElement(el));
+  // 3) Render mermaid (dark)
+  try {
+    const mermaid = (await import('../../vendor/mermaid/mermaid.esm.min.mjs')).default;
+    mermaid.initialize({ startOnLoad: false, theme: 'dark', securityLevel: 'loose' });
+    await mermaid.run({ querySelector: 'pre.mermaid' });
+  } catch (e) { /* offline: leave as text */ }
+</script>
+<script>
+  // 4) Math: render \( \) and \[ \] (pandoc converts dollar-math to these). Tolerate malformed legacy TeX.
+  window.addEventListener('DOMContentLoaded', () => {
+    if (window.renderMathInElement) renderMathInElement(document.querySelector('.content'), {
+      // dollar-delimiters included so KaTeX also renders math pandoc failed to parse (left raw):
+      // a space before a closing delim, cases-env inline, apostrophes in text, etc. Display before inline.
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '\\[', right: '\\]', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false }
+      ],
+      throwOnError: false,
+      // \n is used in the legacy notes as a homemade "arrow over" (directed edge); map it to \overrightarrow.
+      macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
+    });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DPV ch01 exercises — CS6515</title>
+<link rel="stylesheet" href="../../vendor/fonts/fonts.css">
+<link rel="stylesheet" href="../../theme.css">
+<link rel="stylesheet" href="../../vendor/katex/katex.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="../../vendor/highlight/styles/tokyo-night-dark.min.css">
+
+</head>
+<body>
+<header class="topbar">
+  <a class="home" href="../../index.html">CS6515</a>
+  <span class="crumbloc">DPV ch01 exercises</span>
+</header>
+<main class="content">
+<!-- toc:start -->
+
+<h2 id="table-of-contents">Table of Contents</h2>
+<ul>
+<li><a href="#exercises">Exercises</a></li>
+</ul>
+<!-- toc:end -->
+
+<h2 id="exercises">Exercises</h2>
+<h3 id="11">1.1</h3>
+<p>Show that in any base <span
+class="math inline"><em>b</em> ≥ 2</span>, the sum of any three
+single-digit numbers is at most two digits long.</p>
+<h3 id="12">1.2</h3>
+<p>Show that any binary integer is at most four times as long as the
+corresponding decimal integer. For very large numbers, what is the ratio
+of these two lengths, approximately?</p>
+<h3 id="13">1.3</h3>
+<p>A <span class="math inline"><em>d</em></span>-ary tree is a rooted
+tree in which each node has at most <span
+class="math inline"><em>d</em></span> children. Show that any <span
+class="math inline"><em>d</em></span>-ary tree with <span
+class="math inline"><em>n</em></span> nodes must have a depth of <span
+class="math inline"><em>Ω</em>(log <em>n</em>/log <em>d</em>)</span>.
+Can you give a precise formula for the minimum depth it could possibly
+have?</p>
+<h3 id="14">1.4</h3>
+<p>Show that</p>
+<p><span
+class="math display">log (<em>n</em>!) = <em>Θ</em>(<em>n</em>log <em>n</em>)</span></p>
+<p>(Hint: To show an upper bound, compare <span
+class="math inline"><em>n</em>!</span> with <span
+class="math inline"><em>n</em><sup><em>n</em></sup></span>. To show a
+lower bound, compare it with <span
+class="math inline">(<em>n</em>/2)<sup><em>n</em>/2</sup></span>.)</p>
+<h3 id="15">1.5</h3>
+<p>Unlike a decreasing geometric series, the sum of the harmonic series
+<span class="math inline">1, 1/2, 1/3, 1/4, 1/5, …</span> diverges; that
+is,</p>
+<p><span class="math display">$$
+\sum_{i=1}^{\infty} \frac{1}{i}=\infty
+$$</span></p>
+<p>It turns out that, for large <span
+class="math inline"><em>n</em></span>, the sum of the first <span
+class="math inline"><em>n</em></span> terms of this series can be well
+approximated as</p>
+<p><span class="math display">$$
+\sum_{i=1}^{n} \frac{1}{i} \approx \ln n+\gamma
+$$</span></p>
+<p>where <span class="math inline">ln </span> is natural logarithm (
+<span class="math inline">log </span> base <span
+class="math inline"><em>e</em> = 2.718…</span> ) and <span
+class="math inline"><em>γ</em></span> is a particular constant <span
+class="math inline">0.57721…</span>. Show that</p>
+<p><span class="math display">$$
+\sum_{i=1}^{n} \frac{1}{i}=\Theta(\log n)
+$$</span></p>
+<p>(Hint: To show an upper bound, decrease each denominator to the next
+power of two. For a lower bound, increase each denominator to the next
+power of 2.)</p>
+<h3 id="16">1.6</h3>
+<p>Prove that the grade-school multiplication algorithm (page 24), when
+applied to binary numbers, always gives the right answer.</p>
+<h3 id="17">1.7</h3>
+<p>How long does the recursive multiplication algorithm (page 25 ) take
+to multiply an <span class="math inline"><em>n</em></span>-bit number by
+an <span class="math inline"><em>m</em></span>-bit number? Justify your
+answer.</p>
+<h3 id="18">1.8</h3>
+<p>Justify the correctness of the recursive division algorithm given in
+page 26 , and show that it takes time <span
+class="math inline"><em>O</em>(<em>n</em><sup>2</sup>)</span> on <span
+class="math inline"><em>n</em></span>-bit inputs.</p>
+<h3 id="19">1.9</h3>
+<p>Starting from the definition of <span
+class="math inline"><em>x</em> ≡ <em>y</em> mod  <em>N</em></span>
+(namely, that <span class="math inline"><em>N</em></span> divides <span
+class="math inline"><em>x</em> − <em>y</em></span> ), justify the
+substitution rule</p>
+<p><span
+class="math display"><em>x</em> ≡ <em>x</em><sup>′</sup> mod  <em>N</em>, <em>y</em> ≡ <em>y</em><sup>′</sup> mod  <em>N</em> ⇒ <em>x</em> + <em>y</em> ≡ <em>x</em><sup>′</sup> + <em>y</em><sup>′</sup> mod  <em>N</em></span></p>
+<p>and also the corresponding rule for multiplication.</p>
+<h3 id="110">1.10</h3>
+<p>Show that if <span
+class="math inline"><em>a</em> ≡ <em>b</em>( mod  <em>N</em>)</span> and
+if <span class="math inline"><em>M</em></span> divides <span
+class="math inline"><em>N</em></span> then <span
+class="math inline"><em>a</em> ≡ <em>b</em>( mod  <em>M</em>)</span>.</p>
+<h3 id="111">1.11</h3>
+<p>Is <span
+class="math inline">4<sup>1536</sup> − 9<sup>4824</sup></span> divisible
+by 35 ?</p>
+<h3 id="112">1.12</h3>
+<p>What is <span
+class="math inline">2<sup>2<sup>2006</sup></sup>( mod  3)</span> ?</p>
+<h3 id="113">1.13</h3>
+<p>Is the difference of <span
+class="math inline">5<sup>30, 000</sup></span> and <span
+class="math inline">6<sup>123, 456</sup></span> a multiple of 31 ?</p>
+<h3 id="114">1.14</h3>
+<p>Suppose you want to compute the <span
+class="math inline"><em>n</em></span>th Fibonacci number <span
+class="math inline"><em>F</em><sub><em>n</em></sub></span>, modulo an
+integer <span class="math inline"><em>p</em></span>. Can you find an
+efficient way to do this? (Hint: Recall Exercise 0.4.)</p>
+<h3 id="115">1.15</h3>
+<p>Determine necessary and sufficient conditions on <span
+class="math inline"><em>x</em></span> and <span
+class="math inline"><em>c</em></span> so that the following holds: for
+any <span class="math inline"><em>a</em>, <em>b</em></span>, if <span
+class="math inline"><em>a</em><em>x</em> ≡ <em>b</em><em>x</em> mod  <em>c</em></span>,
+then <span
+class="math inline"><em>a</em> ≡ <em>b</em> mod  <em>c</em></span>.</p>
+<h3 id="116">1.16</h3>
+<p>The algorithm for computing <span
+class="math inline"><em>a</em><sup><em>b</em></sup> mod  <em>c</em></span>
+by repeated squaring does not necessarily lead to the minimum number of
+multiplications. Give an example of <span
+class="math inline"><em>b</em> &gt; 10</span> where the exponentiation
+can be performed using fewer multiplications, by some other method.</p>
+<h3 id="117">1.17</h3>
+<p>Consider the problem of computing <span
+class="math inline"><em>x</em><sup><em>y</em></sup></span> for given
+integers <span class="math inline"><em>x</em></span> and <span
+class="math inline"><em>y</em></span> : we want the whole answer, not
+modulo a third integer. We know two algorithms for doing this: the
+iterative algorithm which performs <span
+class="math inline"><em>y</em> − 1</span> multiplications by <span
+class="math inline"><em>x</em></span>; and the recursive algorithm based
+on the binary expansion of <span class="math inline"><em>y</em></span>.
+Compare the time requirements of these two algorithms, assuming that the
+time to multiply an <span class="math inline"><em>n</em></span>-bit
+number by an <span class="math inline"><em>m</em></span>-bit number is
+<span class="math inline"><em>O</em>(<em>m</em><em>n</em>)</span>.</p>
+<h3 id="118">1.18</h3>
+<p>Compute <span class="math inline">gcd (210, 588)</span> two different
+ways: by finding the factorization of each number, and by using Euclid's
+algorithm.</p>
+<h3 id="119">1.19</h3>
+<p>The Fibonacci numbers <span
+class="math inline"><em>F</em><sub>0</sub>, <em>F</em><sub>1</sub>, …</span>
+are given by the recurrence <span
+class="math inline"><em>F</em><sub><em>n</em> + 1</sub> = <em>F</em><sub><em>n</em></sub> + <em>F</em><sub><em>n</em> − 1</sub>, <em>F</em><sub>0</sub> = 0, <em>F</em><sub>1</sub> = 1</span>.
+Show that for any <span
+class="math inline"><em>n</em> ≥ 1, gcd (<em>F</em><sub><em>n</em> + 1</sub>, <em>F</em><sub><em>n</em></sub>) = 1</span>.</p>
+<h3 id="120">1.20</h3>
+<p>Find the inverse of: <span
+class="math inline">20 mod  79, 3 mod  62, 21 mod  91, 5 mod  23</span>.</p>
+<h3 id="121">1.21</h3>
+<p>How many integers modulo <span
+class="math inline">11<sup>3</sup></span> have inverses? (Note: <span
+class="math inline">11<sup>3</sup> = 1331</span>.)</p>
+<h3 id="122">1.22</h3>
+<p>Prove or disprove: If <span class="math inline"><em>a</em></span> has
+an inverse modulo <span class="math inline"><em>b</em></span>, then
+<span class="math inline"><em>b</em></span> has an inverse modulo <span
+class="math inline"><em>a</em></span>.</p>
+<h3 id="123">1.23</h3>
+<p>Show that if <span class="math inline"><em>a</em></span> has a
+multiplicative inverse modulo <span
+class="math inline"><em>N</em></span>, then this inverse is unique
+(modulo <span class="math inline"><em>N</em></span> ).</p>
+<h3 id="124">1.24</h3>
+<p>If <span class="math inline"><em>p</em></span> is prime, how many
+elements of <span
+class="math inline">{0, 1, …, <em>p</em><sup><em>n</em></sup> − 1}</span>
+have an inverse modulo <span
+class="math inline"><em>p</em><sup><em>n</em></sup></span> ?</p>
+<h3 id="125">1.25</h3>
+<p>Calculate <span class="math inline">2<sup>125</sup> mod  127</span>
+using any method you choose. (Hint: 127 is prime.)</p>
+<h3 id="126">1.26</h3>
+<p>What is the least significant decimal digit of <span
+class="math inline">17<sup>17<sup>17</sup></sup></span> ? (Hint: For
+distinct primes <span class="math inline"><em>p</em>, <em>q</em></span>,
+and any <span
+class="math inline"><em>a</em> ≢ 0( mod  <em>p</em><em>q</em>)</span>,
+we proved the formula <span
+class="math inline"><em>a</em><sup>(<em>p</em> − 1)(<em>q</em> − 1)</sup> ≡ 1( mod  <em>p</em><em>q</em>)</span>
+in Section 1.4.2.)</p>
+<h3 id="127">1.27</h3>
+<p>Consider an RSA key set with <span
+class="math inline"><em>p</em> = 17, <em>q</em> = 23, <em>N</em> = 391</span>,
+and <span class="math inline"><em>e</em> = 3</span> (as in Figure 1.9).
+What value of <span class="math inline"><em>d</em></span> should be used
+for the secret key? What is the encryption of the message <span
+class="math inline"><em>M</em> = 41</span> ?</p>
+<h3 id="128">1.28</h3>
+<p>In an RSA cryptosystem, <span
+class="math inline"><em>p</em> = 7</span> and <span
+class="math inline"><em>q</em> = 11</span> (as in Figure 1.9). Find
+appropriate exponents <span class="math inline"><em>d</em></span> and
+<span class="math inline"><em>e</em></span>.</p>
+<h3 id="129">1.29</h3>
+<p>Let <span class="math inline">[<em>m</em>]</span> denote the set
+<span class="math inline">{0, 1, …, <em>m</em> − 1}</span>. For each of
+the following families of hash functions, say whether or not it is
+universal, and determine how many random bits are needed to choose a
+function from the family.</p>
+<p><strong>(a)</strong> <span
+class="math inline"><em>H</em> = {<em>h</em><sub><em>a</em><sub>1</sub>, <em>a</em><sub>2</sub></sub> : <em>a</em><sub>1</sub>, <em>a</em><sub>2</sub> ∈ [<em>m</em>]}</span>,
+where <span class="math inline"><em>m</em></span> is a fixed prime
+and</p>
+<p><span
+class="math display"><em>h</em><sub><em>a</em><sub>1</sub>, <em>a</em><sub>2</sub></sub>(<em>x</em><sub>1</sub>, <em>x</em><sub>2</sub>) = <em>a</em><sub>1</sub><em>x</em><sub>1</sub> + <em>a</em><sub>2</sub><em>x</em><sub>2</sub> mod  <em>m</em>.</span></p>
+<p>Notice that each of these functions has signature <span
+class="math inline"><em>h</em><sub><em>a</em><sub>1</sub>, <em>a</em><sub>2</sub></sub> : [<em>m</em>]<sup>2</sup> → [<em>m</em>]</span>,
+that is, it maps a pair of integers in <span
+class="math inline">[<em>m</em>]</span> to a single integer in <span
+class="math inline">[<em>m</em>]</span>.</p>
+<p><strong>(b)</strong> <span class="math inline"><em>H</em></span> is
+as before, except that now <span
+class="math inline"><em>m</em> = 2<sup><em>k</em></sup></span> is some
+fixed power of 2 .</p>
+<p><strong>(c)</strong> <span class="math inline"><em>H</em></span> is
+the set of all functions <span
+class="math inline"><em>f</em> : [<em>m</em>] → [<em>m</em> − 1]</span>.</p>
+<h3 id="130">1.30</h3>
+<p>The grade-school algorithm for multiplying two <span
+class="math inline"><em>n</em></span>-bit binary numbers <span
+class="math inline"><em>x</em></span> and <span
+class="math inline"><em>y</em></span> consists of adding together <span
+class="math inline"><em>n</em></span> copies of <span
+class="math inline"><em>x</em></span>, each appropriately left-shifted.
+Each copy, when shifted, is at most <span
+class="math inline">2<em>n</em></span> bits long. In this problem, we
+will examine a scheme for adding <span
+class="math inline"><em>n</em></span> binary numbers, each <span
+class="math inline"><em>m</em></span> bits long, using a circuit or a
+parallel architecture. The main parameter of interest in this question
+is therefore the depth of the circuit or the longest path from the input
+to the output of the circuit. This determines the total time taken for
+computing the function. To add two <span
+class="math inline"><em>m</em></span>-bit binary numbers naively, we
+must wait for the carry bit from position <span
+class="math inline"><em>i</em> − 1</span> before we can figure out the
+<span class="math inline"><em>i</em></span> th bit of the answer. This
+leads to a circuit of depth <span
+class="math inline"><em>O</em>(<em>m</em>)</span>. However carry
+lookahead circuits (see wikipedia.com if you want to know more about
+this) can add in <span
+class="math inline"><em>O</em>(log <em>m</em>)</span> depth.</p>
+<p><strong>(a)</strong> Assuming you have carry lookahead circuits for
+addition, show how to add <span class="math inline"><em>n</em></span>
+numbers each <span class="math inline"><em>m</em></span> bits long using
+a circuit of depth <span
+class="math inline"><em>O</em>((log <em>n</em>)(log <em>m</em>))</span>.</p>
+<p><strong>(b)</strong> When adding three <span
+class="math inline"><em>m</em></span>-bit binary numbers <span
+class="math inline"><em>x</em> + <em>y</em> + <em>z</em></span>, there
+is a trick we can use to parallelize the process. Instead of carrying
+out the addition completely, we can re-express the result as the sum of
+just two binary numbers <span
+class="math inline"><em>r</em> + <em>s</em></span>, such that the <span
+class="math inline"><em>i</em></span> th bits of <span
+class="math inline"><em>r</em></span> and <span
+class="math inline"><em>s</em></span> can be computed independently of
+the other bits. Show how this can be done. (Hint: One of the numbers
+represents carry bits.)</p>
+<p><strong>(c)</strong> Show how to use the trick from the previous part
+to design a circuit of depth <span
+class="math inline"><em>O</em>(log <em>n</em>)</span> for multiplying
+two <span class="math inline"><em>n</em></span>-bit numbers.</p>
+<h3 id="131">1.31</h3>
+<p>Consider the problem of computing <span
+class="math inline"><em>N</em>! = 1 ⋅ 2 ⋅ 3⋯<em>N</em></span>.</p>
+<p><strong>(a)</strong> If <span class="math inline"><em>N</em></span>
+is an <span class="math inline"><em>n</em></span>-bit number, how many
+bits long is <span class="math inline"><em>N</em></span> !,
+approximately (in <span class="math inline"><em>Θ</em>(⋅)</span>
+form)?</p>
+<p><strong>(b)</strong> Give an algorithm to compute <span
+class="math inline"><em>N</em></span> ! and analyze its running
+time.</p>
+<h3 id="132">1.32</h3>
+<p>A positive integer <span class="math inline"><em>N</em></span> is a
+power if it is of the form <span
+class="math inline"><em>q</em><sup><em>k</em></sup></span>, where <span
+class="math inline"><em>q</em>, <em>k</em></span> are positive integers
+and <span class="math inline"><em>k</em> &gt; 1</span>.</p>
+<p><strong>(a)</strong> Give an efficient algorithm that takes as input
+a number <span class="math inline"><em>N</em></span> and determines
+whether it is a square, that is, whether it can be written as <span
+class="math inline"><em>q</em><sup>2</sup></span> for some positive
+integer <span class="math inline"><em>q</em></span>. What is the running
+time of your algorithm?</p>
+<p><strong>(b)</strong> Show that if <span
+class="math inline"><em>N</em> = <em>q</em><sup><em>k</em></sup></span>
+(with <span class="math inline"><em>N</em>, <em>q</em></span>, and <span
+class="math inline"><em>k</em></span> all positive integers), then
+either <span class="math inline"><em>k</em> ≤ log <em>N</em></span> or
+<span class="math inline"><em>N</em> = 1</span>.</p>
+<p><strong>(c)</strong> Give an efficient algorithm for determining
+whether a positive integer <span class="math inline"><em>N</em></span>
+is a power. Analyze its running time.</p>
+<h3 id="133">1.33</h3>
+<p>Give an efficient algorithm to compute the least common multiple of
+two <span class="math inline"><em>n</em></span>-bit numbers <span
+class="math inline"><em>x</em></span> and <span
+class="math inline"><em>y</em></span>, that is, the smallest number
+divisible by both <span class="math inline"><em>x</em></span> and <span
+class="math inline"><em>y</em></span>. What is the running time of your
+algorithm as a function of <span class="math inline"><em>n</em></span>
+?</p>
+<h3 id="134">1.34</h3>
+<p>On page 38, we claimed that since about a <span
+class="math inline">1/<em>n</em></span> fraction of <span
+class="math inline"><em>n</em></span>-bit numbers are prime, on average
+it is sufficient to draw <span
+class="math inline"><em>O</em>(<em>n</em>)</span> random <span
+class="math inline"><em>n</em></span>-bit numbers before hitting a
+prime. We now justify this rigorously. Suppose a particular coin has a
+probability <span class="math inline"><em>p</em></span> of coming up
+heads. How many times must you toss it, on average, before it comes up
+heads? (Hint: Method 1: start by showing that the correct expression is
+<span class="math inline">$\sum_{i=1}^{\infty} i(1-p)^{i-1} p$</span>.
+Method 2: if <span class="math inline"><em>E</em></span> is the average
+number of coin tosses, show that <span
+class="math inline"><em>E</em> = 1 + (1 − <em>p</em>)<em>E</em></span>.)</p>
+<h3 id="135">1.35</h3>
+<p>Wilson's theorem says that a number <span
+class="math inline"><em>N</em></span> is prime if and only if</p>
+<p><span
+class="math display">(<em>N</em> − 1)! ≡ −1  ( mod  <em>N</em>)</span></p>
+<p><strong>(a)</strong> If <span class="math inline"><em>p</em></span>
+is prime, then we know every number <span
+class="math inline">1 ≤ <em>x</em> &lt; <em>p</em></span> is invertible
+modulo <span class="math inline"><em>p</em></span>. Which of these
+numbers are their own inverse?</p>
+<p><strong>(b)</strong> By pairing up multiplicative inverses, show that
+<span
+class="math inline">(<em>p</em> − 1)! ≡ −1( mod  <em>p</em>)</span> for
+prime <span class="math inline"><em>p</em></span>.</p>
+<p><strong>(c)</strong> Show that if <span
+class="math inline"><em>N</em></span> is not prime, then <span
+class="math inline">(<em>N</em> − 1)! ≢ −1( mod  <em>N</em>)</span>.
+(Hint: Consider <span
+class="math inline"><em>d</em> = gcd (<em>N</em>, (<em>N</em>−</span>
+1)!).)</p>
+<p><strong>(d)</strong> Unlike Fermat's Little theorem, Wilson's theorem
+is an if-and-only-if condition for primality. Why can't we immediately
+base a primality test on this rule?</p>
+<h3 id="136">1.36</h3>
+<p>Square roots. In this problem, we'll see that it is easy to compute
+square roots modulo a prime <span class="math inline"><em>p</em></span>
+with <span class="math inline"><em>p</em> ≡ 3( mod  4)</span>.</p>
+<p><strong>(a)</strong> Suppose <span
+class="math inline"><em>p</em> ≡ 3( mod  4)</span>. Show that <span
+class="math inline">(<em>p</em> + 1)/4</span> is an integer.</p>
+<p><strong>(b)</strong> We say <span
+class="math inline"><em>x</em></span> is a square root of <span
+class="math inline"><em>a</em></span> modulo <span
+class="math inline"><em>p</em></span> if <span
+class="math inline"><em>a</em> ≡ <em>x</em><sup>2</sup>( mod  <em>p</em>)</span>.
+Show that if <span class="math inline"><em>p</em> ≡ 3( mod  4)</span>
+and if <span class="math inline"><em>a</em></span> has a square root
+modulo <span class="math inline"><em>p</em></span>, then <span
+class="math inline"><em>a</em><sup>(<em>p</em> + 1)/4</sup></span> is
+such a square root.</p>
+<h3 id="137">1.37</h3>
+<p>The Chinese remainder theorem.</p>
+<p><strong>(a)</strong> Make a table with three columns. The first
+column is all numbers from 0 to 14 . The second is the residues of these
+numbers modulo 3 ; the third column is the residues modulo 5 . What do
+you observe?</p>
+<p><strong>(b)</strong> Prove that if <span
+class="math inline"><em>p</em></span> and <span
+class="math inline"><em>q</em></span> are distinct primes, then for
+every pair <span class="math inline">(<em>j</em>, <em>k</em>)</span>
+with <span class="math inline">0 ≤ <em>j</em> &lt; <em>p</em></span> and
+<span class="math inline">0 ≤ <em>k</em> &lt; <em>q</em></span>, there
+is a unique integer <span
+class="math inline">0 ≤ <em>i</em> &lt; <em>p</em><em>q</em></span> such
+that <span
+class="math inline"><em>i</em> ≡ <em>j</em> mod  <em>p</em></span> and
+<span
+class="math inline"><em>i</em> ≡ <em>k</em> mod  <em>q</em></span>.
+(Hint: Prove that no two different <span
+class="math inline"><em>i</em></span> 's in this range can have the same
+( <span class="math inline"><em>j</em>, <em>k</em></span> ), and then
+count.)</p>
+<p><strong>(c)</strong> In this one-to-one correspondence between
+integers and pairs, it is easy to go from <span
+class="math inline"><em>i</em></span> to <span
+class="math inline">(<em>j</em>, <em>k</em>)</span>. Prove that the
+following formula takes you the other way:</p>
+<p><span
+class="math display"><em>i</em> = {<em>j</em> ⋅ <em>q</em> ⋅ (<em>q</em><sup>−1</sup> mod  <em>p</em>) + <em>k</em> ⋅ <em>p</em> ⋅ (<em>p</em><sup>−1</sup> mod  <em>q</em>)} mod  <em>p</em><em>q</em></span></p>
+<p><strong>(d)</strong> Can you generalize parts (b) and (c) to more
+than two primes?</p>
+<h3 id="138">1.38</h3>
+<p>To see if a number, say 562437487 , is divisible by 3 , you just add
+up the digits of its decimal representation, and see if the result is
+divisible by 3 . <span
+class="math inline">(5 + 6 + 2 + 4 + 3 + 7 + 4 + 8 + 7 = 46</span>, so
+it is not divisible by 3.) To see if the same number is divisible by 11
+, you can do this: subdivide the number into pairs of digits, from the
+right-hand end <span class="math inline">(87, 74, 43, 62, 5)</span>, add
+these numbers, and see if the sum is divisible by 11 (if it's too big,
+repeat). How about 37 ? To see if the number is divisible by 37 ,
+subdivide it into triples from the end ( <span
+class="math inline">487, 437, 562</span> ) add these up, and see if the
+sum is divisible by 37 . This is true for any prime <span
+class="math inline"><em>p</em></span> other than 2 and 5. That is, for
+any prime <span class="math inline"><em>p</em> ≠ 2, 5</span>, there is
+an integer <span class="math inline"><em>r</em></span> such that in
+order to see if <span class="math inline"><em>p</em></span> divides a
+decimal number <span class="math inline"><em>n</em></span>, we break
+<span class="math inline"><em>n</em></span> into <span
+class="math inline"><em>r</em></span>-tuples of decimal digits (starting
+from the right-hand end), add up these <span
+class="math inline"><em>r</em></span>-tuples, and check if the sum is
+divisible by <span class="math inline"><em>p</em></span>.</p>
+<p><strong>(a)</strong> What is the smallest such <span
+class="math inline"><em>r</em></span> for <span
+class="math inline"><em>p</em> = 13</span> ? For <span
+class="math inline"><em>p</em> = 17</span> ?</p>
+<p><strong>(b)</strong> Show that <span
+class="math inline"><em>r</em></span> is a divisor of <span
+class="math inline"><em>p</em> − 1</span>.</p>
+<h3 id="139">1.39</h3>
+<p>Give a polynomial-time algorithm for computing <span
+class="math inline"><em>a</em><sup><em>b</em><sup><em>c</em></sup></sup> mod  <em>p</em></span>,
+given <span
+class="math inline"><em>a</em>, <em>b</em>, <em>c</em></span>, and prime
+<span class="math inline"><em>p</em></span>.</p>
+<h3 id="140">1.40</h3>
+<p>Show that if <span class="math inline"><em>x</em></span> is a
+nontrivial square root of <span
+class="math inline">1modulo <em>N</em></span>, that is, if <span
+class="math inline"><em>x</em><sup>2</sup> ≡ 1 mod  <em>N</em></span>
+but <span class="math inline"><em>x</em> ≢ ±1 mod  <em>N</em></span>,
+then <span class="math inline"><em>N</em></span> must be composite. (For
+instance, <span class="math inline">4<sup>2</sup> ≡ 1 mod  15</span> but
+<span class="math inline">4 ≢ ±1 mod  15</span>; thus 4 is a nontrivial
+square root of 1 modulo 15 .)</p>
+<h3 id="141">1.41</h3>
+<p>Quadratic residues. Fix a positive integer <span
+class="math inline"><em>N</em></span>. We say that <span
+class="math inline"><em>a</em></span> is a quadratic residue modulo
+<span class="math inline"><em>N</em></span> if there exists <span
+class="math inline"><em>x</em></span> such that <span
+class="math inline"><em>a</em> ≡ <em>x</em><sup>2</sup> mod  <em>N</em></span>.</p>
+<p><strong>(a)</strong> Let <span class="math inline"><em>N</em></span>
+be an odd prime and <span class="math inline"><em>a</em></span> be a
+non-zero quadratic residue modulo <span
+class="math inline"><em>N</em></span>. Show that there are exactly two
+values in <span class="math inline">{0, 1, …, <em>N</em> − 1}</span>
+satisfying <span
+class="math inline"><em>x</em><sup>2</sup> ≡ <em>a</em> mod  <em>N</em></span>.</p>
+<p><strong>(b)</strong> Show that if <span
+class="math inline"><em>N</em></span> is an odd prime, there are exactly
+<span class="math inline">(<em>N</em> + 1)/2</span> quadratic residues
+in <span class="math inline">{0, 1, …, <em>N</em> − 1}</span>.</p>
+<p><strong>(c)</strong> Give an example of positive integers <span
+class="math inline"><em>a</em></span> and <span
+class="math inline"><em>N</em></span> such that <span
+class="math inline"><em>x</em><sup>2</sup> ≡ <em>a</em> mod  <em>N</em></span>
+has more than two solutions in <span
+class="math inline">{0, 1, …, <em>N</em> − 1}</span>.</p>
+<h3 id="142">1.42</h3>
+<p>Suppose that instead of using a composite <span
+class="math inline"><em>N</em> = <em>p</em><em>q</em></span> in the RSA
+cryptosystem (Figure 1.9), we simply use a prime modulus <span
+class="math inline"><em>p</em></span>. As in RSA, we would have an
+encryption exponent <span class="math inline"><em>e</em></span>, and the
+encryption of a message <span
+class="math inline"><em>m</em> mod  <em>p</em></span> would be <span
+class="math inline"><em>m</em><sup><em>e</em></sup> mod  <em>p</em></span>.
+Prove that this new cryptosystem is not secure, by giving an efficient
+algorithm to decrypt: that is, an algorithm that given <span
+class="math inline"><em>p</em>, <em>e</em></span>, and <span
+class="math inline"><em>m</em><sup><em>e</em></sup> mod  <em>p</em></span>
+as input, computes <span
+class="math inline"><em>m</em> mod  <em>p</em></span>. Justify the
+correctness and analyze the running time of your decryption
+algorithm.</p>
+<h3 id="143">1.43</h3>
+<p>In the RSA cryptosystem, Alice's public key ( <span
+class="math inline"><em>N</em>, <em>e</em></span> ) is available to
+everyone. Suppose that her private key <span
+class="math inline"><em>d</em></span> is compromised and becomes known
+to Eve. Show that if <span class="math inline"><em>e</em> = 3</span> (a
+common choice) then Eve can efficiently factor <span
+class="math inline"><em>N</em></span>.</p>
+<h3 id="144">1.44</h3>
+<p>Alice and her three friends are all users of the RSA cryptosystem.
+Her friends have public keys <span
+class="math inline">(<em>N</em><sub><em>i</em></sub>, <em>e</em><sub><em>i</em></sub> = 3), <em>i</em> = 1, 2, 3</span>,
+where as always, <span
+class="math inline"><em>N</em><sub><em>i</em></sub> = <em>p</em><sub><em>i</em></sub><em>q</em><sub><em>i</em></sub></span>
+for randomly chosen <span class="math inline"><em>n</em></span>-bit
+primes <span
+class="math inline"><em>p</em><sub><em>i</em></sub>, <em>q</em><sub><em>i</em></sub></span>.
+Show that if Alice sends the same <span
+class="math inline"><em>n</em></span>-bit message <span
+class="math inline"><em>M</em></span> (encrypted using RSA) to each of
+her friends, then anyone who intercepts all three encrypted messages
+will be able to efficiently recover <span
+class="math inline"><em>M</em></span>. (Hint: It helps to have solved
+problem 1.37 first.)</p>
+<h3 id="145">1.45</h3>
+<p>RSA and digital signatures. Recall that in the RSA public-key
+cryptosystem, each user has a public key <span
+class="math inline"><em>P</em> = (<em>N</em>, <em>e</em>)</span> and a
+secret key <span class="math inline"><em>d</em></span>. In a digital
+signature scheme, there are two algorithms, sign and verify. The sign
+procedure takes a message and a secret key, then outputs a signature
+<span class="math inline"><em>σ</em></span>. The verify procedure takes
+a public key ( <span class="math inline"><em>N</em>, <em>e</em></span>
+), a signature <span class="math inline"><em>σ</em></span>, and a
+message <span class="math inline"><em>M</em></span>, then returns "true"
+if <span class="math inline"><em>σ</em></span> could have been created
+by sign (when called with message <span
+class="math inline"><em>M</em></span> and the secret key corresponding
+to the public key ( <span
+class="math inline"><em>N</em>, <em>e</em></span> )); "false"
+otherwise.</p>
+<p><strong>(a)</strong> Why would we want digital signatures?</p>
+<p><strong>(b)</strong> An RSA signature consists of <span
+class="math inline">sign (<em>M</em>, <em>d</em>) = <em>M</em><sup><em>d</em></sup>( mod  <em>N</em>)</span>,
+where <span class="math inline"><em>d</em></span> is a secret key and
+<span class="math inline"><em>N</em></span> is part of the public key.
+Show that anyone who knows the public key ( <span
+class="math inline"><em>N</em>, <em>e</em></span> ) can perform verify
+<span
+class="math inline">((<em>N</em>, <em>e</em>), <em>M</em><sup><em>d</em></sup>, <em>M</em>)</span>,
+i.e., they can check that a signature really was created by the private
+key. Give an implementation and prove its correctness.</p>
+<p><strong>(c)</strong> Generate your own RSA modulus <span
+class="math inline"><em>N</em> = <em>p</em><em>q</em></span>, public key
+<span class="math inline"><em>e</em></span>, and private key <span
+class="math inline"><em>d</em></span> (you don't need to use a
+computer). Pick <span class="math inline"><em>p</em></span> and <span
+class="math inline"><em>q</em></span> so you have a 4 -digit modulus and
+work by hand. Now sign your name using the private exponent of this RSA
+modulus. To do this you will need to specify some one-to-one mapping
+from strings to integers in <span
+class="math inline">[0, <em>N</em> − 1]</span>. Specify any mapping you
+like. Give the mapping from your name to numbers <span
+class="math inline"><em>m</em><sub>1</sub>, <em>m</em><sub>2</sub>, …<em>m</em><sub><em>k</em></sub></span>,
+then sign the first number by giving the value <span
+class="math inline"><em>m</em><sub>1</sub><sup><em>d</em></sup>( mod  <em>N</em>)</span>,
+and finally show that <span
+class="math inline">(<em>m</em><sub>1</sub><sup><em>d</em></sup>)<sup><em>e</em></sup> = <em>m</em><sub>1</sub>( mod  <em>N</em>)</span>.</p>
+<p><strong>(d)</strong> Alice wants to write a message that looks like
+it was digitally signed by Bob. She notices that Bob's public RSA key is
+<span class="math inline">(17, 391)</span>. To what exponent should she
+raise her message?</p>
+<h3 id="146">1.46</h3>
+<p>Digital signatures, continued. Consider the signature scheme of
+Exercise 1.45.</p>
+<p><strong>(a)</strong> Signing involves decryption, and is therefore
+risky. Show that if Bob agrees to sign anything he is asked to, Eve can
+take advantage of this and decrypt any message sent by Alice to Bob.</p>
+<p><strong>(b)</strong> Suppose that Bob is more careful, and refuses to
+sign messages if their signatures look suspiciously like text. (We
+assume that a randomly chosen message-that is, a random number in the
+range <span class="math inline">{1, …, <em>N</em> − 1}</span>-is very
+unlikely to look like text.) Describe a way in which Eve can
+nevertheless still decrypt messages from Alice to Bob, by getting Bob to
+sign messages whose signatures look random.</p>
+</main>
+
+<!-- code highlighting -->
+<link rel="modulepreload" href="../../vendor/mermaid/mermaid.esm.min.mjs">
+<script src="../../vendor/highlight/highlight.min.js"></script>
+<!-- math -->
+<script defer src="../../vendor/katex/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="../../vendor/katex/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+<script type="module">
+  // 1) Normalize mermaid blocks. Pandoc(gfm) emits <pre class="mermaid"><code>...</code></pre>.
+  //    Flatten to raw source text so mermaid parses cleanly; also catch the code-only variant.
+  document.querySelectorAll('pre > code.language-mermaid, pre > code.mermaid').forEach(c => {
+    const p = document.createElement('pre'); p.className = 'mermaid'; p.textContent = c.textContent;
+    c.parentElement.replaceWith(p);
+  });
+  document.querySelectorAll('pre.mermaid').forEach(p => { p.textContent = p.textContent; });
+  // 2) Syntax-highlight every code block EXCEPT mermaid (auto-detect language)
+  if (window.hljs) document.querySelectorAll('pre:not(.mermaid) > code').forEach(el => window.hljs.highlightElement(el));
+  // 3) Render mermaid (dark)
+  try {
+    const mermaid = (await import('../../vendor/mermaid/mermaid.esm.min.mjs')).default;
+    mermaid.initialize({ startOnLoad: false, theme: 'dark', securityLevel: 'loose' });
+    await mermaid.run({ querySelector: 'pre.mermaid' });
+  } catch (e) { /* offline: leave as text */ }
+</script>
+<script>
+  // 4) Math: render \( \) and \[ \] (pandoc converts dollar-math to these). Tolerate malformed legacy TeX.
+  window.addEventListener('DOMContentLoaded', () => {
+    if (window.renderMathInElement) renderMathInElement(document.querySelector('.content'), {
+      // dollar-delimiters included so KaTeX also renders math pandoc failed to parse (left raw):
+      // a space before a closing delim, cases-env inline, apostrophes in text, etc. Display before inline.
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '\\[', right: '\\]', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false }
+      ],
+      throwOnError: false,
+      // \n is used in the legacy notes as a homemade "arrow over" (directed edge); map it to \overrightarrow.
+      macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
+    });
+  });
+</script>
+</body>
+</html>

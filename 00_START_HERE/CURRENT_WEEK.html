@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Current Week — CS6515</title>
+<link rel="stylesheet" href="../vendor/fonts/fonts.css">
+<link rel="stylesheet" href="../theme.css">
+<link rel="stylesheet" href="../vendor/katex/katex.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="../vendor/highlight/styles/tokyo-night-dark.min.css">
+
+</head>
+<body>
+<header class="topbar">
+  <a class="home" href="../index.html">CS6515</a>
+  <span class="crumbloc">Current Week</span>
+</header>
+<main class="content">
+<h1 id="current-week">Current Week</h1>
+<p>As of <strong>2026-06-22</strong>, the course is in <strong>Week 6 —
+Max-Flow Basics (MF1, MF2)</strong>.</p>
+<p><strong>Go to:</strong> <a
+href="../01_by_week/W06_2026-06-22_MF1-MF2/index.html"><code>../01_by_week/W06_2026-06-22_MF1-MF2/</code></a></p>
+<h2 id="this-week-06-22--06-28">This week (06-22 → 06-28)</h2>
+<ul>
+<li><strong>Topics:</strong> flow networks, Ford-Fulkerson, residual
+graphs, cuts, max-flow/min-cut.</li>
+<li><strong>Lecture:</strong> Week 6 — Max Flow Basics.</li>
+<li><strong>Reading:</strong> DPV §7.2
+(<code>07-linear-programming-dpv.pdf</code>).</li>
+<li><strong>Due:</strong> HW6, HW7 (coding), Quiz 5 (graph
+content).</li>
+<li><strong>Answer rule:</strong> solve flow problems by transforming
+the input/output around the max-flow black box — do <strong>not</strong>
+re-derive Ford-Fulkerson internals. See <a
+href="../cs6515-algorithm-rules-and-guidelines/8129088_Usable_Black_Boxes_for_Graphs.html">usable
+black boxes</a>.</li>
+</ul>
+<h2 id="core-results-to-know">Core results to know</h2>
+<ul>
+<li>Feasible flow: capacity constraints <span
+class="math inline">0 ≤ <em>f</em><sub><em>e</em></sub> ≤ <em>c</em><sub><em>e</em></sub></span>
+and conservation at every non-terminal vertex,</li>
+</ul>
+<p><span
+class="math display">∑<sub>(<em>u</em>, <em>v</em>) ∈ <em>E</em></sub><em>f</em><sub><em>u</em><em>v</em></sub> = ∑<sub>(<em>v</em>, <em>w</em>) ∈ <em>E</em></sub><em>f</em><sub><em>v</em><em>w</em></sub>   ∀ <em>v</em> ∈ <em>V</em> \ {<em>s</em>, <em>t</em>}.</span></p>
+<ul>
+<li>Max-flow / min-cut theorem,</li>
+</ul>
+<p><span
+class="math display">max<sub><em>f</em></sub>|<em>f</em>| = min<sub>(<em>S</em>, <em>T</em>): <em>s</em> ∈ <em>S</em>, <em>t</em> ∈ <em>T</em></sub><em>c</em>(<em>S</em>, <em>T</em>).</span></p>
+<ul>
+<li>Ford-Fulkerson on integer capacities runs in <span
+class="math inline"><em>O</em>(<em>m</em><em>C</em>)</span> (<span
+class="math inline"><em>C</em></span> = max-flow value) —
+pseudo-polynomial; Edmonds-Karp (next week) fixes this to <span
+class="math inline"><em>O</em>(<em>m</em><sup>2</sup><em>n</em>)</span>.</li>
+</ul>
+<h2 id="looking-ahead">Looking ahead</h2>
+<ul>
+<li><strong>Next:</strong> <a
+href="../01_by_week/W07_2026-06-29_MF4_EXAM2/index.html">Week 7 —
+Edmonds-Karp</a>, then <strong>Exam 2</strong> (opens 07-02, covers
+Weeks 4–7).</li>
+</ul>
+<hr />
+<p><em>To update this file when the date advances: change the week
+pointer above to the matching <code>01_by_week/Wnn_…</code> folder. Week
+boundaries are listed in <a href="INDEX.html">INDEX.md</a>.</em></p>
+</main>
+
+<!-- code highlighting -->
+<link rel="modulepreload" href="../vendor/mermaid/mermaid.esm.min.mjs">
+<script src="../vendor/highlight/highlight.min.js"></script>
+<!-- math -->
+<script defer src="../vendor/katex/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="../vendor/katex/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+<script type="module">
+  // 1) Normalize mermaid blocks. Pandoc(gfm) emits <pre class="mermaid"><code>...</code></pre>.
+  //    Flatten to raw source text so mermaid parses cleanly; also catch the code-only variant.
+  document.querySelectorAll('pre > code.language-mermaid, pre > code.mermaid').forEach(c => {
+    const p = document.createElement('pre'); p.className = 'mermaid'; p.textContent = c.textContent;
+    c.parentElement.replaceWith(p);
+  });
+  document.querySelectorAll('pre.mermaid').forEach(p => { p.textContent = p.textContent; });
+  // 2) Syntax-highlight every code block EXCEPT mermaid (auto-detect language)
+  if (window.hljs) document.querySelectorAll('pre:not(.mermaid) > code').forEach(el => window.hljs.highlightElement(el));
+  // 3) Render mermaid (dark)
+  try {
+    const mermaid = (await import('../vendor/mermaid/mermaid.esm.min.mjs')).default;
+    mermaid.initialize({ startOnLoad: false, theme: 'dark', securityLevel: 'loose' });
+    await mermaid.run({ querySelector: 'pre.mermaid' });
+  } catch (e) { /* offline: leave as text */ }
+</script>
+<script>
+  // 4) Math: render \( \) and \[ \] (pandoc converts dollar-math to these). Tolerate malformed legacy TeX.
+  window.addEventListener('DOMContentLoaded', () => {
+    if (window.renderMathInElement) renderMathInElement(document.querySelector('.content'), {
+      // dollar-delimiters included so KaTeX also renders math pandoc failed to parse (left raw):
+      // a space before a closing delim, cases-env inline, apostrophes in text, etc. Display before inline.
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '\\[', right: '\\]', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false }
+      ],
+      throwOnError: false,
+      // \n is used in the legacy notes as a homemade "arrow over" (directed edge); map it to \overrightarrow.
+      macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
+    });
+  });
+</script>
+</body>
+</html>

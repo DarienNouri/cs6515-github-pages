@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GR4: Markov Chains &amp; PageRank — CS6515</title>
+<link rel="stylesheet" href="../../../vendor/fonts/fonts.css">
+<link rel="stylesheet" href="../../../theme.css">
+<link rel="stylesheet" href="../../../vendor/katex/katex.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="../../../vendor/highlight/styles/tokyo-night-dark.min.css">
+
+</head>
+<body>
+<header class="topbar">
+  <a class="home" href="../../../index.html">CS6515</a>
+  <span class="crumbloc">GR4: Markov Chains &amp; PageRank</span>
+</header>
+<main class="content">
+<h1 id="gr4-markov-chains--pagerank">GR4: Markov Chains &amp;
+PageRank</h1>
+<blockquote>
+<p>This module connects graph theory, linear algebra, and probability.
+PageRank uses all three to define the "importance" of a webpage. The key
+insight: importance = stationary distribution of a random walk.</p>
+</blockquote>
+<hr />
+<h2 id="1-what-is-a-markov-chain">1. What Is a Markov Chain?</h2>
+<p>A <strong>Markov chain</strong> is a random process that moves
+between <strong>states</strong> over discrete time steps, where the next
+state depends <em>only</em> on the current state (not the history).</p>
+<p>Formally:</p>
+<ul>
+<li><strong>N states:</strong> {1, 2, ..., N}</li>
+<li><strong>Transition matrix P</strong> (N × N): P(i, j) = Pr(go from
+state i to state j)</li>
+</ul>
+<p>Two key constraints on P:</p>
+<ul>
+<li>P(i, j) ∈ [0, 1] for all i, j (probabilities)</li>
+<li>Each row sums to 1: Σⱼ P(i, j) = 1 (from any state, you go
+<em>somewhere</em>)</li>
+</ul>
+<p>A matrix with non-negative entries where every row sums to 1 is
+called a <strong>stochastic matrix</strong>.</p>
+<h3 id="example-the-cs-6210-student">Example: The CS 6210 Student</h3>
+<pre class="mermaid"><code>graph LR
+    K[&quot;Kishore&lt;br/&gt;(lecture)&quot;] --&gt;|0.5| K
+    K --&gt;|0.5| E[&quot;Check&lt;br/&gt;Email&quot;]
+    E --&gt;|0.2| K
+    E --&gt;|0.5| S[&quot;StarCraft&quot;]
+    E --&gt;|0.3| Z[&quot;Sleep&quot;]
+    S --&gt;|0.3| E
+    S --&gt;|0.7| S
+    Z --&gt;|0.7| K
+    Z --&gt;|0.3| Z</code></pre>
+<p>Note: self-loops are allowed (and common) in Markov chains!</p>
+<p>Transition matrix:</p>
+<pre><code>         Kishore  Email  StarCraft  Sleep
+Kishore [  0.5     0.5      0        0   ]
+Email   [  0.2      0      0.5      0.3  ]
+StarCft [   0      0.3     0.7       0   ]
+Sleep   [  0.7      0       0       0.3  ]</code></pre>
+<p>Each row sums to 1. ✅</p>
+<hr />
+<h2 id="2-k-step-transitions-powers-of-p">2. k-Step Transitions: Powers
+of P</h2>
+<p><strong>One step:</strong> P(i, j) = probability of going from i to j
+in 1 step.</p>
+<p><strong>Two steps:</strong> P²(i, j) = probability of going from i to
+j in <strong>exactly 2 steps</strong>.</p>
+<p><strong>k steps:</strong> Pᵏ(i, j) = probability of going from i to j
+in exactly k steps.</p>
+<blockquote>
+<p>💡 <strong>Intuition:</strong> Matrix multiplication naturally sums
+over all possible intermediate states — exactly what we need for
+multi-step probabilities.</p>
+</blockquote>
+<h3 id="example-p²-for-the-6210-chain">Example: P² for the 6210
+chain</h3>
+<pre><code>P² =  [ 0.35  0.25  0.25  0.15 ]
+      [ 0.31  0.25  0.35  0.09 ]
+      [ 0.06  0.21  0.64  0.09 ]
+      [ 0.56  0.15   0    0.09 ]   (approximate)</code></pre>
+<p><strong>Verification:</strong> P²(2, 1) = Pr(Email → Kishore in 2
+steps) = (Email → Kishore → Kishore) + (Email → Sleep → Kishore) =
+(0.2)(0.5) + (0.3)(0.7) = 0.10 + 0.21 = 0.31 ✅</p>
+<hr />
+<h2 id="3-what-happens-for-large-k">3. What Happens for Large k?</h2>
+<p>Something remarkable: as k → ∞, the rows of Pᵏ all converge to the
+<strong>same vector</strong>.</p>
+<p>For our example, P²⁰ ≈</p>
+<pre><code>      [ 0.292  0.188  0.406  0.104 ]
+      [ 0.292  0.188  0.406  0.104 ]
+      [ 0.292  0.188  0.406  0.104 ]
+      [ 0.292  0.188  0.406  0.104 ]</code></pre>
+<p>Every row is approximately <strong>π = [0.292, 0.188, 0.406,
+0.104]</strong>.</p>
+<p><strong>What this means:</strong> No matter where you start, after
+enough time steps, the probability of being in each state converges to
+π. You'll spend ~29.2% of your time listening to Kishore, ~40.6% playing
+StarCraft, etc. — <strong>regardless of starting state</strong>.</p>
+<p>This π is the <strong>stationary distribution</strong>.</p>
+<hr />
+<h2 id="4-stationary-distribution">4. Stationary Distribution</h2>
+<blockquote>
+<p><strong>Definition:</strong> A <strong>stationary
+distribution</strong> π is a row vector such that <strong>πP =
+π</strong>.</p>
+</blockquote>
+<p>In other words: if you're in distribution π and take one step, you
+stay in π. It's a fixed point of the random walk.</p>
+<h3 id="linear-algebra-perspective">Linear Algebra Perspective</h3>
+<p>πP = π means <strong>π is a left eigenvector of P with eigenvalue
+1</strong>.</p>
+<p>More generally, if μ₀ is your initial distribution (a row vector),
+then:</p>
+<ul>
+<li>After 1 step: μ₁ = μ₀ · P</li>
+<li>After 2 steps: μ₂ = μ₀ · P²</li>
+<li>After k steps: μₖ = μ₀ · Pᵏ</li>
+</ul>
+<p>As k → ∞, μₖ → π regardless of μ₀ (under the right conditions).</p>
+<h3 id="key-questions">Key Questions</h3>
+<ol type="1">
+<li>Does every Markov chain have a stationary distribution?</li>
+<li>Is it unique?</li>
+<li>Do we always converge to it?</li>
+</ol>
+<p>The answer to all three is <strong>yes</strong> — if the chain is
+<strong>ergodic</strong>.</p>
+<hr />
+<h2 id="5-ergodic-markov-chains">5. Ergodic Markov Chains</h2>
+<p>A Markov chain is <strong>ergodic</strong> if it's both:</p>
+<h3 id="a-irreducible--strongly-connected">(a) Irreducible (= Strongly
+Connected)</h3>
+<p>The underlying directed graph is <strong>one strongly connected
+component</strong> — you can get from any state to any other state.</p>
+<blockquote>
+<p>⚠️ <strong>Pitfall:</strong> If there are multiple SCCs, the starting
+state determines which states you can reach. No unique stationary
+distribution.</p>
+</blockquote>
+<pre class="mermaid"><code>graph LR
+    subgraph SCC1
+        A --&gt; B --&gt; A
+    end
+    subgraph SCC2
+        C --&gt; D --&gt; C
+    end</code></pre>
+<p>This is NOT irreducible — starting in SCC1, you never reach SCC2.</p>
+<p><strong>Fix:</strong> Make the graph fully connected (positive
+probability between every pair).</p>
+<h3 id="b-aperiodic">(b) Aperiodic</h3>
+<p>The chain has no periodic structure. A chain is periodic if some
+states can only be revisited at regular intervals.</p>
+<blockquote>
+<p>⚠️ <strong>Pitfall:</strong> Bipartite graphs have period 2 — you
+alternate sides. At odd times you're on one side, even times on the
+other.</p>
+</blockquote>
+<pre class="mermaid"><code>graph LR
+    L1 --&gt; R1
+    L1 --&gt; R2
+    R1 --&gt; L1
+    R1 --&gt; L2
+    R2 --&gt; L2
+    L2 --&gt; R1</code></pre>
+<p>If you start on the left, at every even time you're on the left,
+every odd time on the right. Starting state matters!</p>
+<p><strong>Fix:</strong> Add self-loops (P(i, i) &gt; 0 for all i). Even
+a tiny self-loop probability destroys periodicity.</p>
+<h3 id="the-ergodic-theorem">The Ergodic Theorem</h3>
+<blockquote>
+<p><strong>Theorem:</strong> If a Markov chain is ergodic (irreducible +
+aperiodic), then:</p>
+<ol type="1">
+<li>There exists a <strong>unique</strong> stationary distribution
+π</li>
+<li>For <strong>any</strong> starting distribution μ₀, μ₀ · Pᵏ → π as k
+→ ∞</li>
+<li>Every row of Pᵏ converges to π</li>
+</ol>
+</blockquote>
+<p><strong>Sufficient condition (easy to check):</strong> If P(i, j)
+&gt; 0 for ALL i, j (every entry positive), then the chain is
+ergodic.</p>
+<h3 id="when-can-we-compute-π">When Can We Compute π?</h3>
+<table>
+<thead>
+<tr>
+<th>Case</th>
+<th>π</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>P is symmetric: P(i,j) = P(j,i)</td>
+<td>π is <strong>uniform</strong>: π(i) = 1/N for all i</td>
+</tr>
+<tr>
+<td>P is reversible: π(i)P(i,j) = π(j)P(j,i)</td>
+<td>Can solve for π using detailed balance</td>
+</tr>
+<tr>
+<td>General</td>
+<td>No closed form — compute via Pᵏ for large k</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="6-pagerank--motivation">6. PageRank — Motivation</h2>
+<p><strong>Problem:</strong> The web is a directed graph (vertices =
+pages, edges = hyperlinks). When someone searches for "Markov chains,"
+many pages match. How do you rank them by
+<strong>importance</strong>?</p>
+<h3 id="idea-1-count-incoming-links">Idea 1: Count incoming links</h3>
+<p>π(x) = |in(x)| (in-degree)</p>
+<p><strong>Problem:</strong> A link from CNN is worth more than a link
+from some random page. All links shouldn't count equally.</p>
+<h3 id="idea-2-scale-by-number-of-outgoing-links">Idea 2: Scale by
+number of outgoing links</h3>
+<p>π(x) = Σ_{y ∈ in(x)} 1/|out(y)|</p>
+<p>If page y has 1000 links, each one is worth 1/1000. If it has 5
+links, each is worth 1/5.</p>
+<p><strong>Problem:</strong> A link from CNN should be worth more than a
+link from my kid's homepage, even if they have the same number of
+outgoing links. The <em>importance of the source</em> matters.</p>
+<h3 id="idea-3-weight-by-source-importance-recursive">Idea 3: Weight by
+source importance (recursive!)</h3>
+<p><span class="math display">$$\pi(x) = \sum_{y \in in(x)}
+\frac{\pi(y)}{|out(y)|}$$</span></p>
+<p>A citation from page y is worth π(y)/|out(y)| — proportional to y's
+importance, divided among its outgoing links.</p>
+<p>This is a <strong>recursive definition</strong> — π appears on both
+sides. Is it well-defined? Is there a unique solution?</p>
+<blockquote>
+<p>💡 <strong>Intuition:</strong> This is exactly the equation πP = π
+for a random walk on the webgraph! PageRank = stationary
+distribution.</p>
+</blockquote>
+<hr />
+<h2 id="7-the-random-surfer-model">7. The Random Surfer Model</h2>
+<p>Imagine a "random surfer" who:</p>
+<ol type="1">
+<li>Starts at any webpage</li>
+<li>At each step, follows a random outgoing hyperlink</li>
+</ol>
+<p>This defines a Markov chain with transition matrix:</p>
+<p><span class="math display">$$P(y, x) = \begin{cases} 1/|out(y)| &amp;
+\text{if } y \to x \text{ is a hyperlink} \\ 0 &amp; \text{otherwise}
+\end{cases}$$</span></p>
+<p>The stationary distribution of this chain satisfies exactly the
+PageRank equation from above!</p>
+<p><strong>But there are problems:</strong></p>
+<ul>
+<li>The webgraph has <strong>multiple SCCs</strong> → not
+irreducible</li>
+<li>Parts may be <strong>bipartite</strong> → periodic</li>
+<li>Some pages are <strong>sink nodes</strong> (no outgoing links) →
+transition undefined</li>
+</ul>
+<hr />
+<h2 id="8-fixing-the-problems--the-damping-parameter">8. Fixing the
+Problems — The Damping Parameter</h2>
+<p>To ensure ergodicity, we modify the random walk with a
+<strong>damping parameter</strong> α ∈ (0, 1):</p>
+<blockquote>
+<p>At each step:</p>
+<ul>
+<li>With probability <strong>α</strong>: follow a random outgoing
+hyperlink</li>
+<li>With probability <strong>1 - α</strong>: jump to a random page
+uniformly from ALL pages</li>
+</ul>
+</blockquote>
+<p>This is the <strong>random surfer with a "random button."</strong>
+Google reportedly uses <strong>α ≈ 0.85</strong>.</p>
+<h3 id="the-modified-transition-matrix">The Modified Transition
+Matrix</h3>
+<p>For N total webpages:</p>
+<p><span class="math display">$$P'(y, x) = \begin{cases} \alpha \cdot
+\frac{1}{|out(y)|} + (1-\alpha) \cdot \frac{1}{N} &amp; \text{if } y \to
+x \in E \\ (1-\alpha) \cdot \frac{1}{N} &amp; \text{if } y \to x \notin
+E \end{cases}$$</span></p>
+<p>Since α &lt; 1, <strong>every entry P'(y, x) &gt; 0</strong>. The
+graph is fully connected → irreducible AND aperiodic →
+<strong>ergodic</strong>.</p>
+<p>Therefore: a unique π exists, and it's the PageRank vector.</p>
+<hr />
+<h2 id="9-handling-sink-nodes">9. Handling Sink Nodes</h2>
+<p>A <strong>sink node</strong> x has no outgoing links: |out(x)| =
+0.</p>
+<p>The transition matrix is undefined for row x. Several fixes:</p>
+<table>
+<thead>
+<tr>
+<th>Approach</th>
+<th>How</th>
+<th>Downside</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Self-loop</td>
+<td>With prob α, stay at x</td>
+<td>Artificially boosts x's rank</td>
+</tr>
+<tr>
+<td>Remove sinks</td>
+<td>Recursively delete</td>
+<td>Shrinks graph, some pages unranked</td>
+</tr>
+<tr>
+<td><strong>Random jump</strong></td>
+<td>With prob 1, jump to random page (set α=0 for sinks)</td>
+<td>Most natural; apparently what Google does</td>
+</tr>
+</tbody>
+</table>
+<p>With the random jump approach: for sink node x, set P'(x, j) = 1/N
+for all j.</p>
+<hr />
+<h2 id="10-computing-pagerank-in-practice">10. Computing PageRank in
+Practice</h2>
+<p><strong>Method:</strong> Power iteration — repeatedly multiply by
+P.</p>
+<pre><code>FindPageRank(P&#39;, μ₀):
+    Input:  Transition matrix P&#39;, initial distribution μ₀
+    Output: Approximate stationary distribution π
+
+    μ = μ₀
+    repeat until convergence:
+        μ_new = μ · P&#39;
+        if ||μ_new - μ|| &lt; ε: return μ_new
+        μ = μ_new</code></pre>
+<p><strong>Key considerations:</strong></p>
+<ul>
+<li>P' is N × N where N = number of webpages (billions!). O(N²) is too
+expensive.</li>
+<li>But P' is <strong>sparse</strong> — the original webgraph has O(N)
+edges (constant out-degree on average)</li>
+<li>Matrix-vector multiplication μ · P' takes O(m) time where m = number
+of edges</li>
+<li>Convergence is fast because the random jump mixes things
+quickly</li>
+<li>In practice, use last week's π as the starting μ₀ for faster
+convergence</li>
+</ul>
+<hr />
+<h2 id="11-putting-it-all-together">11. Putting It All Together</h2>
+<pre class="mermaid"><code>graph TD
+    A[&quot;Web Graph G&lt;br/&gt;(pages + hyperlinks)&quot;] --&gt; B[&quot;Build transition matrix P&lt;br/&gt;P(y,x) = 1/|out(y)|&quot;]
+    B --&gt; C[&quot;Add damping: P&#39; = αP + (1-α)·1/N&lt;br/&gt;(handles SCCs, periodicity, sinks)&quot;]
+    C --&gt; D[&quot;Power iteration: μ·P&#39;^k → π&quot;]
+    D --&gt; E[&quot;π = PageRank vector&lt;br/&gt;π(x) = importance of page x&quot;]</code></pre>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Random walk on webgraph</td>
+<td>Natural importance measure</td>
+</tr>
+<tr>
+<td>Damping parameter α</td>
+<td>Ensures ergodicity (unique π)</td>
+</tr>
+<tr>
+<td>Stationary distribution π</td>
+<td>= PageRank (importance)</td>
+</tr>
+<tr>
+<td>πP = π</td>
+<td>Eigenvector equation</td>
+</tr>
+<tr>
+<td>Power iteration</td>
+<td>Efficient computation</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="12-summary">12. Summary</h2>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Key Point</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Markov chain</strong></td>
+<td>Random walk defined by stochastic matrix P</td>
+</tr>
+<tr>
+<td><strong>Pᵏ(i,j)</strong></td>
+<td>Probability of i → j in k steps</td>
+</tr>
+<tr>
+<td><strong>Stationary distribution</strong></td>
+<td>π such that πP = π; left eigenvector with eigenvalue 1</td>
+</tr>
+<tr>
+<td><strong>Ergodic</strong></td>
+<td>Irreducible (1 SCC) + aperiodic (self-loops); guarantees unique
+π</td>
+</tr>
+<tr>
+<td><strong>PageRank</strong></td>
+<td>π(x) = Σ π(y)/</td>
+</tr>
+<tr>
+<td><strong>Random surfer</strong></td>
+<td>With prob α follow link, prob 1-α jump randomly</td>
+</tr>
+<tr>
+<td><strong>α (damping)</strong></td>
+<td>≈ 0.85; ensures full connectivity; balances fidelity vs
+convergence</td>
+</tr>
+<tr>
+<td><strong>Sink nodes</strong></td>
+<td>Set α = 0 (always random jump)</td>
+</tr>
+<tr>
+<td><strong>Computing π</strong></td>
+<td>Power iteration μ · P'^k; O(m) per iteration</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>🎯 <strong>Exam Tip:</strong> Know the connection between the three
+perspectives: (1) citation counting, (2) random walks/Markov chains, (3)
+eigenvectors. They all give the same equation.</p>
+</blockquote>
+<blockquote>
+<p>⚠️ <strong>Common Pitfall:</strong> The webgraph is NOT ergodic by
+itself (multiple SCCs, sinks, possible bipartiteness). The damping
+parameter is essential — without it, PageRank is not well-defined.</p>
+</blockquote>
+</main>
+
+<!-- code highlighting -->
+<link rel="modulepreload" href="../../../vendor/mermaid/mermaid.esm.min.mjs">
+<script src="../../../vendor/highlight/highlight.min.js"></script>
+<!-- math -->
+<script defer src="../../../vendor/katex/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="../../../vendor/katex/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+<script type="module">
+  // 1) Normalize mermaid blocks. Pandoc(gfm) emits <pre class="mermaid"><code>...</code></pre>.
+  //    Flatten to raw source text so mermaid parses cleanly; also catch the code-only variant.
+  document.querySelectorAll('pre > code.language-mermaid, pre > code.mermaid').forEach(c => {
+    const p = document.createElement('pre'); p.className = 'mermaid'; p.textContent = c.textContent;
+    c.parentElement.replaceWith(p);
+  });
+  document.querySelectorAll('pre.mermaid').forEach(p => { p.textContent = p.textContent; });
+  // 2) Syntax-highlight every code block EXCEPT mermaid (auto-detect language)
+  if (window.hljs) document.querySelectorAll('pre:not(.mermaid) > code').forEach(el => window.hljs.highlightElement(el));
+  // 3) Render mermaid (dark)
+  try {
+    const mermaid = (await import('../../../vendor/mermaid/mermaid.esm.min.mjs')).default;
+    mermaid.initialize({ startOnLoad: false, theme: 'dark', securityLevel: 'loose' });
+    await mermaid.run({ querySelector: 'pre.mermaid' });
+  } catch (e) { /* offline: leave as text */ }
+</script>
+<script>
+  // 4) Math: render \( \) and \[ \] (pandoc converts dollar-math to these). Tolerate malformed legacy TeX.
+  window.addEventListener('DOMContentLoaded', () => {
+    if (window.renderMathInElement) renderMathInElement(document.querySelector('.content'), {
+      // dollar-delimiters included so KaTeX also renders math pandoc failed to parse (left raw):
+      // a space before a closing delim, cases-env inline, apostrophes in text, etc. Display before inline.
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '\\[', right: '\\]', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false }
+      ],
+      throwOnError: false,
+      // \n is used in the legacy notes as a homemade "arrow over" (directed edge); map it to \overrightarrow.
+      macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
+    });
+  });
+</script>
+</body>
+</html>

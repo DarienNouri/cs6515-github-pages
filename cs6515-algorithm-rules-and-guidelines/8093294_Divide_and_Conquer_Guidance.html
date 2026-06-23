@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Divide and Conquer Guidance — CS6515</title>
+<link rel="stylesheet" href="../vendor/fonts/fonts.css">
+<link rel="stylesheet" href="../theme.css">
+<link rel="stylesheet" href="../vendor/katex/katex.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="../vendor/highlight/styles/tokyo-night-dark.min.css">
+
+</head>
+<body>
+<header class="topbar">
+  <a class="home" href="../index.html">CS6515</a>
+  <span class="crumbloc">Divide and Conquer Guidance</span>
+</header>
+<main class="content">
+<h1 id="divide-and-conquer-guidance">Divide and Conquer Guidance</h1>
+<p><strong>Category</strong>: Staff Use Only &gt; Supplemental Material
+<strong>Date</strong>: 2026-05-25 15:18 <strong>Link</strong>: <a
+href="https://edstem.org/us/courses/98593/discussion/8093294">https://edstem.org/us/courses/98593/discussion/8093294</a>
+<strong>Pinned</strong>: False | <strong>Votes</strong>: 8 |
+<strong>Views</strong>: 4041</p>
+<h2 id="post">Post</h2>
+<p>Below you will find information on how you should approach solving
+Divide &amp; Conquer (D&amp;C) problems in this class. In cases where
+the lecture material differs in format or content, this post supersedes
+those examples.</p>
+<p>Rules:</p>
+<ul>
+<li><p>Submissions must be a Divide &amp; Conquer approach to be
+eligible for points.</p></li>
+<li><p>When asked to describe your solution in words, you may not use
+code/pseudocode</p></li>
+<li><p>Each recurrence should be a smaller problem than before.</p></li>
+<li><p>You must beat the brute force solution</p></li>
+</ul>
+<p>You may leverage known algorithms mentioned as part of your solution,
+such as <strong>Binary Search</strong>, <strong>Merge Sort</strong>,
+<strong>Median of Medians (FastSelect)</strong>, or
+<strong>FastMultiply</strong>. See #65 for further information and
+runtimes on these known algorithms.</p>
+<p>You may also choose to modify a known algorithm (using the pattern
+and general logic, but adapting it to suit your needs). If you do so,
+you <strong><strong>must</strong></strong> (a) account for the run time
+impact of any modifications (b) justify why your approach, including the
+modifications, solve the problem.</p>
+<h2 id="required-parts-of-a-dc-solution">Required Parts of a D&amp;C
+Solution</h2>
+<ul>
+<li><p><strong>(a) <strong>Algorithm</strong></strong>.</p></li>
+<li><p>Describe "how" to solve the problem in words (narrative/paragraph
+form)</p></li>
+<li><ul>
+<li>Bulleted steps are fine, but pseudocode/code is not allowed</li>
+</ul></li>
+<li><p>"Pseudocode" includes line-by-line restatement of code as
+words.</p></li>
+<li><p>If you find yourself using a lot of nested bullets, you might be
+erring on the side of line-by-line conversion of code into words, which
+is not a narrative.</p></li>
+<li><p>Must include all steps, including the final return</p></li>
+<li><p>If you modify a known algorithm <strong>you must detail the
+modifications.</strong></p></li>
+<li><p><strong>(b) <strong>Justification of
+Correctness</strong></strong>.</p></li>
+<li><ul>
+<li>Describe "why" your algorithm solves the problem, in words
+(narrative).</li>
+</ul></li>
+<li><p>This is not a formal inductive proof; informal justification is
+ok.</p></li>
+<li><p>If you modify a known algorithm you must include an explanation
+of why that modification is correct and effective.</p></li>
+<li><p><strong>(c) <strong>Runtime Analysis</strong></strong>.</p></li>
+<li><p>Analyze all steps of the algorithm in <strong>Big-O
+notation</strong>.</p></li>
+<li><p>Always, <em>always</em> in this course - worst case
+Big-O.</p></li>
+<li><p>Do not have to analyze O(1) steps</p></li>
+<li><p>May assert known unmodified black-box runtimes without further
+justification</p></li>
+<li><p>If a black box is modified, the runtime impact of those
+modifications must be justified, even if there is no impact.</p></li>
+<li><p>Must provide an overall final runtime in (you guessed it) Big-O
+notation, fully simplified.</p></li>
+</ul>
+<p>You should address each of the three components
+<strong>separately</strong>, and keep in mind that you are writing for
+an audience. The harder it is to find a required component the more
+likely you will be disappointed with your initial grade. There is no
+implicit justification of correctness within the algorithm steps; the
+correctness must be explicitly justified.## Steps to developing a
+D&amp;C solution:</p>
+<ul>
+<li><p>Figure out your pattern; it may (but does not have to) leverage a
+known algorithm</p></li>
+<li><p>Sorted = Binary Search (usually)</p></li>
+<li><p>Unsorted = Merge Sort or FastSelect (usually)</p></li>
+<li><p>Polynomials, convolution, multiplication = FFT (usually)</p></li>
+<li><p>State the modification of the known algorithm <strong>if
+needed</strong>. You may also use a known algorithm as is.</p></li>
+<li><ul>
+<li>Which parts of the algorithm you are changing.</li>
+</ul></li>
+<li><p>What are your inputs and outputs to the algorithm, if
+changed.</p></li>
+<li><p>State the steps of your algorithm in words</p></li>
+<li><ul>
+<li>Must include base case(s) <strong>if needed</strong></li>
+</ul></li>
+<li><ul>
+<li>Always return what the problem asks for</li>
+</ul></li>
+<li><p>Prove Correctness</p></li>
+<li><p>Explain why this algorithm solves the problem.</p></li>
+<li><p>Not a formal/mathematical proof.</p></li>
+<li><p>Examples of things you might cover:</p></li>
+<li><p>Why use this black box? What qualities of the input allow you to
+take advantage of its use?</p></li>
+<li><p>Why did you make a black box modification?</p></li>
+<li><p>Why does the problem space get smaller on each round?</p></li>
+<li><p>Why does the base case always hold true?</p></li>
+<li><p>Why do we decide to branch left or right on each round?</p></li>
+<li><p>Analyze the runtime.</p></li>
+</ul>
+<p>Please ask questions regarding the expectations for D&amp;C problems
+in this thread.</p>
+<h2 id="responses-12">Responses (12)</h2>
+<ul>
+<li><p><strong>Comment</strong> by User 1503889 on 2026-05-25 23:17
+(Votes: 4)</p>
+<blockquote>
+<p>I dont see FFT in the schedule this semester. We dont need to watch
+it, right?</p>
+</blockquote>
+<ul>
+<li><strong>Comment</strong> by User 137215 on 2026-05-25 23:18 (Votes:
+6)
+<blockquote>
+<p><img
+src="https://static.us.edusercontent.com/files/uXvY6z1o0n7PY7Kg0ekLTgbW"
+alt="Image" /> You could wait until closer to the end of the semester,
+or you could mix it in now while it's contextually related.</p>
+<p>Watcher's choice. It is not covered scope for Exam 1.</p>
+</blockquote></li>
+</ul></li>
+<li><p><strong>Comment</strong> by User 1664716 on 2026-05-26 01:08
+(Votes: 2)</p>
+<blockquote>
+<p>What are the suggested lecture topics for this week of DC? DC1
+through DC3? or DC1 &amp; DC2 as per the published schedule? A bit
+confused since the announcement mentions <strong>Week3</strong></p>
+</blockquote>
+<ul>
+<li><strong>Comment</strong> by User 137215 on 2026-05-26 01:09 (Votes:
+2)
+<blockquote>
+<p>The announcement typo doesn't change what week we're actually in:</p>
+<p><img
+src="https://static.us.edusercontent.com/files/BgQCyk5sTdaoyrcmIUph2MeB"
+alt="Image" /></p>
+</blockquote></li>
+</ul></li>
+<li><p><strong>Comment</strong> by User 969222 on 2026-05-26 09:29
+(Votes: 2)</p>
+<blockquote>
+<p>Will you be able to provide an ideal solution example as you did for
+DP?</p>
+</blockquote>
+<ul>
+<li><strong>Comment</strong> by User 137215 on 2026-05-26 09:30 (Votes:
+4)
+<blockquote>
+<p>We don't currently have one here but will have plenty of samples and
+videos on Thursday.</p>
+<p>This is a good suggestion though!</p>
+</blockquote></li>
+</ul></li>
+<li><p><strong>Comment</strong> by User 644600 on 2026-05-26 15:07
+(Votes: 1)</p>
+<blockquote>
+<p>See <a
+href="https://edstem.org/us/courses/98593/discussion/threads/183">#183</a>
+--&gt; does this link work for anyone?</p>
+</blockquote>
+<ul>
+<li><p><strong>Comment</strong> by User 1294055 on 2026-05-26 20:55
+(Votes: 1)</p>
+<blockquote>
+<p>#183 not working, maybe TA meant this post #65</p>
+</blockquote>
+<ul>
+<li><strong>Comment</strong> by User 137215 on 2026-05-26 23:08 (Votes:
+1)
+<blockquote>
+<p>Always miss one of those links in there somewhere 😢.</p>
+<p>Fixed!</p>
+</blockquote></li>
+</ul></li>
+</ul></li>
+<li><p><strong>Comment</strong> by User 1135584 on 2026-05-26 22:12
+(Votes: 2)</p>
+<blockquote>
+<p>can a recurrence be specified with multiple parameters?</p>
+<p>The recurrence for merge sort is T(n) = 4T(n/2) + O(n) could you have
+a recurrence like T(x,y) when working with 2 dimensional data for
+instance?</p>
+</blockquote>
+<ul>
+<li><strong>Comment</strong> by User 137215 on 2026-05-26 23:08 (Votes:
+2)
+<blockquote>
+<p>It is possible, and might prove interesting / useful for one of the
+homework problems this week.</p>
+</blockquote></li>
+</ul></li>
+<li><p><strong>Comment</strong> by User 1135584 on 2026-05-26 23:49
+(Votes: 2)</p>
+<blockquote>
+<p>On a real exam, will we be graded on optimality for a D&amp;C
+problem? For example, lets say we didn't have the fast multiplication
+algorithm in the lectures and were asked to create a D&amp;C algorithm
+for multiplication. Lets say I define an algorithm in D&amp;C format and
+analyze it correctly, but I didn't know the trick for the O(log2(3))
+solution so my solution was O(n^2)</p>
+<p>Would I lose points for this?</p>
+</blockquote>
+<ul>
+<li><strong>Comment</strong> by User 100133 on 2026-05-27 00:53 (Votes:
+5)
+<blockquote>
+<p>Optimal approaches (or at least, beating a naive approach) are extra
+important for Divide and Conquer, since that's the whole point of doing
+a Divide and Conquer solution. If you're searching through a sorted list
+and you come up with a divide and conquer approach that's O(n), there's
+no point in going through all the extra dividing and conquering steps
+since an O(n) linear scan can accomplish the same things. Failing to
+beat a brute force or naive approach means big penalties, and exams are
+graded in the same way homeworks are.</p>
+<p>However, Integer Fast multiplication (and FFT, which is also divide
+and conquer) is something very clever to have developed in a vacuum.
+Coming up with something that clever would be a bit much to ask for on
+an exam. But at the same time, since it's covered in the lectures,
+asking you to use it or to pattern off of it is fair game.</p>
+</blockquote></li>
+</ul></li>
+<li><p><strong>Comment</strong> by User 821283 on 2026-05-28 10:58
+(Votes: 2)</p>
+<blockquote>
+<p>Assuming I have justified the recurrence relation of my algorithm, is
+that fair to directly use the Master Theorem to derive the runtime
+complexity?</p>
+</blockquote>
+<ul>
+<li><strong>Comment</strong> by User 137215 on 2026-05-28 11:03 (Votes:
+4)
+<blockquote>
+<p>If you map the parts of your algorithm to the parts of the recurrence
+relation, then use the master theorem to present the overall runtime as
+part of that, that is sufficient.</p>
+</blockquote></li>
+</ul></li>
+<li><p><strong>Comment</strong> by User 494888 on 2026-05-28 22:32
+(Votes: 0)</p>
+<blockquote>
+<p>would it be sufficient in the Algorithm section of the solution to
+just mention one of the common modifications for a listed D&amp;C
+algorithm as per #65 or we would need to explain the implementation of
+that modification too?</p>
+<p>a more clear example of what I'm asking would be something like: we
+use the return kth element version of fast select for........(without
+explaining that implementation)</p>
+</blockquote>
+<ul>
+<li><strong>Comment</strong> by User 137215 on 2026-05-28 23:40 (Votes:
+3)
+<blockquote>
+<blockquote>
+<p>would it be sufficient in the Algorithm section of the solution to
+just mention one of the common modifications</p>
+</blockquote>
+<p>From #65:</p>
+<p><img
+src="https://static.us.edusercontent.com/files/UIxmwEcUOZCmE9ulbnPmenJ4"
+alt="Image" /></p>
+<blockquote>
+<p>we use the return kth element version of fast select for</p>
+</blockquote>
+<p>This would be marked wrong.</p>
+<p>FastSelect itself returns the kth element, it just happens to be the
+kth smallest element.</p>
+<p>The one common modification for FastSelect is to switch smallest to
+largest, and for that it is indeed as simple as:</p>
+<blockquote>
+<p>We modify FastSelect to return the kth largest element instead of the
+kth smallest.</p>
+</blockquote>
+</blockquote></li>
+</ul></li>
+<li><p><strong>Comment</strong> by User 648127 on 2026-05-29 14:53
+(Votes: 1)</p>
+<blockquote>
+<p>Can we get an example of what is wanted with DC algorithms? like we
+did for Dynamic programming, because there can be lot of ways the above
+steps can be written.</p>
+</blockquote>
+<ul>
+<li><strong>Comment</strong> by User 137215 on 2026-05-29 14:54 (Votes:
+1)
+<blockquote>
+<p>#52</p>
+</blockquote></li>
+</ul></li>
+<li><p><strong>Comment</strong> by User 1510341 on 2026-05-30 12:14
+(Votes: 0)</p>
+<blockquote>
+<p>The required parts of a solution will be provided on the exam,
+correct?</p>
+</blockquote>
+<ul>
+<li><p><strong>Comment</strong> by User 135758 on 2026-05-30 14:52
+(Votes: 1)</p>
+<blockquote>
+<p>You should expect problem statements similar to the homework
+problems, with some flavor of: "Explain your design in plain English (no
+pseudocode) and justify its correctness. State and analyse its
+runtime."</p>
+</blockquote>
+<ul>
+<li><p><strong>Comment</strong> by User 1136354 on 2026-05-31 05:19
+(Votes: 0)</p>
+<blockquote>
+<p>Will we be required in any form to derive the calculations for 2T,
+3T, or 4T sub-problems? Or is memorizing the reasoning and runtime for
+each of these enough for analysis?</p>
+<p>I went through the calculations by hand during lectures for 2T and
+4T, but don't want to waste time doing 3T as well if it's not
+necessary.</p>
+</blockquote>
+<ul>
+<li><p><strong>Comment</strong> by User 137215 on 2026-05-31 05:22
+(Votes: 1)</p>
+<blockquote>
+<p>You are not required to use a formualated recurrence relation.</p>
+<p>If you choose to use it, you map your algorithm to its terms, and
+then you can use master theorem to denote the end resultant runtime as a
+consequence of the terms.</p>
+<p>You do not need to, but may include intermediate steps; however, if
+those steps include mistakes, even with the end runtime being correct,
+may result in them incurring penalties.</p>
+</blockquote>
+<ul>
+<li><p><strong>Comment</strong> by User 1136354 on 2026-05-31 06:10
+(Votes: 0)</p>
+<blockquote>
+<p>Thank you! Also, will we be required to memorize the master theorem,
+or is that provided on exams?</p>
+</blockquote>
+<ul>
+<li><strong>Comment</strong> by User 137215 on 2026-05-31 06:12 (Votes:
+0)
+<blockquote>
+<p>You are not required to memorize it, but it hasn't be provided on
+exams to date and unless Dr. Brito chooses to exclude it, would be
+covered as part of the scope under Exam 1.</p>
+</blockquote></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li><p><strong>Comment</strong> by User 812771 on 2026-06-01 02:05
+(Votes: 2)</p>
+<blockquote>
+<p>Will there be any more guidance on master theorem and how to
+understand it?</p>
+</blockquote>
+<ul>
+<li><p><strong>Comment</strong> by User 137215 on 2026-06-01 04:04
+(Votes: 2)</p>
+<blockquote>
+<p>There's an additional post we have in the queue for supplementing
+runtime analysis / "another way to think about" recurrence relation
+analysis.</p>
+<p>If there are still questions about it after that, office hours would
+be a good place to explore the topic.</p>
+</blockquote></li>
+<li><p><strong>Comment</strong> by User 1498569 on 2026-06-02 11:40
+(Votes: 2)</p>
+<blockquote>
+<p>In case you're open to an outside resource...</p>
+<p>The first half of this MIT 6.006 problem session was incredibly
+helpful for me to understand Master Theorem.</p>
+<p><a
+href="https://youtu.be/KlQiwkhLBg0?si=9oqafy8jiOf-zW_q">https://youtu.be/KlQiwkhLBg0?si=9oqafy8jiOf-zW_q</a></p>
+</blockquote></li>
+</ul></li>
+<li><p><strong>Comment</strong> by User 1135584 on 2026-06-06 04:56
+(Votes: 0)</p>
+<blockquote>
+<p>On the exam, will there be recurrence problems more complicated than
+what can be solved with Christian's intuitive method or the textbook
+version of the master's theorem? Basically will we need to be
+comfortable with the substitution method or is it worth spending my
+study time elsewhere?</p>
+</blockquote>
+<ul>
+<li><strong>Comment</strong> by User 137215 on 2026-06-06 07:31 (Votes:
+0)
+<blockquote>
+<blockquote>
+<p>On the exam, will there be recurrence problems more complicated than
+what can be solved with Christian's intuitive method or the textbook
+version of the master's theorem?</p>
+</blockquote>
+<p>This is entirely possible, as complexity analysis is knowledge we
+assume students have coming into the course.</p>
+<p>For anything where the master theorem applies, since there are
+"variants" / extended versions, the version from the book will be
+sufficient.</p>
+</blockquote></li>
+</ul></li>
+</ul>
+</main>
+
+<!-- code highlighting -->
+<link rel="modulepreload" href="../vendor/mermaid/mermaid.esm.min.mjs">
+<script src="../vendor/highlight/highlight.min.js"></script>
+<!-- math -->
+<script defer src="../vendor/katex/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="../vendor/katex/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+<script type="module">
+  // 1) Normalize mermaid blocks. Pandoc(gfm) emits <pre class="mermaid"><code>...</code></pre>.
+  //    Flatten to raw source text so mermaid parses cleanly; also catch the code-only variant.
+  document.querySelectorAll('pre > code.language-mermaid, pre > code.mermaid').forEach(c => {
+    const p = document.createElement('pre'); p.className = 'mermaid'; p.textContent = c.textContent;
+    c.parentElement.replaceWith(p);
+  });
+  document.querySelectorAll('pre.mermaid').forEach(p => { p.textContent = p.textContent; });
+  // 2) Syntax-highlight every code block EXCEPT mermaid (auto-detect language)
+  if (window.hljs) document.querySelectorAll('pre:not(.mermaid) > code').forEach(el => window.hljs.highlightElement(el));
+  // 3) Render mermaid (dark)
+  try {
+    const mermaid = (await import('../vendor/mermaid/mermaid.esm.min.mjs')).default;
+    mermaid.initialize({ startOnLoad: false, theme: 'dark', securityLevel: 'loose' });
+    await mermaid.run({ querySelector: 'pre.mermaid' });
+  } catch (e) { /* offline: leave as text */ }
+</script>
+<script>
+  // 4) Math: render \( \) and \[ \] (pandoc converts dollar-math to these). Tolerate malformed legacy TeX.
+  window.addEventListener('DOMContentLoaded', () => {
+    if (window.renderMathInElement) renderMathInElement(document.querySelector('.content'), {
+      // dollar-delimiters included so KaTeX also renders math pandoc failed to parse (left raw):
+      // a space before a closing delim, cases-env inline, apostrophes in text, etc. Display before inline.
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '\\[', right: '\\]', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false }
+      ],
+      throwOnError: false,
+      // \n is used in the legacy notes as a homemade "arrow over" (directed edge); map it to \overrightarrow.
+      macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
+    });
+  });
+</script>
+</body>
+</html>

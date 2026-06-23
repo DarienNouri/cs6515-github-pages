@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Week 5 — Minimum Spanning Tree — CS6515</title>
+<link rel="stylesheet" href="../../vendor/fonts/fonts.css">
+<link rel="stylesheet" href="../../theme.css">
+<link rel="stylesheet" href="../../vendor/katex/katex.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="../../vendor/highlight/styles/tokyo-night-dark.min.css">
+
+</head>
+<body>
+<header class="topbar">
+  <a class="home" href="../../index.html">CS6515</a>
+  <span class="crumbloc">Week 5 — Minimum Spanning Tree</span>
+</header>
+<main class="content">
+<h1 id="week-5--minimum-spanning-tree">Week 5 — Minimum Spanning
+Tree</h1>
+<blockquote>
+<p><strong>2026-06-15 → 06-21</strong> · Module <strong>GR3</strong>
+(MST: Kruskal's &amp; Prim's)</p>
+<p><a href="../W04_2026-06-08_DP3-GR1-GR2_EXAM1/index.html">◀ W04 Graphs</a> · <a
+href="../index.html">All weeks</a> · <a
+href="../../00_START_HERE/INDEX.html">Index</a> · <a
+href="../W06_2026-06-22_MF1-MF2/index.html">W06 Max-Flow ▶</a></p>
+</blockquote>
+<h3 id="due-this-week">Due this week</h3>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Type</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>HW5</strong></td>
+<td>written</td>
+<td>MST problems</td>
+</tr>
+<tr>
+<td><strong>Quiz 4</strong></td>
+<td>format</td>
+<td>graph-theory answer format</td>
+</tr>
+</tbody>
+</table>
+<details>
+<summary><b>Watch the lecture</b> (MST)</summary>
+
+<p><video controls preload="metadata" width="100%" src="https://storage.googleapis.com/darien-public-assets/cs6515-summer-2026/v20260623/videos/05_Week_05_MST.mp4"></video></p>
+<p><a href="https://storage.googleapis.com/darien-public-assets/cs6515-summer-2026/v20260623/videos/05_Week_05_MST.mp4">▶ Open video</a> · <a
+href="transcripts/05_Week_05_MST.txt">Transcript</a></p>
+</details>
+
+<hr />
+<h2 id="learning-objectives">Learning objectives</h2>
+<ul>
+<li>State <strong>and prove</strong> the Cut Property (exchange
+argument).</li>
+<li>Trace <strong>Kruskal's</strong> (sort + Union-Find) and
+<strong>Prim's</strong> (grow + min-heap).</li>
+<li>Explain why both algorithms are special cases of the Cut
+Property.</li>
+<li>Quote the <span
+class="math inline"><em>O</em>(<em>E</em>log <em>V</em>)</span> runtime
+and where the log comes from.</li>
+</ul>
+<h2 id="core-concepts">Core concepts</h2>
+<h3 id="spanning-tree--mst">Spanning tree &amp; MST</h3>
+<p><strong>Definition.</strong> A <em>spanning tree</em> of a connected
+undirected graph <span
+class="math inline"><em>G</em> = (<em>V</em>, <em>E</em>)</span> is a
+subset of edges that is <strong>connected</strong> and
+<strong>acyclic</strong> and touches every vertex. A <em>minimum
+spanning tree</em> (MST) is a spanning tree of minimum total edge
+weight.</p>
+<p>Intuition: the cheapest way to wire all vertices together with no
+redundant loops.</p>
+<p>Key facts:</p>
+<ul>
+<li>A tree on <span class="math inline"><em>n</em></span> vertices has
+exactly <span class="math inline"><em>n</em> − 1</span> edges.</li>
+<li>Any two of {connected, acyclic, <span
+class="math inline"><em>n</em> − 1</span> edges} imply the third.</li>
+<li>Adding one edge to a tree creates exactly <strong>one</strong>
+cycle; removing one edge from a tree disconnects it into exactly
+<strong>two</strong> components.</li>
+<li>MST need not be unique — but if all edge weights are
+<strong>distinct</strong>, the MST <em>is</em> unique.</li>
+</ul>
+<h3 id="cuts">Cuts</h3>
+<p><strong>Definition.</strong> A <em>cut</em> <span
+class="math inline">(<em>S</em>, <em>V</em> \ <em>S</em>)</span> is any
+partition of the vertices into two non-empty sets. An edge
+<em>crosses</em> the cut if its endpoints are on opposite sides.</p>
+<p>This is the object the Cut Property reasons about — every greedy MST
+step is secretly "pick the lightest edge across some cut."</p>
+<h3 id="the-greedy--exchange-idea">The greedy / exchange idea</h3>
+<p>Both MST algorithms are <strong>greedy</strong>: repeatedly commit to
+the locally-cheapest safe edge and never backtrack. Correctness comes
+from the Cut Property, proved by an <em>exchange argument</em> (swap a
+heavier edge out for the greedy edge without increasing total
+weight).</p>
+<h3 id="union-find-disjoint-sets">Union-Find (disjoint sets)</h3>
+<p><strong>Purpose.</strong> Kruskal needs to test "do these two
+endpoints already sit in the same tree component?" fast. Union-Find
+supports <code>find(x)</code> (which component) and
+<code>union(x,y)</code> (merge) in near-constant amortized time with
+<strong>path compression + union by rank</strong> (<span
+class="math inline"><em>O</em>(<em>α</em>(<em>n</em>))</span>,
+effectively <span class="math inline"><em>O</em>(1)</span>).</p>
+<h2 id="algorithms">Algorithms</h2>
+<h3 id="kruskals--oelog-v">Kruskal's — <span
+class="math inline"><em>O</em>(<em>E</em>log <em>V</em>)</span></h3>
+<ol type="1">
+<li>Sort all edges by weight ascending. <em>(this sort dominates: <span
+class="math inline"><em>O</em>(<em>E</em>log <em>E</em>) = <em>O</em>(<em>E</em>log <em>V</em>)</span>)</em></li>
+<li>Initialize Union-Find with each vertex in its own set; start with an
+empty MST.</li>
+<li>Scan edges cheapest-first. For edge <span
+class="math inline">(<em>u</em>, <em>v</em>)</span>: if
+<code>find(u) ≠ find(v)</code>, add it to the MST and
+<code>union(u,v)</code>; otherwise skip (it would create a cycle).</li>
+<li>Stop once the MST has <span
+class="math inline"><em>n</em> − 1</span> edges.</li>
+</ol>
+<p>Use when: the graph is given as an edge list / is sparse; easy to
+reason about.</p>
+<h3 id="prims--oelog-v">Prim's — <span
+class="math inline"><em>O</em>(<em>E</em>log <em>V</em>)</span></h3>
+<ol type="1">
+<li>Pick any start vertex; put it in the tree set <span
+class="math inline"><em>T</em></span>.</li>
+<li>Maintain a <strong>min-heap</strong> of edges crossing from <span
+class="math inline"><em>T</em></span> to the rest (or of vertex keys =
+the lightest edge connecting each outside vertex to <span
+class="math inline"><em>T</em></span>).</li>
+<li>Repeatedly extract the lightest crossing edge whose far endpoint is
+outside <span class="math inline"><em>T</em></span>; add that edge and
+vertex to <span class="math inline"><em>T</em></span>; update keys of
+its neighbours.</li>
+<li>Stop when <span
+class="math inline"><em>T</em> = <em>V</em></span>.</li>
+</ol>
+<p>Use when: the graph is given as an adjacency list / you want to grow
+one connected tree.</p>
+<table>
+<thead>
+<tr>
+<th>Algorithm</th>
+<th>Strategy</th>
+<th>Data structure</th>
+<th>Runtime</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Kruskal's</strong></td>
+<td>add globally-lightest edge that doesn't form a cycle</td>
+<td>Union-Find</td>
+<td><span
+class="math inline"><em>O</em>(<em>E</em>log <em>V</em>)</span></td>
+</tr>
+<tr>
+<td><strong>Prim's</strong></td>
+<td>grow one tree, add lightest edge leaving it</td>
+<td>min-heap</td>
+<td><span
+class="math inline"><em>O</em>(<em>E</em>log <em>V</em>)</span></td>
+</tr>
+</tbody>
+</table>
+<p>Both reach <span
+class="math inline"><em>O</em>(<em>E</em>log <em>V</em>)</span>; the
+<span class="math inline">log <em>V</em></span> is the sort (Kruskal) or
+the heap operations (Prim).</p>
+<h2 id="key-theorems--results">Key theorems &amp; results</h2>
+<h3 id="cut-property">Cut Property</h3>
+<blockquote>
+<p>For any cut <span
+class="math inline">(<em>S</em>, <em>V</em> \ <em>S</em>)</span>, if
+<span class="math inline"><em>e</em></span> is a <strong>strictly
+lightest</strong> edge crossing the cut, then <span
+class="math inline"><em>e</em></span> belongs to <strong>every</strong>
+MST. (For ties: <span class="math inline"><em>e</em></span> belongs to
+<em>some</em> MST.)</p>
+</blockquote>
+<p><em>Proof (exchange argument).</em> Suppose an MST <span
+class="math inline"><em>T</em></span> does not contain the lightest
+crossing edge <span
+class="math inline"><em>e</em> = (<em>u</em>, <em>v</em>)</span>. Adding
+<span class="math inline"><em>e</em></span> to <span
+class="math inline"><em>T</em></span> creates a cycle; since <span
+class="math inline"><em>u</em> ∈ <em>S</em></span> and <span
+class="math inline"><em>v</em> ∈ <em>V</em> \ <em>S</em></span>, that
+cycle must cross the cut a second time on some edge <span
+class="math inline"><em>e</em><sup>′</sup></span>. By choice of <span
+class="math inline"><em>e</em></span>, <span
+class="math inline"><em>w</em>(<em>e</em>) ≤ <em>w</em>(<em>e</em><sup>′</sup>)</span>.
+Form <span
+class="math inline"><em>T</em><sup>′</sup> = <em>T</em> − <em>e</em><sup>′</sup> + <em>e</em></span>:
+still spanning and acyclic, with <span
+class="math display"><em>w</em>(<em>T</em><sup>′</sup>) = <em>w</em>(<em>T</em>) − <em>w</em>(<em>e</em><sup>′</sup>) + <em>w</em>(<em>e</em>) ≤ <em>w</em>(<em>T</em>).</span>
+So <span class="math inline"><em>T</em><sup>′</sup></span> is also an
+MST and it contains <span class="math inline"><em>e</em></span>. <span
+class="math inline">◼</span></p>
+<p><strong>Consequences.</strong> Kruskal applies the Cut Property to
+the cut separating the two components its candidate edge would join;
+Prim applies it to the cut <span
+class="math inline">(<em>T</em>, <em>V</em> \ <em>T</em>)</span>. Both
+only ever add lightest-across-a-cut edges, so they only add MST
+edges.</p>
+<h2 id="worked-example-kruskal-trace">Worked example (Kruskal
+trace)</h2>
+<p>Vertices <span
+class="math inline"><em>A</em>, <em>B</em>, <em>C</em>, <em>D</em>, <em>E</em></span>;
+edges (weight): <span
+class="math inline"><em>A</em><em>B</em>(1), <em>B</em><em>C</em>(2), <em>B</em><em>D</em>(3), <em>A</em><em>C</em>(4), <em>C</em><em>D</em>(5), <em>D</em><em>E</em>(6)</span>.</p>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Edge</th>
+<th>Weight</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><span class="math inline"><em>A</em><em>B</em></span></td>
+<td>1</td>
+<td>add — different sets</td>
+</tr>
+<tr>
+<td>2</td>
+<td><span class="math inline"><em>B</em><em>C</em></span></td>
+<td>2</td>
+<td>add — different sets</td>
+</tr>
+<tr>
+<td>3</td>
+<td><span class="math inline"><em>B</em><em>D</em></span></td>
+<td>3</td>
+<td>add — different sets</td>
+</tr>
+<tr>
+<td>4</td>
+<td><span class="math inline"><em>A</em><em>C</em></span></td>
+<td>4</td>
+<td><strong>skip</strong> — <span
+class="math inline"><em>A</em>, <em>C</em></span> already connected
+(cycle)</td>
+</tr>
+<tr>
+<td>5</td>
+<td><span class="math inline"><em>C</em><em>D</em></span></td>
+<td>5</td>
+<td><strong>skip</strong> — <span
+class="math inline"><em>C</em>, <em>D</em></span> already connected</td>
+</tr>
+<tr>
+<td>6</td>
+<td><span class="math inline"><em>D</em><em>E</em></span></td>
+<td>6</td>
+<td>add — connects <span class="math inline"><em>E</em></span>; now
+<span class="math inline"><em>n</em> − 1 = 4</span> edges, done</td>
+</tr>
+</tbody>
+</table>
+<p>MST <span
+class="math inline"> = {<em>A</em><em>B</em>, <em>B</em><em>C</em>, <em>B</em><em>D</em>, <em>D</em><em>E</em>}</span>,
+total weight <span class="math inline">1 + 2 + 3 + 6 = 12</span>.</p>
+<h2 id="common-pitfalls--exam-traps">Common pitfalls / exam traps</h2>
+<ul>
+<li>Forgetting MST is for <strong>undirected</strong> graphs; "MST of a
+directed graph" is a different (arborescence) problem, out of
+scope.</li>
+<li>Claiming uniqueness without the <strong>distinct-weights</strong>
+hypothesis.</li>
+<li>In Kruskal, skipping the cycle check — adding an edge inside a
+component breaks the tree.</li>
+<li>Quoting <span class="math inline"><em>O</em>(<em>E</em>)</span> for
+the algorithms — the sort / heap makes it <span
+class="math inline"><em>O</em>(<em>E</em>log <em>V</em>)</span>.</li>
+</ul>
+<h2 id="how-to-answer-hw--exam">How to answer (HW / exam)</h2>
+<p>MST is a <strong>black box</strong>: cite Kruskal/Prim and their
+<span class="math inline"><em>O</em>(<em>E</em>log <em>V</em>)</span>
+runtimes; invoke the Cut Property for correctness rather than
+re-deriving from scratch. See <a
+href="guidance/graph-theory-guidance.html">graph guidance</a>.</p>
+<details>
+<summary><b>Go deeper</b> — readings · guidance · deep notes</summary>
+
+<ul>
+<li><a href="readings/DPV-ch5-greedy-algorithms.pdf">DPV §5.1 (greedy /
+MST)</a></li>
+<li><a href="guidance/graph-theory-guidance.html">Graph guidance</a> ·
+<a href="guidance/usable-black-boxes-graphs.html">Black boxes</a> · <a
+href="guidance/common-course-runtimes.html">Common runtimes</a></li>
+<li>Deep notes: <a href="notes/GR3-minimum-spanning-tree.html">GR3
+MST</a> · <a href="notes/graphs-cheat-sheet.html">cheat sheet</a></li>
+<li><a href="lectures/">lectures/</a> · <a
+href="transcripts/">transcripts/</a> · <a href="readings/">readings/</a>
+· <a href="guidance/">guidance/</a> · <a href="notes/">notes/</a></li>
+</ul>
+</details>
+
+<h2 id="comprehensive-notes">Comprehensive Notes</h2>
+<blockquote>
+<p>Full lecture notes for GR3, with figures and diagrams inline. MST is
+our first greedy algorithm that provably works; the key is the Cut
+Property.</p>
+</blockquote>
+<h3 id="gr3--minimum-spanning-tree">GR3 — Minimum Spanning Tree</h3>
+<p><img src="../../.assets/CS6515_images/dpv-5.1.png"
+alt="DPV Figure 5.1" /></p>
+<h4 id="1-problem-definition">1. Problem definition</h4>
+<ul>
+<li><strong>Given:</strong> an undirected, connected graph <span
+class="math inline"><em>G</em> = (<em>V</em>, <em>E</em>)</span> with
+edge weights <span
+class="math inline"><em>w</em>(<em>e</em>)</span>.</li>
+<li><strong>Find:</strong> a spanning tree <span
+class="math inline"><em>T</em> ⊆ <em>E</em></span> of minimum total
+weight <span
+class="math inline">min ∑<sub><em>e</em> ∈ <em>T</em></sub><em>w</em>(<em>e</em>)</span>.</li>
+</ul>
+<p>A <strong>spanning tree</strong> of <span
+class="math inline"><em>G</em></span> is a subset of edges that connects
+all vertices (spans the graph), has no cycles (is a tree), and has
+exactly <span class="math inline">|<em>V</em>|−1</span> edges.</p>
+<h4 id="2-tree-properties">2. Tree properties</h4>
+<p>These three properties are equivalent for a subgraph with <span
+class="math inline"><em>n</em></span> vertices:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Implies</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Connected + <span class="math inline"><em>n</em> − 1</span>
+edges</td>
+<td>must be a tree</td>
+</tr>
+<tr>
+<td>Connected + acyclic</td>
+<td>must have <span class="math inline"><em>n</em> − 1</span> edges</td>
+</tr>
+<tr>
+<td><span class="math inline"><em>n</em> − 1</span> edges + acyclic</td>
+<td>must be connected</td>
+</tr>
+</tbody>
+</table>
+<p>Also: a tree has <strong>exactly one path</strong> between any pair
+of vertices; removing any edge disconnects it; adding any edge creates
+exactly one cycle. Intuition: a tree is the most economical way to keep
+a graph connected (<span class="math inline"><em>n</em> − 1</span>
+edges); an MST does so with minimum weight.</p>
+<h4 id="3-kruskals-algorithm">3. Kruskal's algorithm</h4>
+<p>Repeatedly add the lightest edge that doesn't create a cycle.</p>
+<pre><code>Kruskal(G, w):       // with Union-Find
+    1. Sort E by increasing weight
+    2. X = ∅
+    3. Initialize Union-Find with each vertex in its own set
+    4. For each edge e = (v, w) in sorted order:
+         if Find(v) ≠ Find(w):
+             X = X ∪ {e}
+             Union(v, w)
+    5. Return X</code></pre>
+<p><strong>Cycle detection with Union-Find.</strong> A disjoint-set
+structure supports <code>Find(v)</code> (component of <span
+class="math inline"><em>v</em></span>) and <code>Union(v,w)</code>
+(merge components). Adding edge <span
+class="math inline">(<em>v</em>, <em>w</em>)</span> creates a cycle
+<span class="math inline">⇔</span> <span
+class="math inline">Find(<em>v</em>) = Find(<em>w</em>)</span>.</p>
+<p><strong>Runtime:</strong> <span
+class="math inline"><em>O</em>(|<em>E</em>|log |<em>V</em>|)</span> —
+sorting is <span
+class="math inline"><em>O</em>(|<em>E</em>|log |<em>E</em>|) = <em>O</em>(|<em>E</em>|log |<em>V</em>|)</span>
+since <span
+class="math inline">|<em>E</em>| ≤ |<em>V</em>|<sup>2</sup></span>;
+Union-Find costs <span
+class="math inline"><em>O</em>(|<em>E</em>|⋅<em>α</em>(|<em>V</em>|)) ≈ <em>O</em>(|<em>E</em>|)</span>;
+sorting dominates.</p>
+<p>Worked example graph:</p>
+<pre class="mermaid"><code>graph LR
+    A ---|1| B
+    A ---|4| C
+    B ---|2| C
+    B ---|3| D
+    C ---|5| D
+    C ---|7| E
+    D ---|6| E</code></pre>
+<p>Sorted edges: <span
+class="math inline">(<em>A</em>, <em>B</em>, 1), (<em>B</em>, <em>C</em>, 2), (<em>B</em>, <em>D</em>, 3), (<em>A</em>, <em>C</em>, 4), (<em>C</em>, <em>D</em>, 5), (<em>D</em>, <em>E</em>, 6), (<em>C</em>, <em>E</em>, 7)</span>.</p>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Edge</th>
+<th>Weight</th>
+<th>Add?</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>(A,B)</td>
+<td>1</td>
+<td>yes</td>
+<td>different components</td>
+</tr>
+<tr>
+<td>2</td>
+<td>(B,C)</td>
+<td>2</td>
+<td>yes</td>
+<td>different components</td>
+</tr>
+<tr>
+<td>3</td>
+<td>(B,D)</td>
+<td>3</td>
+<td>yes</td>
+<td>different components</td>
+</tr>
+<tr>
+<td>4</td>
+<td>(A,C)</td>
+<td>4</td>
+<td>no</td>
+<td>same component — would create cycle</td>
+</tr>
+<tr>
+<td>5</td>
+<td>(C,D)</td>
+<td>5</td>
+<td>no</td>
+<td>same component</td>
+</tr>
+<tr>
+<td>6</td>
+<td>(D,E)</td>
+<td>6</td>
+<td>yes</td>
+<td>connects <span class="math inline"><em>E</em></span>; done (<span
+class="math inline">4 = <em>n</em> − 1</span> edges)</td>
+</tr>
+</tbody>
+</table>
+<p>MST <span
+class="math inline"> = {(<em>A</em>, <em>B</em>), (<em>B</em>, <em>C</em>), (<em>B</em>, <em>D</em>), (<em>D</em>, <em>E</em>)}</span>,
+total weight <span class="math inline">1 + 2 + 3 + 6 = 12</span>.</p>
+<h4 id="4-the-cut-property--why-kruskals-works">4. The Cut Property —
+why Kruskal's works</h4>
+<p><strong>What is a cut?</strong> For undirected <span
+class="math inline"><em>G</em> = (<em>V</em>, <em>E</em>)</span>, a
+<strong>cut</strong> partitions <span
+class="math inline"><em>V</em></span> into two non-empty sets <span
+class="math inline"><em>S</em></span> and <span
+class="math inline"><em>S̄</em> = <em>V</em> \ <em>S</em></span>. The
+<strong>cut edges</strong> are <span
+class="math inline">cut(<em>S</em>, <em>S̄</em>) = {(<em>v</em>, <em>w</em>) ∈ <em>E</em> : <em>v</em> ∈ <em>S</em>, <em>w</em> ∈ <em>S̄</em>}</span>.</p>
+<blockquote>
+<p><strong>Lemma (Cut Property).</strong> Let <span
+class="math inline"><em>X</em> ⊆ <em>E</em></span> be a subset of some
+MST <span class="math inline"><em>T</em></span>. Let <span
+class="math inline"><em>S</em> ⊆ <em>V</em></span> be such that no edge
+of <span class="math inline"><em>X</em></span> crosses the cut <span
+class="math inline">(<em>S</em>, <em>S̄</em>)</span>. Let <span
+class="math inline"><em>e</em><sup>*</sup></span> be a
+<strong>minimum-weight edge</strong> crossing the cut. Then <span
+class="math inline"><em>X</em> ∪ {<em>e</em><sup>*</sup>} ⊆ <em>T</em><sup>′</sup></span>
+for some MST <span
+class="math inline"><em>T</em><sup>′</sup></span>.</p>
+<p><em>In plain English:</em> a minimum-weight edge across any cut is
+safe to add to the MST.</p>
+</blockquote>
+<p><strong>Proof.</strong> Fix <span
+class="math inline"><em>G</em>, <em>X</em>, <em>T</em></span> (an MST
+containing <span class="math inline"><em>X</em></span>), and <span
+class="math inline"><em>S</em></span>; <span
+class="math inline"><em>e</em><sup>*</sup></span> is a min-weight edge
+in <span class="math inline">cut(<em>S</em>, <em>S̄</em>)</span> and no
+edge of <span class="math inline"><em>X</em></span> crosses the cut.</p>
+<ul>
+<li><strong>Case A:</strong> <span
+class="math inline"><em>e</em><sup>*</sup> ∈ <em>T</em></span>. Then
+<span class="math inline"><em>T</em><sup>′</sup> = <em>T</em></span>.
+Done.</li>
+<li><strong>Case B:</strong> <span
+class="math inline"><em>e</em><sup>*</sup> ∉ <em>T</em></span>. Add
+<span class="math inline"><em>e</em><sup>*</sup></span> to <span
+class="math inline"><em>T</em></span>, creating a unique cycle <span
+class="math inline"><em>C</em></span>. Since <span
+class="math inline"><em>e</em><sup>*</sup> = (<em>a</em>, <em>b</em>)</span>
+crosses the cut (<span
+class="math inline"><em>a</em> ∈ <em>S</em>, <em>b</em> ∈ <em>S̄</em></span>),
+<span class="math inline"><em>C</em></span> must cross back at least
+once more; let <span class="math inline"><em>e</em><sup>′</sup></span>
+be another cut edge of <span class="math inline"><em>C</em></span>. Set
+<span
+class="math inline"><em>T</em><sup>′</sup> = <em>T</em> ∪ {<em>e</em><sup>*</sup>} \ {<em>e</em><sup>′</sup>}</span>.
+<ul>
+<li><em><span class="math inline"><em>T</em><sup>′</sup></span> is a
+tree</em>: <span class="math inline"><em>n</em> − 1</span> edges, and
+connected (any path using <span
+class="math inline"><em>e</em><sup>′</sup></span> detours through the
+rest of <span class="math inline"><em>C</em></span>).</li>
+<li><em><span class="math inline"><em>T</em><sup>′</sup></span> is an
+MST</em>: <span
+class="math inline"><em>w</em>(<em>e</em><sup>*</sup>) ≤ <em>w</em>(<em>e</em><sup>′</sup>)</span>
+(both cross the cut, <span
+class="math inline"><em>e</em><sup>*</sup></span> minimal), so <span
+class="math inline"><em>w</em>(<em>T</em><sup>′</sup>) = <em>w</em>(<em>T</em>) + <em>w</em>(<em>e</em><sup>*</sup>) − <em>w</em>(<em>e</em><sup>′</sup>) ≤ <em>w</em>(<em>T</em>)</span>;
+but <span class="math inline"><em>T</em></span> is minimum, so <span
+class="math inline"><em>w</em>(<em>T</em><sup>′</sup>) = <em>w</em>(<em>T</em>)</span>.</li>
+<li><em><span
+class="math inline"><em>X</em> ∪ {<em>e</em><sup>*</sup>} ⊆ <em>T</em><sup>′</sup></span></em>:
+<span class="math inline"><em>X</em> ⊆ <em>T</em></span> with no cut
+edges, so <span
+class="math inline"><em>e</em><sup>′</sup> ∉ <em>X</em></span>; thus
+<span class="math inline"><em>X</em> ⊆ <em>T</em><sup>′</sup></span>,
+and <span
+class="math inline"><em>e</em><sup>*</sup> ∈ <em>T</em><sup>′</sup></span>
+by construction. <span class="math inline">◼</span></li>
+</ul></li>
+</ul>
+<blockquote>
+<p><strong>Exam note.</strong> This is one of the most likely proof
+questions on the exam — know the two cases (<em><span
+class="math inline"><em>e</em><sup>*</sup> ∈ <em>T</em></span></em> vs
+<em><span
+class="math inline"><em>e</em><sup>*</sup> ∉ <em>T</em></span></em>) and
+the swap argument cold.</p>
+</blockquote>
+<h4 id="5-why-kruskals-is-correct-via-cut-property">5. Why Kruskal's is
+correct (via Cut Property)</h4>
+<p>At each step, when Kruskal adds <span
+class="math inline"><em>e</em> = (<em>v</em>, <em>w</em>)</span>: <span
+class="math inline"><em>v</em>, <em>w</em></span> are in different
+components; let <span class="math inline"><em>S</em></span> = the
+component of <span class="math inline"><em>v</em></span>. No edge of
+<span class="math inline"><em>X</em></span> (so far) crosses this cut,
+and <span class="math inline"><em>e</em></span> is the minimum-weight
+edge crossing it (edges are processed in sorted order). By the Cut
+Property, adding <span class="math inline"><em>e</em></span> is safe. By
+induction <span class="math inline"><em>X</em></span> is always a subset
+of some MST; when <span
+class="math inline">|<em>X</em>| = <em>n</em> − 1</span>, <span
+class="math inline"><em>X</em></span> <em>is</em> that MST.</p>
+<h4 id="6-prims-algorithm">6. Prim's algorithm</h4>
+<p>Grow a single tree from a start vertex, always adding the lightest
+edge connecting the tree to a non-tree vertex.</p>
+<pre><code>Prim(G, w):
+    X = ∅
+    S = {any starting vertex}
+    while |X| &lt; |V| - 1:
+        e* = minimum weight edge in cut(S, V\S)
+        X = X ∪ {e*}
+        S = S ∪ {endpoint of e* in V\S}
+    Return X</code></pre>
+<p><strong>Implementation:</strong> a min-heap keyed by the lightest
+edge connecting each non-tree vertex to the tree.
+<strong>Runtime:</strong> <span
+class="math inline"><em>O</em>(|<em>E</em>|log |<em>V</em>|)</span>.
+<strong>Correctness:</strong> the Cut Property at each step with <span
+class="math inline"><em>S</em></span> = tree-so-far. Tracing the same
+graph from <span class="math inline"><em>A</em></span> gives the same
+MST, weight <span class="math inline">12</span>.</p>
+<h4 id="7-kruskals-vs-prims">7. Kruskal's vs Prim's</h4>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Kruskal's</th>
+<th>Prim's</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Strategy</strong></td>
+<td>global: lightest edge overall</td>
+<td>local: lightest edge from current tree</td>
+</tr>
+<tr>
+<td><strong>Grows</strong></td>
+<td>forest → single tree</td>
+<td>single tree from start</td>
+</tr>
+<tr>
+<td><strong>Data structure</strong></td>
+<td>Union-Find</td>
+<td>min-heap</td>
+</tr>
+<tr>
+<td><strong>Runtime</strong></td>
+<td><span
+class="math inline"><em>O</em>(|<em>E</em>|log |<em>V</em>|)</span></td>
+<td><span
+class="math inline"><em>O</em>(|<em>E</em>|log |<em>V</em>|)</span></td>
+</tr>
+<tr>
+<td><strong>Better for</strong></td>
+<td>sparse graphs</td>
+<td>dense graphs</td>
+</tr>
+<tr>
+<td><strong>Correctness</strong></td>
+<td>Cut Property (<span class="math inline"><em>S</em></span> =
+component)</td>
+<td>Cut Property (<span class="math inline"><em>S</em></span> = tree so
+far)</td>
+</tr>
+</tbody>
+</table>
+<p>Both are special cases of the generic "greedy + Cut Property"
+approach.</p>
+<p><strong>Pitfalls.</strong> MST is for <strong>undirected</strong>
+graphs only (the directed analog, minimum spanning arborescence, is a
+different problem). With equal edge weights the MST may not be unique,
+but the total weight is — any tie-breaking yields a valid MST.</p>
+<!-- WEEK-EXTRAS:START -->
+
+<h2 id="dpv-chapter-exercises">DPV chapter exercises</h2>
+<details>
+<summary><b>DPV chapter exercises (exact, from the textbook)</b></summary>
+
+<p><em>Exact end-of-chapter exercises, parsed from the DPV chapter
+PDFs.</em></p>
+<p><strong>DPV Ch 5 — Greedy Algorithms</strong> — <a
+href="../../textbooks/examples-md/05-greedy-algorithms-dpv-examples.html">open
+exercises</a> · <a href="readings/DPV-ch5-examples.pdf">chapter
+PDF</a></p>
+<iframe class="examples-frame" src="../../textbooks/examples-md/05-greedy-algorithms-dpv-examples.html" title="DPV Ch 5 — Greedy Algorithms exercises"></iframe>
+
+</details>
+
+<!-- WEEK-EXTRAS:END -->
+
+<h2 id="agent-hint">Agent hint</h2>
+<p>MST question → state the Cut Property, pick Kruskal (Union-Find) or
+Prim (heap), both <span
+class="math inline"><em>O</em>(<em>E</em>log <em>V</em>)</span>. Full
+proof + trace in <a href="notes/GR3-minimum-spanning-tree.html">GR3
+notes</a>.</p>
+</main>
+
+<!-- code highlighting -->
+<link rel="modulepreload" href="../../vendor/mermaid/mermaid.esm.min.mjs">
+<script src="../../vendor/highlight/highlight.min.js"></script>
+<!-- math -->
+<script defer src="../../vendor/katex/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="../../vendor/katex/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+<script type="module">
+  // 1) Normalize mermaid blocks. Pandoc(gfm) emits <pre class="mermaid"><code>...</code></pre>.
+  //    Flatten to raw source text so mermaid parses cleanly; also catch the code-only variant.
+  document.querySelectorAll('pre > code.language-mermaid, pre > code.mermaid').forEach(c => {
+    const p = document.createElement('pre'); p.className = 'mermaid'; p.textContent = c.textContent;
+    c.parentElement.replaceWith(p);
+  });
+  document.querySelectorAll('pre.mermaid').forEach(p => { p.textContent = p.textContent; });
+  // 2) Syntax-highlight every code block EXCEPT mermaid (auto-detect language)
+  if (window.hljs) document.querySelectorAll('pre:not(.mermaid) > code').forEach(el => window.hljs.highlightElement(el));
+  // 3) Render mermaid (dark)
+  try {
+    const mermaid = (await import('../../vendor/mermaid/mermaid.esm.min.mjs')).default;
+    mermaid.initialize({ startOnLoad: false, theme: 'dark', securityLevel: 'loose' });
+    await mermaid.run({ querySelector: 'pre.mermaid' });
+  } catch (e) { /* offline: leave as text */ }
+</script>
+<script>
+  // 4) Math: render \( \) and \[ \] (pandoc converts dollar-math to these). Tolerate malformed legacy TeX.
+  window.addEventListener('DOMContentLoaded', () => {
+    if (window.renderMathInElement) renderMathInElement(document.querySelector('.content'), {
+      // dollar-delimiters included so KaTeX also renders math pandoc failed to parse (left raw):
+      // a space before a closing delim, cases-env inline, apostrophes in text, etc. Display before inline.
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '\\[', right: '\\]', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false }
+      ],
+      throwOnError: false,
+      // \n is used in the legacy notes as a homemade "arrow over" (directed edge); map it to \overrightarrow.
+      macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
+    });
+  });
+</script>
+</body>
+</html>

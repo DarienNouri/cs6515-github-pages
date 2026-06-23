@@ -1,0 +1,3082 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Week 11 — Advanced Topics — CS6515</title>
+<link rel="stylesheet" href="../../vendor/fonts/fonts.css">
+<link rel="stylesheet" href="../../theme.css">
+<link rel="stylesheet" href="../../vendor/katex/katex.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="../../vendor/highlight/styles/tokyo-night-dark.min.css">
+
+</head>
+<body>
+<header class="topbar">
+  <a class="home" href="../../index.html">CS6515</a>
+  <span class="crumbloc">Week 11 — Advanced Topics</span>
+</header>
+<main class="content">
+<h1 id="week-11--advanced-topics">Week 11 — Advanced Topics</h1>
+<blockquote>
+<p><strong>2026-07-27 → 08-02</strong> · <strong>FFT</strong> (DC4/5),
+<strong>Graph/Flow applications</strong>, <strong>RA1</strong> Modular
+Arithmetic, <strong>RA2</strong> RSA, <strong>RA3</strong> Bloom
+Filters</p>
+<p><a href="../W10_2026-07-20_LP4-NP4-NP5_EXAM3/index.html">◀ W10 Approx</a> · <a
+href="../index.html">All weeks</a> · <a
+href="../../00_START_HERE/INDEX.html">Index</a></p>
+</blockquote>
+<h3 id="due-this-week">Due this week</h3>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Type</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Quiz 8</strong></td>
+<td>cumulative</td>
+<td>covers the whole course</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>This week is a <strong>grab-bag</strong> of four shorter lectures.
+Pick by sub-topic below.</p>
+</blockquote>
+<details>
+<summary><b>Watch the lectures</b> (4 parts)</summary>
+
+<ul>
+<li><a href="https://storage.googleapis.com/darien-public-assets/cs6515-summer-2026/v20260623/videos/11A_Week_11_FFT.mp4">▶ 11A — FFT</a> · <a
+href="transcripts/11A_FFT.txt">transcript</a></li>
+<li><a href="https://storage.googleapis.com/darien-public-assets/cs6515-summer-2026/v20260623/videos/11B_Week_11_Graph_Flow_Applications.mp4">▶ 11B —
+Graph/Flow Applications</a> · <a
+href="transcripts/11B_Graph_Flow_Applications.txt">transcript</a></li>
+<li><a href="https://storage.googleapis.com/darien-public-assets/cs6515-summer-2026/v20260623/videos/11C_Week_11_Number_Theory_Crypto.mp4">▶ 11C — Number
+Theory &amp; Crypto</a> · <a
+href="transcripts/11C_Number_Theory_Crypto.txt">transcript</a></li>
+<li><a href="https://storage.googleapis.com/darien-public-assets/cs6515-summer-2026/v20260623/videos/11D_Week_11_Bloom_Filters.mp4">▶ 11D — Bloom Filters</a> ·
+<a href="transcripts/11D_Bloom_Filters.txt">transcript</a></li>
+</ul>
+</details>
+
+<hr />
+<h2 id="learning-objectives">Learning objectives</h2>
+<ul>
+<li>Explain how <strong>FFT</strong> multiplies polynomials in <span
+class="math inline"><em>O</em>(<em>n</em>log <em>n</em>)</span> via
+roots of unity.</li>
+<li>Reduce real problems (matching, segmentation, selection) to
+<strong>max-flow / min-cut</strong>.</li>
+<li>Do <strong>fast modular exponentiation</strong> and state
+<strong>Fermat's little theorem</strong>.</li>
+<li>Walk the <strong>RSA</strong> key/encrypt/decrypt cycle and its
+security assumption.</li>
+<li>Quantify a <strong>Bloom filter's</strong> false-positive rate and
+its space tradeoff.</li>
+</ul>
+<h2 id="core-concepts">Core concepts</h2>
+<h3 id="fft--fast-polynomial-multiplication-11a--dpv-26">FFT — fast
+polynomial multiplication (11A · DPV §2.6)</h3>
+<p><strong>Problem.</strong> Multiply two degree-<span
+class="math inline"><em>n</em></span> polynomials. The schoolbook
+convolution of coefficients is <span
+class="math inline"><em>O</em>(<em>n</em><sup>2</sup>)</span>.</p>
+<p><strong>Key idea — two representations.</strong> A degree-<span
+class="math inline"><em>n</em></span> polynomial is fixed by either its
+<span class="math inline"><em>n</em> + 1</span>
+<strong>coefficients</strong> or its values at <span
+class="math inline"><em>n</em> + 1</span> <strong>points</strong>.
+Multiplication is <span
+class="math inline"><em>O</em>(<em>n</em>)</span> in the point-value
+representation (just multiply values pointwise). FFT is the fast change
+of basis between the two, evaluating/interpolating at the <strong><span
+class="math inline">2<em>n</em></span>-th complex roots of
+unity</strong> <span
+class="math inline"><em>ω</em><sup><em>k</em></sup> = <em>e</em><sup>2<em>π</em><em>i</em><em>k</em>/2<em>n</em></sup></span>
+(chosen because their special structure lets a divide-and-conquer split
+the work):</p>
+<p><span class="math display">$$
+\text{coeffs} \xrightarrow{\ \text{FFT}\ } \text{point values}
+\xrightarrow{\ \times\ } \text{point values}
+\xrightarrow{\ \text{FFT}^{-1}\ } \text{coeffs}, \qquad O(n\log n).
+$$</span></p>
+<p><strong>Why <span
+class="math inline"><em>n</em>log <em>n</em></span>.</strong> FFT splits
+a size-<span class="math inline"><em>n</em></span> evaluation into two
+size-<span class="math inline"><em>n</em>/2</span> evaluations (even/odd
+coefficients) plus <span
+class="math inline"><em>O</em>(<em>n</em>)</span> combine: <span
+class="math inline"><em>T</em>(<em>n</em>) = 2<em>T</em>(<em>n</em>/2) + <em>O</em>(<em>n</em>) = <em>O</em>(<em>n</em>log <em>n</em>)</span>
+by the Master theorem (W2).</p>
+<h3 id="graph--flow-applications-11b">Graph / flow applications
+(11B)</h3>
+<p>Many problems are <strong>max-flow / min-cut in disguise</strong> —
+the same black box from W6–W7:</p>
+<ul>
+<li><strong>Bipartite matching</strong> → unit-capacity flow from a
+super-source to a super-sink; max-flow = max matching.</li>
+<li><strong>Image segmentation</strong> → min-cut separating
+foreground/background pixels.</li>
+<li><strong>Project selection</strong> → min-cut trading off project
+profits vs prerequisite costs.</li>
+</ul>
+<p>The skill is <strong>modeling</strong>: define vertices, edges,
+capacities, <span class="math inline"><em>s</em></span>, <span
+class="math inline"><em>t</em></span>, then call max-flow.</p>
+<h3 id="modular-arithmetic--fast-exponentiation-11c--dpv-1112">Modular
+arithmetic &amp; fast exponentiation (11C · DPV §1.1–1.2)</h3>
+<p><strong>Fast modular exponentiation.</strong> Compute <span
+class="math inline"><em>a</em><sup><em>n</em></sup> mod  <em>N</em></span>
+in <span class="math inline"><em>O</em>(log <em>n</em>)</span>
+multiplications by <strong>repeated squaring</strong> —
+square-and-multiply down the bits of <span
+class="math inline"><em>n</em></span>:</p>
+<p><span class="math display">$$
+a^n =
+\begin{cases}
+(a^{n/2})^2 &amp; n \text{ even},\\
+a \cdot (a^{(n-1)/2})^2 &amp; n \text{ odd}.
+\end{cases}
+$$</span></p>
+<p>Each multiply is taken <span
+class="math inline"> mod  <em>N</em></span> to keep numbers small. This
+is what makes RSA practical.</p>
+<h3 id="fermats-little-theorem">Fermat's little theorem</h3>
+<p>For prime <span class="math inline"><em>p</em></span> and <span
+class="math inline"><em>p</em> ∤ <em>a</em></span>:</p>
+<p><span
+class="math display"><em>a</em><sup><em>p</em> − 1</sup> ≡ 1 (mod  <em>p</em>).</span></p>
+<p>It underlies primality testing and the correctness of RSA
+decryption.</p>
+<h3 id="rsa-11c--dpv-1314">RSA (11C · DPV §1.3–1.4)</h3>
+<p><strong>Keys.</strong> Pick primes <span
+class="math inline"><em>p</em>, <em>q</em></span>; let <span
+class="math inline"><em>N</em> = <em>p</em><em>q</em></span> and <span
+class="math inline"><em>ϕ</em> = (<em>p</em> − 1)(<em>q</em> − 1)</span>.
+Choose public exponent <span class="math inline"><em>e</em></span>
+coprime to <span class="math inline"><em>ϕ</em></span>; compute private
+<span class="math inline"><em>d</em></span> with</p>
+<p><span
+class="math display"><em>e</em> <em>d</em> ≡ 1 (mod  <em>ϕ</em>).</span></p>
+<p>Public key <span class="math inline">(<em>N</em>, <em>e</em>)</span>;
+private key <span class="math inline"><em>d</em></span>.</p>
+<p><strong>Encrypt / decrypt.</strong> <span
+class="math inline"><em>c</em> = <em>m</em><sup><em>e</em></sup> mod  <em>N</em></span>,
+recover <span
+class="math inline"><em>m</em> = <em>c</em><sup><em>d</em></sup> mod  <em>N</em></span>.
+Correctness follows from <span
+class="math inline"><em>m</em><sup><em>e</em><em>d</em></sup> ≡ <em>m</em> (mod  <em>N</em>)</span>
+(Fermat / CRT). <strong>Security</strong> rests on the hardness of
+<strong>factoring</strong> <span
+class="math inline"><em>N</em> = <em>p</em><em>q</em></span>: knowing
+<span class="math inline"><em>p</em>, <em>q</em></span> gives <span
+class="math inline"><em>ϕ</em></span> and hence <span
+class="math inline"><em>d</em></span>, but factoring large <span
+class="math inline"><em>N</em></span> is believed hard.</p>
+<h3 id="bloom-filters-11d--dpv-15">Bloom filters (11D · DPV §1.5)</h3>
+<p><strong>Probabilistic set membership</strong> in tiny space. Use
+<span class="math inline"><em>k</em></span> independent hash functions
+into an <span class="math inline"><em>m</em></span>-bit array; insert by
+setting all <span class="math inline"><em>k</em></span> bits, query by
+checking all <span class="math inline"><em>k</em></span> bits.</p>
+<ul>
+<li><strong>No false negatives</strong> — if an item was inserted, its
+bits are set, so a membership query never wrongly says "absent".</li>
+<li><strong>False positives possible</strong> — collisions can set all
+<span class="math inline"><em>k</em></span> bits by accident. With <span
+class="math inline"><em>n</em></span> items:</li>
+</ul>
+<p><span class="math display">Pr [false
+positive] ≈ (1 − <em>e</em><sup>−<em>k</em><em>n</em>/<em>m</em></sup>)<sup><em>k</em></sup>.</span></p>
+<p>Tune <span class="math inline"><em>k</em></span> and <span
+class="math inline"><em>m</em></span> to trade a small error probability
+for large space savings.</p>
+<h2 id="algorithms">Algorithms</h2>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Idea</th>
+<th>Runtime</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>FFT</strong></td>
+<td>evaluate at roots of unity → pointwise multiply → interpolate</td>
+<td><span
+class="math inline"><em>O</em>(<em>n</em>log <em>n</em>)</span></td>
+</tr>
+<tr>
+<td><strong>Fast mod-exp</strong></td>
+<td>square-and-multiply over bits of <span
+class="math inline"><em>n</em></span></td>
+<td><span class="math inline"><em>O</em>(log <em>n</em>)</span>
+mults</td>
+</tr>
+<tr>
+<td><strong>Flow reduction</strong></td>
+<td>model as network, call max-flow</td>
+<td>per max-flow (e.g. <span
+class="math inline"><em>O</em>(<em>m</em><sup>2</sup><em>n</em>)</span>)</td>
+</tr>
+<tr>
+<td><strong>Bloom insert/query</strong></td>
+<td>set / test <span class="math inline"><em>k</em></span> hashed
+bits</td>
+<td><span class="math inline"><em>O</em>(<em>k</em>)</span></td>
+</tr>
+</tbody>
+</table>
+<h2 id="key-theorems--results">Key theorems &amp; results</h2>
+<ul>
+<li><strong>FFT correctness:</strong> evaluation at the <span
+class="math inline">2<em>n</em></span>-th roots of unity is invertible
+(the inverse FFT is the same algorithm with conjugate roots and a <span
+class="math inline">1/2<em>n</em></span> scale), so coefficients are
+recovered exactly.</li>
+<li><strong>Fermat's little theorem:</strong> <span
+class="math inline"><em>a</em><sup><em>p</em> − 1</sup> ≡ 1 (mod  <em>p</em>)</span>
+for prime <span class="math inline"><em>p</em> ∤ <em>a</em></span> — the
+engine of RSA correctness.</li>
+<li><strong>Bloom one-sidedness:</strong> false-negative rate is exactly
+0; only false positives occur.</li>
+</ul>
+<h2 id="worked-example-rsa-tiny-numbers">Worked example (RSA, tiny
+numbers)</h2>
+<p><span
+class="math inline"><em>p</em> = 3, <em>q</em> = 11 ⇒ <em>N</em> = 33, <em>ϕ</em> = (2)(10) = 20</span>.
+Pick <span class="math inline"><em>e</em> = 3</span> (coprime to 20);
+solve <span
+class="math inline">3<em>d</em> ≡ 1 (mod  20) ⇒ <em>d</em> = 7</span>.
+Encrypt <span class="math inline"><em>m</em> = 4</span>: <span
+class="math inline"><em>c</em> = 4<sup>3</sup> = 64 ≡ 31 (mod  33)</span>.
+Decrypt: <span class="math inline">31<sup>7</sup> mod  33 = 4</span> —
+original message recovered.</p>
+<h2 id="common-pitfalls--exam-traps">Common pitfalls / exam traps</h2>
+<ul>
+<li>Forgetting FFT needs <span class="math inline"> ≥ 2<em>n</em></span>
+points to represent the <strong>product</strong> (degree doubles).</li>
+<li>Reducing a problem to flow but mis-setting capacities (matching
+needs <strong>unit</strong> capacities).</li>
+<li>Computing <span
+class="math inline"><em>a</em><sup><em>n</em></sup> mod  <em>N</em></span>
+by naive repeated multiplication (<span
+class="math inline"><em>O</em>(<em>n</em>)</span>) instead of <span
+class="math inline"><em>O</em>(log <em>n</em>)</span> squaring.</li>
+<li>Saying Bloom filters can give false negatives — they
+<strong>cannot</strong>; only false positives.</li>
+</ul>
+<h2 id="how-to-answer-hw--exam">How to answer (HW / exam)</h2>
+<p>These run lighter than the exam units. FFT → cite <span
+class="math inline"><em>O</em>(<em>n</em>log <em>n</em>)</span> and the
+eval/multiply/interpolate pipeline. Flow apps → state the network
+(vertices, edges, capacities, <span
+class="math inline"><em>s</em></span>, <span
+class="math inline"><em>t</em></span>) and reduce to max-flow. RSA →
+show the modular-arithmetic steps. Bloom → state the false-positive rate
+and the no-false-negative guarantee.</p>
+<details>
+<summary><b>Go deeper</b> — readings</summary>
+
+<ul>
+<li><a href="readings/DPV-ch2-divide-and-conquer-FFT.pdf">DPV §2.6
+(FFT)</a> · <a
+href="readings/DPV-ch1-algorithms-with-numbers.pdf">§1.1–1.5 (numbers,
+RSA, Bloom)</a></li>
+<li><a href="guidance/common-course-runtimes.html">Common
+runtimes</a></li>
+<li><a href="notes/full-course-notes.html">Full course notes</a> · <a
+href="notes/ga-notes.pdf">ga-notes.pdf</a></li>
+<li><a href="lectures/">lectures/</a> · <a
+href="transcripts/">transcripts/</a> · <a href="readings/">readings/</a>
+· <a href="guidance/">guidance/</a> · <a href="notes/">notes/</a></li>
+</ul>
+</details>
+
+<h2 id="comprehensive-notes">Comprehensive Notes</h2>
+<blockquote>
+<p>Full lecture notes for this week's modules, figures inline. Source:
+course topic notes.</p>
+</blockquote>
+<h3 id="dc4--fast-fourier-transform-intro">DC4 — Fast Fourier Transform
+(Intro)</h3>
+<h4 id="dc4-fft-fast-fourier-transform">DC4: FFT-Fast Fourier
+Transform</h4>
+<p>What we've seen so far is how to use divide and conquer in a clever
+way to multiply large integers. So for N bit integers, we were able to
+multiply and compute their product in time better than <span
+class="math inline"><em>O</em>(<em>n</em><sup>2</sup>)</span>. What
+we're going to do now is multiply polynomials. To do this, we're going
+to use the beautiful divide and conquer algorithm known as
+<strong>FFT</strong>.</p>
+<ul>
+<li><strong>FFT</strong> stands for <em>Fast Fourier
+Transform</em>.</li>
+</ul>
+<p>So here's the set up. We have a pair of polynomials</p>
+<ul>
+<li><span
+class="math inline"><em>A</em>(<em>x</em>) = <em>a</em><sub>0</sub> + <em>a</em><sub>1</sub><em>x</em> + <em>a</em><sub>2</sub><em>x</em><sup>2</sup> + ⋯ + <em>a</em><sub><em>n</em> − 1</sub><em>x</em><sup><em>n</em> − 1</sup></span></li>
+<li><span
+class="math inline"><em>B</em>(<em>x</em>) = <em>b</em><sub>0</sub> + <em>b</em><sub>1</sub><em>x</em> + <em>b</em><sub>2</sub><em>x</em><sup>2</sup> + ⋯ + <em>b</em><sub><em>n</em> − 1</sub><em>x</em><sup><em>n</em> − 1</sup></span></li>
+</ul>
+<p>The goal is to compute the product polynomial</p>
+<ul>
+<li><span
+class="math inline"><em>C</em>(<em>x</em>) = <em>A</em>(<em>x</em>)<em>B</em>(<em>x</em>)</span></li>
+<li>which we expect to have the form
+<ul>
+<li><span
+class="math inline"><em>c</em><sub>0</sub> + <em>c</em><sub>1</sub><em>x</em> + <em>c</em><sub>2</sub><em>x</em><sup>2</sup> + ⋯ + <em>c</em><sub>2<em>n</em> − 1</sub><em>x</em><sup>2<em>n</em> − 2</sup></span></li>
+<li>Since the degree of C of X is at most 2n-2</li>
+</ul></li>
+<li>where $c_k = a_0 b_k + a_1 b_{k-1} + \cdots + a_k b_0 $
+<ul>
+<li>this is an easily provable result left to the reader</li>
+</ul></li>
+</ul>
+<p>We will use an alternative notation to help simplify the problem,
+This doesn't, however, change the problem.</p>
+<ul>
+<li>Use vector notation for the polynomial coefficients
+<ul>
+<li><span
+class="math inline"><em>A</em> = (<em>a</em><sub>0</sub>, <em>a</em><sub>1</sub>, <em>a</em><sub>2</sub>,,⋯, <em>a</em><sub><em>n</em> − 1</sub>)</span></li>
+<li><span
+class="math inline"><em>B</em> = (<em>b</em><sub>0</sub>, <em>b</em><sub>1</sub>, <em>b</em><sub>2</sub>,,⋯, <em>b</em><sub><em>n</em> − 1</sub>)</span></li>
+<li><span
+class="math inline"><em>C</em> = <em>A</em> ⋅ <em>B</em> = (<em>c</em><sub>0</sub>, <em>c</em><sub>1</sub>, <em>c</em><sub>2</sub>,,⋯, <em>c</em><sub>2<em>n</em> − 2</sub>)</span>
+<ul>
+<li>the star symbol denotes the convolution</li>
+</ul></li>
+</ul></li>
+</ul>
+<h5 id="p1-review-polynomials--convolutions">P1: Review-Polynomials
+&amp; Convolutions¶</h5>
+<p>Let's do a quick review of polynomial multiplication</p>
+<ul>
+<li>Let A = <span
+class="math inline">1 + 2<em>x</em> + 3<em>x</em><sup>2</sup></span> and
+B = <span
+class="math inline">2 − <em>x</em> + 4<em>x</em><sup>2</sup></span></li>
+<li>Then c = a*b = (2,3,8,5,12)
+<ul>
+<li>since there are k terms for <span
+class="math inline"><em>c</em><sub><em>k</em></sub></span> this will
+take O(k) time for <span
+class="math inline"><em>c</em><sub><em>k</em></sub></span>,</li>
+<li>but it takes a total of <span
+class="math inline"><em>O</em>(<em>n</em><sup>2</sup>)</span> time for
+the original A &amp; B</li>
+</ul></li>
+<li>We want better than <span
+class="math inline"><em>O</em>(<em>n</em><sup>2</sup>)</span>, in fact
+our goal is O(n log n)</li>
+</ul>
+<blockquote>
+<p><strong>Note.</strong> <strong>Convolutions</strong> are a rather
+unique type of function with many applications in signal and image
+processing. I highly recommend googling a bit if you've never
+encountered this.</p>
+</blockquote>
+<p>Now let's get back to our polynomials.</p>
+<p>There are 2 natural ways to express a polynomial</p>
+<ul>
+<li><ol type="1">
+<li>Coefficients: which we used above <span
+class="math inline"><em>A</em> = (<em>a</em><sub>0</sub>, <em>a</em><sub>1</sub>, <em>a</em><sub>2</sub>,,⋯, <em>a</em><sub><em>n</em> − 1</sub>)</span></li>
+</ol></li>
+<li><ol type="1">
+<li>Values: at each term, ie <span
+class="math inline"><em>A</em>(<em>x</em><sub>1</sub>), <em>A</em>(<em>x</em><sub>2</sub>), ⋯, <em>A</em>(<em>x</em><sub><em>n</em></sub>)</span></li>
+</ol></li>
+</ul>
+<blockquote>
+<p><strong>Lemma.</strong> A polynomial of degree <span
+class="math inline"><em>n</em> − 1</span> is uniquely determined by its
+values at any <span class="math inline"><em>n</em></span> distinct
+points.</p>
+</blockquote>
+<ul>
+<li>just think of a simple line. It has degree 1 and it determined by
+it's values at 2 distinct points</li>
+</ul>
+<p>Point 2 above is better for multiplication purposes. What
+<strong>FFT</strong> does is switch between the 2 representations.</p>
+<blockquote>
+<p><strong>Key idea.</strong> Multiplying polynomials is <em>easy</em>
+in the <strong>values representation</strong> — just multiply the values
+pointwise. FFT's job is to move cheaply between the <em>coefficient</em>
+and <em>value</em> representations. It may not be obvious why the value
+approach makes multiplication easier so let's look at an example.</p>
+</blockquote>
+<p>So suppose that we know the polynomial A(x) and B(x) evaluated at the
+same 2n points, (<span class="math inline"><em>x</em><sub>1</sub></span>
+-&gt; <span
+class="math inline"><em>x</em><sub>2<em>n</em></sub>)</span></p>
+<ul>
+<li>ie given
+<ul>
+<li><span
+class="math inline"><em>A</em>(<em>x</em><sub>1</sub>), <em>A</em>(<em>x</em><sub>2</sub>), ⋯, <em>A</em>(<em>x</em><sub>2<em>n</em></sub>)</span></li>
+<li><span
+class="math inline"><em>B</em>(<em>x</em><sub>1</sub>), <em>B</em>(<em>x</em><sub>2</sub>), ⋯, <em>B</em>(<em>x</em><sub>2<em>n</em></sub>)</span></li>
+<li>At the same 2n points</li>
+</ul></li>
+<li>Then we can compute the product polynomial C(x) at these 2n points
+by just computing the product of two numbers for each i.
+<ul>
+<li>ie <span
+class="math inline"><em>C</em>(<em>x</em><sub><em>i</em></sub>) = <em>A</em>(<em>x</em><sub><em>i</em></sub>)<em>B</em>(<em>x</em><sub><em>i</em></sub>)</span></li>
+<li>These are just numbers, making <span
+class="math inline"><em>C</em><sub><em>i</em></sub></span> just a
+number</li>
+<li>which take just O(1) to compute for each i</li>
+<li>t/f it takes O(n) total time to compute this product
+polynomial.</li>
+</ul></li>
+</ul>
+<p>Now why do we take A and B at two n points? Well, C is a polynomial
+of degree at most 2n-2. So we needed at least 2n minus one points. So
+two n points suffices.</p>
+<p>The summary is that, if we have the value of these polynomials, A(x)
+and B(x), at n, or two n points, then we compute this product polynomial
+at the same points in order n total time. So what we're going to do is
+we're going to use FFT to convert from the coefficients to the values,
+this is going to take O(n log n) to convert, and then it'll take O(n)
+total time to compute the product polynomial at these two n points, and
+then we do FFT to convert back from the values of C(x), at these two n
+points, back to the coefficients for C(x), and that again will take O(n
+log n) time.</p>
+<p>So let's dive in now to see how we do FFT, which converts from the
+coefficients to the values.</p>
+<p>Again let's re-iterate our terms here</p>
+<ul>
+<li>Given a polonomial of degree n
+<ul>
+<li><span
+class="math inline"><em>A</em>(<em>x</em>) = <em>a</em><sub>0</sub> + <em>a</em><sub>1</sub><em>x</em> + <em>a</em><sub>2</sub><em>x</em><sup>2</sup> + ⋯ + <em>a</em><sub><em>n</em> − 1</sub><em>x</em><sup><em>n</em> − 1</sup></span></li>
+<li>we represent this as <span
+class="math inline"><em>A</em> = (<em>a</em><sub>0</sub>, <em>a</em><sub>1</sub>, <em>a</em><sub>2</sub>, ⋯, <em>a</em><sub><em>n</em> − 1</sub>)</span></li>
+</ul></li>
+<li>Goal is to compute: <span
+class="math inline"><em>A</em>(<em>x</em><sub>1</sub>), <em>A</em>(<em>x</em><sub>2</sub>), ⋯, <em>A</em>(<em>x</em><sub>2<em>n</em></sub>)</span>
+<ul>
+<li>for any 2n points that we get to choose</li>
+</ul></li>
+</ul>
+<p>So let's suppose <span
+class="math inline"><em>x</em><sub>1</sub>, ..., <em>x</em><sub><em>n</em></sub></span>
+are the opposties of <span
+class="math inline"><em>x</em><sub><em>n</em> + 1</sub>, ..., <em>x</em><sub>2<em>n</em></sub></span><br />
+Then <span class="math inline">$x_{n+1}=-x_1, \\
+x_{n+2}=-x_2,...,x_{2n}=-x_n$</span><br />
+(let call this the <span class="math inline">±</span> property)</p>
+<p>Observe that for the even terms in A the opposite will have the same
+sign as they are powers of 2k. But for the odd terms their sign will be
+different.</p>
+<p>After splitting we have</p>
+<ul>
+<li><span
+class="math inline"><em>A</em><sub><em>e</em><em>v</em><em>e</em><em>n</em></sub> = (<em>a</em><sub>0</sub>, <em>a</em><sub>2</sub>, ⋯, <em>a</em><sub><em>n</em> − 2</sub>)</span></li>
+<li>and <span
+class="math inline"><em>A</em><sub><em>e</em><em>v</em><em>e</em><em>n</em></sub> = (<em>a</em><sub>1</sub>, <em>a</em><sub>3</sub>, ⋯, <em>a</em><sub><em>n</em> − 1</sub>)</span></li>
+</ul>
+<p>Which we can put back into a polynomial (using y to help alleviate
+any confusion)</p>
+<ul>
+<li>$A_{even}(y) = a_0+a_2 y + a_4 y^2 +\cdots+ a_{n-2} x^{(n-2)/2}
+$</li>
+<li>$A_{odd}(y) = a_1+a_3 y + a_5 y^2\cdots+ a_{n-1} x^{(n-2)/2} $</li>
+</ul>
+<p>These are new polynomials! these are not the same as the original
+A(x) polynomial. However, A(x) can be formed from these. In fact</p>
+<ul>
+<li>$A(x) = A_{even}(x^2) + x A_{odd}(x^2) $
+<ul>
+<li>we multiply the odd terms by x, otherwise we would be
+off-by-one</li>
+<li>verify this for a polynomial of degree 3</li>
+</ul></li>
+</ul>
+<p>At this point you should be picking up on our divide and conquer
+approach. We've divided the polynomial and we have yet to conquer.</p>
+<p>Now that we know $A(x) = A_{even}(x^2) + x A_{odd}(x^2) $ it's pretty
+simple to translate A(x) into <span
+class="math inline"><em>A</em>(<em>x</em><sub>1</sub>), <em>A</em>(<em>x</em><sub>2</sub>), ⋯, <em>A</em>(<em>x</em><sub>2<em>n</em></sub>)</span>
+all we need to do is</p>
+<ul>
+<li>compute at some point i, and use our <span
+class="math inline">±</span> property to compute at n+i
+<ul>
+<li>So $A(x_i) = A_{even}(x_i^2) + x_i A_{odd}(x_i^2) $</li>
+<li>and $A(x_{n+i}) = A(-x_i) = A_{even}(x_i^2) - x_i A_{odd}(x_i^2)
+$</li>
+<li>that was easy eh?</li>
+</ul></li>
+</ul>
+<p>So now</p>
+<ul>
+<li>given <span
+class="math inline"><em>A</em><sub><em>e</em><em>v</em><em>e</em><em>n</em></sub>(<em>y</em><sub>1</sub>), ..., <em>A</em><sub><em>e</em><em>v</em><em>e</em><em>n</em></sub>(<em>y</em><sub><em>n</em></sub>)</span>
+and <span
+class="math inline"><em>A</em><sub><em>o</em><em>d</em><em>d</em></sub>(<em>y</em><sub>1</sub>), ..., <em>A</em><sub><em>o</em><em>d</em><em>d</em></sub>(<em>y</em><sub><em>n</em></sub>)</span></li>
+<li>for <span
+class="math inline"><em>y</em><sub>1</sub> = <em>x</em><sub>1</sub><sup>2</sup>, ..., <em>y</em><sub><em>n</em></sub> = <em>x</em><sub><em>n</em></sub><sup>2</sup></span></li>
+<li>we compute <span
+class="math inline"><em>A</em>(<em>x</em><sub>1</sub>), <em>A</em>(<em>x</em><sub>2</sub>), ⋯, <em>A</em>(<em>x</em><sub>2<em>n</em></sub>)</span></li>
+<li>in just O(n) time</li>
+</ul>
+<p><strong>FFT-Summary</strong><br />
+To get <span class="math inline"><em>A</em>(<em>x</em>)</span> of deg
+<span class="math inline"> ≤ <em>n</em> − 1</span> at 2n points <span
+class="math inline"><em>x</em><sub>1</sub>, ...<em>x</em><sub>2<em>n</em></sub></span>
+of our choosing.</p>
+<ul>
+<li>1: We define <span
+class="math inline"><em>A</em><sub><em>e</em><em>v</em><em>e</em><em>n</em></sub></span>
+and <span
+class="math inline"><em>A</em><sub><em>o</em><em>d</em><em>d</em></sub></span>
+of deg <span class="math inline"> ≤ (<em>n</em>/2) − 1</span></li>
+<li>2: We recursively evaluate <span
+class="math inline"><em>A</em>(<em>x</em>)</span> at n points using
+$A(x) = A_{even}(x^2) + x A_{odd}(x^2) $
+<ul>
+<li>Recall <span
+class="math inline"><em>y</em><sub>1</sub> = <em>x</em><sub>1</sub><sup>2</sup> = <em>x</em><sub><em>n</em> + 1</sub><sup>2</sup>, ..., <em>y</em><sub><em>n</em></sub> = <em>x</em><sub><em>n</em></sub><sup>2</sup> = <em>x</em><sub>2<em>n</em></sub><sup>2</sup></span></li>
+</ul></li>
+<li>3: In O(n) time we get A(x) at points <span
+class="math inline"><em>x</em><sub>1</sub>, ...<em>x</em><sub>2<em>n</em></sub></span></li>
+</ul>
+<p>This leads to a runtime of <span
+class="math inline">2<em>T</em>(<em>n</em>) + <em>O</em>(<em>n</em>) = <em>O</em>(<em>n</em><em>l</em><em>o</em><em>g</em><em>n</em>)</span>,
+The astute student will also notice that so far this is very similar to
+the merge sort algorithm.</p>
+<p>All that is left is to prove the <span class="math inline">±</span>
+property holds not only for the initial polynomial but also for each
+level of recursion. Which may come as a bit of surprise. Consider what
+the <span class="math inline">±</span> prop means</p>
+<ul>
+<li>Initially we choose <span
+class="math inline"><em>x</em><sub><em>n</em> + 1</sub> = −<em>x</em><sub>1</sub>, ...</span></li>
+<li>next we choose <span
+class="math inline"><em>y</em><sub>1</sub> = <em>x</em><sub>1</sub><sup>2</sup>, ...</span></li>
+<li>Which implies that <span
+class="math inline"><em>y</em><sub>1</sub> = −<em>y</em><sub>(<em>n</em>/2) + 1</sub>, ...</span></li>
+<li>but then <span
+class="math inline"><em>x</em><sub>1</sub><sup>2</sup> = −<em>x</em><sub>(<em>n</em>/2) + 1</sub></span>
+which would mean that the square of x is a negative number ...
+<ul>
+<li>if you're beginning to imagine the root of -1 you're on the right
+track</li>
+<li>we will need to venture into the world of complex numbers</li>
+</ul></li>
+</ul>
+<p>Let's review complex numbers ...</p>
+<h5 id="p2-review-complex-numbers">P2: Review-Complex Numbers</h5>
+<p>Recall</p>
+<ul>
+<li><span
+class="math inline"><em>z</em> = <em>a</em> + <em>b</em><em>i</em></span>
+is how we define a complex number</li>
+<li>a is said to be the real part</li>
+<li>and bi is said to be the imaginary component</li>
+<li>i here is defined as <span class="math inline">$\sqrt{-1}$</span>
+which of course does not exist in the real plane of number line</li>
+</ul>
+<p>You may also recall that when working with complex numbers it is
+often more convenient to work in the polar co-ordinate system where a
+point such as (a,b) in the compelx plane is translate to (r,<span
+class="math inline"><em>θ</em></span>) in the polar plane. r describes
+the points radius or distance from (0,0) and <span
+class="math inline"><em>θ</em></span> describes the angle from the real
+axis.</p>
+<p>The following illustration may be a better explanation <img
+src="../../.assets/CS6515_images/FFT-001.png" alt="FFT-001" /></p>
+<p>We will state without prrof the following properties</p>
+<ul>
+<li><span
+class="math inline">(<em>a</em>, <em>b</em>) = (<em>r</em><em>c</em><em>o</em><em>s</em><em>θ</em>, <em>r</em><em>s</em><em>i</em><em>n</em><em>θ</em>)</span>
+This is how we can convert between the two planes</li>
+<li>using Euler's formula
+<ul>
+<li><span
+class="math inline"><em>e</em><sup><em>i</em><em>θ</em></sup> = <em>c</em><em>o</em><em>s</em><em>θ</em> + <em>i</em><em>s</em><em>i</em><em>n</em><em>θ</em></span></li>
+</ul></li>
+<li>we multiply each side by r to get z
+<ul>
+<li><span
+class="math inline"><em>z</em> = <em>r</em>(<em>e</em><sup><em>i</em><em>θ</em></sup>) = <em>r</em>(<em>c</em><em>o</em><em>s</em><em>θ</em> + <em>i</em><em>s</em><em>i</em><em>n</em><em>θ</em>)</span></li>
+</ul></li>
+</ul>
+<p><strong>Muliplying numbers in Polar</strong><br />
+Consider two complex numbers <span
+class="math inline"><em>z</em><sub>1</sub>, <em>z</em><sub>2</sub></span></p>
+<ul>
+<li>Multiplication:
+<ul>
+<li><span
+class="math inline"><em>z</em><sub>1</sub> × <em>z</em><sub>2</sub></span></li>
+<li><span
+class="math inline"> = (<em>r</em><sub>1</sub>, <em>θ</em><sub>1</sub>) × (<em>r</em><sub>2</sub>, <em>θ</em><sub>2</sub>)</span></li>
+<li><span
+class="math inline"> = (<em>r</em><sub>1</sub><em>r</em><sub>2</sub>, <em>θ</em><sub>1</sub> + <em>θ</em><sub>2</sub>)</span></li>
+</ul></li>
+<li>so far so good right? we've not done anything very unusual</li>
+<li>but now consider <span class="math inline">−<em>z</em></span>?
+<ul>
+<li>this is just <span
+class="math inline">(<em>r</em>, <em>θ</em> + <em>π</em>)</span></li>
+<li>-z is just the reflection of z, so we add pi to get this reflection.
+the radius doesn't change</li>
+</ul></li>
+</ul>
+<p><img src="../../.assets/CS6515_images/FFT-002.png"
+alt="FFT-002" /></p>
+<h5 id="roots-of-unity">Roots of Unity</h5>
+<p>For our purpose we will need numbers called the n'th complex roots of
+unity (unity here means 1)</p>
+<ul>
+<li>n'th complex root examples
+<ul>
+<li>for n=2: the roots are 1, -1</li>
+<li>for n=4: the roots are 1,-1,i,-i</li>
+</ul></li>
+<li>formally
+<ul>
+<li>the n'th complex roots of unity are the complex numbers z where
+<span
+class="math inline"><em>z</em><sup><em>n</em></sup> = 1</span></li>
+</ul></li>
+</ul>
+<p>This can be bit difficult to conceptualize. What it boils down to is
+that the roots of n'th complex roots of unity are the n'th points on a
+unit circle in the complex space. Mathematically this means that for
+<span class="math inline"><em>z</em> = (<em>r</em>, <em>θ</em>)</span>
+we have <span
+class="math inline"><em>z</em><sup><em>n</em></sup> = (<em>r</em><sup><em>n</em></sup>, <em>n</em><em>θ</em>)</span>.
+<span class="math inline"><em>r</em><sup><em>n</em></sup></span> is
+always 1 as this is a unit circle. <span
+class="math inline"><em>n</em><em>θ</em></span> is very simple. Just
+solve for theta <span
+class="math inline"><em>θ</em> = 2<em>π</em><em>j</em>/<em>n</em></span>
+where j is an integer s.t. <span
+class="math inline">0 ≤ <em>j</em> ≤ <em>n</em></span>. This basically
+just amounts to dividing the unit circle into n points, evenly spaced of
+course.</p>
+<p>Here is a visualization <img
+src="../../.assets/CS6515_images/FFT-003.png" alt="FFT-003" /></p>
+<p>Let's kick it up a notch</p>
+<ul>
+<li>let <span
+class="math inline"><em>ω</em><sub><em>n</em></sub> = (1, 2<em>π</em>/<em>n</em>)</span>
+which corresponds to j=1</li>
+<li>then <span
+class="math inline"><em>ω</em><sub><em>n</em></sub><sup>2</sup> = (1, 2 ⋅ 2<em>π</em>/<em>n</em>)</span>
+which corresponds to j=2</li>
+<li>etc etc</li>
+<li>But recall Euler's formula!
+<ul>
+<li>application yields <span
+class="math inline"><em>ω</em><sub><em>n</em></sub> = (1, 2<em>π</em>/<em>n</em>) = <em>e</em><sup>2<em>π</em><em>i</em>/<em>n</em></sup></span></li>
+<li>thus we generalize <span
+class="math inline"><em>ω</em><sub><em>n</em></sub><sup><em>j</em></sup> = <em>e</em><sup>2<em>π</em><em>i</em><em>j</em>/<em>n</em></sup></span></li>
+</ul></li>
+</ul>
+<p><img src="../../.assets/CS6515_images/FFT-004.png"
+alt="FFT-004" /></p>
+<p>Here's a worked example showing the relationship between <span
+class="math inline"><em>ω</em><sub><em>n</em></sub><sup>8</sup></span>
+and <span
+class="math inline"><em>ω</em><sub><em>n</em></sub><sup>16</sup></span>
+which is just$ (\omega_n^8)^2$</p>
+<p><img src="../../.assets/CS6515_images/FFT-005.png"
+alt="FFT-005" /></p>
+<p>All of this was just to demonstrate two key properties of the n'th
+roots of unity which we will need for our FFT algo.</p>
+<p><strong>Property 1</strong><br />
+For an even n: the n'th roots satisfy the <span
+class="math inline">±</span> property.</p>
+<ul>
+<li>The 1st (n/2) n'th roots are the opposite of the last n/2 roots</li>
+<li>ie
+<ul>
+<li><span
+class="math inline"><em>ω</em><sub><em>n</em></sub><sup>0</sup> = −<em>ω</em><sub><em>n</em></sub><sup><em>n</em>/2</sup></span></li>
+<li><span
+class="math inline"><em>ω</em><sub><em>n</em></sub><sup>1</sup> = −<em>ω</em><sub><em>n</em></sub><sup>(<em>n</em>/2) + 1</sup></span></li>
+<li>...</li>
+<li><span
+class="math inline"><em>ω</em><sub><em>n</em></sub><sup>(<em>n</em>/2) − 1</sup> = −<em>ω</em><sub><em>n</em></sub><sup><em>n</em> − 1</sup></span></li>
+</ul></li>
+</ul>
+<p><strong>Property 2</strong><br />
+For n a power of 2, <span
+class="math inline"><em>n</em> = 2<sup><em>k</em></sup></span>, the
+<span class="math inline">( n’th roots)<sup>2</sup> =  (n/2)’nd roots
+</span></p>
+<ul>
+<li><span class="math inline">$\large (\omega_n^j)^2 =
+(1,\frac{2\pi}{n}j)^2 = (1,\frac{2\pi}{n/2}j) =
+\omega_{n/2}^2$</span></li>
+<li>similarly
+<ul>
+<li><span
+class="math inline">(<em>ω</em><sub><em>n</em></sub><sup>(<em>n</em>/2) + <em>j</em></sup>)<sup>2</sup> = (−<em>ω</em><sub><em>n</em></sub><sup><em>j</em></sup>)<sup>2</sup> = <em>ω</em><sub><em>n</em>/2</sub><sup><em>j</em></sup></span></li>
+</ul></li>
+</ul>
+<p>Now we are ready to move forward in our FFT algorithm. It should not
+come as a surprise when we choose the n't roots of unity as our 2n
+points to evaluate <span
+class="math inline"><em>A</em>(<em>x</em>)</span></p>
+<h5 id="examples-fft">Examples-FFT</h5>
+<p><strong>Q1: What is the sum of the n'th roots of
+Unity?</strong><br />
+Recall that the n'th roots are defined as <span
+class="math inline"><em>ω</em><sub><em>n</em></sub><sup><em>j</em></sup> = <em>e</em><sup>2<em>π</em><em>i</em><em>j</em>/<em>n</em></sup></span></p>
+<ul>
+<li>So we take the sum</li>
+<li><span class="math inline">$\large \sum_0^{n-1} e^{j(2 \pi i /
+n)}$</span> or if you prefer <span class="math inline">$\large
+\sum_0^{n-1} \omega_n^j$</span></li>
+<li>which we can expand</li>
+<li><span class="math inline">$\large 1 + \omega_n^1 + \omega_n^2 +
+\cdots + \omega_n^{n-1}$</span></li>
+<li><span class="math inline">$\large \frac{\omega^n - 1}{\omega -
+1}$</span></li>
+<li>which is just 0 ...</li>
+<li>in case you forgot why <span
+class="math inline"><em>ω</em><sup><em>n</em></sup></span> is the n'th
+root of unity meaning <span
+class="math inline"><em>ω</em><sup><em>n</em></sup> − 1 = 0</span></li>
+<li>in case you're still confused</li>
+<li>the complex roots of the equation <span
+class="math inline"><em>z</em><sup><em>n</em></sup> − 1 = 0</span>, are
+the roots of unity</li>
+<li>in case you're still confused ... I'm all out of ideas try
+google?</li>
+</ul>
+<h3 id="dc5--the-fft-algorithm">DC5 — The FFT Algorithm</h3>
+<h4 id="dc5-fft-algorithm">DC5: FFT-Algorithm</h4>
+<p>Now that we have all the necassary pieces we can begin to put the
+puzzle together. So let's recap the problem, then draw out our
+algorithm</p>
+<p><strong>Goal</strong> To Evaluate the polynomial A(x) of deg <span
+class="math inline"> ≤ <em>n</em> − 1</span> at n points, where n is a
+power of k</p>
+<p>Recall that in order to perform the polynomial multiplication we will
+need A(x) at 2n points. In order to obtain at two N points instead of N
+points, we can just pad the polynomial, the coefficients with zeros, so
+that we view the polynomial as a degree 2n-1 polynomial.</p>
+<p>Now what are these n points that we're going to choose? We're going
+to choose the n'th roots of unity as our end points, which we're going
+to evaluate the polynomial of A(x) at. Now since n is a power of 2, ie N
+equals <span class="math inline">2<sup><em>k</em></sup></span> for some
+positive integer k. Then we know that these n points, the n'th roots of
+unity, will satisfy the <span class="math inline">±</span> property. So
+the first N over two are opposite of the last N over two. Also recall
+that the second poperty demonstrated that the square of the n'th roots
+are the (n/2)'nd roots.</p>
+<p>So we'll take the polynomial A(x) and split into <span
+class="math inline"><em>A</em><sub><em>e</em><em>v</em><em>e</em><em>n</em></sub></span>
+and <span
+class="math inline"><em>A</em><sub><em>o</em><em>d</em><em>d</em></sub></span>.
+Each with at most degree <span
+class="math inline">(<em>n</em>/2) − 1</span>. Then we'll recursively
+evaluate <span
+class="math inline"><em>A</em><sub><em>e</em><em>v</em><em>e</em><em>n</em></sub></span>
+and <span
+class="math inline"><em>A</em><sub><em>o</em><em>d</em><em>d</em></sub></span>
+at the (n'th roots)^2. Which because of property 2 is just the (n/2)nd
+roots. Evaluation requires 2T(n/2) time</p>
+<p>Finally, once we have <span
+class="math inline"><em>A</em><sub><em>e</em><em>v</em><em>e</em><em>n</em></sub></span>
+and <span
+class="math inline"><em>A</em><sub><em>o</em><em>d</em><em>d</em></sub></span>
+at the (n/2)nd roots then it will require O(n) time to get A(x) at the
+n'th roots. Using our handy little formula: <span
+class="math inline"><em>A</em>(<em>x</em>) = <em>A</em><sub><em>e</em><em>v</em><em>e</em><em>n</em></sub>(<em>x</em><sup>2</sup>) + <em>x</em><em>A</em><sub><em>o</em><em>d</em><em>d</em></sub></span></p>
+<p><strong><span class="math inline">FFT Pseudocode - Version
+1</span></strong></p>
+<p>FFT(a,<span class="math inline"><em>ω</em></span>):</p>
+<p>INPUT: Coefficients <span
+class="math inline"><em>a</em> = (<em>a</em><sub>0</sub>, <em>a</em><sub>1</sub>, ..., <em>a</em><sub><em>n</em> − 1</sub>)</span>
+for polynomial <span
+class="math inline"><em>A</em>(<em>x</em>)</span></p>
+<ul>
+<li>where n is a power of 2</li>
+<li>and <span class="math inline"><em>ω</em></span> is a n'th root of
+unity</li>
+</ul>
+<p>OUTPUT: <span
+class="math inline"><em>A</em>(<em>ω</em><sup>0</sup>), <em>A</em>(<em>ω</em>), <em>A</em>(<em>ω</em><sup>2</sup>), ⋯, <em>A</em>(<em>ω</em><sup><em>n</em> − 1</sup>)</span></p>
+<p>If n=1, return A(1)<br />
+Let</p>
+<ul>
+<li>a_even = <span
+class="math inline">(<em>a</em><sub>0</sub>, <em>a</em><sub>2</sub>, ..., <em>a</em><sub><em>n</em> − 2</sub>)</span></li>
+<li>a_odd = <span
+class="math inline">(<em>a</em><sub>1</sub>, <em>a</em><sub>3</sub>, ..., <em>a</em><sub><em>n</em> − 1</sub>)</span></li>
+</ul>
+<p>(s_0,s<em>2,...,s</em>{n/2-1}) = FFT(a_even,<span
+class="math inline"><em>ω</em><sup>2</sup></span>) returns A_even(<span
+class="math inline"><em>ω</em><sup>0</sup></span>),A_even(<span
+class="math inline"><em>ω</em><sup>2</sup></span>),...,A_even(<span
+class="math inline"><em>ω</em><sup><em>n</em> − 2</sup></span>)</p>
+<p>(t_0,t<em>1,...,t</em>{n/2-1}) = FFT(a_odd,<span
+class="math inline"><em>ω</em><sup>2</sup></span>) returns A_odd(<span
+class="math inline"><em>ω</em><sup>1</sup></span>),A_odd(<span
+class="math inline"><em>ω</em><sup>3</sup></span>),...,A_odd(<span
+class="math inline"><em>ω</em><sup><em>n</em> − 2</sup></span>)</p>
+<p>for j = 0 -&gt; (n/2)-1:<br />
+      A(<span
+class="math inline"><em>ω</em><sup><em>j</em></sup></span>) =
+A_even(<span
+class="math inline"><em>ω</em><sup>2<em>j</em></sup></span>) + <span
+class="math inline"><em>ω</em><sup><em>j</em></sup></span> A_odd(<span
+class="math inline"><em>ω</em><sup>2<em>j</em></sup></span>)<br />
+      A(<span
+class="math inline"><em>ω</em><sup>(<em>n</em>/2) + <em>j</em></sup></span>
+= A(-<span class="math inline"><em>ω</em><sup><em>j</em></sup></span>) =
+A_even(<span
+class="math inline"><em>ω</em><sup>2<em>j</em></sup></span>) - <span
+class="math inline"><em>ω</em><sup><em>j</em></sup></span> A_odd(<span
+class="math inline"><em>ω</em><sup>2<em>j</em></sup></span>)       #
+notice the subtraction in the second equation</p>
+<p>Here's a more compact version</p>
+<p><strong><span class="math inline">FFT Pseudocode - Version
+2</span></strong></p>
+<pre><code>FFT(a,w):
+If n=1, return A(1)                  # Our base case
+
+a_even = $(a_0,a_2,...,a_{n-2})$     # Now the split   O(n)
+a_odd = $(a_1,a_3,...,a_{n-1})$
+
+s[:] = FFT(a_even,w^2)               # T(n/2) 
+t[:] = FFT(a_odd,w^2)                # T(n/2) 
+
+for j = 0 -&gt; (n/2)-1:                # O(n)
+    r[j] = s[j] + w^j t[j]
+    r[(n/2)+j] = s[j] - w^j t[j]
+
+return r[:]</code></pre>
+<p>Total Run Time: 2*T(n/2)+O(n) = solves to O(n log n)</p>
+<h5 id="example">Example</h5>
+<p><strong>Suppose a=(1,0,0,0) are the coefficients of a polynomial.
+What is the FFT?</strong><br />
+You don't need to go through the entire fft algorithm. Just compute
+<span
+class="math inline"><em>A</em>(<em>ω</em><sub><em>n</em></sub><sup><em>i</em></sup>)</span></p>
+<ul>
+<li>we take n=4 since we have 4 co-efficients, then</li>
+<li><span
+class="math inline"><em>A</em>(<em>ω</em><sub>4</sub><sup>0</sup>) = <em>A</em>(1) = 1(1)<sup>0</sup> + 0(1)<sup>1</sup> + 0(1)<sup>2</sup> + 0(1)<sup>3</sup> = 1</span></li>
+<li><span
+class="math inline"><em>A</em>(<em>ω</em><sub>4</sub><sup>1</sup>) = <em>A</em>(<em>i</em>) = 1(<em>i</em>)<sup>0</sup> + 0(<em>i</em>)<sup>1</sup> + 0(<em>i</em>)<sup>2</sup> + 0(<em>i</em>)<sup>3</sup> = 1</span></li>
+<li><span
+class="math inline"><em>A</em>(<em>ω</em><sub>4</sub><sup>2</sup>) = <em>A</em>(−1) = 1(−1)<sup>0</sup> + 0(−1)<sup>1</sup> + 0(−1)<sup>2</sup> + 0(−1)<sup>3</sup> = 1</span></li>
+<li><span
+class="math inline"><em>A</em>(<em>ω</em><sub>4</sub><sup>3</sup>) = <em>A</em>(−<em>i</em>) = 1(−<em>i</em>)<sup>0</sup> + 0(−<em>i</em>)<sup>1</sup> + 0(−<em>i</em>)<sup>2</sup> + 0(−<em>i</em>)<sup>3</sup> = 1</span></li>
+</ul>
+<p>You can even run the inverse FFT to get</p>
+<ul>
+<li>1/4 * (1,1,1,1)</li>
+</ul>
+<h5 id="fft-polynomial-multiplication">FFT Polynomial
+Multiplication</h5>
+<p>Now you may recall way back when we began this section our problem
+was to multiply two n-degree polyomials a=(a_0,...,a_n-1) and
+b=(b_0,...,b_n-1) corresponding to the coefficients for a pair of
+polynomials A(x) and B(x).</p>
+<p>The output of this multiplication is c=(c_0,...,c_2n-2) the
+coefficients for the polynomial C(x)=A(x)B(x). Equivalently C is a
+convolution of A and B.</p>
+<p>In order to multiply these polynomials A of X and B of X, we want to
+convert from the coefficients A and B to the values of these polynomials
+A of X and B of X.</p>
+<p>How many points do we need these polynomials at? Well since C is of
+degree 2n-2, we want C(x) at at least two and 2n-1 points. In order to
+maintain that n is a power of 2, we'll evaluate A of X and B of X at two
+endpoints. In order to do that, we'll run FFT. We will consider A(x) and
+B(x) as polynomials of degree 2n minus one, by padding them with
+zeros.</p>
+<p>So we run FFT with this vector a and the 2n'th root of unity. And
+this is going to give us a polynomial A(x) at the two nth root
+unity.</p>
+<ul>
+<li><span
+class="math inline">(<em>r</em><sub>0</sub>, <em>r</em><sub>1</sub>, ..., <em>r</em><sub>2<em>n</em> − 1</sub>) = <em>F</em><em>F</em><em>T</em>(<em>a</em>, <em>ω</em><sub>2<em>n</em></sub>)</span></li>
+</ul>
+<p>Similarly for B(x)</p>
+<ul>
+<li><span
+class="math inline">(<em>s</em><sub>0</sub>, <em>s</em><sub>1</sub>, ..., <em>s</em><sub>2<em>n</em> − 1</sub>) = <em>F</em><em>F</em><em>T</em>(<em>b</em>, <em>ω</em><sub>2<em>n</em></sub>)</span></li>
+</ul>
+<p>Now we can compute C(x) at the two nth roots of unity</p>
+<ul>
+<li>for j = 0 -&gt; 2n-1:
+<ul>
+<li>$t_j = r_j \times s_j $</li>
+</ul></li>
+</ul>
+<p>Now that we have C(x) at the 2n'th roots of unity we need to work
+back to get the co-efficients. ie we need to go from the values back to
+the co-efficients. Whereas in previous cases we went from the
+co-efficients to the values, which is the FFT call. So how do we do
+this? well turns out there is an inverse to the FFT that does the job
+for us. The inverse or reverse FFT is very similar to the original FFT.
+But it requires a bit more math to understand why</p>
+<h5 id="inverse-fft">Inverse FFT</h5>
+<p>So before we explore inverse FFT, it will be useful to explore the
+linear algebraic view of FFT. In this way, we can look at FFT as
+multiplication of matrices and vectors. So consider a point x_j, The
+polynomial A of X evaluated at the point x_j equals a_0 plus a_1 x_j
+plus a_2 x_j squared and so on. The last term is a_n-1 x_j to the n-1.
+Notice that this quantity can be rewritten as the inner product of two
+vectors.</p>
+<p>For point <span
+class="math inline"><em>x</em><sub><em>j</em></sub></span>:</p>
+<blockquote>
+<p>$A(x_j) = a_0 + a_1 x_j + a_2 x_j^2 + \cdots + a_{n-1} x_j^{n-1} $
+<span
+class="math inline"> = (1, <em>x</em><sub><em>j</em></sub>, <em>x</em><sub><em>j</em></sub><sup>2</sup>, ..., <em>x</em><sub><em>j</em></sub><sup><em>n</em> − 1</sup>) × (<em>a</em><sub>0</sub>, <em>a</em><sub>1</sub>, <em>a</em><sub>2</sub>, ..., <em>a</em><sub><em>n</em> − 1</sub>)</span></p>
+</blockquote>
+<p>So for n points it gets rather tedious to write this all out so we
+switch to matrix notation:<br />
+<img src="../../.assets/CS6515_images/FFT-006.png" alt="FFT-006" /></p>
+<p>The above is just for an arbitrary x. Watch what happens when we
+apply our evaluation using the n roots of unity, ie take <span
+class="math inline"><em>x</em><sub><em>j</em></sub> = <em>ω</em><sub><em>n</em></sub><sup><em>j</em></sup></span>
+<img src="../../.assets/CS6515_images/FFT-007.png" alt="FFT-007" /></p>
+<p>Notice the symmetry. Also notice that the central matrix is just
+powers of <span
+class="math inline"><em>ω</em><sub><em>n</em></sub></span>.</p>
+<p>Let's simplify this a bit more. Call the middle matrix <span
+class="math inline"><em>M</em><sub><em>n</em></sub>(<em>ω</em><sub><em>n</em></sub>)</span>,
+the final vector a and the vector at the left is A<br />
+Then we can write this as</p>
+<blockquote>
+<p><span
+class="math inline"><em>A</em> = <em>M</em><sub><em>n</em></sub>(<em>ω</em><sub><em>n</em></sub>)<em>a</em></span></p>
+</blockquote>
+<p>Which is exactly what <span
+class="math inline"><em>F</em><em>F</em><em>T</em>(<em>a</em>, <em>ω</em><sub><em>n</em></sub>)</span>
+returns/computes. So what do you the inverse fft is?</p>
+<blockquote>
+<p>$InvFFT(a,\omega_n) \to a = M_n^{-1}(\omega_n) A $</p>
+</blockquote>
+<p>So what is this M inverse? well as you may have guessed the answer
+lies in yet another theorem!</p>
+<blockquote>
+<p>Lemma:<br />
+<span class="math inline">$M_n^{-1}(\omega_n) = \frac{1}{n}
+M_n(\omega_n^{-1}) = \frac{1}{n} M_n(\omega_n^{n-1})$</span></p>
+<p>recall that <span
+class="math inline"><em>ω</em><sub><em>n</em></sub><sup>−1</sup></span>
+is the number that satifies the result <span
+class="math inline"><em>ω</em><sub><em>n</em></sub> × <em>ω</em><sub><em>n</em></sub><sup>−1</sup> = 1</span><br />
+which you may recall is also <span
+class="math inline"><em>ω</em><sub><em>n</em></sub> × <em>ω</em><sub><em>n</em></sub><sup><em>n</em> − 1</sup> = <em>ω</em><sub><em>n</em></sub><sup><em>n</em></sup> = <em>ω</em><sub><em>n</em></sub><sup>0</sup> = 1</span></p>
+</blockquote>
+<p>So Now let's take our original result</p>
+<ul>
+<li>$a = M_n^{-1}(\omega_n) A $</li>
+<li>$n a = M_n^{-1}(\omega_n^{n-1}) A $ (apply the lemma and multiply
+each side by n)</li>
+<li>Now you should be able to see that ... this is just an FFT
+computation</li>
+<li>the inverse has disappeared</li>
+<li>thus <span class="math inline">$a = \frac{1}{n}
+FFT(A,\omega_n^{n-1})$</span></li>
+</ul>
+<p>So what is all this gibberish saying? Inverse FFT is FFT computed in
+the reverse order. It's like an inverted clock</p>
+<p>Consider: For an even b, what is <span
+class="math inline">1 + <em>ω</em><sub><em>n</em></sub> + <em>ω</em><sub><em>n</em></sub><sup>2</sup> + ⋯ + <em>ω</em><sub><em>n</em></sub><sup><em>n</em> − 1</sup></span><br />
+There's two ways to think about it.</p>
+<p>The first is geometrically, recall that each successive exponent
+simly advances the point along a unit circle. Since we have n points we
+have effectively traversed the circle and ended where we started 0.
+which is <span
+class="math inline"><em>ω</em><sub><em>n</em></sub><sup>0</sup> = 1</span></p>
+<p>The other approach is to apply the <span class="math inline">±</span>
+property. Recall that for each j <span
+class="math inline"><em>ω</em><sub><em>n</em></sub><sup><em>j</em></sup> = −<em>ω</em><sub><em>n</em></sub><sup>(<em>n</em>/2) + <em>j</em></sup></span></p>
+<p>We can actually generalize this even further<br />
+<strong>Claim:</strong> for any n'th root of unity <span
+class="math inline"><em>ω</em></span> where <span
+class="math inline"><em>ω</em> ≠ 1</span>, <span
+class="math inline">0 = 1 + <em>ω</em><sub><em>n</em></sub> + <em>ω</em><sub><em>n</em></sub><sup>2</sup> + ⋯ + <em>ω</em><sub><em>n</em></sub><sup><em>n</em> − 1</sup></span></p>
+<p><img src="../../.assets/CS6515_images/FFT-008.png"
+alt="FFT-008" /></p>
+<p>Now let's go through a proof of the lemma.<br />
+Recall that we need to show <span
+class="math inline">$M_n(\omega_n)^{-1} = \frac{1}{n}
+M_n(\omega_n^{-1})$</span></p>
+<p>If true then it would mean that <span
+class="math inline">$\frac{1}{n} M_n(\omega_n^{-1}) M_n(\omega_n) =
+I$</span> where I is the identity matrix (1's along the diagonal and 0's
+otherwise)</p>
+<p>So we will demonstrate that <span
+class="math inline"><em>M</em><sub><em>n</em></sub>(<em>ω</em><sub><em>n</em></sub><sup>−1</sup>)<em>M</em><sub><em>n</em></sub>(<em>ω</em><sub><em>n</em></sub>)</span>
+results in a matrix with n's along the diagonal and is 0 in all other
+entries.</p>
+<p>for entries (k,k), we will work out the dot product of the k'th row
+and k'th column <img src="../../.assets/CS6515_images/FFT-009.png"
+alt="FFT-009" /></p>
+<p>for entries (k,j), where <span
+class="math inline"><em>k</em> ≠ <em>j</em></span>, again we will work
+out the dot product of the k'th row and j'th column <img
+src="../../.assets/CS6515_images/FFT-010.png" alt="FFT-010" /></p>
+<p>Finally we can return to our polynomial multiplication algorithm <img
+src="../../.assets/CS6515_images/FFT-011.png" alt="FFT-011" /></p>
+<p>Finally the pain is over!!</p>
+<h5 id="ex-1">Ex 1</h5>
+<pre><code>Problem 1 (Integer multiplication using FFT)
+(a) Given an n−bit integer number a = a[n−1]a[n−2] . . . a0 define a polynomial A(x) satisfying A(2) = a.
+
+(b) Given two n−bit integers a and b, give an algorithm to multiply them in O(n log(n)) time. Use
+the FFT algorithm from class as a black-box (i.e. don’t rewrite the code, just say run FFT on
+...). Explain your algorithm in words and analyze its running time. (Think/investigate why
+this is not enough to claim a fast multiplication algorithm).</code></pre>
+<p><strong>Part a</strong><br />
+Recall that a polynomial is simply an equation of the form <span
+class="math inline">$\large \sum_0^{n-1} a_i x^i$</span>. So this is
+done by the definition</p>
+<p><strong>Part b</strong><br />
+Obviously we will want to make use of the FFT algo</p>
+<p><strong>Step 1</strong><br />
+Formulate the n-bit integer inputs as per the definition in part a</p>
+<p><strong>Step 2</strong></p>
+<ol type="1">
+<li>Choose an N for the roots of unity,</li>
+</ol>
+<ul>
+<li>N must be a power of 2</li>
+<li>and <span class="math inline"><em>N</em> ≥ 2<em>n</em></span> where
+n is the number of bits</li>
+</ul>
+<ol type="1">
+<li>define A = (a,padding to N)
+<ul>
+<li>ie <span
+class="math inline"><em>a</em><sub>0</sub>, <em>a</em><sub>1</sub>, ⋯, <em>a</em><sub><em>n</em> − 1</sub>, 0, 0, ...</span></li>
+</ul></li>
+<li>do the same for B</li>
+</ol>
+<p><strong>Step 3</strong><br />
+Run the FFT using <span
+class="math inline"><em>ω</em><sub><em>n</em></sub></span></p>
+<ul>
+<li>A' = FFT(A,<span
+class="math inline"><em>ω</em><sub><em>n</em></sub></span>)</li>
+<li>B' = FFT(B,<span
+class="math inline"><em>ω</em><sub><em>n</em></sub></span>)</li>
+</ul>
+<p><strong>Step 4</strong><br />
+Multiply A' and B' to get C'</p>
+<ul>
+<li>C' = A' x B'</li>
+<li>C[i] = A[i] x B[i] for <span
+class="math inline">1 ≤ <em>i</em> ≤ <em>N</em></span></li>
+</ul>
+<p><strong>Step 5</strong><br />
+Run FFT on inverse roots of unity and apply scaling</p>
+<ul>
+<li>C = FFT(C',<span
+class="math inline"><em>ω</em><sub><em>n</em></sub><sup>−1</sup></span>)
+* 1/N</li>
+</ul>
+<p><strong>Step 6</strong></p>
+<ul>
+<li>Compute C(2) to get back binary integer</li>
+</ul>
+<p><strong>Correctness</strong><br />
+By converting the binary numbers we can make use of the FFT algorithm to
+multiply them.</p>
+<p><strong>Runtime</strong></p>
+<ol type="1">
+<li>Takes T(n)</li>
+<li>Takes T(2n)</li>
+<li>Takes T(2n log n) recall that FFT is O(n log n)</li>
+<li>T(n)</li>
+<li>O(n log n)</li>
+<li>T(n)</li>
+</ol>
+<p>Dominant term is O(n log n)</p>
+<h5 id="ex-2">Ex 2</h5>
+<p>Consider <span class="math inline"><em>A</em> = <em>x</em> + 1</span>
+and <span
+class="math inline"><em>B</em> = <em>x</em><sup>2</sup> + 1</span>, Find
+<span
+class="math inline"><em>C</em> = <em>A</em> × <em>B</em></span></p>
+<h5 id="fft-summary">FFT Summary</h5>
+<ol type="1">
+<li><p>FFT is a transformation algorithm</p>
+<ul>
+<li>it converts from coefficients to values, when <span
+class="math inline"><em>ω</em><sub>2<em>n</em></sub></span> is used</li>
+<li>it converts from values to coefficients, when <span
+class="math inline"><em>ω</em><sub>2<em>n</em></sub><sup>−1</sup></span>
+is used (but don't forget to scale! by 1/2n )</li>
+</ul></li>
+<li><p>FFT requires input vector of length <span
+class="math inline"><em>n</em> = 2<sup><em>k</em></sup></span></p>
+<ul>
+<li>may use padding to ensure this is always true</li>
+</ul></li>
+<li><p>FFT results are with respect to the roots of unity</p>
+<ul>
+<li>it's return values must always undergo some sort of transformation
+back into the real number system</li>
+<li>this is generally done using the inverse fft</li>
+</ul></li>
+<li><p>Inverse FFT is just FFT evaluated at the inverse roots of unity
+<span
+class="math inline"><em>ω</em><sub>2<em>n</em></sub><sup>−1</sup></span></p>
+<ul>
+<li><span
+class="math inline"><em>ω</em><sub>2<em>n</em></sub><sup>−1</sup></span>
+go clockwise</li>
+<li><span
+class="math inline"><em>ω</em><sub>2<em>n</em></sub><sup>−1</sup></span>
+are the mirrored/flipped values of <span
+class="math inline"><em>ω</em><sub>2<em>n</em></sub></span></li>
+</ul></li>
+</ol>
+<h3 id="ra1--modular-arithmetic">RA1 — Modular Arithmetic</h3>
+<h4 id="ra1-modular-arithmetic">RA1: Modular Arithmetic</h4>
+<p>The mathematics of the RSA cryptosystem are very beautiful and
+they're fairly simple once you have the right mathematical background.
+So we're going to start with a short primer on the mathematical topics
+that we need.</p>
+<p>The relevant topic that we need is Modular Arithmetic. Then one key
+concept that we need are multiplicative inverses, and what they mean in
+modular arithmetic. And then we're gonna look at Euclid's GCD algorithm,
+greatest common divisor, which is gonna be used in the RSA cryptosystem.
+Next we're going to learn about Fermat's Little Theorem and it's the key
+tool in the design of the RSA algorithm. So at this point we'll be able
+to detail the RSA algorithm. Finally, we'll look at Primality testing,
+given a number, can we test whether the number is prime or not, or
+composite?</p>
+<p>Once we see how to do that using Fermat's Little Theorem, then we're
+going to be able to generate random primes. Generating random primes is
+a key component in the RSA algorithm. So once we complete that, we'll
+have completed our discussion of the RSA algorithm. Now let's go ahead
+and dive into the algorithms related to the RSA.</p>
+<p>Lets look at the context of the RSA algorithm. In cryptography, we're
+going to work with N-bit numbers X, Y and N. For example, the number of
+bits in these numbers is going to be huge. Think of the number of bits
+as 1024 or 2048. It's a huge number of bits. So normally, we thought of
+our arithmetic operations as built into hardware, but that usually
+restricts the attention to 64 bits or so. But here we're talking about
+1000 or 2000 bits. So we have to go back and review how long does it
+take for basic arithmetic operations.</p>
+<p>Now let's take a look at modular arithmetic. This is the basic
+mathematics that underlies the RSA algorithm and we're going to see a
+lot of beautiful mathematics along the way.</p>
+<p>Let's look at a simple example,</p>
+<ul>
+<li>for an integer x, x mod 2 = least significant bit of x</li>
+<li>What does the least significant bit of X tell you?
+<ul>
+<li>It tells you whether X is odd or even.</li>
+<li>x mod 2 = 1 if X is odd</li>
+<li>x mod 2 = 0 if X is even</li>
+</ul></li>
+</ul>
+<p>Another way of looking at this least significant bit of X, we can
+take X divided by two. If it's even then the remainder is going to be
+zero because it's a multiple of two, and if it's odd, then the remainder
+when X divided by two is going to be one.</p>
+<p>Now let's look at X mod N where N &gt;= 1.</p>
+<ul>
+<li>Recall x mod 2 is the remainder when x is divided by two</li>
+<li>So X mod N is going to be the remainder when we divide X by N</li>
+</ul>
+<p>Finally let's look at some important notation for modular
+arithmetic.</p>
+<p>Suppose we have two numbers X and Y, and we look at these two numbers
+modular N, and suppose that they're same mod N, how do we denote that?
+Well, they're not equal. The two numbers are not equal, but they're
+congruent in this, or they're equivalent in this world modular N.</p>
+<p>So how do we denote that equivalence or congruence? So the standard
+indication is three lines instead of two lines.</p>
+<ul>
+<li><span
+class="math inline"><em>x</em> ≡ <em>y</em> mod  <em>N</em></span></li>
+<li>This notation means that X and Y are congruent modular N,</li>
+<li>which means that X/N and Y/N have the same remainder</li>
+</ul>
+<p><strong>Example</strong></p>
+<p>mod 3 has 3 equivalence classes:</p>
+<pre><code>0, 3, 6, 9, etc etc but we can also use negatives -3, -6, -9 
+1, 4, 7,10, etc etc but also -2,-5,-8
+2, 5, 8,11, etc etc but also -1,-4,-7</code></pre>
+<p><strong>Handy Fact</strong><br />
+if <span
+class="math inline"><em>x</em> ≡ <em>y</em> mod  <em>N</em></span> &amp;
+<span class="math inline"><em>a</em> ≡ <em>b</em> mod  <em>N</em></span>
+then <span
+class="math inline"><em>x</em> + <em>a</em> ≡ <em>y</em> + <em>b</em> mod  <em>N</em></span>
+Similarly <span
+class="math inline">(<em>x</em><em>a</em>) ≡ (<em>y</em><em>b</em>) mod  <em>N</em></span></p>
+<p>Example: <span
+class="math inline">321 × 17 ≡ 1 × 17 ≡ 17 mod  320</span></p>
+<p><strong>Modular Exponentiation</strong><br />
+Given n-bit numbers x,y,N, our goal is to compute <span
+class="math inline"><em>x</em><sup><em>y</em></sup> mod  <em>N</em></span>
+( Assume that these number are very large, HUGE. )</p>
+<p>Naive/Brute force approach<br />
+Compute</p>
+<ul>
+<li><span
+class="math inline"><em>x</em> mod  <em>N</em> = <em>a</em><sub>1</sub></span></li>
+<li><span
+class="math inline"><em>x</em><sup>2</sup> ≡ <em>a</em><sub>1</sub><em>x</em> mod  <em>N</em> = <em>a</em><sub>2</sub></span></li>
+<li><span
+class="math inline"><em>x</em><sup>3</sup> ≡ <em>a</em><sub>2</sub><em>x</em> mod  <em>N</em> = <em>a</em><sub>3</sub></span></li>
+<li><span class="math inline">⋯</span></li>
+<li><span
+class="math inline"><em>x</em><sup><em>y</em></sup> ≡ <em>a</em><sub><em>y</em> − 1</sub><em>x</em> mod  <em>N</em> = <em>a</em><sub><em>n</em></sub></span></li>
+</ul>
+<p>Each of these lines is roughly O(n^2), O(n) to multiply a &amp; x and
+O(n) to take the mod N. The number of lines or rounds is roughly <span
+class="math inline"><em>y</em> ≤ 2<sup><em>n</em></sup></span>. For a
+total run time of roughly <span
+class="math inline"><em>O</em>(<em>n</em><sup>2</sup>2<sup><em>n</em></sup>)</span></p>
+<p>Consider <span
+class="math inline">7<sup>5</sup><em>m</em><em>o</em><em>d</em>23</span>?</p>
+<ul>
+<li><span class="math inline">7<sup>2</sup> ≡ 3 mod  23</span></li>
+<li><span
+class="math inline">7<sup>3</sup> ≡ 3(7) = 21 mod  23</span></li>
+<li><span
+class="math inline">7<sup>4</sup> ≡ 21(7) = 9 mod  23</span></li>
+<li><span
+class="math inline">7<sup>5</sup> ≡ 9(7) = 17 mod  23</span></li>
+</ul>
+<p>Although this is a bit better it's less than ideal. Here's a third
+approach that is a bit fast</p>
+<p><strong>Repeated Squaring Method</strong></p>
+<p>Compute</p>
+<ul>
+<li><span
+class="math inline"><em>x</em> mod  <em>N</em> = <em>a</em><sub>1</sub></span></li>
+<li><span
+class="math inline"><em>x</em><sup>2</sup> ≡ <em>a</em><sub>1</sub><sup>2</sup> mod  <em>N</em> = <em>a</em><sub>2</sub></span></li>
+<li><span
+class="math inline"><em>x</em><sup>4</sup> ≡ <em>a</em><sub>2</sub><sup>2</sup> mod  <em>N</em> = <em>a</em><sub>4</sub></span></li>
+<li><span class="math inline">⋯</span></li>
+<li><span
+class="math inline"><em>x</em><sup><em>y</em></sup> ≡ <em>a</em><sub><em>y</em> − 1</sub><em>x</em> mod  <em>N</em> = <em>a</em><sub><em>n</em></sub></span></li>
+</ul>
+<p>Consider our example from before <span
+class="math inline">7<sup>25</sup><em>m</em><em>o</em><em>d</em>23</span></p>
+<ul>
+<li><span class="math inline">7<sup>2</sup> ≡ 3 mod  23</span></li>
+<li><span
+class="math inline">7<sup>4</sup> ≡ 3<sup>2</sup> = 9 mod  23</span></li>
+<li><span
+class="math inline">7<sup>8</sup> ≡ 9<sup>2</sup> = 81 ≡ 12 mod  23</span></li>
+<li><span
+class="math inline">7<sup>16</sup> ≡ 12<sup>2</sup> ≡ 144 ≡ 6 mod  23</span></li>
+<li>25 in binary is 11001</li>
+</ul>
+<p>Thus</p>
+<ul>
+<li><span
+class="math inline">7<sup>25</sup> ≡ 7<sup>16</sup> × 7<sup>8</sup> × 7 ≡ 6 × 12 × 7 ≡ 72 × 7 ≡ 3 × 7 ≡ 21 mod  23</span></li>
+<li>Final answer 21</li>
+</ul>
+<p><strong><span class="math inline">ModExp
+Algorithm</span></strong></p>
+<p>First we state a key observation which should be trivial</p>
+<ul>
+<li>for even y, <span
+class="math inline"><em>x</em><sup><em>y</em></sup> = (<em>x</em><sup><em>y</em>/2</sup>)<sup>2</sup></span></li>
+<li>for odd y, <span
+class="math inline"><em>x</em><sup><em>y</em></sup> = <em>x</em>(<em>x</em><sup>⌊<em>y</em>/2⌋</sup>)<sup>2</sup></span>
+( the leading x is to make up for the term that is dropped by the floor
+)</li>
+</ul>
+<!-- -->
+
+<pre><code>ModExp(x,y,N):
+Input : n-bit integers x,y,N &gt; 0
+Out   : x^y mod N
+
+if y=0, return 1
+z=ModExp(x, floor(y/2),N)
+
+if y even 
+    then return (z^2 mod N)
+    else return (xz^2 mod N)</code></pre>
+<p><strong>Multiplicative Inverses</strong></p>
+<p>What's the inverse of (1/z) mod N ?<br />
+Definition<br />
+x is the multiplicative inverse of z mod N</p>
+<ul>
+<li>if <span
+class="math inline"><em>x</em><em>z</em> ≡ 1<em>m</em><em>o</em><em>d</em><em>N</em></span></li>
+</ul>
+<p>of course if follows that</p>
+<ul>
+<li><span
+class="math inline"><em>x</em> ≡ <em>z</em><sup>−1</sup><em>m</em><em>o</em><em>d</em><em>N</em></span></li>
+<li><span
+class="math inline"><em>z</em> ≡ <em>x</em><sup>−1</sup><em>m</em><em>o</em><em>d</em><em>N</em></span></li>
+</ul>
+<p>Consider, for N=14</p>
+<ul>
+<li>x=1: then <span
+class="math inline">1<sup>−1</sup> ≡ 1<em>m</em><em>o</em><em>d</em><em>N</em></span></li>
+<li>x=2: then <span
+class="math inline">2<sup>−1</sup> ≡ ?<em>m</em><em>o</em><em>d</em><em>N</em></span>
+doesn't exist</li>
+<li>x=3: then <span
+class="math inline">3<sup>−1</sup> ≡ 5<em>m</em><em>o</em><em>d</em><em>N</em></span></li>
+<li>x=4: then <span
+class="math inline">4<sup>−1</sup> ≡ ?<em>m</em><em>o</em><em>d</em><em>N</em></span>
+doesn't exist</li>
+<li>x=5: same as above for 3</li>
+<li>x=6,7,8 don't exist</li>
+<li>x=9: then <span
+class="math inline">11<sup>−1</sup> ≡ 11<em>m</em><em>o</em><em>d</em><em>N</em></span></li>
+<li>x=13: then <span
+class="math inline">13<sup>−1</sup> ≡ 13<em>m</em><em>o</em><em>d</em><em>N</em></span></li>
+</ul>
+<p>You may or may not have picked up on a pattern here. It turns out
+when there is a common divisor then there will not be an inverse.
+Otherwise the inverse exists.</p>
+<blockquote>
+<p><strong>Theorem.</strong> <span
+class="math inline"><em>x</em><sup>−1</sup> mod  <em>N</em></span>
+exists iff <span
+class="math inline">gcd (<em>x</em>, <em>N</em>) = 1</span>; if they
+have a gcd <span class="math inline"> &gt; 1</span> then they must have
+an inverse.</p>
+</blockquote>
+<ul>
+<li>This, gcd(x,N) = 1, is often termed relatively prime</li>
+</ul>
+<p>Suppose <span
+class="math inline"><em>x</em><sup>−1</sup> mod  <em>N</em></span>
+exists, then how many can there be?</p>
+<p>For ex consider x=3,N=11 then <span
+class="math inline">3<sup>−1</sup> ≡ 4 mod  <em>N</em></span>. How many
+inverses can there be?</p>
+<p>We will prove there can be only one, using contradition. Suppose
+there are two inverses, ie <span
+class="math inline"><em>z</em> ≡ <em>x</em><sup>−1</sup> mod  <em>N</em></span>
+and <span
+class="math inline"><em>y</em> ≡ <em>x</em><sup>−1</sup> mod  <em>N</em></span>
+and that <span
+class="math inline"><em>z</em> ≢ <em>y</em> mod  <em>N</em></span>,
+which also means <span
+class="math inline">1 ≤ <em>y</em> ≠ <em>z</em> ≤ <em>N</em></span>.
+Since z is an inverse of x mod N then we have that <span
+class="math inline"><em>x</em><em>z</em> ≡ 1 mod  <em>N</em></span>
+similarly <span
+class="math inline"><em>x</em><em>y</em> ≡ 1 mod  <em>N</em></span>. But
+then we can equate the two to get <span
+class="math inline"><em>x</em><em>z</em> ≡ <em>x</em><em>y</em> ≡ 1 mod  <em>N</em></span>.
+so <span
+class="math inline"><em>x</em><em>z</em> ≡ <em>x</em><em>y</em></span>.
+Now multiplying each side by <span
+class="math inline"><em>x</em><sup>−1</sup></span> yields <span
+class="math inline"><em>z</em> ≡ <em>y</em></span>. Which contradicts
+our assumption at the start <span
+class="math inline"><em>z</em> ≢ <em>y</em> mod  <em>N</em></span>. I'll
+spare you the QED, but that's all there is to it.</p>
+<p><strong>NonExistence of Multiplicative Inverses</strong><br />
+Let's now consider the case when the inverse does not exist. Recall our
+earlier theorem that <span
+class="math inline"><em>x</em><sup>−1</sup><em>m</em><em>o</em><em>d</em><em>N</em></span>
+exists iff gcd(x,N) = 1, meaning they are relatively prime. Of course
+this means that when gcd(x,N) &gt; 1 then the inverse must not
+exist.</p>
+<p>To build some intuition of the upcoming proof, let's consider a
+simple case where x &amp; N are even numbers. furthermore, let <span
+class="math inline"><em>z</em> ≡ <em>x</em><sup>−1</sup> mod  <em>N</em></span>
+and thus <span
+class="math inline"><em>x</em><em>z</em> ≡ 1<em>m</em><em>o</em><em>d</em><em>N</em></span>.
+This would imply that xz = N+1, or 2N+1 or 3N+1 or ... etc etc ... qN+1.
+But xz must be an even number. whereas qN+1 must be an odd number no
+matter the choice of q. Hence we have contradiction our initial
+assumption that x &amp; N are even numbers.</p>
+<p>We will now proceed to prove the existence of <span
+class="math inline"><em>x</em><sup>−1</sup> mod  <em>N</em></span> by
+finding it.</p>
+<h5 id="euclids-rule">Euclid's Rule</h5>
+<p>Consider the integers x &amp; y with <span
+class="math inline"><em>x</em> ≥ <em>y</em> &gt; 0</span>, then gcd(x,y)
+= gcd(x mod y, y). Let's consider why this must be true. Note that
+gcd(x,y)=gcd(x-yk,y) for some integer k is equivalent to our earlier
+statement gcd(x mod y, y). Since the mod function acts like a repeated
+subtraction. It will now suffice to demonstate the correctness of our
+second statement. To do this we will search for a divisor common to x,y,
+&amp; x-y.</p>
+<ul>
+<li>suppose d divides x &amp; y on the left, then d divides y on the
+right and x-y as it divides each term</li>
+<li>suppose d divides x-y &amp; y on the right, then it follows that d
+must divide both x and y</li>
+<li>thus one these common divisors must be the greatest</li>
+</ul>
+<p>We will now use this to develop an algorithm<br />
+<strong><span class="math inline">Euclids Algo</span></strong></p>
+<pre><code>Euclid(x,y)
+
+Input  : Integers x,y where x &gt;= y &gt;= 0
+Output : gcd(x,y)
+
+if y=0 return x
+else return (Euclid(y,x mod y))    
+                      # this is not a typo
+                      # we flip the parameters to ensure x &gt;= y &gt;= 0</code></pre>
+<p>The base case may look a bit weird. Let's consider the base case
+gcd(x,0) which we got to by taking some multiple of x with x, ie
+gcd(kx,x). kx mod x is of course 0 and that is passed to the Euclid
+call. Furthermore, the gcd(kx,x) is x.</p>
+<p><strong>Runtime</strong><br />
+Taking the mod of an n-bit number requires <span
+class="math inline"><em>O</em>(<em>n</em><sup>2</sup>)</span>. How many
+calls will there be? In general if <span
+class="math inline"><em>x</em> ≥ <em>y</em></span> then <span
+class="math inline"><em>x</em> mod  <em>y</em> &lt; <em>x</em>/2</span>.
+This means our algo will run for at most 2n rounds.</p>
+<p>Our final runtime will t/f be <span
+class="math inline"><em>O</em>(<em>n</em><sup>3</sup>)</span></p>
+<h5 id="extended-euclid">Extended Euclid</h5>
+<p><strong><span class="math inline">Extended Euclid
+Algo</span></strong></p>
+<p><strong>Computing Inverses</strong><br />
+This is an extended version of euclid's algorithm. This version however
+will return and extra two parameters <span
+class="math inline"><em>α</em></span> and <span
+class="math inline"><em>β</em></span>.</p>
+<p>Consider</p>
+<ul>
+<li>if gcd(x,N) =1 then <span
+class="math inline"><em>x</em><sup>−1</sup> mod  <em>N</em></span>
+exists</li>
+<li>t/f <span
+class="math inline"><em>d</em> = 1 = <em>x</em><em>α</em> + <em>N</em><em>β</em></span></li>
+<li>t/f <span
+class="math inline">1 ≡ <em>x</em><em>α</em> + <em>N</em><em>β</em> mod  <em>N</em></span>
+<ul>
+<li>but <span
+class="math inline"><em>N</em><em>β</em> mod  <em>N</em></span> is just
+0 so the last term is 0</li>
+</ul></li>
+<li>t/f <span
+class="math inline">1 ≡ <em>x</em><em>α</em> mod  <em>N</em></span>
+<ul>
+<li>which means <span
+class="math inline"><em>α</em> = <em>x</em><sup>−1</sup></span></li>
+</ul></li>
+<li>thus <span
+class="math inline"><em>x</em><sup>−1</sup> ≡ <em>α</em> mod  <em>N</em></span></li>
+</ul>
+<p>Extended algorithm</p>
+<pre><code>extEuclid(x,y)
+
+ input: integers x,y   where x &gt;= y &gt;= 0
+output: integers d,alpha,beta 
+    where d = gcd(x,y)
+    and d = x*alpha and y*beta
+
+Input  : Integers x,y where x &gt;= y &gt;= 0
+Output : gcd(x,y)
+
+if y=0 return(x,1,0)
+
+d,a&#39;,b&#39; = extEuclid(y,x mod y)
+
+return(d,b&#39;,a&#39;-b&#39;*floor(x/y))</code></pre>
+<p>Runtime is <span
+class="math inline"><em>O</em>(<em>n</em><sup>2</sup>)</span> per round,
+with up to 2n rounds similar to before. Hence the runtime is <span
+class="math inline"><em>O</em>(<em>n</em><sup>3</sup>)</span>.</p>
+<p><strong>Example</strong></p>
+<p>Q: Compute <span class="math inline">7<sup>−1</sup> mod  360</span>
+A: Run Ext−Euclid(360,7)</p>
+<ul>
+<li><p>Let's first look at (x,y)(x,y) in the recursive subproblems.</p>
+<ul>
+<li>They are (360,7) → (7,3) → (3,1) → (1,0)</li>
+<li>(Note, these are the same sequence of subproblems as encountered in
+Euclid's GCD algorithm.)</li>
+</ul></li>
+<li><p>Now let's look at the pair (α,β) returned for these inputs.</p>
+<ul>
+<li>For the base case (x,y) = (1,0) we have: (α,β) = (1,0)</li>
+<li>Next, for (x,y) = (3,1) we have: (α,β) = (0,1)</li>
+<li>Then for (x,y) = (7,3) we have: (α,β) = (1,−2)</li>
+<li>Finally, for (x,y) = (360,7) we have: (α,β) = (−2,103)</li>
+</ul></li>
+<li><p>Therefore, <span
+class="math inline">7<sup>−1</sup> ≡ 103 mod  360</span></p></li>
+<li><p>Note, we also get that:</p>
+<ul>
+<li><span class="math inline">360<sup>−1</sup> ≡ −2 mod  7</span></li>
+</ul></li>
+<li><p>Simplifying, we have:</p>
+<ul>
+<li><span class="math inline">360 ≡ 3 mod  7</span> and <span
+class="math inline">−2 ≡ 5</span></li>
+</ul></li>
+<li><p>Therefore,</p>
+<ul>
+<li><span class="math inline">3<sup>−1</sup> ≡ 5 mod  7</span></li>
+</ul></li>
+<li><p><strong>Finally we see</strong></p>
+<ul>
+<li>Answer: 103</li>
+</ul></li>
+</ul>
+<p><strong>Summary</strong></p>
+<ul>
+<li>Use Euclid to find gcd(x,N)</li>
+<li>Use extEuclid to compute <span
+class="math inline"><em>x</em><sup>−1</sup> mod  <em>N</em></span></li>
+</ul>
+<h3 id="ra2--rsa-cryptosystem">RA2 — RSA Cryptosystem</h3>
+<h4 id="ra2-rsa-cryptosystem">RA2: RSA Cryptosystem</h4>
+<p>Before we dive into the RSA cryptosystem, we're going to dive into
+the mathematical concept which is the basis for the whole
+cryptosystem.</p>
+<h5 id="fermats-little-theorem-1">Fermat's little theorem</h5>
+<p>If p is prime then for every <span
+class="math inline">1 ≤ <em>z</em> ≤ <em>p</em></span> we have <span
+class="math inline"><em>z</em><sup><em>p</em> − 1</sup> ≡ 1 mod  <em>p</em></span></p>
+<ul>
+<li>Note that <span
+class="math inline">1 ≤ <em>z</em> ≤ <em>p</em> − 1</span> is equivalent
+being relatively prime ie gcd(z,p) = 1</li>
+</ul>
+<p>This is rather easy result to conceptualize. p is prime, means it has
+no factors. so the only common factors are 1 and p. Another way to think
+of this is a small example. Let z=2 and say p=7 which is prime. then
+<span
+class="math inline"><em>z</em><sup><em>p</em> − 1</sup> = 2<sup>6</sup> = 64</span>
+mod this by 7 to get 1.</p>
+<p>This is the basis of the RSA algorithm, as well as the basis of a
+primality testing algorithm. If given a number x how can we quickly
+determine if it's prime. We will go through the proof of fermat's little
+theorem. Which also makes some interesting observations.</p>
+<p><strong>Proof: Fermat's little theorem</strong><br />
+Let's begin by defining a set S={1,2,3,...,p-1} which is the elements
+between 1, and p-1.<br />
+Let's also look at another set S' which is z*S mod p, ie S'={1*z mod p,
+2*z mod p,...,(p-1)*z mod p}</p>
+<p>Ex for p=7, z=4, then S={1,2,3,4,5,6} and S'={4,1,5,2,6,3}<br />
+If you stare at S' long enough you may notice something rather amusing.
+It's a permutation of S. It's the exact same elements with a different
+ordering. So in fact S'=S. This is an example and not a rigorous proof,
+but since we all love proofs so much let's not skip this one.</p>
+<p>S=S'<br />
+<strong>Proof</strong><br />
+Let S={1,2,...,p-1} and S'={1*z mod p,2*z mod p,...,(p-1)*z mod p}. We
+will show that the elements of S' are distinct, non-zero, and that there
+are p-1 of them, |S'|=(p-1).</p>
+<p>To see that there are (p-1) elements is straight forward as each
+element in S has a corresponding mapping to S'. To see that they are
+distinct suppose that for some i,j where <span
+class="math inline"><em>i</em> ≠ <em>j</em></span>, the elements in S'
+are the same. This means that <span
+class="math inline"><em>i</em><em>z</em> ≡ <em>j</em><em>z</em><em>m</em><em>o</em><em>d</em><em>p</em></span>.
+So we multiply each side by the inverse of z, <span
+class="math inline"><em>z</em><sup>−1</sup></span>. This yields <span
+class="math inline"><em>i</em> ≡ <em>j</em> mod  <em>p</em></span> which
+contradicts our assumption that i and j are not equal. How to we know
+<span class="math inline"><em>z</em><sup>−1</sup></span> exists? well p
+is prime so therefore any number between 1 and p-1 must be relatively
+prime to it. And of course z must be a number between 1 and p so it must
+be in S, and it must have a prime.</p>
+<p>All that is left to demonstrate that they are all non-zero. Again we
+proceed by contradition. Assume that there is a zero. then for some i,
+<span
+class="math inline"><em>i</em><em>z</em> ≡ 0 mod  <em>p</em></span>,
+again we multiply each side by <span
+class="math inline"><em>z</em><sup>−1</sup></span>. This yields <span
+class="math inline"><em>i</em> ≡ 0 mod  <em>p</em></span>. Consider what
+this means? since i is the index of some element in S, i=0 would mean
+the 0'th index. But the set begins at 1. Hence a contradiction.</p>
+<p>Now back to our originally scheduled proof (Fermat's little
+theorem)</p>
+<p>Recall that we need to show that <span
+class="math inline"><em>z</em><sup><em>p</em> − 1</sup> ≡ 1 mod  <em>p</em></span>.
+Knowing that S=S' will help us to demonstrate this. Now consider
+multiplying the elements of S together ie <span
+class="math inline">1 × 2 × 3 × ⋯ × (<em>p</em> − 1)</span>. Similarly
+for S' we get ie <span
+class="math inline">1 × <em>z</em> × 2 × <em>z</em> × 3 × <em>z</em> × ⋯ × <em>z</em> × (<em>p</em> − 1) mod  <em>p</em></span>.
+Let's see if these are equal! Multiplying the elements of S together
+yields (p-1)!, Multiplying the elements of S' together yields, <span
+class="math inline">$(p-1)! z^{p-1} \\ mod \\ p$</span>. Now we need to
+cancel out the (p-1)!, if your guessing we need an inverse you'd be
+correct. But recall that p is prime, therefore every number between 1
+and p-1 must have an inverse, so the inverse of p-1 is just the
+factorial of the inverses <span
+class="math inline">1<sup>−1</sup> × 2<sup>−1</sup> × 3<sup>−1</sup> × ⋯ × (<em>p</em> − 1)<sup>−1</sup></span>.
+Now mutiply each side by <span
+class="math inline">(<em>p</em> − 1)!<sup>−1</sup></span> and you'll
+find that <span class="math inline">$1 \equiv z^{p-1} \\ mod \\
+p$</span> .... well well well this is exactly what we wanted to prove is
+it not?</p>
+<h5 id="eulers-theorem">Euler's Theorem</h5>
+<p>Is a more general form of fermat's theorem.</p>
+<p>For any N,z where gcd(z,N) = 1 then <span
+class="math inline"><em>z</em><sup><em>ϕ</em>(<em>N</em>)</sup> ≡ 1 mod  <em>N</em></span><br />
+Where we define <span class="math inline"><em>ϕ</em>(<em>N</em>)</span>,
+Euler's Totient function, as</p>
+<ul>
+<li>all integers between 1 &amp; N that are relatively prime to N.</li>
+<li>equivalently it is the cardinality |{$x : 1 \le x \le N, \
+gcd(x,N)=1 $}|</li>
+</ul>
+<p>Consider what {$x : 1 \le x \le N, \ gcd(x,N)=1 $} means. if N=p
+prime then by fermat's theorem we could say that all numbers between 1
+and p-1 and relatively prime to p. Thus for p prime <span
+class="math inline"><em>ϕ</em>(<em>p</em>) = <em>p</em> − 1</span>,
+pretty simple right? Furthermore if <span
+class="math inline"><em>ϕ</em>(<em>p</em>) = <em>p</em> − 1</span> is
+virtually the same statement as fermat.</p>
+<p>What if N=pq, for primes p and q, then what is <span
+class="math inline"><em>ϕ</em>(<em>N</em>)</span>? Well, well, well,
+lemme tell ya, it's just (p-1)(q-1).</p>
+<p>Conceptually</p>
+<ul>
+<li>for the numbers 1,2,3, ... pq
+<ul>
+<li>we have p, 2p, 3p, ... qp: q multiples of p</li>
+<li>sim we have q, 2q, 3q, ... , pq: p multiples of q</li>
+<li>this is pq - q - p + 1 (we add back one because the last term in
+each is the same)</li>
+<li>this simplifies to (p-1)(q-1)</li>
+</ul></li>
+</ul>
+<p>if we put this result back into Euler's theorem we get the basis of
+the RSA algorithm<br />
+<span class="math display">$$\large Z^{(p-1)(q-1)} \equiv 1 \mod
+pq$$</span></p>
+<p>Which allows us to use (p-1) &amp; (q-1) to generate an encryption
+and decryption key. Let's use an example to build our intuition of
+RSA.</p>
+<p>Suppose we take b,c where <span
+class="math inline"><em>b</em><em>c</em> ≡ 1 mod  <em>p</em> − 1</span>,
+meaning b &amp; c are inverses to each other in modulo p-1, or more
+simply bc = 1 + k(p-1) for some integer k.</p>
+<p>Consider <span
+class="math inline"><em>z</em><sup><em>b</em><em>c</em></sup></span>, we
+can work this out as follows <span
+class="math inline"><em>z</em><sup><em>b</em><em>c</em></sup> ≡ <em>z</em> ⋅ ((<em>z</em><sup><em>p</em> − 1</sup>)<sup><em>k</em></sup> ≡ <em>z</em> ⋅ 1 mod  <em>p</em></span>
+.... pretty interesting right? we got back the number z despite raising
+it to the power of bc. This is exactly what the RSA uses. take a message
+and encode it to form your z, then raise it to the power of b, then it
+will take someone with the power of q to raise yet again. The result
+will be the original message z. There is still one small weakness we
+want to get rid of. In the above formulation p is known, so if they know
+p then they certainly know p-1. We will move to conceal p by using
+Euler's theorem.</p>
+<p>To use Euler's theorem, we choose primes p &amp; q, and let N=pq.
+Find d,e that are inverses to each other in mod (p-1)(q-1). ie <span
+class="math inline"><em>d</em><em>e</em> ≡ 1 mod  (<em>p</em> − 1)(<em>q</em> − 1)</span>.
+Then <span
+class="math inline"><em>z</em><sup><em>d</em><em>e</em></sup> ≡ <em>z</em> × (<em>z</em><sup>(<em>p</em> − 1)(<em>q</em> − 1)</sup>)<sup><em>k</em></sup> ≡ <em>z</em> mod  <em>N</em></span>.
+Now we can send a message encrpted with e along with N. Only the
+receiver who knows d and thus q will be able to decode it back to z.
+Even if someone knows e and N they still be unable to decode without
+d.</p>
+<h5 id="rsa-cryptography">RSA: Cryptography</h5>
+<p><strong>Setting</strong><br />
+There are 3 people: Alice the sender, Bob the reciever, and Eve the
+aptly named evesdropper. Alice takes her message m and encrypts then
+sends it, e(m) is the message she sends. Bob receives e(m) and decrypts
+it using his decryption function d(), so he gets the message m =
+d(e(m)). This is what is often called a public-key cryptosystem.
+Everyone can see e(m). Furthermore Bob will give everyone the keys to
+send him a message. He publishes the private key N and e. Now anyone can
+use these to encrypt their messages. What bob keeps safeguarded is his
+private key d, which is the inverse of e in modulo (p-1)(q-1)</p>
+<p>Here's a sketch of the process</p>
+<ol type="1">
+<li><strong>RSA Protocol - Reciever - Bob</strong></li>
+</ol>
+<ul>
+<li>Bob needs to pick 2 n-bit random primes p &amp; q
+<ul>
+<li>to do this generate an n-bit sequence of random 0s and 1s</li>
+<li>then test it to ensure it's prime (primality test we will look at
+soon)</li>
+</ul></li>
+<li>Bob choose e relatively prime to (p-1)(q-1)
+<ul>
+<li>Generally these are small so that others can encrypt easily, ie
+e=3,5,7, or your favourite prime number</li>
+<li>he also needs to ensure this e is relatively prime so he runs
+Euclid's extended algorithm</li>
+</ul></li>
+<li>Now Bob has N = pq</li>
+<li>Now bob publishes his public key N &amp; e</li>
+<li>and can compute his private key
+<ul>
+<li>which is the d that satifies <span
+class="math inline"><em>d</em> ≡ <em>e</em><sup>−1</sup> mod  (<em>p</em> − 1)(<em>q</em> − 1)</span></li>
+</ul></li>
+</ul>
+<ol type="1">
+<li><strong>RSA Protocol - Sender - Alice</strong></li>
+</ol>
+<ul>
+<li>Looks up/locates Bob public key (N,e)</li>
+<li>She encodes her message <span
+class="math inline"><em>y</em> = <em>m</em><sup><em>e</em></sup> mod  <em>N</em></span>
+<ul>
+<li>If she took this course she would use the fast modular
+exponentiation algorithm</li>
+</ul></li>
+<li>finally she sends her message y</li>
+</ul>
+<ol type="1">
+<li><strong>RSA Protocol - Reciever - Bob</strong></li>
+</ol>
+<ul>
+<li>Bob recieves the message y and gets to work</li>
+<li>Decrypts: computes <span
+class="math inline"><em>y</em><sup><em>d</em></sup> mod  <em>N</em> = <em>m</em></span></li>
+</ul>
+<blockquote>
+<p><strong>Recall.</strong> for <span
+class="math inline"><em>N</em> = <em>p</em><em>q</em></span>:</p>
+</blockquote>
+<ul>
+<li><span
+class="math inline"><em>d</em> ≡ <em>e</em><sup>−1</sup> mod  (<em>p</em> − 1)(<em>q</em> − 1)</span>
+<ul>
+<li><span
+class="math inline"> ⟹ <em>d</em><em>e</em> = 1 + <em>k</em>(<em>p</em> − 1)(<em>q</em> − 1)</span></li>
+</ul></li>
+<li>$y^d \equiv (m^e)^d $
+<ul>
+<li><span
+class="math inline"> ≡ <em>m</em><sup><em>e</em><em>d</em></sup></span></li>
+<li><span
+class="math inline"> ≡ <em>m</em> × (<em>m</em><sup>(<em>p</em> − 1)(<em>q</em> − 1)</sup>)<sup><em>k</em></sup> = <em>m</em> × 1</span></li>
+<li><span class="math inline"> ≡ <em>m</em> mod  <em>N</em></span></li>
+</ul></li>
+</ul>
+<p>This is the whole RSA random algorithm. What remains is to look at
+how to create and test random prime numbers. but first let's look at
+some possible pitfalls.</p>
+<p><strong>Issue 1</strong><br />
+Suppose m and N are not relatively prime, ie gcd(m,N) &gt; 1, where
+N=pq, p &amp; q prime. This would imply that the gcd of m and N is
+either p or q so let's suppose it's p, thus gcd(m,N) = p. Let's think of
+how this will affect the RSA algorithm. According to our RSA algo we
+would expect <span
+class="math inline">(<em>m</em><sup><em>e</em></sup>)<sup><em>d</em></sup> ≡ <em>m</em> mod  <em>N</em></span>
+by the Chinese Remainder Theorem (CRT) this will hold true for gcd(m,N)
+&gt; 1, (where as Euler's theorem expects gcd(m,N)=1). But there is a
+problem here that is not so obvious. if we look at the encrypted message
+<span
+class="math inline"><em>y</em> = <em>m</em><sup><em>e</em></sup> mod  <em>N</em></span>,
+you may observe that all of these are divisable by p. Since gcd(m,N) =
+p, then it follows that gcd(y,N) = p also. Thus the encrypted message is
+breakable. The moral of the story is that finding two primes is not
+always sufficient, if they're not relatively prime your RSA
+implementation can break down</p>
+<p><strong>Issue 2</strong><br />
+m shouldn't be too large, in particular we want m &lt; N. In general
+messages can be a large string text, so we first convert it into a
+number, this can be done by</p>
+<ul>
+<li>take the binary representation of the text, this will result in an
+even larger message length,</li>
+<li>in this scenario we will want <span class="math inline">$m \&lt;
+2^n$</span>, which is segments of length <span
+class="math inline">2<sup><em>n</em></sup></span> this is little n</li>
+<li>where we constrain n to we find p and q such that <span
+class="math inline"><em>N</em> ≥ 2<sup><em>n</em></sup></span></li>
+<li>which put together implies that m &lt; N as needed</li>
+</ul>
+<p>m also shouldn't be too small. Suppose for example if we take e=3 and
+<span class="math inline">$m^3 \&lt; N$</span></p>
+<ul>
+<li>then <span
+class="math inline"><em>m</em><sup><em>e</em></sup> mod  <em>N</em></span>
+is just <span
+class="math inline"><em>m</em><sup><em>e</em></sup></span>.</li>
+<li>Being less than N means that modding it won't have any effect</li>
+<li>meaning the encypted message is just <span
+class="math inline"><em>y</em><sup>3</sup></span></li>
+<li>which can be easily decrypted by taking the cubed root <span
+class="math inline"><em>y</em><sup>1/3</sup></span></li>
+</ul>
+<p>One way to avoid the second issue is to choose some random number r,
+then look at m plus r, m+r, or look at m exclusive or r, <span
+class="math inline"><em>m</em>⨁<em>r</em></span>. This effectively pads
+the message. If our padded message is sufficiently large, then we send
+both the padded message and r.</p>
+<p>Suppose we want to send the same message m to 3 different people
+using the same e=3? Each person may have a different public key: Person
+1 (<span class="math inline"><em>N</em><sub>1</sub>, 3</span>); Person 2
+(<span class="math inline"><em>N</em><sub>2</sub>, 3</span>); Person 3
+(<span class="math inline"><em>N</em><sub>3</sub>, 3</span>). When we
+encrypt the same message for each person we would end up with 3
+encrypted messages, say <span
+class="math inline"><em>y</em><sub>1</sub>, <em>y</em><sub>2</sub>, <em>y</em><sub>3</sub></span>.
+It turns out that if someone possesses all three encrypted messages then
+they should be able to decrypt m from thing. This is a consequence of
+the Chinese remainder theorem and is left as an exercise.</p>
+<p><strong>Summary</strong></p>
+<p><strong>Fermat's Little Theorem</strong> For primes p &amp; z, with
+gcd(z,p)=1, <span
+class="math inline"><em>z</em><sup><em>p</em> − 1</sup> ≡ 1 mod  <em>p</em></span>
+<strong>Euler's Theorem</strong> For primes p &amp; q, let N=pq. For z
+where gcd(z,N)=1 <span
+class="math inline"><em>z</em><sup>(<em>p</em> − 1)(<em>q</em> − 1)</sup> ≡ 1 mod  <em>p</em></span><br />
+<strong>RSA Algorithm</strong></p>
+<ul>
+<li>Choose primes p &amp; q, and let N=pq</li>
+<li>Find e where gcd(e,(p-1)(q-1))=1</li>
+<li>let <span
+class="math inline"><em>d</em> ≡ <em>e</em><sup>−1</sup> mod  (<em>p</em> − 1)(<em>q</em> − 1)</span>
+use Extended Euclid algo - <strong>KEEP PRIVATE</strong></li>
+<li>Publish public key (N,e)</li>
+<li>Encrypt message m: <span
+class="math inline"><em>y</em> ≡ <em>m</em><sup><em>e</em></sup> mod  <em>N</em></span></li>
+<li>Decrypt y, <span
+class="math inline"><em>m</em> ≡ <em>y</em><sup><em>d</em></sup> mod  <em>N</em></span>,
+to get back the message m - use fast modular exponentiation</li>
+</ul>
+<p><strong>Example</strong></p>
+<p>Consider p=13, q=31</p>
+<p>What is the smallest e?</p>
+<ul>
+<li>This is basically asking for the smallest relatively prime
+number</li>
+<li>(p-1)(q-1) = 360, which is divisable by 2,3,5 it is not divisible by
+7 so we choose 7 as the lowest relatively prime</li>
+</ul>
+<p>What is the public key (N,e)?</p>
+<ul>
+<li>N=pq=403, and e=7 from last question</li>
+<li>thus (N,e) = (403,7)</li>
+</ul>
+<p>What is d?<br />
+For this we use the extended euclidean algorithm</p>
+<ul>
+<li>(p-1)(q-1) = 360, and e = 7</li>
+</ul>
+<!-- -->
+
+<pre><code># to find d =e^-1 mod (p-1)(q-1)
+# to compute this we need to find the inverse of e in mod 360
+# ie solve x = e^-1 mod 360
+
+# Begin by finding the gcd(360,7)
+    360 = 7*(51) + 3                #1 
+      7 = 3*(2)  + 1                #2 we&#39;ve gotten to 1 so at least we know the gcd exists
+
+# now the Extended portion of the algorithm
+# using the lines above but working from bottom - upwards
+    1 = 7 - 3*2                     # last line from gcd  
+      = 7 - 2*(360 - 7*51)          # sub 2nd last line into last line
+      = 7 + 2*7*51 - 2*360          # simplification steps
+      = 7 + 2*7*51                  # mod out the 360 
+      = 7 + 7*102  
+      = 7*(1+102)
+      = 7*103
+
+t/f (7*103 = 1 mod 360) so 103 is the inverse of 7
+t/f (d = 103 mod 360 = 103)</code></pre>
+<h5 id="primality-testing">Primality Testing</h5>
+<p>We want to choose a random pair of prime numbers p &amp; q. let r be
+a random n-bit number. To do this generate a random string of integers
+equal to 0/1. This of course is not necasarily prime, it's just random
+number. So we will check it by running a primality test. If it is prime
+we are confident it is also a random prime. otherwise we repeat the
+process to generate another random number. The run time of this can be
+tricky as it is difficult to predict when a random number will be
+prime.</p>
+<p><strong>Density of the Primes</strong> It turns out that prime
+numbers are dense. The probability of a random number being a prime
+number is <span class="math inline">$\approx \frac{1}{n}$</span></p>
+<p><strong>Fermat's test</strong><br />
+Recall: Fermat's theorem: If r is prime then for all z in {1,2,...,r-1}
+we have that <span
+class="math inline"><em>z</em><sup><em>r</em> − 1</sup> ≡ 1 mod  <em>r</em></span>.
+This will form the basis of our primality test. But first let's also
+consider the non-prime numbers, ie composite, that we are bound to run
+into. These are simply the numbers which are not relatively prime, ie
+<span
+class="math inline"><em>z</em><sup><em>r</em> − 1</sup> ≢ 1 mod  <em>r</em></span>.
+In a humourous stroke we will call such a z, that proves r is composite,
+<strong>Fermat's witness</strong>. Does every composite r have a Fermat
+witness? Yes, in fact they do. They always have at least 1, and may even
+have more. These are much easier to find.</p>
+<h5 id="fermat-witness">Fermat Witness</h5>
+<p>Define the Fermat witness for r as the number z such that <span
+class="math inline">1 ≤ <em>z</em> ≤ <em>r</em> − 1</span> and <span
+class="math inline"><em>z</em><sup><em>r</em> − 1</sup> ≢ 1 mod  <em>r</em></span></p>
+<p><strong>Proof: Every Composite r has at least 1 fermat
+witness</strong><br />
+Since r is composite then it must have at least 2 divisors. Let's choose
+one of them and call it z. Then we know that gcd(r,z)=z&gt;1. Of course
+this works for any divisor of r, so if it has 100 divisors then we would
+have 100 witnesses. You may also recall from our properties of inverses
+that if the gcd of two numbers, in mod n, is not 1, then the inverse
+does not exist. This is our current situation gcd(r,z)=z implies that
+the inverse does not exist.</p>
+<p>Let's proceed by contradicition. Suppose there is an inverse, ie
+<span
+class="math inline"><em>z</em><sup><em>r</em> − 1</sup> ≡ 1 mod  <em>r</em></span>.
+This would imply that <span
+class="math inline"><em>z</em> ⋅ <em>z</em><sup><em>r</em> − 2</sup> ≡ 1 mod  <em>r</em></span>,
+which in turn implies that z has the inverse, <span
+class="math inline"><em>z</em><sup><em>r</em> − 2</sup></span> in mod r.
+But the inverse cannot exist, therefore we have a contradiction.</p>
+<p><strong>DONE</strong></p>
+<p>Now we call this Fermat witness that we just derived a trivial Fermat
+witness. Why is it a trivial Fermat witness? This is a Fermat witness,
+z, where it also has the property that the gcd(z,r) &gt; 1. So z and r
+are not relatively prime. Notice, z already proves that r is composite.
+If z and r have a non-trivial divisor, then we know that r has a
+non-trivial divisor, and therefore, it's not prime. So, any z where this
+is the case, proves that r is composite, there's no reason to run
+Fermat's test. So that's why we called such a z, a trivial Fermat
+witness. Now there always exists a trivial Fermat witness for composite
+numbers. Why? Because every composite number has at least two
+non-trivial divisors. The question is whether a composite number r, has
+a non-trivial Fermat witness. This is a number z which is relatively
+prime to r. Now it turns out that some composite numbers have no
+non-trivial Fermat witnesses, these are called pseudo primes, but those
+are relatively rare.</p>
+<p>For all the other composite numbers, they have at least one
+non-trivial Fermat witness, and if they have at least one, then in fact,
+they have many Fermat witnesses. And therefore it will be easy to find a
+Fermat witness and that's the key point. Trivial Fermat witnesses always
+exist. Every composite number has at least two trivial Fermat witnesses.
+But if a composite number has a non-trivial Fermat witness, then there
+are many Fermat witnesses, they're dense and therefore they're easy to
+find. And that's what we'll utilize for our primality testing
+algorithm.</p>
+<p>Can there be no non-trivial witnesses? Yes, this can in fact happen.
+This happens when for some z <span
+class="math inline"><em>z</em><sup><em>r</em> − 1</sup> ≢ 1 mod  <em>r</em></span>
+and gcd(z,r) = 1, ie they're relatively prime. We know there's always a
+trivial witness for a composite, but is there always a nontrivial
+witness? Such numbers are called <strong>Carmichael Numbers</strong> and
+resemble psuedo-primes in many ways.</p>
+<p><strong>Define: Carmichael Numbers</strong><br />
+A Carmichael number is a composite number r, which has no non-trivial
+Fermat witnesses. Therefore, such a number is going to be inefficient to
+use Fermat's test, to prove that r is a composite number. Some Examples:
+561, 1105, 1729. Thankfully they're pretty rare so we'll ignore them for
+the time being.</p>
+<p>So if it has a non-trivial witness then how many does it have?<br />
+<strong>Lemma</strong> If r has <span class="math inline"> ≥ 1</span>
+non trivial fermat witnesses the at least 1/2 of the set of possible
+witnesses, ie the numbers z<span class="math inline">∈</span>
+{1,2,...,r-1}, are fermat witnesses. This will help us in designing our
+algorithm. The reader may also recall that these are the same numbers
+that must all be relatively prime for prime number p. So it makes that
+some are witnesses to a composite r.</p>
+<p><strong><span class="math inline">Primality Test -
+Simple</span></strong></p>
+<pre><code>Input: n-bit number r
+
+1. Choose z randomly from {1,2,3,...,r-1}
+2. Compute z^(r-1) \equiv 1 mod r
+3. If z^(r-1) \equiv 1 mod r
+    then r is prime     - output true
+    else r is composite - output false</code></pre>
+<ul>
+<li>for prime r
+<ul>
+<li>Pr(algo says r is prime) = 100%</li>
+</ul></li>
+<li>for composite r (&amp; not a Carmichael number)
+<ul>
+<li>Pr(algo says r is prime) <span class="math inline">≤</span> 50%</li>
+<li>false positive</li>
+</ul></li>
+</ul>
+<p>This is a pretty high false positive rate so let's improve it. we
+will tweak our algo above as follows</p>
+<ul>
+<li>Instead of choosing just 1 z we will repeatedly choose z, k times at
+random, from the set {1,2,...,r-1}
+<ul>
+<li>If any of these <span
+class="math inline"><em>Z</em><sub><em>i</em></sub></span>'s is a Fermat
+witness then we know for sure that r is composite</li>
+<li>if none of them is a witness then there is a good chance r is
+prime.</li>
+</ul></li>
+<li>In step 2 we must now iterate over these z(s)
+<ul>
+<li>and we perform the fermat test same as before</li>
+</ul></li>
+</ul>
+<p><strong><span class="math inline">Primality Test -
+Better</span></strong></p>
+<pre><code>Input: n-bit number r
+
+1. Choose z1,z2,...,zk randomly from {1,2,3,...,r-1}
+
+2.  for i=1-&gt;k
+    Compute (z_i)^(r-1) \equiv 1 mod r
+
+3. If for all i, z^(r-1) \equiv 1 mod r
+    then r is prime     - output true
+    else r is composite - output false</code></pre>
+<ul>
+<li>for prime r
+<ul>
+<li>Pr(algo says r is prime) = 100% - same as before</li>
+</ul></li>
+<li>for composite r (&amp; not a Carmichael number) - false positive
+<ul>
+<li>Pr(algo says r is prime) <span class="math inline">≤</span>
+(1/2)^k</li>
+<li>as k grows larger this gets much better than before</li>
+</ul></li>
+</ul>
+<p>How can we do this if we allow for Carmichael numbers?</p>
+<h3 id="ra3--bloom-filters">RA3 — Bloom Filters</h3>
+<h4 id="ra3-bloom-filters---todo">RA3-Bloom Filters - todo</h4>
+<p>In this section we will discuss and illustrate a popular hashing
+technique known as bloom filters. To motivate our discussion we will
+look at a toy problem "Balls into bins" which will help build some
+intuition about the design of hashing schemes. Will consider the "Power
+of 2 choices", which is a very common technique used to build more
+sophisticated hashes. Then we will look at a classic hashing scheme
+called Chain hashing. Afterwards we will have the ability to look at
+bloom filters, which is the subject we have been driving at.</p>
+<p><strong>Balls into Bins</strong><br />
+We have n identical balls and n bins <span
+class="math inline"><em>B</em><sub>1</sub>, <em>B</em><sub>2</sub>, ..., <em>B</em><sub><em>n</em></sub></span>.
+Each ball is thrown into random bin, Independent of the other balls. We
+want to look at the number of balls that are assigned to each bin. t/f
+we look at the random variable load(i)</p>
+<ul>
+<li>Let load(i) = # of balls assigned to <span
+class="math inline"><em>B</em><sub><em>i</em></sub></span></li>
+<li>How can we determine the max load?
+<ul>
+<li>where max load = <span
+class="math inline">$\underset{i}{max}$</span> load(i)</li>
+<li>which is the maximum number of balls in any particular bin.</li>
+</ul></li>
+<li>In the worst case all n balls are assigned to just 1 bin
+<ul>
+<li>1 ball assigned to <span
+class="math inline"><em>B</em><sub><em>i</em></sub></span> is (1/n)</li>
+<li>for all balls =&gt; Pr(<strong>All balls</strong> <span
+class="math inline"> ∈ <em>B</em><sub><em>i</em></sub></span>) = <span
+class="math inline">(1/<em>n</em>)<sup><em>n</em></sup></span></li>
+<li>for the first <span
+class="math inline"><em>l</em><em>o</em><em>g</em><em>n</em></span>
+balls Pr(<strong>balls(1,...,<span
+class="math inline"><em>l</em><em>o</em><em>g</em><em>n</em></span>)</strong>
+<span class="math inline"> ∈ <em>B</em><sub><em>i</em></sub></span>) =
+<span
+class="math inline">(1/<em>n</em>)<sup><em>l</em><em>o</em><em>g</em><em>n</em></sup></span></li>
+</ul></li>
+</ul>
+<h3 id="mf3--image-segmentation-flow-application">MF3 — Image
+Segmentation (flow application)</h3>
+<h4 id="mf3-image-segmentation">MF3: Image Segmentation</h4>
+<p>An application of max-flow to Image segmentation. What we want to do
+is divide an image into it's foreground and background.</p>
+<p>In order to formulate this problem into a graph setting we will think
+of an <strong>image as a graph</strong>. Each <strong>pixel</strong>
+corresponds to a <strong>vertex</strong> of the graph. The
+<strong>edges</strong> will simply be the neighbouring pixels. So each
+pixel has at most 8 edges that connect it to the 8 pixels in it's
+immediate neighborhood. This will be an undirected graph as each
+neighbour pixel is also connected to the originating pixel as well.</p>
+<p>We will also add a couple of parameters to help solve this
+problem</p>
+<p>For all i in V (all pixels in our image)</p>
+<ul>
+<li>Let <span
+class="math inline"><em>f</em><sub><em>i</em></sub> ≥ 0</span> be the
+weight or likelihood that pixel i is part of the foreground</li>
+<li>Similarly let <span
+class="math inline"><em>b</em><sub><em>i</em></sub> ≥ 0</span> be the
+weight or likelihood that pixel i is part of the background</li>
+</ul>
+<p>for each <span
+class="math inline">(<em>i</em>, <em>j</em>) ∈ <em>E</em></span></p>
+<ul>
+<li>Let <span
+class="math inline"><em>P</em><sub><em>i</em><em>j</em></sub> ≥ 0</span>
+be the seperation cost, the cost of seperating pixels i &amp; j into
+different objects</li>
+</ul>
+<p>Here's an illustration on a toy 3x3 image composed of only black and
+white pixels <img src="../../.assets/CS6515_images/MF3-001.png"
+alt="MF3-001" /></p>
+<p>We will partition the image vertices, V, into F &amp; B, just as
+before <span
+class="math inline"><em>V</em> = <em>F</em> ∪ <em>B</em></span>. Perhaps
+you can see where this is going? Clearly a pixel cannot belong to both F
+&amp; B so this defines a cut. so we can compute the weight/capacity of
+this cut just as before.</p>
+<p><span
+class="math display"><em>w</em>(<em>F</em>, <em>B</em>) = ∑<sub><em>i</em> ∈ <em>F</em></sub><em>f</em><sub><em>i</em></sub> + ∑<sub><em>j</em> ∈ <em>B</em></sub><em>b</em><sub><em>j</em></sub> − ∑<sub><em>i</em> ∈ <em>F</em>, <em>j</em> ∈ <em>B</em></sub><em>P</em><sub><em>i</em><em>j</em></sub> − ∑<sub><em>j</em> ∈ <em>F</em>, <em>i</em> ∈ <em>B</em></sub><em>P</em><sub><em>i</em><em>j</em></sub></span></p>
+<p>This defines a weight for an assignment of pixels to foreground and
+background. Now our image segmentation becomes just an optimization
+problem! Our goal is to maximize the weight w(F,B), we do this by
+looking over the possible partitions. Unfortunately though our min-cut
+algorithm requires an st-cut and returns a minimum. So a little extra
+work is required. Also recall that all the terms in a min-cut problems
+must be positive, so we need to convert the subtraction of the penalty
+into a positive term somehow.</p>
+<p>So let's reformulate our problem just a bit <img
+src="../../.assets/CS6515_images/MF3-002.png" alt="MF3-002" /></p>
+<p>What this means is that</p>
+<ul>
+<li>for <span
+class="math inline"><em>L</em> = ∑<sub><em>i</em> ∈ <em>V</em></sub>(<em>f</em><sub><em>i</em></sub> + <em>b</em><sub><em>i</em></sub>)</span></li>
+<li><span
+class="math inline"><em>w</em>(<em>F</em>, <em>B</em>) = ∑<sub><em>i</em> ∈ <em>F</em></sub><em>f</em><sub><em>i</em></sub> + ∑<sub><em>j</em> ∈ <em>B</em></sub><em>b</em><sub><em>j</em></sub> − ∑<sub><em>i</em> ∈ <em>F</em>, <em>j</em> ∈ <em>B</em></sub><em>P</em><sub><em>i</em><em>j</em></sub></span>
+<ul>
+<li>this is the same as before</li>
+</ul></li>
+<li><span
+class="math inline"><em>w</em><sup>′</sup>(<em>F</em>, <em>B</em>) = ∑<sub><em>i</em> ∈ <em>F</em></sub><em>b</em><sub><em>i</em></sub> + ∑<sub><em>j</em> ∈ <em>B</em></sub><em>f</em><sub><em>j</em></sub> + ∑<sub><em>i</em> ∈ <em>F</em>, <em>j</em> ∈ <em>B</em></sub><em>P</em><sub><em>i</em><em>j</em></sub></span>
+<ul>
+<li>this one takes some explanation</li>
+<li>sum of background likelihoods of pixels in the foreground</li>
+<li>plus sum of foreground likelihoods of pixels in the background</li>
+<li>plus sum of penalties</li>
+</ul></li>
+<li>Now we can relate w(F,B) and w'(F,B)
+<ul>
+<li>w(F,B) = L - w'(F,B)</li>
+<li>thus maximizing w(F,B) is the result of minimizing w'(F,B)</li>
+</ul></li>
+</ul>
+<p>Now we have a minimization problem, and all the terms of w'(F,B) are
+positive. Now we can use our max-flow solution using min st-cuts.</p>
+<p>Let's review our new formulation:</p>
+<p>Given an undirected graph G=(V,E) with weights:</p>
+<ul>
+<li><span
+class="math inline"><em>f</em><sub><em>i</em></sub>, <em>b</em><sub><em>i</em></sub> ≥ 0, ∀<em>i</em> ∈ <em>V</em></span></li>
+<li>$P_{ij} \ge 0, \forall (i,j) \in E $</li>
+</ul>
+<p>Find the partition <span
+class="math inline"><em>V</em> = <em>F</em> ∪ <em>B</em></span> which
+minimizes w'(F,B)</p>
+<p>What is still missing is our flow network, a directed graph. This is
+rather easy to add though. We will make all our edges bidirectional. Our
+original construction was to create a edge with no direction. Now for
+every edge <span class="math inline"><em>e</em> ∈ <em>E</em></span> we
+create E' composed of <span
+class="math inline">$\overset{\rightarrow}{ij} \in E$</span> and <span
+class="math inline">$\overset{\rightarrow}{ji} \in E$</span>. each of
+these will also get the seperation penalty <span
+class="math inline"><em>P</em><sub><em>i</em><em>j</em></sub></span></p>
+<p>What we do next is add a source and sink vertices, s and t,</p>
+<ul>
+<li>foregrounds: <span
+class="math inline"><em>f</em><em>o</em><em>r</em><em>i</em> ∈ <em>V</em></span>
+add edge s -&gt; i of capacity <span
+class="math inline"><em>f</em><sub><em>i</em></sub></span></li>
+<li>similarly</li>
+<li>backgrounds: <span
+class="math inline"><em>f</em><em>o</em><em>r</em><em>i</em> ∈ <em>V</em></span>
+add edge i -&gt; t of capacity <span
+class="math inline"><em>b</em><sub><em>i</em></sub></span></li>
+</ul>
+<p>Here's what our final graph looks like<br />
+<img src="../../.assets/CS6515_images/MF3-003.png" alt="MF3-003" /></p>
+<p>Now we have a flow network, and we have source &amp; sink vertices.
+We can now run Ford-Fulkerson and get a Max-flow. Once we do we can
+compute the max-flow size to determine the min st-cut.</p>
+<p>Let's take a moment to understand st-cuts in the context of this
+problem.</p>
+<p>What is the capacity(F,B)? Recall that this is the sum of capacities
+of edges going from F to B. What are these edges?<br />
+Suppose we define a partition like so<br />
+<img src="../../.assets/CS6515_images/MF3-004.png" alt="MF3-004" /></p>
+<p>Which edges cross from F to B?</p>
+<ul>
+<li>for <span class="math inline"><em>i</em> ∈ <em>F</em></span>, get
+edges i -&gt; t with cap <span
+class="math inline"><em>b</em><sub><em>i</em></sub></span>, since all
+pixels got an edge to t</li>
+<li>for <span class="math inline"><em>j</em> ∈ <em>B</em></span>, get
+edges s -&gt; j with cap <span
+class="math inline"><em>f</em><sub><em>i</em></sub></span>, since the
+source s got an edge to all pixels</li>
+<li>we also get all the edges from pixels inside F to pixels inside B,
+but only those whose direction is outwards</li>
+<li>for <span
+class="math inline">(<em>i</em>, <em>j</em>) ∈ <em>E</em> : <em>i</em> ∈ <em>F</em>, <em>j</em> ∈ <em>B</em></span>
+get i -&gt; j with capacity <span
+class="math inline"><em>P</em><sub><em>i</em><em>j</em></sub></span></li>
+</ul>
+<p>Summing all of these yields capacity(F,B) which is w'(F,B)</p>
+<p>Let's summarize what we've done to arrive at a solution</p>
+<ul>
+<li>We began with the inputs G,f,b,p, where G was undirected</li>
+<li>our first step was define our flow network (G',c), where G' is
+directed with s,t in V</li>
+<li>we ran our max-flow to get $f^\cdot $
+<ul>
+<li>which by the maxFlow-minCut theorem: size($f^\cdot $) = capacity of
+the min st-cut</li>
+</ul></li>
+<li>we demonstrated that capacity of the min st-cut = <span
+class="math inline">$\underset{F,B}{min} w'(F,B)$</span></li>
+<li>we also demonstrated that <span
+class="math inline">$\underset{F,B}{max} w(F,B)$</span> is achieved on
+the same partition as <span class="math inline">$\underset{F,B}{min}
+w'(F,B)$</span></li>
+</ul>
+<p>In conclusion we've found the partition F,B that maximizes the
+equation w(F,B) = L - w'(F,B).</p>
+<h3 id="mf5--max-flow-generalizations">MF5 — Max-Flow
+Generalizations</h3>
+<h4 id="mf5-max-flow-generalized">MF5: Max-Flow Generalized</h4>
+<h5 id="demand-constraints">Demand Constraints</h5>
+<p>Input: Flow network, directed graph G(V,E), <span
+class="math inline"><em>s</em>, <em>t</em> ∈ <em>V</em></span>, c(e)
+&gt; 0 for all <span class="math inline"><em>e</em> ∈ <em>E</em></span>.
+Additionally we are given the demand constraint <span
+class="math inline"><em>d</em>(<em>e</em>) ≥ 0</span> for <span
+class="math inline"><em>e</em> ∈ <em>E</em></span> Goal: To find a
+feasible flow, where feasible is defined as: for <span
+class="math inline">$e \in E, \\ d(e) \le f(e) \le c(e)$</span>.
+Basically we need a valid flow, just as before, but we must also meet
+the demand expectations</p>
+<p>This problem leads to two questions: first, is there a feasible flow?
+Second, given the feasibility flow, what is the max flow?<br />
+<strong>Example</strong><br />
+Let's re-use our example from previous sections. Numbers in green
+represent the demand and those in red represents the capacity. Is there
+a feasible flow for this example? <img
+src="../../.assets/CS6515_images/MF5-001.png" alt="MF5-001" /></p>
+<p>There is a feasible flow and it is tedious to determine <img
+src="../../.assets/CS6515_images/MF5-002.png" alt="MF5-002" /></p>
+<p>Algorithmically this is done by reducing the feasible flow problem to
+one of the max-flow. It's important to note that the feasible flow need
+NOT be a max flow, it just has to be feasible. Reduction implies that we
+will be able to make use of our max-flow algorithms without any
+alteration. We can modify the inputs of course, just as we did earlier
+to re-use DFS to find our strongly connected components. An added bonus
+to this approach is knowing the runtime of our algorithm, as well as
+their correctness.</p>
+<p><img src="../../.assets/CS6515_images/MF5-003.png"
+alt="MF5-003" /></p>
+<p>Above is a rough sketch of our approach</p>
+<ul>
+<li>We will use some algo g to construct G',c' to fit the inputs
+expected by our max-flow algo</li>
+<li>We will get back a flow f' which we must translate back, using some
+algo h, into our original inputs</li>
+<li>Our goal then is to find g &amp; h</li>
+</ul>
+<p><strong>Part 1</strong> Let's begin by looking at how to create G'
+and c', from the original inputs G,c, and d. Somehow we need to encode,
+or incorporate, the demand d into G and c to get G' and c'.</p>
+<p>As is our usual approach to such problems let's sketch a simple graph
+to help us visualize the situation. In the image below our simple graph
+is on the left. The first number represents the demand, the second
+number is the capacity.<br />
+<img src="../../.assets/CS6515_images/MF5-004.png" alt="MF5-004" /></p>
+<p>On the right side of the image we have a working prototype of G',
+we've taken the liberty of adding two new vertices s' and t'. It will
+become apprarent later why we've added these. For now it suffices to
+know these represent the start and end points of G'. Also notice that G'
+contains all the same vertices, and edges found in the original graph
+G.</p>
+<p>What we will do is change the capacities so as to reflect the demands
+of the original problem. What we want to capture is that there is
+non-negative flow along an edge, f'(e) &gt; 0, if and only if we can
+construct a flow in the original graph G that meets, or exceeds, the
+demand required (1). What we will also want is that the flow in G'
+satisfies this new capacity constraint, c' &gt; f', iff the flow f
+satisfies the capacity constraint in the original network, c &gt; f
+(2).</p>
+<p>(1) $f'(e) \ge 0 \iff f(e) \ge d(e) $ (A flow of 0 in G' should
+correspond to a flow of d in G)<br />
+(2) <span
+class="math inline"><em>c</em><sup>′</sup>(<em>e</em>) ≥ <em>f</em><sup>′</sup>(<em>e</em>) ⇔ <em>c</em>(<em>e</em>) ≥ <em>f</em>(<em>e</em>)</span><br />
+(3) $c'(e) = c(e) - d(e) $</p>
+<p>In a manner these reflect a shifting of capacities, so we can
+formulate this as (3). Now consider how this reflects in the new graph.
+(sa) had a capacity of 10 and a demand of 3, t/f in G' we set (sa)' to
+capacity of 7. we've subtracted the demand of 3.</p>
+<ul>
+<li>ie <span class="math inline">∀<em>e</em> ∈ <em>E</em></span> add e
+to G' with c'(e) = c(e) - d(e)</li>
+</ul>
+<p>This results in the following Graph <img
+src="../../.assets/CS6515_images/MF5-005.png" alt="MF5-005" /></p>
+<p>Our next step is to add some additional edges to G' to incorporate
+the start and end vertices, s' &amp; t'. This is a bit trickier to
+understand. We want a valid flow in G' to correspond to a feasible flow
+in the original G. Suppose that the flow is 0 in G'. For example
+f'(sa)=f'(ab)=f'(at) = 0. Then what does this say about those edges in
+G? According to (1) above this means that each of these edges in G have
+a flow equal to their demand. But this could result in an invalid flow.
+In our example we would end up with a flow of 3 into a, and 7 out of a.
+This violates the conservation of flow and is t/f invalid. So we will
+use our new start and end vertices to remedy this situation. To do this
+we add an edge from s' to each vertice in G</p>
+<ul>
+<li>ie <span class="math inline">∀<em>v</em> ∈ <em>V</em></span> add
+s'-&gt;v to G' with c'(s',v) = d_into(v)
+<ul>
+<li>Note that d_into(v) is the total demand for the vertex, it's not the
+demand of an edge.</li>
+</ul></li>
+<li>This gives us the ability to offset the flow, in order that we may
+conserve the flow</li>
+</ul>
+<p><img src="../../.assets/CS6515_images/MF5-006.png"
+alt="MF5-006" /></p>
+<p>In a similar fashion we will also add an edge from each vertex to t'.
+Here we take the capacity to be the output demand of the vertex.</p>
+<ul>
+<li>ie <span class="math inline">∀<em>v</em> ∈ <em>V</em></span> add
+v-&gt;t' to G' with c'(v,t') = d_outof(v)</li>
+</ul>
+<p><img src="../../.assets/CS6515_images/MF5-007.png"
+alt="MF5-007" /></p>
+<p>We're almost ready but there's a rather odd problem that is not so
+obvious. In G' s &amp; t are no longer the start and end vertices. By
+adding a new start and end we've changed them into internal vertices,
+meaning they are now subject to the conservation of flow requirement.
+recall that s,t were excluded from this requirement because it wouldn't
+make sense before. A start vertex cannot have an inflow, nor can and end
+vertex have an outflow. But now they can. No worries, we will add a back
+edge from t to s to remedy this situation. Furthermore, there are no
+constraints on this edge so we will assign it a capacity of <span
+class="math inline">∞</span></p>
+<p>Now finally we have our final graph. <img
+src="../../.assets/CS6515_images/MF5-008.png" alt="MF5-008" /></p>
+<p>So what is the max-flow of this new graph G'? What we can see that is
+that it will be bounded by the total capacities out of s' and the total
+into t'. Let's consider this to see where it takes us</p>
+<p>first observe that <span class="math inline">$D = \sum_{e \in E} d(e)
+= \sum_{v \in V} d\\into(v) = \sum_{v \in V} d\\outof(v)$</span></p>
+<ul>
+<li>summing the demand along each edge is the same as summing the demand
+into a vertex, or summing out of each vertex</li>
+<li>consequently
+<ul>
+<li><span class="math inline">$c'_{outof}(s') = \sum_{v \in V}
+d\\into(v) = D$</span></li>
+<li><span class="math inline">$c'_{into}(t') = \sum_{v \in V}
+d\\outof(v) = D$</span></li>
+</ul></li>
+</ul>
+<p>This tells us quite a bit about the size of the flow in G', in fact
+for flow f' in G', size(f') <span class="math inline">≤</span> D. This
+is what is called saturating: F' is saturating if size(f') = D. And this
+means that the flow f' is of max size. This leads us to our next
+lemma.</p>
+<h5 id="feasible-iff-saturating">Feasible iff Saturating</h5>
+<p><strong>LEMMA</strong> G has a feasible flow <span
+class="math inline">⇔</span> G' has a saturating flow</p>
+<p>This provides us with the direction to solving our original problem,
+which is to find a feasible max flow. We will create our G' as outlined
+above, we run max-flow on G', then we check if the the size of the
+max-flow is equal to D or not. if it is equal then it is saturating and
+by the lemma G has a feasible flow. In fact we will take f', aka the
+saturating flow, and construct a feasible flow for the original G from
+it.</p>
+<p><strong>Proof of Lemma</strong><br />
+<strong>Part 1:</strong> saturating <span class="math inline">⟹</span>
+feasible</p>
+<p>We will proceed by constructing a feasible flow f in G from the
+saturating flow f' in G'. recall that in the construction of G' we
+shifted the capacities of each edge by their demand d(e). So let's apply
+a similar logic to the flow. ie f'(e) = f(e) - d(e). Now we move the
+demand to the left side to get f'(e) + d(e) = f(e).</p>
+<p>First let's check to see if f is feasible. It's trivial to see that
+if <span class="math inline"><em>f</em><sup>′</sup> ≥ 0</span> then
+<span class="math inline"><em>f</em> ≥ <em>d</em></span>, t/f f is
+feasible. This proves feasiblility but let's consider the 2nd condition
+as well: <span class="math inline"><em>c</em> ≥ <em>f</em></span>.
+Recall that this implies that</p>
+<ul>
+<li><span
+class="math inline"><em>f</em>(<em>e</em>) ≤ <em>c</em><sup>′</sup>(<em>e</em>) + <em>d</em>(<em>e</em>)</span></li>
+<li><span
+class="math inline"><em>f</em>(<em>e</em>) ≤ (<em>c</em>(<em>e</em>) − <em>d</em>(<em>e</em>)) + <em>d</em>(<em>e</em>)</span>
+sub the original eq of c'</li>
+<li><span
+class="math inline"><em>f</em>(<em>e</em>) ≤ <em>c</em>(<em>e</em>)</span>
+which is what we would expect</li>
+</ul>
+<p>Not all that's left is to check that all inflows are equal to the
+outflows, ie the validity of the flow! To do this we need to prove that
+for any <span class="math inline"><em>v</em> ∈ <em>V</em></span>-{s,t},
+<span
+class="math inline"><em>f</em><sub><em>i</em><em>n</em></sub>(<em>v</em>) = <em>f</em><sub><em>o</em><em>u</em><em>t</em></sub>(<em>v</em>)</span>.
+We know that <span
+class="math inline"><em>f</em><sub><em>i</em><em>n</em></sub><sup>′</sup>(<em>v</em>) = <em>f</em><sub><em>o</em><em>u</em><em>t</em></sub><sup>′</sup>(<em>v</em>)</span>
+holds as it's the output of a max-flow algo. Let's look at <span
+class="math inline"><em>f</em><sub><em>i</em><em>n</em></sub><sup>′</sup>(<em>v</em>)</span>.</p>
+<p><span class="math inline">$\begin{split} f'_{in}(v) &amp; = f'(
+\overset{\rightarrow}{s'v}) + \sum_{u \in V} f'(u-\&gt;v) \\ &amp; =
+d_{in}(v) + \sum_{u \in V} (f(u-\&gt;v) - d(u-\&gt;v)) &amp; \text{
+rewrite f' in terms of f } \\ &amp; = \sum_{u \in V} f(u-\&gt;v) &amp;
+\text{ cancel out the demands as they both represent into v } \\ &amp; =
+f_{in}(v) &amp; \text{ summation of flows into v is just the inflow
+f\\in } \end{split}$</span></p>
+<p>What this tells us is that the flow into v in G' is the same as the
+flow into v in G. A similar arguement can be made for the outflow of v
+in both G' and G. Together they give us the original statement that we
+wanted to prove, namely <span
+class="math inline"><em>f</em><sub><em>i</em><em>n</em></sub>(<em>v</em>) = <em>f</em><sub><em>o</em><em>u</em><em>t</em></sub>(<em>v</em>)</span>.
+t/f f is a valid flow as required.</p>
+<p>In addition to proving the implication we've also shown how to
+construct the feasible flow</p>
+<ul>
+<li>Simply set f(e) = f'(e) + d(e)</li>
+</ul>
+<p>Now let's move to proving the inverse implication</p>
+<p><strong>Part 2:</strong> feasible <span class="math inline">⟹</span>
+saturating<br />
+In a manner similar to previous we will assume a feasible flow f in G,
+and use it to construct a saturating flow f' in G'.</p>
+<p>We begin by defining the flow f'(e) as a shifting of the original
+flow f(e) by d(e) units,</p>
+<ul>
+<li>for the original edges
+<ul>
+<li>for all <span class="math inline"><em>e</em> ∈ <em>E</em></span>(the
+original G), let f'(e) = f(e) - d(e)</li>
+</ul></li>
+<li>but we also added edges that should be taken into account</li>
+<li>for <span class="math inline"><em>v</em> ∈ <em>V</em></span>
+<ul>
+<li>let f'(s'-&gt;v) = <span
+class="math inline"><em>d</em><sub><em>i</em><em>n</em><em>t</em><em>o</em></sub>(<em>v</em>)</span>
+in order for it to be fully saturated</li>
+<li>let f'(v-&gt;t') = <span
+class="math inline"><em>d</em><sub><em>o</em><em>u</em><em>t</em><em>o</em><em>f</em></sub>(<em>v</em>)</span></li>
+<li>let f'(t'-&gt;s') = size(f)</li>
+</ul></li>
+</ul>
+<p>Now we have constructed flow so we need only show that it is
+saturated and is a valid flow.</p>
+<p>Since f is assumed to be feasible we know that</p>
+<ul>
+<li>(1) f(e) <span class="math inline">≥</span> d(e) <span
+class="math inline">⟹</span> f'(e) <span class="math inline">≥</span>
+0</li>
+<li>(2) f(e) <span class="math inline">≤</span> c(e) <span
+class="math inline">⟹</span> f'(e) <span class="math inline">≤</span>
+c(e) - d(e) = c'(e)</li>
+</ul>
+<p>Now we check validity, <span
+class="math inline"><em>f</em><sub><em>i</em><em>n</em></sub><sup>′</sup>(<em>v</em>) = <em>f</em><sub><em>o</em><em>u</em><em>t</em></sub><sup>′</sup>(<em>v</em>)</span>.<br />
+We know that <span
+class="math inline"><em>f</em><sub><em>i</em><em>n</em></sub>(<em>v</em>) = <em>f</em><sub><em>o</em><em>u</em><em>t</em></sub>(<em>v</em>)</span>,
+Let's see if/how can use this. Recall that <span
+class="math inline"><em>f</em><sub><em>i</em><em>n</em></sub><sup>′</sup>(<em>v</em>)</span>
+is the total demand from s' into v, <span
+class="math inline"><em>d</em><sub><em>i</em><em>n</em><em>t</em><em>o</em></sub>(<em>v</em>)</span>.
+Plus the sum of all the internal vertices in V, which we can write in
+terms of the original G as <span
+class="math inline">∑<sub><em>u</em> ∈ <em>V</em></sub>(<em>f</em>(<em>u</em><em>v</em>) − <em>d</em>(<em>u</em><em>v</em>))</span></p>
+<ul>
+<li>ie <span
+class="math inline"><em>f</em><sub><em>i</em><em>n</em></sub><sup>′</sup>(<em>v</em>) = <em>d</em><sub><em>i</em><em>n</em><em>t</em><em>o</em></sub>(<em>v</em>) + ∑<sub><em>u</em> ∈ <em>V</em></sub>(<em>f</em>(<em>u</em><em>v</em>) − <em>d</em>(<em>u</em><em>v</em>))</span></li>
+<li>we cancel out the demand terms as they are the same and will offset
+each other, leaving us with</li>
+<li><span
+class="math inline"><em>f</em><sub><em>i</em><em>n</em></sub><sup>′</sup>(<em>v</em>) = ∑<sub><em>u</em> ∈ <em>V</em></sub><em>f</em>(<em>u</em><em>v</em>) = <em>f</em><sub><em>i</em><em>n</em></sub>(<em>v</em>)</span></li>
+<li>similarly we can show that</li>
+<li><span
+class="math inline"><em>f</em><sub><em>o</em><em>u</em><em>t</em></sub><sup>′</sup>(<em>v</em>) = ∑<sub><em>u</em> ∈ <em>V</em></sub><em>f</em>(<em>v</em><em>u</em>) = <em>f</em><sub><em>o</em><em>u</em><em>t</em></sub>(<em>v</em>)</span></li>
+</ul>
+<p>Putting these together yields <span
+class="math inline"><em>f</em><sub><em>i</em><em>n</em></sub><sup>′</sup>(<em>v</em>) = <em>f</em><sub><em>o</em><em>u</em><em>t</em></sub><sup>′</sup>(<em>v</em>)</span>
+which is our goal. hence f' is a valid flow</p>
+<p>We've now proven that G has a feasible flow if and only if our
+constructed G' has a saturating flow.</p>
+<p>So to find a feasible flow in G</p>
+<ul>
+<li>we construct G' as described above</li>
+<li>we run a max-flow algo on G' (either edmonds-karp or ford-fulkerson
+will work so pick your fav)</li>
+<li>check to see if the max-flow returned is equal to D, where D is the
+total capacity</li>
+<li>if it is equal to D
+<ul>
+<li>then it is a saturating flow</li>
+<li>hence it can be transformed back to a feasible flow f for graph
+G.</li>
+</ul></li>
+</ul>
+<p>The only thing that remains is to determine how to find a feasible
+flow that is also a max flow. Recall how our max-flow algorithms worked.
+Both FF and EK start with a zero-flow, build a residual graph, and
+iteratively find augmenting st-paths and increment along such paths, and
+rebuild the residual graph. They both terminate when they can no longer
+find augmenting st-paths. This guarantees that the flow constructed is a
+max-flow. We will take a similar pattern/approach to the max feasible
+flow.</p>
+<p>Given feasible flow f</p>
+<ul>
+<li>Build a residual graph <span
+class="math inline"><em>G</em><sup><em>f</em></sup></span> (we will try
+to augment this)</li>
+<li>find st-path
+<ul>
+<li>if found then augment and repeat</li>
+<li>else flow is at a max</li>
+</ul></li>
+</ul>
+<p>However, this residual graph is not exactly the same as before.</p>
+<p>Given a flow <span class="math inline"><em>f</em></span> over <span
+class="math inline"><em>G</em></span><br />
+<span class="math inline">$c_f(\overset{\rightarrow}{vw}) =
+\begin{cases} C(\overset{\rightarrow}{vw}) -
+f(\overset{\rightarrow}{vw}) &amp; if (\overset{\rightarrow}{vw}) \in E
+\\ f(\overset{\rightarrow}{wv}) - d(\overset{\rightarrow}{wv}) &amp; if
+(\overset{\rightarrow}{wv}) \in E \\ 0 &amp; otherwise \\
+\end{cases}$</span></p>
+<ul>
+<li>Case 1 represents forward edges, thus this is the left over capacity
+from the flow</li>
+<li>Case 2 represents backwards edges, this is capped by the demand
+constraint, it cannot decrease less than that
+<ul>
+<li>basically back edges in this type of residual graph are limited to
+how much the flow exceeds the demands</li>
+<li>where as in the previous cases the only limit was 0</li>
+</ul></li>
+<li>Case 3 all edges not in 1 or 2</li>
+</ul>
+<h5 id="example-1">Example</h5>
+<p>Here is our example from earlier, along with it's graph G'. Your goal
+is to specify the capacities along each edge in G' <img
+src="../../.assets/CS6515_images/MF5-009.png" alt="MF5-009" /></p>
+<p>Solutions are in the appendix</p>
+<h3 id="gr4--markov-chains--pagerank">GR4 — Markov Chains &amp;
+PageRank</h3>
+<h3 id="gr4-markov-chains--pagerank">GR4: Markov Chains &amp;
+PageRank</h3>
+<blockquote>
+<p>This module connects graph theory, linear algebra, and probability.
+PageRank uses all three to define the "importance" of a webpage. The key
+insight: importance = stationary distribution of a random walk.</p>
+</blockquote>
+<hr />
+<h4 id="1-what-is-a-markov-chain">1. What Is a Markov Chain?</h4>
+<p>A <strong>Markov chain</strong> is a random process that moves
+between <strong>states</strong> over discrete time steps, where the next
+state depends <em>only</em> on the current state (not the history).</p>
+<p>Formally:</p>
+<ul>
+<li><strong>N states:</strong> {1, 2, ..., N}</li>
+<li><strong>Transition matrix P</strong> (N × N): P(i, j) = Pr(go from
+state i to state j)</li>
+</ul>
+<p>Two key constraints on P:</p>
+<ul>
+<li>P(i, j) ∈ [0, 1] for all i, j (probabilities)</li>
+<li>Each row sums to 1: Σⱼ P(i, j) = 1 (from any state, you go
+<em>somewhere</em>)</li>
+</ul>
+<p>A matrix with non-negative entries where every row sums to 1 is
+called a <strong>stochastic matrix</strong>.</p>
+<h5 id="example-the-cs-6210-student">Example: The CS 6210 Student</h5>
+<pre class="mermaid"><code>graph LR
+    K[&quot;Kishore&lt;br/&gt;(lecture)&quot;] --&gt;|0.5| K
+    K --&gt;|0.5| E[&quot;Check&lt;br/&gt;Email&quot;]
+    E --&gt;|0.2| K
+    E --&gt;|0.5| S[&quot;StarCraft&quot;]
+    E --&gt;|0.3| Z[&quot;Sleep&quot;]
+    S --&gt;|0.3| E
+    S --&gt;|0.7| S
+    Z --&gt;|0.7| K
+    Z --&gt;|0.3| Z</code></pre>
+<blockquote>
+<p><strong>Note.</strong> Self-loops are allowed (and common) in Markov
+chains!</p>
+</blockquote>
+<p>Transition matrix:</p>
+<pre><code>         Kishore  Email  StarCraft  Sleep
+Kishore [  0.5     0.5      0        0   ]
+Email   [  0.2      0      0.5      0.3  ]
+StarCft [   0      0.3     0.7       0   ]
+Sleep   [  0.7      0       0       0.3  ]</code></pre>
+<p>Each row sums to 1.</p>
+<hr />
+<h4 id="2-k-step-transitions-powers-of-p">2. k-Step Transitions: Powers
+of P</h4>
+<p><strong>One step:</strong> P(i, j) = probability of going from i to j
+in 1 step.</p>
+<p><strong>Two steps:</strong> P²(i, j) = probability of going from i to
+j in <strong>exactly 2 steps</strong>.</p>
+<p><strong>k steps:</strong> Pᵏ(i, j) = probability of going from i to j
+in exactly k steps.</p>
+<blockquote>
+<p><strong>Intuition:</strong> Matrix multiplication naturally sums over
+all possible intermediate states — exactly what we need for multi-step
+probabilities.</p>
+</blockquote>
+<h5 id="example-p²-for-the-6210-chain">Example: P² for the 6210
+chain</h5>
+<pre><code>P² =  [ 0.35  0.25  0.25  0.15 ]
+      [ 0.31  0.25  0.35  0.09 ]
+      [ 0.06  0.21  0.64  0.09 ]
+      [ 0.56  0.15   0    0.09 ]   (approximate)</code></pre>
+<p><strong>Verification:</strong> P²(2, 1) = Pr(Email → Kishore in 2
+steps) = (Email → Kishore → Kishore) + (Email → Sleep → Kishore) =
+(0.2)(0.5) + (0.3)(0.7) = 0.10 + 0.21 = 0.31</p>
+<hr />
+<h4 id="3-what-happens-for-large-k">3. What Happens for Large k?</h4>
+<p>Something remarkable: as k → ∞, the rows of Pᵏ all converge to the
+<strong>same vector</strong>.</p>
+<p>For our example, P²⁰ ≈</p>
+<pre><code>      [ 0.292  0.188  0.406  0.104 ]
+      [ 0.292  0.188  0.406  0.104 ]
+      [ 0.292  0.188  0.406  0.104 ]
+      [ 0.292  0.188  0.406  0.104 ]</code></pre>
+<p>Every row is approximately <strong>π = [0.292, 0.188, 0.406,
+0.104]</strong>.</p>
+<p><strong>What this means:</strong> No matter where you start, after
+enough time steps, the probability of being in each state converges to
+π. You'll spend ~29.2% of your time listening to Kishore, ~40.6% playing
+StarCraft, etc. — <strong>regardless of starting state</strong>.</p>
+<p>This π is the <strong>stationary distribution</strong>.</p>
+<hr />
+<h4 id="4-stationary-distribution">4. Stationary Distribution</h4>
+<blockquote>
+<p><strong>Definition:</strong> A <strong>stationary
+distribution</strong> π is a row vector such that <strong>πP =
+π</strong>.</p>
+</blockquote>
+<p>In other words: if you're in distribution π and take one step, you
+stay in π. It's a fixed point of the random walk.</p>
+<h5 id="linear-algebra-perspective">Linear Algebra Perspective</h5>
+<p>πP = π means <strong>π is a left eigenvector of P with eigenvalue
+1</strong>.</p>
+<p>More generally, if μ₀ is your initial distribution (a row vector),
+then:</p>
+<ul>
+<li>After 1 step: μ₁ = μ₀ · P</li>
+<li>After 2 steps: μ₂ = μ₀ · P²</li>
+<li>After k steps: μₖ = μ₀ · Pᵏ</li>
+</ul>
+<p>As k → ∞, μₖ → π regardless of μ₀ (under the right conditions).</p>
+<h5 id="key-questions">Key Questions</h5>
+<ol type="1">
+<li>Does every Markov chain have a stationary distribution?</li>
+<li>Is it unique?</li>
+<li>Do we always converge to it?</li>
+</ol>
+<p>The answer to all three is <strong>yes</strong> — if the chain is
+<strong>ergodic</strong>.</p>
+<hr />
+<h4 id="5-ergodic-markov-chains">5. Ergodic Markov Chains</h4>
+<p>A Markov chain is <strong>ergodic</strong> if it's both:</p>
+<h5 id="a-irreducible--strongly-connected">(a) Irreducible (= Strongly
+Connected)</h5>
+<p>The underlying directed graph is <strong>one strongly connected
+component</strong> — you can get from any state to any other state.</p>
+<blockquote>
+<p><strong>Pitfall:</strong> If there are multiple SCCs, the starting
+state determines which states you can reach. No unique stationary
+distribution.</p>
+</blockquote>
+<pre class="mermaid"><code>graph LR
+    subgraph SCC1
+        A --&gt; B --&gt; A
+    end
+    subgraph SCC2
+        C --&gt; D --&gt; C
+    end</code></pre>
+<p>This is NOT irreducible — starting in SCC1, you never reach SCC2.</p>
+<p><strong>Fix:</strong> Make the graph fully connected (positive
+probability between every pair).</p>
+<h5 id="b-aperiodic">(b) Aperiodic</h5>
+<p>The chain has no periodic structure. A chain is periodic if some
+states can only be revisited at regular intervals.</p>
+<blockquote>
+<p><strong>Pitfall:</strong> Bipartite graphs have period 2 — you
+alternate sides. At odd times you're on one side, even times on the
+other.</p>
+</blockquote>
+<pre class="mermaid"><code>graph LR
+    L1 --&gt; R1
+    L1 --&gt; R2
+    R1 --&gt; L1
+    R1 --&gt; L2
+    R2 --&gt; L2
+    L2 --&gt; R1</code></pre>
+<p>If you start on the left, at every even time you're on the left,
+every odd time on the right. Starting state matters!</p>
+<p><strong>Fix:</strong> Add self-loops (P(i, i) &gt; 0 for all i). Even
+a tiny self-loop probability destroys periodicity.</p>
+<h5 id="the-ergodic-theorem">The Ergodic Theorem</h5>
+<blockquote>
+<p><strong>Theorem:</strong> If a Markov chain is ergodic (irreducible +
+aperiodic), then:</p>
+<ol type="1">
+<li>There exists a <strong>unique</strong> stationary distribution
+π</li>
+<li>For <strong>any</strong> starting distribution μ₀, μ₀ · Pᵏ → π as k
+→ ∞</li>
+<li>Every row of Pᵏ converges to π</li>
+</ol>
+</blockquote>
+<p><strong>Sufficient condition (easy to check):</strong> If P(i, j)
+&gt; 0 for ALL i, j (every entry positive), then the chain is
+ergodic.</p>
+<h5 id="when-can-we-compute-π">When Can We Compute π?</h5>
+<table>
+<thead>
+<tr>
+<th>Case</th>
+<th>π</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>P is symmetric: P(i,j) = P(j,i)</td>
+<td>π is <strong>uniform</strong>: π(i) = 1/N for all i</td>
+</tr>
+<tr>
+<td>P is reversible: π(i)P(i,j) = π(j)P(j,i)</td>
+<td>Can solve for π using detailed balance</td>
+</tr>
+<tr>
+<td>General</td>
+<td>No closed form — compute via Pᵏ for large k</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h4 id="6-pagerank--motivation">6. PageRank — Motivation</h4>
+<p><strong>Problem:</strong> The web is a directed graph (vertices =
+pages, edges = hyperlinks). When someone searches for "Markov chains,"
+many pages match. How do you rank them by
+<strong>importance</strong>?</p>
+<h5 id="idea-1-count-incoming-links">Idea 1: Count incoming links</h5>
+<p>π(x) = |in(x)| (in-degree)</p>
+<p><strong>Problem:</strong> A link from CNN is worth more than a link
+from some random page. All links shouldn't count equally.</p>
+<h5 id="idea-2-scale-by-number-of-outgoing-links">Idea 2: Scale by
+number of outgoing links</h5>
+<p>π(x) = Σ_{y ∈ in(x)} 1/|out(y)|</p>
+<p>If page y has 1000 links, each one is worth 1/1000. If it has 5
+links, each is worth 1/5.</p>
+<p><strong>Problem:</strong> A link from CNN should be worth more than a
+link from my kid's homepage, even if they have the same number of
+outgoing links. The <em>importance of the source</em> matters.</p>
+<h5 id="idea-3-weight-by-source-importance-recursive">Idea 3: Weight by
+source importance (recursive!)</h5>
+<p><span class="math display">$$\pi(x) = \sum_{y \in in(x)}
+\frac{\pi(y)}{|out(y)|}$$</span></p>
+<p>A citation from page y is worth π(y)/|out(y)| — proportional to y's
+importance, divided among its outgoing links.</p>
+<p>This is a <strong>recursive definition</strong> — π appears on both
+sides. Is it well-defined? Is there a unique solution?</p>
+<blockquote>
+<p><strong>Intuition:</strong> This is exactly the equation πP = π for a
+random walk on the webgraph! PageRank = stationary distribution.</p>
+</blockquote>
+<hr />
+<h4 id="7-the-random-surfer-model">7. The Random Surfer Model</h4>
+<p>Imagine a "random surfer" who:</p>
+<ol type="1">
+<li>Starts at any webpage</li>
+<li>At each step, follows a random outgoing hyperlink</li>
+</ol>
+<p>This defines a Markov chain with transition matrix:</p>
+<p><span class="math display">$$P(y, x) = \begin{cases} 1/|out(y)| &amp;
+\text{if } y \to x \text{ is a hyperlink} \\ 0 &amp; \text{otherwise}
+\end{cases}$$</span></p>
+<p>The stationary distribution of this chain satisfies exactly the
+PageRank equation from above!</p>
+<p><strong>But there are problems:</strong></p>
+<ul>
+<li>The webgraph has <strong>multiple SCCs</strong> → not
+irreducible</li>
+<li>Parts may be <strong>bipartite</strong> → periodic</li>
+<li>Some pages are <strong>sink nodes</strong> (no outgoing links) →
+transition undefined</li>
+</ul>
+<hr />
+<h4 id="8-fixing-the-problems--the-damping-parameter">8. Fixing the
+Problems — The Damping Parameter</h4>
+<p>To ensure ergodicity, we modify the random walk with a
+<strong>damping parameter</strong> α ∈ (0, 1):</p>
+<blockquote>
+<p>At each step:</p>
+<ul>
+<li>With probability <strong>α</strong>: follow a random outgoing
+hyperlink</li>
+<li>With probability <strong>1 - α</strong>: jump to a random page
+uniformly from ALL pages</li>
+</ul>
+</blockquote>
+<p>This is the <strong>random surfer with a "random button."</strong>
+Google reportedly uses <strong>α ≈ 0.85</strong>.</p>
+<h5 id="the-modified-transition-matrix">The Modified Transition
+Matrix</h5>
+<p>For N total webpages:</p>
+<p><span class="math display">$$P'(y, x) = \begin{cases} \alpha \cdot
+\frac{1}{|out(y)|} + (1-\alpha) \cdot \frac{1}{N} &amp; \text{if } y \to
+x \in E \\ (1-\alpha) \cdot \frac{1}{N} &amp; \text{if } y \to x \notin
+E \end{cases}$$</span></p>
+<p>Since α &lt; 1, <strong>every entry P'(y, x) &gt; 0</strong>. The
+graph is fully connected → irreducible AND aperiodic →
+<strong>ergodic</strong>.</p>
+<p>Therefore: a unique π exists, and it's the PageRank vector.</p>
+<hr />
+<h4 id="9-handling-sink-nodes">9. Handling Sink Nodes</h4>
+<p>A <strong>sink node</strong> x has no outgoing links: |out(x)| =
+0.</p>
+<p>The transition matrix is undefined for row x. Several fixes:</p>
+<table>
+<thead>
+<tr>
+<th>Approach</th>
+<th>How</th>
+<th>Downside</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Self-loop</td>
+<td>With prob α, stay at x</td>
+<td>Artificially boosts x's rank</td>
+</tr>
+<tr>
+<td>Remove sinks</td>
+<td>Recursively delete</td>
+<td>Shrinks graph, some pages unranked</td>
+</tr>
+<tr>
+<td><strong>Random jump</strong></td>
+<td>With prob 1, jump to random page (set α=0 for sinks)</td>
+<td>Most natural; apparently what Google does</td>
+</tr>
+</tbody>
+</table>
+<p>With the random jump approach: for sink node x, set P'(x, j) = 1/N
+for all j.</p>
+<hr />
+<h4 id="10-computing-pagerank-in-practice">10. Computing PageRank in
+Practice</h4>
+<p><strong>Method:</strong> Power iteration — repeatedly multiply by
+P.</p>
+<pre><code>FindPageRank(P&#39;, μ₀):
+    Input:  Transition matrix P&#39;, initial distribution μ₀
+    Output: Approximate stationary distribution π
+
+    μ = μ₀
+    repeat until convergence:
+        μ_new = μ · P&#39;
+        if ||μ_new - μ|| &lt; ε: return μ_new
+        μ = μ_new</code></pre>
+<p><strong>Key considerations:</strong></p>
+<ul>
+<li>P' is N × N where N = number of webpages (billions!). O(N²) is too
+expensive.</li>
+<li>But P' is <strong>sparse</strong> — the original webgraph has O(N)
+edges (constant out-degree on average)</li>
+<li>Matrix-vector multiplication μ · P' takes O(m) time where m = number
+of edges</li>
+<li>Convergence is fast because the random jump mixes things
+quickly</li>
+<li>In practice, use last week's π as the starting μ₀ for faster
+convergence</li>
+</ul>
+<hr />
+<h4 id="11-putting-it-all-together">11. Putting It All Together</h4>
+<pre class="mermaid"><code>graph TD
+    A[&quot;Web Graph G&lt;br/&gt;(pages + hyperlinks)&quot;] --&gt; B[&quot;Build transition matrix P&lt;br/&gt;P(y,x) = 1/|out(y)|&quot;]
+    B --&gt; C[&quot;Add damping: P&#39; = αP + (1-α)·1/N&lt;br/&gt;(handles SCCs, periodicity, sinks)&quot;]
+    C --&gt; D[&quot;Power iteration: μ·P&#39;^k → π&quot;]
+    D --&gt; E[&quot;π = PageRank vector&lt;br/&gt;π(x) = importance of page x&quot;]</code></pre>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Random walk on webgraph</td>
+<td>Natural importance measure</td>
+</tr>
+<tr>
+<td>Damping parameter α</td>
+<td>Ensures ergodicity (unique π)</td>
+</tr>
+<tr>
+<td>Stationary distribution π</td>
+<td>= PageRank (importance)</td>
+</tr>
+<tr>
+<td>πP = π</td>
+<td>Eigenvector equation</td>
+</tr>
+<tr>
+<td>Power iteration</td>
+<td>Efficient computation</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h4 id="12-summary">12. Summary</h4>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Key Point</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Markov chain</strong></td>
+<td>Random walk defined by stochastic matrix P</td>
+</tr>
+<tr>
+<td><strong>Pᵏ(i,j)</strong></td>
+<td>Probability of i → j in k steps</td>
+</tr>
+<tr>
+<td><strong>Stationary distribution</strong></td>
+<td>π such that πP = π; left eigenvector with eigenvalue 1</td>
+</tr>
+<tr>
+<td><strong>Ergodic</strong></td>
+<td>Irreducible (1 SCC) + aperiodic (self-loops); guarantees unique
+π</td>
+</tr>
+<tr>
+<td><strong>PageRank</strong></td>
+<td>π(x) = Σ π(y)/</td>
+</tr>
+<tr>
+<td><strong>Random surfer</strong></td>
+<td>With prob α follow link, prob 1-α jump randomly</td>
+</tr>
+<tr>
+<td><strong>α (damping)</strong></td>
+<td>≈ 0.85; ensures full connectivity; balances fidelity vs
+convergence</td>
+</tr>
+<tr>
+<td><strong>Sink nodes</strong></td>
+<td>Set α = 0 (always random jump)</td>
+</tr>
+<tr>
+<td><strong>Computing π</strong></td>
+<td>Power iteration μ · P'^k; O(m) per iteration</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Exam Tip:</strong> Know the connection between the three
+perspectives: (1) citation counting, (2) random walks/Markov chains, (3)
+eigenvectors. They all give the same equation.</p>
+</blockquote>
+<blockquote>
+<p><strong>Common Pitfall:</strong> The webgraph is NOT ergodic by
+itself (multiple SCCs, sinks, possible bipartiteness). The damping
+parameter is essential — without it, PageRank is not well-defined.</p>
+</blockquote>
+<!-- WEEK-EXTRAS:START -->
+
+<h2 id="dpv-chapter-exercises">DPV chapter exercises</h2>
+<details>
+<summary><b>DPV chapter exercises (exact, from the textbook)</b></summary>
+
+<p><em>Exact end-of-chapter exercises, parsed from the DPV chapter
+PDFs.</em></p>
+<p><strong>DPV Ch 2 — Divide And Conquer</strong> — <a
+href="../../textbooks/examples-md/02-divide-and-conquer-dpv-examples.html">open
+exercises</a> · <a href="readings/DPV-ch2-examples.pdf">chapter
+PDF</a></p>
+<iframe class="examples-frame" src="../../textbooks/examples-md/02-divide-and-conquer-dpv-examples.html" title="DPV Ch 2 — Divide And Conquer exercises"></iframe>
+
+<p><strong>DPV Ch 1 — Algorithms With Numbers</strong> — <a
+href="../../textbooks/examples-md/01-algorithms-with-numbers-dpv-examples.html">open
+exercises</a> · <a href="readings/DPV-ch1-examples.pdf">chapter
+PDF</a></p>
+<iframe class="examples-frame" src="../../textbooks/examples-md/01-algorithms-with-numbers-dpv-examples.html" title="DPV Ch 1 — Algorithms With Numbers exercises"></iframe>
+
+</details>
+
+<!-- WEEK-EXTRAS:END -->
+
+<h2 id="agent-hint">Agent hint</h2>
+<p>Route by sub-topic: FFT→11A (eval at roots of unity, <span
+class="math inline"><em>O</em>(<em>n</em>log <em>n</em>)</span>), flow
+apps→11B (reduce to max-flow), modular/RSA→11C (fast mod-exp + factoring
+security), Bloom→11D (no false negatives). Quiz 8 is cumulative across
+the whole course.</p>
+</main>
+
+<!-- code highlighting -->
+<link rel="modulepreload" href="../../vendor/mermaid/mermaid.esm.min.mjs">
+<script src="../../vendor/highlight/highlight.min.js"></script>
+<!-- math -->
+<script defer src="../../vendor/katex/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="../../vendor/katex/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+<script type="module">
+  // 1) Normalize mermaid blocks. Pandoc(gfm) emits <pre class="mermaid"><code>...</code></pre>.
+  //    Flatten to raw source text so mermaid parses cleanly; also catch the code-only variant.
+  document.querySelectorAll('pre > code.language-mermaid, pre > code.mermaid').forEach(c => {
+    const p = document.createElement('pre'); p.className = 'mermaid'; p.textContent = c.textContent;
+    c.parentElement.replaceWith(p);
+  });
+  document.querySelectorAll('pre.mermaid').forEach(p => { p.textContent = p.textContent; });
+  // 2) Syntax-highlight every code block EXCEPT mermaid (auto-detect language)
+  if (window.hljs) document.querySelectorAll('pre:not(.mermaid) > code').forEach(el => window.hljs.highlightElement(el));
+  // 3) Render mermaid (dark)
+  try {
+    const mermaid = (await import('../../vendor/mermaid/mermaid.esm.min.mjs')).default;
+    mermaid.initialize({ startOnLoad: false, theme: 'dark', securityLevel: 'loose' });
+    await mermaid.run({ querySelector: 'pre.mermaid' });
+  } catch (e) { /* offline: leave as text */ }
+</script>
+<script>
+  // 4) Math: render \( \) and \[ \] (pandoc converts dollar-math to these). Tolerate malformed legacy TeX.
+  window.addEventListener('DOMContentLoaded', () => {
+    if (window.renderMathInElement) renderMathInElement(document.querySelector('.content'), {
+      // dollar-delimiters included so KaTeX also renders math pandoc failed to parse (left raw):
+      // a space before a closing delim, cases-env inline, apostrophes in text, etc. Display before inline.
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '\\[', right: '\\]', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false }
+      ],
+      throwOnError: false,
+      // \n is used in the legacy notes as a homemade "arrow over" (directed edge); map it to \overrightarrow.
+      macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
+    });
+  });
+</script>
+</body>
+</html>

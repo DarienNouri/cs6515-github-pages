@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A Conceptual Approach to Solving Recurrences — CS6515</title>
+<link rel="stylesheet" href="../../vendor/fonts/fonts.css">
+<link rel="stylesheet" href="../../theme.css">
+<link rel="stylesheet" href="../../vendor/katex/katex.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="../../vendor/highlight/styles/tokyo-night-dark.min.css">
+
+</head>
+<body>
+<header class="topbar">
+  <a class="home" href="../../index.html">CS6515</a>
+  <span class="crumbloc">A Conceptual Approach to Solving
+Recurrences</span>
+</header>
+<main class="content">
+<h1 id="a-conceptual-approach-to-solving-recurrences">A Conceptual
+Approach to Solving Recurrences</h1>
+<p><strong>Category</strong>: Staff Use Only &gt; Supplemental Material
+<strong>Date</strong>: 2026-05-31 05:51 <strong>Link</strong>: <a
+href="https://edstem.org/us/courses/98593/discussion/8103813">https://edstem.org/us/courses/98593/discussion/8103813</a>
+<strong>Pinned</strong>: False | <strong>Votes</strong>: 38 |
+<strong>Views</strong>: 1599</p>
+<h2 id="post">Post</h2>
+<p>This is a post from Christian, one of our former Head TAs. We refer
+to the below intuitive method as "Christian's Method."For students who
+don't like memorizing seemingly arbitrary formulas, here's a quick crash
+course on the conceptual approach to solving recurrences that are
+covered by the Master Theorem. I developed these concepts by solving
+several recurrences by hand until I noticed patterns, and since then
+have never had to look back at the Master Theorem--I truly don't know
+it. I personally strongly prefer this approach because I find conceptual
+understanding to be much more enduring and meaningful as a learner. Of
+course your learning style may lean towards memorizing formulae, and
+that's fine too!</p>
+<p>The runtime of a recurrence conceptually comes from two places: work
+due to subproblem proliferation vs. work done to merge subproblem
+results. For example, in the recurrence <span
+class="math inline"><em>T</em>(<em>n</em>) = 4<em>T</em>(<em>n</em>/2) + <em>O</em>(<em>n</em>)</span>,
+the <span class="math inline">4<em>T</em>(<em>n</em>/2)</span>
+characterizes the work due to subproblem proliferation, and the <span
+class="math inline"><em>O</em>(<em>n</em>)</span> characterizes the work
+done to merge subproblem results. (Note that I use the term "merge"
+rather loosely here to describe whatever postprocessing work is
+performed on the subproblem results at each layer of recursion, such as
+the merge operation in mergesort.)</p>
+<p>Part 1: Determining work due to subproblem proliferation. This is
+probably best illustrated with examples.</p>
+<p><span
+class="math inline"><em>T</em>(<em>n</em>) = 2<em>T</em>(<em>n</em>/2)</span>
+- two subproblems, half the size, just as much work as before.</p>
+<p><span
+class="math inline"><em>T</em>(<em>n</em>) = 5<em>T</em>(<em>n</em>/5)</span></p>
+<p><span
+class="math inline"><em>T</em>(<em>n</em>) = 8<em>T</em>(<em>n</em>/8)</span></p>
+<p>All of those are <span
+class="math inline"><em>O</em>(<em>n</em>)</span>, since we made the
+subproblems smaller, but still had the same total amount of work.</p>
+<p>Here are several problems with quadratic subproblem proliferation;
+the problems got smaller, but we ended up with more of them:</p>
+<p><span
+class="math inline"><em>T</em>(<em>n</em>) = 4<em>T</em>(<em>n</em>/2)</span></p>
+<p><span
+class="math inline"><em>T</em>(<em>n</em>) = 9<em>T</em>(<em>n</em>/3)</span></p>
+<p><span
+class="math inline"><em>T</em>(<em>n</em>) = 100<em>T</em>(<em>n</em>/10)</span></p>
+<p>Those are all <span
+class="math inline"><em>O</em>(<em>n</em><sup>2</sup>)</span> since the
+total amount of work to be done is growing quadratically.</p>
+<p><span
+class="math inline"><em>T</em>(<em>n</em>) = 8<em>T</em>(<em>n</em>/2)</span></p>
+<p><span
+class="math inline"><em>T</em>(<em>n</em>) = 64<em>T</em>(<em>n</em>/4)</span></p>
+<p><span
+class="math inline"><em>T</em>(<em>n</em>) = 125<em>T</em>(<em>n</em>/5)</span></p>
+<p>Those are all <span
+class="math inline"><em>O</em>(<em>n</em><sup>3</sup>)</span>. The
+problems got smaller, but we ended up with way more of them. Etc.</p>
+<p>It could be a non-integer exponent, and that's when we need logs.
+Consider the middle one below.</p>
+<p><span
+class="math inline"><em>T</em>(<em>n</em>) = 4<em>T</em>(<em>n</em>/2) → <em>O</em>(<em>n</em><sup>2</sup>)</span></p>
+<p><span
+class="math inline"><em>T</em>(<em>n</em>) = 7<em>T</em>(<em>n</em>/2)</span></p>
+<p><span
+class="math inline"><em>T</em>(<em>n</em>) = 8<em>T</em>(<em>n</em>/2) → <em>O</em>(<em>n</em><sup>3</sup>)</span></p>
+<p>We could estimate it to be <span
+class="math inline"><em>O</em>(<em>n</em><sup>2.8</sup>)</span>, which
+is pretty close. We could more accurately say it's <span
+class="math inline"><em>O</em>(<em>n</em><sup>log<sub>2</sub>7</sup>)</span>,
+since that is, by definition, the exponent that turns 2 into 7. This
+even works if we get less subproblems than the linear case:</p>
+<p><span
+class="math inline"><em>T</em>(<em>n</em>) = 2<em>T</em>(<em>n</em>/3) → <em>O</em>(<em>n</em><sup>log<sub>3</sub>​2</sup>) ≈ <em>O</em>(<em>n</em><sup>0.631</sup>)</span></p>
+<p>Of course, if we only end up with a single problem at each step,
+we'll shrink down to a single unit of work:</p>
+<p><span
+class="math inline"><em>T</em>(<em>n</em>) = <em>T</em>(<em>n</em>/2) → <em>O</em>(1)</span></p>
+<p>The above is probably the hardest part of this. There are now three
+possibilities when you compare the work from subproblem proliferation
+with the work from merging (postprocessing) the results from the
+subproblems into the final answer:</p>
+<p>The work due to subproblem proliferation dominates--the vast majority
+of the work occurs at the lowest level of recursion. Keep this dominant
+runtime as the overall runtime.</p>
+<p>The work due to merging results dominates--the vast majority of the
+work occurs at the highest level of recursion. Keep this dominant
+runtime as the overall runtime.</p>
+<p>The two tie--each level of <span
+class="math inline"><em>O</em>(log <em>n</em>)</span> levels of
+recursion is the same amount of work, so the work at each level is
+multiplied by <span class="math inline">log <em>n</em></span> to get the
+overall result.*</p>
+<p>Here are a few overall examples:</p>
+<p><span
+class="math inline"><em>T</em>(<em>n</em>) = 8<em>T</em>(<em>n</em>/2) + <em>O</em>(<em>n</em><sup>2</sup>)</span></p>
+<p>Well that's <span
+class="math inline"><em>O</em>(<em>n</em><sup>3</sup>)</span> from
+subproblem proliferation vs. <span
+class="math inline"><em>O</em>(<em>n</em><sup>2</sup>)</span> for merge,
+and the former dominates. It's <span
+class="math inline"><em>O</em>(<em>n</em><sup>3</sup>)</span>
+overall.</p>
+<p><span
+class="math inline"><em>T</em>(<em>n</em>) = 3<em>T</em>(<em>n</em>/4) + <em>O</em>(<em>n</em>)</span></p>
+<p>That's <span
+class="math inline"><em>O</em>(<em>n</em><sup>log<sub>4</sub>3</sup>) ≈ <em>O</em>(<em>n</em><sup>0.792</sup>)</span>
+vs. <span class="math inline"><em>O</em>(<em>n</em>)</span>, so <span
+class="math inline"><em>O</em>(<em>n</em>)</span> dominates.</p>
+<p><span
+class="math inline"><em>T</em>(<em>n</em>) = 25<em>T</em>(<em>n</em>/5) + <em>O</em>(<em>n</em><sup>2</sup>)</span></p>
+<p>This example has <span
+class="math inline"><em>O</em>(<em>n</em><sup>2</sup>)</span> work due
+to subproblem proliferation and <span
+class="math inline"><em>O</em>(<em>n</em><sup>2</sup>)</span> work due
+to merging subproblem results. Since it's a tie, this works out to <span
+class="math inline"><em>O</em>(<em>n</em><sup>2</sup>log <em>n</em>)</span>.</p>
+<p>Hope this conceptual crash course helps someone! Feel free, as
+always, to ask clarifying follow ups.</p>
+<p>There is a niche edge case that falls into the "tie" category. <span
+class="math inline"><em>O</em>(<em>n</em><sup><em>k</em></sup>)</span>
+from subproblem proliferation and <span
+class="math inline"><em>O</em>(<em>n</em><sup><em>k</em></sup>log <em>n</em>)</span>
+from merge are close enough to tie, leading to <span
+class="math inline"><em>O</em>(<em>n</em><sup><em>k</em></sup>log <em>n</em>log <em>n</em>)</span>
+runtime based on the tie case described in the original post.</p>
+<h2 id="responses-2">Responses (2)</h2>
+<ul>
+<li><p><strong>Comment</strong> by User 649238 on 2026-06-02 01:09
+(Votes: 2)</p>
+<blockquote>
+<p>Thanks for this post. Could you also add recurrence when we are not
+splitting data but something else? For example, T(K) = T(K/2) + O(n)
+where the work done is O(n) at each level but we are splitting some
+other parameter (E.g. another input range or a value we need to
+determine). In that case, the second term is a function k (where n is
+treated as a constant). This resolves to O(n log K).</p>
+</blockquote>
+<ul>
+<li><strong>Comment</strong> by User 1295220 on 2026-06-02 08:26 (Votes:
+2)
+<blockquote>
+<p>I think this would fall into the "Tie" rule. A more general
+description of the tie rule be: If all levels of the recursion tree do
+the same amount of work, then you have to count all of them. In other
+words, we can only ignore the middle work if either the top or bottom
+level dominates.</p>
+<p>In the example you presented, there is only one node at each level of
+the recursion tree. Each of those nodes does O(n) work. The total height
+of this tree is log(K). So we can multiply the total number of levels
+(the height) of the tree by the work done at each level to get the
+result.</p>
+</blockquote></li>
+</ul></li>
+<li><p><strong>Comment</strong> by User 1295220 on 2026-06-02 08:34
+(Votes: 6)</p>
+<blockquote>
+<p>This is extremely helpful. I have taken a handful of courses that go
+over recurrence relations at different universities, and this is by far
+the best explanation I have seen. Having the intuition is much better
+than the Master Theorem itself.</p>
+</blockquote></li>
+</ul>
+</main>
+
+<!-- code highlighting -->
+<link rel="modulepreload" href="../../vendor/mermaid/mermaid.esm.min.mjs">
+<script src="../../vendor/highlight/highlight.min.js"></script>
+<!-- math -->
+<script defer src="../../vendor/katex/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="../../vendor/katex/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+<script type="module">
+  // 1) Normalize mermaid blocks. Pandoc(gfm) emits <pre class="mermaid"><code>...</code></pre>.
+  //    Flatten to raw source text so mermaid parses cleanly; also catch the code-only variant.
+  document.querySelectorAll('pre > code.language-mermaid, pre > code.mermaid').forEach(c => {
+    const p = document.createElement('pre'); p.className = 'mermaid'; p.textContent = c.textContent;
+    c.parentElement.replaceWith(p);
+  });
+  document.querySelectorAll('pre.mermaid').forEach(p => { p.textContent = p.textContent; });
+  // 2) Syntax-highlight every code block EXCEPT mermaid (auto-detect language)
+  if (window.hljs) document.querySelectorAll('pre:not(.mermaid) > code').forEach(el => window.hljs.highlightElement(el));
+  // 3) Render mermaid (dark)
+  try {
+    const mermaid = (await import('../../vendor/mermaid/mermaid.esm.min.mjs')).default;
+    mermaid.initialize({ startOnLoad: false, theme: 'dark', securityLevel: 'loose' });
+    await mermaid.run({ querySelector: 'pre.mermaid' });
+  } catch (e) { /* offline: leave as text */ }
+</script>
+<script>
+  // 4) Math: render \( \) and \[ \] (pandoc converts dollar-math to these). Tolerate malformed legacy TeX.
+  window.addEventListener('DOMContentLoaded', () => {
+    if (window.renderMathInElement) renderMathInElement(document.querySelector('.content'), {
+      // dollar-delimiters included so KaTeX also renders math pandoc failed to parse (left raw):
+      // a space before a closing delim, cases-env inline, apostrophes in text, etc. Display before inline.
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '\\[', right: '\\]', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false }
+      ],
+      throwOnError: false,
+      // \n is used in the legacy notes as a homemade "arrow over" (directed edge); map it to \overrightarrow.
+      macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
+    });
+  });
+</script>
+</body>
+</html>

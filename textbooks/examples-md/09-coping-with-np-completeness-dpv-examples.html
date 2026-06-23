@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DPV ch09 exercises — CS6515</title>
+<link rel="stylesheet" href="../../vendor/fonts/fonts.css">
+<link rel="stylesheet" href="../../theme.css">
+<link rel="stylesheet" href="../../vendor/katex/katex.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="../../vendor/highlight/styles/tokyo-night-dark.min.css">
+
+</head>
+<body>
+<header class="topbar">
+  <a class="home" href="../../index.html">CS6515</a>
+  <span class="crumbloc">DPV ch09 exercises</span>
+</header>
+<main class="content">
+<!-- toc:start -->
+
+<h2 id="table-of-contents">Table of Contents</h2>
+<ul>
+<li><a href="#exercises">Exercises</a></li>
+</ul>
+<!-- toc:end -->
+
+<p>Figure 9.11 Simulated annealing. <img
+src="../../.assets/remote/6b1a6b74d305397d.jpg" /></p>
+<h2 id="exercises">Exercises</h2>
+<h3 id="91">9.1</h3>
+<p>In the backtracking algorithm for SAT, suppose that we always choose
+a subproblem (CNF formula) that has a clause that is as small as
+possible; and we expand it along a variable that appears in this small
+clause. Show that this is a polynomial-time algorithm in the special
+case in which the input formula has only clauses with two literals (that
+is, it is an instance of 2SAT).</p>
+<h3 id="92">9.2</h3>
+<p>Devise a backtracking algorithm for the RUDRATA PATH problem from a
+fixed vertex <span class="math inline"><em>s</em></span>. To fully
+specify such an algorithm you must define:</p>
+<p><strong>(a)</strong> What is a subproblem?</p>
+<p><strong>(b)</strong> How to choose a subproblem.</p>
+<p><strong>(c)</strong> How to expand a subproblem.</p>
+<p>Argue briefly why your choices are reasonable.</p>
+<h3 id="93">9.3</h3>
+<p>Devise a branch-and-bound algorithm for the SET COVER problem. This
+entails deciding:</p>
+<p><strong>(a)</strong> What is a subproblem?</p>
+<p><strong>(b)</strong> How do you choose a subproblem to expand?</p>
+<p><strong>(c)</strong> How do you expand a subproblem?</p>
+<p><strong>(d)</strong> What is an appropriate lowerbound?</p>
+<p>Do you think that your choices above will work well on typical
+instances of the problem? Why?</p>
+<h3 id="94">9.4</h3>
+<p>Given an undirected graph <span
+class="math inline"><em>G</em> = (<em>V</em>, <em>E</em>)</span> in
+which each node has degree <span
+class="math inline"> ≤ <em>d</em></span>, show how to efficiently find
+an independent set whose size is at least <span
+class="math inline">1/(<em>d</em> + 1)</span> times that of the largest
+independent set.</p>
+<h3 id="95">9.5</h3>
+<p>Local search for minimum spanning trees. Consider the set of all
+spanning trees (not just minimum ones) of a weighted, connected,
+undirected graph <span
+class="math inline"><em>G</em> = (<em>V</em>, <em>E</em>)</span>.</p>
+<p>Recall from Section 5.1 that adding an edge <span
+class="math inline"><em>e</em></span> to a spanning tree <span
+class="math inline"><em>T</em></span> creates an unique cycle, and
+subsequently removing any other edge <span
+class="math inline"><em>e</em><sup>′</sup> ≠ <em>e</em></span> from this
+cycle gives back a different spanning tree <span
+class="math inline"><em>T</em><sup>′</sup></span>. We will say that
+<span class="math inline"><em>T</em></span> and <span
+class="math inline"><em>T</em><sup>′</sup></span> differ by a single
+edge swap ( <span
+class="math inline"><em>e</em>, <em>e</em><sup>′</sup></span> ) and that
+they are neighbors.</p>
+<p><strong>(a)</strong> Show that it is possible to move from any
+spanning tree <span class="math inline"><em>T</em></span> to any other
+spanning tree <span class="math inline"><em>T</em><sup>′</sup></span> by
+performing a series of edge-swaps, that is, by moving from neighbor to
+neighbor. At most how many edge-swaps are needed?</p>
+<p><strong>(b)</strong> Show that if <span
+class="math inline"><em>T</em><sup>′</sup></span> is an MST, then it is
+possible to choose these swaps so that the costs of the spanning trees
+encountered along the way are nonincreasing. In other words, if the
+sequence of spanning trees encountered is</p>
+<p><span
+class="math display"><em>T</em> = <em>T</em><sub>0</sub> → <em>T</em><sub>1</sub> → <em>T</em><sub>2</sub> → ⋯ → <em>T</em><sub><em>k</em></sub> = <em>T</em><sup>′</sup></span></p>
+<p>then <span
+class="math inline">cost (<em>T</em><sub><em>i</em> + 1</sub>) ≤ cost (<em>T</em><sub><em>i</em></sub>)</span>
+for all <span class="math inline"><em>i</em> &lt; <em>k</em></span>.</p>
+<p><strong>(c)</strong> Consider the following local search algorithm
+which is given as input an undirected graph G.</p>
+<pre><code>Let $T$ be any spanning tree of $G$
+while there is an edge-swap ( $e, e^{\prime}$ ) which reduces $\operatorname{cost}(T)$ :
+    $T \leftarrow T+e-e^{\prime}$
+return $T$</code></pre>
+<p>Show that this procedure always returns a minimum spanning tree. At
+most how many iterations does it take?</p>
+<h3 id="96">9.6</h3>
+<p>In the minimum Steiner tree problem, the input consists of: a
+complete graph <span
+class="math inline"><em>G</em> = (<em>V</em>, <em>E</em>)</span> with
+distances <span
+class="math inline"><em>d</em><sub><em>u</em><em>v</em></sub></span>
+between all pairs of nodes; and a distinguished set of terminal nodes
+<span class="math inline"><em>V</em><sup>′</sup> ⊆ <em>V</em></span>.
+The goal is to find a minimum-cost tree that includes the vertices <span
+class="math inline"><em>V</em><sup>′</sup></span>. This tree may or may
+not include nodes in <span
+class="math inline"><em>V</em> − <em>V</em><sup>′</sup></span>. <img
+src="../../.assets/remote/4e20b0f8fadffd0d.jpg" /></p>
+<p>Suppose the distances in the input are a metric (recall the
+definition on page 292). Show that an efficient ratio-2 approximation
+algorithm for minimum Steiner tree can be obtained by ignoring the
+nonterminal nodes and simply returning the minimum spanning tree on
+<span class="math inline"><em>V</em><sup>′</sup></span>. (Hint: Recall
+our approximation algorithm for the TSP.)</p>
+<h3 id="97">9.7</h3>
+<p>In the MULTIWAY CUT problem, the input is an undirected graph <span
+class="math inline"><em>G</em> = (<em>V</em>, <em>E</em>)</span> and a
+set of terminal nodes <span
+class="math inline"><em>s</em><sub>1</sub>, <em>s</em><sub>2</sub>, …, <em>s</em><sub><em>k</em></sub> ∈ <em>V</em></span>.
+The goal is to find the minimum set of edges in <span
+class="math inline"><em>E</em></span> whose removal leaves all terminals
+in different components.</p>
+<p><strong>(a)</strong> Show that this problem can be solved exactly in
+polynomial time when <span
+class="math inline"><em>k</em> = 2</span>.</p>
+<p><strong>(b)</strong> Give an approximation algorithm with ratio at
+most 2 for the case <span class="math inline"><em>k</em> = 3</span>.</p>
+<p><strong>(c)</strong> Design a local search algorithm for multiway
+cut.</p>
+<h3 id="98">9.8</h3>
+<p>In the MAX SAT problem, we are given a set of clauses, and we want to
+find an assignment that satisfies as many of them as possible.</p>
+<p><strong>(a)</strong> Show that if this problem can be solved in
+polynomial time, then so can SAT.</p>
+<p><strong>(b)</strong> Here's a very naive algorithm.</p>
+<pre><code>for each variable:
+    set its value to either 0 or 1 by flipping a coin</code></pre>
+<p>Suppose the input has <span class="math inline"><em>m</em></span>
+clauses, of which the <span class="math inline"><em>j</em></span> th has
+<span class="math inline"><em>k</em><sub><em>j</em></sub></span>
+literals. Show that the expected number of clauses satisfied by this
+simple algorithm is</p>
+<p><span class="math display">$$
+\sum_{j=1}^{m}\left(1-\frac{1}{2^{k_{j}}}\right) \geq \frac{m}{2}
+$$</span></p>
+<p>In other words, this is a 2 -approximation in expectation! And if the
+clauses all contain <span class="math inline"><em>k</em></span>
+literals, then this approximation factor improves to <span
+class="math inline">1 + 1/(2<sup><em>k</em></sup> − 1)</span>.</p>
+<p><strong>(c)</strong> Can you make this algorithm deterministic?
+(Hint: Instead of flipping a coin for each variable, select the value
+that satisfies the most of the as of yet unsatisfied clauses. What
+fraction of the clauses is satisfied in the end?)</p>
+<h3 id="99">9.9</h3>
+<p>In the maximum cut problem we are given an undirected graph <span
+class="math inline"><em>G</em> = (<em>V</em>, <em>E</em>)</span> with a
+weight <span class="math inline"><em>w</em>(<em>e</em>)</span> on each
+edge, and we wish to separate the vertices into two sets <span
+class="math inline"><em>S</em></span> and <span
+class="math inline"><em>V</em> − <em>S</em></span> so that the total
+weight of the edges between the two sets is as large as possible. For
+each <span class="math inline"><em>S</em> ⊆ <em>V</em></span> define
+<span class="math inline"><em>w</em>(<em>S</em>)</span> to be the sum of
+all <span class="math inline"><em>w</em>(<em>e</em>)</span> over all
+edges <span class="math inline">{<em>u</em>, <em>v</em>}</span> such
+that <span
+class="math inline">|<em>S</em> ∩ {<em>u</em>, <em>v</em>}| = 1</span>.
+Obviously, max CUT is about maximizing <span
+class="math inline"><em>w</em>(<em>S</em>)</span> over all subsets of
+<span class="math inline"><em>V</em></span>. Consider the following
+local search algorithm for MAX CUT:</p>
+<pre><code>start with any $S \subseteq V$
+while there is a subset $S^{\prime} \subseteq V$ such that
+    $\| S^{\prime}|-|S||=1$ and $w\left(S^{\prime}\right)&gt;w(S)$ do:
+        set $S=S^{\prime}$</code></pre>
+<p><strong>(a)</strong> Show that this is an approximation algorithm for
+MAX CUT with ratio 2 .</p>
+<p><strong>(b)</strong> But is it a polynomial-time algorithm?</p>
+<h3 id="910">9.10</h3>
+<p>Let us call a local search algorithm exact when it always produces
+the optimum solution. For example, the local search algorithm for the
+minimum spanning tree problem introduced in Problem 9.5 is exact. For
+another example, simplex can be considered an exact local search
+algorithm for linear programming.</p>
+<p><strong>(a)</strong> Show that the 2-change local search algorithm
+for the TSP is not exact.</p>
+<p><strong>(b)</strong> Repeat for the <span
+class="math inline">$\left\lceil\frac{n}{2}\right\rceil$</span>-change
+local search algorithm, where <span
+class="math inline"><em>n</em></span> is the number of cities.</p>
+<p><strong>(c)</strong> Show that the <span
+class="math inline">(<em>n</em> − 1)</span>-change local search
+algorithm is exact.</p>
+<p><strong>(d)</strong> If <span class="math inline"><em>A</em></span>
+is an optimization problem, define <span
+class="math inline"><em>A</em></span>-IMPROVEMENT to be the following
+search problem: Given an instance <span
+class="math inline"><em>x</em></span> of <span
+class="math inline"><em>A</em></span> and a solution <span
+class="math inline"><em>s</em></span> of <span
+class="math inline"><em>A</em></span>, find another solution of <span
+class="math inline"><em>x</em></span> with better cost (or report that
+none exists, and thus <span class="math inline"><em>s</em></span> is
+optimum). For example, in TSP IMPROVEMENT we are given a distance matrix
+and a tour, and we are asked to find a better tour. It turns out that
+TSP IMPROVEMENT is NP-complete, and so is SET COVER IMPROVEMENT. (Can
+you prove this?)</p>
+<p><strong>(e)</strong> We say that a local search algorithm has
+polynomial iteration if each execution of the loop requires polynomial
+time. For example, the obvious implementations of the ( <span
+class="math inline"><em>n</em> − 1</span> )-change local search
+algorithm for the TSP defined above do not have polynomial iteration.
+Show that, unless <span
+class="math inline"><em>P</em> = <em>N</em><em>P</em></span>, there is
+no exact local search algorithm with polynomial iteration for the TSP
+and SET COVER problems.</p>
+</main>
+
+<!-- code highlighting -->
+<link rel="modulepreload" href="../../vendor/mermaid/mermaid.esm.min.mjs">
+<script src="../../vendor/highlight/highlight.min.js"></script>
+<!-- math -->
+<script defer src="../../vendor/katex/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="../../vendor/katex/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+<script type="module">
+  // 1) Normalize mermaid blocks. Pandoc(gfm) emits <pre class="mermaid"><code>...</code></pre>.
+  //    Flatten to raw source text so mermaid parses cleanly; also catch the code-only variant.
+  document.querySelectorAll('pre > code.language-mermaid, pre > code.mermaid').forEach(c => {
+    const p = document.createElement('pre'); p.className = 'mermaid'; p.textContent = c.textContent;
+    c.parentElement.replaceWith(p);
+  });
+  document.querySelectorAll('pre.mermaid').forEach(p => { p.textContent = p.textContent; });
+  // 2) Syntax-highlight every code block EXCEPT mermaid (auto-detect language)
+  if (window.hljs) document.querySelectorAll('pre:not(.mermaid) > code').forEach(el => window.hljs.highlightElement(el));
+  // 3) Render mermaid (dark)
+  try {
+    const mermaid = (await import('../../vendor/mermaid/mermaid.esm.min.mjs')).default;
+    mermaid.initialize({ startOnLoad: false, theme: 'dark', securityLevel: 'loose' });
+    await mermaid.run({ querySelector: 'pre.mermaid' });
+  } catch (e) { /* offline: leave as text */ }
+</script>
+<script>
+  // 4) Math: render \( \) and \[ \] (pandoc converts dollar-math to these). Tolerate malformed legacy TeX.
+  window.addEventListener('DOMContentLoaded', () => {
+    if (window.renderMathInElement) renderMathInElement(document.querySelector('.content'), {
+      // dollar-delimiters included so KaTeX also renders math pandoc failed to parse (left raw):
+      // a space before a closing delim, cases-env inline, apostrophes in text, etc. Display before inline.
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '\\[', right: '\\]', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false }
+      ],
+      throwOnError: false,
+      // \n is used in the legacy notes as a homemade "arrow over" (directed edge); map it to \overrightarrow.
+      macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
+    });
+  });
+</script>
+</body>
+</html>

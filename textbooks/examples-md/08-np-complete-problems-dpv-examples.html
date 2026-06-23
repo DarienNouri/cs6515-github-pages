@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DPV ch08 exercises — CS6515</title>
+<link rel="stylesheet" href="../../vendor/fonts/fonts.css">
+<link rel="stylesheet" href="../../theme.css">
+<link rel="stylesheet" href="../../vendor/katex/katex.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="../../vendor/highlight/styles/tokyo-night-dark.min.css">
+
+</head>
+<body>
+<header class="topbar">
+  <a class="home" href="../../index.html">CS6515</a>
+  <span class="crumbloc">DPV ch08 exercises</span>
+</header>
+<main class="content">
+<!-- toc:start -->
+
+<h2 id="table-of-contents">Table of Contents</h2>
+<ul>
+<li><a href="#exercises">Exercises</a></li>
+<li><a href="#experimental-cuisine">Experimental cuisine</a></li>
+</ul>
+<!-- toc:end -->
+
+<h2 id="exercises">Exercises</h2>
+<h3 id="81">8.1</h3>
+<p>Optimization versus search. Recall the traveling salesman
+problem:</p>
+<p>TSP</p>
+<p><strong>Input:</strong> A matrix of distances; a budget <span
+class="math inline"><em>b</em></span></p>
+<p><strong>Output:</strong> A tour which passes through all the cities
+and has length <span class="math inline"> ≤ <em>b</em></span>, if such a
+tour exists.</p>
+<p>The optimization version of this problem asks directly for the
+shortest tour. TSP-OPT</p>
+<p><strong>Input:</strong> A matrix of distances</p>
+<p><strong>Output:</strong> The shortest tour which passes through all
+the cities. Show that if TSP can be solved in polynomial time, then so
+can TSP-OPT.</p>
+<h3 id="82">8.2</h3>
+<p>Search versus decision. Suppose you have a procedure which runs in
+polynomial time and tells you whether or not a graph has a Rudrata path.
+Show that you can use it to develop a polynomialtime algorithm for
+Rudrata PATH (which returns the actual path, if it exists).</p>
+<h3 id="83">8.3</h3>
+<p>Stingy sat is the following problem: given a set of clauses (each a
+disjunction of literals) and an integer <span
+class="math inline"><em>k</em></span>, find a satisfying assignment in
+which at most <span class="math inline"><em>k</em></span> variables are
+true, if such an assignment exists. Prove that STINGY SAT is
+NP-complete.</p>
+<h3 id="84">8.4</h3>
+<p>Consider the CLIQUE problem restricted to graphs in which every
+vertex has degree at most 3 . Call this problem clique-3.</p>
+<p><strong>(a)</strong> Prove that Clique-3 is in NP.</p>
+<p><strong>(b)</strong> What is wrong with the following proof of
+NP-completeness for CLIQUE-3?</p>
+<p>We know that the CLIQUE problem in general graphs is NP-complete, so
+it is enough to present a reduction from CLIQUE-3 to CLIQUE. Given a
+graph <span class="math inline"><em>G</em></span> with vertices of
+degree <span class="math inline"> ≤ 3</span>, and a parameter <span
+class="math inline"><em>g</em></span>, the reduction leaves the graph
+and the parameter unchanged: clearly the output of the reduction is a
+possible input for the CLIQUE problem. Furthermore, the answer to both
+problems is identical. This proves the correctness of the reduction and,
+therefore, the NP-completeness of Clique-3.</p>
+<p><strong>(c)</strong> It is true that the VERTEX COVER problem remains
+NP-complete even when restricted to graphs in which every vertex has
+degree at most 3 . Call this problem vc-3. What is wrong with the
+following proof of NP-completeness for CliQUE-3? We present a reduction
+from VC-3 to CLIQUE-3. Given a graph <span
+class="math inline"><em>G</em> = (<em>V</em>, <em>E</em>)</span> with
+node degrees bounded by 3, and a parameter <span
+class="math inline"><em>b</em></span>, we create an instance of CLIQUE-3
+by leaving the graph unchanged and switching the parameter to <span
+class="math inline">|<em>V</em>|−<em>b</em></span>. Now, a subset <span
+class="math inline"><em>C</em> ⊆ <em>V</em></span> is a vertex cover in
+<span class="math inline"><em>G</em></span> if and only if the
+complementary set <span
+class="math inline"><em>V</em> − <em>C</em></span> is a clique in <span
+class="math inline"><em>G</em></span>. Therefore <span
+class="math inline"><em>G</em></span> has a vertex cover of size <span
+class="math inline"> ≤ <em>b</em></span> if and only if it has a clique
+of size <span class="math inline"> ≥ |<em>V</em>|−<em>b</em></span>.
+This proves the correctness of the reduction and, consequently, the
+NP-completeness of Clique-3.</p>
+<p><strong>(d)</strong> Describe an <span
+class="math inline"><em>O</em>(|<em>V</em>|<sup>4</sup>)</span>
+algorithm for CliQUE-3.</p>
+<h3 id="85">8.5</h3>
+<p>Give a simple reduction from 3D MATCHING to SAT, and another from
+RUDRATA CYCLE to SAT. (Hint: In the latter case you may use variables
+<span
+class="math inline"><em>x</em><sub><em>i</em><em>j</em></sub></span>
+whose intuitive meaning is "vertex <span
+class="math inline"><em>i</em></span> is the <span
+class="math inline"><em>j</em></span> th vertex of the Hamilton cycle";
+you then need to write clauses that express the constraints of the
+problem.)</p>
+<h3 id="86">8.6</h3>
+<p>On page 266 we saw that 3sat remains NP-complete even when restricted
+to formulas in which each literal appears at most twice.</p>
+<p><strong>(a)</strong> Show that if each literal appears at most once,
+then the problem is solvable in polynomial time.</p>
+<p><strong>(b)</strong> Show that INDEPENDENT SET remains NP-complete
+even in the special case when all the nodes in the graph have degree at
+most 4.</p>
+<h3 id="87">8.7</h3>
+<p>Consider a special case of 3SAT in which all clauses have exactly
+three literals, and each variable appears at most three times. Show that
+this problem can be solved in polynomial time. (Hint: create a bipartite
+graph with clauses on the left, variables on the right, and edges
+whenever a variable appears in a clause. Use Exercise 7.30 to show that
+this graph has a matching.)</p>
+<h3 id="88">8.8</h3>
+<p>In the EXACT 4SAT problem, the input is a set of clauses, each of
+which is a disjunction of exactly four literals, and such that each
+variable occurs at most once in each clause. The goal is to find a
+satisfying assignment, if one exists. Prove that EXACT 4SAT is
+NP-complete.</p>
+<h3 id="89">8.9</h3>
+<p>In the HITTING SET problem, we are given a family of sets <span
+class="math inline">{<em>S</em><sub>1</sub>, <em>S</em><sub>2</sub>, …, <em>S</em><sub><em>n</em></sub>}</span>
+and a budget <span class="math inline"><em>b</em></span>, and we wish to
+find a set <span class="math inline"><em>H</em></span> of size <span
+class="math inline"> ≤ <em>b</em></span> which intersects every <span
+class="math inline"><em>S</em><sub><em>i</em></sub></span>, if such an
+<span class="math inline"><em>H</em></span> exists. In other words, we
+want <span
+class="math inline"><em>H</em> ∩ <em>S</em><sub><em>i</em></sub> ≠ ∅</span>
+for all <span class="math inline"><em>i</em></span>. Show that HITTING
+SET is NP-complete.</p>
+<h3 id="810">8.10</h3>
+<p>Proving NP-completeness by generalization. For each of the problems
+below, prove that it is NPcomplete by showing that it is a
+generalization of some NP-complete problem we have seen in this
+chapter.</p>
+<p><strong>(a)</strong> Subgraph isomorphism: Given as input two
+undirected graphs <span class="math inline"><em>G</em></span> and <span
+class="math inline"><em>H</em></span>, determine whether <span
+class="math inline"><em>G</em></span> is a subgraph of <span
+class="math inline"><em>H</em></span> (that is, whether by deleting
+certain vertices and edges of <span
+class="math inline"><em>H</em></span> we obtain a graph that is, up to
+renaming of vertices, identical to <span
+class="math inline"><em>G</em></span> ), and if so, return the
+corresponding mapping of <span
+class="math inline"><em>V</em>(<em>G</em>)</span> into <span
+class="math inline"><em>V</em>(<em>H</em>)</span>.</p>
+<p><strong>(b)</strong> LONGEST PATH: Given a graph <span
+class="math inline"><em>G</em></span> and an integer <span
+class="math inline"><em>g</em></span>, find in <span
+class="math inline"><em>G</em></span> a simple path of length <span
+class="math inline"><em>g</em></span>.</p>
+<p><strong>(c)</strong> Max sat: Given a CNF formula and an integer
+<span class="math inline"><em>g</em></span>, find a truth assignment
+that satisfies at least <span class="math inline"><em>g</em></span>
+clauses.</p>
+<p><strong>(d)</strong> DENSE SUBGRAPH: Given a graph and two integers
+<span class="math inline"><em>a</em></span> and <span
+class="math inline"><em>b</em></span>, find a set of <span
+class="math inline"><em>a</em></span> vertices of <span
+class="math inline"><em>G</em></span> such that there are at least <span
+class="math inline"><em>b</em></span> edges between them.</p>
+<p><strong>(e)</strong> Sparse subgraph: Given a graph and two integers
+<span class="math inline"><em>a</em></span> and <span
+class="math inline"><em>b</em></span>, find a set of <span
+class="math inline"><em>a</em></span> vertices of <span
+class="math inline"><em>G</em></span> such that there are at most <span
+class="math inline"><em>b</em></span> edges between them.</p>
+<p><strong>(f)</strong> Set cover. (This problem generalizes two known
+NP-complete problems.)</p>
+<p><strong>(g)</strong> Reliable network: We are given two <span
+class="math inline"><em>n</em> × <em>n</em></span> matrices, a distance
+matrix <span
+class="math inline"><em>d</em><sub><em>i</em><em>j</em></sub></span> and
+a connectivity requirement matrix <span
+class="math inline"><em>r</em><sub><em>i</em><em>j</em></sub></span>, as
+well as a budget <span class="math inline"><em>b</em></span>; we must
+find a graph <span
+class="math inline"><em>G</em> = ({1, 2, …, <em>n</em>}, <em>E</em>)</span>
+such that (1) the total cost of all edges is <span
+class="math inline"><em>b</em></span> or less and (2) between any two
+distinct vertices <span class="math inline"><em>i</em></span> and <span
+class="math inline"><em>j</em></span> there are <span
+class="math inline"><em>r</em><sub><em>i</em><em>j</em></sub></span>
+vertex-disjoint paths. (Hint: Suppose that all <span
+class="math inline"><em>d</em><sub><em>i</em><em>j</em></sub></span> 's
+are 1 or <span class="math inline">2, <em>b</em> = <em>n</em></span>,
+and all <span
+class="math inline"><em>r</em><sub><em>i</em><em>j</em></sub></span> 's
+are 2 . Which well known NP-complete problem is this?)</p>
+<h3 id="811">8.11</h3>
+<p>There are many variants of Rudrata's problem, depending on whether
+the graph is undirected or directed, and whether a cycle or path is
+sought. Reduce the directed Rudrata path problem to each of the
+following.</p>
+<p><strong>(a)</strong> The (undirected) RUDRATA PATH problem.</p>
+<p><strong>(b)</strong> The undirected Rudrata <span
+class="math inline">(<em>s</em>, <em>t</em>)</span>-PATH problem, which
+is just like Rudrata PATH except that the endpoints of the path are
+specified in the input.</p>
+<h3 id="812">8.12</h3>
+<p>The <span class="math inline"><em>k</em></span>-SPANNING TREE problem
+is the following.</p>
+<p><strong>Input:</strong> An undirected graph <span
+class="math inline"><em>G</em> = (<em>V</em>, <em>E</em>)</span></p>
+<p><strong>Output:</strong> A spanning tree of <span
+class="math inline"><em>G</em></span> in which each node has degree
+<span class="math inline"> ≤ <em>k</em></span>, if such a tree exists.
+Show that for any <span class="math inline"><em>k</em> ≥ 2</span> :</p>
+<p><strong>(a)</strong> <span
+class="math inline"><em>k</em></span>-SPANNING TREE is a search
+problem.</p>
+<p><strong>(b)</strong> <span
+class="math inline"><em>k</em></span>-SPANNING TREE is NP-complete.
+(Hint: Start with <span class="math inline"><em>k</em> = 2</span> and
+consider the relation between this problem and Rudrata path.)</p>
+<h3 id="813">8.13</h3>
+<p>Determine which of the following problems are NP-complete and which
+are solvable in polynomial time. In each problem you are given an
+undirected graph <span
+class="math inline"><em>G</em> = (<em>V</em>, <em>E</em>)</span>, along
+with:</p>
+<p><strong>(a)</strong> A set of nodes <span
+class="math inline"><em>L</em> ⊆ <em>V</em></span>, and you must find a
+spanning tree such that its set of leaves includes the set <span
+class="math inline"><em>L</em></span>.</p>
+<p><strong>(b)</strong> A set of nodes <span
+class="math inline"><em>L</em> ⊆ <em>V</em></span>, and you must find a
+spanning tree such that its set of leaves is precisely the set <span
+class="math inline"><em>L</em></span>.</p>
+<p><strong>(c)</strong> A set of nodes <span
+class="math inline"><em>L</em> ⊆ <em>V</em></span>, and you must find a
+spanning tree such that its set of leaves is included in the set <span
+class="math inline"><em>L</em></span>.</p>
+<p><strong>(d)</strong> An integer <span
+class="math inline"><em>k</em></span>, and you must find a spanning tree
+with <span class="math inline"><em>k</em></span> or fewer leaves.</p>
+<p><strong>(e)</strong> An integer <span
+class="math inline"><em>k</em></span>, and you must find a spanning tree
+with <span class="math inline"><em>k</em></span> or more leaves.</p>
+<p><strong>(f)</strong> An integer <span
+class="math inline"><em>k</em></span>, and you must find a spanning tree
+with exactly <span class="math inline"><em>k</em></span> leaves. (Hint:
+All the NP-completeness proofs are by generalization, except for
+one.)</p>
+<h3 id="814">8.14</h3>
+<p>Prove that the following problem is NP-complete: given an undirected
+graph <span
+class="math inline"><em>G</em> = (<em>V</em>, <em>E</em>)</span> and an
+integer <span class="math inline"><em>k</em></span>, return a clique of
+size <span class="math inline"><em>k</em></span> as well as an
+independent set of size <span class="math inline"><em>k</em></span>,
+provided both exist.</p>
+<h3 id="815">8.15</h3>
+<p>Show that the following problem is NP-complete.</p>
+<p>Maximum common subgraph</p>
+<p><strong>Input:</strong> Two graphs <span
+class="math inline"><em>G</em><sub>1</sub> = (<em>V</em><sub>1</sub>, <em>E</em><sub>1</sub>)</span>
+and <span
+class="math inline"><em>G</em><sub>2</sub> = (<em>V</em><sub>2</sub>, <em>E</em><sub>2</sub>)</span>;
+a budget <span class="math inline"><em>b</em></span>.</p>
+<p><strong>Output:</strong> Two set of nodes <span
+class="math inline"><em>V</em><sub>1</sub><sup>′</sup> ⊆ <em>V</em><sub>1</sub></span>
+and <span
+class="math inline"><em>V</em><sub>2</sub><sup>′</sup> ⊆ <em>V</em><sub>2</sub></span>
+whose deletion leaves at least <span
+class="math inline"><em>b</em></span> nodes in each graph, and makes the
+two graphs identical.</p>
+<h3 id="816">8.16</h3>
+<p>We are feeling experimental and want to create a new dish. There are
+various ingredients we can choose from and we'd like to use as many of
+them as possible, but some ingredients don't go well with others. If
+there are <span class="math inline"><em>n</em></span> possible
+ingredients (numbered 1 to <span class="math inline"><em>n</em></span>
+), we write down an <span
+class="math inline"><em>n</em> × <em>n</em></span> matrix giving the
+discord between any pair of ingredients. This discord is a real number
+between 0.0 and 1.0, where 0.0 means "they go together perfectly" and
+1.0 means "they really don't go together." Here's an example matrix when
+there are five possible ingredients.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"></th>
+<th style="text-align: center;">1</th>
+<th style="text-align: center;">2</th>
+<th style="text-align: center;">3</th>
+<th style="text-align: center;">4</th>
+<th style="text-align: center;">5</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0.0</td>
+<td style="text-align: center;">0.4</td>
+<td style="text-align: center;">0.2</td>
+<td style="text-align: center;">0.9</td>
+<td style="text-align: center;">1.0</td>
+</tr>
+<tr>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">0.4</td>
+<td style="text-align: center;">0.0</td>
+<td style="text-align: center;">0.1</td>
+<td style="text-align: center;">1.0</td>
+<td style="text-align: center;">0.2</td>
+</tr>
+<tr>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">0.2</td>
+<td style="text-align: center;">0.1</td>
+<td style="text-align: center;">0.0</td>
+<td style="text-align: center;">0.8</td>
+<td style="text-align: center;">0.5</td>
+</tr>
+<tr>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">0.9</td>
+<td style="text-align: center;">1.0</td>
+<td style="text-align: center;">0.8</td>
+<td style="text-align: center;">0.0</td>
+<td style="text-align: center;">0.2</td>
+</tr>
+<tr>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">1.0</td>
+<td style="text-align: center;">0.2</td>
+<td style="text-align: center;">0.5</td>
+<td style="text-align: center;">0.2</td>
+<td style="text-align: center;">0.0</td>
+</tr>
+</tbody>
+</table>
+<p>In this case, ingredients 2 and 3 go together pretty well whereas 1
+and 5 clash badly. Notice that this matrix is necessarily symmetric; and
+that the diagonal entries are always 0.0. Any set of ingredients incurs
+a penalty which is the sum of all discord values between pairs of
+ingredients. For instance, the set of ingredients <span
+class="math inline">{1, 3, 5}</span> incurs a penalty of <span
+class="math inline">0.2 + 1.0 + 0.5 = 1.7</span>. We want this penalty
+to be small.</p>
+<h2 id="experimental-cuisine">Experimental cuisine</h2>
+<p><strong>Input:</strong> <span class="math inline"><em>n</em></span>,
+the number of ingredients to choose from; <span
+class="math inline"><em>D</em></span>, the <span
+class="math inline"><em>n</em> × <em>n</em></span> "discord" matrix;
+some number <span class="math inline"><em>p</em> ≥ 0</span></p>
+<p><strong>Output:</strong> The maximum number of ingredients we can
+choose with penalty <span class="math inline"> ≤ <em>p</em></span>. Show
+that if EXPERIMENTAL CUISINE is solvable in polynomial time, then so is
+3SAT.</p>
+<h3 id="817">8.17</h3>
+<p>Show that for any problem <span class="math inline"><em>Π</em></span>
+in <span class="math inline"><em>N</em><em>P</em></span>, there is an
+algorithm which solves <span class="math inline"><em>Π</em></span> in
+time <span
+class="math inline"><em>O</em>(2<sup><em>p</em>(<em>n</em>)</sup>)</span>,
+where <span class="math inline"><em>n</em></span> is the size of the
+input instance and <span
+class="math inline"><em>p</em>(<em>n</em>)</span> is a polynomial (which
+may depend on <span class="math inline"><em>Π</em></span> ).</p>
+<h3 id="818">8.18</h3>
+<p>Show that if <span
+class="math inline"><em>P</em> = <em>N</em><em>P</em></span> then the
+RSA cryptosystem (Section 1.4.2) can be broken in polynomial time.</p>
+<h3 id="819">8.19</h3>
+<p>A kite is a graph on an even number of vertices, say <span
+class="math inline">2<em>n</em></span>, in which <span
+class="math inline"><em>n</em></span> of the vertices form a clique and
+the remaining <span class="math inline"><em>n</em></span> vertices are
+connected in a "tail" that consists of a path joined to one of the
+vertices of the clique. Given a graph and a goal <span
+class="math inline"><em>g</em></span>, the KITE problem asks for a
+subgraph which is a kite and which contains <span
+class="math inline">2<em>g</em></span> nodes. Prove that KITE is
+NP-complete.</p>
+<h3 id="820">8.20</h3>
+<p>In an undirected graph <span
+class="math inline"><em>G</em> = (<em>V</em>, <em>E</em>)</span>, we say
+<span class="math inline"><em>D</em> ⊆ <em>V</em></span> is a dominating
+set if every <span class="math inline"><em>v</em> ∈ <em>V</em></span> is
+either in <span class="math inline"><em>D</em></span> or adjacent to at
+least one member of <span class="math inline"><em>D</em></span>. In the
+DOMINATING SET problem, the input is a graph and a budget <span
+class="math inline"><em>b</em></span>, and the aim is to find a
+dominating set in the graph of size at most <span
+class="math inline"><em>b</em></span>, if one exists. Prove that this
+problem is NP-complete.</p>
+<h3 id="821">8.21</h3>
+<p>Sequencing by hybridization. One experimental procedure for
+identifying a new DNA sequence repeatedly probes it to determine which
+<span class="math inline"><em>k</em></span>-mers (substrings of length
+<span class="math inline"><em>k</em></span> ) it contains. Based on
+these, the full sequence must then be reconstructed. Let's now formulate
+this as a combinatorial problem. For any string <span
+class="math inline"><em>x</em></span> (the DNA sequence), let <span
+class="math inline"><em>Γ</em>(<em>x</em>)</span> denote the multiset of
+all of its <span class="math inline"><em>k</em></span>-mers. In
+particular, <span class="math inline"><em>Γ</em>(<em>x</em>)</span>
+contains exactly <span
+class="math inline">|<em>x</em>|−<em>k</em> + 1</span> elements. The
+reconstruction problem is now easy to state: given a multiset of <span
+class="math inline"><em>k</em></span>-length strings, find a string
+<span class="math inline"><em>x</em></span> such that <span
+class="math inline"><em>Γ</em>(<em>x</em>)</span> is exactly this
+multiset.</p>
+<p><strong>(a)</strong> Show that the reconstruction problem reduces to
+Rudrata path. (Hint: Construct a directed graph with one node for each
+<span class="math inline"><em>k</em></span>-mer, and with an edge from
+<span class="math inline"><em>a</em></span> to <span
+class="math inline"><em>b</em></span> if the last <span
+class="math inline"><em>k</em> − 1</span> characters of <span
+class="math inline"><em>a</em></span> match the first <span
+class="math inline"><em>k</em> − 1</span> characters of <span
+class="math inline"><em>b</em></span>.)</p>
+<p><strong>(b)</strong> But in fact, there is much better news. Show
+that the same problem also reduces to Euler PATH. (Hint: This time, use
+one directed edge for each <span
+class="math inline"><em>k</em></span>-mer.)</p>
+<h3 id="822">8.22</h3>
+<p>In task scheduling, it is common to use a graph representation with a
+node for each task and a directed edge from task <span
+class="math inline"><em>i</em></span> to task <span
+class="math inline"><em>j</em></span> if <span
+class="math inline"><em>i</em></span> is a precondition for <span
+class="math inline"><em>j</em></span>. This directed graph depicts the
+precedence constraints in the scheduling problem. Clearly, a schedule is
+possible if and only if the graph is acyclic; if it isn't, we'd like to
+identify the smallest number of constraints that must be dropped so as
+to make it acyclic. Given a directed graph <span
+class="math inline"><em>G</em> = (<em>V</em>, <em>E</em>)</span>, a
+subset <span
+class="math inline"><em>E</em><sup>′</sup> ⊆ <em>E</em></span> is called
+a feedback arc set if the removal of edges <span
+class="math inline"><em>E</em><sup>′</sup></span> renders <span
+class="math inline"><em>G</em></span> acyclic.</p>
+<p>FEEDBACK ARC SET (FAS): Given a directed graph <span
+class="math inline"><em>G</em> = (<em>V</em>, <em>E</em>)</span> and a
+budget <span class="math inline"><em>b</em></span>, find a feedback arc
+set of <span class="math inline"> ≤ <em>b</em></span> edges, if one
+exists.</p>
+<p><strong>(a)</strong> Show that FAS is in NP.</p>
+<p>Fas can be shown to be NP-complete by a reduction from vertex cover.
+Given an instance ( <span
+class="math inline"><em>G</em>, <em>b</em></span> ) of VERTEX COVER,
+where <span class="math inline"><em>G</em></span> is an undirected graph
+and we want a vertex cover of size <span
+class="math inline"> ≤ <em>b</em></span>, we construct a instance (
+<span class="math inline"><em>G</em><sup>′</sup>, <em>b</em></span> ) of
+FAS as follows. If <span
+class="math inline"><em>G</em> = (<em>V</em>, <em>E</em>)</span> has
+<span class="math inline"><em>n</em></span> vertices <span
+class="math inline"><em>v</em><sub>1</sub>, …, <em>v</em><sub><em>n</em></sub></span>,
+then make <span
+class="math inline"><em>G</em><sup>′</sup> = (<em>V</em><sup>′</sup>, <em>E</em><sup>′</sup>)</span>
+a directed graph with <span class="math inline">2<em>n</em></span>
+vertices <span
+class="math inline"><em>w</em><sub>1</sub>, <em>w</em><sub>1</sub><sup>′</sup>, …, <em>w</em><sub><em>n</em></sub>, <em>w</em><sub><em>n</em></sub><sup>′</sup></span>,
+and <span class="math inline"><em>n</em> + 2|<em>E</em>|</span>
+(directed) edges:</p>
+<ul>
+<li>( <span
+class="math inline"><em>w</em><sub><em>i</em></sub>, <em>w</em><sub><em>i</em></sub><sup>′</sup></span>
+) for all <span
+class="math inline"><em>i</em> = 1, 2, …, <em>n</em></span>.</li>
+<li><span
+class="math inline">(<em>w</em><sub><em>i</em></sub><sup>′</sup>, <em>w</em><sub><em>j</em></sub>)</span>
+and <span
+class="math inline">(<em>w</em><sub><em>j</em></sub><sup>′</sup>, <em>w</em><sub><em>i</em></sub>)</span>
+for every <span
+class="math inline">(<em>v</em><sub><em>i</em></sub>, <em>v</em><sub><em>j</em></sub>) ∈ <em>E</em></span>.</li>
+</ul>
+<p><strong>(b)</strong> Show that if <span
+class="math inline"><em>G</em></span> contains a vertex cover size <span
+class="math inline"><em>b</em></span>, then <span
+class="math inline"><em>G</em><sup>′</sup></span> contains a feedback
+arc set of size <span class="math inline"><em>b</em></span>.</p>
+<p><strong>(c)</strong> Show that if <span
+class="math inline"><em>G</em><sup>′</sup></span> contains a feedback
+arc set of size <span class="math inline"><em>b</em></span>, then <span
+class="math inline"><em>G</em></span> contains a vertex cover of size
+(at most) <span class="math inline"><em>b</em></span>. (Hint: given a
+feedback arc set of size <span class="math inline"><em>b</em></span> in
+<span class="math inline"><em>G</em><sup>′</sup></span>, you may need to
+first modify it slightly to obtain another one which is of a more
+convenient form, but is of the same size or smaller. Then, argue that
+<span class="math inline"><em>G</em></span> must contain a vertex cover
+of the same size as the modified feedback arc set.)</p>
+<h3 id="823">8.23</h3>
+<p>In the NODE-DISJOINT PATHS problem, the input is an undirected graph
+in which some vertices have been specially marked: a certain number of
+"sources" <span
+class="math inline"><em>s</em><sub>1</sub>, <em>s</em><sub>2</sub>, …<em>s</em><sub><em>k</em></sub></span>
+and an equal number of "destinations" <span
+class="math inline"><em>t</em><sub>1</sub>, <em>t</em><sub>2</sub>, …<em>t</em><sub><em>k</em></sub></span>.
+The goal is to find <span class="math inline"><em>k</em></span>
+node-disjoint paths (that is, paths which have no nodes in common) where
+the <span class="math inline"><em>i</em></span> th path goes from <span
+class="math inline"><em>s</em><sub><em>i</em></sub></span> to <span
+class="math inline"><em>t</em><sub><em>i</em></sub></span>. Show that
+this problem is NP-complete. Here is a sequence of progressively
+stronger hints.</p>
+<p><strong>(a)</strong> Reduce from 3sat.</p>
+<p><strong>(b)</strong> For a 3SAT formula with <span
+class="math inline"><em>m</em></span> clauses and <span
+class="math inline"><em>n</em></span> variables, use <span
+class="math inline"><em>k</em> = <em>m</em> + <em>n</em></span> sources
+and destinations. Introduce one source/destination pair <span
+class="math inline">(<em>s</em><sub><em>x</em></sub>, <em>t</em><sub><em>x</em></sub>)</span>
+for each variable <span class="math inline"><em>x</em></span>, and one
+source/destination pair ( <span
+class="math inline"><em>s</em><sub><em>c</em></sub>, <em>t</em><sub><em>c</em></sub></span>
+) for each clause <span class="math inline"><em>c</em></span>.</p>
+<p><strong>(c)</strong> For each 3sat clause, introduce 6 new
+intermediate vertices, one for each literal occurring in that clause and
+one for its complement.</p>
+<p><strong>(d)</strong> Notice that if the path from <span
+class="math inline"><em>s</em><sub><em>c</em></sub></span> to <span
+class="math inline"><em>t</em><sub><em>c</em></sub></span> goes through
+some intermediate vertex representing, say, an occurrence of variable
+<span class="math inline"><em>x</em></span>, then no other path can go
+through that vertex. What vertex would you like the other path to be
+forced to go through instead?</p>
+</main>
+
+<!-- code highlighting -->
+<link rel="modulepreload" href="../../vendor/mermaid/mermaid.esm.min.mjs">
+<script src="../../vendor/highlight/highlight.min.js"></script>
+<!-- math -->
+<script defer src="../../vendor/katex/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="../../vendor/katex/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+<script type="module">
+  // 1) Normalize mermaid blocks. Pandoc(gfm) emits <pre class="mermaid"><code>...</code></pre>.
+  //    Flatten to raw source text so mermaid parses cleanly; also catch the code-only variant.
+  document.querySelectorAll('pre > code.language-mermaid, pre > code.mermaid').forEach(c => {
+    const p = document.createElement('pre'); p.className = 'mermaid'; p.textContent = c.textContent;
+    c.parentElement.replaceWith(p);
+  });
+  document.querySelectorAll('pre.mermaid').forEach(p => { p.textContent = p.textContent; });
+  // 2) Syntax-highlight every code block EXCEPT mermaid (auto-detect language)
+  if (window.hljs) document.querySelectorAll('pre:not(.mermaid) > code').forEach(el => window.hljs.highlightElement(el));
+  // 3) Render mermaid (dark)
+  try {
+    const mermaid = (await import('../../vendor/mermaid/mermaid.esm.min.mjs')).default;
+    mermaid.initialize({ startOnLoad: false, theme: 'dark', securityLevel: 'loose' });
+    await mermaid.run({ querySelector: 'pre.mermaid' });
+  } catch (e) { /* offline: leave as text */ }
+</script>
+<script>
+  // 4) Math: render \( \) and \[ \] (pandoc converts dollar-math to these). Tolerate malformed legacy TeX.
+  window.addEventListener('DOMContentLoaded', () => {
+    if (window.renderMathInElement) renderMathInElement(document.querySelector('.content'), {
+      // dollar-delimiters included so KaTeX also renders math pandoc failed to parse (left raw):
+      // a space before a closing delim, cases-env inline, apostrophes in text, etc. Display before inline.
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '\\[', right: '\\]', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false }
+      ],
+      throwOnError: false,
+      // \n is used in the legacy notes as a homemade "arrow over" (directed edge); map it to \overrightarrow.
+      macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
+    });
+  });
+</script>
+</body>
+</html>

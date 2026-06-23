@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Graphs (GR) — CS6515</title>
+<link rel="stylesheet" href="../../vendor/fonts/fonts.css">
+<link rel="stylesheet" href="../../theme.css">
+<link rel="stylesheet" href="../../vendor/katex/katex.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="../../vendor/highlight/styles/tokyo-night-dark.min.css">
+
+</head>
+<body>
+<header class="topbar">
+  <a class="home" href="../../index.html">CS6515</a>
+  <span class="crumbloc">Graphs (GR)</span>
+</header>
+<main class="content">
+<h1 id="graphs-gr">Graphs (GR)</h1>
+<p><strong>Appears in:</strong> Weeks 4, 5 · Gathered here across the
+weeks it spans (modules scatter across the schedule — see <a
+href="../../00_START_HERE/INDEX.html">INDEX.md</a>).</p>
+<p>DFS/BFS foundation ⇒ SCCs, 2-SAT (W4), MST (W5); Markov
+chains/PageRank appear in W11. The gold-standard study set is symlinked
+as <a href="study-notes"><code>study-notes</code></a> (GR0–GR4 + study
+plan + cheat sheet). Solve via black boxes: <a
+href="graph-theory-guidance.html">graph guidance</a>, <a
+href="usable-black-boxes-graphs.html">usable black boxes</a>.</p>
+<h2 id="material-in-this-folder">Material in this folder</h2>
+<ul>
+<li><a
+href="DPV-ch3-graph-decompositions.pdf"><code>DPV-ch3-graph-decompositions.pdf</code></a></li>
+<li><a
+href="DPV-ch4-paths-in-graphs.pdf"><code>DPV-ch4-paths-in-graphs.pdf</code></a></li>
+<li><a
+href="DPV-ch5-greedy-algorithms.pdf"><code>DPV-ch5-greedy-algorithms.pdf</code></a></li>
+<li><a
+href="graph-theory-guidance.html"><code>graph-theory-guidance.md</code></a></li>
+<li><a
+href="https://storage.googleapis.com/darien-public-assets/cs6515-summer-2026/v20260623/videos/04_Week_04_DP_Graph_Intro.mp4"><code>lecture-W04-graph-intro.mp4</code></a></li>
+<li><a
+href="https://storage.googleapis.com/darien-public-assets/cs6515-summer-2026/v20260623/videos/05_Week_05_MST.mp4"><code>lecture-W05-mst.mp4</code></a></li>
+<li><a href="study-notes"><code>study-notes</code></a></li>
+<li><a
+href="usable-black-boxes-graphs.html"><code>usable-black-boxes-graphs.md</code></a></li>
+</ul>
+<hr />
+<p><em>Symlinks into canonical sources; nothing here is a copy.
+Chronological view: <a
+href="../../01_by_week/index.html"><code>../../01_by_week/</code></a>.</em></p>
+</main>
+
+<!-- code highlighting -->
+<link rel="modulepreload" href="../../vendor/mermaid/mermaid.esm.min.mjs">
+<script src="../../vendor/highlight/highlight.min.js"></script>
+<!-- math -->
+<script defer src="../../vendor/katex/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="../../vendor/katex/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+<script type="module">
+  // 1) Normalize mermaid blocks. Pandoc(gfm) emits <pre class="mermaid"><code>...</code></pre>.
+  //    Flatten to raw source text so mermaid parses cleanly; also catch the code-only variant.
+  document.querySelectorAll('pre > code.language-mermaid, pre > code.mermaid').forEach(c => {
+    const p = document.createElement('pre'); p.className = 'mermaid'; p.textContent = c.textContent;
+    c.parentElement.replaceWith(p);
+  });
+  document.querySelectorAll('pre.mermaid').forEach(p => { p.textContent = p.textContent; });
+  // 2) Syntax-highlight every code block EXCEPT mermaid (auto-detect language)
+  if (window.hljs) document.querySelectorAll('pre:not(.mermaid) > code').forEach(el => window.hljs.highlightElement(el));
+  // 3) Render mermaid (dark)
+  try {
+    const mermaid = (await import('../../vendor/mermaid/mermaid.esm.min.mjs')).default;
+    mermaid.initialize({ startOnLoad: false, theme: 'dark', securityLevel: 'loose' });
+    await mermaid.run({ querySelector: 'pre.mermaid' });
+  } catch (e) { /* offline: leave as text */ }
+</script>
+<script>
+  // 4) Math: render \( \) and \[ \] (pandoc converts dollar-math to these). Tolerate malformed legacy TeX.
+  window.addEventListener('DOMContentLoaded', () => {
+    if (window.renderMathInElement) renderMathInElement(document.querySelector('.content'), {
+      // dollar-delimiters included so KaTeX also renders math pandoc failed to parse (left raw):
+      // a space before a closing delim, cases-env inline, apostrophes in text, etc. Display before inline.
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '\\[', right: '\\]', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false }
+      ],
+      throwOnError: false,
+      // \n is used in the legacy notes as a homemade "arrow over" (directed edge); map it to \overrightarrow.
+      macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
+    });
+  });
+</script>
+</body>
+</html>

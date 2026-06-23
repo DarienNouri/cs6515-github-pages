@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>📝 Graphs Cheat Sheet — CS 6515 — CS6515</title>
+<link rel="stylesheet" href="../../../vendor/fonts/fonts.css">
+<link rel="stylesheet" href="../../../theme.css">
+<link rel="stylesheet" href="../../../vendor/katex/katex.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="../../../vendor/highlight/styles/tokyo-night-dark.min.css">
+
+</head>
+<body>
+<header class="topbar">
+  <a class="home" href="../../../index.html">CS6515</a>
+  <span class="crumbloc">📝 Graphs Cheat Sheet — CS 6515</span>
+</header>
+<main class="content">
+<h1 id="pencil-graphs-cheat-sheet--cs-6515">📝 Graphs Cheat Sheet — CS
+6515</h1>
+<hr />
+<h2 id="algorithms-at-a-glance">Algorithms at a Glance</h2>
+<table>
+<thead>
+<tr>
+<th>Algorithm</th>
+<th>Input</th>
+<th>Output</th>
+<th>Runtime</th>
+<th>Key Idea</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>BFS</strong></td>
+<td>G, source s</td>
+<td>dist[], prev[]</td>
+<td>O(n+m)</td>
+<td>Queue; shortest paths (unweighted)</td>
+</tr>
+<tr>
+<td><strong>Dijkstra's</strong></td>
+<td>G, s, w(e)&gt;0</td>
+<td>dist[], prev[]</td>
+<td>O((V+E)log V)</td>
+<td>Min-heap BFS; positive weights only</td>
+</tr>
+<tr>
+<td><strong>DFS</strong></td>
+<td>G</td>
+<td>pre[], post[], ccnum[]</td>
+<td>O(n+m)</td>
+<td>Recursion; foundation for everything</td>
+</tr>
+<tr>
+<td><strong>Topo Sort</strong></td>
+<td>DAG</td>
+<td>ordered vertices</td>
+<td>O(n+m)</td>
+<td>DFS, sort by decreasing post number</td>
+</tr>
+<tr>
+<td><strong>SCC</strong></td>
+<td>Directed G</td>
+<td>SCC labels</td>
+<td>O(n+m)</td>
+<td>DFS on G^R, then DFS on G</td>
+</tr>
+<tr>
+<td><strong>2-SAT</strong></td>
+<td>2-CNF formula</td>
+<td>assignment or NO</td>
+<td>O(n+m)</td>
+<td>Implication graph + SCC</td>
+</tr>
+<tr>
+<td><strong>Kruskal's</strong></td>
+<td>Undirected G, weights</td>
+<td>MST</td>
+<td>O(E log V)</td>
+<td>Sort edges; Union-Find</td>
+</tr>
+<tr>
+<td><strong>Prim's</strong></td>
+<td>Undirected G, weights</td>
+<td>MST</td>
+<td>O(E log V)</td>
+<td>Grow tree; min-heap</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="key-lemmas--theorems">Key Lemmas &amp; Theorems</h2>
+<h3 id="cycle-detection">Cycle Detection</h3>
+<blockquote>
+<p>G has a cycle ⟺ DFS tree has a <strong>back edge</strong></p>
+</blockquote>
+<h3 id="scc-source-lemma">SCC Source Lemma</h3>
+<blockquote>
+<p>Vertex with highest post number (in DFS on G^R) is in a source SCC of
+G^R = <strong>sink SCC of G</strong></p>
+</blockquote>
+<h3 id="2-sat-lemma">2-SAT Lemma</h3>
+<blockquote>
+<p>f is satisfiable ⟺ ∀i, xᵢ and x̄ᵢ are in <strong>different
+SCCs</strong></p>
+</blockquote>
+<h3 id="cut-property-mst">Cut Property (MST)</h3>
+<blockquote>
+<p>A minimum-weight edge crossing any cut (S, S̄) is in some MST.
+<strong>Proof idea:</strong> If MST T doesn't contain e*, add e*
+(creates cycle), remove another cut edge e'. w(T') ≤ w(T).</p>
+</blockquote>
+<h3 id="ergodic-theorem-markov-chains">Ergodic Theorem (Markov
+Chains)</h3>
+<blockquote>
+<p>Irreducible + aperiodic ⟹ unique stationary distribution π, and Pᵏ →
+π regardless of start.</p>
+</blockquote>
+<hr />
+<h2 id="edge-types-in-dfs-directed-graphs">Edge Types in DFS (Directed
+Graphs)</h2>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Direction</th>
+<th>post(z) vs post(w)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tree</td>
+<td>Parent → child</td>
+<td>post(z) &gt; post(w)</td>
+</tr>
+<tr>
+<td><strong>Back</strong></td>
+<td>Descendant → ancestor</td>
+<td><strong>post(z) &lt; post(w)</strong> ⚠️</td>
+</tr>
+<tr>
+<td>Forward</td>
+<td>Ancestor → descendant</td>
+<td>post(z) &gt; post(w)</td>
+</tr>
+<tr>
+<td>Cross</td>
+<td>No ancestor relation</td>
+<td>post(z) &gt; post(w)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Only back edges have post(z) &lt; post(w).</strong>
+Everything else: post(z) &gt; post(w).</p>
+<hr />
+<h2 id="scc-algorithm--quick-steps">SCC Algorithm — Quick Steps</h2>
+<ol type="1">
+<li>Build G^R (reverse edges)</li>
+<li>DFS(G^R) → get post numbers</li>
+<li>Order vertices by <strong>decreasing</strong> post number</li>
+<li>DFS(G) in that order → each Explore = one SCC</li>
+</ol>
+<hr />
+<h2 id="2-sat--quick-steps">2-SAT — Quick Steps</h2>
+<ol type="1">
+<li>Build implication graph: clause (α ∨ β) → edges ᾱ→β and β̄→α</li>
+<li>Run SCC algorithm</li>
+<li>If any xᵢ and x̄ᵢ in same SCC → <strong>unsatisfiable</strong></li>
+<li>Assign: sink SCC = TRUE, its complement (source) = FALSE,
+repeat</li>
+</ol>
+<hr />
+<h2 id="mst--quick-reminders">MST — Quick Reminders</h2>
+<ul>
+<li><strong>Kruskal's:</strong> Sort edges, add lightest if no cycle
+(Union-Find)</li>
+<li><strong>Prim's:</strong> Grow one tree, add lightest cut edge
+(min-heap)</li>
+<li>Both correct via Cut Property</li>
+<li>Trees: n-1 edges, connected, acyclic (any 2 ⟹ 3rd)</li>
+</ul>
+<hr />
+<h2 id="pagerank--quick-formula">PageRank — Quick Formula</h2>
+<p><span class="math display">$$\pi(x) = \sum_{y \in in(x)}
+\frac{\pi(y)}{|out(y)|}$$</span></p>
+<ul>
+<li>Equivalent to πP = π (stationary distribution)</li>
+<li>Damping: P' = αP + (1-α)·(1/N)·<strong>J</strong>, with α ≈
+0.85</li>
+<li>Sink nodes: random jump (α = 0)</li>
+<li>Compute via power iteration: μ · P'^k → π</li>
+</ul>
+<hr />
+<h2 id="warning-common-pitfalls">⚠️ Common Pitfalls</h2>
+<table>
+<thead>
+<tr>
+<th>Pitfall</th>
+<th>Why It's Wrong</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Using Dijkstra's with negative weights</td>
+<td>Can give wrong shortest paths; use Bellman-Ford</td>
+</tr>
+<tr>
+<td>Topological sort on a cyclic graph</td>
+<td>Impossible — check for back edges first</td>
+</tr>
+<tr>
+<td>Confusing 2-SAT implication direction</td>
+<td>(α ∨ β) gives ᾱ→β, NOT α→β</td>
+</tr>
+<tr>
+<td>Assuming MST is unique</td>
+<td>Multiple MSTs possible if edges have equal weights (total weight is
+unique)</td>
+</tr>
+<tr>
+<td>Assuming webgraph is ergodic</td>
+<td>It's not — damping parameter is essential</td>
+</tr>
+<tr>
+<td>Forgetting Markov chains need stochastic matrix</td>
+<td>Every row must sum to 1</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="dart-exam-tips">🎯 Exam Tips</h2>
+<ol type="1">
+<li><strong>DFS is the Swiss Army knife</strong> — SCCs, topo sort,
+cycle detection all build on it</li>
+<li><strong>Cut Property proof</strong> — high probability exam
+question. Know the swap argument.</li>
+<li><strong>2-SAT construction</strong> — practice converting clauses to
+implication edges quickly</li>
+<li><strong>SCC order matters</strong> — DFS on G^R first, then G. Not
+the other way around.</li>
+<li><strong>Runtimes are all O(n+m)</strong> for graph decomposition
+algorithms (BFS, DFS, SCC, 2-SAT, topo sort). Only MST requires sorting:
+O(E log V).</li>
+<li><strong>PageRank = stationary distribution</strong> — know the three
+equivalent views (citation, random walk, eigenvector)</li>
+</ol>
+</main>
+
+<!-- code highlighting -->
+<link rel="modulepreload" href="../../../vendor/mermaid/mermaid.esm.min.mjs">
+<script src="../../../vendor/highlight/highlight.min.js"></script>
+<!-- math -->
+<script defer src="../../../vendor/katex/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="../../../vendor/katex/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+<script type="module">
+  // 1) Normalize mermaid blocks. Pandoc(gfm) emits <pre class="mermaid"><code>...</code></pre>.
+  //    Flatten to raw source text so mermaid parses cleanly; also catch the code-only variant.
+  document.querySelectorAll('pre > code.language-mermaid, pre > code.mermaid').forEach(c => {
+    const p = document.createElement('pre'); p.className = 'mermaid'; p.textContent = c.textContent;
+    c.parentElement.replaceWith(p);
+  });
+  document.querySelectorAll('pre.mermaid').forEach(p => { p.textContent = p.textContent; });
+  // 2) Syntax-highlight every code block EXCEPT mermaid (auto-detect language)
+  if (window.hljs) document.querySelectorAll('pre:not(.mermaid) > code').forEach(el => window.hljs.highlightElement(el));
+  // 3) Render mermaid (dark)
+  try {
+    const mermaid = (await import('../../../vendor/mermaid/mermaid.esm.min.mjs')).default;
+    mermaid.initialize({ startOnLoad: false, theme: 'dark', securityLevel: 'loose' });
+    await mermaid.run({ querySelector: 'pre.mermaid' });
+  } catch (e) { /* offline: leave as text */ }
+</script>
+<script>
+  // 4) Math: render \( \) and \[ \] (pandoc converts dollar-math to these). Tolerate malformed legacy TeX.
+  window.addEventListener('DOMContentLoaded', () => {
+    if (window.renderMathInElement) renderMathInElement(document.querySelector('.content'), {
+      // dollar-delimiters included so KaTeX also renders math pandoc failed to parse (left raw):
+      // a space before a closing delim, cases-env inline, apostrophes in text, etc. Display before inline.
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '\\[', right: '\\]', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false }
+      ],
+      throwOnError: false,
+      // \n is used in the legacy notes as a homemade "arrow over" (directed edge); map it to \overrightarrow.
+      macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
+    });
+  });
+</script>
+</body>
+</html>
