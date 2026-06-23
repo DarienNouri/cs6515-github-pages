@@ -1,0 +1,29 @@
+theme.css
+  s_beaa62e2aad729::t_d0d477222abf3c 68-92,204-307,317-318,321-325
+index.html
+  s_beaa62e2aad729::t_16ffb00bccb4d1 32
+scripts/upload-videos.sh
+  s_beaa62e2aad729::t_e43b5ded8d28ab 44
+site.js
+  s_beaa62e2aad729::t_f0c66899af1d8a 426,440,442-449
+  s_beaa62e2aad729::t_7df5a89458fbad 1-44,46-355,380-425,427-439,441,450-477,484-499,501-503
+  s_beaa62e2aad729::t_369fb21c9b424a 45,356-379,478-483,500
+01_by_week/index.html
+  s_beaa62e2aad729::t_0e66224767bc9a 27-28
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "4089ebe73275ec5cebaf39a508acb4ce177cc4ec",
+  "prompts": {},
+  "sessions": {
+    "s_beaa62e2aad729": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019ef1ef-3d6d-76b2-8d98-bed42b12bdd8",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Darien Nouri <nouri.darien@gmail.com>"
+    }
+  }
+}
