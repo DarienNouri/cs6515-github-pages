@@ -1,0 +1,19 @@
+scripts/upload-videos.sh
+  s_beaa62e2aad729::t_24822d2c582555 44
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "ec3ad98af429b1139bdf3ba9246397e88a66e9a7",
+  "prompts": {},
+  "sessions": {
+    "s_beaa62e2aad729": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019ef1ef-3d6d-76b2-8d98-bed42b12bdd8",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Darien Nouri <nouri.darien@gmail.com>"
+    }
+  }
+}
