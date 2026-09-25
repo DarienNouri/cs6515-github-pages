@@ -48,6 +48,101 @@
     ["notes/index.html", "Notes"]
   ];
 
+  const courseHierarchy = [
+    {
+      id: "hub",
+      title: "Foundations & Study Hub",
+      badge: "Hub",
+      items: [
+        { path: "00_START_HERE/COURSE_ROADMAP.html", title: "Course Roadmap & Study Guide", subtitle: "Curriculum roadmap & exam checkpoints" },
+        { path: "00_START_HERE/INDEX.html", title: "Master Index", subtitle: "Week ↔ Module ↔ Reading ↔ Guidance ↔ Exam" },
+        { path: "00_START_HERE/COURSE_MAP.html", title: "Course Dependency Map", subtitle: "Mental model & prerequisite graph" },
+        { path: "module-week-schedule.html", title: "Weekly Module Schedule", subtitle: "Lecture assignments & quiz cadence" },
+        { path: "01_by_week/all-in-one.html", title: "All Weeks Stacked", subtitle: "Single continuous review page" },
+        { path: "01_by_week/index.html", title: "By Week Chronological View", subtitle: "All weekly directory cards" }
+      ]
+    },
+    {
+      id: "unit-1",
+      title: "Unit 1: Dynamic Programming & Divide-and-Conquer",
+      badge: "Exam 1",
+      items: [
+        { path: "01_by_week/W01_DP1-DP2/index.html", title: "Week 1 — Intro & Dynamic Programming", modules: "DP1, DP2", subtitle: "Fibonacci, LIS, LCS, Knapsack, Chain Multiply" },
+        { path: "01_by_week/W02_DC3-DC1/index.html", title: "Week 2 — Divide & Conquer Foundations", modules: "DC3, DC1", subtitle: "Master Theorem, Recurrences, Karatsuba Multiply" },
+        { path: "01_by_week/W03_DC2/index.html", title: "Week 3 — Linear-Time Median & Selection", modules: "DC2", subtitle: "QuickSelect, Median of Medians" },
+        { path: "01_by_week/W04_DP3-GR1-GR2_EXAM1/index.html", title: "Week 4 — DP3, SCC, 2-SAT + Exam 1", modules: "DP3, GR1, GR2", subtitle: "Shortest Paths, SCCs, 2-SAT · Exam 1 Window", exam: "Exam 1" }
+      ]
+    },
+    {
+      id: "unit-2",
+      title: "Unit 2: Graph Algorithms & Network Flow",
+      badge: "Exam 2",
+      items: [
+        { path: "01_by_week/W05_GR3/index.html", title: "Week 5 — Minimum Spanning Trees", modules: "GR3", subtitle: "Kruskal's & Prim's, Cut Property" },
+        { path: "01_by_week/W06_MF1-MF2/index.html", title: "Week 6 — Max-Flow Basics & Duality", modules: "MF1, MF2", subtitle: "Ford-Fulkerson, Max-Flow = Min-Cut" },
+        { path: "01_by_week/W07_MF4_EXAM2/index.html", title: "Week 7 — Edmonds-Karp & Applications + Exam 2", modules: "MF4", subtitle: "Edmonds-Karp, Bipartite Matching · Exam 2 Window", exam: "Exam 2" }
+      ]
+    },
+    {
+      id: "unit-3",
+      title: "Unit 3: Intractability, LP & Advanced Topics",
+      badge: "Exam 3",
+      items: [
+        { path: "01_by_week/W08_NP1-NP2-NP3/index.html", title: "Week 8 — NP-Completeness Foundations", modules: "NP1, NP2, NP3", subtitle: "Reductions, 3-SAT, Independent Set, Vertex Cover" },
+        { path: "01_by_week/W09_LP1-LP2-LP3/index.html", title: "Week 9 — Linear Programming Foundations", modules: "LP1, LP2, LP3", subtitle: "Formulations, Simplex Geometry, Duality" },
+        { path: "01_by_week/W10_LP4-NP4-NP5_EXAM3/index.html", title: "Week 10 — Approx, ILP & Undecidability + Exam 3", modules: "LP4, NP4, NP5", subtitle: "Max-SAT Approx, ILP, Halting Problem · Exam 3 Window", exam: "Exam 3" },
+        { path: "01_by_week/W11_Advanced-FFT-Crypto-Bloom/index.html", title: "Week 11 — Advanced Topics & Review", modules: "FFT, RA1-3", subtitle: "Fast Fourier Transform, RSA, Bloom Filters" }
+      ]
+    },
+    {
+      id: "topics",
+      title: "By Topic Branches",
+      badge: "Topics",
+      items: [
+        { path: "02_by_topic/DP_dynamic-programming/index.html", title: "Dynamic Programming (DP)", subtitle: "Bottom-up tables over subproblems (Weeks 1, 4)" },
+        { path: "02_by_topic/DC_divide-and-conquer/index.html", title: "Divide & Conquer (DC)", subtitle: "Divide, conquer, combine (Weeks 2, 3, 11)" },
+        { path: "02_by_topic/GR_graphs/index.html", title: "Graphs (GR)", subtitle: "SCC, 2-SAT, MST, PageRank (Weeks 4, 5, 11)" },
+        { path: "02_by_topic/MF_max-flow/index.html", title: "Max-Flow (MF)", subtitle: "Ford-Fulkerson, Min-Cut, Edmonds-Karp (Weeks 6, 7, 11)" },
+        { path: "02_by_topic/NP_np-completeness/index.html", title: "NP-Completeness (NP)", subtitle: "Reductions, NP-Hard problems (Weeks 8, 10)" },
+        { path: "02_by_topic/LP_linear-programming/index.html", title: "Linear Programming (LP)", subtitle: "Optimization, Duality, ILP (Weeks 9, 10)" },
+        { path: "02_by_topic/ADV_advanced-topics/index.html", title: "Advanced Topics (ADV)", subtitle: "FFT, RSA Crypto, Bloom Filters (Week 11)" }
+      ]
+    },
+    {
+      id: "guidelines",
+      title: "Rules & Algorithm Guidelines",
+      badge: "Staff Rules",
+      items: [
+        { path: "cs6515-algorithm-rules-and-guidelines/8077881_Common_Course_Runtimes.html", title: "Common Course Runtimes", subtitle: "Standard runtime reference card" },
+        { path: "cs6515-algorithm-rules-and-guidelines/8077940_Dynamic_Programming_Guidance.html", title: "Dynamic Programming Guidance", subtitle: "Answer templates & grading rubric" },
+        { path: "cs6515-algorithm-rules-and-guidelines/8077944_Dynamic_Programming_Recurrence_Relations.html", title: "DP Recurrence Relations", subtitle: "State definitions & formulations" },
+        { path: "cs6515-algorithm-rules-and-guidelines/8093294_Divide_and_Conquer_Guidance.html", title: "Divide & Conquer Guidance", subtitle: "Master theorem & algorithm design" },
+        { path: "cs6515-algorithm-rules-and-guidelines/8093303_Usable_D&C_Algorithms.html", title: "Usable D&C Algorithms", subtitle: "Canonical building blocks allowed on exams" },
+        { path: "cs6515-algorithm-rules-and-guidelines/8129087_Graph_Theory_Guidance.html", title: "Graph Theory Guidance", subtitle: "Graph algorithm standards" },
+        { path: "cs6515-algorithm-rules-and-guidelines/8129088_Usable_Black_Boxes_for_Graphs.html", title: "Usable Black Boxes for Graphs", subtitle: "Standard graph algorithms permitted without proof" }
+      ]
+    }
+  ];
+
+  function isCurrentPage(itemPath, currentPath) {
+    if (!itemPath || !currentPath) return false;
+    if (itemPath === currentPath) return true;
+    const normItem = itemPath.replace(/\/index\.html$/, "").replace(/^\/+/, "");
+    const normCurr = currentPath.replace(/\/index\.html$/, "").replace(/^\/+/, "");
+    if (normItem === normCurr) return true;
+    const itemWeek = itemPath.match(/01_by_week\/(W\d+[^/]+)/);
+    const currWeek = currentPath.match(/01_by_week\/(W\d+[^/]+)/);
+    if (itemWeek && currWeek && itemWeek[1] === currWeek[1]) {
+      return true;
+    }
+    const itemTopic = itemPath.match(/02_by_topic\/([^/]+)/);
+    const currTopic = currentPath.match(/02_by_topic\/([^/]+)/);
+    if (itemTopic && currTopic && itemTopic[1] === currTopic[1]) {
+      return true;
+    }
+    return false;
+  }
+
   let searchItems = [];
   let selectedIndex = 0;
 
@@ -119,6 +214,30 @@
       topbar.appendChild(actions);
     }
 
+    let treeBtn = topbar.querySelector("[data-tree-trigger]");
+    if (!treeBtn) {
+      treeBtn = document.createElement("button");
+      treeBtn.className = "tree-trigger";
+      treeBtn.type = "button";
+      treeBtn.setAttribute("data-tree-trigger", "");
+      treeBtn.setAttribute("aria-expanded", "false");
+      treeBtn.setAttribute("aria-label", "Course hierarchy navigation");
+      treeBtn.innerHTML = [
+        '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">',
+        '  <circle cx="18" cy="5" r="3"></circle>',
+        '  <circle cx="6" cy="12" r="3"></circle>',
+        '  <circle cx="18" cy="19" r="3"></circle>',
+        '  <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>',
+        '  <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>',
+        '</svg>',
+        '<span class="tree-trigger__label">Course Map</span>',
+        '<span class="tree-trigger__caret">▾</span>'
+      ].join("");
+      actions.insertBefore(treeBtn, actions.firstChild);
+    } else if (actions.firstChild !== treeBtn) {
+      actions.insertBefore(treeBtn, actions.firstChild);
+    }
+
     let searchBtn = topbar.querySelector("[data-search-trigger]");
     if (!searchBtn) {
       searchBtn = document.createElement("button");
@@ -184,6 +303,176 @@
     }
     overlay.hidden = true;
     document.documentElement.classList.remove("search-open");
+  }
+
+  function buildTreeDropdown() {
+    if (document.querySelector("[data-tree-overlay]")) {
+      return;
+    }
+
+    const currentPath = normalizePath(window.location.pathname);
+    let currentPageTitle = "";
+
+    courseHierarchy.forEach(function (group) {
+      group.items.forEach(function (item) {
+        if (isCurrentPage(item.path, currentPath)) {
+          currentPageTitle = item.title;
+        }
+      });
+    });
+
+    const overlay = document.createElement("div");
+    overlay.className = "tree-overlay";
+    overlay.hidden = true;
+    overlay.setAttribute("data-tree-overlay", "");
+
+    const groupsHtml = courseHierarchy.map(function (group) {
+      const itemsHtml = group.items.map(function (item) {
+        const isCurrent = isCurrentPage(item.path, currentPath);
+        const moduleBadge = item.modules ? '<span class="tree-node__module">' + escapeHtml(item.modules) + '</span>' : '';
+        const examBadge = item.exam ? '<span class="tree-node__exam">' + escapeHtml(item.exam) + '</span>' : '';
+        const currentPill = isCurrent ? '<span class="tree-node__current-badge">YOU ARE HERE</span>' : '';
+        const descHtml = item.subtitle ? '<span class="tree-node__desc">' + escapeHtml(item.subtitle) + '</span>' : '';
+
+        return [
+          '<a class="tree-node' + (isCurrent ? ' is-current' : '') + '" href="' + escapeHtml(hrefFor(item.path)) + '"' + (isCurrent ? ' aria-current="page"' : '') + ' data-tree-node data-title="' + escapeHtml((item.title + ' ' + (item.modules || '') + ' ' + (item.subtitle || '')).toLowerCase()) + '">',
+          '  <span class="tree-node__dot"></span>',
+          '  <div class="tree-node__content">',
+          '    <div class="tree-node__row">',
+          '      <span class="tree-node__title">' + escapeHtml(item.title) + '</span>',
+          '      ' + moduleBadge,
+          '      ' + examBadge,
+          '    </div>',
+          '    ' + descHtml,
+          '  </div>',
+          '  ' + currentPill,
+          '</a>'
+        ].join("");
+      }).join("\n");
+
+      return [
+        '<div class="tree-group" data-tree-group>',
+        '  <div class="tree-group__header">',
+        '    <span class="tree-group__title">' + escapeHtml(group.title) + '</span>',
+        '    <span class="tree-group__badge">' + escapeHtml(group.badge) + '</span>',
+        '  </div>',
+        '  <div class="tree-branch">',
+        itemsHtml,
+        '  </div>',
+        '</div>'
+      ].join("");
+    }).join("\n");
+
+    const currentBannerHtml = currentPageTitle ? [
+      '<div class="tree-location-bar">',
+      '  <span class="tree-location-dot"></span>',
+      '  <span class="tree-location-label">Current Page:</span>',
+      '  <span class="tree-location-title">' + escapeHtml(currentPageTitle) + '</span>',
+      '</div>'
+    ].join("") : '';
+
+    overlay.innerHTML = [
+      '<div class="tree-panel" role="dialog" aria-modal="true" aria-label="Course Hierarchy and Map">',
+      '  <div class="tree-header">',
+      '    <div class="tree-header__title">',
+      '      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">',
+      '        <circle cx="18" cy="5" r="3"></circle>',
+      '        <circle cx="6" cy="12" r="3"></circle>',
+      '        <circle cx="18" cy="19" r="3"></circle>',
+      '        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>',
+      '        <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>',
+      '      </svg>',
+      '      <span>Course Hierarchy &amp; Navigation</span>',
+      '    </div>',
+      '    <div class="tree-header__actions">',
+      '      <input class="tree-filter-input" type="search" placeholder="Filter pages, topics, modules..." data-tree-filter autocomplete="off" spellcheck="false">',
+      '      <button class="tree-close-btn" type="button" data-tree-close aria-label="Close navigation tree">✕</button>',
+      '    </div>',
+      '  </div>',
+      '  ' + currentBannerHtml,
+      '  <div class="tree-body" data-tree-body>',
+      groupsHtml,
+      '  </div>',
+      '</div>'
+    ].join("");
+
+    document.body.appendChild(overlay);
+
+    overlay.addEventListener("click", function (event) {
+      if (event.target === overlay) {
+        closeTreeDropdown();
+      }
+    });
+
+    const closeBtn = overlay.querySelector("[data-tree-close]");
+    if (closeBtn) {
+      closeBtn.addEventListener("click", closeTreeDropdown);
+    }
+
+    const filterInput = overlay.querySelector("[data-tree-filter]");
+    if (filterInput) {
+      filterInput.addEventListener("input", function (e) {
+        filterTreeNodes(e.target.value);
+      });
+    }
+  }
+
+  function filterTreeNodes(query) {
+    const q = query.toLowerCase().trim();
+    const groups = document.querySelectorAll("[data-tree-group]");
+    groups.forEach(function (group) {
+      const nodes = Array.from(group.querySelectorAll("[data-tree-node]"));
+      let anyVisible = false;
+      nodes.forEach(function (node) {
+        const text = node.getAttribute("data-title") || "";
+        const matches = !q || text.includes(q);
+        node.style.display = matches ? "flex" : "none";
+        if (matches) anyVisible = true;
+      });
+      group.style.display = anyVisible ? "flex" : "none";
+    });
+  }
+
+  function openTreeDropdown() {
+    buildTreeDropdown();
+    const overlay = document.querySelector("[data-tree-overlay]");
+    const trigger = document.querySelector("[data-tree-trigger]");
+    if (!overlay) return;
+    overlay.hidden = false;
+    document.documentElement.classList.add("tree-open");
+    if (trigger) trigger.setAttribute("aria-expanded", "true");
+
+    const filterInput = overlay.querySelector("[data-tree-filter]");
+    if (filterInput) {
+      filterInput.value = "";
+      filterTreeNodes("");
+      filterInput.focus();
+    }
+
+    const currentNode = overlay.querySelector(".tree-node.is-current");
+    if (currentNode) {
+      setTimeout(function () {
+        currentNode.scrollIntoView({ block: "center", behavior: "smooth" });
+      }, 60);
+    }
+  }
+
+  function closeTreeDropdown() {
+    const overlay = document.querySelector("[data-tree-overlay]");
+    const trigger = document.querySelector("[data-tree-trigger]");
+    if (!overlay) return;
+    overlay.hidden = true;
+    document.documentElement.classList.remove("tree-open");
+    if (trigger) trigger.setAttribute("aria-expanded", "false");
+  }
+
+  function toggleTreeDropdown() {
+    const overlay = document.querySelector("[data-tree-overlay]");
+    if (overlay && !overlay.hidden) {
+      closeTreeDropdown();
+    } else {
+      openTreeDropdown();
+    }
   }
 
   function termsFor(query) {
@@ -799,10 +1088,18 @@
 
   function bindEvents() {
     document.addEventListener("click", function (event) {
+      const treeTrigger = event.target.closest("[data-tree-trigger]");
+      if (treeTrigger) {
+        event.preventDefault();
+        toggleTreeDropdown();
+        return;
+      }
+
       const trigger = event.target.closest("[data-search-trigger]");
       if (trigger) {
         event.preventDefault();
         openSearch();
+        return;
       }
     });
 
@@ -821,6 +1118,7 @@
       }
 
       if (event.key === "Escape") {
+        closeTreeDropdown();
         closeSearch();
         const sidebar = document.querySelector("[data-sidebar-toc]");
         const backdrop = document.querySelector("[data-sidebar-backdrop]");
@@ -857,6 +1155,7 @@
 
   function init() {
     ensureTopbar();
+    buildTreeDropdown();
     buildSearchDialog();
     injectNavigation();
     buildSidebarAndScrollspy();
