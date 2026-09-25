@@ -6,7 +6,7 @@
 <title>All Weeks - Stacked - CS6515</title>
 <link rel="stylesheet" href="../vendor/fonts/fonts.css">
 <link rel="stylesheet" href="../theme.css">
-<link rel="stylesheet" href="../vendor/katex/katex.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="../vendor/katex/katex.min.css">
 <link rel="stylesheet" href="../vendor/highlight/styles/tokyo-night-dark.min.css">
 </head>
 <body>
@@ -18,10 +18,27 @@
 </header>
 <main class="content all-weeks-content">
 <h1 id="all-weeks-stacked">All Weeks - Stacked</h1>
-<blockquote>
-<p>Every weekly study page is stacked here for continuous review. Use the toolbar Contents button for the collapsed week list, or search with the toolbar search control.</p>
-<p><a href="index.html">All weeks</a> · <a href="../index.html">Home</a></p>
-</blockquote>
+<p class="lead">Every weekly study page is stacked here for continuous review. Use the outline sidebar for fast navigation, or search with <kbd>Cmd K</kbd>.</p>
+<nav class="top-nav-bar" data-top-nav aria-label="Top page navigation">
+  <div class="top-nav-bar__left">
+    <a class="btn btn--prev" href="../index.html">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+      <span>Home</span>
+    </a>
+  </div>
+  <div class="top-nav-bar__center">
+    <a class="btn" href="index.html">All Weeks Grid</a>
+    <a class="btn" href="../00_START_HERE/COURSE_ROADMAP.html">Roadmap</a>
+    <a class="btn" href="../00_START_HERE/INDEX.html">Master Index</a>
+    <a class="btn" href="../module-week-schedule.html">Schedule</a>
+  </div>
+  <div class="top-nav-bar__right">
+    <a class="btn btn--next" href="W01_DP1-DP2/index.html">
+      <span>Start Week 1</span>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+    </a>
+  </div>
+</nav>
 <nav class="page-toc" id="all-weeks-toc" data-page-toc hidden aria-label="All weeks contents">
 <h2>Weeks</h2>
 <ol>
@@ -40,13 +57,9 @@
 </nav>
 <section class="week-stack" id="week-01">
 <h2>Week 1 - Intro &amp; DP</h2>
-<blockquote>
-<p><strong>2026-05-18 → 05-24</strong> · Modules <strong>DP1</strong>
-(FIB, LIS, LCS), <strong>DP2</strong> (Knapsack, Chain Multiply)</p>
-<p><a href="index.html">All weeks</a> · <a
-href="../00_START_HERE/INDEX.html">Index</a> · <a
-href="W02_2026-05-25_DC3-DC1/index.html">W02 Divide &amp; Conquer ▶</a></p>
-</blockquote>
+<div class="module-subtitle">
+  <span>Modules <strong>DP1</strong> (FIB, LIS, LCS), <strong>DP2</strong> (Knapsack, Chain Multiply)</span>
+</div>
 <h3 id="w01-due-this-week">Due this week</h3>
 <table>
 <thead>
@@ -79,12 +92,12 @@ href="W02_2026-05-25_DC3-DC1/index.html">W02 Divide &amp; Conquer ▶</a></p>
 </tr>
 </tbody>
 </table>
-<details>
+<details class="lecture-collapse">
 <summary><b>Watch the lecture</b> (Intro & DP)</summary>
 
 <p><video controls preload="metadata" width="100%" src="https://storage.googleapis.com/darien-public-assets/cs6515-summer-2026/v20260623/videos/01_Week_01_Intro_DP.mp4"></video></p>
 <p><a href="https://storage.googleapis.com/darien-public-assets/cs6515-summer-2026/v20260623/videos/01_Week_01_Intro_DP.mp4">▶ Open video</a> · <a
-href="W01_2026-05-18_DP1-DP2/transcripts/01_Week_01_Intro_DP.txt">Transcript</a></p>
+href="W01_DP1-DP2/transcripts/01_Week_01_Intro_DP.txt">Transcript</a></p>
 </details>
 
 <hr />
@@ -379,25 +392,25 @@ on the take branch.</li>
 <p>Give the <strong>bottom-up</strong> recurrence + table, not a
 recursive/memoized function. Always finish with the runtime as #entries
 × work-per-entry. See <a
-href="W01_2026-05-18_DP1-DP2/guidance/dynamic-programming-guidance.html">DP guidance</a> and <a
-href="W01_2026-05-18_DP1-DP2/guidance/dp-recurrence-relations.html">DP recurrence
+href="W01_DP1-DP2/guidance/dynamic-programming-guidance.html">DP guidance</a> and <a
+href="W01_DP1-DP2/guidance/dp-recurrence-relations.html">DP recurrence
 relations</a>.</p>
 <details>
 <summary><b>Go deeper</b> — readings · guidance · notes</summary>
 
 <ul>
-<li><a href="W01_2026-05-18_DP1-DP2/readings/DPV-ch6-dynamic-programming.pdf">DPV §0.2,
-§6.2–6.5 (DP)</a> · <a href="W01_2026-05-18_DP1-DP2/readings/DPV-ch0-prologue.pdf">§0
+<li><a href="W01_DP1-DP2/readings/DPV-ch6-dynamic-programming.pdf">DPV §0.2,
+§6.2–6.5 (DP)</a> · <a href="W01_DP1-DP2/readings/DPV-ch0-prologue.pdf">§0
 prologue</a></li>
-<li><a href="W01_2026-05-18_DP1-DP2/guidance/dynamic-programming-guidance.html">DP guidance</a>
-· <a href="W01_2026-05-18_DP1-DP2/guidance/dp-recurrence-relations.html">DP recurrences</a> ·
-<a href="W01_2026-05-18_DP1-DP2/guidance/course-readiness.html">Course readiness</a> · <a
-href="W01_2026-05-18_DP1-DP2/guidance/common-course-runtimes.html">Common runtimes</a></li>
-<li><a href="W01_2026-05-18_DP1-DP2/notes/full-course-notes.html">Full course notes</a> · <a
-href="W01_2026-05-18_DP1-DP2/notes/ga-notes.pdf">ga-notes.pdf</a></li>
-<li><a href="W01_2026-05-18_DP1-DP2/lectures">lectures/</a> · <a
-href="W01_2026-05-18_DP1-DP2/transcripts">transcripts/</a> · <a href="W01_2026-05-18_DP1-DP2/readings">readings/</a>
-· <a href="W01_2026-05-18_DP1-DP2/guidance">guidance/</a> · <a href="W01_2026-05-18_DP1-DP2/notes">notes/</a></li>
+<li><a href="W01_DP1-DP2/guidance/dynamic-programming-guidance.html">DP guidance</a>
+· <a href="W01_DP1-DP2/guidance/dp-recurrence-relations.html">DP recurrences</a> ·
+<a href="W01_DP1-DP2/guidance/course-readiness.html">Course readiness</a> · <a
+href="W01_DP1-DP2/guidance/common-course-runtimes.html">Common runtimes</a></li>
+<li><a href="W01_DP1-DP2/notes/full-course-notes.html">Full course notes</a> · <a
+href="W01_DP1-DP2/notes/ga-notes.pdf">ga-notes.pdf</a></li>
+<li><a href="W01_DP1-DP2/lectures">lectures/</a> · <a
+href="W01_DP1-DP2/transcripts">transcripts/</a> · <a href="W01_DP1-DP2/readings">readings/</a>
+· <a href="W01_DP1-DP2/guidance">guidance/</a> · <a href="W01_DP1-DP2/notes">notes/</a></li>
 </ul>
 </details>
 
@@ -782,13 +795,13 @@ choices).</p>
 PDFs.</em></p>
 <p><strong>DPV Ch 6 — Dynamic Programming</strong> — <a
 href="../textbooks/examples-md/06-dynamic-programming-dpv-examples.html">open
-exercises</a> · <a href="W01_2026-05-18_DP1-DP2/readings/DPV-ch6-examples.pdf">chapter
+exercises</a> · <a href="W01_DP1-DP2/readings/DPV-ch6-examples.pdf">chapter
 PDF</a></p>
 <iframe class="examples-frame" src="../textbooks/examples-md/06-dynamic-programming-dpv-examples.html" title="DPV Ch 6 — Dynamic Programming exercises"></iframe>
 
 <p><strong>DPV Ch 0 — Prologue</strong> — <a
 href="../textbooks/examples-md/00-prologue-dpv-examples.html">open
-exercises</a> · <a href="W01_2026-05-18_DP1-DP2/readings/DPV-ch0-examples.pdf">chapter
+exercises</a> · <a href="W01_DP1-DP2/readings/DPV-ch0-examples.pdf">chapter
 PDF</a></p>
 <iframe class="examples-frame" src="../textbooks/examples-md/00-prologue-dpv-examples.html" title="DPV Ch 0 — Prologue exercises"></iframe>
 
@@ -804,14 +817,9 @@ expectations from the DP guidance docs.</p>
 </section>
 <section class="week-stack" id="week-02">
 <h2>Week 2 - Divide &amp; Conquer</h2>
-<blockquote>
-<p><strong>2026-05-25 → 05-31</strong> (Memorial Day 05-25) · Modules
-<strong>DC3</strong> (Solving Recurrences), <strong>DC1</strong> (Fast
-Integer Multiplication)</p>
-<p><a href="W01_2026-05-18_DP1-DP2/index.html">◀ W01 DP</a> · <a href="index.html">All
-weeks</a> · <a href="../00_START_HERE/INDEX.html">Index</a> · <a
-href="W03_2026-06-01_DC2/index.html">W03 Median ▶</a></p>
-</blockquote>
+<div class="module-subtitle">
+  <span>Modules <strong>DC3</strong> (Solving Recurrences), <strong>DC1</strong> (Fast Integer Multiplication)</span>
+</div>
 <h3 id="w02-due-this-week">Due this week</h3>
 <table>
 <thead>
@@ -835,17 +843,17 @@ href="W03_2026-06-01_DC2/index.html">W03 Median ▶</a></p>
 <tr>
 <td><strong>Logistics quizzes</strong></td>
 <td>onboarding</td>
-<td>due 06-01 8am ET</td>
+<td>due Week 2</td>
 </tr>
 </tbody>
 </table>
-<details>
+<details class="lecture-collapse">
 <summary><b>Watch the lecture</b> (D&C Foundations)</summary>
 
 <p><video controls preload="metadata" width="100%" src="https://storage.googleapis.com/darien-public-assets/cs6515-summer-2026/v20260623/videos/02_Week_02_Divide_Conquer_Foundations.mp4"></video></p>
 <p><a href="https://storage.googleapis.com/darien-public-assets/cs6515-summer-2026/v20260623/videos/02_Week_02_Divide_Conquer_Foundations.mp4">▶ Open
 video</a> · <a
-href="W02_2026-05-25_DC3-DC1/transcripts/02_Week_02_Divide_Conquer_Foundations.txt">Transcript</a></p>
+href="W02_DC3-DC1/transcripts/02_Week_02_Divide_Conquer_Foundations.txt">Transcript</a></p>
 </details>
 
 <hr />
@@ -1055,26 +1063,26 @@ one.</li>
 <p>Describe the split/recurse/combine <strong>in words</strong>, argue
 correctness, then write &amp; solve the recurrence. No pseudocode when
 the prompt asks for an algorithm. See <a
-href="W02_2026-05-25_DC3-DC1/guidance/divide-and-conquer-guidance.html">D&amp;C guidance</a>
-and <a href="W02_2026-05-25_DC3-DC1/guidance/solving-recurrences-approach.html">solving
+href="W02_DC3-DC1/guidance/divide-and-conquer-guidance.html">D&amp;C guidance</a>
+and <a href="W02_DC3-DC1/guidance/solving-recurrences-approach.html">solving
 recurrences</a>.</p>
 <details>
 <summary><b>Go deeper</b> — readings · guidance · notes</summary>
 
 <ul>
-<li><a href="W02_2026-05-25_DC3-DC1/readings/DPV-ch2-divide-and-conquer.pdf">DPV §2.1 (fast
+<li><a href="W02_DC3-DC1/readings/DPV-ch2-divide-and-conquer.pdf">DPV §2.1 (fast
 multiply), §2.2 (recurrences)</a></li>
-<li><a href="W02_2026-05-25_DC3-DC1/guidance/divide-and-conquer-guidance.html">D&amp;C
-guidance</a> · <a href="W02_2026-05-25_DC3-DC1/guidance/usable-dc-algorithms.html">Usable
+<li><a href="W02_DC3-DC1/guidance/divide-and-conquer-guidance.html">D&amp;C
+guidance</a> · <a href="W02_DC3-DC1/guidance/usable-dc-algorithms.html">Usable
 D&amp;C algorithms</a> · <a
-href="W02_2026-05-25_DC3-DC1/guidance/solving-recurrences-approach.html">Solving
-recurrences</a> · <a href="W02_2026-05-25_DC3-DC1/guidance/common-course-runtimes.html">Common
+href="W02_DC3-DC1/guidance/solving-recurrences-approach.html">Solving
+recurrences</a> · <a href="W02_DC3-DC1/guidance/common-course-runtimes.html">Common
 runtimes</a></li>
-<li><a href="W02_2026-05-25_DC3-DC1/notes/full-course-notes.html">Full course notes</a> · <a
-href="W02_2026-05-25_DC3-DC1/notes/ga-notes.pdf">ga-notes.pdf</a></li>
-<li><a href="W02_2026-05-25_DC3-DC1/lectures">lectures/</a> · <a
-href="W02_2026-05-25_DC3-DC1/transcripts">transcripts/</a> · <a href="W02_2026-05-25_DC3-DC1/readings">readings/</a>
-· <a href="W02_2026-05-25_DC3-DC1/guidance">guidance/</a> · <a href="W02_2026-05-25_DC3-DC1/notes">notes/</a></li>
+<li><a href="W02_DC3-DC1/notes/full-course-notes.html">Full course notes</a> · <a
+href="W02_DC3-DC1/notes/ga-notes.pdf">ga-notes.pdf</a></li>
+<li><a href="W02_DC3-DC1/lectures">lectures/</a> · <a
+href="W02_DC3-DC1/transcripts">transcripts/</a> · <a href="W02_DC3-DC1/readings">readings/</a>
+· <a href="W02_DC3-DC1/guidance">guidance/</a> · <a href="W02_DC3-DC1/notes">notes/</a></li>
 </ul>
 </details>
 
@@ -1292,7 +1300,7 @@ class="math inline">log<sub>3</sub>2 &gt; 0 = <em>d</em> ⇒ <em>O</
 PDFs.</em></p>
 <p><strong>DPV Ch 2 — Divide And Conquer</strong> — <a
 href="../textbooks/examples-md/02-divide-and-conquer-dpv-examples.html">open
-exercises</a> · <a href="W02_2026-05-25_DC3-DC1/readings/DPV-ch2-examples.pdf">chapter
+exercises</a> · <a href="W02_DC3-DC1/readings/DPV-ch2-examples.pdf">chapter
 PDF</a></p>
 <iframe class="examples-frame" src="../textbooks/examples-md/02-divide-and-conquer-dpv-examples.html" title="DPV Ch 2 — Divide And Conquer exercises"></iframe>
 
@@ -1311,15 +1319,9 @@ Keep the algorithm narrative, not pseudocode.</p>
 </section>
 <section class="week-stack" id="week-03">
 <h2>Week 3 - Linear-Time Median</h2>
-<blockquote>
-<p><strong>2026-06-01 → 06-07</strong> · Module <strong>DC2</strong>
-(Sorting, Linear-Time Median / Selection)</p>
-<p><a href="W02_2026-05-25_DC3-DC1/index.html">◀ W02 D&amp;C</a> · <a
-href="index.html">All weeks</a> · <a
-href="../00_START_HERE/INDEX.html">Index</a> · <a
-href="W04_2026-06-08_DP3-GR1-GR2_EXAM1/index.html">W04 Graphs + Exam 1
-▶</a></p>
-</blockquote>
+<div class="module-subtitle">
+  <span>Module <strong>DC2</strong> (Sorting, Linear-Time Median / Selection)</span>
+</div>
 <h3 id="w03-due-this-week">Due this week</h3>
 <table>
 <thead>
@@ -1352,13 +1354,13 @@ href="W04_2026-06-08_DP3-GR1-GR2_EXAM1/index.html">W04 Graphs + Exam 1
 </tr>
 </tbody>
 </table>
-<details>
+<details class="lecture-collapse">
 <summary><b>Watch the lecture</b> (Linear-Time Median)</summary>
 
 <p><video controls preload="metadata" width="100%" src="https://storage.googleapis.com/darien-public-assets/cs6515-summer-2026/v20260623/videos/03_Week_03_Linear_Time_Median.mp4"></video></p>
 <p><a href="https://storage.googleapis.com/darien-public-assets/cs6515-summer-2026/v20260623/videos/03_Week_03_Linear_Time_Median.mp4">▶ Open video</a>
 · <a
-href="W03_2026-06-01_DC2/transcripts/03_Week_03_Linear_Time_Median.txt">Transcript</a></p>
+href="W03_DC2/transcripts/03_Week_03_Linear_Time_Median.txt">Transcript</a></p>
 </details>
 
 <hr />
@@ -1524,23 +1526,23 @@ class="math inline"><em>O</em>(<em>n</em>)</span> result.</li>
 the recurrence and the <span
 class="math inline"><em>O</em>(<em>n</em>)</span> result; don't
 re-derive the constant fractions unless asked. See <a
-href="W03_2026-06-01_DC2/guidance/divide-and-conquer-guidance.html">D&amp;C
+href="W03_DC2/guidance/divide-and-conquer-guidance.html">D&amp;C
 guidance</a>.</p>
 <details>
 <summary><b>Go deeper</b> — readings · guidance · notes</summary>
 
 <ul>
-<li><a href="W03_2026-06-01_DC2/readings/DPV-ch2-divide-and-conquer.pdf">DPV §2.3
+<li><a href="W03_DC2/readings/DPV-ch2-divide-and-conquer.pdf">DPV §2.3
 (sorting), §2.4 (median)</a></li>
-<li><a href="W03_2026-06-01_DC2/guidance/divide-and-conquer-guidance.html">D&amp;C
-guidance</a> · <a href="W03_2026-06-01_DC2/guidance/usable-dc-algorithms.html">Usable
+<li><a href="W03_DC2/guidance/divide-and-conquer-guidance.html">D&amp;C
+guidance</a> · <a href="W03_DC2/guidance/usable-dc-algorithms.html">Usable
 D&amp;C algorithms</a> · <a
-href="W03_2026-06-01_DC2/guidance/common-course-runtimes.html">Common runtimes</a></li>
-<li><a href="W03_2026-06-01_DC2/notes/full-course-notes.html">Full course notes</a> · <a
-href="W03_2026-06-01_DC2/notes/ga-notes.pdf">ga-notes.pdf</a></li>
-<li><a href="W03_2026-06-01_DC2/lectures">lectures/</a> · <a
-href="W03_2026-06-01_DC2/transcripts">transcripts/</a> · <a href="W03_2026-06-01_DC2/readings">readings/</a>
-· <a href="W03_2026-06-01_DC2/guidance">guidance/</a> · <a href="W03_2026-06-01_DC2/notes">notes/</a></li>
+href="W03_DC2/guidance/common-course-runtimes.html">Common runtimes</a></li>
+<li><a href="W03_DC2/notes/full-course-notes.html">Full course notes</a> · <a
+href="W03_DC2/notes/ga-notes.pdf">ga-notes.pdf</a></li>
+<li><a href="W03_DC2/lectures">lectures/</a> · <a
+href="W03_DC2/transcripts">transcripts/</a> · <a href="W03_DC2/readings">readings/</a>
+· <a href="W03_DC2/guidance">guidance/</a> · <a href="W03_DC2/notes">notes/</a></li>
 </ul>
 </details>
 
@@ -1673,7 +1675,7 @@ of <strong>5</strong> — why not 3 or 7?</p>
 PDFs.</em></p>
 <p><strong>DPV Ch 2 — Divide And Conquer</strong> — <a
 href="../textbooks/examples-md/02-divide-and-conquer-dpv-examples.html">open
-exercises</a> · <a href="W03_2026-06-01_DC2/readings/DPV-ch2-examples.pdf">chapter
+exercises</a> · <a href="W03_DC2/readings/DPV-ch2-examples.pdf">chapter
 PDF</a></p>
 <iframe class="examples-frame" src="../textbooks/examples-md/02-divide-and-conquer-dpv-examples.html" title="DPV Ch 2 — Divide And Conquer exercises"></iframe>
 
@@ -1690,37 +1692,28 @@ W1–3).</p>
 </section>
 <section class="week-stack" id="week-04">
 <h2>Week 4 - DP3, SCC, 2-SAT</h2>
-<blockquote>
-<p><strong>2026-06-08 → 06-14</strong> · Modules <strong>DP3</strong>
-(Shortest Paths), <strong>GR1</strong> (SCC), <strong>GR2</strong>
-(2-SAT)</p>
-<p><a href="W03_2026-06-01_DC2/index.html">◀ W03 Median</a> · <a href="index.html">All
-weeks</a> · <a href="../00_START_HERE/INDEX.html">Index</a> · <a
-href="W05_2026-06-15_GR3/index.html">W05 MST ▶</a></p>
-</blockquote>
-<h3 id="w04-exam-1-this-week">EXAM 1 this week</h3>
+<div class="module-subtitle">
+  <span>Modules <strong>DP3</strong> (Shortest Paths), <strong>GR1</strong> (SCC), <strong>GR2</strong> (2-SAT) · <strong>Exam 1 Window</strong> (covers Weeks 1–3)</span>
+</div>
+<h3 id="w04-exam-1-this-week">EXAM 1 Window</h3>
 <table>
 <tbody>
 <tr>
-<td><strong>Opens</strong></td>
-<td>Thu <strong>06-11</strong> 10am ET</td>
+<td><strong>Assessment</strong></td>
+<td><strong>Exam 1</strong> (format and scheduling per course syllabus)</td>
 </tr>
 <tr>
-<td><strong>Closes</strong></td>
-<td>Mon <strong>06-15</strong> 8am ET</td>
-</tr>
-<tr>
-<td><strong>Covers</strong></td>
+<td><strong>Coverage</strong></td>
 <td><strong>Weeks 1–3</strong> — DP1–DP2, DC1–DC3</td>
 </tr>
 </tbody>
 </table>
-<details>
+<details class="lecture-collapse">
 <summary><b>Watch the lecture</b> (DP & Graph Intro)</summary>
 
 <p><video controls preload="metadata" width="100%" src="https://storage.googleapis.com/darien-public-assets/cs6515-summer-2026/v20260623/videos/04_Week_04_DP_Graph_Intro.mp4"></video></p>
 <p><a href="https://storage.googleapis.com/darien-public-assets/cs6515-summer-2026/v20260623/videos/04_Week_04_DP_Graph_Intro.mp4">▶ Open video</a> ·
-<a href="W04_2026-06-08_DP3-GR1-GR2_EXAM1/transcripts/04_Week_04_DP_Graph_Intro.txt">Transcript</a></p>
+<a href="W04_DP3-GR1-GR2_EXAM1/transcripts/04_Week_04_DP_Graph_Intro.txt">Transcript</a></p>
 </details>
 
 <hr />
@@ -1930,28 +1923,28 @@ or mis-assigning truth (later SCC in topo order = true).</li>
 <h2 id="w04-how-to-answer-hw--exam">How to answer (HW / exam)</h2>
 <p>Graph problems = <strong>transform input/output around a black
 box</strong> (DFS, SCC, BFS, Dijkstra). Don't rewrite the black box. See
-<a href="W04_2026-06-08_DP3-GR1-GR2_EXAM1/guidance/graph-theory-guidance.html">graph guidance</a> · <a
-href="W04_2026-06-08_DP3-GR1-GR2_EXAM1/guidance/usable-black-boxes-graphs.html">usable black
+<a href="W04_DP3-GR1-GR2_EXAM1/guidance/graph-theory-guidance.html">graph guidance</a> · <a
+href="W04_DP3-GR1-GR2_EXAM1/guidance/usable-black-boxes-graphs.html">usable black
 boxes</a>.</p>
 <details>
 <summary><b>Go deeper</b> — readings · guidance · deep notes</summary>
 
 <ul>
-<li><a href="W04_2026-06-08_DP3-GR1-GR2_EXAM1/readings/DPV-ch3-graph-decompositions.pdf">DPV §3.1–3.4
-(graphs)</a> · <a href="W04_2026-06-08_DP3-GR1-GR2_EXAM1/readings/DPV-ch4-paths-in-graphs.pdf">§4.x
-(paths)</a> · <a href="W04_2026-06-08_DP3-GR1-GR2_EXAM1/readings/DPV-ch6-dynamic-programming.pdf">§6.x
+<li><a href="W04_DP3-GR1-GR2_EXAM1/readings/DPV-ch3-graph-decompositions.pdf">DPV §3.1–3.4
+(graphs)</a> · <a href="W04_DP3-GR1-GR2_EXAM1/readings/DPV-ch4-paths-in-graphs.pdf">§4.x
+(paths)</a> · <a href="W04_DP3-GR1-GR2_EXAM1/readings/DPV-ch6-dynamic-programming.pdf">§6.x
 (DP shortest path)</a></li>
-<li><a href="W04_2026-06-08_DP3-GR1-GR2_EXAM1/guidance/graph-theory-guidance.html">Graph guidance</a> ·
-<a href="W04_2026-06-08_DP3-GR1-GR2_EXAM1/guidance/usable-black-boxes-graphs.html">Black boxes</a> · <a
-href="W04_2026-06-08_DP3-GR1-GR2_EXAM1/guidance/dynamic-programming-guidance.html">DP guidance</a></li>
-<li>Deep notes: <a href="W04_2026-06-08_DP3-GR1-GR2_EXAM1/notes/GR0-graph-fundamentals.html">GR0
+<li><a href="W04_DP3-GR1-GR2_EXAM1/guidance/graph-theory-guidance.html">Graph guidance</a> ·
+<a href="W04_DP3-GR1-GR2_EXAM1/guidance/usable-black-boxes-graphs.html">Black boxes</a> · <a
+href="W04_DP3-GR1-GR2_EXAM1/guidance/dynamic-programming-guidance.html">DP guidance</a></li>
+<li>Deep notes: <a href="W04_DP3-GR1-GR2_EXAM1/notes/GR0-graph-fundamentals.html">GR0
 fundamentals</a> · <a
-href="W04_2026-06-08_DP3-GR1-GR2_EXAM1/notes/GR1-strongly-connected-components.html">GR1 SCC</a> · <a
-href="W04_2026-06-08_DP3-GR1-GR2_EXAM1/notes/GR2-2sat.html">GR2 2-SAT</a> · <a
-href="W04_2026-06-08_DP3-GR1-GR2_EXAM1/notes/graphs-cheat-sheet.html">cheat sheet</a></li>
-<li><a href="W04_2026-06-08_DP3-GR1-GR2_EXAM1/lectures">lectures/</a> · <a
-href="W04_2026-06-08_DP3-GR1-GR2_EXAM1/transcripts">transcripts/</a> · <a href="W04_2026-06-08_DP3-GR1-GR2_EXAM1/readings">readings/</a>
-· <a href="W04_2026-06-08_DP3-GR1-GR2_EXAM1/guidance">guidance/</a> · <a href="W04_2026-06-08_DP3-GR1-GR2_EXAM1/notes">notes/</a></li>
+href="W04_DP3-GR1-GR2_EXAM1/notes/GR1-strongly-connected-components.html">GR1 SCC</a> · <a
+href="W04_DP3-GR1-GR2_EXAM1/notes/GR2-2sat.html">GR2 2-SAT</a> · <a
+href="W04_DP3-GR1-GR2_EXAM1/notes/graphs-cheat-sheet.html">cheat sheet</a></li>
+<li><a href="W04_DP3-GR1-GR2_EXAM1/lectures">lectures/</a> · <a
+href="W04_DP3-GR1-GR2_EXAM1/transcripts">transcripts/</a> · <a href="W04_DP3-GR1-GR2_EXAM1/readings">readings/</a>
+· <a href="W04_DP3-GR1-GR2_EXAM1/guidance">guidance/</a> · <a href="W04_DP3-GR1-GR2_EXAM1/notes">notes/</a></li>
 </ul>
 </details>
 
@@ -2377,19 +2370,19 @@ alt="Ford vs Floyd" /></p>
 PDFs.</em></p>
 <p><strong>DPV Ch 3 — Decompositions Of Graphs</strong> — <a
 href="../textbooks/examples-md/03-decompositions-of-graphs-dpv-examples.html">open
-exercises</a> · <a href="W04_2026-06-08_DP3-GR1-GR2_EXAM1/readings/DPV-ch3-examples.pdf">chapter
+exercises</a> · <a href="W04_DP3-GR1-GR2_EXAM1/readings/DPV-ch3-examples.pdf">chapter
 PDF</a></p>
 <iframe class="examples-frame" src="../textbooks/examples-md/03-decompositions-of-graphs-dpv-examples.html" title="DPV Ch 3 — Decompositions Of Graphs exercises"></iframe>
 
 <p><strong>DPV Ch 4 — Paths In Graphs</strong> — <a
 href="../textbooks/examples-md/04-paths-in-graphs-dpv-examples.html">open
-exercises</a> · <a href="W04_2026-06-08_DP3-GR1-GR2_EXAM1/readings/DPV-ch4-examples.pdf">chapter
+exercises</a> · <a href="W04_DP3-GR1-GR2_EXAM1/readings/DPV-ch4-examples.pdf">chapter
 PDF</a></p>
 <iframe class="examples-frame" src="../textbooks/examples-md/04-paths-in-graphs-dpv-examples.html" title="DPV Ch 4 — Paths In Graphs exercises"></iframe>
 
 <p><strong>DPV Ch 6 — Dynamic Programming</strong> — <a
 href="../textbooks/examples-md/06-dynamic-programming-dpv-examples.html">open
-exercises</a> · <a href="W04_2026-06-08_DP3-GR1-GR2_EXAM1/readings/DPV-ch6-examples.pdf">chapter
+exercises</a> · <a href="W04_DP3-GR1-GR2_EXAM1/readings/DPV-ch6-examples.pdf">chapter
 PDF</a></p>
 <iframe class="examples-frame" src="../textbooks/examples-md/06-dynamic-programming-dpv-examples.html" title="DPV Ch 6 — Dynamic Programming exercises"></iframe>
 
@@ -2405,19 +2398,14 @@ class="math inline"><em>G</em></span> by decreasing post. For 2-SAT
 build the implication graph, run SCC, check <span
 class="math inline"><em>x</em><sub><em>i</em></sub></span> vs <span
 class="math inline">¬<em>x</em><sub><em>i</em></sub></span>. Deep
-walkthroughs in <a href="W04_2026-06-08_DP3-GR1-GR2_EXAM1/notes">notes/</a>. Exam 1 (W1–3) opens this
+walkthroughs in <a href="W04_DP3-GR1-GR2_EXAM1/notes">notes/</a>. Exam 1 (W1–3) opens this
 week.</p>
 </section>
 <section class="week-stack" id="week-05">
 <h2>Week 5 - MST</h2>
-<blockquote>
-<p><strong>2026-06-15 → 06-21</strong> · Module <strong>GR3</strong>
-(MST: Kruskal's &amp; Prim's)</p>
-<p><a href="W04_2026-06-08_DP3-GR1-GR2_EXAM1/index.html">◀ W04 Graphs</a> · <a
-href="index.html">All weeks</a> · <a
-href="../00_START_HERE/INDEX.html">Index</a> · <a
-href="W06_2026-06-22_MF1-MF2/index.html">W06 Max-Flow ▶</a></p>
-</blockquote>
+<div class="module-subtitle">
+  <span>Module <strong>GR3</strong> (MST: Kruskal's &amp; Prim's)</span>
+</div>
 <h3 id="w05-due-this-week">Due this week</h3>
 <table>
 <thead>
@@ -2440,12 +2428,12 @@ href="W06_2026-06-22_MF1-MF2/index.html">W06 Max-Flow ▶</a></p>
 </tr>
 </tbody>
 </table>
-<details>
+<details class="lecture-collapse">
 <summary><b>Watch the lecture</b> (MST)</summary>
 
 <p><video controls preload="metadata" width="100%" src="https://storage.googleapis.com/darien-public-assets/cs6515-summer-2026/v20260623/videos/05_Week_05_MST.mp4"></video></p>
 <p><a href="https://storage.googleapis.com/darien-public-assets/cs6515-summer-2026/v20260623/videos/05_Week_05_MST.mp4">▶ Open video</a> · <a
-href="W05_2026-06-15_GR3/transcripts/05_Week_05_MST.txt">Transcript</a></p>
+href="W05_GR3/transcripts/05_Week_05_MST.txt">Transcript</a></p>
 </details>
 
 <hr />
@@ -2685,21 +2673,21 @@ class="math inline"><em>O</em>(<em>E</em>log <em>V</em>)</span>.</li>
 <span class="math inline"><em>O</em>(<em>E</em>log <em>V</em>)</span>
 runtimes; invoke the Cut Property for correctness rather than
 re-deriving from scratch. See <a
-href="W05_2026-06-15_GR3/guidance/graph-theory-guidance.html">graph guidance</a>.</p>
+href="W05_GR3/guidance/graph-theory-guidance.html">graph guidance</a>.</p>
 <details>
 <summary><b>Go deeper</b> — readings · guidance · deep notes</summary>
 
 <ul>
-<li><a href="W05_2026-06-15_GR3/readings/DPV-ch5-greedy-algorithms.pdf">DPV §5.1 (greedy /
+<li><a href="W05_GR3/readings/DPV-ch5-greedy-algorithms.pdf">DPV §5.1 (greedy /
 MST)</a></li>
-<li><a href="W05_2026-06-15_GR3/guidance/graph-theory-guidance.html">Graph guidance</a> ·
-<a href="W05_2026-06-15_GR3/guidance/usable-black-boxes-graphs.html">Black boxes</a> · <a
-href="W05_2026-06-15_GR3/guidance/common-course-runtimes.html">Common runtimes</a></li>
-<li>Deep notes: <a href="W05_2026-06-15_GR3/notes/GR3-minimum-spanning-tree.html">GR3
-MST</a> · <a href="W05_2026-06-15_GR3/notes/graphs-cheat-sheet.html">cheat sheet</a></li>
-<li><a href="W05_2026-06-15_GR3/lectures">lectures/</a> · <a
-href="W05_2026-06-15_GR3/transcripts">transcripts/</a> · <a href="W05_2026-06-15_GR3/readings">readings/</a>
-· <a href="W05_2026-06-15_GR3/guidance">guidance/</a> · <a href="W05_2026-06-15_GR3/notes">notes/</a></li>
+<li><a href="W05_GR3/guidance/graph-theory-guidance.html">Graph guidance</a> ·
+<a href="W05_GR3/guidance/usable-black-boxes-graphs.html">Black boxes</a> · <a
+href="W05_GR3/guidance/common-course-runtimes.html">Common runtimes</a></li>
+<li>Deep notes: <a href="W05_GR3/notes/GR3-minimum-spanning-tree.html">GR3
+MST</a> · <a href="W05_GR3/notes/graphs-cheat-sheet.html">cheat sheet</a></li>
+<li><a href="W05_GR3/lectures">lectures/</a> · <a
+href="W05_GR3/transcripts">transcripts/</a> · <a href="W05_GR3/readings">readings/</a>
+· <a href="W05_GR3/guidance">guidance/</a> · <a href="W05_GR3/notes">notes/</a></li>
 </ul>
 </details>
 
@@ -3034,7 +3022,7 @@ but the total weight is — any tie-breaking yields a valid MST.</p>
 PDFs.</em></p>
 <p><strong>DPV Ch 5 — Greedy Algorithms</strong> — <a
 href="../textbooks/examples-md/05-greedy-algorithms-dpv-examples.html">open
-exercises</a> · <a href="W05_2026-06-15_GR3/readings/DPV-ch5-examples.pdf">chapter
+exercises</a> · <a href="W05_GR3/readings/DPV-ch5-examples.pdf">chapter
 PDF</a></p>
 <iframe class="examples-frame" src="../textbooks/examples-md/05-greedy-algorithms-dpv-examples.html" title="DPV Ch 5 — Greedy Algorithms exercises"></iframe>
 
@@ -3046,19 +3034,14 @@ PDF</a></p>
 <p>MST question → state the Cut Property, pick Kruskal (Union-Find) or
 Prim (heap), both <span
 class="math inline"><em>O</em>(<em>E</em>log <em>V</em>)</span>. Full
-proof + trace in <a href="W05_2026-06-15_GR3/notes/GR3-minimum-spanning-tree.html">GR3
+proof + trace in <a href="W05_GR3/notes/GR3-minimum-spanning-tree.html">GR3
 notes</a>.</p>
 </section>
 <section class="week-stack" id="week-06">
 <h2>Week 6 - Max-Flow Basics</h2>
-<blockquote>
-<p><strong><code>CURRENT WEEK</code></strong> · <strong>2026-06-22 →
-06-28</strong> · Modules <strong>MF1</strong> (Ford-Fulkerson),
-<strong>MF2</strong> (Max-Flow = Min-Cut)</p>
-<p><a href="W05_2026-06-15_GR3/index.html">◀ W05 MST</a> · <a href="index.html">All
-weeks</a> · <a href="../00_START_HERE/INDEX.html">Index</a> · <a
-href="W07_2026-06-29_MF4_EXAM2/index.html">W07 Edmonds-Karp ▶</a></p>
-</blockquote>
+<div class="module-subtitle">
+  <span>Modules <strong>MF1</strong> (Ford-Fulkerson), <strong>MF2</strong> (Max-Flow = Min-Cut)</span>
+</div>
 <h3 id="w06-due-this-week">Due this week</h3>
 <table>
 <thead>
@@ -3086,12 +3069,12 @@ href="W07_2026-06-29_MF4_EXAM2/index.html">W07 Edmonds-Karp ▶</a></p>
 </tr>
 </tbody>
 </table>
-<details>
+<details class="lecture-collapse">
 <summary><b>Watch the lecture</b> (Max Flow Basics)</summary>
 
 <p><video controls preload="metadata" width="100%" src="https://storage.googleapis.com/darien-public-assets/cs6515-summer-2026/v20260623/videos/06_Week_06_Max_Flow_Basics.mp4"></video></p>
 <p><a href="https://storage.googleapis.com/darien-public-assets/cs6515-summer-2026/v20260623/videos/06_Week_06_Max_Flow_Basics.mp4">▶ Open video</a> ·
-<a href="W06_2026-06-22_MF1-MF2/transcripts/06_Week_06_Max_Flow_Basics.txt">Read
+<a href="W06_MF1-MF2/transcripts/06_Week_06_Max_Flow_Basics.txt">Read
 transcript</a></p>
 </details>
 
@@ -3313,25 +3296,25 @@ re-derive Ford-Fulkerson internals. State your network (vertices, edges,
 capacities, <span class="math inline"><em>s</em></span>, <span
 class="math inline"><em>t</em></span>), call max-flow, then interpret
 the result (e.g. min-cut = the bottleneck set). Cite runtime from the <a
-href="W06_2026-06-22_MF1-MF2/guidance/common-course-runtimes.html">common runtimes</a>
+href="W06_MF1-MF2/guidance/common-course-runtimes.html">common runtimes</a>
 conventions.</p>
 <details>
 <summary><b>Go deeper</b> — readings · guidance · transcript</summary>
 
 <ul>
 <li><strong>Reading:</strong> <a
-href="W06_2026-06-22_MF1-MF2/readings/DPV-ch7-flows-and-linear-programming.pdf">DPV §7.2 —
+href="W06_MF1-MF2/readings/DPV-ch7-flows-and-linear-programming.pdf">DPV §7.2 —
 Flows on networks</a></li>
 <li><strong>Rules:</strong> <a
-href="W06_2026-06-22_MF1-MF2/guidance/usable-black-boxes-graphs.html">Usable black boxes for
-graphs</a> · <a href="W06_2026-06-22_MF1-MF2/guidance/graph-theory-guidance.html">Graph theory
-guidance</a> · <a href="W06_2026-06-22_MF1-MF2/guidance/common-course-runtimes.html">Common
+href="W06_MF1-MF2/guidance/usable-black-boxes-graphs.html">Usable black boxes for
+graphs</a> · <a href="W06_MF1-MF2/guidance/graph-theory-guidance.html">Graph theory
+guidance</a> · <a href="W06_MF1-MF2/guidance/common-course-runtimes.html">Common
 runtimes</a></li>
-<li><strong>Notes:</strong> <a href="W06_2026-06-22_MF1-MF2/notes/full-course-notes.html">full
-course notes</a> · <a href="W06_2026-06-22_MF1-MF2/notes/ga-notes.pdf">ga-notes.pdf</a></li>
-<li><strong>All files:</strong> <a href="W06_2026-06-22_MF1-MF2/lectures">lectures/</a> · <a
-href="W06_2026-06-22_MF1-MF2/transcripts">transcripts/</a> · <a href="W06_2026-06-22_MF1-MF2/readings">readings/</a>
-· <a href="W06_2026-06-22_MF1-MF2/guidance">guidance/</a> · <a href="W06_2026-06-22_MF1-MF2/notes">notes/</a></li>
+<li><strong>Notes:</strong> <a href="W06_MF1-MF2/notes/full-course-notes.html">full
+course notes</a> · <a href="W06_MF1-MF2/notes/ga-notes.pdf">ga-notes.pdf</a></li>
+<li><strong>All files:</strong> <a href="W06_MF1-MF2/lectures">lectures/</a> · <a
+href="W06_MF1-MF2/transcripts">transcripts/</a> · <a href="W06_MF1-MF2/readings">readings/</a>
+· <a href="W06_MF1-MF2/guidance">guidance/</a> · <a href="W06_MF1-MF2/notes">notes/</a></li>
 </ul>
 </details>
 
@@ -3717,7 +3700,7 @@ class="math inline"><em>t</em></span> cut</strong> (the reachable set
 PDFs.</em></p>
 <p><strong>DPV Ch 7 — Linear Programming</strong> — <a
 href="../textbooks/examples-md/07-linear-programming-dpv-examples.html">open
-exercises</a> · <a href="W06_2026-06-22_MF1-MF2/readings/DPV-ch7-examples.pdf">chapter
+exercises</a> · <a href="W06_MF1-MF2/readings/DPV-ch7-examples.pdf">chapter
 PDF</a></p>
 <iframe class="examples-frame" src="../textbooks/examples-md/07-linear-programming-dpv-examples.html" title="DPV Ch 7 — Linear Programming exercises"></iframe>
 
@@ -3736,37 +3719,28 @@ if asked about runtime.</p>
 </section>
 <section class="week-stack" id="week-07">
 <h2>Week 7 - Edmonds-Karp</h2>
-<blockquote>
-<p><strong>2026-06-29 → 07-05</strong> (Withdrawal deadline 07-05) ·
-Module <strong>MF4</strong> (Edmonds-Karp)</p>
-<p><a href="W06_2026-06-22_MF1-MF2/index.html">◀ W06 Max-Flow</a> · <a
-href="index.html">All weeks</a> · <a
-href="../00_START_HERE/INDEX.html">Index</a> · <a
-href="W08_2026-07-06_NP1-NP2-NP3/index.html">W08 NP ▶</a></p>
-</blockquote>
-<h3 id="w07-exam-2-this-week">EXAM 2 this week</h3>
+<div class="module-subtitle">
+  <span>Module <strong>MF4</strong> (Edmonds-Karp) · <strong>Exam 2 Window</strong> (covers Weeks 4–7)</span>
+</div>
+<h3 id="w07-exam-2-this-week">EXAM 2 Window</h3>
 <table>
 <tbody>
 <tr>
-<td><strong>Opens</strong></td>
-<td>Thu <strong>07-02</strong> 10am ET</td>
+<td><strong>Assessment</strong></td>
+<td><strong>Exam 2</strong> (format and scheduling per course syllabus)</td>
 </tr>
 <tr>
-<td><strong>Closes</strong></td>
-<td>Mon <strong>07-06</strong> 8am ET</td>
-</tr>
-<tr>
-<td><strong>Covers</strong></td>
+<td><strong>Coverage</strong></td>
 <td><strong>Weeks 4–7</strong> — DP3, GR1–GR3, MF1–MF2, MF4</td>
 </tr>
 </tbody>
 </table>
-<details>
+<details class="lecture-collapse">
 <summary><b>Watch the lecture</b> (Edmonds-Karp)</summary>
 
 <p><video controls preload="metadata" width="100%" src="https://storage.googleapis.com/darien-public-assets/cs6515-summer-2026/v20260623/videos/07_Week_07_Edmonds_Karp.mp4"></video></p>
 <p><a href="https://storage.googleapis.com/darien-public-assets/cs6515-summer-2026/v20260623/videos/07_Week_07_Edmonds_Karp.mp4">▶ Open video</a> · <a
-href="W07_2026-06-29_MF4_EXAM2/transcripts/07_Week_07_Edmonds_Karp.txt">Transcript</a></p>
+href="W07_MF4_EXAM2/transcripts/07_Week_07_Edmonds_Karp.txt">Transcript</a></p>
 </details>
 
 <hr />
@@ -3906,22 +3880,22 @@ max-flow/min-cut theorem are identical to W6.</li>
 <p>Same black-box rule as W6: <strong>reduce to max-flow</strong>; when
 runtime matters, choose Edmonds-Karp for the strongly-polynomial <span
 class="math inline"><em>O</em>(<em>m</em><sup>2</sup><em>n</em>)</span>
-bound. See <a href="W07_2026-06-29_MF4_EXAM2/guidance/usable-black-boxes-graphs.html">black
+bound. See <a href="W07_MF4_EXAM2/guidance/usable-black-boxes-graphs.html">black
 boxes</a>.</p>
 <details>
 <summary><b>Go deeper</b> — readings · guidance</summary>
 
 <ul>
-<li><a href="W07_2026-06-29_MF4_EXAM2/readings/DPV-ch7-flows-and-linear-programming.pdf">DPV §7.2
+<li><a href="W07_MF4_EXAM2/readings/DPV-ch7-flows-and-linear-programming.pdf">DPV §7.2
 (flows)</a></li>
-<li><a href="W07_2026-06-29_MF4_EXAM2/guidance/graph-theory-guidance.html">Graph guidance</a> ·
-<a href="W07_2026-06-29_MF4_EXAM2/guidance/usable-black-boxes-graphs.html">Black boxes</a> · <a
-href="W07_2026-06-29_MF4_EXAM2/guidance/common-course-runtimes.html">Common runtimes</a></li>
-<li><a href="W07_2026-06-29_MF4_EXAM2/notes/full-course-notes.html">Full course notes</a> · <a
-href="W07_2026-06-29_MF4_EXAM2/notes/ga-notes.pdf">ga-notes.pdf</a></li>
-<li><a href="W07_2026-06-29_MF4_EXAM2/lectures">lectures/</a> · <a
-href="W07_2026-06-29_MF4_EXAM2/transcripts">transcripts/</a> · <a href="W07_2026-06-29_MF4_EXAM2/readings">readings/</a>
-· <a href="W07_2026-06-29_MF4_EXAM2/guidance">guidance/</a> · <a href="W07_2026-06-29_MF4_EXAM2/notes">notes/</a></li>
+<li><a href="W07_MF4_EXAM2/guidance/graph-theory-guidance.html">Graph guidance</a> ·
+<a href="W07_MF4_EXAM2/guidance/usable-black-boxes-graphs.html">Black boxes</a> · <a
+href="W07_MF4_EXAM2/guidance/common-course-runtimes.html">Common runtimes</a></li>
+<li><a href="W07_MF4_EXAM2/notes/full-course-notes.html">Full course notes</a> · <a
+href="W07_MF4_EXAM2/notes/ga-notes.pdf">ga-notes.pdf</a></li>
+<li><a href="W07_MF4_EXAM2/lectures">lectures/</a> · <a
+href="W07_MF4_EXAM2/transcripts">transcripts/</a> · <a href="W07_MF4_EXAM2/readings">readings/</a>
+· <a href="W07_MF4_EXAM2/guidance">guidance/</a> · <a href="W07_MF4_EXAM2/notes">notes/</a></li>
 </ul>
 </details>
 
@@ -4164,7 +4138,7 @@ Edmonds-Karp.</p>
 PDFs.</em></p>
 <p><strong>DPV Ch 7 — Linear Programming</strong> — <a
 href="../textbooks/examples-md/07-linear-programming-dpv-examples.html">open
-exercises</a> · <a href="W07_2026-06-29_MF4_EXAM2/readings/DPV-ch7-examples.pdf">chapter
+exercises</a> · <a href="W07_MF4_EXAM2/readings/DPV-ch7-examples.pdf">chapter
 PDF</a></p>
 <iframe class="examples-frame" src="../textbooks/examples-md/07-linear-programming-dpv-examples.html" title="DPV Ch 7 — Linear Programming exercises"></iframe>
 
@@ -4181,15 +4155,9 @@ class="math inline"><em>O</em>(<em>m</em><em>C</em>)</span>.
 </section>
 <section class="week-stack" id="week-08">
 <h2>Week 8 - NP-Completeness</h2>
-<blockquote>
-<p><strong>2026-07-06 → 07-12</strong> · Modules <strong>NP1</strong>
-(NP, Reductions), <strong>NP2</strong> (3-SAT), <strong>NP3</strong>
-(Graph Problems)</p>
-<p><a href="W07_2026-06-29_MF4_EXAM2/index.html">◀ W07 Edmonds-Karp</a> · <a
-href="index.html">All weeks</a> · <a
-href="../00_START_HERE/INDEX.html">Index</a> · <a
-href="W09_2026-07-13_LP1-LP2-LP3/index.html">W09 LP ▶</a></p>
-</blockquote>
+<div class="module-subtitle">
+  <span>Modules <strong>NP1</strong> (NP, Reductions), <strong>NP2</strong> (3-SAT), <strong>NP3</strong> (Graph Problems)</span>
+</div>
 <h3 id="w08-due-this-week">Due this week</h3>
 <table>
 <thead>
@@ -4212,12 +4180,12 @@ href="W09_2026-07-13_LP1-LP2-LP3/index.html">W09 LP ▶</a></p>
 </tr>
 </tbody>
 </table>
-<details>
+<details class="lecture-collapse">
 <summary><b>Watch the lecture</b> (NP & Reductions)</summary>
 
 <p><video controls preload="metadata" width="100%" src="https://storage.googleapis.com/darien-public-assets/cs6515-summer-2026/v20260623/videos/08_Week_08_NP_Reductions.mp4"></video></p>
 <p><a href="https://storage.googleapis.com/darien-public-assets/cs6515-summer-2026/v20260623/videos/08_Week_08_NP_Reductions.mp4">▶ Open video</a> · <a
-href="W08_2026-07-06_NP1-NP2-NP3/transcripts/08_Week_08_NP_Reductions.txt">Transcript</a></p>
+href="W08_NP1-NP2-NP3/transcripts/08_Week_08_NP_Reductions.txt">Transcript</a></p>
 </details>
 
 <hr />
@@ -4403,16 +4371,16 @@ poly-time.</p>
 <summary><b>Go deeper</b> — readings</summary>
 
 <ul>
-<li><a href="W08_2026-07-06_NP1-NP2-NP3/readings/DPV-ch8-np-complete-problems.pdf">DPV §8.1–8.3
+<li><a href="W08_NP1-NP2-NP3/readings/DPV-ch8-np-complete-problems.pdf">DPV §8.1–8.3
 (NP-complete problems)</a> · <a
-href="W08_2026-07-06_NP1-NP2-NP3/readings/DPV-ch5-greedy-algorithms.pdf">§5.3 context</a></li>
-<li><a href="W08_2026-07-06_NP1-NP2-NP3/guidance/common-course-runtimes.html">Common
+href="W08_NP1-NP2-NP3/readings/DPV-ch5-greedy-algorithms.pdf">§5.3 context</a></li>
+<li><a href="W08_NP1-NP2-NP3/guidance/common-course-runtimes.html">Common
 runtimes</a></li>
-<li><a href="W08_2026-07-06_NP1-NP2-NP3/notes/full-course-notes.html">Full course notes</a> · <a
-href="W08_2026-07-06_NP1-NP2-NP3/notes/ga-notes.pdf">ga-notes.pdf</a></li>
-<li><a href="W08_2026-07-06_NP1-NP2-NP3/lectures">lectures/</a> · <a
-href="W08_2026-07-06_NP1-NP2-NP3/transcripts">transcripts/</a> · <a href="W08_2026-07-06_NP1-NP2-NP3/readings">readings/</a>
-· <a href="W08_2026-07-06_NP1-NP2-NP3/guidance">guidance/</a> · <a href="W08_2026-07-06_NP1-NP2-NP3/notes">notes/</a></li>
+<li><a href="W08_NP1-NP2-NP3/notes/full-course-notes.html">Full course notes</a> · <a
+href="W08_NP1-NP2-NP3/notes/ga-notes.pdf">ga-notes.pdf</a></li>
+<li><a href="W08_NP1-NP2-NP3/lectures">lectures/</a> · <a
+href="W08_NP1-NP2-NP3/transcripts">transcripts/</a> · <a href="W08_NP1-NP2-NP3/readings">readings/</a>
+· <a href="W08_NP1-NP2-NP3/guidance">guidance/</a> · <a href="W08_NP1-NP2-NP3/notes">notes/</a></li>
 </ul>
 </details>
 
@@ -5569,7 +5537,7 @@ clauses into a 3SAT problem with clauses of size at most 3.</p>
 PDFs.</em></p>
 <p><strong>DPV Ch 8 — Np Complete Problems</strong> — <a
 href="../textbooks/examples-md/08-np-complete-problems-dpv-examples.html">open
-exercises</a> · <a href="W08_2026-07-06_NP1-NP2-NP3/readings/DPV-ch8-examples.pdf">chapter
+exercises</a> · <a href="W08_NP1-NP2-NP3/readings/DPV-ch8-examples.pdf">chapter
 PDF</a></p>
 <iframe class="examples-frame" src="../textbooks/examples-md/08-np-complete-problems-dpv-examples.html" title="DPV Ch 8 — Np Complete Problems exercises"></iframe>
 
@@ -5584,16 +5552,9 @@ lists the standard chain (IS ↔︎ VC ↔︎ Clique).</p>
 </section>
 <section class="week-stack" id="week-09">
 <h2>Week 9 - Linear Programming</h2>
-<blockquote>
-<p><strong>2026-07-13 → 07-19</strong> · Modules <strong>LP1</strong>
-(Intro), <strong>LP2</strong> (Geometry), <strong>LP3</strong>
-(Duality)</p>
-<p><a href="W08_2026-07-06_NP1-NP2-NP3/index.html">◀ W08 NP</a> · <a
-href="index.html">All weeks</a> · <a
-href="../00_START_HERE/INDEX.html">Index</a> · <a
-href="W10_2026-07-20_LP4-NP4-NP5_EXAM3/index.html">W10 Approx + Exam 3
-▶</a></p>
-</blockquote>
+<div class="module-subtitle">
+  <span>Modules <strong>LP1</strong> (Intro), <strong>LP2</strong> (Geometry), <strong>LP3</strong> (Duality)</span>
+</div>
 <h3 id="w09-due-this-week">Due this week</h3>
 <table>
 <thead>
@@ -5621,13 +5582,13 @@ href="W10_2026-07-20_LP4-NP4-NP5_EXAM3/index.html">W10 Approx + Exam 3
 </tr>
 </tbody>
 </table>
-<details>
+<details class="lecture-collapse">
 <summary><b>Watch the lecture</b> (Linear Programming)</summary>
 
 <p><video controls preload="metadata" width="100%" src="https://storage.googleapis.com/darien-public-assets/cs6515-summer-2026/v20260623/videos/09_Week_09_Linear_Programming.mp4"></video></p>
 <p><a href="https://storage.googleapis.com/darien-public-assets/cs6515-summer-2026/v20260623/videos/09_Week_09_Linear_Programming.mp4">▶ Open video</a>
 · <a
-href="W09_2026-07-13_LP1-LP2-LP3/transcripts/09_Week_09_Linear_Programming.txt">Transcript</a></p>
+href="W09_LP1-LP2-LP3/transcripts/09_Week_09_Linear_Programming.txt">Transcript</a></p>
 </details>
 
 <hr />
@@ -5860,15 +5821,15 @@ slackness.</p>
 <summary><b>Go deeper</b> — readings</summary>
 
 <ul>
-<li><a href="W09_2026-07-13_LP1-LP2-LP3/readings/DPV-ch7-flows-and-linear-programming.pdf">DPV
+<li><a href="W09_LP1-LP2-LP3/readings/DPV-ch7-flows-and-linear-programming.pdf">DPV
 §7.1, §7.4, §7.6 (LP, duality, geometry)</a></li>
-<li><a href="W09_2026-07-13_LP1-LP2-LP3/guidance/common-course-runtimes.html">Common
+<li><a href="W09_LP1-LP2-LP3/guidance/common-course-runtimes.html">Common
 runtimes</a></li>
-<li><a href="W09_2026-07-13_LP1-LP2-LP3/notes/full-course-notes.html">Full course notes</a> · <a
-href="W09_2026-07-13_LP1-LP2-LP3/notes/ga-notes.pdf">ga-notes.pdf</a></li>
-<li><a href="W09_2026-07-13_LP1-LP2-LP3/lectures">lectures/</a> · <a
-href="W09_2026-07-13_LP1-LP2-LP3/transcripts">transcripts/</a> · <a href="W09_2026-07-13_LP1-LP2-LP3/readings">readings/</a>
-· <a href="W09_2026-07-13_LP1-LP2-LP3/guidance">guidance/</a> · <a href="W09_2026-07-13_LP1-LP2-LP3/notes">notes/</a></li>
+<li><a href="W09_LP1-LP2-LP3/notes/full-course-notes.html">Full course notes</a> · <a
+href="W09_LP1-LP2-LP3/notes/ga-notes.pdf">ga-notes.pdf</a></li>
+<li><a href="W09_LP1-LP2-LP3/lectures">lectures/</a> · <a
+href="W09_LP1-LP2-LP3/transcripts">transcripts/</a> · <a href="W09_LP1-LP2-LP3/readings">readings/</a>
+· <a href="W09_LP1-LP2-LP3/guidance">guidance/</a> · <a href="W09_LP1-LP2-LP3/notes">notes/</a></li>
 </ul>
 </details>
 
@@ -6312,7 +6273,7 @@ fact empty</li>
 <li>consider
 <ul>
 <li>func: max(x+y)</li>
-<li>st: $ x - y \le 1$, <span
+<li>st: $x - y \le 1$, <span
 class="math inline"><em>x</em> + 5<em>y</em> ≥ 3</span>, <span
 class="math inline"><em>x</em>, <em>y</em> ≥ 0</span></li>
 </ul></li>
@@ -6322,7 +6283,7 @@ can keep increasing as y increases up the y-axis</li>
 <ul>
 <li>func: <span
 class="math inline">max (2<em>x</em> − 3<em>y</em>)</span></li>
-<li>st: $ x - y \le 1$, <span
+<li>st: $x - y \le 1$, <span
 class="math inline"><em>x</em> + 5<em>y</em> ≥ 3</span>, <span
 class="math inline"><em>x</em>, <em>y</em> ≥ 0</span></li>
 </ul></li>
@@ -6817,7 +6778,7 @@ class="math inline"><em>b</em><sup><em>T</em></sup><em>y</em><sup>*</sup></span>
 PDFs.</em></p>
 <p><strong>DPV Ch 7 — Linear Programming</strong> — <a
 href="../textbooks/examples-md/07-linear-programming-dpv-examples.html">open
-exercises</a> · <a href="W09_2026-07-13_LP1-LP2-LP3/readings/DPV-ch7-examples.pdf">chapter
+exercises</a> · <a href="W09_LP1-LP2-LP3/readings/DPV-ch7-examples.pdf">chapter
 PDF</a></p>
 <iframe class="examples-frame" src="../textbooks/examples-md/07-linear-programming-dpv-examples.html" title="DPV Ch 7 — Linear Programming exercises"></iframe>
 
@@ -6833,40 +6794,29 @@ a flow or matching problem, it may <em>be</em> an LP in disguise
 </section>
 <section class="week-stack" id="week-10">
 <h2>Week 10 - Approx &amp; Undecidability</h2>
-<blockquote>
-<p><strong>2026-07-20 → 07-26</strong> · Modules <strong>LP4</strong>
-(Max-SAT approx / ILP), <strong>NP4</strong> (Knapsack),
-<strong>NP5</strong> (Halting Problem)</p>
-<p><a href="W09_2026-07-13_LP1-LP2-LP3/index.html">◀ W09 LP</a> · <a
-href="index.html">All weeks</a> · <a
-href="../00_START_HERE/INDEX.html">Index</a> · <a
-href="W11_2026-07-27_Advanced-FFT-Crypto-Bloom/index.html">W11 Advanced
-▶</a></p>
-</blockquote>
-<h3 id="w10-exam-3-this-week">EXAM 3 this week</h3>
+<div class="module-subtitle">
+  <span>Modules <strong>LP4</strong> (Max-SAT approx / ILP), <strong>NP4</strong> (Knapsack), <strong>NP5</strong> (Halting Problem) · <strong>Exam 3 Window</strong> (covers Weeks 8–10)</span>
+</div>
+<h3 id="w10-exam-3-this-week">EXAM 3 Window</h3>
 <table>
 <tbody>
 <tr>
-<td><strong>Opens</strong></td>
-<td>Thu <strong>07-23</strong> 10am ET</td>
+<td><strong>Assessment</strong></td>
+<td><strong>Exam 3</strong> (format and scheduling per course syllabus)</td>
 </tr>
 <tr>
-<td><strong>Closes</strong></td>
-<td>Mon <strong>07-27</strong> 8am ET</td>
-</tr>
-<tr>
-<td><strong>Covers</strong></td>
+<td><strong>Coverage</strong></td>
 <td><strong>Weeks 8–10</strong> — NP1–NP5, LP1–LP4</td>
 </tr>
 </tbody>
 </table>
-<details>
+<details class="lecture-collapse">
 <summary><b>Watch the lecture</b> (Approximation & Undecidability)</summary>
 
 <p><video controls preload="metadata" width="100%" src="https://storage.googleapis.com/darien-public-assets/cs6515-summer-2026/v20260623/videos/10_Week_10_Approximation_Undecidability.mp4"></video></p>
 <p><a href="https://storage.googleapis.com/darien-public-assets/cs6515-summer-2026/v20260623/videos/10_Week_10_Approximation_Undecidability.mp4">▶ Open
 video</a> · <a
-href="W10_2026-07-20_LP4-NP4-NP5_EXAM3/transcripts/10_Week_10_Approximation_Undecidability.txt">Transcript</a></p>
+href="W10_LP4-NP4-NP5_EXAM3/transcripts/10_Week_10_Approximation_Undecidability.txt">Transcript</a></p>
 </details>
 
 <hr />
@@ -7065,19 +7015,19 @@ FPTAS for a true poly bound.</p>
 <summary><b>Go deeper</b> — readings</summary>
 
 <ul>
-<li><a href="W10_2026-07-20_LP4-NP4-NP5_EXAM3/readings/DPV-ch7-flows-and-linear-programming.pdf">DPV §7.7
-(ILP)</a> · <a href="W10_2026-07-20_LP4-NP4-NP5_EXAM3/readings/DPV-ch8-np-complete-problems.pdf">§8.x
+<li><a href="W10_LP4-NP4-NP5_EXAM3/readings/DPV-ch7-flows-and-linear-programming.pdf">DPV §7.7
+(ILP)</a> · <a href="W10_LP4-NP4-NP5_EXAM3/readings/DPV-ch8-np-complete-problems.pdf">§8.x
 (hardness)</a> · <a
-href="W10_2026-07-20_LP4-NP4-NP5_EXAM3/readings/DPV-ch9-coping-with-np-completeness.pdf">§9 (coping)</a>
-· <a href="W10_2026-07-20_LP4-NP4-NP5_EXAM3/readings/DPV-ch6-dynamic-programming.pdf">§6.7
+href="W10_LP4-NP4-NP5_EXAM3/readings/DPV-ch9-coping-with-np-completeness.pdf">§9 (coping)</a>
+· <a href="W10_LP4-NP4-NP5_EXAM3/readings/DPV-ch6-dynamic-programming.pdf">§6.7
 (knapsack)</a></li>
-<li><a href="W10_2026-07-20_LP4-NP4-NP5_EXAM3/guidance/common-course-runtimes.html">Common
+<li><a href="W10_LP4-NP4-NP5_EXAM3/guidance/common-course-runtimes.html">Common
 runtimes</a></li>
-<li><a href="W10_2026-07-20_LP4-NP4-NP5_EXAM3/notes/full-course-notes.html">Full course notes</a> · <a
-href="W10_2026-07-20_LP4-NP4-NP5_EXAM3/notes/ga-notes.pdf">ga-notes.pdf</a></li>
-<li><a href="W10_2026-07-20_LP4-NP4-NP5_EXAM3/lectures">lectures/</a> · <a
-href="W10_2026-07-20_LP4-NP4-NP5_EXAM3/transcripts">transcripts/</a> · <a href="W10_2026-07-20_LP4-NP4-NP5_EXAM3/readings">readings/</a>
-· <a href="W10_2026-07-20_LP4-NP4-NP5_EXAM3/guidance">guidance/</a> · <a href="W10_2026-07-20_LP4-NP4-NP5_EXAM3/notes">notes/</a></li>
+<li><a href="W10_LP4-NP4-NP5_EXAM3/notes/full-course-notes.html">Full course notes</a> · <a
+href="W10_LP4-NP4-NP5_EXAM3/notes/ga-notes.pdf">ga-notes.pdf</a></li>
+<li><a href="W10_LP4-NP4-NP5_EXAM3/lectures">lectures/</a> · <a
+href="W10_LP4-NP4-NP5_EXAM3/transcripts">transcripts/</a> · <a href="W10_LP4-NP4-NP5_EXAM3/readings">readings/</a>
+· <a href="W10_LP4-NP4-NP5_EXAM3/guidance">guidance/</a> · <a href="W10_LP4-NP4-NP5_EXAM3/notes">notes/</a></li>
 </ul>
 </details>
 
@@ -8157,19 +8107,19 @@ exists is impossible. The Halting Problem is undecidable. ∎</p>
 PDFs.</em></p>
 <p><strong>DPV Ch 7 — Linear Programming</strong> — <a
 href="../textbooks/examples-md/07-linear-programming-dpv-examples.html">open
-exercises</a> · <a href="W10_2026-07-20_LP4-NP4-NP5_EXAM3/readings/DPV-ch7-examples.pdf">chapter
+exercises</a> · <a href="W10_LP4-NP4-NP5_EXAM3/readings/DPV-ch7-examples.pdf">chapter
 PDF</a></p>
 <iframe class="examples-frame" src="../textbooks/examples-md/07-linear-programming-dpv-examples.html" title="DPV Ch 7 — Linear Programming exercises"></iframe>
 
 <p><strong>DPV Ch 8 — Np Complete Problems</strong> — <a
 href="../textbooks/examples-md/08-np-complete-problems-dpv-examples.html">open
-exercises</a> · <a href="W10_2026-07-20_LP4-NP4-NP5_EXAM3/readings/DPV-ch8-examples.pdf">chapter
+exercises</a> · <a href="W10_LP4-NP4-NP5_EXAM3/readings/DPV-ch8-examples.pdf">chapter
 PDF</a></p>
 <iframe class="examples-frame" src="../textbooks/examples-md/08-np-complete-problems-dpv-examples.html" title="DPV Ch 8 — Np Complete Problems exercises"></iframe>
 
 <p><strong>DPV Ch 9 — Coping With Np Completeness</strong> — <a
 href="../textbooks/examples-md/09-coping-with-np-completeness-dpv-examples.html">open
-exercises</a> · <a href="W10_2026-07-20_LP4-NP4-NP5_EXAM3/readings/DPV-ch9-examples.pdf">chapter
+exercises</a> · <a href="W10_LP4-NP4-NP5_EXAM3/readings/DPV-ch9-examples.pdf">chapter
 PDF</a></p>
 <iframe class="examples-frame" src="../textbooks/examples-md/09-coping-with-np-completeness-dpv-examples.html" title="DPV Ch 9 — Coping With Np Completeness exercises"></iframe>
 
@@ -8186,15 +8136,9 @@ this week.</strong></p>
 </section>
 <section class="week-stack" id="week-11">
 <h2>Week 11 - Advanced Topics</h2>
-<blockquote>
-<p><strong>2026-07-27 → 08-02</strong> · <strong>FFT</strong> (DC4/5),
-<strong>Graph/Flow applications</strong>, <strong>RA1</strong> Modular
-Arithmetic, <strong>RA2</strong> RSA, <strong>RA3</strong> Bloom
-Filters</p>
-<p><a href="W10_2026-07-20_LP4-NP4-NP5_EXAM3/index.html">◀ W10 Approx</a> · <a
-href="index.html">All weeks</a> · <a
-href="../00_START_HERE/INDEX.html">Index</a></p>
-</blockquote>
+<div class="module-subtitle">
+  <span><strong>FFT</strong> (DC4/5), <strong>Graph/Flow applications</strong>, <strong>RA1</strong> Modular Arithmetic, <strong>RA2</strong> RSA, <strong>RA3</strong> Bloom Filters · <strong>Cumulative Review</strong></span>
+</div>
 <h3 id="w11-due-this-week">Due this week</h3>
 <table>
 <thead>
@@ -8216,21 +8160,40 @@ href="../00_START_HERE/INDEX.html">Index</a></p>
 <p>This week is a <strong>grab-bag</strong> of four shorter lectures.
 Pick by sub-topic below.</p>
 </blockquote>
-<details>
-<summary><b>Watch the lectures</b> (4 parts)</summary>
-
-<ul>
-<li><a href="https://storage.googleapis.com/darien-public-assets/cs6515-summer-2026/v20260623/videos/11A_Week_11_FFT.mp4">▶ 11A — FFT</a> · <a
-href="W11_2026-07-27_Advanced-FFT-Crypto-Bloom/transcripts/11A_FFT.txt">transcript</a></li>
-<li><a href="https://storage.googleapis.com/darien-public-assets/cs6515-summer-2026/v20260623/videos/11B_Week_11_Graph_Flow_Applications.mp4">▶ 11B —
-Graph/Flow Applications</a> · <a
-href="W11_2026-07-27_Advanced-FFT-Crypto-Bloom/transcripts/11B_Graph_Flow_Applications.txt">transcript</a></li>
-<li><a href="https://storage.googleapis.com/darien-public-assets/cs6515-summer-2026/v20260623/videos/11C_Week_11_Number_Theory_Crypto.mp4">▶ 11C — Number
-Theory &amp; Crypto</a> · <a
-href="W11_2026-07-27_Advanced-FFT-Crypto-Bloom/transcripts/11C_Number_Theory_Crypto.txt">transcript</a></li>
-<li><a href="https://storage.googleapis.com/darien-public-assets/cs6515-summer-2026/v20260623/videos/11D_Week_11_Bloom_Filters.mp4">▶ 11D — Bloom Filters</a> ·
-<a href="W11_2026-07-27_Advanced-FFT-Crypto-Bloom/transcripts/11D_Bloom_Filters.txt">transcript</a></li>
-</ul>
+<details class="lecture-collapse">
+<summary><b>Watch the lectures</b> (4 video modules)</summary>
+<div class="lecture-content">
+  <div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 0.5rem;">
+    <details style="margin: 0; background: rgba(0,0,0,0.3); border-color: rgba(255,255,255,0.08);">
+      <summary style="font-size: 0.95rem;"><b>Part 11A — Fast Fourier Transform (FFT)</b></summary>
+      <div style="padding: 0.5rem 0.5rem 0.8rem;">
+        <video controls preload="metadata" width="100%" src="https://storage.googleapis.com/darien-public-assets/cs6515/videos/11A_Week_11_FFT.mp4"></video>
+        <p style="margin-top: 0.5rem;"><a href="W11_Advanced-FFT-Crypto-Bloom/transcripts/11A_FFT.txt">View Transcript</a></p>
+      </div>
+    </details>
+    <details style="margin: 0; background: rgba(0,0,0,0.3); border-color: rgba(255,255,255,0.08);">
+      <summary style="font-size: 0.95rem;"><b>Part 11B — Graph &amp; Flow Applications</b></summary>
+      <div style="padding: 0.5rem 0.5rem 0.8rem;">
+        <video controls preload="metadata" width="100%" src="https://storage.googleapis.com/darien-public-assets/cs6515/videos/11B_Week_11_Graph_Flow_Applications.mp4"></video>
+        <p style="margin-top: 0.5rem;"><a href="W11_Advanced-FFT-Crypto-Bloom/transcripts/11B_Graph_Flow_Applications.txt">View Transcript</a></p>
+      </div>
+    </details>
+    <details style="margin: 0; background: rgba(0,0,0,0.3); border-color: rgba(255,255,255,0.08);">
+      <summary style="font-size: 0.95rem;"><b>Part 11C — Number Theory &amp; Crypto (RSA)</b></summary>
+      <div style="padding: 0.5rem 0.5rem 0.8rem;">
+        <video controls preload="metadata" width="100%" src="https://storage.googleapis.com/darien-public-assets/cs6515/videos/11C_Week_11_Number_Theory_Crypto.mp4"></video>
+        <p style="margin-top: 0.5rem;"><a href="W11_Advanced-FFT-Crypto-Bloom/transcripts/11C_Number_Theory_Crypto.txt">View Transcript</a></p>
+      </div>
+    </details>
+    <details style="margin: 0; background: rgba(0,0,0,0.3); border-color: rgba(255,255,255,0.08);">
+      <summary style="font-size: 0.95rem;"><b>Part 11D — Bloom Filters</b></summary>
+      <div style="padding: 0.5rem 0.5rem 0.8rem;">
+        <video controls preload="metadata" width="100%" src="https://storage.googleapis.com/darien-public-assets/cs6515/videos/11D_Week_11_Bloom_Filters.mp4"></video>
+        <p style="margin-top: 0.5rem;"><a href="W11_Advanced-FFT-Crypto-Bloom/transcripts/11D_Bloom_Filters.txt">View Transcript</a></p>
+      </div>
+    </details>
+  </div>
+</div>
 </details>
 
 <hr />
@@ -8454,17 +8417,17 @@ and the no-false-negative guarantee.</p>
 <summary><b>Go deeper</b> — readings</summary>
 
 <ul>
-<li><a href="W11_2026-07-27_Advanced-FFT-Crypto-Bloom/readings/DPV-ch2-divide-and-conquer-FFT.pdf">DPV §2.6
+<li><a href="W11_Advanced-FFT-Crypto-Bloom/readings/DPV-ch2-divide-and-conquer-FFT.pdf">DPV §2.6
 (FFT)</a> · <a
-href="W11_2026-07-27_Advanced-FFT-Crypto-Bloom/readings/DPV-ch1-algorithms-with-numbers.pdf">§1.1–1.5 (numbers,
+href="W11_Advanced-FFT-Crypto-Bloom/readings/DPV-ch1-algorithms-with-numbers.pdf">§1.1–1.5 (numbers,
 RSA, Bloom)</a></li>
-<li><a href="W11_2026-07-27_Advanced-FFT-Crypto-Bloom/guidance/common-course-runtimes.html">Common
+<li><a href="W11_Advanced-FFT-Crypto-Bloom/guidance/common-course-runtimes.html">Common
 runtimes</a></li>
-<li><a href="W11_2026-07-27_Advanced-FFT-Crypto-Bloom/notes/full-course-notes.html">Full course notes</a> · <a
-href="W11_2026-07-27_Advanced-FFT-Crypto-Bloom/notes/ga-notes.pdf">ga-notes.pdf</a></li>
-<li><a href="W11_2026-07-27_Advanced-FFT-Crypto-Bloom/lectures">lectures/</a> · <a
-href="W11_2026-07-27_Advanced-FFT-Crypto-Bloom/transcripts">transcripts/</a> · <a href="W11_2026-07-27_Advanced-FFT-Crypto-Bloom/readings">readings/</a>
-· <a href="W11_2026-07-27_Advanced-FFT-Crypto-Bloom/guidance">guidance/</a> · <a href="W11_2026-07-27_Advanced-FFT-Crypto-Bloom/notes">notes/</a></li>
+<li><a href="W11_Advanced-FFT-Crypto-Bloom/notes/full-course-notes.html">Full course notes</a> · <a
+href="W11_Advanced-FFT-Crypto-Bloom/notes/ga-notes.pdf">ga-notes.pdf</a></li>
+<li><a href="W11_Advanced-FFT-Crypto-Bloom/lectures">lectures/</a> · <a
+href="W11_Advanced-FFT-Crypto-Bloom/transcripts">transcripts/</a> · <a href="W11_Advanced-FFT-Crypto-Bloom/readings">readings/</a>
+· <a href="W11_Advanced-FFT-Crypto-Bloom/guidance">guidance/</a> · <a href="W11_Advanced-FFT-Crypto-Bloom/notes">notes/</a></li>
 </ul>
 </details>
 
@@ -11184,13 +11147,13 @@ parameter is essential — without it, PageRank is not well-defined.</p>
 PDFs.</em></p>
 <p><strong>DPV Ch 2 — Divide And Conquer</strong> — <a
 href="../textbooks/examples-md/02-divide-and-conquer-dpv-examples.html">open
-exercises</a> · <a href="W11_2026-07-27_Advanced-FFT-Crypto-Bloom/readings/DPV-ch2-examples.pdf">chapter
+exercises</a> · <a href="W11_Advanced-FFT-Crypto-Bloom/readings/DPV-ch2-examples.pdf">chapter
 PDF</a></p>
 <iframe class="examples-frame" src="../textbooks/examples-md/02-divide-and-conquer-dpv-examples.html" title="DPV Ch 2 — Divide And Conquer exercises"></iframe>
 
 <p><strong>DPV Ch 1 — Algorithms With Numbers</strong> — <a
 href="../textbooks/examples-md/01-algorithms-with-numbers-dpv-examples.html">open
-exercises</a> · <a href="W11_2026-07-27_Advanced-FFT-Crypto-Bloom/readings/DPV-ch1-examples.pdf">chapter
+exercises</a> · <a href="W11_Advanced-FFT-Crypto-Bloom/readings/DPV-ch1-examples.pdf">chapter
 PDF</a></p>
 <iframe class="examples-frame" src="../textbooks/examples-md/01-algorithms-with-numbers-dpv-examples.html" title="DPV Ch 1 — Algorithms With Numbers exercises"></iframe>
 
@@ -11208,37 +11171,69 @@ the whole course.</p>
 </main>
 
 <!-- code highlighting -->
-<link rel="modulepreload" href="../vendor/mermaid/mermaid.esm.min.mjs">
 <script src="../vendor/highlight/highlight.min.js"></script>
+<!-- mermaid -->
+<script src="../vendor/mermaid/mermaid.min.js"></script>
 <!-- math -->
-<script defer src="../vendor/katex/katex.min.js" crossorigin="anonymous"></script>
-<script defer src="../vendor/katex/contrib/auto-render.min.js" crossorigin="anonymous"></script>
-<script type="module">
-  document.querySelectorAll('pre > code.language-mermaid, pre > code.mermaid').forEach(c => {
-    const p = document.createElement('pre'); p.className = 'mermaid'; p.textContent = c.textContent;
-    c.parentElement.replaceWith(p);
-  });
-  document.querySelectorAll('pre.mermaid').forEach(p => { p.textContent = p.textContent; });
-  if (window.hljs) document.querySelectorAll('pre:not(.mermaid) > code').forEach(el => window.hljs.highlightElement(el));
-  try {
-    const mermaid = (await import('../vendor/mermaid/mermaid.esm.min.mjs')).default;
-    mermaid.initialize({ startOnLoad: false, theme: 'dark', securityLevel: 'loose' });
-    await mermaid.run({ querySelector: 'pre.mermaid' });
-  } catch (e) {}
-</script>
+<script src="../vendor/katex/katex.min.js"></script>
+<script src="../vendor/katex/contrib/auto-render.min.js"></script>
 <script>
-  window.addEventListener('DOMContentLoaded', () => {
-    if (window.renderMathInElement) renderMathInElement(document.querySelector('.content'), {
-      delimiters: [
-        { left: '$$', right: '$$', display: true },
-        { left: '\[', right: '\]', display: true },
-        { left: '$', right: '$', display: false },
-        { left: '\(', right: '\)', display: false }
-      ],
-      throwOnError: false,
-      macros: { '\R': '\mathbb{R}', '\set': '\{#1\}', '\n': '\overrightarrow' }
+  // 1) Normalize mermaid blocks
+  try {
+    document.querySelectorAll('pre > code.language-mermaid, pre > code.mermaid, pre.mermaid > code').forEach(c => {
+      const pre = c.closest('pre');
+      if (pre) {
+        pre.className = 'mermaid';
+        pre.textContent = c.textContent;
+      }
     });
-  });
+    document.querySelectorAll('pre.mermaid').forEach(p => {
+      if (p.children.length > 0) p.textContent = p.textContent;
+    });
+  } catch (e) { console.error('Mermaid norm error:', e); }
+
+  // 2) Syntax-highlight non-mermaid code blocks
+  try {
+    if (window.hljs) document.querySelectorAll('pre:not(.mermaid) > code').forEach(el => window.hljs.highlightElement(el));
+  } catch (e) { console.error('HLJS error:', e); }
+
+  // 3) Render mermaid (dark)
+  try {
+    if (window.mermaid) {
+      window.mermaid.initialize({ startOnLoad: false, theme: 'dark', securityLevel: 'loose' });
+      window.mermaid.run({ querySelector: 'pre.mermaid' });
+    }
+  } catch (e) { console.error('Mermaid render error:', e); }
+
+  // 4) Math: render \( \) and \[ \] and $$ $$. Tolerate malformed legacy TeX.
+  function renderMath() {
+    if (window.renderMathInElement) {
+      renderMathInElement(document.querySelector('.content, .all-weeks-content') || document.body, {
+        delimiters: [
+          { left: '$$', right: '$$', display: true },
+          { left: '\\[', right: '\\]', display: true },
+          { left: '$', right: '$', display: false },
+          { left: '\\(', right: '\\)', display: false }
+        ],
+        throwOnError: false,
+        preProcess: function(math) {
+          return math
+            .replace(/\\left\\\[/g, '\\left[')
+            .replace(/\\right\\\]/g, '\\right]')
+            .replace(/&amp;/g, '&')
+            .replace(/&lt;/g, '<')
+            .replace(/&gt;/g, '>');
+        },
+        macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
+      });
+    }
+  }
+  try {
+    renderMath();
+  } catch (e) { console.error('Math render error:', e); }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', renderMath);
+  }
 </script>
 <script src="../site.js" defer></script>
 </body>

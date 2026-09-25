@@ -3,138 +3,268 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Module / Week Schedule — CS6515</title>
+<title>Course Curriculum &amp; Module Schedule — CS6515</title>
 <link rel="stylesheet" href="./vendor/fonts/fonts.css">
 <link rel="stylesheet" href="./theme.css">
-<link rel="stylesheet" href="./vendor/katex/katex.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="./vendor/katex/katex.min.css">
 <link rel="stylesheet" href="./vendor/highlight/styles/tokyo-night-dark.min.css">
-
 </head>
 <body>
 <header class="topbar">
   <a class="home" href="./index.html">CS6515</a>
-  <span class="crumbloc">Module / Week Schedule</span>
+  <span class="crumbloc">Course Curriculum &amp; Module Schedule</span>
 <button class="search-trigger" type="button" data-search-trigger aria-label="Search site"><span class="search-trigger__label">Search</span><kbd data-search-shortcut>Cmd K</kbd></button>
 </header>
 <main class="content">
-<p><strong>Week # and</strong> <strong>date range</strong> </p>
-<p><strong>Assigned lectures</strong> </p>
-<p><strong>Assignment open</strong> </p>
-<p>1: 5/18 - 5/24</p>
-<p>Introduction and Readiness Check</p>
-<p>DP1: FIB - LIS - LCS </p>
-<p>DP2: Knapsack - Chain Multiply </p>
-<p>Readiness Check (no due date)      (Lessons + Coding environment
-check)</p>
-<p>Logistics Quizzes       (Communication, Academic Integrity,
-Onboarding)</p>
-<p>HW 1 </p>
-<p>Quiz 1: Format Quiz on DP </p>
-<p>2: 5/25 - 5/31<br />
-(5/25 Memorial Day)</p>
-<p>DC3: Solving Recurrences DC1: Fast Integer Multiplication </p>
-<p>HW 2 </p>
-<p>Quiz 2: Format Quiz on D&amp;C </p>
-<p>          Logistics Quizzes (Communication, Academic Integrity,
-Onboarding) due 6/1 8am ET </p>
-<p>3: 6/1 - 6/7</p>
-<p>DC2: Linear-Time Median </p>
-<p>HW 3 (coding homework) </p>
-<p>HW 4 (coding homework) </p>
-<p>Quiz 3: Content Quiz on DP + D&amp;C </p>
-<p>Mock Exam (no due date) </p>
-<p>4: 6/8 - 6/14</p>
-<p>DP3: Shortest Paths </p>
-<p>GR1: Strongly Connected Components</p>
-<p>GR2: 2-SAT </p>
-<p>n/a</p>
-<p>          <strong>EXAM 1</strong>: Opens Thursday, 6/11 @10am ET
-           Covers content WEEKS 1-3</p>
-<p>Closes Monday 6/15 @ 8am ET </p>
-<p>5: 6/15 - 6/21</p>
-<p>GR3: Minimum Spanning Tree (MST)  </p>
-<p>Quiz 4: Format Quiz on Graph Theory </p>
-<p>HW 5 </p>
-<p>6: 6/22 - 6/28</p>
-<p>MF1: Ford-Fulkerson  </p>
-<p>MF2: Max-flow=min-cut </p>
-<p>HW 6 </p>
-<p>HW 7 (coding homework)</p>
-<p>Quiz 5: Content Quiz on Graph Theory</p>
-<p>7: 6/29 - 7/5<br />
-(7/5 Withdrawal Deadline)</p>
-<p> MF4: Edmonds-Karp</p>
-<p> n/a</p>
-<p>        <strong>EXAM 2</strong>: Opens Thursday, 7/2 @10am ET </p>
-<p>         Covers content WEEKS 4-7</p>
-<p>Closes Monday 7/6 @ 8am ET </p>
-<p>8: 7/6 - 7/12</p>
-<p>NP1: NP, Reductions </p>
-<p>NP2: 3-SAT </p>
-<p>NP3: Graph Problems </p>
-<p>Quiz 6: Format Quiz on NP Theory </p>
-<p>HW 8</p>
-<p>9: 7/13 - 7/19</p>
-<p>LP1: LP Introduction </p>
-<p>LP2: Geometry </p>
-<p>LP3: Duality </p>
-<p>Quiz 7: Content Quiz on NP &amp; LP </p>
-<p>HW 9</p>
-<p>HW 10 </p>
-<p>10: 7/20 - 7/26</p>
-<p>LP4: Max-SAT approximation  </p>
-<p>NP4: Knapsack </p>
-<p>NP5: Halting Problem</p>
-<p>n/a</p>
-<p>         <strong>EXAM 3</strong>: Opens Thursday, 7/23 @10am ET </p>
-<p>         Covers content WEEKS 8-10</p>
-<p>Closes Monday 7/27 @ 8am ET </p>
-<p>11: 7/27 - 8/2</p>
-<p>All other lectures</p>
-<p>Quiz 8: Cumulative Content Quiz  </p>
+<h1 id="course-curriculum--module-schedule">Course Curriculum &amp; Module Schedule</h1>
+<p>Canonical course progression for <strong>CS 6515: Intro to Graduate Algorithms</strong>. This table maps each weekly study module to its assigned lectures, homework assignments, quizzes, and exam scope.</p>
+
+<p><em>For quick jumps: view by <a href="01_by_week/index.html">Week Folder</a>, study by <a href="02_by_topic/index.html">Conceptual Topic</a>, or review continuously on the <a href="01_by_week/all-in-one.html">All Weeks Stacked Page</a>.</em></p>
+
+<table>
+<thead>
+<tr>
+<th>Week / Unit</th>
+<th>Assigned Lectures &amp; Modules</th>
+<th>Assigned Homework &amp; Quizzes</th>
+<th>Assessment &amp; Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Week 1</strong><br><small>Unit 1: DP</small></td>
+<td>
+  <strong>Introduction &amp; Readiness Check</strong><br>
+  <strong>DP1:</strong> Fibonacci (FIB), Longest Increasing Subsequence (LIS), Longest Common Subsequence (LCS)<br>
+  <strong>DP2:</strong> Knapsack (with/without rep), Matrix Chain Multiplication<br>
+  <a href="01_by_week/W01_DP1-DP2/index.html">👉 Go to Week 1</a>
+</td>
+<td>
+  Readiness Check (self-assessment)<br>
+  Logistics Quizzes (Communication, Integrity)<br>
+  <strong>HW 1</strong> (written DP)<br>
+  <strong>Quiz 1</strong> (Format Quiz on DP)
+</td>
+<td>Foundation for bottom-up DP. Follow 7-step grading rubric.</td>
+</tr>
+
+<tr>
+<td><strong>Week 2</strong><br><small>Unit 1: D&amp;C</small></td>
+<td>
+  <strong>DC3:</strong> Solving Recurrences (Master Theorem, recursion trees)<br>
+  <strong>DC1:</strong> Fast Integer Multiplication (Karatsuba)<br>
+  <a href="01_by_week/W02_DC3-DC1/index.html">👉 Go to Week 2</a>
+</td>
+<td>
+  <strong>HW 2</strong> (written D&amp;C)<br>
+  <strong>Quiz 2</strong> (Format Quiz on D&amp;C)<br>
+  Logistics Quizzes due
+</td>
+<td>Master Theorem application and runtime verification.</td>
+</tr>
+
+<tr>
+<td><strong>Week 3</strong><br><small>Unit 1: D&amp;C</small></td>
+<td>
+  <strong>DC2:</strong> Linear-Time Median &amp; Selection (QuickSelect, Median of Medians)<br>
+  <a href="01_by_week/W03_DC2/index.html">👉 Go to Week 3</a>
+</td>
+<td>
+  <strong>HW 3</strong> (coding homework)<br>
+  <strong>HW 4</strong> (coding homework)<br>
+  <strong>Quiz 3</strong> (Content Quiz on DP + D&amp;C)<br>
+  Mock Exam (self-paced)
+</td>
+<td>Linear selection analysis and coding project verification.</td>
+</tr>
+
+<tr>
+<td><strong>Week 4</strong><br><small>Unit 1 / 2</small></td>
+<td>
+  <strong>DP3:</strong> Shortest Paths on DAGs, Bellman-Ford, Floyd-Warshall<br>
+  <strong>GR1:</strong> Strongly Connected Components (SCCs / Kosaraju)<br>
+  <strong>GR2:</strong> 2-SAT Formulation &amp; Reachability<br>
+  <a href="01_by_week/W04_DP3-GR1-GR2_EXAM1/index.html">👉 Go to Week 4</a>
+</td>
+<td>
+  <strong>EXAM 1 WINDOW</strong><br>
+  Covers content from <strong>Weeks 1–3</strong> (DP1–DP2, DC1–DC3)
+</td>
+<td><strong>EXAM 1:</strong> Complete Exam 1. Begin graph theory foundations.</td>
+</tr>
+
+<tr>
+<td><strong>Week 5</strong><br><small>Unit 2: Graphs</small></td>
+<td>
+  <strong>GR3:</strong> Minimum Spanning Tree (MST: Kruskal's &amp; Prim's algorithms)<br>
+  <a href="01_by_week/W05_GR3/index.html">👉 Go to Week 5</a>
+</td>
+<td>
+  <strong>HW 5</strong> (written Graph Theory)<br>
+  <strong>Quiz 4</strong> (Format Quiz on Graph Theory)
+</td>
+<td>Cut and cycle properties for greedy edge selection.</td>
+</tr>
+
+<tr>
+<td><strong>Week 6</strong><br><small>Unit 2: Max-Flow</small></td>
+<td>
+  <strong>MF1:</strong> Ford-Fulkerson, Flow Networks, Residual Graphs<br>
+  <strong>MF2:</strong> Max-Flow = Min-Cut Theorem<br>
+  <a href="01_by_week/W06_MF1-MF2/index.html">👉 Go to Week 6</a>
+</td>
+<td>
+  <strong>HW 6</strong> (written Max-Flow)<br>
+  <strong>HW 7</strong> (coding homework)<br>
+  <strong>Quiz 5</strong> (Content Quiz on Graph Theory)
+</td>
+<td>Network flow definitions, conservation constraints, and cuts.</td>
+</tr>
+
+<tr>
+<td><strong>Week 7</strong><br><small>Unit 2: Max-Flow</small></td>
+<td>
+  <strong>MF4:</strong> Edmonds-Karp Algorithm &amp; Flow Reductions (Bipartite Matching)<br>
+  <a href="01_by_week/W07_MF4_EXAM2/index.html">👉 Go to Week 7</a>
+</td>
+<td>
+  <strong>EXAM 2 WINDOW</strong><br>
+  Covers content from <strong>Weeks 4–7</strong> (DP3, GR1–GR3, MF1–MF2, MF4)
+</td>
+<td><strong>EXAM 2:</strong> Complete Exam 2. Treat graph algorithms as black boxes.</td>
+</tr>
+
+<tr>
+<td><strong>Week 8</strong><br><small>Unit 3: NP</small></td>
+<td>
+  <strong>NP1:</strong> P, NP, Verification, Polynomial-Time Reductions<br>
+  <strong>NP2:</strong> 3-SAT, Circuit-SAT<br>
+  <strong>NP3:</strong> Graph Problems (Independent Set, Vertex Cover, Clique)<br>
+  <a href="01_by_week/W08_NP1-NP2-NP3/index.html">👉 Go to Week 8</a>
+</td>
+<td>
+  <strong>HW 8</strong> (written NP-Completeness)<br>
+  <strong>Quiz 6</strong> (Format Quiz on NP Theory)
+</td>
+<td>Reduction direction and gadget construction.</td>
+</tr>
+
+<tr>
+<td><strong>Week 9</strong><br><small>Unit 3: LP</small></td>
+<td>
+  <strong>LP1:</strong> Linear Programming Formulation &amp; Modeling<br>
+  <strong>LP2:</strong> LP Geometry, Vertices, Simplex Algorithm<br>
+  <strong>LP3:</strong> LP Duality (Weak/Strong Duality, Dual Certificates)<br>
+  <a href="01_by_week/W09_LP1-LP2-LP3/index.html">👉 Go to Week 9</a>
+</td>
+<td>
+  <strong>HW 9</strong> (written LP)<br>
+  <strong>HW 10</strong> (written LP)<br>
+  <strong>Quiz 7</strong> (Content Quiz on NP &amp; LP)
+</td>
+<td>Primal-to-dual conversion rules and complementary slackness.</td>
+</tr>
+
+<tr>
+<td><strong>Week 10</strong><br><small>Unit 3: Approx</small></td>
+<td>
+  <strong>LP4:</strong> Max-SAT 7/8 Approximation &amp; LP Rounding / ILP<br>
+  <strong>NP4:</strong> Knapsack Approximation (FPTAS)<br>
+  <strong>NP5:</strong> Halting Problem &amp; Undecidability (Diagonalization)<br>
+  <a href="01_by_week/W10_LP4-NP4-NP5_EXAM3/index.html">👉 Go to Week 10</a>
+</td>
+<td>
+  <strong>EXAM 3 WINDOW</strong><br>
+  Covers content from <strong>Weeks 8–10</strong> (NP1–NP5, LP1–LP4)
+</td>
+<td><strong>EXAM 3:</strong> Complete Exam 3. Coping with NP-hardness and undecidability.</td>
+</tr>
+
+<tr>
+<td><strong>Week 11</strong><br><small>Unit 4: Review</small></td>
+<td>
+  <strong>FFT:</strong> Fast Fourier Transform (DC4/5)<br>
+  <strong>RA1–RA3:</strong> Modular Arithmetic, RSA Cryptosystem, Bloom Filters<br>
+  Flow &amp; Graph Applications<br>
+  <a href="01_by_week/W11_Advanced-FFT-Crypto-Bloom/index.html">👉 Go to Week 11</a>
+</td>
+<td>
+  <strong>Quiz 8</strong> (Cumulative Content Quiz)
+</td>
+<td>Advanced grab-bag topics and comprehensive course review.</td>
+</tr>
+</tbody>
+</table>
+
+<hr />
+<p><em>Cross references: <a href="00_START_HERE/INDEX.html">Master Index</a> · <a href="00_START_HERE/COURSE_MAP.html">Course Map</a> · <a href="00_START_HERE/reading-index.html">DPV Reading Index</a>.</em></p>
 </main>
 
 <!-- code highlighting -->
-<link rel="modulepreload" href="./vendor/mermaid/mermaid.esm.min.mjs">
 <script src="./vendor/highlight/highlight.min.js"></script>
+<!-- mermaid -->
+<script src="./vendor/mermaid/mermaid.min.js"></script>
 <!-- math -->
-<script defer src="./vendor/katex/katex.min.js" crossorigin="anonymous"></script>
-<script defer src="./vendor/katex/contrib/auto-render.min.js" crossorigin="anonymous"></script>
-<script type="module">
-  // 1) Normalize mermaid blocks. Pandoc(gfm) emits <pre class="mermaid"><code>...</code></pre>.
-  //    Flatten to raw source text so mermaid parses cleanly; also catch the code-only variant.
-  document.querySelectorAll('pre > code.language-mermaid, pre > code.mermaid').forEach(c => {
-    const p = document.createElement('pre'); p.className = 'mermaid'; p.textContent = c.textContent;
-    c.parentElement.replaceWith(p);
-  });
-  document.querySelectorAll('pre.mermaid').forEach(p => { p.textContent = p.textContent; });
-  // 2) Syntax-highlight every code block EXCEPT mermaid (auto-detect language)
-  if (window.hljs) document.querySelectorAll('pre:not(.mermaid) > code').forEach(el => window.hljs.highlightElement(el));
+<script src="./vendor/katex/katex.min.js"></script>
+<script src="./vendor/katex/contrib/auto-render.min.js"></script>
+<script>
+  // 1) Normalize mermaid blocks
+  try {
+    document.querySelectorAll('pre > code.language-mermaid, pre > code.mermaid, pre.mermaid > code').forEach(c => {
+      const pre = c.closest('pre');
+      if (pre) {
+        pre.className = 'mermaid';
+        pre.textContent = c.textContent;
+      }
+    });
+    document.querySelectorAll('pre.mermaid').forEach(p => {
+      if (p.children.length > 0) p.textContent = p.textContent;
+    });
+  } catch (e) { console.error('Mermaid norm error:', e); }
+
+  // 2) Syntax-highlight non-mermaid code blocks
+  try {
+    if (window.hljs) document.querySelectorAll('pre:not(.mermaid) > code').forEach(el => window.hljs.highlightElement(el));
+  } catch (e) { console.error('HLJS error:', e); }
+
   // 3) Render mermaid (dark)
   try {
-    const mermaid = (await import('./vendor/mermaid/mermaid.esm.min.mjs')).default;
-    mermaid.initialize({ startOnLoad: false, theme: 'dark', securityLevel: 'loose' });
-    await mermaid.run({ querySelector: 'pre.mermaid' });
-  } catch (e) { /* offline: leave as text */ }
+    if (window.mermaid) {
+      window.mermaid.initialize({ startOnLoad: false, theme: 'dark', securityLevel: 'loose' });
+      window.mermaid.run({ querySelector: 'pre.mermaid' });
+    }
+  } catch (e) { console.error('Mermaid render error:', e); }
+
+  // 4) Math: render \( \) and \[ \] and $$ $$. Tolerate malformed legacy TeX.
+  function renderMath() {
+    if (window.renderMathInElement) {
+      renderMathInElement(document.querySelector('.content, .all-weeks-content') || document.body, {
+        delimiters: [
+          { left: '$$', right: '$$', display: true },
+          { left: '\\[', right: '\\]', display: true },
+          { left: '$', right: '$', display: false },
+          { left: '\\(', right: '\\)', display: false }
+        ],
+        throwOnError: false,
+        preProcess: function(math) {
+          return math
+            .replace(/\\left\\\[/g, '\\left[')
+            .replace(/\\right\\\]/g, '\\right]')
+            .replace(/&amp;/g, '&')
+            .replace(/&lt;/g, '<')
+            .replace(/&gt;/g, '>');
+        },
+        macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
+      });
+    }
+  }
+  try {
+    renderMath();
+  } catch (e) { console.error('Math render error:', e); }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', renderMath);
+  }
 </script>
-<script>
-  // 4) Math: render \( \) and \[ \] (pandoc converts dollar-math to these). Tolerate malformed legacy TeX.
-  window.addEventListener('DOMContentLoaded', () => {
-    if (window.renderMathInElement) renderMathInElement(document.querySelector('.content'), {
-      // dollar-delimiters included so KaTeX also renders math pandoc failed to parse (left raw):
-      // a space before a closing delim, cases-env inline, apostrophes in text, etc. Display before inline.
-      delimiters: [
-        { left: '$$', right: '$$', display: true },
-        { left: '\\[', right: '\\]', display: true },
-        { left: '$', right: '$', display: false },
-        { left: '\\(', right: '\\)', display: false }
-      ],
-      throwOnError: false,
-      // \n is used in the legacy notes as a homemade "arrow over" (directed edge); map it to \overrightarrow.
-      macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
-    });
-  });
-</script>
-<script src="site.js" defer></script>
+<script src="./site.js" defer></script>
 </body>
 </html>

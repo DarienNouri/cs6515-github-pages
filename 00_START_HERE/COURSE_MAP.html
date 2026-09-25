@@ -3,11 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Course Map — CS 6515 Intro to Graduate Algorithms (Summer
-2026) — CS6515</title>
+<title>Course Map — CS 6515 Intro to Graduate Algorithms — CS6515</title>
 <link rel="stylesheet" href="../vendor/fonts/fonts.css">
 <link rel="stylesheet" href="../theme.css">
-<link rel="stylesheet" href="../vendor/katex/katex.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="../vendor/katex/katex.min.css">
 <link rel="stylesheet" href="../vendor/highlight/styles/tokyo-night-dark.min.css">
 
 </head>
@@ -15,16 +14,15 @@
 <header class="topbar">
   <a class="home" href="../index.html">CS6515</a>
   <span class="crumbloc">Course Map — CS 6515 Intro to Graduate
-Algorithms (Summer 2026)</span>
+Algorithms </span>
 <button class="search-trigger" type="button" data-search-trigger aria-label="Search site"><span class="search-trigger__label">Search</span><kbd data-search-shortcut>Cmd K</kbd></button>
 </header>
 <main class="content">
 <h1
-id="course-map--cs-6515-intro-to-graduate-algorithms-summer-2026">Course
-Map — CS 6515 Intro to Graduate Algorithms (Summer 2026)</h1>
+id="course-map--cs-6515-intro-to-graduate-algorithms">Course
+Map — CS 6515 Intro to Graduate Algorithms </h1>
 <p>High-level mental model of the course. For the precise
-week/reading/exam table, see <a href="INDEX.html">INDEX.md</a>; for
-routing logic, <a href="AGENT_ROUTING.html">AGENT_ROUTING.md</a>.</p>
+week/reading/exam table, see <a href="INDEX.html">Master Index</a>.</p>
 <h2 id="the-five-and-a-half-big-units">The five-and-a-half big
 units</h2>
 <ol type="1">
@@ -72,7 +70,7 @@ when a problem is <em>hard</em> (Week 10)?</li>
 DP+DC (W1–3), <strong>Exam 2</strong> after graphs+flow (W4–7),
 <strong>Exam 3</strong> after NP+LP (W8–10). Week 11 is cumulative
 review (Quiz 8). See the Exam Coverage Map in <a
-href="INDEX.html">INDEX.md</a>.</p>
+href="INDEX.html">Master Index</a>.</p>
 <h2 id="where-things-live">Where things live</h2>
 <table>
 <thead>
@@ -84,7 +82,7 @@ href="INDEX.html">INDEX.md</a>.</p>
 <tbody>
 <tr>
 <td>This week's work</td>
-<td><a href="CURRENT_WEEK.html">CURRENT_WEEK.md</a></td>
+<td><a href="COURSE_ROADMAP.html">Course Roadmap</a></td>
 </tr>
 <tr>
 <td>A specific week</td>
@@ -96,12 +94,11 @@ href="INDEX.html">INDEX.md</a>.</p>
 </tr>
 <tr>
 <td>The exact DPV sections</td>
-<td><a href="reading-index.html">reading-index.md</a></td>
+<td><a href="reading-index.html">Reading Index</a></td>
 </tr>
 <tr>
 <td>How to <em>write</em> a graded answer</td>
-<td><a href="AGENT_ROUTING.html">AGENT_ROUTING.md</a> → "answer
-rules"</td>
+<td><a href="../cs6515-algorithm-rules-and-guidelines/index.html">Algorithm Guidelines</a> (staff rules)</td>
 </tr>
 <tr>
 <td>The gold-standard graph notes</td>
@@ -112,45 +109,69 @@ rules"</td>
 </main>
 
 <!-- code highlighting -->
-<link rel="modulepreload" href="../vendor/mermaid/mermaid.esm.min.mjs">
 <script src="../vendor/highlight/highlight.min.js"></script>
+<!-- mermaid -->
+<script src="../vendor/mermaid/mermaid.min.js"></script>
 <!-- math -->
-<script defer src="../vendor/katex/katex.min.js" crossorigin="anonymous"></script>
-<script defer src="../vendor/katex/contrib/auto-render.min.js" crossorigin="anonymous"></script>
-<script type="module">
-  // 1) Normalize mermaid blocks. Pandoc(gfm) emits <pre class="mermaid"><code>...</code></pre>.
-  //    Flatten to raw source text so mermaid parses cleanly; also catch the code-only variant.
-  document.querySelectorAll('pre > code.language-mermaid, pre > code.mermaid').forEach(c => {
-    const p = document.createElement('pre'); p.className = 'mermaid'; p.textContent = c.textContent;
-    c.parentElement.replaceWith(p);
-  });
-  document.querySelectorAll('pre.mermaid').forEach(p => { p.textContent = p.textContent; });
-  // 2) Syntax-highlight every code block EXCEPT mermaid (auto-detect language)
-  if (window.hljs) document.querySelectorAll('pre:not(.mermaid) > code').forEach(el => window.hljs.highlightElement(el));
+<script src="../vendor/katex/katex.min.js"></script>
+<script src="../vendor/katex/contrib/auto-render.min.js"></script>
+<script>
+  // 1) Normalize mermaid blocks
+  try {
+    document.querySelectorAll('pre > code.language-mermaid, pre > code.mermaid, pre.mermaid > code').forEach(c => {
+      const pre = c.closest('pre');
+      if (pre) {
+        pre.className = 'mermaid';
+        pre.textContent = c.textContent;
+      }
+    });
+    document.querySelectorAll('pre.mermaid').forEach(p => {
+      if (p.children.length > 0) p.textContent = p.textContent;
+    });
+  } catch (e) { console.error('Mermaid norm error:', e); }
+
+  // 2) Syntax-highlight non-mermaid code blocks
+  try {
+    if (window.hljs) document.querySelectorAll('pre:not(.mermaid) > code').forEach(el => window.hljs.highlightElement(el));
+  } catch (e) { console.error('HLJS error:', e); }
+
   // 3) Render mermaid (dark)
   try {
-    const mermaid = (await import('../vendor/mermaid/mermaid.esm.min.mjs')).default;
-    mermaid.initialize({ startOnLoad: false, theme: 'dark', securityLevel: 'loose' });
-    await mermaid.run({ querySelector: 'pre.mermaid' });
-  } catch (e) { /* offline: leave as text */ }
-</script>
-<script>
-  // 4) Math: render \( \) and \[ \] (pandoc converts dollar-math to these). Tolerate malformed legacy TeX.
-  window.addEventListener('DOMContentLoaded', () => {
-    if (window.renderMathInElement) renderMathInElement(document.querySelector('.content'), {
-      // dollar-delimiters included so KaTeX also renders math pandoc failed to parse (left raw):
-      // a space before a closing delim, cases-env inline, apostrophes in text, etc. Display before inline.
-      delimiters: [
-        { left: '$$', right: '$$', display: true },
-        { left: '\\[', right: '\\]', display: true },
-        { left: '$', right: '$', display: false },
-        { left: '\\(', right: '\\)', display: false }
-      ],
-      throwOnError: false,
-      // \n is used in the legacy notes as a homemade "arrow over" (directed edge); map it to \overrightarrow.
-      macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
-    });
-  });
+    if (window.mermaid) {
+      window.mermaid.initialize({ startOnLoad: false, theme: 'dark', securityLevel: 'loose' });
+      window.mermaid.run({ querySelector: 'pre.mermaid' });
+    }
+  } catch (e) { console.error('Mermaid render error:', e); }
+
+  // 4) Math: render \( \) and \[ \] and $$ $$. Tolerate malformed legacy TeX.
+  function renderMath() {
+    if (window.renderMathInElement) {
+      renderMathInElement(document.querySelector('.content, .all-weeks-content') || document.body, {
+        delimiters: [
+          { left: '$$', right: '$$', display: true },
+          { left: '\\[', right: '\\]', display: true },
+          { left: '$', right: '$', display: false },
+          { left: '\\(', right: '\\)', display: false }
+        ],
+        throwOnError: false,
+        preProcess: function(math) {
+          return math
+            .replace(/\\left\\\[/g, '\\left[')
+            .replace(/\\right\\\]/g, '\\right]')
+            .replace(/&amp;/g, '&')
+            .replace(/&lt;/g, '<')
+            .replace(/&gt;/g, '>');
+        },
+        macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
+      });
+    }
+  }
+  try {
+    renderMath();
+  } catch (e) { console.error('Math render error:', e); }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', renderMath);
+  }
 </script>
 <script src="../site.js" defer></script>
 </body>
