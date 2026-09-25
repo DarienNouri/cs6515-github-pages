@@ -18,11 +18,6 @@
 </header>
 <main class="content">
 <h1 id="common-course-runtimes">Common Course Runtimes</h1>
-<p><strong>Category</strong>: Staff Use Only &gt; Supplemental Material
-<strong>Date</strong>: 2026-05-18 05:34 <strong>Link</strong>: <a
-href="https://edstem.org/us/courses/98593/discussion/8077881">https://edstem.org/us/courses/98593/discussion/8077881</a>
-<strong>Pinned</strong>: True | <strong>Votes</strong>: 11 |
-<strong>Views</strong>: 1866</p>
 <h2 id="post">Post</h2>
 <p>When performing runtime analysis for this course, we expect the
 analysis to be presented as the worst-case runtime analysis, presented
@@ -157,8 +152,7 @@ runtimes:</p>
 </ul>
 <h2 id="responses-4">Responses (4)</h2>
 <ul>
-<li><p><strong>Comment</strong> by User 1282049 on 2026-05-19 15:58
-(Votes: 0)</p>
+<li><p><strong>Comment</strong></p>
 <blockquote>
 <p>Hi, I was wondering if "remove an item" refers to an index in the
 List section, and "remove an item" refers to a value in the Hash Table
@@ -175,8 +169,7 @@ src="https://static.us.edusercontent.com/files/5IfI2Hanl591jLNfW4nBDJKq"
 alt="Image" /></p>
 </blockquote>
 <ul>
-<li><p><strong>Comment</strong> by User 137215 on 2026-05-19 16:21
-(Votes: 1)</p>
+<li><p><strong>Comment</strong></p>
 <blockquote>
 <blockquote>
 <p>For the list, I couldn't see how you would get O(1) removal without
@@ -196,8 +189,7 @@ can do what it says and we will consider it <code>O(1)</code>.</p>
 remaining relative order, then you don't get this speedup.</p>
 </blockquote>
 <ul>
-<li><p><strong>Comment</strong> by User 1015969 on 2026-05-20 13:21
-(Votes: 0)</p>
+<li><p><strong>Comment</strong></p>
 <blockquote>
 <p>Can you explain what "maintaining the remaining relative order"
 means? If you remove an element, the remaining elements in my mind still
@@ -206,8 +198,7 @@ maintain their order. Ex. 1, 2, 3, 4 -&gt; Remove 2 -&gt; 1, 3, 4. The
 minus a single element, but the river still flows</p>
 </blockquote>
 <ul>
-<li><p><strong>Comment</strong> by User 215685 on 2026-05-20 23:20
-(Votes: 0)</p>
+<li><p><strong>Comment</strong></p>
 <blockquote>
 <p>you have to shift the other elements to not have the removed element
 there which is why removal is O(n) for arrays and O(1) for linked lists
@@ -217,8 +208,7 @@ won't have to shift all the other elements, but most often that's not
 the case.</p>
 </blockquote>
 <ul>
-<li><strong>Comment</strong> by User 137215 on 2026-05-21 09:08 (Votes:
-0)
+<li><strong>Comment</strong>
 <blockquote>
 <blockquote>
 <p>In practice some people will put a tombstone value for removals</p>
@@ -229,8 +219,7 @@ removals.</p>
 tombstone value that is also a valid input value...</p>
 </blockquote></li>
 </ul></li>
-<li><p><strong>Comment</strong> by User 1282049 on 2026-05-21 04:39
-(Votes: 0)</p>
+<li><p><strong>Comment</strong></p>
 <blockquote>
 <p>want to remove the 2 1,2,3,4 step 1: swap with last 1,4,3,2 step 2:
 pop the tail element 1,4,3 congratulations, you have done an O(1)
@@ -239,8 +228,7 @@ removal (but you decided to not care about relative order)</p>
 </ul></li>
 </ul></li>
 </ul></li>
-<li><p><strong>Comment</strong> by User 649126 on 2026-05-22 07:47
-(Votes: 1)</p>
+<li><p><strong>Comment</strong></p>
 <blockquote>
 <p>Accessing T(n) in a 1-d list, let T(i), where 1&lt;=i&lt;=n, which is
 treated as an array we assume it takes O(1) and not O(n), right?</p>
@@ -249,8 +237,7 @@ as 2-d arrays) T(1,n) is extracted in O(1) and not O(n), correct?</p>
 <p>Thanks</p>
 </blockquote>
 <ul>
-<li><p><strong>Comment</strong> by User 137215 on 2026-05-22 08:19
-(Votes: 0)</p>
+<li><p><strong>Comment</strong></p>
 <blockquote>
 <p>The DP tables follow the list runtimes above.</p>
 <p>If you go from 1D to 2D (<code>n x n</code>), then it goes from
@@ -258,8 +245,7 @@ as 2-d arrays) T(1,n) is extracted in O(1) and not O(n), correct?</p>
 <code>O(1)</code> for their respective operations.</p>
 </blockquote>
 <ul>
-<li><strong>Comment</strong> by User 649126 on 2026-05-23 00:52 (Votes:
-0)
+<li><strong>Comment</strong>
 <blockquote>
 <p>To summarize,</p>
 <p>Building/Creating a 1-D T(i) vector with 1&lt;=i&lt;=n takes <span
@@ -274,15 +260,13 @@ element a 2-D T(i,j) table with 1&lt;=i&lt;=n and 1&lt;=j&lt;=n takes
 </blockquote></li>
 </ul></li>
 </ul></li>
-<li><p><strong>Comment</strong> by User 281747 on 2026-05-22 11:43
-(Votes: 0)</p>
+<li><p><strong>Comment</strong></p>
 <blockquote>
 <p>Can we have this and the list of black box runtimes as reference on
 the exams?</p>
 </blockquote>
 <ul>
-<li><p><strong>Comment</strong> by User 137215 on 2026-05-22 12:09
-(Votes: 0)</p>
+<li><p><strong>Comment</strong></p>
 <blockquote>
 <p>The problems on the exam will be presented similarly to how the
 problems are presented to you on the homework.</p>
@@ -290,8 +274,7 @@ problems are presented to you on the homework.</p>
 exam 1 experience.</p>
 </blockquote>
 <ul>
-<li><p><strong>Comment</strong> by User 281747 on 2026-05-23 09:38
-(Votes: 1)</p>
+<li><p><strong>Comment</strong></p>
 <blockquote>
 <p>Just curious why that is the case that there isn't a simple
 "note-card" provided for runtimes and blackbox functions and such? State
@@ -302,8 +285,7 @@ knowledge of these algorithms to unique problems rather than memorizing
 little details that can easily be referenced in real life.</p>
 </blockquote>
 <ul>
-<li><strong>Comment</strong> by User 137215 on 2026-05-23 09:40 (Votes:
-0)
+<li><strong>Comment</strong>
 <blockquote>
 <blockquote>
 <p>Just curious why that is the case that there isn't a simple
@@ -323,8 +305,7 @@ historically).</p>
 </ul></li>
 </ul></li>
 </ul></li>
-<li><p><strong>Comment</strong> by User 1015969 on 2026-06-20 13:00
-(Votes: 0)</p>
+<li><p><strong>Comment</strong></p>
 <blockquote>
 <p>For this item: __Operating on a single edge
 __<code>__e=(u,v)__</code></p>
@@ -342,8 +323,7 @@ found by indexing into the array.</li>
 </ul>
 </blockquote>
 <ul>
-<li><strong>Comment</strong> by User 137215 on 2026-06-20 23:45 (Votes:
-0)
+<li><strong>Comment</strong>
 <blockquote>
 <p>You cannot.</p>
 <p>Finding <code>u</code> takes <code>O(1)</code>, but finding where
