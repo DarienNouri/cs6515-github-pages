@@ -1698,3 +1698,348 @@ pre.mermaid svg {
   height: auto;
 }
 
+/* ==========================================================================
+   Active Recall / Practice Mode
+   ========================================================================== */
+.practice-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.6rem;
+  border-radius: var(--radius-sm, 6px);
+  background: var(--surface-2, rgba(255, 255, 255, 0.05));
+  border: 1px solid var(--border-subtle, rgba(255, 255, 255, 0.1));
+  color: var(--text-muted, #94a3b8);
+  font-size: 0.78rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.practice-trigger:hover {
+  background: var(--surface-3, rgba(255, 255, 255, 0.09));
+  color: var(--text-bright, #f8fafc);
+  border-color: var(--border-muted, rgba(255, 255, 255, 0.2));
+}
+
+.practice-trigger.is-active,
+.practice-trigger[aria-pressed="true"] {
+  background: rgba(16, 185, 129, 0.15) !important;
+  border-color: rgba(16, 185, 129, 0.45) !important;
+  color: #34d399 !important;
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.22);
+}
+
+.practice-trigger__kbd {
+  font-size: 0.65rem;
+  padding: 0.1rem 0.3rem;
+  border-radius: 3px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: var(--text-muted, #94a3b8);
+}
+
+.practice-trigger.is-active .practice-trigger__kbd {
+  border-color: rgba(16, 185, 129, 0.4);
+  color: #6ee7b7;
+}
+
+@media (max-width: 768px) {
+  .practice-trigger {
+    padding: 0.25rem 0.42rem;
+    font-size: 0.76rem;
+  }
+  .practice-trigger__kbd {
+    display: none;
+  }
+}
+
+/* Practice Banner */
+.practice-banner {
+  position: sticky;
+  top: 3.5rem;
+  z-index: 45;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.6rem 1rem;
+  margin: 0.5rem 0 1.25rem 0;
+  background: rgba(15, 23, 42, 0.94);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  border-radius: var(--radius-md, 8px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45), 0 0 18px rgba(16, 185, 129, 0.15);
+  color: #e2e8f0;
+  font-size: 0.82rem;
+  animation: practiceSlideDown 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes practiceSlideDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.practice-banner__content {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  line-height: 1.35;
+}
+
+.practice-banner__icon {
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.practice-banner__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-shrink: 0;
+}
+
+.practice-banner__btn {
+  font-size: 0.72rem;
+  padding: 0.22rem 0.6rem;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: #cbd5e1;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.15s ease;
+}
+
+.practice-banner__btn:hover {
+  background: rgba(255, 255, 255, 0.16);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.practice-banner__close {
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0.2rem 0.45rem;
+  border-radius: 4px;
+  line-height: 1;
+  transition: all 0.15s ease;
+}
+
+.practice-banner__close:hover {
+  color: #f1f5f9;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Active Recall Blur & Mask Targets */
+body.quiz-mode-active .math.display:not(.is-revealed),
+body.quiz-mode-active .katex-display:not(.is-revealed),
+body.quiz-mode-active .cram-card__answer:not(.is-revealed),
+body.quiz-mode-active .quiz-target:not(.is-revealed),
+body.quiz-mode-active .is-mask-candidate:not(.is-revealed) {
+  filter: blur(7px) contrast(0.85);
+  opacity: 0.22;
+  user-select: none;
+  cursor: pointer !important;
+  transition: filter 0.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease, background 0.2s ease;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 6px;
+  position: relative;
+}
+
+body.quiz-mode-active .math.display:not(.is-revealed):hover,
+body.quiz-mode-active .katex-display:not(.is-revealed):hover,
+body.quiz-mode-active .cram-card__answer:not(.is-revealed):hover,
+body.quiz-mode-active .quiz-target:not(.is-revealed):hover,
+body.quiz-mode-active .is-mask-candidate:not(.is-revealed):hover {
+  filter: blur(4px) contrast(0.95);
+  opacity: 0.45;
+  background: rgba(16, 185, 129, 0.05);
+}
+
+body.quiz-mode-active .is-revealed {
+  filter: none !important;
+  opacity: 1 !important;
+  user-select: auto !important;
+  cursor: pointer;
+  outline: 1px dashed rgba(16, 185, 129, 0.45);
+  outline-offset: 4px;
+  border-radius: 4px;
+  animation: revealPulse 0.25s ease-out;
+}
+
+@keyframes revealPulse {
+  0% { transform: scale(0.995); opacity: 0.7; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* ==========================================================================
+   Exam Cram Sheet & Black-Box Components
+   ========================================================================== */
+.cram-hero {
+  margin: 1.5rem 0 2rem;
+  padding: 1.75rem;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(30, 41, 59, 0.5) 100%);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  border-radius: var(--radius-lg, 12px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+}
+
+.cram-hero__title {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.85rem;
+  color: #f8fafc;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.cram-hero__subtitle {
+  font-size: 1rem;
+  color: #cbd5e1;
+  margin: 0 0 1.25rem 0;
+  line-height: 1.5;
+}
+
+.cram-hero__pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.cram-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #e2e8f0;
+  transition: all 0.2s ease;
+}
+
+.cram-pill:hover {
+  background: rgba(16, 185, 129, 0.15);
+  border-color: rgba(16, 185, 129, 0.4);
+  color: #34d399;
+  transform: translateY(-1px);
+}
+
+.cram-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 1.25rem;
+  margin: 1.5rem 0 2.5rem;
+}
+
+@media (max-width: 640px) {
+  .cram-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.cram-card {
+  background: var(--surface-1, rgba(22, 27, 34, 0.7));
+  border: 1px solid var(--border-subtle, rgba(255, 255, 255, 0.1));
+  border-radius: var(--radius-md, 10px);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.cram-card:hover {
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+.cram-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 0.5rem;
+}
+
+.cram-card__title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text-bright, #f8fafc);
+  margin: 0;
+}
+
+.cram-card__tag {
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.15rem 0.5rem;
+  border-radius: 12px;
+  background: rgba(59, 130, 246, 0.15);
+  color: #60a5fa;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+.cram-card__section {
+  font-size: 0.85rem;
+  line-height: 1.45;
+  color: var(--text-muted, #94a3b8);
+}
+
+.cram-card__label {
+  font-weight: 600;
+  color: #cbd5e1;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.2rem;
+}
+
+.cram-card__answer {
+  border-radius: 6px;
+  padding: 0.25rem 0.4rem;
+}
+
+.blackbox-table-wrapper {
+  overflow-x: auto;
+  margin: 1.5rem 0 2.5rem;
+  border: 1px solid var(--border-subtle, rgba(255, 255, 255, 0.1));
+  border-radius: var(--radius-md, 8px);
+  background: var(--surface-1, rgba(22, 27, 34, 0.5));
+}
+
+.blackbox-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+  text-align: left;
+}
+
+.blackbox-table th {
+  background: rgba(30, 41, 59, 0.8);
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+  color: #e2e8f0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.blackbox-table td {
+  padding: 0.7rem 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  color: #cbd5e1;
+}
+
+.blackbox-table tr:hover td {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+

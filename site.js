@@ -55,6 +55,7 @@
       badge: "Hub",
       items: [
         { path: "00_START_HERE/COURSE_ROADMAP.html", title: "Course Roadmap & Study Guide", subtitle: "Curriculum roadmap & exam checkpoints" },
+        { path: "00_START_HERE/EXAM_CRAM_SHEET.html", title: "🎯 High-Yield Exam Cram Sheets & Black-Box Matrix", subtitle: "Exam 1, 2, 3 synthesized with interactive Active Recall practice", badge: "High Yield" },
         { path: "00_START_HERE/INDEX.html", title: "Master Index", subtitle: "Week ↔ Module ↔ Reading ↔ Guidance ↔ Exam" },
         { path: "00_START_HERE/COURSE_MAP.html", title: "Course Dependency Map", subtitle: "Mental model & prerequisite graph" },
         { path: "module-week-schedule.html", title: "Weekly Module Schedule", subtitle: "Lecture assignments & quiz cadence" },
@@ -238,6 +239,27 @@
       actions.insertBefore(treeBtn, actions.firstChild);
     }
 
+    let practiceBtn = topbar.querySelector("[data-practice-trigger]");
+    if (!practiceBtn) {
+      practiceBtn = document.createElement("button");
+      practiceBtn.className = "practice-trigger";
+      practiceBtn.type = "button";
+      practiceBtn.setAttribute("data-practice-trigger", "");
+      practiceBtn.setAttribute("aria-pressed", "false");
+      practiceBtn.setAttribute("aria-label", "Toggle Active Recall Practice Mode");
+      practiceBtn.setAttribute("title", "Toggle Active Recall Practice Mode (Hotkey: Q)");
+      practiceBtn.innerHTML = [
+        '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">',
+        '  <circle cx="12" cy="12" r="10"></circle>',
+        '  <circle cx="12" cy="12" r="6"></circle>',
+        '  <circle cx="12" cy="12" r="2"></circle>',
+        '</svg>',
+        '<span class="practice-trigger__label">Practice</span>',
+        '<kbd class="practice-trigger__kbd">Q</kbd>'
+      ].join("");
+      actions.appendChild(practiceBtn);
+    }
+
     let searchBtn = topbar.querySelector("[data-search-trigger]");
     if (!searchBtn) {
       searchBtn = document.createElement("button");
@@ -249,6 +271,10 @@
       actions.appendChild(searchBtn);
     } else if (searchBtn.parentElement !== actions) {
       actions.appendChild(searchBtn);
+    }
+
+    if (practiceBtn && searchBtn && practiceBtn.nextElementSibling !== searchBtn) {
+      actions.insertBefore(practiceBtn, searchBtn);
     }
 
     setShortcutLabels();
@@ -1153,6 +1179,123 @@
     });
   }
 
+  function initPracticeMode() {
+    const STORAGE_KEY = "cs6515_practice_mode";
+    let isPractice = false;
+    try {
+      isPractice = localStorage.getItem(STORAGE_KEY) === "true";
+    } catch (e) {}
+
+    function updatePracticeUi(enabled) {
+      document.body.classList.toggle("quiz-mode-active", enabled);
+      document.documentElement.classList.toggle("quiz-mode-active", enabled);
+
+      const triggers = document.querySelectorAll("[data-practice-trigger]");
+      triggers.forEach(function (btn) {
+        btn.setAttribute("aria-pressed", enabled ? "true" : "false");
+        btn.classList.toggle("is-active", enabled);
+      });
+
+      let banner = document.querySelector("[data-practice-banner]");
+      if (enabled) {
+        if (!banner) {
+          banner = document.createElement("div");
+          banner.className = "practice-banner";
+          banner.setAttribute("data-practice-banner", "");
+          banner.innerHTML = [
+            '<div class="practice-banner__content">',
+            '  <span class="practice-banner__icon">🎯</span>',
+            '  <span class="practice-banner__text"><strong>Active Recall Mode:</strong> Key recurrences, solutions, and answers are masked. Click any blurred block to reveal.</span>',
+            '</div>',
+            '<div class="practice-banner__actions">',
+            '  <button type="button" class="practice-banner__btn" data-reveal-all>Reveal All</button>',
+            '  <button type="button" class="practice-banner__btn" data-hide-all>Hide All</button>',
+            '  <button type="button" class="practice-banner__close" data-close-practice title="Exit Practice Mode (Q)">✕</button>',
+            '</div>'
+          ].join("");
+
+          const content = document.querySelector(".content, .all-weeks-content, main, article") || document.body;
+          content.insertBefore(banner, content.firstChild);
+
+          banner.querySelector("[data-reveal-all]").addEventListener("click", function () {
+            document.querySelectorAll(".is-mask-candidate, .math.display, .katex-display, .cram-card__answer").forEach(function (el) {
+              el.classList.add("is-revealed");
+            });
+          });
+
+          banner.querySelector("[data-hide-all]").addEventListener("click", function () {
+            document.querySelectorAll(".is-revealed").forEach(function (el) {
+              el.classList.remove("is-revealed");
+            });
+          });
+
+          banner.querySelector("[data-close-practice]").addEventListener("click", function () {
+            togglePractice(false);
+          });
+        }
+        setupMaskTargets();
+      } else if (banner) {
+        banner.remove();
+        document.querySelectorAll(".is-revealed").forEach(function (el) {
+          el.classList.remove("is-revealed");
+        });
+      }
+    }
+
+    function setupMaskTargets() {
+      const selector = ".math.display, .katex-display, .cram-card__answer, .quiz-target";
+      const targets = document.querySelectorAll(selector);
+      targets.forEach(function (el) {
+        el.classList.add("is-mask-candidate");
+        if (!el.hasAttribute("data-mask-bound")) {
+          el.setAttribute("data-mask-bound", "true");
+          el.setAttribute("title", "Click to reveal / hide in Practice Mode");
+          el.addEventListener("click", function (evt) {
+            if (!document.body.classList.contains("quiz-mode-active")) return;
+            const sel = window.getSelection().toString();
+            if (sel.length > 0) return;
+            el.classList.toggle("is-revealed");
+          });
+        }
+      });
+    }
+
+    function togglePractice(forcedState) {
+      const nextState = typeof forcedState === "boolean" ? forcedState : !document.body.classList.contains("quiz-mode-active");
+      try {
+        localStorage.setItem(STORAGE_KEY, nextState ? "true" : "false");
+      } catch (e) {}
+      updatePracticeUi(nextState);
+    }
+
+    document.addEventListener("click", function (e) {
+      const trigger = e.target.closest("[data-practice-trigger]");
+      if (trigger) {
+        e.preventDefault();
+        togglePractice();
+      }
+    });
+
+    window.addEventListener("keydown", function (e) {
+      if (e.defaultPrevented) return;
+      if (e.key === "q" || e.key === "Q") {
+        if (e.metaKey || e.ctrlKey || e.altKey) return;
+        const tag = document.activeElement ? document.activeElement.tagName.toLowerCase() : "";
+        if (tag === "input" || tag === "textarea" || (document.activeElement && document.activeElement.isContentEditable)) {
+          return;
+        }
+        e.preventDefault();
+        togglePractice();
+      }
+    });
+
+    if (isPractice) {
+      updatePracticeUi(true);
+      setTimeout(setupMaskTargets, 400);
+      setTimeout(setupMaskTargets, 1500);
+    }
+  }
+
   function init() {
     ensureTopbar();
     buildTreeDropdown();
@@ -1162,6 +1305,7 @@
     bindPageToc();
     bindEvents();
     loadSearchIndex();
+    initPracticeMode();
   }
 
   if (document.readyState === "loading") {

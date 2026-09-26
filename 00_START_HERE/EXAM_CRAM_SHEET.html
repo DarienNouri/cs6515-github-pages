@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CS 6515 — High-Yield Exam Cram Sheets & Black-Box Matrix — CS6515</title>
+<link rel="stylesheet" href="../vendor/fonts/fonts.css">
+<link rel="stylesheet" href="../theme.css">
+<link rel="stylesheet" href="../vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../vendor/highlight/styles/tokyo-night-dark.min.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="home" href="../index.html">CS6515</a>
+  <span class="crumbloc">High-Yield Exam Cram Sheets & Black-Box Matrix</span>
+  <button class="search-trigger" type="button" data-search-trigger aria-label="Search site"><span class="search-trigger__label">Search</span><kbd data-search-shortcut>Cmd K</kbd></button>
+</header>
+
+<main class="content">
+<div class="cram-hero">
+  <h1 class="cram-hero__title" id="high-yield-exam-cram-sheets">🎯 CS 6515 Master Exam Cram Sheets</h1>
+  <p class="cram-hero__subtitle">
+    Synthesized exam-night cheat sheets, strict 5-part TA rubric checklists, canonical recurrence formulas, reduction graphs, and the authorized black-box algorithm catalog.
+    <br><strong>Tip:</strong> Toggle <strong>Practice Mode</strong> (press <kbd>Q</kbd>) to blur recurrences and answers for active recall testing.
+  </p>
+  <div class="cram-hero__pills">
+    <a class="cram-pill" href="#rubric-checklist">📋 5-Part Rubric</a>
+    <a class="cram-pill" href="#exam-1">⚡ Exam 1 (DP & D&C)</a>
+    <a class="cram-pill" href="#exam-2">🕸️ Exam 2 (Graphs & Flow)</a>
+    <a class="cram-pill" href="#exam-3">🧩 Exam 3 (NP & LP)</a>
+    <a class="cram-pill" href="#black-box-matrix">📦 Black-Box Matrix</a>
+  </div>
+</div>
+
+<hr />
+
+<!-- =======================================================================
+     SECTION 1: 5-PART RUBRIC CHECKLIST
+     ======================================================================= -->
+<h2 id="rubric-checklist">📋 The Canonical CS 6515 5-Part Grading Rubric</h2>
+<blockquote>
+<p><strong>Warning:</strong> CS6515 graders follow this strict template. Leaving out a component or writing pseudocode when an algorithmic narrative is required causes severe point penalties.</p>
+</blockquote>
+
+<div class="cram-grid">
+  <div class="cram-card">
+    <div class="cram-card__header">
+      <h3 class="cram-card__title">1. Subproblem Definition</h3>
+      <span class="cram-card__tag">High Penalty Trap</span>
+    </div>
+    <div class="cram-card__section">
+      <div class="cram-card__label">What Graders Demand:</div>
+      <p>Must describe in <strong>plain English</strong> what table entry <span class="math inline">T(i)</span> or <span class="math inline">T(i, j)</span> represents. Specify exact prefix/suffix, 1-based indexing, and state bounds.</p>
+      <div class="cram-card__label">Example (LIS):</div>
+      <p><em>"Let <span class="math inline">L(i)</span> be the length of the longest increasing subsequence of <span class="math inline">A[1 \dots i]</span> that <strong>must include</strong> <span class="math inline">A[i]</span> as its last element, for <span class="math inline">1 \le i \le n</span>."</em></p>
+    </div>
+  </div>
+
+  <div class="cram-card">
+    <div class="cram-card__header">
+      <h3 class="cram-card__title">2. Recurrence Relation</h3>
+      <span class="cram-card__tag">Core Math</span>
+    </div>
+    <div class="cram-card__section">
+      <div class="cram-card__label">What Graders Demand:</div>
+      <p>Express <span class="math inline">T(i, j)</span> strictly as a function of strictly smaller subproblems. Explicitly explain the meaning of each branch in the <span class="math inline">\min</span> / <span class="math inline">\max</span>.</p>
+      <div class="cram-card__label">Common Trap:</div>
+      <p>Forgetting boundary conditions in the recurrence or mixing 0-indexed and 1-indexed pointers.</p>
+    </div>
+  </div>
+
+  <div class="cram-card">
+    <div class="cram-card__header">
+      <h3 class="cram-card__title">3. Base Cases</h3>
+      <span class="cram-card__tag">Easy -2 to -4 Points</span>
+    </div>
+    <div class="cram-card__section">
+      <div class="cram-card__label">What Graders Demand:</div>
+      <p>Define all initial boundary values (e.g. <span class="math inline">i=0</span> or empty sequence). State whether unreachable states are initialized to <span class="math inline">0</span>, <span class="math inline">-\infty</span>, or <span class="math inline">+\infty</span>.</p>
+      <div class="cram-card__label">Example (Knapsack):</div>
+      <p><span class="math inline">K(0, w) = 0</span> for all <span class="math inline">0 \le w \le W</span>, and <span class="math inline">K(i, 0) = 0</span> for all <span class="math inline">0 \le i \le n</span>.</p>
+    </div>
+  </div>
+
+  <div class="cram-card">
+    <div class="cram-card__header">
+      <h3 class="cram-card__title">4. Fill Order & Algorithm</h3>
+      <span class="cram-card__tag">No Pseudocode</span>
+    </div>
+    <div class="cram-card__section">
+      <div class="cram-card__label">What Graders Demand:</div>
+      <p>Explain the bottom-up loop structure. State the loop directions (e.g. <em>"outer loop <span class="math inline">i = 1 \dots n</span>, inner loop <span class="math inline">w = 1 \dots W</span>"</em>) ensuring dependencies are calculated before being used.</p>
+      <div class="cram-card__label">Goal Extraction:</div>
+      <p>Explicitly identify where the final answer is located (e.g. <span class="math inline">K(n, W)</span> or <span class="math inline">\max_{1 \le i \le n} L(i)</span>).</p>
+    </div>
+  </div>
+
+  <div class="cram-card" style="grid-column: 1 / -1;">
+    <div class="cram-card__header">
+      <h3 class="cram-card__title">5. Runtime & Space Complexity Analysis</h3>
+      <span class="cram-card__tag">Formula Required</span>
+    </div>
+    <div class="cram-card__section">
+      <p>Always state the formula: <strong>Total Time = (# of table entries) × (time to compute one entry) + (reconstruction/post-processing time)</strong>.</p>
+      <p>Always separately provide the <strong>Space Complexity</strong>: table dimensions <span class="math inline">O(n \cdot W)</span> or <span class="math inline">O(n^2)</span>.</p>
+    </div>
+  </div>
+</div>
+
+<hr />
+
+<!-- =======================================================================
+     SECTION 2: EXAM 1 MASTERY
+     ======================================================================= -->
+<h2 id="exam-1">⚡ Exam 1 Mastery: DP Archetypes & Divide-and-Conquer</h2>
+<p>Weeks 1–4 · Modules DP1, DP2, DC3, DC1, DC2, DP3. Master these 7 DP archetypes and recurrence patterns.</p>
+
+<div class="cram-grid">
+  <!-- LIS -->
+  <div class="cram-card">
+    <div class="cram-card__header">
+      <h3 class="cram-card__title">1. Longest Increasing Subsequence (LIS)</h3>
+      <span class="cram-card__tag">1-Index Suffix</span>
+    </div>
+    <div class="cram-card__section">
+      <div class="cram-card__label">Subproblem:</div>
+      <p><span class="math inline">L(i)</span>: length of LIS in <span class="math inline">A[1 \dots i]</span> ending at and including <span class="math inline">A[i]</span>.</p>
+      <div class="cram-card__label">Recurrence:</div>
+      <div class="cram-card__answer">
+        <span class="math display">L(i) = 1 + \max(\{0\} \cup \{L(j) : 1 \le j &lt; i \text{ and } A[j] &lt; A[i]\})</span>
+      </div>
+      <div class="cram-card__label">Final Answer & Runtime:</div>
+      <div class="cram-card__answer">
+        <p>Goal: <span class="math inline">\max_{1 \le i \le n} L(i)</span>. Table size: <span class="math inline">n</span>. Time: <span class="math inline">O(n^2)</span>. Space: <span class="math inline">O(n)</span>.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- LCS -->
+  <div class="cram-card">
+    <div class="cram-card__header">
+      <h3 class="cram-card__title">2. Longest Common Subsequence (LCS)</h3>
+      <span class="cram-card__tag">2-Prefix DP</span>
+    </div>
+    <div class="cram-card__section">
+      <div class="cram-card__label">Subproblem:</div>
+      <p><span class="math inline">C(i, j)</span>: length of LCS of prefixes <span class="math inline">X[1 \dots i]</span> and <span class="math inline">Y[1 \dots j]</span>.</p>
+      <div class="cram-card__label">Recurrence:</div>
+      <div class="cram-card__answer">
+        <span class="math display">C(i, j) = \begin{cases} C(i-1, j-1) + 1 &amp; \text{if } X[i] = Y[j] \\ \max(C(i-1, j), C(i, j-1)) &amp; \text{if } X[i] \neq Y[j] \end{cases}</span>
+      </div>
+      <div class="cram-card__label">Final Answer & Runtime:</div>
+      <div class="cram-card__answer">
+        <p>Goal: <span class="math inline">C(m, n)</span>. Base: <span class="math inline">C(i, 0) = C(0, j) = 0</span>. Time: <span class="math inline">O(mn)</span>. Space: <span class="math inline">O(mn)</span>.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 0/1 Knapsack -->
+  <div class="cram-card">
+    <div class="cram-card__header">
+      <h3 class="cram-card__title">3. 0/1 Knapsack (Without Repetition)</h3>
+      <span class="cram-card__tag">Subset Capacity</span>
+    </div>
+    <div class="cram-card__section">
+      <div class="cram-card__label">Subproblem:</div>
+      <p><span class="math inline">K(i, w)</span>: max value using a subset of items <span class="math inline">1 \dots i</span> with max weight capacity <span class="math inline">w</span>.</p>
+      <div class="cram-card__label">Recurrence:</div>
+      <div class="cram-card__answer">
+        <span class="math display">K(i, w) = \begin{cases} K(i-1, w) &amp; \text{if } w_i &gt; w \\ \max(K(i-1, w), K(i-1, w - w_i) + v_i) &amp; \text{if } w_i \le w \end{cases}</span>
+      </div>
+      <div class="cram-card__label">Final Answer & Runtime:</div>
+      <div class="cram-card__answer">
+        <p>Goal: <span class="math inline">K(n, W)</span>. Base: <span class="math inline">K(0, w) = K(i, 0) = 0</span>. Time: <span class="math inline">O(nW)</span> (pseudo-polynomial).</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Unbounded Knapsack -->
+  <div class="cram-card">
+    <div class="cram-card__header">
+      <h3 class="cram-card__title">4. Unbounded Knapsack (With Repetition)</h3>
+      <span class="cram-card__tag">1D Capacity</span>
+    </div>
+    <div class="cram-card__section">
+      <div class="cram-card__label">Subproblem:</div>
+      <p><span class="math inline">K(w)</span>: max value achievable with total weight capacity <span class="math inline">w</span>.</p>
+      <div class="cram-card__label">Recurrence:</div>
+      <div class="cram-card__answer">
+        <span class="math display">K(w) = \max(\{0\} \cup \{K(w - w_i) + v_i : i \text{ such that } w_i \le w\})</span>
+      </div>
+      <div class="cram-card__label">Final Answer & Runtime:</div>
+      <div class="cram-card__answer">
+        <p>Goal: <span class="math inline">K(W)</span>. Base: <span class="math inline">K(0) = 0</span>. Time: <span class="math inline">O(nW)</span>. Space: <span class="math inline">O(W)</span>.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chain Matrix -->
+  <div class="cram-card">
+    <div class="cram-card__header">
+      <h3 class="cram-card__title">5. Chain Matrix Multiplication</h3>
+      <span class="cram-card__tag">Interval DP</span>
+    </div>
+    <div class="cram-card__section">
+      <div class="cram-card__label">Subproblem:</div>
+      <p><span class="math inline">C(i, j)</span>: min scalar multiplications to multiply matrices <span class="math inline">A_i \times \dots \times A_j</span>.</p>
+      <div class="cram-card__label">Recurrence:</div>
+      <div class="cram-card__answer">
+        <span class="math display">C(i, j) = \min_{i \le k &lt; j} \{ C(i, k) + C(k+1, j) + m_{i-1} m_k m_j \}</span>
+      </div>
+      <div class="cram-card__label">Fill Order & Runtime:</div>
+      <div class="cram-card__answer">
+        <p>Loop by interval length <span class="math inline">L = 2 \dots n</span>. Base: <span class="math inline">C(i, i) = 0</span>. Time: <span class="math inline">O(n^3)</span>. Space: <span class="math inline">O(n^2)</span>.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shortest Path in DAG -->
+  <div class="cram-card">
+    <div class="cram-card__header">
+      <h3 class="cram-card__title">6. Shortest Path in a DAG</h3>
+      <span class="cram-card__tag">Topological DP</span>
+    </div>
+    <div class="cram-card__section">
+      <div class="cram-card__label">Subproblem:</div>
+      <p><span class="math inline">dist(u)</span>: length of shortest path from source <span class="math inline">s</span> to vertex <span class="math inline">u</span>.</p>
+      <div class="cram-card__label">Recurrence:</div>
+      <div class="cram-card__answer">
+        <span class="math display">dist(u) = \min_{(v, u) \in E} \{ dist(v) + w(v, u) \}</span>
+      </div>
+      <div class="cram-card__label">Fill Order & Runtime:</div>
+      <div class="cram-card__answer">
+        <p>Process vertices in <strong>topological sort order</strong>. Base: <span class="math inline">dist(s)=0</span>, all others <span class="math inline">\infty</span>. Time: <span class="math inline">O(V + E)</span>.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h3 id="dc-master-theorem">Master Theorem Decision Tree</h3>
+<p>For divide-and-conquer recurrences of form: <span class="math inline">T(n) = a T(n/b) + O(n^d)</span>, where <span class="math inline">a \ge 1, b &gt; 1, d \ge 0</span>:</p>
+<div class="blackbox-table-wrapper">
+  <table class="blackbox-table">
+    <thead>
+      <tr>
+        <th>Condition</th>
+        <th>Intuition</th>
+        <th>Solution Runtime</th>
+        <th>Canonical Example</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="math inline">d &lt; \log_b a</span></td>
+        <td><strong>Leaf-heavy:</strong> Leaves dominate cost</td>
+        <td><span class="math inline">O(n^{\log_b a})</span></td>
+        <td>Karatsuba Multiply: <span class="math inline">T(n) = 3T(n/2) + O(n) \implies O(n^{1.585})</span></td>
+      </tr>
+      <tr>
+        <td><span class="math inline">d = \log_b a</span></td>
+        <td><strong>Balanced:</strong> Each level costs the same</td>
+        <td><span class="math inline">O(n^d \log n)</span></td>
+        <td>MergeSort: <span class="math inline">T(n) = 2T(n/2) + O(n) \implies O(n \log n)</span></td>
+      </tr>
+      <tr>
+        <td><span class="math inline">d &gt; \log_b a</span></td>
+        <td><strong>Root-heavy:</strong> Top level dominates cost</td>
+        <td><span class="math inline">O(n^d)</span></td>
+        <td><span class="math inline">T(n) = 2T(n/2) + O(n^2) \implies O(n^2)</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<hr />
+
+<!-- =======================================================================
+     SECTION 3: EXAM 2 MASTERY
+     ======================================================================= -->
+<h2 id="exam-2">🕸️ Exam 2 Mastery: Graph Algorithms & Network Flow</h2>
+<p>Weeks 4–7 · Modules GR1, GR2, GR3, MF1, MF2, MF4. Graph reductions, cut property, and residual networks.</p>
+
+<div class="cram-grid">
+  <!-- Kosaraju -->
+  <div class="cram-card">
+    <div class="cram-card__header">
+      <h3 class="cram-card__title">Kosaraju Strongly Connected Components</h3>
+      <span class="cram-card__tag">O(V + E)</span>
+    </div>
+    <div class="cram-card__section">
+      <div class="cram-card__label">Two-Pass Algorithm:</div>
+      <p>1. Run DFS on reversed graph <span class="math inline">G^R</span>, recording post-visit numbers.</p>
+      <p>2. Run DFS on original graph <span class="math inline">G</span>, visiting unvisited vertices in <strong>decreasing order of post-numbers</strong>.</p>
+      <div class="cram-card__label">Key Theorem:</div>
+      <p>Vertex with largest post-number in <span class="math inline">G^R</span> belongs to a <strong>source SCC</strong> in <span class="math inline">G^R</span>, which is a <strong>sink SCC</strong> in <span class="math inline">G</span>. Peeling off sink SCCs isolates components cleanly.</p>
+    </div>
+  </div>
+
+  <!-- 2-SAT -->
+  <div class="cram-card">
+    <div class="cram-card__header">
+      <h3 class="cram-card__title">2-SAT via SCC Decomposition</h3>
+      <span class="cram-card__tag">O(V + E)</span>
+    </div>
+    <div class="cram-card__section">
+      <div class="cram-card__label">Implication Graph Construction:</div>
+      <p>Convert clause <span class="math inline">(x \lor y)</span> into two implication edges: <span class="math inline">\neg x \to y</span> and <span class="math inline">\neg y \to x</span>. Graph has <span class="math inline">2n</span> vertices.</p>
+      <div class="cram-card__label">Satisfiability Rule:</div>
+      <div class="cram-card__answer">
+        <p>A 2-SAT instance is satisfiable <strong>if and only if</strong> no variable <span class="math inline">x</span> and its negation <span class="math inline">\neg x</span> lie in the <strong>same SCC</strong>.</p>
+      </div>
+      <div class="cram-card__label">Assignment Rule:</div>
+      <p>Contract SCCs to DAG. Assign truth values by traversing in reverse topological order (sink to source): first seen gets TRUE, its negation gets FALSE.</p>
+    </div>
+  </div>
+
+  <!-- MST Cut Property -->
+  <div class="cram-card">
+    <div class="cram-card__header">
+      <h3 class="cram-card__title">MST Cut Property & Cycle Property</h3>
+      <span class="cram-card__tag">Greedy Proofs</span>
+    </div>
+    <div class="cram-card__section">
+      <div class="cram-card__label">The Cut Property (Kruskal & Prim):</div>
+      <div class="cram-card__answer">
+        <p>For any cut <span class="math inline">(S, V \setminus S)</span>, the edge of <strong>minimum weight</strong> crossing the cut is guaranteed to be in the MST.</p>
+      </div>
+      <div class="cram-card__label">The Cycle Property:</div>
+      <div class="cram-card__answer">
+        <p>In any cycle <span class="math inline">C</span>, the edge of <strong>maximum weight</strong> is never in the unique MST (safe to eliminate).</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Max Flow Min Cut -->
+  <div class="cram-card">
+    <div class="cram-card__header">
+      <h3 class="cram-card__title">Max-Flow Min-Cut Theorem & Edmonds-Karp</h3>
+      <span class="cram-card__tag">MF Duality</span>
+    </div>
+    <div class="cram-card__section">
+      <div class="cram-card__label">Residual Graph <span class="math inline">G_f</span> Edges:</div>
+      <p>Forward edge <span class="math inline">(u, v)</span> has residual capacity <span class="math inline">c(u,v) - f(u,v)</span>.</p>
+      <p>Backward edge <span class="math inline">(v, u)</span> has residual capacity <span class="math inline">f(u,v)</span> (pushing backwards cancels flow).</p>
+      <div class="cram-card__label">Min-Cut Extraction:</div>
+      <div class="cram-card__answer">
+        <p>When no augmenting path exists, let <span class="math inline">S = \{u \in V : u \text{ reachable from } s \text{ in } G_f\}</span>. The cut <span class="math inline">(S, V \setminus S)</span> is a minimum cut with capacity equal to max flow!</p>
+      </div>
+      <div class="cram-card__label">Edmonds-Karp Runtime:</div>
+      <p><span class="math inline">O(V \cdot E^2)</span> using BFS to find augmenting path with fewest edges.</p>
+    </div>
+  </div>
+</div>
+
+<hr />
+
+<!-- =======================================================================
+     SECTION 4: EXAM 3 MASTERY
+     ======================================================================= -->
+<h2 id="exam-3">🧩 Exam 3 Mastery: NP-Completeness & Linear Programming</h2>
+<p>Weeks 8–10 · Modules NP1–NP5, LP1–LP4. Reduction directions, standard form, and duality.</p>
+
+<div class="cram-card" style="margin-bottom: 1.5rem;">
+  <div class="cram-card__header">
+    <h3 class="cram-card__title">⚠️ The Golden Rule of NP-Completeness Reductions</h3>
+    <span class="cram-card__tag" style="background: rgba(239, 68, 68, 0.2); color: #f87171; border-color: rgba(239, 68, 68, 0.4);">Exam Zero-Credit Trap</span>
+  </div>
+  <div class="cram-card__section">
+    <p>To prove problem <span class="math inline">B</span> is NP-Complete:</p>
+    <ol>
+      <li><strong>Show <span class="math inline">B \in \text{NP}</span>:</strong> Given a proposed certificate/solution, verify it in polynomial time.</li>
+      <li><strong>Choose a known NP-Complete problem <span class="math inline">A</span>.</strong></li>
+      <li><strong>Reduce <span class="math inline">A \le_p B</span>:</strong> Construct a polynomial-time algorithm <span class="math inline">f</span> mapping an arbitrary instance <span class="math inline">I_A \to I_B</span>.</li>
+      <li><strong>Correctness:</strong> Prove <span class="math inline">I_A</span> is YES <span class="math inline">\iff</span> <span class="math inline">f(I_A)</span> is YES (both directions: <span class="math inline">\implies</span> and <span class="math inline">\impliedby</span>).</li>
+    </ol>
+    <p style="color: #f87171;"><strong>Fatal Mistake:</strong> NEVER reduce <span class="math inline">B \le_p A</span>! That only proves <span class="math inline">B</span> is no harder than <span class="math inline">A</span>, not that <span class="math inline">B</span> is NP-hard.</p>
+  </div>
+</div>
+
+<h3 id="canonical-reduction-map">Canonical NP Reduction Map</h3>
+<pre class="mermaid">
+graph LR
+  CS[Circuit-SAT] --> 3SAT[3-SAT]
+  3SAT --> IS[Independent Set]
+  IS <--> VC[Vertex Cover]
+  IS <--> CLIQUE[Clique]
+  3SAT --> SS[Subset Sum]
+  SS --> KNAP[Knapsack]
+  3SAT --> COLOR[3-Coloring]
+  DIRHAM[Directed Ham-Cycle] --> UNDIRHAM[Undirected Ham-Cycle]
+  UNDIRHAM --> TSP[TSP]
+</pre>
+
+<div class="cram-grid">
+  <!-- IS to VC -->
+  <div class="cram-card">
+    <div class="cram-card__header">
+      <h3 class="cram-card__title">Independent Set ↔ Vertex Cover</h3>
+      <span class="cram-card__tag">Complement Theorem</span>
+    </div>
+    <div class="cram-card__section">
+      <div class="cram-card__label">Equivalence:</div>
+      <div class="cram-card__answer">
+        <p>In any graph <span class="math inline">G=(V, E)</span>, a subset <span class="math inline">S \subseteq V</span> is an <strong>Independent Set</strong> of size <span class="math inline">k</span> <span class="math inline">\iff</span> the complement <span class="math inline">V \setminus S</span> is a <strong>Vertex Cover</strong> of size <span class="math inline">|V| - k</span>.</p>
+      </div>
+      <div class="cram-card__label">Reduction:</div>
+      <p>Given instance <span class="math inline">(G, k)</span> of IS, create instance <span class="math inline">(G, |V| - k)</span> of VC. Construction takes <span class="math inline">O(1)</span> time.</p>
+    </div>
+  </div>
+
+  <!-- IS to Clique -->
+  <div class="cram-card">
+    <div class="cram-card__header">
+      <h3 class="cram-card__title">Independent Set ↔ Clique</h3>
+      <span class="cram-card__tag">Complement Graph</span>
+    </div>
+    <div class="cram-card__section">
+      <div class="cram-card__label">Equivalence:</div>
+      <div class="cram-card__answer">
+        <p>A subset <span class="math inline">S \subseteq V</span> is an <strong>Independent Set</strong> in <span class="math inline">G=(V,E)</span> <span class="math inline">\iff</span> <span class="math inline">S</span> is a <strong>Clique</strong> in the complement graph <span class="math inline">\overline{G}=(V, \overline{E})</span>.</p>
+      </div>
+      <div class="cram-card__label">Reduction:</div>
+      <p>Construct complement graph <span class="math inline">\overline{G}</span> where <span class="math inline">(u, v) \in \overline{E} \iff (u, v) \notin E</span>. Runtime: <span class="math inline">O(V^2)</span>.</p>
+    </div>
+  </div>
+
+  <!-- LP Duality -->
+  <div class="cram-card" style="grid-column: 1 / -1;">
+    <div class="cram-card__header">
+      <h3 class="cram-card__title">Linear Programming Duality Recipes</h3>
+      <span class="cram-card__tag">Primal ↔ Dual</span>
+    </div>
+    <div class="cram-card__section">
+      <div class="cram-card__label">Standard Primal-Dual Recipe:</div>
+      <div class="blackbox-table-wrapper">
+        <table class="blackbox-table">
+          <thead>
+            <tr>
+              <th>Primal (Maximization)</th>
+              <th>Dual (Minimization)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Objective: <span class="math inline">\max c^T x</span></td>
+              <td>Objective: <span class="math inline">\min b^T y</span></td>
+            </tr>
+            <tr>
+              <td><span class="math inline">i</span>-th constraint is <span class="math inline">\le b_i</span></td>
+              <td><span class="math inline">i</span>-th dual variable <span class="math inline">y_i \ge 0</span></td>
+            </tr>
+            <tr>
+              <td><span class="math inline">i</span>-th constraint is <span class="math inline">= b_i</span></td>
+              <td><span class="math inline">i</span>-th dual variable <span class="math inline">y_i</span> is unconstrained</td>
+            </tr>
+            <tr>
+              <td><span class="math inline">j</span>-th variable <span class="math inline">x_j \ge 0</span></td>
+              <td><span class="math inline">j</span>-th constraint is <span class="math inline">\ge c_j</span></td>
+            </tr>
+            <tr>
+              <td><strong>Strong Duality:</strong> If primal has optimal <span class="math inline">x^*</span>, then dual has optimal <span class="math inline">y^*</span> and <span class="math inline">c^T x^* = b^T y^*</span>.</td>
+              <td><strong>Weak Duality:</strong> For any feasible <span class="math inline">x</span> and <span class="math inline">y</span>, <span class="math inline">c^T x \le b^T y</span>.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr />
+
+<!-- =======================================================================
+     SECTION 5: BLACK-BOX CATALOG
+     ======================================================================= -->
+<h2 id="black-box-matrix">📦 Authorized Black-Box Algorithm Catalog & Runtimes</h2>
+<p>
+  In Georgia Tech CS6515 exams, you are expected to use these algorithms as <strong>black boxes</strong> without re-deriving them.
+  State the algorithm name, inputs, and its asymptotic runtime.
+</p>
+
+<div class="blackbox-table-wrapper">
+  <table class="blackbox-table">
+    <thead>
+      <tr>
+        <th>Algorithm</th>
+        <th>Permitted Runtime</th>
+        <th>Required Preconditions</th>
+        <th>Output / Problem Solved</th>
+        <th>Exam Warning</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>BFS / DFS</strong></td>
+        <td><span class="math inline">O(V + E)</span></td>
+        <td>Adjacency list representation</td>
+        <td>Connectivity, unweighted shortest path, cycle detection, topological sort</td>
+        <td>Unweighted only; BFS fails on weighted edges.</td>
+      </tr>
+      <tr>
+        <td><strong>Kosaraju SCC</strong></td>
+        <td><span class="math inline">O(V + E)</span></td>
+        <td>Directed graph <span class="math inline">G</span></td>
+        <td>Strongly connected components & component DAG (metagraph)</td>
+        <td>Two DFS passes (<span class="math inline">G^R</span> then <span class="math inline">G</span>).</td>
+      </tr>
+      <tr>
+        <td><strong>2-SAT Solver</strong></td>
+        <td><span class="math inline">O(V + E)</span></td>
+        <td>2-CNF boolean formula</td>
+        <td>Satisfying assignment or proof of unsatisfiability</td>
+        <td>Only for 2 literals per clause; 3-SAT is NP-Complete!</td>
+      </tr>
+      <tr>
+        <td><strong>Dijkstra</strong></td>
+        <td><span class="math inline">O((V + E) \log V)</span></td>
+        <td><strong>Non-negative</strong> edge weights: <span class="math inline">w(e) \ge 0</span></td>
+        <td>Single-source shortest paths</td>
+        <td>Fails on negative edges! Do NOT use if negative weights exist.</td>
+      </tr>
+      <tr>
+        <td><strong>Bellman-Ford</strong></td>
+        <td><span class="math inline">O(V \cdot E)</span></td>
+        <td>Directed graph with no negative-weight cycles</td>
+        <td>Single-source shortest paths; detects negative cycles in <span class="math inline">V</span> iterations</td>
+        <td>Slower than Dijkstra, but works with negative edges.</td>
+      </tr>
+      <tr>
+        <td><strong>Floyd-Warshall</strong></td>
+        <td><span class="math inline">O(V^3)</span></td>
+        <td>No negative-weight cycles</td>
+        <td>All-pairs shortest paths</td>
+        <td>State table: <span class="math inline">dist(i, j, k)</span> via intermediate vertex <span class="math inline">k</span>.</td>
+      </tr>
+      <tr>
+        <td><strong>Kruskal (Union-Find)</strong></td>
+        <td><span class="math inline">O(E \log V)</span></td>
+        <td>Connected, undirected graph with weights</td>
+        <td>Minimum Spanning Tree (MST)</td>
+        <td>Uses Disjoint-Set Union (Find/Union with path compression).</td>
+      </tr>
+      <tr>
+        <td><strong>Prim (Min-Heap)</strong></td>
+        <td><span class="math inline">O(E \log V)</span></td>
+        <td>Connected, undirected graph with weights</td>
+        <td>Minimum Spanning Tree (MST)</td>
+        <td>Grows a single tree from a start vertex.</td>
+      </tr>
+      <tr>
+        <td><strong>Ford-Fulkerson</strong></td>
+        <td><span class="math inline">O(E \cdot |f^*|)</span></td>
+        <td>Network with <strong>integer</strong> capacities</td>
+        <td>Maximum flow value and flow on each edge</td>
+        <td>Runtime depends on flow value <span class="math inline">|f^*|</span>; use Edmonds-Karp if polynomial needed.</td>
+      </tr>
+      <tr>
+        <td><strong>Edmonds-Karp</strong></td>
+        <td><span class="math inline">O(V \cdot E^2)</span></td>
+        <td>Flow network (any non-negative capacities)</td>
+        <td>Maximum flow value, min-cut partition <span class="math inline">(S, T)</span></td>
+        <td>Augmenting paths found using BFS (shortest # of edges).</td>
+      </tr>
+      <tr>
+        <td><strong>FastSelect (Median of Medians)</strong></td>
+        <td><span class="math inline">O(n)</span></td>
+        <td>Unsorted array of <span class="math inline">n</span> elements</td>
+        <td><span class="math inline">k</span>-th smallest element deterministically</td>
+        <td>Groups of 5; recurrence <span class="math inline">T(n) \le T(n/5) + T(7n/10) + O(n)</span>.</td>
+      </tr>
+      <tr>
+        <td><strong>Fast Fourier Transform (FFT)</strong></td>
+        <td><span class="math inline">O(n \log n)</span></td>
+        <td>Two polynomials of degree <span class="math inline">\le n</span></td>
+        <td>Polynomial multiplication / convolution</td>
+        <td>Evaluates at complex roots of unity; Week 11 material.</td>
+      </tr>
+      <tr>
+        <td><strong>Simplex Algorithm</strong></td>
+        <td>Exponential worst-case / Polynomial in practice</td>
+        <td>Linear program in standard form</td>
+        <td>Optimal vector <span class="math inline">x^*</span> or proof of infeasibility/unboundedness</td>
+        <td>Traverses vertices of feasible polytope.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</main>
+
+<script src="../vendor/katex/katex.min.js"></script>
+<script src="../vendor/katex/contrib/auto-render.min.js"></script>
+<script>
+  function renderMath() {
+    if (typeof renderMathInElement === 'function') {
+      renderMathInElement(document.body, {
+        delimiters: [
+          { left: '$$', right: '$$', display: true },
+          { left: '\\[', right: '\\]', display: true },
+          { left: '$', right: '$', display: false },
+          { left: '\\(', right: '\\)', display: false }
+        ],
+        throwOnError: false
+      });
+    }
+  }
+  try { renderMath(); } catch (e) { console.error('Math error:', e); }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', renderMath);
+  }
+</script>
+<script src="../site.js" defer></script>
+</body>
+</html>
