@@ -135,7 +135,7 @@ and back — a contradiction.</p>
 <h3 id="shortest-paths-as-dp-dp3">Shortest paths as DP (DP3)</h3>
 <p><strong>Bellman-Ford</strong> — DP over <strong>number of
 edges</strong>. Let <span
-class="math inline">dist<sup>(<em>k</em>)</sup>(<em>v</em>)</span> =
+class="math inline">dist<sup>(<em>k</em>)</sup>(<em>v</em>)</span> = 
 shortest <span class="math inline"><em>s</em> → <em>v</em></span> path
 using <span class="math inline"> ≤ <em>k</em></span> edges: <span
 class="math display">dist<sup>(<em>k</em>)</sup>(<em>v</em>) = min (dist<sup>(<em>k</em> − 1)</sup>(<em>v</em>), min<sub>(<em>u</em>, <em>v</em>) ∈ <em>E</em></sub> dist<sup>(<em>k</em> − 1)</sup>(<em>u</em>) + <em>w</em>(<em>u</em>, <em>v</em>)).</span></p>
@@ -247,7 +247,7 @@ class="math inline"><em>G</em><sup><em>R</em></sup></span> gives highest
 post in <span
 class="math inline">{<em>A</em>, <em>B</em>, <em>C</em>}</span> (a
 source SCC of <span
-class="math inline"><em>G</em><sup><em>R</em></sup></span> = sink-side
+class="math inline"><em>G</em><sup><em>R</em></sup></span> =  sink-side
 of <span class="math inline"><em>G</em></span>).</li>
 <li>Processing <span class="math inline"><em>G</em></span> by decreasing
 <span class="math inline"><em>G</em><sup><em>R</em></sup></span> post
@@ -272,9 +272,7 @@ or mis-assigning truth (later SCC in topo order = true).</li>
 <h2 id="how-to-answer-hw--exam">How to answer (HW / exam)</h2>
 <p>Graph problems = <strong>transform input/output around a black
 box</strong> (DFS, SCC, BFS, Dijkstra). Don't rewrite the black box. See
-<a href="guidance/graph-theory-guidance.html">graph guidance</a> · <a
-href="guidance/usable-black-boxes-graphs.html">usable black
-boxes</a>.</p>
+<a href="../../cs6515-algorithm-rules-and-guidelines/index.html#graph-algorithms">Graph Guidance</a> · <a href="../../cs6515-algorithm-rules-and-guidelines/8129088_Usable_Black_Boxes_for_Graphs.html">Usable Black Boxes</a>.</p>
 <details>
 <summary><b>Go deeper</b> — readings · guidance · deep notes</summary>
 
@@ -283,9 +281,7 @@ boxes</a>.</p>
 (graphs)</a> · <a href="readings/DPV-ch4-paths-in-graphs.pdf">§4.x
 (paths)</a> · <a href="readings/DPV-ch6-dynamic-programming.pdf">§6.x
 (DP shortest path)</a></li>
-<li><a href="guidance/graph-theory-guidance.html">Graph guidance</a> ·
-<a href="guidance/usable-black-boxes-graphs.html">Black boxes</a> · <a
-href="guidance/dynamic-programming-guidance.html">DP guidance</a></li>
+<li><a href="../../cs6515-algorithm-rules-and-guidelines/index.html#graph-algorithms">Graph Theory Guidance</a> · <a href="../../cs6515-algorithm-rules-and-guidelines/8129088_Usable_Black_Boxes_for_Graphs.html">Black Boxes (SCC, 2-SAT)</a> · <a href="../../cs6515-algorithm-rules-and-guidelines/index.html#dynamic-programming">DP Guidance</a></li>
 <li>Deep notes: <a href="notes/GR0-graph-fundamentals.html">GR0
 fundamentals</a> · <a
 href="notes/GR1-strongly-connected-components.html">GR1 SCC</a> · <a
@@ -293,7 +289,7 @@ href="notes/GR2-2sat.html">GR2 2-SAT</a> · <a
 href="notes/graphs-cheat-sheet.html">cheat sheet</a></li>
 <li><a href="lectures/">lectures/</a> · <a
 href="transcripts/">transcripts/</a> · <a href="readings/">readings/</a>
-· <a href="guidance/">guidance/</a> · <a href="notes/">notes/</a></li>
+· <a href="../../cs6515-algorithm-rules-and-guidelines/index.html#graph-algorithms">guidance/</a> · <a href="notes/">notes/</a></li>
 </ul>
 </details>
 
@@ -374,7 +370,7 @@ alt="BFS animation" /></p>
         for all (v,w) ∈ E:
             if dist[w] = ∞:
                 dist[w] = dist[v] + 1; prev[w] = v; enqueue(Q, w)</code></pre>
-<p><strong>Dijkstra</strong> = BFS for
+<p><strong>Dijkstra</strong> =  BFS for
 <strong>positive</strong>-weighted graphs, <span
 class="math inline"><em>O</em>((|<em>V</em>|+|<em>E</em>|)log |<em>V</em>|)</span>
 with a min-heap; it fails on negative weights (use Bellman-Ford). Key
@@ -460,7 +456,7 @@ class="math inline"><em>E</em><sup><em>R</em></sup> = {(<em>w</em>, <em>v<
 vertex in <span
 class="math inline"><em>G</em><sup><em>R</em></sup></span> is in a
 <strong>source SCC of <span
-class="math inline"><em>G</em><sup><em>R</em></sup></span> = sink SCC of
+class="math inline"><em>G</em><sup><em>R</em></sup></span> =  sink SCC of
 <span class="math inline"><em>G</em></span></strong>.</p>
 <p><strong>SCC algorithm</strong> (<span
 class="math inline"><em>O</em>(<em>n</em> + <em>m</em>)</span>):</p>
@@ -601,7 +597,7 @@ edges.</p>
 <p><img src="../../.assets/CS6515_images/DP1-008.png"
 alt="shortest-path setup" /></p>
 <p>For <span class="math inline"><em>z</em> ∈ <em>V</em></span>, <span
-class="math inline">dist (<em>z</em>)</span> = length of the shortest
+class="math inline">dist (<em>z</em>)</span> =  length of the shortest
 path from <span class="math inline"><em>s</em></span> to <span
 class="math inline"><em>z</em></span> (an array of length <span
 class="math inline"><em>n</em></span>). Dijkstra solves this in <span
@@ -625,7 +621,7 @@ class="math inline"><em>z</em></span> (single-source shortest path).</p>
 <p>With no negative cycle, a shortest path visits each vertex at most
 once, so it has <span class="math inline"> ≤ <em>n</em> − 1</span>
 edges. Condition on the <strong>number of edges</strong>: let <span
-class="math inline"><em>D</em>(<em>i</em>, <em>z</em>)</span> = length
+class="math inline"><em>D</em>(<em>i</em>, <em>z</em>)</span> =  length
 of the shortest <span class="math inline"><em>s</em> → <em>z</em></span>
 path using <span class="math inline"> ≤ <em>i</em></span> edges, <span
 class="math inline">0 ≤ <em>i</em> ≤ <em>n</em> − 1</span>, <span

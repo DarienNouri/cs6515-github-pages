@@ -8,160 +8,198 @@
 <link rel="stylesheet" href="../theme.css">
 <link rel="stylesheet" href="../vendor/katex/katex.min.css">
 <link rel="stylesheet" href="../vendor/highlight/styles/tokyo-night-dark.min.css">
-
 </head>
 <body>
 <header class="topbar">
   <a class="home" href="../index.html">CS6515</a>
+  <span class="topbar__sep">/</span>
+  <a class="crumbloc" href="index.html">Algorithm Guidance</a>
+  <span class="topbar__sep">/</span>
   <span class="crumbloc">Dynamic Programming Guidance</span>
-<button class="search-trigger" type="button" data-search-trigger aria-label="Search site"><span class="search-trigger__label">Search</span><kbd data-search-shortcut>Cmd K</kbd></button>
+  <button class="search-trigger" type="button" data-search-trigger aria-label="Search site"><span class="search-trigger__label">Search</span><kbd data-search-shortcut>Cmd K</kbd></button>
 </header>
 <main class="content">
 <h1 id="dynamic-programming-guidance">Dynamic Programming Guidance</h1>
-<h2 id="post">Post</h2>
-<p>Solutions for <strong>Dynamic Programming</strong> (DP) Homework are
-in a written format with required components. This post is intended to
-give a general overview of those parts of such a solution. You will also
-see quiz and exam questions based on what constitutes a complete
-solution for DP.</p>
-<h2 id="general-rules">General Rules</h2>
-<ul>
-<li><p>Submissions must be a Dynamic Programming approach to be eligible
-for points.</p></li>
-<li><p>No recursion or memoization.</p></li>
-<li><p><em><strong>Inputs</strong></em> are always indexed starting from
-1, unless stated otherwise (i.e. <code>A[0]</code> is usually
-invalid).</p></li>
-<li><p><em><strong>Inputs</strong></em> may not be modified - they are
-to be treated as immutable.</p></li>
-<li><p>Tables may start from anywhere. If you need <code>T[0]</code> or
-<code>T[-1]</code> for a base case, this is valid as long as it is
-defined.</p></li>
-<li><p>Tables may <strong>only</strong> store primitive values:
-integers, decimals, characters, or Booleans.</p></li>
-</ul>
-<h2 id="required-sections">Required Sections</h2>
-<ul>
-<li><p><strong>(a) Subproblem Definition</strong></p></li>
-<li><p><strong>ALWAYS</strong> build on a
-<em><strong><strong>subset</strong></strong></em> of the input (e.g.,
-<code>A[1..i]</code>).</p></li>
-<li><p>Conceptually, the subproblem should always be defined against
-"previous" subproblems and not on the entire input.</p></li>
-<li><p>Is represented using words: "<code>T(i,j)</code> is the
-....."</p></li>
-<li><p>Should use words from the problem statement without redefining
-their meaning</p></li>
-<li><p>May or may not require inclusion of the last element: ",
-including <code>A[i]</code>"</p></li>
-<li><p>The lectures use the phrase "which includes <code>a[i]</code>" to
-add the constraint "element <code>a[i]</code> must be used in the
-subproblem output." The phrases "which includes <code>i</code>" and
-"ending at <code>a[i]</code>" would also imply this constraint. These
-are <em><strong>not</strong></em> referring to the range of indices
-considered for the subproblem, <code>1,2,...,i</code>, which is assumed
-inclusive <span class="math inline">[1, <em>i</em>]</span>.</p></li>
-<li><p><strong>(b) Recurrence Definition</strong></p></li>
-<li><p>#10 #10 #10 Read, absorb, and love #10 #10 #10</p></li>
-<li><p>Expressed using <strong>mathematical</strong> notation - no
-programming constructs and not in words</p></li>
-<li><p>The table gets a <strong>single</strong> mathematical definition
-for all entries - there is no logic/flow control structure other than
-stating a set of conditional definitions.</p></li>
-<li><p>Defines the value of all table entries recursively to smaller
-subproblems</p></li>
-<li><p>Any referenced table entry must also be well-defined</p></li>
-<li><p>i.e. a reference for <code>T(i-2)</code> for
-<code>1 &lt;= i &lt;= n</code> requires a definition for
-<code>T(-1)</code></p></li>
-<li><p>It cannot be defined self-referentially (e.g.
-<code>T(i) = max(T(i), ...)</code>)</p></li>
-<li><p>When base case(s) are necessary, include them and their
-applicable bounds</p></li>
-<li><p>Example: <code>T(i,0) = 0 for 1 &lt;= i &lt;= n</code></p></li>
-<li><p>Always provide bounds for any variables used, scoped to where
-they are used</p></li>
-<li><p>Focus on table definitions, not a final solution (i.e. no return
-value)</p></li>
-<li><p><strong>(c) Implementation Analysis (1,2,3,4)</strong></p></li>
-<li><p>These parts should be based on the recurrence you use in the
-previous section.</p></li>
-<li><p><strong>(1) State the number of subproblems in big-O
-notation</strong></p></li>
-<li><p>This scales similar to runtime complexity</p></li>
-<li><p>A one-dimensional table ranging from indices -1 to n would be
-<code>O(n)</code>.</p></li>
-<li><p>e.g. <code>O(n)</code>, <code>O(n*m)</code></p></li>
-<li><p><strong>(2) State the runtime to fill this
-table</strong></p></li>
-<li><p>Always, <em>always</em> in this course - worst case Big-O
-notation.</p></li>
-<li><ul>
-<li>e.g. <code>O(n^2)</code></li>
-</ul></li>
-<li><p><strong>(3) State how/where the final return is extracted from
-that table</strong></p></li>
-<li><p>e.g. <code>sum{T(*)}</code>, <code>max{T(*)}</code>,
-<code>T(n)</code>, <code>max(T(n), T(n-1))</code></p></li>
-<li></li>
-<li><p><strong>(4) State the runtime to extract the final return in
-big-O notation</strong></p></li>
-</ul>
-<h2 id="tips-and-tricks">Tips and Tricks</h2>
-<ul>
-<li><p>You will be tempted to start with code. This is a terrible idea.
-Starting with code ensures your recurrence will be nearly impossible to
-craft. Do these sections in order - Dr. Vigoda does the same thing, and
-you should see how seamlessly the final solution comes together. Define
-a subproblem, which can then be translated to the mathematical
-recurrence, and the analysis can be easily derived from that.</p></li>
-<li><p>The lectures contain multiple approaches (LIS, LCS, Knapsack,
-CMM, etc.). When solving a new problem, first try to think of which
-approach makes the most sense to adapt for a solution to the new
-problem.</p></li>
-</ul>
-<h2 id="example-solution">Example Solution</h2>
-<p>Expand the spoiler below for an example of what a complete DP
-solution looks like:</p>
-<h2 id="longest-increasing-subsequence-lis">Longest Increasing
-Subsequence (LIS)</h2>
-<p><strong>a. Define the entries of your table in words. E.g., T(i) or
-T(i, j) is ...</strong></p>
-<p>Let T(i) = length of LIS in a[1...i] which includes a[i]</p>
-<p><strong>b. State recurrence for entries of your table in terms of
-smaller subproblems.</strong></p>
-<pre><code>T(1) = 1
 
-T(i) = 1 + max{T(j) if a[i] &gt; a[j] : where 1 &lt;= j &lt;= i-1} 
-     where 2 &lt;= i &lt;= n 
-</code></pre>
-<p><strong>c. Implementation Analysis</strong></p>
-<p><strong>(1) State the number of subproblems:</strong>
-<code>O(n)</code> <strong>(2) State the runtime for table fill:</strong>
-<code>O(n^2)</code> <strong>(3) State how the return is
-extracted:</strong> <code>return max{T(*)}</code> <strong>(4) State the
-runtime of that return extraction:</strong> <code>O(n)</code></p>
-<p>Please use this thread to ask any follow-up questions regarding what
-constitutes a complete DP solution, or clarifications on the above
-information.</p>
-<h2 id="responses-12">Responses (12)</h2>
-<ul>
-<li><p><strong>Comment</strong></p>
+<div class="guidance-banner">
+  <div class="guidance-banner__tags">
+    <span class="badge badge--staff">Staff Guidance</span>
+    <span class="badge badge--blue">Dynamic Programming</span>
+    <span class="badge badge--teal">Standard Template</span>
+  </div>
+  <span class="text-muted">Required solution components, rubric standards, and canonical LIS reference</span>
+</div>
+
+<p class="lead">Solutions for <strong>Dynamic Programming</strong> (DP) Homework are in a written format with required components. This post gives a general overview of the four mandatory parts of a DP solution. You will also see quiz and exam questions based on what constitutes a complete solution for DP.</p>
+
+<section class="guidance-section">
+  <h2 id="general-rules">General Rules</h2>
+  <ul>
+    <li><strong>Algorithmic Paradigm:</strong> Submissions must be a Dynamic Programming approach to be eligible for points.</li>
+    <li><strong>No Recursion or Memoization:</strong> Solutions must use an iterative bottom-up table fill approach. Recursive implementations or top-down memoization are not accepted.</li>
+    <li><strong>1-Based Indexing:</strong> <em>Inputs</em> are always indexed starting from 1, unless stated otherwise (i.e. <code>A[0]</code> is usually invalid).</li>
+    <li><strong>Immutable Inputs:</strong> <em>Inputs</em> may not be modified — they are to be treated as immutable.</li>
+    <li><strong>Table Indexing Flexibility:</strong> Tables may start from anywhere. If you need <code>T[0]</code> or <code>T[-1]</code> for a base case, this is valid as long as it is explicitly defined.</li>
+    <li><strong>Primitive Values Only:</strong> Tables may <strong>only</strong> store primitive values: integers, decimals, characters, or Booleans. Never store lists, sets, or sequences inside table cells.</li>
+  </ul>
+</section>
+
+<section class="guidance-section">
+  <h2 id="required-sections">Required Sections (The 4-Part DP Template)</h2>
+
+  <h3>(a) Subproblem Definition</h3>
+  <ul>
+    <li><strong>ALWAYS</strong> build on a <em><strong>subset</strong></em> of the input (e.g., $A[1 \dots i]$).</li>
+    <li>Conceptually, the subproblem should always be defined against "previous" subproblems and not on the entire input.</li>
+    <li>Is represented using words: <em>"$T(i, j)$ is the ....."</em></li>
+    <li>Should use words from the problem statement without redefining their meaning.</li>
+    <li>May or may not require inclusion of the last element: <em>", including $A[i]$"</em>.</li>
+    <li>
+      <div class="callout callout--tip">
+        <p><strong>Course Convention on Inclusion:</strong> The lectures use the phrase <em>"which includes $a[i]$"</em> to add the constraint "element $a[i]$ must be used in the subproblem output." The phrases <em>"which includes $i$"</em> and <em>"ending at $a[i]$"</em> would also imply this constraint. These are <em><strong>not</strong></em> referring to the range of indices considered for the subproblem, $1, 2, \dots, i$, which is assumed inclusive $[1, i]$.</p>
+      </div>
+    </li>
+  </ul>
+
+  <h3>(b) Recurrence Definition</h3>
+  <div class="callout callout--warning">
+    <p><strong>Rule #10:</strong> Read, absorb, and love Post #10 on Recurrence Relations!</p>
+  </div>
+  <ul>
+    <li>Expressed using <strong>mathematical</strong> notation — no programming constructs and not in words.</li>
+    <li>The table gets a <strong>single</strong> mathematical definition for all entries — there is no logic/flow control structure other than stating a set of conditional definitions.</li>
+    <li>Defines the value of all table entries recursively in terms of smaller subproblems.</li>
+    <li>Any referenced table entry must also be well-defined (i.e. a reference for $T(i - 2)$ for $1 \le i \le n$ requires a definition for $T(-1)$ and $T(0)$).</li>
+    <li>It cannot be defined self-referentially (e.g. $T(i) = \max(T(i), \dots)$).</li>
+    <li>When base case(s) are necessary, include them and their applicable bounds (e.g. $T(i, 0) = 0$ for $1 \le i \le n$).</li>
+    <li>Always provide bounds for any variables used, scoped to where they are used.</li>
+    <li>Focus on table definitions, not a final solution (i.e. no return value here).</li>
+  </ul>
+
+  <h3>(c) Implementation Analysis (Parts 1, 2, 3, 4)</h3>
+  <p>These parts should be based directly on the recurrence you developed in the previous section.</p>
+  <ol>
+    <li><strong>State the number of subproblems in Big-O notation:</strong>
+      <ul>
+        <li>This scales similarly to space complexity.</li>
+        <li>A one-dimensional table ranging from indices $-1$ to $n$ would be $O(n)$.</li>
+        <li>Examples: $O(n)$, $O(n \cdot m)$.</li>
+      </ul>
+    </li>
+    <li><strong>State the runtime to fill this table:</strong>
+      <ul>
+        <li>Always, <em>always</em> in this course — worst-case Big-O notation.</li>
+        <li>Example: $O(n^2)$.</li>
+      </ul>
+    </li>
+    <li><strong>State how/where the final return is extracted from that table:</strong>
+      <ul>
+        <li>Examples: $\sum_{i=1}^n T(i)$, $\max_{1 \le i \le n} T(i)$, $T(n)$, $\max(T(n), T(n-1))$.</li>
+      </ul>
+    </li>
+    <li><strong>State the runtime to extract the final return in Big-O notation:</strong>
+      <ul>
+        <li>Example: $O(n)$ if scanning all entries of $T$, or $O(1)$ if returning a specific corner cell like $T(n, W)$.</li>
+      </ul>
+    </li>
+  </ol>
+</section>
+
+<section class="guidance-section">
+  <h2 id="tips-and-tricks">Tips and Tricks</h2>
+  <ul>
+    <li><strong>Do Not Start With Code:</strong> You will be tempted to start with code. This is a terrible idea. Starting with code ensures your recurrence will be nearly impossible to craft. Do these sections in order — Dr. Vigoda does the same thing, and you will see how seamlessly the final solution comes together. Define a subproblem in words, translate it to the mathematical recurrence, and derive the analysis easily from that.</li>
+    <li><strong>Recognize Canonical Paradigms:</strong> The lectures contain multiple foundational approaches (LIS, LCS, Knapsack, Chain Matrix Multiplication, etc.). When solving a new problem, first try to think of which approach makes the most sense to adapt for a solution to the new problem.</li>
+  </ul>
+</section>
+
+<section class="guidance-section">
+  <h2 id="example-solution">Example Canonical Solution</h2>
+  <p>Below is an example of what a complete, full-credit DP solution looks like:</p>
+
+  <div class="callout callout--claim">
+    <h3 id="longest-increasing-subsequence-lis">Longest Increasing Subsequence (LIS)</h3>
+    <p><strong>a. Define the entries of your table in words. E.g., $T(i)$ or $T(i, j)$ is ...</strong></p>
+    <p>Let $T(i) =$ length of the longest increasing subsequence in $a[1 \dots i]$ which includes element $a[i]$.</p>
+
+    <p><strong>b. State recurrence for entries of your table in terms of smaller subproblems.</strong></p>
+    <p>$$T(1) = 1$$</p>
+    <p>$$T(i) = 1 + \max(\{0\} \cup \{T(j) : 1 \le j \le i-1 	ext{ and } a[i] > a[j]\}) \quad 	ext{for } 2 \le i \le n$$</p>
+
+    <p><strong>c. Implementation Analysis</strong></p>
+    <ul>
+      <li><strong>(1) Number of subproblems:</strong> $O(n)$</li>
+      <li><strong>(2) Runtime for table fill:</strong> $O(n^2)$</li>
+      <li><strong>(3) Extraction mechanism:</strong> Return $\max_{1 \le i \le n} T(i)$</li>
+      <li><strong>(4) Runtime of return extraction:</strong> $O(n)$</li>
+    </ul>
+  </div>
+  <p>Please use this thread to ask any follow-up questions regarding what constitutes a complete DP solution, or clarifications on the above information.</p>
+</section>
+
+<!-- Executive AI Summary Card above Comments Dropdown -->
+<section class="discussion-summary" aria-labelledby="ai-summary-heading">
+  <div class="discussion-summary__header">
+    <span class="discussion-summary__badge">AI Summary</span>
+    <h3 id="ai-summary-heading" class="discussion-summary__title">Discussion Key Takeaways &amp; Staff Rulings</h3>
+    <span class="discussion-summary__subtitle">12 discussion threads • Staff clarifications</span>
+  </div>
+  <div class="discussion-summary__content">
+    <ul>
+      <li><strong>No Exam Template Sheet:</strong> Solution templates are NOT provided on exams. Students are expected to memorize and reproduce the 4 required sections: (a) Plain English Subproblem Definition, (b) Mathematical Recurrence + Base Cases, (c) Implementation Analysis (subproblems count, fill runtime, extraction expression, extraction runtime).</li>
+      <li><strong>Omit Index Bounds in English Subproblem:</strong> Do not include index ranges (e.g. $1 \le i \le n$) in the English subproblem definition in Section (a). Section (a) defines the semantic meaning of an arbitrary entry $T(i)$ or $T(i, j)$. Bounds belong strictly in Section (b) on the recurrence.</li>
+      <li><strong>Convention for Empty Maxima:</strong> In recurrences like LIS where no preceding element satisfies $a[i] > a[j]$, by mathematical convention $\max(\emptyset) = 0$, yielding $T(i) = 1 + 0 = 1$. It is good practice to explicitly state this convention or include $\{0\}$ in the set to avoid ambiguity.</li>
+      <li><strong>Outputting Sequences vs Values:</strong> When asked to extract the sequence itself rather than just its value/cost, you do not need an auxiliary backpointer table. You can trace backward through the computed DP table in English or concise pseudocode. If you do define a parent table, you must account for its space and explain its updates.</li>
+      <li><strong>Reductions to Known DP Paradigms:</strong> Reducing a problem to a known algorithm (e.g. solving Longest Palindromic Subsequence by reversing the string in $O(n)$ and running LCS in $O(n^2)$) is fully valid, provided the reduction time does not exceed the target complexity.</li>
+      <li><strong>Infinity/Sentinel Padding:</strong> Initializing state boundaries with $+\infty$ or $-\infty$ (e.g., for $\min$ or $\max$ recurrences) or using sentinel indices like $T(0) = 0$ is valid as long as they are explicitly specified.</li>
+      <li><strong>Correctness Proofs Omitted:</strong> Formal inductive proofs are not required in homework or exams; a mathematically sound recurrence with correct base cases and English description suffices.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- Collapsible Comments Dropdown (Collapsed by Default) -->
+<details class="comments-collapse">
+  <summary class="comments-collapse__summary">
+    <div class="comments-collapse__title-group">
+      <span class="comments-collapse__chevron">▶</span>
+      <span>Responses</span>
+      <span class="comments-collapse__count-badge">12 threads</span>
+    </div>
+    <span class="comments-collapse__hint">Click to expand discussion</span>
+  </summary>
+  <div class="comments-collapse__body">
+    <ul class="thread-tree">
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--student">Student Question</span></div>
+    <div class="thread-comment__body">
 <blockquote>
 <p>On exams, will the required formats for solutions to various types of
 problems be written down, or is the expectation that students memorize
 the solution templates for each type of problem?</p>
 </blockquote>
-<ul>
-<li><strong>Comment</strong>
+    </div>
+  </div>
+  <ul>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--staff">Staff / Instructor Response</span></div>
+    <div class="thread-comment__body">
 <blockquote>
 <p>The Homework questions throughout the semester are formatted in the
 same way you'll see on the exam itself.</p>
 <p>So, in this case you'll get the main categories of things required,
 but of course not this entire post.</p>
-</blockquote></li>
-</ul></li>
-<li><p><strong>Comment</strong></p>
+</blockquote>
+    </div>
+  </div>
+</li>
+  </ul>
+</li>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--student">Student Question</span></div>
+    <div class="thread-comment__body">
 <blockquote>
 <p>Hi -</p>
 <ul>
@@ -183,8 +221,13 @@ required?</p></li>
 <p>Thanks,</p>
 <p>Alex</p>
 </blockquote>
-<ul>
-<li><p><strong>Comment</strong></p>
+    </div>
+  </div>
+  <ul>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--staff">Staff / Instructor Response</span></div>
+    <div class="thread-comment__body">
 <blockquote>
 <blockquote>
 <p>Should we always aim for best space complexity in our algorithms?</p>
@@ -197,23 +240,40 @@ answer or for DP problems the pseudocode block is not required?</p>
 </blockquote>
 <p>What does the embedded example solution in the post suggest?</p>
 </blockquote>
-<ul>
-<li><p><strong>Comment</strong></p>
+    </div>
+  </div>
+  <ul>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--student">Follow-up Discussion</span></div>
+    <div class="thread-comment__body">
 <blockquote>
 <p>The example suggests that no pseudocode is required for HW solutions
 nor for exam solutions.</p>
 </blockquote>
-<ul>
-<li><strong>Comment</strong>
+    </div>
+  </div>
+  <ul>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--staff">Staff / Instructor Response</span></div>
+    <div class="thread-comment__body">
 <blockquote>
-<p>One mystery solved, <a
-href="https://edstem.org/us/courses/98593/discussion/8077944?comment=18708000">one
-mystery</a> remains.</p>
-</blockquote></li>
-</ul></li>
-</ul></li>
-</ul></li>
-<li><p><strong>Comment</strong></p>
+<p>One mystery solved, one mystery remains.</p>
+</blockquote>
+    </div>
+  </div>
+</li>
+  </ul>
+</li>
+  </ul>
+</li>
+  </ul>
+</li>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--student">Student Question</span></div>
+    <div class="thread-comment__body">
 <blockquote>
 <p>SPOILER ALERT--this is about your solution</p>
 <p>in this line:</p>
@@ -225,11 +285,15 @@ where 2 &lt;= i &lt;= n</p>
 <p>if there exists j, 1&lt;=j&lt;=i-1, s.t. a(j)&lt;a(i)...</p>
 <p>otherwise T(i)=1</p>
 </blockquote>
-<ul>
-<li><p><strong>Comment</strong></p>
+    </div>
+  </div>
+  <ul>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--staff">Staff / Instructor Response</span></div>
+    <div class="thread-comment__body">
 <blockquote>
-<p>This is discussed in Course Readiness: <a
-href="https://edstem.org/us/courses/98593/lessons/171116/slides/988492"><span>https://edstem.org/us/courses/98593/lessons/171116/slides/988492</span></a></p>
+<p>This is discussed in Course Readiness.</p>
 <p>Dr. Vigoda is taking advantage of null set evaluation to assume
 <code>max{}</code> would evaluate to 0 in those cases.</p>
 <p>We can definitely make this more explicit:</p>
@@ -237,21 +301,38 @@ href="https://edstem.org/us/courses/98593/lessons/171116/slides/988492"><span>ht
      = 1             otherwise
 1 &lt;= j &lt; i &lt;= n</code></pre>
 </blockquote>
-<ul>
-<li><p><strong>Comment</strong></p>
+    </div>
+  </div>
+  <ul>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--student">Follow-up Discussion</span></div>
+    <div class="thread-comment__body">
 <blockquote>
 <p>Should the <code>otherwise</code> be <code>1</code>? In the explicit
 branch it'd be <code>1 + max{} = 1 + 0 = 1</code>, since
 <code>T(i)</code> includes <code>a[i]</code> so the minimum is the lone
 element. Does the <code>+1</code> carry into the otherwise too?</p>
 </blockquote>
-<ul>
-<li><strong>Comment</strong>
+    </div>
+  </div>
+  <ul>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--staff">Staff / Instructor Response</span></div>
+    <div class="thread-comment__body">
 <blockquote>
 <p>Yes, fixed! Thank you for the correction.</p>
-</blockquote></li>
-</ul></li>
-<li><p><strong>Comment</strong></p>
+</blockquote>
+    </div>
+  </div>
+</li>
+  </ul>
+</li>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--student">Follow-up Discussion</span></div>
+    <div class="thread-comment__body">
 <blockquote>
 <p>Hey Tim - just to check, on exams are we also allowed to use null set
 evaluation (i.e. assume that the maximum of an empty set is equal to 0)
@@ -259,27 +340,45 @@ or do we have to be explicit by defining something piecewise or using
 unions with a singleton set containing 0? I saw in your walkthrough for
 6.3 you also use null set evaluation.</p>
 </blockquote>
-<ul>
-<li><strong>Comment</strong>
+    </div>
+  </div>
+  <ul>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--staff">Staff / Instructor Response</span></div>
+    <div class="thread-comment__body">
 <blockquote>
 <p>This is the <strong>expected behavior</strong>. You do not need to
 call it out or do anything special.</p>
-</blockquote></li>
-</ul></li>
-</ul></li>
-<li><p><strong>Comment</strong></p>
+</blockquote>
+    </div>
+  </div>
+</li>
+  </ul>
+</li>
+  </ul>
+</li>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--staff">Staff / Instructor Response</span></div>
+    <div class="thread-comment__body">
 <blockquote>
 <blockquote>
 <p>SPOILER ALERT--this is about your solution</p>
 </blockquote>
 <p>You can use</p>
-<p><img
-src="https://static.us.edusercontent.com/files/0GEQYAXHep4TGIAUlG4geQVh"
-alt="Image" /> This little guy if you want to make your spoiler less
+<p><img alt="Image" src="https://static.us.edusercontent.com/files/0GEQYAXHep4TGIAUlG4geQVh"/> This little guy if you want to make your spoiler less
 spoiler-y.</p>
-</blockquote></li>
-</ul></li>
-<li><p><strong>Comment</strong></p>
+</blockquote>
+    </div>
+  </div>
+</li>
+  </ul>
+</li>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--student">Student Question</span></div>
+    <div class="thread-comment__body">
 <blockquote>
 <p>Question: For problems that require us to output a sequence or string
 (rather than just the cost or value of the sequence), are we allowed to
@@ -290,8 +389,13 @@ Tim's solution uses the T table to backtrack and output the sequence of
 hotels but it's also possible to define some table H where H[i] gives
 the previous hotel in the optimal sequence.</p>
 </blockquote>
-<ul>
-<li><strong>Comment</strong>
+    </div>
+  </div>
+  <ul>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--staff">Staff / Instructor Response</span></div>
+    <div class="thread-comment__body">
 <blockquote>
 <blockquote>
 <p>are we allowed to use additional tables that we also fill using a
@@ -312,9 +416,16 @@ non-primitive data.</p>
 a solution instead of returning a single value, you can describe it in a
 few sentences - it does not need to be in the limited math notation that
 the recurrence itself requires.</p>
-</blockquote></li>
-</ul></li>
-<li><p><strong>Comment</strong></p>
+</blockquote>
+    </div>
+  </div>
+</li>
+  </ul>
+</li>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--student">Student Question</span></div>
+    <div class="thread-comment__body">
 <blockquote>
 <p>Is this a valid answer for <strong>6.7</strong>? Specifically:</p>
 <p>Are we allowed to <strong>create modified copies of the
@@ -340,18 +451,26 @@ x[1...i] and y[1...j]</p>
 <p>Extract answer : Return T(n,n)</p>
 <p>Time to return O(1)</p>
 </blockquote>
-<ul>
-<li><p><strong>Comment</strong></p>
+    </div>
+  </div>
+  <ul>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--staff">Staff / Instructor Response</span></div>
+    <div class="thread-comment__body">
 <blockquote>
 <p>This would be acceptable <em>if</em> there is a proper mathematical
-definition for <span class="math inline"><em>y</em></span>.
+definition for <span class="math inline">\(y\)</span>.
 Specifically:</p>
-<p><span
-class="math display"><em>y</em><sub><em>i</em></sub> = <em>x</em><sub><em>n</em> − <em>i</em> + 1</sub>
-for 1 ≤ <em>i</em> ≤ <em>n</em></span></p>
+<p><span class="math display">\[y_i = x_{n - i + 1} \quad \text{for } 1 \le i \le n\]</span></p>
 </blockquote>
-<ul>
-<li><p><strong>Comment</strong></p>
+    </div>
+  </div>
+  <ul>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--student">Follow-up Discussion</span></div>
+    <div class="thread-comment__body">
 <blockquote>
 <p>Where would something like this be stated in solution format? To me
 it makes just as much logical sense to state in Part 1 that we are
@@ -362,25 +481,42 @@ this part vs. other more standard problems). Can you give a rough
 estimate of how much would be deducted in the exam for stating only in
 words?</p>
 </blockquote>
-<ul>
-<li><strong>Comment</strong>
+    </div>
+  </div>
+  <ul>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--staff">Staff / Instructor Response</span></div>
+    <div class="thread-comment__body">
 <blockquote>
 <p>This type of structure should be stated as part of the general
 recurrence. This is true for any type of helper function or auxiliary
 table used in the recurrence.</p>
-</blockquote></li>
-</ul></li>
-</ul></li>
-</ul></li>
-<li><p><strong>Comment</strong></p>
+</blockquote>
+    </div>
+  </div>
+</li>
+  </ul>
+</li>
+  </ul>
+</li>
+  </ul>
+</li>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--student">Student Question</span></div>
+    <div class="thread-comment__body">
 <blockquote>
-<p><img
-src="https://static.us.edusercontent.com/files/dfsdmYhozJ0MQzwYtKmdc76z"
-alt="Image" /> In the "define subproblem in words" section, do we need
+<p><img alt="Image" src="https://static.us.edusercontent.com/files/dfsdmYhozJ0MQzwYtKmdc76z"/> In the "define subproblem in words" section, do we need
 to specify bounds of indices?</p>
 </blockquote>
-<ul>
-<li><strong>Comment</strong>
+    </div>
+  </div>
+  <ul>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--staff">Staff / Instructor Response</span></div>
+    <div class="thread-comment__body">
 <blockquote>
 <p>We typically don't recommend including bounds in the Subproblem
 Definition.</p>
@@ -389,26 +525,40 @@ bounds relevant for the *table *that otherwise would be invalid for the
 range of the inputs. This is explicitly resolved in a complete
 recurrence relation so we recommend omitting the bounds in the
 Subproblem Definition.</p>
-</blockquote></li>
-</ul></li>
-<li><p><strong>Comment</strong></p>
+</blockquote>
+    </div>
+  </div>
+</li>
+  </ul>
+</li>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--student">Student Question</span></div>
+    <div class="thread-comment__body">
 <blockquote>
 <p>In the case that the result is a list, for example, the items used in
 a knapsack problem, how do we write it without using pseudo code? Could
 you give us an example?</p>
 </blockquote>
-<ul>
-<li><strong>Comment</strong>
+    </div>
+  </div>
+  <ul>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--staff">Staff / Instructor Response</span></div>
+    <div class="thread-comment__body">
 <blockquote>
-<ul>
-<li><p><a
-href="https://edstem.org/us/courses/98593/discussion/8077940?comment=18704036"><span>https://edstem.org/us/courses/98593/discussion/8077940?comment=18704036</span></a></p></li>
-<li><p><a
-href="https://edstem.org/us/courses/98593/discussion/8079608?comment=18709407"><span>https://edstem.org/us/courses/98593/discussion/8079608?comment=18709407</span></a></p></li>
-</ul>
-</blockquote></li>
-</ul></li>
-<li><p><strong>Comment</strong></p>
+<p>Refer to the sample solutions and recurrence relation formatting examples above.</p>
+</blockquote>
+    </div>
+  </div>
+</li>
+  </ul>
+</li>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--student">Student Question</span></div>
+    <div class="thread-comment__body">
 <blockquote>
 <p>Just for clarification, in the Recurrence Definition section, would
 it be acceptable to explicitly break it into the following
@@ -419,18 +569,33 @@ subsections?</p>
 <p>Just wanted to check as following this format helps me to ensure that
 I am addressing all of the necessary parts of the recurrence.</p>
 </blockquote>
-<ul>
-<li><p><strong>Comment</strong></p>
+    </div>
+  </div>
+  <ul>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--staff">Staff / Instructor Response</span></div>
+    <div class="thread-comment__body">
 <blockquote>
 <p>yes. This is totally fine.</p>
 </blockquote>
-<ul>
-<li><p><strong>Comment</strong></p>
+    </div>
+  </div>
+  <ul>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--student">Follow-up Discussion</span></div>
+    <div class="thread-comment__body">
 <blockquote>
 <p>Thanks, appreciate it.</p>
 </blockquote>
-<ul>
-<li><p><strong>Comment</strong></p>
+    </div>
+  </div>
+  <ul>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--staff">Staff / Instructor Response</span></div>
+    <div class="thread-comment__body">
 <blockquote>
 <p>To add some clarification, since "The Bounds" feels awfully
 ominous:</p>
@@ -447,22 +612,32 @@ they both need their own set of bounds, even if they are the same</li>
 n</p>
 <p>remains problematic, as graders are not going to map the correct
 bounds to parts of your recurrence for you.</p>
-<hr />
+<hr/>
 <p>It would appear your 3 part structure can work without ambiguity for
 constant-time base cases though.</p>
 <p>With the trade-off being that you've now got to determine how you
 want to handle the two different variants while practicing.</p>
 </blockquote>
-<ul>
-<li><p><strong>Comment</strong></p>
+    </div>
+  </div>
+  <ul>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--student">Follow-up Discussion</span></div>
+    <div class="thread-comment__body">
 <blockquote>
 <p>That makes sense, and is something I wasn't certain about. Do you
 feel it would be better from a graders perspective to have the bounds
 included in the general case (e.g. T(i,j) = T(i-1, j-1) + 1, where 1
 &lt;= i &lt;=n and 1 &lt;= j &lt;=n)?</p>
 </blockquote>
-<ul>
-<li><p><strong>Comment</strong></p>
+    </div>
+  </div>
+  <ul>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--staff">Staff / Instructor Response</span></div>
+    <div class="thread-comment__body">
 <blockquote>
 <p>Yes. In the example above, the clearest / most common way would
 be:</p>
@@ -485,19 +660,36 @@ belong to which parts improves first-pass grading accuracy (when the
 bounds are correct or even when they are incorrect) and avoids sadness
 (when the bounds might be correct, but are ambiguous or incomplete).</p>
 </blockquote>
-<ul>
-<li><strong>Comment</strong>
+    </div>
+  </div>
+  <ul>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--student">Follow-up Discussion</span></div>
+    <div class="thread-comment__body">
 <blockquote>
 <p>I'll make sure to use this format moving forward. Thanks, I
 appreciate it.</p>
-</blockquote></li>
-</ul></li>
-</ul></li>
-</ul></li>
-</ul></li>
-</ul></li>
-</ul></li>
-<li><p><strong>Comment</strong></p>
+</blockquote>
+    </div>
+  </div>
+</li>
+  </ul>
+</li>
+  </ul>
+</li>
+  </ul>
+</li>
+  </ul>
+</li>
+  </ul>
+</li>
+  </ul>
+</li>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--student">Student Question</span></div>
+    <div class="thread-comment__body">
 <blockquote>
 <p>From the perspective of exam/quiz/homework, is
 <code>Approach 2</code> considered optimal/better? Or both are
@@ -509,14 +701,26 @@ extract result is O(1).</p>
 <p>Assuming space is not a limiting factor in either. Also, assuming
 that filling the table can't improve beyond O(n^2).</p>
 </blockquote>
-<ul>
-<li><strong>Comment</strong>
+    </div>
+  </div>
+  <ul>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--staff">Staff / Instructor Response</span></div>
+    <div class="thread-comment__body">
 <blockquote>
 <p>Both of these approaches would be eligible for full credit assuming
 the corresponding output procedures are matching.</p>
-</blockquote></li>
-</ul></li>
-<li><p><strong>Comment</strong></p>
+</blockquote>
+    </div>
+  </div>
+</li>
+  </ul>
+</li>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--student">Student Question</span></div>
+    <div class="thread-comment__body">
 <blockquote>
 <p>Would it be possible for the staff to release an example solution of
 how you would like the chain matrix multiple to be written in a way that
@@ -529,14 +733,18 @@ conditions that would be hit in a dynamic programming question.</p>
 such as</p>
 <p>j =i+s</p>
 </blockquote>
-<ul>
-<li><strong>Comment</strong>
+    </div>
+  </div>
+  <ul>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--staff">Staff / Instructor Response</span></div>
+    <div class="thread-comment__body">
 <blockquote>
-<p>The intermediate term <span class="math inline"><em>s</em></span> in
+<p>The intermediate term <span class="math inline">\(s\)</span> in
 the pseudocode is useful for controlling the iteration but isn't
-actually needed. Specifically, we control the iteration of <span
-class="math inline"><em>i</em></span> in reverse. Here's CMM pseudocode
-without <span class="math inline"><em>s</em></span>:</p>
+actually needed. Specifically, we control the iteration of <span class="math inline">\(i\)</span> in reverse. Here's CMM pseudocode
+without <span class="math inline">\(s\)</span>:</p>
 <pre><code>for i = 1 to n:
   C[i, i] = 0
 for j = 2 to n:
@@ -550,34 +758,55 @@ return C[1, n]
 </code></pre>
 <p>See the video walkthrough for DPV 6.7 for how this type of substring
 iteration manifests in the recurrence relation.</p>
-</blockquote></li>
-</ul></li>
-<li><p><strong>Comment</strong></p>
+</blockquote>
+    </div>
+  </div>
+</li>
+  </ul>
+</li>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--student">Student Question</span></div>
+    <div class="thread-comment__body">
 <blockquote>
 <p>Hello, I can't seem to find the guideline for this. For the
 extraction, if the problem asks to find the sequence, is pseudocode
 allowed here? I know we can write sentences as shown in the official
 solution.</p>
 </blockquote>
-<ul>
-<li><p><strong>Comment</strong></p>
+    </div>
+  </div>
+  <ul>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--staff">Staff / Instructor Response</span></div>
+    <div class="thread-comment__body">
 <blockquote>
-<p><a
-href="https://edstem.org/us/courses/98593/discussion/8077940?comment=18704036">https://edstem.org/us/courses/98593/discussion/8077940?comment=18704036</a></p>
-<p>And</p>
-<p><a
-href="https://edstem.org/us/courses/98593/discussion/8079608?comment=18709407">https://edstem.org/us/courses/98593/discussion/8079608?comment=18709407</a></p>
+<p>Refer to the sample solutions and recurrence relation formatting examples above.</p>
 </blockquote>
-<ul>
-<li><strong>Comment</strong>
+    </div>
+  </div>
+  <ul>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--student">Follow-up Discussion</span></div>
+    <div class="thread-comment__body">
 <blockquote>
 <p>Thanks. i had full pseudocode for extraction and the grader commented
 that I should avoid pseudo code Your comment recommends little pseudo
 code is okay. So I guess sentences are safe.</p>
-</blockquote></li>
-</ul></li>
-</ul></li>
-<li><p><strong>Comment</strong></p>
+</blockquote>
+    </div>
+  </div>
+</li>
+  </ul>
+</li>
+  </ul>
+</li>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--student">Student Question</span></div>
+    <div class="thread-comment__body">
 <blockquote>
 <ul>
 <li><p>Is it ok to prefill state tables with values like
@@ -589,16 +818,28 @@ acceptable? This too made the recurrence succinct in some
 cases.</p></li>
 </ul>
 </blockquote>
-<ul>
-<li><strong>Comment</strong>
+    </div>
+  </div>
+  <ul>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--staff">Staff / Instructor Response</span></div>
+    <div class="thread-comment__body">
 <blockquote>
 <p>”pre-filling” sounds like a proposal which would later overwrite
 table values. This is not mathematically viable.</p>
 <p>Base-cases with infinite bounds would require infinite time to
 complete. This also does not sound viable for an optimal solution.</p>
-</blockquote></li>
-</ul></li>
-</ul>
+</blockquote>
+    </div>
+  </div>
+</li>
+  </ul>
+</li>
+
+    </ul>
+  </div>
+</details>
 </main>
 
 <!-- code highlighting -->
@@ -642,20 +883,20 @@ complete. This also does not sound viable for an optimal solution.</p>
       renderMathInElement(document.querySelector('.content, .all-weeks-content') || document.body, {
         delimiters: [
           { left: '$$', right: '$$', display: true },
-          { left: '\\[', right: '\\]', display: true },
+          { left: '\[', right: '\]', display: true },
           { left: '$', right: '$', display: false },
-          { left: '\\(', right: '\\)', display: false }
+          { left: '\(', right: '\)', display: false }
         ],
         throwOnError: false,
         preProcess: function(math) {
           return math
-            .replace(/\\left\\\[/g, '\\left[')
-            .replace(/\\right\\\]/g, '\\right]')
+            .replace(/\left\\[/g, '\left[')
+            .replace(/\right\\]/g, '\right]')
             .replace(/&amp;/g, '&')
             .replace(/&lt;/g, '<')
             .replace(/&gt;/g, '>');
         },
-        macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
+        macros: { '\R': '\mathbb{R}', '\set': '\{#1\}', '\n': '\overrightarrow' }
       });
     }
   }

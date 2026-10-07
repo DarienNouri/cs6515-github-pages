@@ -1,0 +1,1 @@
+- [x] Remove all links to the EdSTEM course and ensure no EdSTEM links or scraper items are visible.

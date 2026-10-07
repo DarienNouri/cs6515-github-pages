@@ -310,21 +310,19 @@ class="math inline"><em>O</em>(<em>E</em>log <em>V</em>)</span>.</li>
 <span class="math inline"><em>O</em>(<em>E</em>log <em>V</em>)</span>
 runtimes; invoke the Cut Property for correctness rather than
 re-deriving from scratch. See <a
-href="guidance/graph-theory-guidance.html">graph guidance</a>.</p>
+href="../../cs6515-algorithm-rules-and-guidelines/index.html#graph-algorithms">Graph Guidance</a>.</p>
 <details>
 <summary><b>Go deeper</b> — readings · guidance · deep notes</summary>
 
 <ul>
 <li><a href="readings/DPV-ch5-greedy-algorithms.pdf">DPV §5.1 (greedy /
 MST)</a></li>
-<li><a href="guidance/graph-theory-guidance.html">Graph guidance</a> ·
-<a href="guidance/usable-black-boxes-graphs.html">Black boxes</a> · <a
-href="guidance/common-course-runtimes.html">Common runtimes</a></li>
+<li><a href="../../cs6515-algorithm-rules-and-guidelines/index.html#graph-algorithms">Graph Theory Guidance</a> · <a href="../../cs6515-algorithm-rules-and-guidelines/8129088_Usable_Black_Boxes_for_Graphs.html">Black Boxes (Kruskal, Prim)</a> · <a href="../../cs6515-algorithm-rules-and-guidelines/index.html#course-standards">Common Runtimes</a></li>
 <li>Deep notes: <a href="notes/GR3-minimum-spanning-tree.html">GR3
 MST</a> · <a href="notes/graphs-cheat-sheet.html">cheat sheet</a></li>
 <li><a href="lectures/">lectures/</a> · <a
 href="transcripts/">transcripts/</a> · <a href="readings/">readings/</a>
-· <a href="guidance/">guidance/</a> · <a href="notes/">notes/</a></li>
+· <a href="../../cs6515-algorithm-rules-and-guidelines/index.html#graph-algorithms">guidance/</a> · <a href="notes/">notes/</a></li>
 </ul>
 </details>
 
@@ -568,7 +566,7 @@ correct (via Cut Property)</h4>
 <p>At each step, when Kruskal adds <span
 class="math inline"><em>e</em> = (<em>v</em>, <em>w</em>)</span>: <span
 class="math inline"><em>v</em>, <em>w</em></span> are in different
-components; let <span class="math inline"><em>S</em></span> = the
+components; let <span class="math inline"><em>S</em></span> =  the
 component of <span class="math inline"><em>v</em></span>. No edge of
 <span class="math inline"><em>X</em></span> (so far) crosses this cut,
 and <span class="math inline"><em>e</em></span> is the minimum-weight
@@ -594,7 +592,7 @@ edge connecting each non-tree vertex to the tree.
 <strong>Runtime:</strong> <span
 class="math inline"><em>O</em>(|<em>E</em>|log |<em>V</em>|)</span>.
 <strong>Correctness:</strong> the Cut Property at each step with <span
-class="math inline"><em>S</em></span> = tree-so-far. Tracing the same
+class="math inline"><em>S</em></span> =  tree-so-far. Tracing the same
 graph from <span class="math inline"><em>A</em></span> gives the same
 MST, weight <span class="math inline">12</span>.</p>
 <h4 id="7-kruskals-vs-prims">7. Kruskal's vs Prim's</h4>
@@ -636,9 +634,9 @@ class="math inline"><em>O</em>(|<em>E</em>|log |<em>V</em>|)</span></td>
 </tr>
 <tr>
 <td><strong>Correctness</strong></td>
-<td>Cut Property (<span class="math inline"><em>S</em></span> =
+<td>Cut Property (<span class="math inline"><em>S</em></span> = 
 component)</td>
-<td>Cut Property (<span class="math inline"><em>S</em></span> = tree so
+<td>Cut Property (<span class="math inline"><em>S</em></span> =  tree so
 far)</td>
 </tr>
 </tbody>

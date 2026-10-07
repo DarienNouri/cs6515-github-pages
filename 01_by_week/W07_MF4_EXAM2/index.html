@@ -90,7 +90,7 @@ polynomial</h3>
 <li><strong>Pseudo-polynomial</strong> (Ford-Fulkerson, <span
 class="math inline"><em>O</em>(<em>m</em><em>C</em>)</span>): runtime
 depends on the <em>magnitude</em> of the numbers (<span
-class="math inline"><em>C</em></span> = max-flow value).</li>
+class="math inline"><em>C</em></span> =  max-flow value).</li>
 <li><strong>Strongly polynomial</strong> (Edmonds-Karp, <span
 class="math inline"><em>O</em>(<em>m</em><sup>2</sup><em>n</em>)</span>):
 runtime depends only on the <em>size</em> of the graph (<span
@@ -199,22 +199,19 @@ max-flow/min-cut theorem are identical to W6.</li>
 <p>Same black-box rule as W6: <strong>reduce to max-flow</strong>; when
 runtime matters, choose Edmonds-Karp for the strongly-polynomial <span
 class="math inline"><em>O</em>(<em>m</em><sup>2</sup><em>n</em>)</span>
-bound. See <a href="guidance/usable-black-boxes-graphs.html">black
-boxes</a>.</p>
+bound. See <a href="../../cs6515-algorithm-rules-and-guidelines/8129088_Usable_Black_Boxes_for_Graphs.html">Black Boxes</a>.</p>
 <details>
 <summary><b>Go deeper</b> — readings · guidance</summary>
 
 <ul>
 <li><a href="readings/DPV-ch7-flows-and-linear-programming.pdf">DPV §7.2
 (flows)</a></li>
-<li><a href="guidance/graph-theory-guidance.html">Graph guidance</a> ·
-<a href="guidance/usable-black-boxes-graphs.html">Black boxes</a> · <a
-href="guidance/common-course-runtimes.html">Common runtimes</a></li>
+<li><a href="../../cs6515-algorithm-rules-and-guidelines/index.html#graph-algorithms">Graph &amp; Flow Guidance</a> · <a href="../../cs6515-algorithm-rules-and-guidelines/8129088_Usable_Black_Boxes_for_Graphs.html">Black Boxes (Edmonds-Karp)</a> · <a href="../../cs6515-algorithm-rules-and-guidelines/index.html#course-standards">Common Runtimes</a></li>
 <li><a href="notes/full-course-notes.html">Full course notes</a> · <a
 href="notes/ga-notes.pdf">ga-notes.pdf</a></li>
 <li><a href="lectures/">lectures/</a> · <a
 href="transcripts/">transcripts/</a> · <a href="readings/">readings/</a>
-· <a href="guidance/">guidance/</a> · <a href="notes/">notes/</a></li>
+· <a href="../../cs6515-algorithm-rules-and-guidelines/index.html#graph-algorithms">guidance/</a> · <a href="notes/">notes/</a></li>
 </ul>
 </details>
 
@@ -228,7 +225,7 @@ the Edmonds-Karp algorithm. Key take-aways from each:</p>
 <li>finds augmenting paths using either DFS or BFS</li>
 <li>runtime: <span
 class="math inline"><em>O</em>(<em>m</em><em>C</em>)</span> where <span
-class="math inline"><em>C</em></span> = size of the max flow</li>
+class="math inline"><em>C</em></span> =  size of the max flow</li>
 <li>assumes integer capacities</li>
 </ul></li>
 <li><strong>Edmonds-Karp</strong>
@@ -249,7 +246,7 @@ integer capacities <span
 class="math inline"><em>c</em>(<em>e</em>) &gt; 0</span>.</p>
 <ol type="1">
 <li>Initialize <span
-class="math inline"><em>f</em><sub><em>e</em></sub> = 0; ∀<em>e</em> ∈ <em>E</em></span></li>
+class="math inline"><em>f</em><sub><em>e</em></sub> = 0;\ \forall <em>e</em> \in <em>E</em></span></li>
 <li>Build residual network <span
 class="math inline"><em>G</em><sup><em>f</em></sup></span></li>
 <li>Check for an <span class="math inline"><em>s</em></span>-<span
@@ -258,7 +255,7 @@ class="math inline"><em>P</em></span> in <span
 class="math inline"><em>G</em><sup><em>f</em></sup></span> (use DFS or
 BFS) — if no path: return <span
 class="math inline"><em>f</em></span></li>
-<li>Let <span class="math inline"><em>c</em>(<em>P</em>)</span> = min
+<li>Let <span class="math inline"><em>c</em>(<em>P</em>)</span> =  min
 capacity along <span class="math inline"><em>P</em></span> in <span
 class="math inline"><em>G</em><sup><em>f</em></sup></span></li>
 <li>Augment <span class="math inline"><em>f</em></span> by <span
@@ -276,7 +273,7 @@ class="math inline"><em>c</em>(<em>e</em>) &gt; 0</span> —
 <strong>integers removed</strong>.</p>
 <ol type="1">
 <li>Initialize <span
-class="math inline"><em>f</em><sub><em>e</em></sub> = 0; ∀<em>e</em> ∈ <em>E</em></span></li>
+class="math inline"><em>f</em><sub><em>e</em></sub> = 0;\ \forall <em>e</em> \in <em>E</em></span></li>
 <li>Build residual network <span
 class="math inline"><em>G</em><sup><em>f</em></sup></span></li>
 <li>Check for an <span class="math inline"><em>s</em></span>-<span
@@ -285,7 +282,7 @@ class="math inline"><em>P</em></span> in <span
 class="math inline"><em>G</em><sup><em>f</em></sup></span> (use
 <strong>BFS</strong> — <strong>DFS removed</strong>) — if no path:
 return <span class="math inline"><em>f</em></span></li>
-<li>Let <span class="math inline"><em>c</em>(<em>P</em>)</span> = min
+<li>Let <span class="math inline"><em>c</em>(<em>P</em>)</span> =  min
 capacity along <span class="math inline"><em>P</em></span> in <span
 class="math inline"><em>G</em><sup><em>f</em></sup></span></li>
 <li>Augment <span class="math inline"><em>f</em></span> by <span
@@ -339,7 +336,7 @@ follows. Now we prove the lemma.</p>
 class="math inline"><em>G</em> = (<em>V</em>, <em>E</em>)</span>, start
 vertex <span class="math inline"><em>s</em> ∈ <em>V</em></span>, weights
 ignored</li>
-<li>Output: <span class="math inline">dist (<em>v</em>)</span> = min
+<li>Output: <span class="math inline">dist (<em>v</em>)</span> =  min
 number of edges from <span class="math inline"><em>s</em></span> to
 <span class="math inline"><em>v</em></span>, for all <span
 class="math inline"><em>v</em> ∈ <em>V</em></span></li>
@@ -369,7 +366,7 @@ class="math inline"><em>z</em> ∈ <em>V</em></span>, <span
 class="math inline">level(<em>z</em>)</span> does not decrease — it may
 increase or stay the same, but never decreases. To see why, consider
 which edges are inserted and removed for an original-flow edge <span
-class="math inline">$\overset{\rightarrow}{vw} \in E$</span> (4
+class="math inline">\overrightarrow{vw} \in E</span> (4
 cases):</p>
 <ul>
 <li><strong>Add <span class="math inline">(<em>v</em><em>w</em>)</span>
@@ -428,13 +425,13 @@ class="math inline">▫</span></p>
 <p><strong>Delete/Add effect.</strong> Take <span
 class="math inline">level(<em>v</em>) = <em>i</em></span>.</p>
 <ul>
-<li>Delete <span class="math inline">$\overset{\rightarrow}{vw}$</span>
+<li>Delete <span class="math inline">\overrightarrow{vw}</span>
 from <span class="math inline"><em>G</em><sup><em>f</em></sup></span>:
-then <span class="math inline">$\overset{\rightarrow}{vw} \in P$</span>,
+then <span class="math inline">\overrightarrow{vw} \in P</span>,
 implying <span
 class="math inline">level(<em>w</em>) = level(<em>v</em>) + 1 ≥ <em>i</em> + 1</span>.</li>
 <li>Later add it back: then <span
-class="math inline">$\overset{\rightarrow}{wv} \in P$</span>, implying
+class="math inline">\overrightarrow{wv} \in P</span>, implying
 <span
 class="math inline">level(<em>v</em>) = level(<em>w</em>) + 1 ≥ <em>i</em> + 2</span>.</li>
 </ul>
@@ -510,6 +507,10 @@ class="math inline"><em>O</em>(<em>m</em><em>C</em>)</span>.
 
   // 4) Math: render \( \) and \[ \] and $$ $$. Tolerate malformed legacy TeX.
   function renderMath() {
+    if (window.renderSiteMath) {
+      window.renderSiteMath();
+      return;
+    }
     if (window.renderMathInElement) {
       renderMathInElement(document.querySelector('.content, .all-weeks-content') || document.body, {
         delimiters: [
@@ -521,13 +522,16 @@ class="math inline"><em>O</em>(<em>m</em><em>C</em>)</span>.
         throwOnError: false,
         preProcess: function(math) {
           return math
+            .replace(/(?:&nbsp;|&#160;|\u00a0)([a-zA-Z]{2,})/g, ' \\text{ $1}')
+            .replace(/&(?:nbsp|#160);/gi, ' ')
+            .replace(/[\u2000-\u200b\u00a0]/g, ' ')
             .replace(/\\left\\\[/g, '\\left[')
             .replace(/\\right\\\]/g, '\\right]')
             .replace(/&amp;/g, '&')
             .replace(/&lt;/g, '<')
             .replace(/&gt;/g, '>');
         },
-        macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
+        macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow ', '\\O': '\\mathcal{O}' }
       });
     }
   }

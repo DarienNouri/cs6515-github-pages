@@ -425,7 +425,7 @@ Of course <span class="math inline"><em>f</em><sub>3</sub></span> is
 better than <span class="math inline"><em>f</em><sub>2</sub></span>, but
 only by a technicallity ... or by a constant. So it really make no
 difference in terms of complexity. <span class="math inline">$n+1 \le c
-\*
+\cdot 
 (2n+20)$</span> is true for say c=1</p>
 <p>When we calculate Big-O notation we only care about the dominant
 term. We will drop constants and minor terms. So for ex: <span
@@ -439,7 +439,7 @@ class="math inline"><em>Θ</em></span></p>
 <li>Omega: <span class="math inline"><em>f</em>(<em>n</em>)</span> is
 <span class="math inline"><em>Ω</em>(<em>g</em>(<em>n</em>))</span> iff
 for some constant c and <span class="math inline">$N_0
-\\ f(N) \ge c\*g(n)$</span> for all N &gt; <span
+\\ f(N) \ge c\cdot g(n)$</span> for all N &gt; <span
 class="math inline"><em>N</em><sub>0</sub></span>
 <ul>
 <li>this describes the lower bound of complexity</li>
@@ -1291,7 +1291,7 @@ capital B (Total weight &lt;= B).</li>
 look at those objects which are in our subset or chosen subset. and
 whose total weight is at most B</p>
 <ul>
-<li><span class="math inline">$\large \sum\_{i \in S} w_i \le
+<li><span class="math inline">$\large \sum_{i \in S} w_i \le
 B$</span></li>
 </ul>
 <p>The total value for a subset of objects is the sum over the objects
@@ -1308,7 +1308,7 @@ class="math inline"><em>w</em><sub><em>i</em></sub></span> and values
 <span class="math inline"><em>v</em><sub><em>i</em></sub></span> such
 that</p>
 <ul>
-<li><span class="math inline">$\large \sum\_{i \in S} w_i \le B$</span>
+<li><span class="math inline">$\large \sum_{i \in S} w_i \le B$</span>
 AND $\large max\left\\sum_{i \in S} v_i \right$</li>
 </ul>
 <p>Our goal is to find the subset of objects, a subset of 1 through n,
@@ -2652,11 +2652,11 @@ positive integer</li>
 <li>Output: z=xy</li>
 <li><span class="math inline"><em>x</em><sub><em>l</em></sub></span>=
 1st n/2 bits of x, <span
-class="math inline"><em>x</em><sub><em>r</em></sub></span> = last n/2
+class="math inline"><em>x</em><sub><em>r</em></sub></span> =  last n/2
 bits of x</li>
 <li><span class="math inline"><em>y</em><sub><em>l</em></sub></span>=
 1st n/2 bits of y, <span
-class="math inline"><em>y</em><sub><em>r</em></sub></span> = last n/2
+class="math inline"><em>y</em><sub><em>r</em></sub></span> =  last n/2
 bits of y</li>
 <li>A = FastMultiply(<span
 class="math inline"><em>x</em><sub><em>l</em></sub></span>,<span
@@ -2703,12 +2703,12 @@ determine the dominant term</li>
 <li>The terms are not equal, nor is it decreasing</li>
 <li>Therefore it's increasing meaning that the last term dominates</li>
 </ul></li>
-<li>t/f $ O(n (3/2)^{log_2 n} )$</li>
+<li>t/f $ O(n (3/2)^{\log_2 n} )$</li>
 <li><span
 class="math inline"> = <em>O</em>(3<sup><em>l</em><em>o</em><em>g</em><sub>2</sub><em>n</em></sup>)</span>
 (recall that by definition <span
 class="math inline">3 = 2<sup><em>l</em><em>o</em><em>g</em><sub>2</sub>3</sup></span>)</li>
-<li>$= O(n^{log_2 3} $ (<span
+<li>$= O(n^{\log_2 3} $ (<span
 class="math inline"><em>l</em><em>o</em><em>g</em><sub>2</sub>3</span>
 is approx 1.59)</li>
 </ul>
@@ -2719,8 +2719,8 @@ a cost as we have to work harder to recombine the terms</p>
 <p><strong>Example</strong></p>
 <p>Let:</p>
 <ul>
-<li><span class="math inline">$x=182=(1011 \\ 0110)\_2$</span></li>
-<li><span class="math inline">$y=154=(1001 \\ 1010)\_2$</span></li>
+<li><span class="math inline">$x=182=(1011 \\ 0110)_2$</span></li>
+<li><span class="math inline">$y=154=(1001 \\ 1010)_2$</span></li>
 <li>Then
 <ul>
 <li><span
@@ -2731,8 +2731,8 @@ class="math inline"><em>x</em><sub><em>r</em></sub> = (0110)_2 = 6</span
 class="math inline"><em>y</em><sub><em>l</em></sub> = (1001)_2 = 9</span>
 and <span
 class="math inline"><em>y</em><sub><em>r</em></sub> = (1010)_2 = 10</span></li>
-<li><span class="math inline">$x_l y_l=11\*9=99$</span></li>
-<li><span class="math inline">$x_r y_r=6\*10=60$</span></li>
+<li><span class="math inline">$x_l y_l=11\cdot 9=99$</span></li>
+<li><span class="math inline">$x_r y_r=6\cdot 10=60$</span></li>
 <li><span
 class="math inline">(<em>x</em><sub><em>l</em></sub> + <em>x</em><sub><em>r</em></sub>)(<em>y</em><sub><em>l</em></sub> + <em>y</em><sub><em>r</em></sub>) = (11 + 6)(9 + 10) = (323)</span></li>
 </ul></li>
@@ -2857,7 +2857,7 @@ even divide A into many more sets. for ex Say 100 subsets, then T(n) =
 T(0.99n)+O(n) which still solves to O(n). We now have a general intution
 to build a strategy</p>
 <p>Let's say a pivot p is good if <span
-class="math inline">$\|A\_{\&lt;p}\| \le 3n/4$</span> and <span
+class="math inline">$\|A_{\&lt;p}\| \le 3n/4$</span> and <span
 class="math inline">∥<em>A</em>_ <em>p</em>∥ ≤ 3<em>n</em>/4</span>.</p>
 <ul>
 <li>this means that the number of elements less than our pivot is at
@@ -3051,8 +3051,8 @@ back into our expansion to get</p>
 class="math inline"><em>c</em><em>n</em>(1 + (4/2) + (4/2)<sup>2</sup> + ⋯ + (4/2)<sup><em>l</em><em>o</em><em>g</em><sub>2</sub><em>n</em> − 1</sup>)</span>
 <ul>
 <li>we replace n-1 with n as this insignificant in the big notation</li>
-<li>this is O(n)*O((4/2)^{log_2 n})</li>
-<li>with a further simplificiation O((4/2)^{log_2 n}) = O(n^2 / n) =
+<li>this is O(n)*O((4/2)^{\log_2 n})</li>
+<li>with a further simplificiation O((4/2)^{\log_2 n}) = O(n^2 / n) =
 O(n)</li>
 </ul></li>
 <li><span
@@ -3123,8 +3123,8 @@ $</li>
 <li>Let <span
 class="math inline"><em>i</em> = <em>l</em><em>o</em><em>g</em><sub>2</sub>(<em>n</em>)</span>
 same as before</li>
-<li>Sub back $T(n) \le cn(1+(3/2)+(3/2)^2+\cdots+(3/2)^{log_2(n)-1}) +
-3^{log_2(n)} T(1) $</li>
+<li>Sub back $T(n) \le cn(1+(3/2)+(3/2)^2+\cdots+(3/2)^{\log_2(n)-1}) +
+3^{\log_2(n)} T(1) $</li>
 <li>Now we observe that 3/2 &gt; 1 and therefore the last term in the
 series is dominant</li>
 </ul>
@@ -3137,20 +3137,20 @@ we drop the minus 1 just as before</li>
 <li>the final term is just <span
 class="math inline">3<sup><em>l</em><em>o</em><em>g</em><sub>2</sub>(<em>n</em>)</sup></span></li>
 </ul>
-<p>Now we expand <span class="math inline">$\large (3/2)^{log_2(n)} =
-(3^{log_2(n)} / 2^{log_2(n)})
-= (3^{log_2(n)} / n ) = (3^{log_2(n)})(1/n)$</span></p>
+<p>Now we expand <span class="math inline">$\large (3/2)^{\log_2(n)} =
+(3^{\log_2(n)} / 2^{\log_2(n)})
+= (3^{\log_2(n)} / n ) = (3^{\log_2(n)})(1/n)$</span></p>
 <p>Finally putting it all together</p>
 <ul>
-<li>$T(n) \le cn(1+(3/2)+(3/2)^2+\cdots+(3/2)^{log_2(n)-1}) +
-3^{log_2(n)} T(1) $</li>
-<li>$T(n) \le O(n) O(3^{log_2(n)}) O(1/n) + 3^{log_2(n)} T(1) $</li>
-<li>$T(n) \le O(3^{log_2(n)}) + 3^{log_2(n)} T(1) $ O(n) and O(1/n)
+<li>$T(n) \le cn(1+(3/2)+(3/2)^2+\cdots+(3/2)^{\log_2(n)-1}) +
+3^{\log_2(n)} T(1) $</li>
+<li>$T(n) \le O(n) O(3^{\log_2(n)}) O(1/n) + 3^{\log_2(n)} T(1) $</li>
+<li>$T(n) \le O(3^{\log_2(n)}) + 3^{\log_2(n)} T(1) $ O(n) and O(1/n)
 cancel out</li>
-<li>$T(n) \le O(3^{log_2(n)}) $ since <span
+<li>$T(n) \le O(3^{\log_2(n)}) $ since <span
 class="math inline">3<sup><em>l</em><em>o</em><em>g</em><sub>2</sub>(<em>n</em>)</sup></span>
 doesn't exceed the former</li>
-<li>$T(n) \le O(n^{log_2(3)}) $ from our result in the previous section
+<li>$T(n) \le O(n^{\log_2(3)}) $ from our result in the previous section
 on polynomials</li>
 </ul>
 <h3 id="master-theorem-generalization">Master Theorem
@@ -3161,7 +3161,7 @@ for a&gt;0, b&gt;0,d<span class="math inline">≥</span>0<br />
 Then<br />
 $ T(n) = \begin{cases} &amp; = O(n^d) &amp; \text{ if } d &gt; \log_b a
 \ &amp; = O(n^d \log n) &amp; \text{ if } d = \log_b a \ &amp; = O(n^{
-log_b a}) &amp; \text{ if } d &lt; \log_b a \ \end{cases}$</p>
+\log_b a}) &amp; \text{ if } d &lt; \log_b a \ \end{cases}$</p>
 <p><strong>General Recurrance</strong></p>
 <p>Applicable when <span
 class="math inline"><em>T</em>(<em>n</em>)</span> is of the form <span
@@ -3173,7 +3173,7 @@ class="math inline"><em>T</em>(<em>n</em>) ≤ <em>O</em>(<em>n</em>)</span>
 The first term in the geometric representation dominates</li>
 <li>if a = b then <span
 class="math inline"><em>T</em>(<em>n</em>) ≤ <em>O</em>(<em>n</em><em>l</em><em>o</em><em>g</em><em>n</em>)</span></li>
-<li>if a &gt; b then $T(n) \le O(n^{log_b a}) $ The last term in the
+<li>if a &gt; b then $T(n) \le O(n^{\log_b a}) $ The last term in the
 geometric representation dominates</li>
 </ul>
 <p>Examples</p>
@@ -3248,8 +3248,8 @@ This doesn't, however, change the problem.</p>
 class="math inline"><em>A</em> = (<em>a</em><sub>0</sub>, <em>a</em><sub>1</sub>, <em>a</em><sub>2</sub>,,⋯, <em>a</em>_<em>n</em> − 1)</span></li>
 <li><span
 class="math inline"><em>B</em> = (<em>b</em><sub>0</sub>, <em>b</em><sub>1</sub>, <em>b</em><sub>2</sub>,,⋯, <em>b</em>_<em>n</em> − 1)</span></li>
-<li><span class="math inline">$C = A\*B = (c_0,c_1,c_2,, \cdots
-,c\_{2n-2})$</span>
+<li><span class="math inline">$C = A\cdot B = (c_0,c_1,c_2,, \cdots
+,c_{2n-2})$</span>
 <ul>
 <li>the star symbol denotes the convolution</li>
 </ul></li>
@@ -3363,8 +3363,8 @@ class="math inline"><em>A</em>(<em>x</em><sub>1</sub>), <em>A</em>(<em>x</em><
 class="math inline"><em>x</em><sub>1</sub>, ..., <em>x</em><sub><em>n</em></sub></span>
 are the opposties of <span
 class="math inline"><em>x</em>_<em>n</em> + 1, ..., <em>x</em>_2<em>n</em></span><br />
-Then <span class="math inline">$x\_{n+1}=-x_1, \\
-x\_{n+2}=-x_2,...,x\_{2n}=-x_n$</span><br />
+Then <span class="math inline">$x_{n+1}=-x_1, \\
+x_{n+2}=-x_2,...,x_{2n}=-x_n$</span><br />
 (let call this the <span class="math inline">±</span> property)</p>
 <p>Observe that for the even terms in A the opposite will have the same
 sign as they are powers of 2k. But for the odd terms their sign will be
@@ -3565,7 +3565,7 @@ src="../../../.assets/CS6515_images/FFT-003.png" alt="FFT-003" /></p>
 <li>let <span
 class="math inline"><em>ω</em><sub><em>n</em></sub> = (1, 2<em>π</em>/<em>n</em>)</span>
 which corresponds to j=1</li>
-<li>then <span class="math inline">$\omega_n^2 = (1,2\*2 \pi /
+<li>then <span class="math inline">$\omega_n^2 = (1,2\cdot 2 \pi /
 n)$</span> which corresponds to j=2</li>
 <li>etc etc</li>
 <li>But recall Euler's formula!
@@ -3611,7 +3611,7 @@ class="math inline"><em>n</em> = 2<sup><em>k</em></sup></span>, the
 <ul>
 <li><span class="math inline">$\large (\omega_n^j)^2 =
 (1,\frac{2\pi}{n}j)^2 =
-(1,\frac{2\pi}{n/2}j) = \omega\_{n/2}^2$</span></li>
+(1,\frac{2\pi}{n/2}j) = \omega_{n/2}^2$</span></li>
 <li>similarly
 <ul>
 <li><span
@@ -4617,7 +4617,7 @@ simply bc = 1 + k(p-1) for some integer k.</p>
 <p>Consider <span
 class="math inline"><em>z</em><sup><em>b</em><em>c</em></sup></span>, we
 can work this out as follows <span class="math inline">$z^{bc} \equiv
-z\*((z^{p-1})^k \equiv z\*1 \mod p$</span> .... pretty interesting
+z\cdot ((z^{p-1})^k \equiv z\cdot 1 \mod p$</span> .... pretty interesting
 right? we got back the number z despite raising it to the power of bc.
 This is exactly what the RSA uses. take a message and encode it to form
 your z, then raise it to the power of b, then it will take someone with
@@ -4877,7 +4877,7 @@ the inverse does not exist.</p>
 <p>Let's proceed by contradicition. Suppose there is an inverse, ie
 <span
 class="math inline"><em>z</em><sup><em>r</em> − 1</sup> ≡ 1 mod  <em>r</em></span>.
-This would imply that <span class="math inline">$z\*z^{r-2} \equiv 1
+This would imply that <span class="math inline">$z\cdot z^{r-2} \equiv 1
 \mod r$</span>, which in turn implies that z has the inverse, <span
 class="math inline"><em>z</em><sup><em>r</em> − 2</sup></span> in mod r.
 But the inverse cannot exist, therefore we have a contradiction.</p>
@@ -6015,7 +6015,7 @@ class="math inline"><em>x</em><sub>1</sub></span></p>
 </ul></li>
 <li><p>The paths here are implications</p>
 <ul>
-<li>so if <span class="math inline"><em>x</em><sub>1</sub></span> = true
+<li>so if <span class="math inline"><em>x</em><sub>1</sub></span> =  true
 then <span class="math inline">$\bar{x_1}$</span> must also be true but
 then this means that <span
 class="math inline"><em>x</em><sub>1</sub></span> is false which is a
@@ -6206,10 +6206,10 @@ $\lambda_l = \beta $</p>
 class="math inline"><em>λ</em><sub><em>i</em></sub> → <em>λ</em>_<em>i</em> + 1</span>
 <ul>
 <li>this comes from the clause <span
-class="math inline">$(\bar{\lambda_i} \vee \lambda\_{i+1})$</span></li>
+class="math inline">$(\bar{\lambda_i} \vee \lambda_{i+1})$</span></li>
 <li>which has another edge <span
-class="math inline">$\bar{\lambda\_{i+1}} \rightarrow
-\bar{\lambda\_{i}}$</span></li>
+class="math inline">$\bar{\lambda_{i+1}} \rightarrow
+\bar{\lambda_{i}}$</span></li>
 </ul></li>
 <li>if you do this to the entire path you get the reverse path of
 complements
@@ -6271,7 +6271,7 @@ Goal: Find a minimal size, connected subgraph of min weight</p>
 as
 <ul>
 <li>for a tree T in E, <span class="math inline">$\large T \subset E,
-w(T) = \sum\_{e \in T}
+w(T) = \sum_{e \in T}
 w(e)$</span></li>
 <li>now take the minimum over the edges</li>
 </ul></li>
@@ -6431,18 +6431,18 @@ class="math inline"><em>S</em>, <em>S̄</em></span></li>
 class="math inline"><em>S</em>, <em>S̄</em></span>)
 <ul>
 <li>of these take a min weight edge, say <span
-class="math inline">$e^\*$</span> is a min weight edge in cut(<span
+class="math inline">$e^*$</span> is a min weight edge in cut(<span
 class="math inline"><em>S</em>, <em>S̄</em></span>)</li>
 </ul></li>
-<li>Then <span class="math inline">$X \cup e^\* \subset T'$</span> where
+<li>Then <span class="math inline">$X \cup e^* \subset T'$</span> where
 T' is a MST <img src="../../../.assets/CS6515_images/GA1-016.png"
 alt="GA1-016" /></li>
 </ul>
 <p>Now how did this apply for Kruskal's algorithm? For Kruskal's
-algorithm we said that the edge <span class="math inline">$e^\*$</span>
+algorithm we said that the edge <span class="math inline">$e^*$</span>
 was between vertices v and w. We added this edge <span
-class="math inline">$e^\*$</span>, if the component containing v, one of
-the endpoints of <span class="math inline">$e^\*$</span> was not the
+class="math inline">$e^*$</span>, if the component containing v, one of
+the endpoints of <span class="math inline">$e^*$</span> was not the
 same as a component containing w. So v and w were not connected in the
 current subgraph.</p>
 <p>So what was the set <span class="math inline"><em>S</em></span> in
@@ -6455,9 +6455,9 @@ know that there is no edge in the partial solution which crosses from
 class="math inline"><em>S̄</em></span>. And then since we consider the
 edges in increasing order, in sorted order, then we know that e-star
 must be the minimum weight edge crossing from this component to outside.
-So <span class="math inline">$e^\*$</span> or that Kruskal's algorithm
+So <span class="math inline">$e^*$</span> or that Kruskal's algorithm
 considers is satisfies the hypothesis of the Lemma. So if we add an
-<span class="math inline">$e^\*$</span> to our partial solution we'll
+<span class="math inline">$e^*$</span> to our partial solution we'll
 still be on our way to an MST.</p>
 <p>So this proves correctness of Kruskal's algorithm. Kruskal's
 algorithm uses a particular type of set s, but this is true in general
@@ -6501,7 +6501,7 @@ class="math inline"><em>S̄</em></span></li>
 class="math inline"><em>S</em></span> and <span
 class="math inline"><em>S̄</em></span></li>
 </ul></li>
-<li>now we choose an <span class="math inline">$e^\*$</span> with a
+<li>now we choose an <span class="math inline">$e^*$</span> with a
 minimum weight, that crosses <span class="math inline"><em>S</em></span>
 and <span class="math inline"><em>S̄</em></span>
 <ul>
@@ -6510,7 +6510,7 @@ class="math inline"><em>w</em>(<em>e</em>) ≤ <em>w</em>(<em>e</em><sub>1</
 </ul></li>
 </ul>
 <p><strong>Goal:</strong> Construct MST T' where <span
-class="math inline">$X \cup e^\* \subset T$</span></p>
+class="math inline">$X \cup e^* \subset T$</span></p>
 <p>How? Well we will do this by constructing T'. Well we have this tree
 T. T is an M S T and T contains the partial solution x. Now the problem
 is that this tree T might not contain this edge e star. Well we try to
@@ -6518,36 +6518,36 @@ modify this tree T to construct a new tree, T', and we'll show that this
 new tree T' is a minimal spanning tree. So the weight of T' is at most
 the weight of T, actually the weights must be equal, and this new tree
 T' is modified a little bit from T so that it contains <span
-class="math inline">$e^\*$</span> in addition to containing the partial
+class="math inline">$e^*$</span> in addition to containing the partial
 solution x.</p>
 <p>Let's now take a look at how to construct T'. We know that there is
-an MST T, and thus <span class="math inline">$e^\*$</span> is a part of
+an MST T, and thus <span class="math inline">$e^*$</span> is a part of
 T or it is not.</p>
-<p><strong>Case A:</strong> <span class="math inline">$e^\*$</span> is a
+<p><strong>Case A:</strong> <span class="math inline">$e^*$</span> is a
 part of T. In this case T' = T</p>
-<p><strong>Case B:</strong> <span class="math inline">$e^\*$</span> is
+<p><strong>Case B:</strong> <span class="math inline">$e^*$</span> is
 not part of T.</p>
 <ul>
-<li>begin by looking at <span class="math inline">$T \cup e^\*$</span>,
-where <span class="math inline">$e^\* = (a,b)$</span></li>
+<li>begin by looking at <span class="math inline">$T \cup e^*$</span>,
+where <span class="math inline">$e^* = (a,b)$</span></li>
 <li>recall that T is a tree, so adding an edge creates a cycle, let's
 call it C</li>
 <li>but then there are two paths between a and b, so we may drop an edge
 in order to create an MST</li>
 <li>of course, since we are creating a minimum spanning tree, the edge
 we drop must be at least that of <span
-class="math inline">$e^\*$</span></li>
+class="math inline">$e^*$</span></li>
 <li>but any edge that crosses <span
 class="math inline"><em>S</em></span> and <span
 class="math inline"><em>S̄</em></span> will be at least that of <span
-class="math inline">$e^\*$</span>, since it was chosen to be the minimum
+class="math inline">$e^*$</span>, since it was chosen to be the minimum
 cut</li>
 <li>so we can drop any of the other edges ... perhaps we "cut" them
 out?</li>
 <li>so let's drop an arbitrary edge e', that cuts across <span
 class="math inline"><em>S</em></span> and <span
 class="math inline"><em>S̄</em></span></li>
-<li>finally we have <span class="math inline">$T' = T \cup e^\* -
+<li>finally we have <span class="math inline">$T' = T \cup e^* -
 e'$</span></li>
 </ul>
 <p>Well, we've constructed this T′ and now we have to prove that T′ is
@@ -6556,7 +6556,7 @@ spanning tree.</p>
 <h3 id="p1-proof-t-is-a-tree">P1-Proof T' is a tree</h3>
 <p>First we prove that T prime is a tree. How do we construct T prime
 once again? We took the tree T and we added it in this edge <span
-class="math inline">$e^\*$</span> that created a cycle. Now, along that
+class="math inline">$e^*$</span> that created a cycle. Now, along that
 cycle we removed any edge of that cycle. In this case we removed, let's
 say e'.</p>
 <p>What we're going to show now is that we can remove any edge of this
@@ -6573,15 +6573,15 @@ show that there's a path between y and z in this sub graph T'.</p>
 <p>In T there is a path between y and z of course because T is
 connected. The path goes along this edge e prime. Now what happens in
 T'? T' doesn't contain the edge e' (<span class="math inline">$T' = T
-\cup e^\* - e'$</span>). So this old path between y and z no longer
+\cup e^* - e'$</span>). So this old path between y and z no longer
 exists in T prime. So let's let P denote the path <span
 class="math inline"><em>y</em> ⇝ <em>z</em> ∈ <em>T</em></span>, the
 original tree. And now we have to construct a path in T prime which goes
 from y to z. Now, recall that when we looked at <span
-class="math inline">$T \cup e^\*$</span> what do we get? We got a cycle,
+class="math inline">$T \cup e^*$</span> what do we get? We got a cycle,
 these blue edges are the cycle in <span class="math inline">$T \cup
-e^\*$</span>. So let C denote the cycle in <span class="math inline">$T
-\cup e^\*$</span>. Let's denote the end points of e prime as c and d.
+e^*$</span>. So let C denote the cycle in <span class="math inline">$T
+\cup e^*$</span>. Let's denote the end points of e prime as c and d.
 Now e prime is a path from c to d in T. Now this cycle C has two paths
 between c and d, e' is one of those paths, let's take the other
 path.</p>
@@ -6617,15 +6617,15 @@ it's of minimum weight? Well we know that T is an MST, so we know that
 the weight of T is a minimum over all trees. So to show that T' is a
 minimum spanning tree, we have to show that the weight of T' equals the
 weight of T. What do we know about the weight of <span
-class="math inline">$e^\*$</span> compared to that of e prime? Well, we
-know that the weight of <span class="math inline">$e^\*$</span> is
+class="math inline">$e^*$</span> compared to that of e prime? Well, we
+know that the weight of <span class="math inline">$e^*$</span> is
 minimum over all edges cross the cut, e' also crosses the cut from <span
 class="math inline"><em>S</em></span> to <span
 class="math inline"><em>S̄</em></span> therefore, <span
-class="math inline">$w(e^\*) \le w(e')$</span>.</p>
+class="math inline">$w(e^*) \le w(e')$</span>.</p>
 <p>Now what is the weight of T'? It's <span class="math inline">$w(T') =
-w(T) + w(e^\*) - w(e')$</span>. With <span
-class="math inline">$w(e^\*)$</span> at most the <span
+w(T) + w(e^*) - w(e')$</span>. With <span
+class="math inline">$w(e^*)$</span> at most the <span
 class="math inline"><em>w</em>(<em>e</em><sup>′</sup>)</span> so this
 part is almost zero. So this whole thing is at most the weight of T,
 <span
@@ -6633,7 +6633,7 @@ class="math inline"><em>w</em>(<em>T</em><sup>′</sup>) ≤ <em>w</em>(<em>
 So we've shown that w(T') is at most w(T), and because T is minimum
 weight, therefore T' is also a minimum weight and in fact, the weight of
 T' must equal the weight of T. So the weight of <span
-class="math inline">$e^\*$</span> must equal the weight of e'. Otherwise
+class="math inline">$e^*$</span> must equal the weight of e'. Otherwise
 we retrain the new tree T prime which is strictly smaller weight than t,
 which would contradict the fact that T is an MST. So all these edges of
 T which cross this cut, must be of exactly the same weight as e star
@@ -7036,15 +7036,15 @@ INPUT: Flow network, directed G=(V,E) with source and sink (<span
 class="math inline"><em>s</em>, <em>t</em> ∈ <em>V</em></span>) &amp;
 capcities <span
 class="math inline"><em>c</em><sub><em>e</em></sub> 0</span><br />
-OUTPUT: flow <span class="math inline">$f^\*$</span> of max size, (<span
+OUTPUT: flow <span class="math inline">$f^*$</span> of max size, (<span
 class="math inline"><em>s</em><em>i</em><em>z</em><em>e</em>(<em>f</em>) = <em>f</em>_<em>o</em><em>u</em><em>t</em>(<em>s</em>) = <em>f</em>_<em>i</em><em>n</em>(<em>t</em>)</span>)</p>
 <p>When does ford-fulkerson stop running? When there are no remaining
 augmenting path in residual graph of G, <span
-class="math inline">$G^{f^\*}$</span></p>
+class="math inline">$G^{f^*}$</span></p>
 <p><strong>Lemma</strong> For a flow <span
-class="math inline">$f^\*$</span> if there is no augmenting path in
-<span class="math inline">$G^{f^\*}$</span> then <span
-class="math inline">$f^\*$</span> is a max-flow.</p>
+class="math inline">$f^*$</span> if there is no augmenting path in
+<span class="math inline">$G^{f^*}$</span> then <span
+class="math inline">$f^*$</span> is a max-flow.</p>
 <p>Consider: Given a flow network and a flow f, what is the time
 required to check if f is a max flow?<br />
 Think about what it would take to perform this check. First you'll need
@@ -7060,7 +7060,7 @@ is for left and R is for right. Further define an st-cut as a cut where
 class="math inline"><em>t</em> ∈ <em>R</em></span>.</p>
 <p>We will also need to define the capacity of the cut, ie the capacity
 from L to R,: <span class="math display">$$\large capacity(L,R) =
-\sum\_{\overset{\rightarrow}{vw} \in E} c\_{vw}$$</span> Note that <span
+\sum_{\overset{\rightarrow}{vw} \in E} c_{vw}$$</span> Note that <span
 class="math inline"><em>v</em> ∈ <em>L</em></span> and <span
 class="math inline"><em>w</em> ∈ <em>R</em></span>. We are NOT concerned
 about edges that go from R to V. Do you know why? It's because the flow
@@ -7119,17 +7119,17 @@ the flow is bounded by 27.</p>
 class="math inline"><em>s</em><em>i</em><em>z</em><em>e</em>(<em>f</em>) = <em>f</em>_<em>o</em><em>u</em><em>t</em>(<em>L</em>) − <em>f</em>_<em>i</em><em>n</em>(<em>L</em>)</span>
 (this is a NOT a typo)</p>
 <ul>
-<li><span class="math inline">$\large f\_{out}(L) =
-\sum\_{\overset{\rightarrow}{vw} \in E}
-f\_{vw}$</span>
+<li><span class="math inline">$\large f_{out}(L) =
+\sum_{\overset{\rightarrow}{vw} \in E}
+f_{vw}$</span>
 <ul>
 <li>where <span class="math inline">$\overset{\rightarrow}{vw} \in
 E$</span> is the edges leaving L only</li>
 <li>this is the flow out of L</li>
 </ul></li>
-<li><span class="math inline">$\large f\_{in}(L) =
-\sum\_{\overset{\rightarrow}{wv} \in E}
-f\_{wv}$</span>
+<li><span class="math inline">$\large f_{in}(L) =
+\sum_{\overset{\rightarrow}{wv} \in E}
+f_{wv}$</span>
 <ul>
 <li>where <span class="math inline">$\overset{\rightarrow}{wv} \in
 E$</span> is the edges into L only</li>
@@ -7137,11 +7137,11 @@ E$</span> is the edges into L only</li>
 </ul></li>
 <li>Then we add a couple of terms to help us
 <ul>
-<li><span class="math inline">$\sum\_{\overset{\rightarrow}{vw} \in E}
-f\_{vw}$</span> for <span
+<li><span class="math inline">$\sum_{\overset{\rightarrow}{vw} \in E}
+f_{vw}$</span> for <span
 class="math inline"><em>v</em>, <em>w</em> ∈ <em>L</em></span></li>
-<li><span class="math inline">$\sum\_{\overset{\rightarrow}{wv} \in E}
-f\_{vw}$</span> for <span
+<li><span class="math inline">$\sum_{\overset{\rightarrow}{wv} \in E}
+f_{vw}$</span> for <span
 class="math inline"><em>w</em>, <em>v</em> ∈ <em>L</em></span></li>
 <li>these are edges that remain in L, neither an inflow nor an
 outflow</li>
@@ -7151,7 +7151,7 @@ R + sum of flows that stay in L
 <ul>
 <li>together the form the total outflow of all vertices v in L <span
 class="math inline">$\sum
-f\_{out} \\ v \in L$</span></li>
+f_{out} \\ v \in L$</span></li>
 </ul></li>
 <li>similarly adding the negative terms(2&amp;4)
 <ul>
@@ -7192,26 +7192,26 @@ and thus max flow <span class="math inline">≤</span> min st-cut
 capacity</p>
 <p>Now we must prove max flow <span class="math inline">≥</span> min
 st-cut capacity as well. together they prove equality.</p>
-<p>Take the flow <span class="math inline">$f^\*$</span> provided from
+<p>Take the flow <span class="math inline">$f^*$</span> provided from
 ford-fulkerson. We know for a fact that <span
-class="math inline">$f^\*$</span> cannot have any st-paths in the
-residual graph <span class="math inline">$G^{f^\*}$</span>. So we'll
-construct an (L,R) where <span class="math inline">$size(f^\*) =
+class="math inline">$f^*$</span> cannot have any st-paths in the
+residual graph <span class="math inline">$G^{f^*}$</span>. So we'll
+construct an (L,R) where <span class="math inline">$size(f^*) =
 capacity(L,R)$</span>. This implies the goal of our proof, since</p>
-<p><span class="math display">$$\underset{f}{max} size(f) \ge size(f^\*)
+<p><span class="math display">$$\underset{f}{max} size(f) \ge size(f^*)
 = capacity(L,R) \ge
 \underset{L,R}{max} capacity(L,R)$$</span></p>
 <p><strong>Proof</strong></p>
 <ul>
-<li>take a flow <span class="math inline">$f^\*$</span> with no st-path
-in the residual <span class="math inline">$G^{f^\*}$</span>
+<li>take a flow <span class="math inline">$f^*$</span> with no st-path
+in the residual <span class="math inline">$G^{f^*}$</span>
 <ul>
 <li>t/f t is not reachable from s in <span
-class="math inline">$G^{f^\*}$</span></li>
+class="math inline">$G^{f^*}$</span></li>
 <li>t/f they can be seperated</li>
 </ul></li>
 <li>so let L = vertices reachable from s in <span
-class="math inline">$G^{f^\*}$</span>
+class="math inline">$G^{f^*}$</span>
 <ul>
 <li>clearly t cannot be in L</li>
 <li>let R = V - L, be the remaining vertices, t will be in R, but s will
@@ -7219,7 +7219,7 @@ not be</li>
 </ul></li>
 <li>we now have now partitioned V into an st-cut!</li>
 <li>Now we need to prove that the capacity of this cut is equal to the
-<span class="math inline">$size(f^\*)$</span></li>
+<span class="math inline">$size(f^*)$</span></li>
 </ul>
 <h3 id="properties">Properties</h3>
 <p><img src="../../../.assets/CS6515_images/MF2-005.png"
@@ -7227,7 +7227,7 @@ alt="MF2-005" /></p>
 <p>But first we will need some properties of cuts so that we may
 conclude our proof. Consider the above image: At left we have a flow
 network with capacities in red, and a max flow in green. On the right we
-have a residual graph <span class="math inline">$G^{f^\*}$</span></p>
+have a residual graph <span class="math inline">$G^{f^*}$</span></p>
 <p>Consider some observations:</p>
 <ul>
 <li>edge (e-&gt;d) in the original graph
@@ -7248,7 +7248,7 @@ residual as well</li>
 </ul></li>
 </ul>
 <p>Recall that we defined L as the set of vertices reachable from s in
-<span class="math inline">$G^{f^\*}$</span>, we've circled these in
+<span class="math inline">$G^{f^*}$</span>, we've circled these in
 purple. The reader is encouraged to verify this. The remaining vertices
 are defined as R.</p>
 <p>Now let's consider the edges which have potential outflows:
@@ -7256,32 +7256,32 @@ are defined as R.</p>
 these edges appear in the residual graph. In fact their inverse appears,
 as they have no spare capacity. Furthermore, they cannot appear. If they
 did then there would be a path to t violating our assumption <span
-class="math inline">$f^\*$</span> has no st-path in <span
-class="math inline">$G^{f^\*}$</span>. What this tells us is that the
+class="math inline">$f^*$</span> has no st-path in <span
+class="math inline">$G^{f^*}$</span>. What this tells us is that the
 flow along these edges must be fully capacitated, ie saturated. hence
 the flow out of L is simply the capacity of L -&gt; R <span
 class="math display">$$\forall
 \overset{\rightarrow}{vw} \in E, v\in L, w\in R $$</span><br />
-<span class="math display">$$ f\_{vw}^\* = c\_{vw} \\ f^{\*out}(L) =
+<span class="math display">$$ f_{vw}^* = c_{vw} \\ f^{\cdot out}(L) =
 capacity(L,R) $$</span></p>
 <p>Now let's consider the edges going from R to L, in our original
 graph<br />
 <span class="math display">$$\forall \overset{\rightarrow}{zy} \in E,
 z\in R, y\in L $$</span><br />
-<span class="math display">$$ f\_{zy}^\* = 0 \\ f^{\*out}(L) = 0
+<span class="math display">$$ f_{zy}^* = 0 \\ f^{\cdot out}(L) = 0
 $$</span></p>
 <p>We can put these together to get<br />
-<span class="math display">$$ size(f^\*) = f^{\*out}(L) - f^{\*in}(L) =
+<span class="math display">$$ size(f^*) = f^{\cdot out}(L) - f^{\cdot in}(L) =
 capacity(L,R) - 0 $$</span> which is what we wanted</p>
 <p>so Let's review</p>
 <ul>
 <li>We wanted to show max size(f) <span class="math inline">≥</span> min
 cap(L,R)</li>
-<li>we took <span class="math inline">$f^\*$</span> from ford fulkerson
+<li>we took <span class="math inline">$f^*$</span> from ford fulkerson
 algo,
 <ul>
 <li>which has no st-path in <span
-class="math inline">$G^{f^\*}$</span></li>
+class="math inline">$G^{f^*}$</span></li>
 <li>which also means there is no augmenting path from s to t</li>
 </ul></li>
 <li>we used this to construct (L,R)
@@ -7290,15 +7290,15 @@ class="math inline">$G^{f^\*}$</span></li>
 is in R</li>
 <li>making it a valid st-cut</li>
 </ul></li>
-<li>we proved that the <span class="math inline">$size(f^\*) =
+<li>we proved that the <span class="math inline">$size(f^*) =
 cap(L,R)$</span></li>
 </ul>
 <p>What this also does is prove</p>
 <ul>
 <li>our earlier lemma: For a flow <span
-class="math inline">$f^\*$</span> if there is no augmenting path in
-<span class="math inline">$G^{f^\*}$</span> then <span
-class="math inline">$f^\*$</span> is a max-flow.</li>
+class="math inline">$f^*$</span> if there is no augmenting path in
+<span class="math inline">$G^{f^*}$</span> then <span
+class="math inline">$f^*$</span> is a max-flow.</li>
 <li>the correctness of ford-fulkerson algorithm</li>
 </ul>
 <p>and it shows us how to create a min st-cut.</p>
@@ -7705,17 +7705,17 @@ src="../../../.assets/CS6515_images/MF5-008.png" alt="MF5-008" /></p>
 <p>So what is the max-flow of this new graph G'? What we can see that is
 that it will be bounded by the total capacities out of s' and the total
 into t'. Let's consider this to see where it takes us</p>
-<p>first observe that <span class="math inline">$D = \sum\_{e \in E}
-d(e) = \sum\_{v \in V}
-d\\into(v) = \sum\_{v \in V} d\\outof(v)$</span></p>
+<p>first observe that <span class="math inline">$D = \sum_{e \in E}
+d(e) = \sum_{v \in V}
+d\\into(v) = \sum_{v \in V} d\\outof(v)$</span></p>
 <ul>
 <li>summing the demand along each edge is the same as summing the demand
 into a vertex, or summing out of each vertex</li>
 <li>consequently
 <ul>
-<li><span class="math inline">$c'\_{outof}(s') = \sum\_{v \in V}
+<li><span class="math inline">$c'_{outof}(s') = \sum_{v \in V}
 d\\into(v) = D$</span></li>
-<li><span class="math inline">$c'\_{into}(t') = \sum\_{v \in V}
+<li><span class="math inline">$c'_{into}(t') = \sum_{v \in V}
 d\\outof(v) = D$</span></li>
 </ul></li>
 </ul>
@@ -7767,14 +7767,14 @@ We know that <span
 class="math inline"><em>f</em><sup>′</sup>_<em>i</em><em>n</em>(<em>v</em>) = <em>f</em><sup>′</sup>_<em>o</em><em>u</em><em>t</em>(<em>v</em>)</span>
 holds as it's the output of a max-flow algo. Let's look at <span
 class="math inline"><em>f</em><sup>′</sup>_<em>i</em><em>n</em>(<em>v</em>)</span>.</p>
-<p><span class="math inline">$\begin{split} f'\_{in}(v) &amp; = f'(
+<p><span class="math inline">$\begin{split} f'_{in}(v) &amp; = f'(
 \overset{\rightarrow}{s'v}) +
-\sum\_{u \in V} f'(u-\&gt;v) \\ &amp; = d\_{in}(v) + \sum\_{u \in V}
+\sum_{u \in V} f'(u-\&gt;v) \\ &amp; = d_{in}(v) + \sum_{u \in V}
 (f(u-\&gt;v) - d(u-\&gt;v)) &amp; \text{ rewrite f' in terms of f } \\
 &amp; =
-\sum\_{u \in V} f(u-\&gt;v) &amp; \text{ cancel out the demands as they
+\sum_{u \in V} f(u-\&gt;v) &amp; \text{ cancel out the demands as they
 both
-represent into v } \\ &amp; = f\_{in}(v) &amp; \text{ summation of flows
+represent into v } \\ &amp; = f_{in}(v) &amp; \text{ summation of flows
 into v
 is just the inflow f\\in } \end{split}$</span></p>
 <p>What this tells us is that the flow into v in G' is the same as the
@@ -8051,10 +8051,10 @@ class="math inline"><em>P</em>_<em>i</em><em>j</em></span></li>
 <li>We began with the inputs G,f,b,p, where G was undirected</li>
 <li>our first step was define our flow network (G',c), where G' is
 directed with s,t in V</li>
-<li>we ran our max-flow to get <span class="math inline">$f^\*$</span>
+<li>we ran our max-flow to get <span class="math inline">$f^*$</span>
 <ul>
 <li>which by the maxFlow-minCut theorem: size(<span
-class="math inline">$f^\*$</span>) = capacity of the min st-cut</li>
+class="math inline">$f^*$</span>) = capacity of the min st-cut</li>
 </ul></li>
 <li>we demonstrated that capacity of the min st-cut = <span
 class="math inline">$\underset{F,B}{min} w'(F,B)$</span></li>
@@ -8530,7 +8530,7 @@ into a 3SAT algo</li>
 <li>for clause 2
 <ul>
 <li>create a new variable y, and partition the clause as follows</li>
-<li><span class="math inline">$C'\_2 = (\bar{x_2} \vee x_3 \vee y)
+<li><span class="math inline">$C'_2 = (\bar{x_2} \vee x_3 \vee y)
 \wedge (\bar{y} \vee \bar{x_1}
 \vee \bar{x_4})$</span></li>
 <li>replace <span class="math inline"><em>C</em><sub>2</sub></span> with
@@ -8550,7 +8550,7 @@ Claim</p>
 <li><span class="math inline">$C_2 = (\bar{x_2} \vee x_3 \vee \bar{x_1}
 \vee \bar{x_4})$</span></li>
 <li>is equivalent to</li>
-<li><span class="math inline">$C'\_2 = (\bar{x_2} \vee x_3 \vee y)
+<li><span class="math inline">$C'_2 = (\bar{x_2} \vee x_3 \vee y)
 \wedge (\bar{y} \vee \bar{x_1}
 \vee \bar{x_4})$</span></li>
 </ul>
@@ -8699,7 +8699,7 @@ true since a_1 and a_2 is false</li>
 true since <span class="math inline">$\bar{y_1}$</span> is false and a_3
 is false</li>
 <li>we keep going until the last clause</li>
-<li>clause k-2: <span class="math inline">$\bar{y\_{k-3}}$</span> is
+<li>clause k-2: <span class="math inline">$\bar{y_{k-3}}$</span> is
 false because of the previous clause, and <span
 class="math inline"><em>a</em>_<em>k</em> − 1, <em>a</em>_<em>k</em></span>
 are false by assumption
@@ -9237,7 +9237,7 @@ Given inputs <span
 class="math inline"><em>a</em><sub>1</sub>, ..., <em>a</em><sub><em>n</em></sub></span>,
 t and S</p>
 <ul>
-<li>Check that <span class="math inline">$\sum\_{i\\ in S} a_i =
+<li>Check that <span class="math inline">$\sum_{i\\ in S} a_i =
 t$</span>, this will take time O(n log t)</li>
 </ul>
 <p>Since log t is polynomial in the input size we can conlude that
@@ -9645,17 +9645,17 @@ or (b) into the sink vertex. Which one we choose doesn't matter as they
 must be the same.</p>
 <ul>
 <li>Objective Function: <span
-class="math inline">$max(\sum\_{\overset{\rightarrow}{sv}}
-f\_{sv})$</span></li>
+class="math inline">$max(\sum_{\overset{\rightarrow}{sv}}
+f_{sv})$</span></li>
 <li>Constraints:
 <ul>
 <li>for every <span class="math inline">$e \in E \\ 0 \le f_e \le
 c_e$</span> - the flow can be at most the capacity</li>
 <li>for every $v \in V - \s,t$
 <ul>
-<li><span class="math inline">$\sum\_{\overset{\rightarrow}{wv}} f\_{wv}
+<li><span class="math inline">$\sum_{\overset{\rightarrow}{wv}} f_{wv}
 =
-\sum\_{\overset{\rightarrow}{vz}} f\_{vz}$</span> Flow in == Flow out of
+\sum_{\overset{\rightarrow}{vz}} f_{vz}$</span> Flow in == Flow out of
 v</li>
 <li>flow must be conserved</li>
 </ul></li>
@@ -9671,7 +9671,7 @@ of each should we sell to maximize profit?</li>
 </ul>
 <p>Details</p>
 <ul>
-<li>The profit on each unit of A is \1, and for B it is $6</li>
+<li>The profit on each unit of A is &dollar;1, and for B it is &dollar;6</li>
 <li>The demand for A is <span class="math inline"> ≤ 300</span> units,
 and for B it is <span class="math inline"> ≤ 200</span> units</li>
 <li>We have a total of 700 hours capacity among our employees
@@ -10214,13 +10214,13 @@ class="math inline"><em>x</em>2 + 3<em>x</em>3 ≤ 500</span></li>
 constraints, but it must also satisfy any linear combination of the
 constraints</p>
 <ul>
-<li>so for example <span class="math inline">$y_1\*(1) + y_2\*(2) +
-y_3\*(3) + y_4\*(4)$</span> should also be satified</li>
+<li>so for example <span class="math inline">$y_1\cdot (1) + y_2\cdot (2) +
+y_3\cdot (3) + y_4\cdot (4)$</span> should also be satified</li>
 </ul>
 <p>Let's write this all out</p>
 <ul>
-<li><span class="math inline">$y_1\*(1) + y_2\*(2) + y_3\*(3) +
-y_4\*(4)$</span></li>
+<li><span class="math inline">$y_1\cdot (1) + y_2\cdot (2) + y_3\cdot (3) +
+y_4\cdot (4)$</span></li>
 <li>$\iff y_1 x1 + y_2 x2 + y_3(x1 + 3x2 + 2x3) + y_4(x2 + 3x3) \le 300
 y_1 + 200 y_2 + 1000y_3 + 500y_4 $
 <ul>
@@ -10526,15 +10526,15 @@ dual LP is feasible and unbounded</li>
 <li>Primal LP has an optimal solution x <em><span
 class="math inline">⇔</span> Dual LP has an optimal solution y</em>
 <ul>
-<li>ie <span class="math inline">$c^T x^\* = b^T y^\*$</span></li>
+<li>ie <span class="math inline">$c^T x^* = b^T y^*$</span></li>
 </ul></li>
 </ul>
 <p>Although it is not very obvious the max-flow min-st.cut theorem is a
 mirror/reflection of this theorem. It turns out that</p>
 <ul>
-<li><span class="math inline">$c^T x^\*$</span> - is the max-flow
+<li><span class="math inline">$c^T x^*$</span> - is the max-flow
 through a flow network</li>
-<li><span class="math inline">$b^T y^\*$</span> - is the capacity of the
+<li><span class="math inline">$b^T y^*$</span> - is the capacity of the
 min-st.cut</li>
 </ul>
 <h2 id="lp4-max-sat-approximation">LP4: Max-SAT Approximation</h2>
@@ -10563,19 +10563,19 @@ reduce SAT to Max-SAT.</p>
 time so we will attempt to approximate it using LP Programming.</p>
 <p>Problem Formulation:<br />
 For a formula f with m clauses, let <span
-class="math inline">$m^\*$</span> denote the max # of SAT clauses</p>
+class="math inline">$m^*$</span> denote the max # of SAT clauses</p>
 <ul>
-<li>Clearly <span class="math inline">$m^\* \le m$</span>
+<li>Clearly <span class="math inline">$m^* \le m$</span>
 <ul>
-<li>when <span class="math inline">$m^\* = m$</span> then f is
+<li>when <span class="math inline">$m^* = m$</span> then f is
 satisfiable</li>
 </ul></li>
 </ul>
 <p>We will construct an algorithm A on the input f to get l, where l is
 the number of clauses satisfied by assignment output of A.</p>
-<p>So how does l compare to <span class="math inline">$m^\*$</span>? We
+<p>So how does l compare to <span class="math inline">$m^*$</span>? We
 are going to guarantee that <span class="math inline">$l
-\ge \frac{m^\*}{2}$</span>. If this holds for every/any input f then we
+\ge \frac{m^*}{2}$</span>. If this holds for every/any input f then we
 this is a 1/2 approximation algorithm. later we will see how we can push
 this to formulate a 1/3 approximation.</p>
 <p>We will look at three algorithms:</p>
@@ -10614,16 +10614,16 @@ that would make computing these probabilities challenging</li>
 <p>Let's consider a single clause <span
 class="math inline"><em>c</em><sub><em>j</em></sub></span><br />
 <span class="math inline">$\text{ Then } w_i = \begin{cases} 1 &amp;
-\text{if c_j is satisifed} \\ 0
+\text{if } c_j \text{ is satisfied} \\ 0
 &amp; \text{otherwise} \\ \end{cases}$</span></p>
 <p>If we now sum these Ws we should get the number of satisfied clauses
 W. ie <span
 class="math inline"><em>W</em> = ∑_<em>j</em> = 0<sup><em>m</em></sup><em>w</em><sub><em>j</em></sub></span><br />
 So now we can work some magic on the original expected value as</p>
 <ul>
-<li><span class="math inline">$E\[W\] = E\[\sum\_{j=0}^m
+<li><span class="math inline">$E\[W\] = E\[\sum_{j=0}^m
 w_j\]$</span></li>
-<li><span class="math inline">$= \sum\_{j=0}^m E\[w_j\]$</span></li>
+<li><span class="math inline">$= \sum_{j=0}^m E\[w_j\]$</span></li>
 <li>This is much easier to compute as it is just one clause</li>
 <li>$E[w_j] = $ 1 x Pr(<span
 class="math inline"><em>w</em><sub><em>j</em></sub> = 1</span>) + 0 x
@@ -10659,7 +10659,7 @@ that</p>
 </ul>
 <p>In Summary:<br />
 We've shown E[# of satisfied clauses] = E[W] = <span
-class="math inline">$\sum\_{j=1}^m
+class="math inline">$\sum_{j=1}^m
 E\[w_j\] \ge \frac{m}{2}$</span><br />
 This demonstrates the randomized algorithm resulting in a 1/2
 approximation</p>
@@ -10792,7 +10792,7 @@ consequently <span
 class="math inline"><em>z</em><sub><em>j</em></sub> = 0</span> since
 it's not satisfied</li>
 <li>for any other setting/assignment of variables <span
-class="math inline"><em>z</em><sub><em>j</em></sub></span> = 0 or
+class="math inline"><em>z</em><sub><em>j</em></sub></span> =  0 or
 1.</li>
 <li>we can't force, or set, <span
 class="math inline"><em>z</em><sub><em>j</em></sub></span> to be 1.
@@ -10866,9 +10866,9 @@ integers</li>
 <ul>
 <li>What is the optimal value of the objective function?
 <ul>
-<li>well thats just <span class="math inline">$z_1^\* + z_2\* + ... +
-z_n^\*$</span></li>
-<li>recall that this is <span class="math inline">$m^\*$</span> which is
+<li>well thats just <span class="math inline">$z_1^* + z_2\cdot  + ... +
+z_n^*$</span></li>
+<li>recall that this is <span class="math inline">$m^*$</span> which is
 the max number of satisfied clauses</li>
 </ul></li>
 </ul>
@@ -10881,11 +10881,11 @@ allow us to treat it like a standard LP problem.</p>
 <p>Of course we don't want to get confused, between the ILP version and
 the LP version so we create some different variables.</p>
 <ul>
-<li>Let <span class="math inline">$\hat{y}^\* \\,\\ \hat{z}^\*$</span>
+<li>Let <span class="math inline">$\hat{y}^* \\,\\ \hat{z}^*$</span>
 be the optimal values to the relaxed lp</li>
 <li>then the optimal solution is just <span
-class="math inline">$\hat{z_1}^\* + \hat{z_2}^\* +
-... + \hat{z_n}^\*$</span></li>
+class="math inline">$\hat{z_1}^* + \hat{z_2}^* +
+... + \hat{z_n}^*$</span></li>
 </ul>
 <p>Now how can we relate this back to the ILP? As you can imagine the
 ILP solution is in the feasible region of the LP, so at most it could be
@@ -10894,9 +10894,9 @@ nope! This is all to say that the LP optimal solution is effectively an
 upper bound on the ILP optimal solution.</p>
 <p>Thus, we relate the two quite easily</p>
 <ul>
-<li><span class="math inline">$m^\* = z_1^\* + z_2^\* + ... + z_n^\* \le
-\hat{z_1}^\* +
-\hat{z_2}^\* + ... + \hat{z_n}^\*$</span></li>
+<li><span class="math inline">$m^* = z_1^* + z_2^* + ... + z_n^* \le
+\hat{z_1}^* +
+\hat{z_2}^* + ... + \hat{z_n}^*$</span></li>
 <li>Unlike the hollywood walk of streets these are optimal, poor joke?
 perhaps</li>
 </ul>
@@ -10905,11 +10905,11 @@ them. But we're too advanced now to do basic up/down rounding. We will
 use fancy probabilistic rounding.</p>
 <p><strong>Randomized Rounding</strong></p>
 <p>Continuing our goal of translating <span
-class="math inline">$\hat{y_i}^\* \text{ and }
-\hat{z_i}^\*$</span> to integers <span
+class="math inline">$\hat{y_i}^* \text{ and }
+\hat{z_i}^*$</span> to integers <span
 class="math inline"><em>y</em><sub><em>i</em></sub> and
 <em>z</em><sub><em>i</em></sub></span> that are as close as possible to
-<span class="math inline">$y_i^\* \text{ and } z_i^\*$</span></p>
+<span class="math inline">$y_i^* \text{ and } z_i^*$</span></p>
 <p>Recall that in both our ILP as well as our LP formulation we have the
 constraints</p>
 <ul>
@@ -10925,7 +10925,7 @@ class="math inline"><em>z</em><sub><em>i</em></sub><sup>′</sup><em>s</em></spa
 we only care about the y's</p>
 <p>So <span class="math inline">$\text{ Set }y_i = \begin{cases} 1 &amp;
 \text{with probability: }
-\hat{y_i^\*} \\ 0 &amp; \text{with probability: } 1-\hat{y_i^\*} \\
+\hat{y_i^*} \\ 0 &amp; \text{with probability: } 1-\hat{y_i^*} \\
 \end{cases}$</span></p>
 <p>All in all this is rather simple.</p>
 <p>Let's now take a look at the expected value of this randomized
@@ -10946,7 +10946,7 @@ satisifed } \\ 0 &amp; \text{ if } c_j \text{ is NOT satisifed } \\
 class="math inline"><em>W</em> = <em>s</em><em>u</em><em>m</em><sub><em>j</em></sub><em>w</em><sub><em>j</em></sub></span><br />
 Then: E[W] = <span class="math inline">$\sum_j E\[w_j\] = \sum_j Pr(c_j
 \text{ is satisfied })
-\ge (1-\frac{1}{e}) \hat{z_j}^\*$</span></p>
+\ge (1-\frac{1}{e}) \hat{z_j}^*$</span></p>
 <p>The final term here is the value of the objective function for the
 Linear program, which we've shown is <strong>at least</strong> the value
 of the Integer Linear program for the max-SAT, m*</p>
@@ -10954,7 +10954,7 @@ of the Integer Linear program for the max-SAT, m*</p>
 <ul>
 <li>E[W] = <span class="math inline">$Pr(c_j \text{ is satisfied }) \ge
 (1-\frac{1}{e})
-\hat{z_j}^\* \ge (1-\frac{1}{e})m^\*$</span></li>
+\hat{z_j}^* \ge (1-\frac{1}{e})m^*$</span></li>
 </ul>
 <p>Now it remains to show/prove</p>
 <ul>
@@ -10971,8 +10971,8 @@ does matter though, due to symmetry.</p>
 <li>Since all literals are positive we will have a constraint of the
 form
 <ul>
-<li><span class="math inline">$\hat{y_1^\*} + \cdots + \hat{y_k^\*} \ge
-\hat{z_j^\*}$</span></li>
+<li><span class="math inline">$\hat{y_1^*} + \cdots + \hat{y_k^*} \ge
+\hat{z_j^*}$</span></li>
 </ul></li>
 <li>So what is the probability that this is satisfied?
 <ul>
@@ -10987,7 +10987,7 @@ unsatisfied)</li>
 class="math inline"><em>c</em><sub><em>j</em></sub></span> is
 unsatisfied)
 <ul>
-<li>is <span class="math inline">$\prod_i (1-\hat{y_i^\*})$</span></li>
+<li>is <span class="math inline">$\prod_i (1-\hat{y_i^*})$</span></li>
 </ul></li>
 <li>So how do we relate this product back to the sum in the
 constraint?</li>
@@ -11008,29 +11008,29 @@ class="math inline">≥</span> Geometric Mean, which is always true for
 non-neg numbers</p>
 <p>For our problem</p>
 <ul>
-<li>we set <span class="math inline">$w_i = 1-\hat{y_i^\*}$</span>,
+<li>we set <span class="math inline">$w_i = 1-\hat{y_i^*}$</span>,
 which results in a series of positive numbers</li>
 <li>Then our arithmetics mean is
 <ul>
 <li><span class="math inline">$\frac{1}{k} \sum_i
-(1-\hat{y_i^\*})$</span></li>
+(1-\hat{y_i^*})$</span></li>
 </ul></li>
 <li>Our geometric mean is
 <ul>
 <li><span class="math inline">$(\prod_i
-(1-\hat{y_i^\*}))^{1/k}$</span></li>
+(1-\hat{y_i^*}))^{1/k}$</span></li>
 </ul></li>
 <li>put together this means
 <ul>
-<li><span class="math inline">$\frac{1}{k} \sum_i (1-\hat{y_i^\*}) \ge
+<li><span class="math inline">$\frac{1}{k} \sum_i (1-\hat{y_i^*}) \ge
 \left\[\prod_i
-(1-\hat{y_i^\*})\right\]^{1/k}$</span></li>
+(1-\hat{y_i^*})\right\]^{1/k}$</span></li>
 </ul></li>
 <li>which we write slightly as
 <ul>
 <li><span class="math inline">$\left\[\frac{1}{k} \sum_i
-(1-\hat{y_i^\*})\right\]^k \ge \prod_i
-(1-\hat{y_i^\*})$</span></li>
+(1-\hat{y_i^*})\right\]^k \ge \prod_i
+(1-\hat{y_i^*})$</span></li>
 <li>we just moved the root from the left side to the right as an
 exponent</li>
 </ul></li>
@@ -11040,14 +11040,14 @@ exponent</li>
 <li>Pr(<span class="math inline"><em>c</em><sub><em>j</em></sub></span>
 is satisfied)</li>
 <li><span class="math inline">$= 1 - \prod_i
-(1-\hat{y_i^\*})$</span></li>
+(1-\hat{y_i^*})$</span></li>
 <li>$\ge 1 - \left[\frac{1}{k} \sum_i (1-\hat{y_i^*})\right]^k $</li>
 <li>$= 1 - \left[1 - \frac{1}{k} \sum_i \hat{y_i^*}\right]^k $
 <ul>
 <li>focus for a moment on the last term <span
-class="math inline">$\sum_i \hat{y_i^\*}$</span></li>
+class="math inline">$\sum_i \hat{y_i^*}$</span></li>
 <li>this is the contraint on <span
-class="math inline">$\hat{z_j^\*}$</span>!!!</li>
+class="math inline">$\hat{z_j^*}$</span>!!!</li>
 <li>so it must be at least 0</li>
 <li>now we substitute it into our equation to get another
 inequality</li>
@@ -11094,13 +11094,13 @@ alt="LP-004" /></p>
 <li>Pr(<span class="math inline"><em>C</em><sub><em>j</em></sub></span>
 is satisfied)</li>
 <li><span class="math inline">$= 1 - \prod_i (1-
-\hat{y_i^\*})$</span></li>
+\hat{y_i^*})$</span></li>
 <li><span class="math inline">$\ge 1 - (1 -
-\hat{z_j^\*}/k)^k$</span></li>
+\hat{z_j^*}/k)^k$</span></li>
 <li><span class="math inline">$\ge \left\[1 - (1 - 1/k)^k \right\]
-\hat{z_j^\*}$</span></li>
+\hat{z_j^*}$</span></li>
 <li><span class="math inline">$\ge \left\[1 - 1/e \right\]
-\hat{z_j^\*}$</span></li>
+\hat{z_j^*}$</span></li>
 </ul>
 <p>The last line is just a geometric mean taylor expansion and
 reduction</p>
@@ -11139,7 +11139,7 @@ class="math inline"><em>m</em><sub>2</sub></span></li>
 </ul>
 <p>Then E[max{<span
 class="math inline"><em>m</em><sub>1</sub>, <em>m</em><sub>2</sub></span>}]
-<span class="math inline">$\ge \frac{3}{4}m^\*$</span></p>
+<span class="math inline">$\ge \frac{3}{4}m^*$</span></p>
 <h2 id="end-of-notes">End of Notes</h2>
 <p>Hooray you made it to the bottom</p>
 <p>SegmentLocal</p>

@@ -123,7 +123,7 @@ the <code>min</code>/<code>max</code>.</li>
 are ready.</li>
 <li><strong>Where the answer lives</strong> — which cell holds the final
 result.</li>
-<li><strong>Runtime</strong> = (number of entries) × (work per
+<li><strong>Runtime</strong> =  (number of entries) × (work per
 entry).</li>
 </ol>
 <h3 id="one-sequence-dp">One-sequence DP</h3>
@@ -134,7 +134,7 @@ Fill <span class="math inline"><em>i</em> = 2 → <em>n</em></span>;
 answer <span class="math inline"><em>F</em><sub><em>n</em></sub></span>;
 runtime <span class="math inline"><em>O</em>(<em>n</em>)</span>.</p>
 <p><strong>Longest Increasing Subsequence (LIS).</strong> Subproblem
-<span class="math inline"><em>L</em>(<em>i</em>)</span> = length of the
+<span class="math inline"><em>L</em>(<em>i</em>)</span> =  length of the
 longest increasing subsequence <strong>ending at</strong> index <span
 class="math inline"><em>i</em></span>. <span
 class="math display"><em>L</em>(<em>i</em>) = 1 + max ({ 0 } ∪ { <em>L</em>(<em>j</em>) : <em>j</em> &lt; <em>i</em>, <em>a</em><sub><em>j</em></sub> &lt; <em>a</em><sub><em>i</em></sub> }).</span></p>
@@ -174,7 +174,7 @@ class="math inline"><em>L</em>(<em>n</em>, <em>m</em>)</span>; runtime
 </ul>
 <h3 id="capacity-dp">Capacity DP</h3>
 <p><strong>0/1 Knapsack.</strong> Subproblem <span
-class="math inline"><em>K</em>(<em>i</em>, <em>b</em>)</span> = max
+class="math inline"><em>K</em>(<em>i</em>, <em>b</em>)</span> =  max
 value using items <span class="math inline"> ≤ <em>i</em></span> within
 capacity <span class="math inline"><em>b</em></span>. <span
 class="math display"><em>K</em>(<em>i</em>, <em>b</em>) = max { <em>K</em>(<em>i</em> − 1, <em>b</em>),  <em>v</em><sub><em>i</em></sub> + <em>K</em>(<em>i</em> − 1, <em>b</em> − <em>w</em><sub><em>i</em></sub>) }  (second
@@ -204,7 +204,7 @@ Know which one a problem wants.</p>
 </blockquote>
 <h3 id="interval-dp">Interval DP</h3>
 <p><strong>Chain Matrix Multiply.</strong> Subproblem <span
-class="math inline"><em>C</em>(<em>i</em>, <em>j</em>)</span> = min
+class="math inline"><em>C</em>(<em>i</em>, <em>j</em>)</span> =  min
 scalar multiplications to compute <span
 class="math inline"><em>A</em><sub><em>i</em></sub>⋯<em>A</em><sub><em>j</em></sub></span>
 (dimensions <span
@@ -372,8 +372,8 @@ on the take branch.</li>
 <p>Give the <strong>bottom-up</strong> recurrence + table, not a
 recursive/memoized function. Always finish with the runtime as #entries
 × work-per-entry. See <a
-href="guidance/dynamic-programming-guidance.html">DP guidance</a> and <a
-href="guidance/dp-recurrence-relations.html">DP recurrence
+href="../../cs6515-algorithm-rules-and-guidelines/index.html#dynamic-programming">DP guidance</a> and <a
+href="../../cs6515-algorithm-rules-and-guidelines/8077944_Dynamic_Programming_Recurrence_Relations.html">DP recurrence
 relations</a>.</p>
 <details>
 <summary><b>Go deeper</b> — readings · guidance · notes</summary>
@@ -382,15 +382,13 @@ relations</a>.</p>
 <li><a href="readings/DPV-ch6-dynamic-programming.pdf">DPV §0.2,
 §6.2–6.5 (DP)</a> · <a href="readings/DPV-ch0-prologue.pdf">§0
 prologue</a></li>
-<li><a href="guidance/dynamic-programming-guidance.html">DP guidance</a>
-· <a href="guidance/dp-recurrence-relations.html">DP recurrences</a> ·
-<a href="guidance/course-readiness.html">Course readiness</a> · <a
-href="guidance/common-course-runtimes.html">Common runtimes</a></li>
+<li><a href="../../cs6515-algorithm-rules-and-guidelines/index.html#dynamic-programming">DP guidance</a>
+· <a href="../../cs6515-algorithm-rules-and-guidelines/8077944_Dynamic_Programming_Recurrence_Relations.html">DP recurrences</a> · <a href="../../cs6515-algorithm-rules-and-guidelines/8078163_Course_Readiness.html">Course readiness</a> · <a href="../../cs6515-algorithm-rules-and-guidelines/index.html#course-standards">Common runtimes</a></li>
 <li><a href="notes/full-course-notes.html">Full course notes</a> · <a
 href="notes/ga-notes.pdf">ga-notes.pdf</a></li>
 <li><a href="lectures/">lectures/</a> · <a
 href="transcripts/">transcripts/</a> · <a href="readings/">readings/</a>
-· <a href="guidance/">guidance/</a> · <a href="notes/">notes/</a></li>
+· <a href="../../cs6515-algorithm-rules-and-guidelines/index.html#dynamic-programming">guidance/</a> · <a href="notes/">notes/</a></li>
 </ul>
 </details>
 
@@ -485,7 +483,7 @@ elements; a <em>subsequence</em> is any in-order subset (skipping
 allowed).</p>
 <ul>
 <li><strong>Subproblem:</strong> <span
-class="math inline"><em>L</em>(<em>i</em>)</span> = length of the LIS
+class="math inline"><em>L</em>(<em>i</em>)</span> =  length of the LIS
 <strong>ending at</strong> index <span
 class="math inline"><em>i</em></span>.</li>
 </ul>
@@ -525,7 +523,7 @@ class="math inline"><em>x</em><sub><em>i</em></sub></span> <em>or</em>
 leaving prefixes of <em>different</em> lengths — which a one-parameter
 table cannot express.</p>
 <p>Fix: two parameters. <span
-class="math inline"><em>L</em>(<em>i</em>, <em>j</em>)</span> = length
+class="math inline"><em>L</em>(<em>i</em>, <em>j</em>)</span> =  length
 of the LCS of <span class="math inline"><em>X</em>[1..<em>i</em>]</span>
 and <span class="math inline"><em>Y</em>[1..<em>j</em>]</span>.</p>
 <p><span class="math display">$$
@@ -565,7 +563,7 @@ alt="LCS table fill" /></p>
 <h4 id="contiguous-subsequence-dpv-61">Contiguous subsequence (DPV
 6.1)</h4>
 <p>Max-sum contiguous subsequence. Subproblem <span
-class="math inline"><em>T</em>(<em>i</em>)</span> = max sum of a
+class="math inline"><em>T</em>(<em>i</em>)</span> =  max sum of a
 contiguous subsequence <strong>ending at</strong> <span
 class="math inline"><em>i</em></span>. Working small cases by hand shows
 a negative last element should not be ended on — zero it out:</p>
@@ -649,7 +647,7 @@ optimum at <span class="math inline"><em>i</em> = 3</span> requires
 having taken a <em>suboptimal</em> set at <span
 class="math inline"><em>i</em> = 2</span> (take object 2, not 1, to
 leave capacity for 3). Fix: add capacity to the state. <span
-class="math inline"><em>K</em>(<em>i</em>, <em>b</em>)</span> = max
+class="math inline"><em>K</em>(<em>i</em>, <em>b</em>)</span> =  max
 value using a subset of objects <span
 class="math inline">1..<em>i</em></span> with total weight <span
 class="math inline"> ≤ <em>b</em></span>:</p>
@@ -698,7 +696,7 @@ alt="Knapsack V2 (multiset)" /></p>
 (knapsack-style)</h4>
 <p>Pick states with <strong>smallest total population</strong> giving
 <span class="math inline"> ≥ <em>Z</em></span> electoral votes. <span
-class="math inline"><em>T</em>(<em>i</em>, <em>z</em>)</span> = min
+class="math inline"><em>T</em>(<em>i</em>, <em>z</em>)</span> =  min
 population to reach <span class="math inline"> ≥ <em>z</em></span> votes
 using states <span class="math inline">1..<em>i</em></span>. Base <span
 class="math inline"><em>T</em>(0, <em>z</em>) = ∞</span> (no states ⇒
@@ -730,7 +728,7 @@ alt="Parenthesization as a binary tree" /></p>
 <p><img src="../../.assets/CS6515_images/DP1-006.png"
 alt="Binary-tree form of the problem" /></p>
 <p>Substring subproblem: <span
-class="math inline"><em>C</em>(<em>i</em>, <em>j</em>)</span> = min cost
+class="math inline"><em>C</em>(<em>i</em>, <em>j</em>)</span> =  min cost
 to compute <span
 class="math inline"><em>A</em><sub><em>i</em></sub>⋯<em>A</em><sub><em>j</em></sub></span>.
 Split at <span class="math inline"><em>l</em></span> into <span

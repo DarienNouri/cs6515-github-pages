@@ -2,27 +2,1365 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>cs6515-algorithm-rules-and-guidelines - CS6515</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Official Algorithm Rules &amp; Guidance — CS6515</title>
+<link rel="stylesheet" href="../vendor/fonts/fonts.css">
 <link rel="stylesheet" href="../theme.css">
+<link rel="stylesheet" href="../vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../vendor/highlight/styles/tokyo-night-dark.min.css">
+<style>
+  /* Global Guidance Page Specific Styles */
+  .guidance-hero {
+    margin: 1rem 0 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .guidance-hero h1 {
+    font-size: 2.2rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-strong);
+    letter-spacing: -0.02em;
+  }
+  .guidance-hero__desc {
+    color: var(--muted);
+    max-width: 52rem;
+    line-height: 1.65;
+    font-size: 1.05rem;
+    margin-bottom: 1.25rem;
+  }
+  
+  /* Quick Jump Filter & Sticky Pill Navigation */
+  .guidance-toolbar {
+    position: sticky;
+    top: var(--topbar-h, 52px);
+    z-index: 40;
+    background: rgba(15, 17, 26, 0.94);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+    padding: 0.65rem 0;
+    margin: 0 0 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+    justify-content: space-between;
+    transition: top 0.15s ease;
+  }
+  .guidance-nav-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    align-items: center;
+  }
+  .guidance-pill {
+    font: 600 0.82rem/1.2 var(--font);
+    padding: 0.45rem 0.85rem;
+    border-radius: 9999px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    color: var(--text);
+    text-decoration: none;
+    transition: all 0.15s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    white-space: nowrap;
+  }
+  .guidance-pill:hover {
+    background: var(--panel-2);
+    border-color: var(--blue);
+    color: var(--blue-light);
+    transform: translateY(-1px);
+  }
+  .guidance-pill.active {
+    background: rgba(96, 165, 250, 0.15);
+    border-color: var(--blue);
+    color: var(--blue-light);
+    box-shadow: 0 0 10px rgba(96, 165, 250, 0.25);
+  }
+  .guidance-filter-wrap {
+    position: relative;
+    min-width: 240px;
+  }
+  .guidance-filter-input {
+    width: 100%;
+    padding: 0.45rem 0.85rem 0.45rem 2rem;
+    border-radius: var(--radius-sm);
+    background: var(--panel);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font: 0.85rem/1.3 var(--font);
+    outline: none;
+    transition: border-color 0.15s ease;
+  }
+  .guidance-filter-input:focus {
+    border-color: var(--blue);
+    box-shadow: 0 0 8px rgba(96, 165, 250, 0.2);
+  }
+  .guidance-filter-icon {
+    position: absolute;
+    left: 0.65rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--muted);
+    pointer-events: none;
+  }
+
+  /* Section Containers */
+  .guidance-section {
+    margin-bottom: 3.5rem;
+    scroll-margin-top: calc(var(--topbar-h, 52px) + var(--toolbar-h, 48px) + 1rem);
+    padding-top: 0.5rem;
+  }
+  .guidance-section__header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    padding-bottom: 0.75rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid var(--border);
+  }
+  .guidance-section__title-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .guidance-section__title {
+    font-size: 1.65rem;
+    font-weight: 800;
+    color: var(--text-strong);
+    margin: 0;
+  }
+  .guidance-section__desc {
+    color: var(--muted);
+    font-size: 0.95rem;
+    line-height: 1.55;
+    margin: 0 0 1.5rem;
+  }
+
+  /* Subsections */
+  .guidance-subsection {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem 1.75rem;
+    margin-bottom: 1.75rem;
+    transition: border-color 0.2s ease;
+  }
+  .guidance-subsection:hover {
+    border-color: rgba(255, 255, 255, 0.15);
+  }
+  .guidance-subsection h3 {
+    font-size: 1.22rem;
+    font-weight: 700;
+    color: var(--blue-light);
+    margin-top: 0;
+    margin-bottom: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .guidance-subsection h4 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--text-strong);
+    margin: 1.25rem 0 0.5rem;
+  }
+  .guidance-subsection p, .guidance-subsection li {
+    font-size: 0.93rem;
+    line-height: 1.6;
+    color: var(--text);
+  }
+
+  /* Tables inside Guidance */
+  .guidance-table-wrap {
+    overflow-x: auto;
+    margin: 1rem 0 1.25rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+  }
+  .guidance-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+    text-align: left;
+    background: var(--bg);
+  }
+  .guidance-table th {
+    background: var(--panel-2);
+    color: var(--text-strong);
+    font-weight: 700;
+    padding: 0.65rem 0.9rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .guidance-table td {
+    padding: 0.65rem 0.9rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    color: var(--text);
+    vertical-align: top;
+  }
+  .guidance-table tr:last-child td {
+    border-bottom: none;
+  }
+  .guidance-table tr:hover td {
+    background: rgba(255, 255, 255, 0.02);
+  }
+  .mono-code {
+    font-family: var(--code);
+    color: #38bdf8;
+    background: rgba(56, 189, 248, 0.08);
+    padding: 0.15rem 0.4rem;
+    border-radius: 4px;
+    font-size: 0.85em;
+  }
+
+  /* Rule Cards Grid */
+  .rules-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.2rem;
+    margin: 1.25rem 0 1.5rem;
+  }
+  .rule-card {
+    display: flex;
+    flex-direction: column;
+    padding: 1.25rem;
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    text-decoration: none;
+    color: var(--text);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+  }
+  .rule-card:hover {
+    border-color: var(--blue);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+  }
+  .rule-card__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.65rem;
+  }
+  .rule-card__badge {
+    font: 800 0.72rem/1 var(--code);
+    padding: 0.25rem 0.55rem;
+    border-radius: 4px;
+    background: rgba(96, 165, 250, 0.12);
+    border: 1px solid rgba(96, 165, 250, 0.25);
+    color: var(--blue);
+  }
+  .rule-card__badge.exam1 { background: rgba(244, 63, 94, 0.12); border-color: rgba(244, 63, 94, 0.25); color: #fb7185; }
+  .rule-card__badge.exam2 { background: rgba(245, 158, 11, 0.12); border-color: rgba(245, 158, 11, 0.25); color: #fbbf24; }
+  .rule-card__badge.exam3 { background: rgba(52, 211, 153, 0.12); border-color: rgba(52, 211, 153, 0.25); color: #34d399; }
+  .rule-card__badge.general { background: rgba(168, 85, 247, 0.12); border-color: rgba(168, 85, 247, 0.25); color: #c084fc; }
+  .rule-card__title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-strong);
+    margin-bottom: 0.45rem;
+    line-height: 1.35;
+  }
+  .rule-card__desc {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.5;
+    flex: 1;
+    margin-bottom: 0.85rem;
+  }
+  .rule-card__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: auto;
+    padding-top: 0.65rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+  }
+  .rule-card__tag {
+    font: 600 0.7rem/1 var(--code);
+    padding: 0.2rem 0.45rem;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    color: var(--text-muted);
+  }
+
+  /* Step Badge */
+  .step-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: rgba(96, 165, 250, 0.15);
+    border: 1px solid var(--blue);
+    color: var(--blue-light);
+    font: 800 0.78rem var(--code);
+    margin-right: 0.4rem;
+  }
+</style>
 </head>
 <body>
-<header class="topbar"><a class="home" href="../index.html">CS6515</a><span class="crumbloc">cs6515-algorithm-rules-and-guidelines</span><button class="search-trigger" type="button" data-search-trigger aria-label="Search site"><span class="search-trigger__label">Search</span><kbd data-search-shortcut>Cmd K</kbd></button>
+<header class="topbar">
+  <a class="home" href="../index.html">CS6515</a>
+  <span class="crumbloc">Algorithm Rules &amp; Canonical Guidance</span>
+  <button class="search-trigger" type="button" data-search-trigger aria-label="Search site"><span class="search-trigger__label">Search</span><kbd data-search-shortcut>Cmd K</kbd></button>
 </header>
+
 <main class="content">
-<h1>cs6515-algorithm-rules-and-guidelines</h1>
-<ul>
-<li><a href="8077881_Common_Course_Runtimes.html">8077881_Common_Course_Runtimes.html</a></li>
-<li><a href="8077940_Dynamic_Programming_Guidance.html">8077940_Dynamic_Programming_Guidance.html</a></li>
-<li><a href="8077944_Dynamic_Programming_Recurrence_Relations.html">8077944_Dynamic_Programming_Recurrence_Relations.html</a></li>
-<li><a href="8078163_Course_Readiness.html">8078163_Course_Readiness.html</a></li>
-<li><a href="8093294_Divide_and_Conquer_Guidance.html">8093294_Divide_and_Conquer_Guidance.html</a></li>
-<li><a href="8093303_Usable_D&C_Algorithms.html">8093303_Usable_D&amp;C_Algorithms.html</a></li>
-<li><a href="8103813_A_Conceptual_Approach_to_Solving_Recurrences.html">8103813_A_Conceptual_Approach_to_Solving_Recurrences.html</a></li>
-<li><a href="8129087_Graph_Theory_Guidance.html">8129087_Graph_Theory_Guidance.html</a></li>
-<li><a href="8129088_Usable_Black_Boxes_for_Graphs.html">8129088_Usable_Black_Boxes_for_Graphs.html</a></li>
-</ul>
+
+<div class="guidance-hero">
+  <div class="hero__badge"><span class="hero__badge-dot"></span> Centralized Course Standard · All Units &amp; Exams</div>
+  <h1>Course Rules, Standards &amp; Canonical Guidance</h1>
+  <p class="guidance-hero__desc">
+    The unified, authoritative guide to exam rubrics, solution formats, permitted black boxes, recurrence formulation syntax, reduction templates, and asymptotic runtime standards for Graduate Algorithms (CS6515). Follow these exact requirements to earn full credit on homework and exams.
+  </p>
+</div>
+
+<!-- Sticky Quick Navigation & Filter Toolbar -->
+<nav class="guidance-toolbar" aria-label="Guidance Topic Navigation">
+  <div class="guidance-nav-pills">
+    <a class="guidance-pill" href="#dynamic-programming"><span>🧩</span> Dynamic Programming</a>
+    <a class="guidance-pill" href="#graph-algorithms"><span>🕸️</span> Graphs &amp; DP Graphs</a>
+    <a class="guidance-pill" href="#divide-and-conquer"><span>⚡</span> Divide &amp; Conquer</a>
+    <a class="guidance-pill" href="#np-completeness"><span>🎯</span> NP-Completeness</a>
+    <a class="guidance-pill" href="#linear-programming"><span>📐</span> Linear Programming</a>
+    <a class="guidance-pill" href="#course-standards"><span>⏱️</span> Runtimes &amp; Readiness</a>
+  </div>
+  <div class="guidance-filter-wrap">
+    <svg class="guidance-filter-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+    <input type="text" class="guidance-filter-input" id="guidance-search" placeholder="Filter rules, rubrics, black boxes..." aria-label="Filter guidance content">
+  </div>
+</nav>
+
+<!-- ========================================================================= -->
+<!-- 1. DYNAMIC PROGRAMMING GUIDANCE -->
+<!-- ========================================================================= -->
+<section class="guidance-section" id="dynamic-programming">
+  <div class="guidance-section__header">
+    <div class="guidance-section__title-wrap">
+      <span style="font-size: 1.6rem;">🧩</span>
+      <h2 class="guidance-section__title">Dynamic Programming (DP) Guidance</h2>
+    </div>
+    <span class="badge badge--runtime"><span class="badge__label">Exam 1 Focus</span> DP1 · DP2 · DP3</span>
+  </div>
+  <p class="guidance-section__desc">
+    Official staff instructions for structuring bottom-up dynamic programming solutions. On exams, solutions that use recursion, memoization sketches, or lack explicit subproblem definitions receive heavy penalties or zero credit.
+  </p>
+
+  <!-- Subsection 1.1: 3-Part Solution Format -->
+  <div class="guidance-subsection">
+    <h3><span class="step-badge">1</span> Canonical 3-Part Solution Format</h3>
+    <p>Every dynamic programming response must be structured strictly into the following three numbered sections:</p>
+    
+    <h4>Part 1: Subproblem Definition in Plain English</h4>
+    <p>State precisely what an entry in your table represents. You must define:</p>
+    <ul>
+      <li><strong>Function/Table Name and Parameters:</strong> e.g., Let $T(i, j)$ be the optimal value...</li>
+      <li><strong>English Meaning:</strong> What exact question does $T(i, j)$ answer? (e.g., "the minimum cost to multiply matrices $i$ through $j$", or "the maximum value obtainable using a subset of items $\{1, \dots, i\}$ with remaining weight capacity $j$").</li>
+      <li><strong>Explicit Parameter Ranges:</strong> Give the discrete bounds for all indices (e.g., $0 \le i \le n$, $0 \le j \le W$).</li>
+    </ul>
+
+    <blockquote class="callout--warning">
+      <strong>Grading Pitfall:</strong> Never explain <em>how</em> to compute the subproblem in Part 1. Part 1 defines <strong>what</strong> the subproblem is; Part 2 defines <strong>how</strong> to calculate it.
+    </blockquote>
+
+    <h4>Part 2: Recurrence Relation &amp; Base Cases</h4>
+    <p>Provide the mathematical formulation with base cases defined <em>first</em>:</p>
+    <ul>
+      <li><strong>Base Cases:</strong> Define all boundary conditions explicitly before the recurrence (e.g., $T(0, j) = 0$ for all $j \ge 0$, and $T(i, 0) = 0$ for all $i \ge 0$).</li>
+      <li><strong>Recurrence Equation:</strong> Use clear mathematical notation ($\min$, $\max$, $\sum$).</li>
+      <li><strong>English Justification for Every Choice:</strong> You must write 1–2 sentences explaining what each branch of the $\min$ or $\max$ represents in terms of the problem choices (e.g., "Branch 1 corresponds to excluding item $i$, in which case the value is $T(i-1, j)$; Branch 2 corresponds to including item $i$, consuming $w_i$ weight and gaining value $v_i$").</li>
+    </ul>
+
+    <blockquote class="callout--claim">
+      <strong>Non-Overwriting Rule:</strong> Table entries must not be overwritten or updated in place during execution. The recurrence must express the value of entry $T(i, j)$ purely as a function of already computed, distinct previous entries.
+    </blockquote>
+
+    <h4>Part 3: Implementation Details &amp; Runtime Analysis</h4>
+    <p>Document the bottom-up table mechanics and complexity:</p>
+    <ul>
+      <li><strong>Data Structure &amp; Table Size:</strong> e.g., "A 2D array $T$ of dimensions $(n+1) \times (W+1)$."</li>
+      <li><strong>Iterative Fill Order:</strong> Specify the exact loop order (e.g., "Outer loop $i$ iterates from $1$ to $n$; inner loop $j$ iterates from $1$ to $W$"). Dependencies must be computed before they are queried.</li>
+      <li><strong>Location of the Final Answer:</strong> Specify which entry or aggregation contains the final solution (e.g., "$T(n, W)$", or "$\max_{1 \le i \le n} L(i)$").</li>
+      <li><strong>Worst-Case Runtime Breakdown:</strong> State the total number of table entries, work performed per entry, and the product:
+        $$\text{Total Runtime} = (\text{Number of entries}) \times (\text{Work per entry}) = O(n \cdot W) \times O(1) = O(n W)$$
+      </li>
+    </ul>
+  </div>
+
+  <!-- Subsection 1.2: State Shapes & Problem Archetypes -->
+  <div class="guidance-subsection">
+    <h3><span class="step-badge">2</span> Core DP State Shapes &amp; Archetypes</h3>
+    <div class="guidance-table-wrap">
+      <table class="guidance-table">
+        <thead>
+          <tr>
+            <th>Archetype</th>
+            <th>State Signature</th>
+            <th>Table Size</th>
+            <th>Work / Entry</th>
+            <th>Overall Runtime</th>
+            <th>Canonical Examples</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>1D Prefix / Suffix</strong></td>
+            <td>$T(i)$ on prefix $1..i$</td>
+            <td>$O(n)$</td>
+            <td>$O(1)$ to $O(n)$</td>
+            <td>$O(n)$ or $O(n^2)$</td>
+            <td>Fibonacci, Longest Increasing Subsequence (LIS)</td>
+          </tr>
+          <tr>
+            <td><strong>2D Grid / Two Strings</strong></td>
+            <td>$T(i, j)$ on prefixes $x_{1..i}, y_{1..j}$</td>
+            <td>$O(n \cdot m)$</td>
+            <td>$O(1)$</td>
+            <td>$O(n \cdot m)$</td>
+            <td>LCS, Edit Distance, Alignment</td>
+          </tr>
+          <tr>
+            <td><strong>Capacity / Constraint</strong></td>
+            <td>$T(i, w)$ on items $1..i$, cap $w$</td>
+            <td>$O(n \cdot W)$</td>
+            <td>$O(1)$</td>
+            <td>$O(n W)$ <em>(pseudo-poly)</em></td>
+            <td>0/1 Knapsack, Unbounded Knapsack, Subset Sum</td>
+          </tr>
+          <tr>
+            <td><strong>Interval / Diagonal</strong></td>
+            <td>$T(i, j)$ on substring $i..j$</td>
+            <td>$O(n^2)$</td>
+            <td>$O(n)$ split choices</td>
+            <td>$O(n^3)$</td>
+            <td>Matrix Chain Multiply, Optimal BST</td>
+          </tr>
+          <tr>
+            <td><strong>Graph State / DAG</strong></td>
+            <td>$D(v)$ or $D(i, v)$ on node $v$</td>
+            <td>$O(V)$ or $O(V \cdot E)$</td>
+            <td>$\text{deg}(v)$</td>
+            <td>$O(V + E)$ or $O(V \cdot E)$</td>
+            <td>DAG Shortest Path, Bellman-Ford, Floyd-Warshall</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Subsection 1.3: Official Staff Guidance Documents -->
+  <div class="guidance-subsection">
+    <h3><span class="step-badge">3</span> In-Depth DP Staff Documentation</h3>
+    <p>Read the canonical staff reference documents for worked examples, rubric nuances, and full historical Q&amp;A:</p>
+    <div class="rules-grid">
+      <a class="rule-card" href="8077940_Dynamic_Programming_Guidance.html">
+        <div class="rule-card__top">
+          <span class="rule-card__badge exam1">Exam 1 · Rubric</span>
+          <span class="badge badge--runtime"><span class="badge__label">Template</span> 3-Part Answer</span>
+        </div>
+        <div class="rule-card__title">Dynamic Programming Guidance</div>
+        <div class="rule-card__desc">Complete staff instructions on grading rubrics, bottom-up constraints, subproblem wording rules, and worked exemplar answers.</div>
+        <div class="rule-card__tags">
+          <span class="rule-card__tag">Subproblem</span>
+          <span class="rule-card__tag">Recurrence</span>
+          <span class="rule-card__tag">Bottom-Up</span>
+        </div>
+      </a>
+
+      <a class="rule-card" href="8077944_Dynamic_Programming_Recurrence_Relations.html">
+        <div class="rule-card__top">
+          <span class="rule-card__badge exam1">Exam 1 · Math</span>
+          <span class="badge badge--runtime"><span class="badge__label">Syntax</span> Formulations</span>
+        </div>
+        <div class="rule-card__title">DP Recurrence Relations</div>
+        <div class="rule-card__desc">Mathematical specifications for table entries, base cases, discrete index boundaries, non-overwriting rules, and accepted mathematical syntax.</div>
+        <div class="rule-card__tags">
+          <span class="rule-card__tag">Base Cases</span>
+          <span class="rule-card__tag">Indices 1 ≤ i ≤ n</span>
+          <span class="rule-card__tag">Table Bounds</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================================================= -->
+<!-- 2. GRAPH ALGORITHMS & DP ON GRAPHS GUIDANCE -->
+<!-- ========================================================================= -->
+<section class="guidance-section" id="graph-algorithms">
+  <div class="guidance-section__header">
+    <div class="guidance-section__title-wrap">
+      <span style="font-size: 1.6rem;">🕸️</span>
+      <h2 class="guidance-section__title">Graph Theory &amp; DP on Graphs Guidance</h2>
+    </div>
+    <span class="badge badge--runtime"><span class="badge__label">Exam 1 &amp; 2</span> GR1–GR4 · MF1–MF4</span>
+  </div>
+  <p class="guidance-section__desc">
+    Official framework for graph reductions, approved graph black boxes, network flow formulations, and Dynamic Programming on graphs and DAGs.
+  </p>
+
+  <!-- Subsection 2.1: Graph Reduction Framework -->
+  <div class="guidance-subsection">
+    <h3><span class="step-badge">1</span> Standard 4-Step Graph Reduction Framework</h3>
+    <p>Graph theory exam problems require reducing the input problem to an approved canonical graph algorithm without modifying internal black box code. You must write your solution in 4 explicit steps:</p>
+    
+    <ol>
+      <li><strong>Graph Construction ($G' = (V', E')$):</strong>
+        <ul>
+          <li>Define what each vertex in $V'$ represents. State $|V'|$ in terms of the problem variables.</li>
+          <li>Define what each directed or undirected edge in $E'$ represents. State $|E'|$ in terms of the problem variables.</li>
+          <li>Define edge weights $w(e)$ or capacities $c(e)$, ensuring weights satisfy the preconditions of the chosen algorithm (e.g., non-negative for Dijkstra).</li>
+        </ul>
+      </li>
+      <li><strong>Algorithm Invocation:</strong>
+        <ul>
+          <li>Name the permitted black box (e.g., "Run Dijkstra's algorithm on $G'$ starting from vertex $s$").</li>
+          <li>State all input arguments passed into the algorithm.</li>
+        </ul>
+      </li>
+      <li><strong>Solution Extraction / Output Mapping:</strong>
+        <ul>
+          <li>Describe how to translate the output arrays or structures of the black box (e.g., `dist[]`, `prev[]`, min-cut cut-set, SCC components) back to the solution of the original problem.</li>
+        </ul>
+      </li>
+      <li><strong>Total Worst-Case Runtime Breakdown:</strong>
+        $$\text{Total Runtime} = O(\text{Graph Construction}) + O(\text{Black Box Execution}) + O(\text{Output Extraction})$$
+      </li>
+    </ol>
+
+    <blockquote class="callout--warning">
+      <strong>Representation Assumption:</strong> All graphs are represented using standard <strong>Adjacency Lists</strong>. Building the graph takes $O(|V'| + |E'|)$ time, and iterating over neighbors takes $O(\text{deg}(v))$ time.
+    </blockquote>
+  </div>
+
+  <!-- Subsection 2.2: DP on Graphs & DAGs -->
+  <div class="guidance-subsection">
+    <h3><span class="step-badge">2</span> Dynamic Programming on Graphs &amp; DAGs</h3>
+    <p>Several fundamental graph algorithms are direct formulations of Dynamic Programming. Recognizing this connection simplifies both design and proofs:</p>
+
+    <h4>A. Shortest &amp; Longest Paths on DAGs in $O(V + E)$</h4>
+    <p>Because a Directed Acyclic Graph (DAG) has no directed cycles, vertices can be linearized into a topological order in $O(V + E)$ using DFS reverse post-visit numbering. Once ordered, shortest or longest paths from source $s$ are solved via simple bottom-up DP:</p>
+    <ul>
+      <li><strong>Subproblem:</strong> Let $D(v)$ be the shortest path distance from $s$ to $v$.</li>
+      <li><strong>Base Case:</strong> $D(s) = 0$; $D(v) = \infty$ for all $v \ne s$.</li>
+      <li><strong>Recurrence:</strong> For each vertex $v$ taken in topological order:
+        $$D(v) = \min_{(u, v) \in E} \{ D(u) + w(u, v) \}$$
+      </li>
+      <li><strong>Runtime:</strong> $O(V + E)$ — each vertex and edge is relaxed exactly once. Works even with negative edge weights!</li>
+    </ul>
+
+    <h4>B. Bellman-Ford as Dynamic Programming in $O(V \cdot E)$</h4>
+    <p>Bellman-Ford solves single-source shortest paths on general graphs with arbitrary edge weights by constraining the number of edges:</p>
+    <ul>
+      <li><strong>Subproblem:</strong> Let $D(i, v)$ be the length of the shortest path from source $s$ to vertex $v$ using at most $i$ edges ($0 \le i \le |V|-1$).</li>
+      <li><strong>Base Cases:</strong> $D(0, s) = 0$; $D(0, v) = \infty$ for $v \ne s$.</li>
+      <li><strong>Recurrence:</strong>
+        $$D(i, v) = \min \Big( D(i-1, v), \min_{(u, v) \in E} \{ D(i-1, u) + w(u, v) \} \Big)$$
+      </li>
+      <li><strong>Negative Cycle Detection:</strong> If a $|V|$-th relaxation pass yields $D(|V|, v) < D(|V|-1, v)$ for any vertex $v$, a negative weight cycle exists reachable from $s$.</li>
+    </ul>
+
+    <h4>C. Floyd-Warshall All-Pairs Shortest Paths in $O(V^3)$</h4>
+    <p>Computes all-pairs shortest paths by expanding the permitted set of intermediate vertices:</p>
+    <ul>
+      <li><strong>Subproblem:</strong> Let $D(i, j, k)$ be the shortest path from $i$ to $j$ using intermediate vertices only from $\{1, \dots, k\}$.</li>
+      <li><strong>Recurrence:</strong>
+        $$D(i, j, k) = \min \Big( D(i, j, k-1), D(i, k, k-1) + D(k, j, k-1) \Big)$$
+      </li>
+    </ul>
+  </div>
+
+  <!-- Subsection 2.3: Usable Graph Black Boxes Catalog -->
+  <div class="guidance-subsection">
+    <h3><span class="step-badge">3</span> Catalog of Usable Graph Black Boxes</h3>
+    <div class="guidance-table-wrap">
+      <table class="guidance-table">
+        <thead>
+          <tr>
+            <th>Algorithm</th>
+            <th>Preconditions</th>
+            <th>Output / Return Values</th>
+            <th>Canonical Runtime</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>BFS</strong></td>
+            <td>Unweighted graphs (directed/undirected)</td>
+            <td>`dist[v]` (hop distance), `prev[v]` (tree), connectivity</td>
+            <td>$O(V + E)$</td>
+          </tr>
+          <tr>
+            <td><strong>DFS</strong></td>
+            <td>Directed or undirected graphs</td>
+            <td>`pre[v]`, `post[v]`, cycle detection, topological order on DAGs</td>
+            <td>$O(V + E)$</td>
+          </tr>
+          <tr>
+            <td><strong>Dijkstra</strong></td>
+            <td>Weights <strong>$w(e) \ge 0$ (strictly non-negative)</strong></td>
+            <td>`dist[v]` (shortest path distance), `prev[v]` tree</td>
+            <td>$O((V + E) \log V)$</td>
+          </tr>
+          <tr>
+            <td><strong>Bellman-Ford</strong></td>
+            <td>Directed/undirected; arbitrary weights</td>
+            <td>`dist[v]`, `prev[v]`, negative cycle flag</td>
+            <td>$O(V \cdot E)$</td>
+          </tr>
+          <tr>
+            <td><strong>Kosaraju / Tarjan</strong></td>
+            <td>Directed graph $G = (V, E)$</td>
+            <td>SCC partition, component array, meta-DAG $G^{SCC}$</td>
+            <td>$O(V + E)$</td>
+          </tr>
+          <tr>
+            <td><strong>2-SAT Solver</strong></td>
+            <td>2-CNF boolean formula with $n$ vars, $m$ clauses</td>
+            <td>Satisfiable boolean assignment or UNSAT</td>
+            <td>$O(V + E) = O(n + m)$</td>
+          </tr>
+          <tr>
+            <td><strong>Kruskal's MST</strong></td>
+            <td>Connected, undirected graph with weights</td>
+            <td>Minimum Spanning Tree edge set $T$</td>
+            <td>$O(E \log V)$</td>
+          </tr>
+          <tr>
+            <td><strong>Prim's MST</strong></td>
+            <td>Connected, undirected graph with weights</td>
+            <td>Minimum Spanning Tree edge set $T$</td>
+            <td>$O((V + E) \log V)$</td>
+          </tr>
+          <tr>
+            <td><strong>Ford-Fulkerson</strong></td>
+            <td>Directed flow network, integer capacities</td>
+            <td>Maximum $s$-$t$ flow value, flow values $f(e)$</td>
+            <td>$O(E \cdot C)$</td>
+          </tr>
+          <tr>
+            <td><strong>Edmonds-Karp</strong></td>
+            <td>Directed flow network, capacities $c(e) \ge 0$</td>
+            <td>Maximum $s$-$t$ flow value, min-cut partition $(S, T)$</td>
+            <td>$O(V \cdot E^2)$</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Subsection 2.4: Network Flow Rules & Duality -->
+  <div class="guidance-subsection">
+    <h3><span class="step-badge">4</span> Network Flow Reductions &amp; Min-Cut Rules</h3>
+    <ul>
+      <li><strong>Max-Flow = Min-Cut:</strong> The value of the maximum flow from $s$ to $t$ equals the capacity of the minimum capacity $s$-$t$ cut $(S, T)$.</li>
+      <li><strong>Finding the Min-Cut $(S, T)$ from Flow:</strong> After running Edmonds-Karp, construct the final residual graph $G_f$. Define $S$ as the set of all vertices reachable from $s$ in $G_f$, and $T = V \setminus S$. The minimum cut capacity is the sum of capacities of edges in original $G$ from $S$ to $T$.</li>
+      <li><strong>Bipartite Matching Reduction:</strong> Given bipartite graph $G = (L \cup R, E)$:
+        <ol>
+          <li>Add source $s$ and directed edges $s \to u$ for all $u \in L$ with capacity $1$.</li>
+          <li>Direct all existing edges $u \to v$ from $L$ to $R$ with capacity $1$ (or $\infty$).</li>
+          <li>Add sink $t$ and directed edges $v \to t$ for all $v \in R$ with capacity $1$.</li>
+          <li>Run Edmonds-Karp in $O(V \cdot E)$. The Integrality Theorem guarantees integer flow $\implies$ max flow equals maximum matching cardinality.</li>
+        </ol>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Subsection 2.5: Official Staff Guidance Documents -->
+  <div class="guidance-subsection">
+    <h3><span class="step-badge">5</span> In-Depth Graph Staff Documentation</h3>
+    <div class="rules-grid">
+      <a class="rule-card" href="8129087_Graph_Theory_Guidance.html">
+        <div class="rule-card__top">
+          <span class="rule-card__badge exam1">Exam 1 &amp; 2 · Graphs</span>
+          <span class="badge badge--runtime"><span class="badge__label">Reduction</span> 4-Step Flow</span>
+        </div>
+        <div class="rule-card__title">Graph Theory Guidance</div>
+        <div class="rule-card__desc">Official instructions on graph problem reductions, adjacency list assumptions, black-box parameters, and output decoding.</div>
+        <div class="rule-card__tags">
+          <span class="rule-card__tag">Adjacency List</span>
+          <span class="rule-card__tag">Black Box Flow</span>
+          <span class="rule-card__tag">G = (V, E)</span>
+        </div>
+      </a>
+
+      <a class="rule-card" href="8129088_Usable_Black_Boxes_for_Graphs.html">
+        <div class="rule-card__top">
+          <span class="rule-card__badge exam2">Exam 2 · Catalog</span>
+          <span class="badge badge--runtime"><span class="badge__label">Reference</span> Approved Boxes</span>
+        </div>
+        <div class="rule-card__title">Usable Black Boxes for Graphs</div>
+        <div class="rule-card__desc">Exhaustive specifications, preconditions, input parameters, internal arrays, and verified runtimes for all approved graph algorithms.</div>
+        <div class="rule-card__tags">
+          <span class="rule-card__tag">DFS/BFS</span>
+          <span class="rule-card__tag">SCC O(n + m)</span>
+          <span class="rule-card__tag">Dijkstra O(m log n)</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================================================= -->
+<!-- 3. DIVIDE & CONQUER (D&C) GUIDANCE -->
+<!-- ========================================================================= -->
+<section class="guidance-section" id="divide-and-conquer">
+  <div class="guidance-section__header">
+    <div class="guidance-section__title-wrap">
+      <span style="font-size: 1.6rem;">⚡</span>
+      <h2 class="guidance-section__title">Divide &amp; Conquer (D&amp;C) Guidance</h2>
+    </div>
+    <span class="badge badge--runtime"><span class="badge__label">Exam 1 Focus</span> DC1 · DC2 · DC3</span>
+  </div>
+  <p class="guidance-section__desc">
+    Official standards for Divide &amp; Conquer solution narratives, Master Theorem evaluation, recurrence solving, and permitted D&amp;C building blocks.
+  </p>
+
+  <!-- Subsection 3.1: D&C Solution Structure -->
+  <div class="guidance-subsection">
+    <h3><span class="step-badge">1</span> Required Parts of a D&amp;C Solution</h3>
+    <p>Every Divide &amp; Conquer answer must be written in English narrative (no pseudocode or code unless specifically requested) with 3 mandatory parts:</p>
+
+    <h4>Part 1: Algorithm Narrative Description</h4>
+    <ul>
+      <li><strong>Base Case:</strong> State the stopping condition when $n$ is small (e.g., $n \le 2$) and the constant-time operation performed.</li>
+      <li><strong>Divide Step:</strong> Explain how the input is divided into subproblems and their exact sizes (e.g., dividing array into two halves of size $\lfloor n/2 \rfloor$).</li>
+      <li><strong>Recursive Calls:</strong> State exactly which subproblems are solved recursively and the number of calls ($a$).</li>
+      <li><strong>Combine / Merge Step:</strong> Describe how the solutions to the subproblems are merged to produce the overall result.</li>
+    </ul>
+
+    <h4>Part 2: Informal Correctness Argument</h4>
+    <p>Argue why your divide-and-combine logic produces the correct result. Mention base case correctness and explain why the combine step preserves the required invariants.</p>
+
+    <h4>Part 3: Recurrence Relation &amp; Worst-Case Runtime Analysis</h4>
+    <ul>
+      <li>State the recurrence in canonical form: $T(n) = a T(n/b) + O(n^d)$.</li>
+      <li>Explicitly identify parameters $a$, $b$, and $d$.</li>
+      <li>Compare $d$ to $\log_b a$ (or compare proliferation factor $a$ to size reduction $b^d$).</li>
+      <li>State which Master Theorem case applies and conclude with the final Big-O bound.</li>
+    </ul>
+
+    <blockquote class="callout--warning">
+      <strong>Prohibited on Exams:</strong> Do not write C++/Python code or raw pseudocode. Solutions must be clear, concise English narrative descriptions.
+    </blockquote>
+  </div>
+
+  <!-- Subsection 3.2: Usable D&C Algorithms -->
+  <div class="guidance-subsection">
+    <h3><span class="step-badge">2</span> Approved Usable D&amp;C Building Blocks</h3>
+    <div class="guidance-table-wrap">
+      <table class="guidance-table">
+        <thead>
+          <tr>
+            <th>Algorithm</th>
+            <th>Input &amp; Capability</th>
+            <th>Worst-Case Runtime</th>
+            <th>Standard Application</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Binary Search</strong></td>
+            <td>Sorted array of size $n$, target value</td>
+            <td>$O(\log n)$</td>
+            <td>Finding boundaries, targets, or monotonic criteria</td>
+          </tr>
+          <tr>
+            <td><strong>FastSelect (Median of Medians)</strong></td>
+            <td>Unsorted array of size $n$, rank $k$</td>
+            <td>$O(n)$ deterministic</td>
+            <td>Finding true median or $k$-th smallest element in linear time</td>
+          </tr>
+          <tr>
+            <td><strong>Partition Array</strong></td>
+            <td>Array of size $n$, pivot element $p$</td>
+            <td>$O(n)$</td>
+            <td>Splits array into elements $< p$, $= p$, and $> p$</td>
+          </tr>
+          <tr>
+            <td><strong>MergeSort</strong></td>
+            <td>Unsorted array of size $n$</td>
+            <td>$O(n \log n)$</td>
+            <td>Sorting, counting inversions</td>
+          </tr>
+          <tr>
+            <td><strong>Karatsuba Multiplication</strong></td>
+            <td>Two $n$-bit integers</td>
+            <td>$O(n^{\log_2 3}) \approx O(n^{1.585})$</td>
+            <td>Fast integer arithmetic via 3 recursive multiplies</td>
+          </tr>
+          <tr>
+            <td><strong>Fast Fourier Transform (FFT)</strong></td>
+            <td>Two degree-$n$ polynomials</td>
+            <td>$O(n \log n)$</td>
+            <td>Fast polynomial multiplication and convolution</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Subsection 3.3: Master Theorem & Christian's Method -->
+  <div class="guidance-subsection">
+    <h3><span class="step-badge">3</span> Master Theorem &amp; Christian's Intuitive Approach</h3>
+    <p>Given recurrence $T(n) = a T(n/b) + O(n^d)$ where $a \ge 1, b > 1, d \ge 0$:</p>
+    
+    <div class="guidance-table-wrap">
+      <table class="guidance-table">
+        <thead>
+          <tr>
+            <th>Condition</th>
+            <th>Christian's Intuition</th>
+            <th>Work Distribution</th>
+            <th>Resulting Complexity</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>$d > \log_b a \iff a < b^d$</td>
+            <td>Merge work shrinks geometrically at each level</td>
+            <td><strong>Top-Heavy</strong> (Root level dominates)</td>
+            <td>$T(n) = O(n^d)$</td>
+          </tr>
+          <tr>
+            <td>$d = \log_b a \iff a = b^d$</td>
+            <td>Equal work performed across all $\log_b n$ levels</td>
+            <td><strong>Balanced</strong> ($O(n^d)$ per level $\times \log n$)</td>
+            <td>$T(n) = O(n^d \log n)$</td>
+          </tr>
+          <tr>
+            <td>$d < \log_b a \iff a > b^d$</td>
+            <td>Leaf subproblems proliferate faster than work shrinks</td>
+            <td><strong>Bottom-Heavy</strong> (Leaves dominate)</td>
+            <td>$T(n) = O(n^{\log_b a})$</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Subsection 3.4: Official Staff Guidance Documents -->
+  <div class="guidance-subsection">
+    <h3><span class="step-badge">4</span> In-Depth D&amp;C Staff Documentation</h3>
+    <div class="rules-grid">
+      <a class="rule-card" href="8093294_Divide_and_Conquer_Guidance.html">
+        <div class="rule-card__top">
+          <span class="rule-card__badge exam1">Exam 1 · Narrative</span>
+          <span class="badge badge--runtime"><span class="badge__label">Rubric</span> 3 Parts</span>
+        </div>
+        <div class="rule-card__title">Divide and Conquer Guidance</div>
+        <div class="rule-card__desc">Official grading expectations for narrative algorithm descriptions, informal correctness arguments, and Master Theorem recurrence analysis.</div>
+        <div class="rule-card__tags">
+          <span class="rule-card__tag">Narrative Only</span>
+          <span class="rule-card__tag">Correctness</span>
+          <span class="rule-card__tag">Master Theorem</span>
+        </div>
+      </a>
+
+      <a class="rule-card" href="8093303_Usable_D&C_Algorithms.html">
+        <div class="rule-card__top">
+          <span class="rule-card__badge exam1">Exam 1 · Black Boxes</span>
+          <span class="badge badge--runtime"><span class="badge__label">Catalog</span> Allowed Boxes</span>
+        </div>
+        <div class="rule-card__title">Usable D&amp;C Algorithms</div>
+        <div class="rule-card__desc">Permitted building blocks on exams without proof: Binary Search, MergeSort, FastSelect (Median of Medians), and Karatsuba.</div>
+        <div class="rule-card__tags">
+          <span class="rule-card__tag">Binary Search</span>
+          <span class="rule-card__tag">FastSelect O(n)</span>
+          <span class="rule-card__tag">MergeSort</span>
+        </div>
+      </a>
+
+      <a class="rule-card" href="8103813_A_Conceptual_Approach_to_Solving_Recurrences.html">
+        <div class="rule-card__top">
+          <span class="rule-card__badge exam1">Exam 1 · Method</span>
+          <span class="badge badge--runtime"><span class="badge__label">Christian</span> Intuition</span>
+        </div>
+        <div class="rule-card__title">A Conceptual Approach to Recurrences</div>
+        <div class="rule-card__desc">Christian's Method: Proliferation work vs. merge work to evaluate Master Theorem recurrences in seconds without memorizing formulas.</div>
+        <div class="rule-card__tags">
+          <span class="rule-card__tag">Proliferation</span>
+          <span class="rule-card__tag">Merge Work</span>
+          <span class="rule-card__tag">Tree Levels</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================================================= -->
+<!-- 4. NP-COMPLETENESS & REDUCTIONS GUIDANCE -->
+<!-- ========================================================================= -->
+<section class="guidance-section" id="np-completeness">
+  <div class="guidance-section__header">
+    <div class="guidance-section__title-wrap">
+      <span style="font-size: 1.6rem;">🎯</span>
+      <h2 class="guidance-section__title">NP-Completeness &amp; Reductions Guidance</h2>
+    </div>
+    <span class="badge badge--runtime"><span class="badge__label">Exam 3 Focus</span> NP1 · NP2 · NP3 · NP4</span>
+  </div>
+  <p class="guidance-section__desc">
+    Official principles governing polynomial-time reductions, directionality rules, certificate verification, and approved NP-complete black boxes.
+  </p>
+
+  <!-- Subsection 4.1: The Cardinal Direction Rule -->
+  <div class="guidance-subsection">
+    <h3><span class="step-badge">1</span> The Cardinal Direction Rule of NP Reductions</h3>
+    
+    <blockquote class="callout--warning">
+      <strong>FATAL EXAM ERROR — The Cardinal Direction:</strong><br>
+      To prove that target problem $B$ is NP-complete, you MUST reduce an <strong>already-known NP-complete problem $A$ to target problem $B$</strong> ($A \le_P B$).<br>
+      If you reduce $B \le_P A$, you prove only that $B$ is no harder than $A$ (i.e., that $B \in NP$), which earns <strong>0 points</strong> for NP-hardness!
+    </blockquote>
+
+    <p><strong>The Core Logic:</strong> An NP-complete problem $A$ is known to be intractable. If a polynomial-time algorithm existed for $B$, then through $A \le_P B$, we could solve $A$ in polynomial time, proving $P = NP$. Hence $B$ must be at least as hard as $A$.</p>
+  </div>
+
+  <!-- Subsection 4.2: 4-Step Proof Rubric -->
+  <div class="guidance-subsection">
+    <h3><span class="step-badge">2</span> Canonical 4-Step NP-Completeness Proof Rubric</h3>
+    <ol>
+      <li><strong>Show $B \in NP$ (Certificate &amp; Verifier):</strong>
+        <ul>
+          <li>Define a polynomial-length certificate $C$ (e.g., a set of vertices $S \subseteq V$, or a truth assignment to boolean variables).</li>
+          <li>Describe a deterministic polynomial-time algorithm that takes an instance of $B$ and certificate $C$, and verifies whether $C$ is a valid solution in $O(n^k)$ time.</li>
+        </ul>
+      </li>
+      <li><strong>Select Known NP-Complete Problem $A$:</strong>
+        <ul>
+          <li>Choose an approved NP-complete problem from the course catalog that structurally matches target problem $B$.</li>
+        </ul>
+      </li>
+      <li><strong>Construct the Polynomial-Time Reduction Function $f$:</strong>
+        <ul>
+          <li>Describe a function $f$ that transforms any instance $x$ of problem $A$ into an instance $f(x)$ of problem $B$.</li>
+          <li>Argue that the transformation runs in polynomial time relative to the size of $x$.</li>
+        </ul>
+      </li>
+      <li><strong>Bidirectional Correctness Proof ($x \in A \iff f(x) \in B$):</strong>
+        <ul>
+          <li><strong>Forward Direction ($\implies$):</strong> Assume $x$ is a YES-instance of $A$ (has a solution). Prove that $f(x)$ must be a YES-instance of $B$.</li>
+          <li><strong>Reverse Direction ($\impliedby$):</strong> Assume $f(x)$ is a YES-instance of $B$. Prove that $x$ must be a YES-instance of $A$ (or prove the contrapositive: if $x$ is NO, then $f(x)$ is NO).</li>
+        </ul>
+      </li>
+    </ol>
+  </div>
+
+  <!-- Subsection 4.3: Usable NP-Complete Black Boxes -->
+  <div class="guidance-subsection">
+    <h3><span class="step-badge">3</span> Catalog of Usable NP-Complete Black Boxes</h3>
+    <p>You may use any of the following canonical problems as the source problem $A$ in reductions on homework and exams without proof of NP-completeness:</p>
+    <div class="guidance-table-wrap">
+      <table class="guidance-table">
+        <thead>
+          <tr>
+            <th>Problem</th>
+            <th>Input Structure</th>
+            <th>Question / Target Condition</th>
+            <th>Common Reduction Targets</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>3-SAT</strong></td>
+            <td>3-CNF boolean formula $\phi$</td>
+            <td>Is there a satisfying truth assignment?</td>
+            <td>Independent Set, 3-Coloring, Circuit-SAT</td>
+          </tr>
+          <tr>
+            <td><strong>Independent Set</strong></td>
+            <td>Undirected graph $G = (V, E)$, integer $k$</td>
+            <td>Subset $S \subseteq V$ of size $\ge k$ with no edges within $S$</td>
+            <td>Vertex Cover, Clique</td>
+          </tr>
+          <tr>
+            <td><strong>Vertex Cover</strong></td>
+            <td>Undirected graph $G = (V, E)$, integer $k$</td>
+            <td>Subset $C \subseteq V$ of size $\le k$ touching every edge in $E$</td>
+            <td>Independent Set ($C = V \setminus S$), Feedback Vertex Set</td>
+          </tr>
+          <tr>
+            <td><strong>Clique</strong></td>
+            <td>Undirected graph $G = (V, E)$, integer $k$</td>
+            <td>Subset $K \subseteq V$ of size $\ge k$ with all pairs adjacent</td>
+            <td>Independent Set on complement graph $\bar{G}$</td>
+          </tr>
+          <tr>
+            <td><strong>3-Coloring</strong></td>
+            <td>Undirected graph $G = (V, E)$</td>
+            <td>Can vertices be colored with 3 colors so no edge has same color?</td>
+            <td>$k$-Coloring, Map labeling</td>
+          </tr>
+          <tr>
+            <td><strong>Hamiltonian Cycle</strong></td>
+            <td>Directed or undirected graph $G$</td>
+            <td>Is there a simple cycle visiting every vertex exactly once?</td>
+            <td>Traveling Salesperson (TSP), Hamiltonian Path</td>
+          </tr>
+          <tr>
+            <td><strong>TSP (Decision)</strong></td>
+            <td>Complete weighted graph, budget $B$</td>
+            <td>Is there a tour visiting every vertex with total cost $\le B$?</td>
+            <td>Metric TSP, Vehicle routing</td>
+          </tr>
+          <tr>
+            <td><strong>Subset Sum</strong></td>
+            <td>Set of positive integers $S$, target $W$</td>
+            <td>Is there a subset summing exactly to $W$?</td>
+            <td>Knapsack, Partition</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================================================= -->
+<!-- 5. LINEAR PROGRAMMING & DUALITY GUIDANCE -->
+<!-- ========================================================================= -->
+<section class="guidance-section" id="linear-programming">
+  <div class="guidance-section__header">
+    <div class="guidance-section__title-wrap">
+      <span style="font-size: 1.6rem;">📐</span>
+      <h2 class="guidance-section__title">Linear Programming (LP) &amp; Duality Guidance</h2>
+    </div>
+    <span class="badge badge--runtime"><span class="badge__label">Exam 3 Focus</span> LP1 · LP2 · LP3 · LP4</span>
+  </div>
+  <p class="guidance-section__desc">
+    Official instructions for LP formulations, canonical forms, duality rules, simplex mechanics, and Integer Linear Programming (ILP).
+  </p>
+
+  <!-- Subsection 5.1: Canonical LP Formulation Format -->
+  <div class="guidance-subsection">
+    <h3><span class="step-badge">1</span> Canonical 4-Element LP Formulation Format</h3>
+    <p>Every LP formulation response must specify four explicit components:</p>
+    <ol>
+      <li><strong>Decision Variables with Clear Units:</strong> Explicitly state in English what each variable $x_i$ represents and its units (e.g., "$x_i$ = number of gallons of chemical $i$ produced per day").</li>
+      <li><strong>Objective Function:</strong> Specify $\max$ or $\min$ of a strictly linear combination:
+        $$\max \sum_{j=1}^n c_j x_j \quad \text{or} \quad \min \sum_{j=1}^n c_j x_j$$
+      </li>
+      <li><strong>Linear Constraints:</strong> A system of linear inequalities or equations ($\le, \ge, =$):
+        $$\sum_{j=1}^n a_{ij} x_j \le b_i \quad \text{for each resource } i$$
+      </li>
+      <li><strong>Explicit Variable Bounds / Non-Negativity:</strong>
+        $$x_j \ge 0 \quad \text{for all } j \in \{1, \dots, n\}$$
+      </li>
+    </ol>
+    <blockquote class="callout--warning">
+      <strong>Zero Point Pitfall:</strong> Omitting the non-negativity constraints ($x_j \ge 0$) causes the LP to be unbounded or meaningless, resulting in substantial point deductions.
+    </blockquote>
+  </div>
+
+  <!-- Subsection 5.2: Duality Rules & Conversion Recipe -->
+  <div class="guidance-subsection">
+    <h3><span class="step-badge">2</span> Duality Rules &amp; Matrix Transformation Recipe</h3>
+    <p>The standard primal-to-dual mapping pairs variables with constraints and vice versa:</p>
+    
+    <div class="guidance-table-wrap">
+      <table class="guidance-table">
+        <thead>
+          <tr>
+            <th>Primal Linear Program (Maximization)</th>
+            <th>Dual Linear Program (Minimization)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Objective:</strong> $\max \mathbf{c}^T \mathbf{x}$</td>
+            <td><strong>Objective:</strong> $\min \mathbf{b}^T \mathbf{y}$</td>
+          </tr>
+          <tr>
+            <td>$m$ Constraints: $\mathbf{A} \mathbf{x} \le \mathbf{b}$</td>
+            <td>$m$ Dual Variables: $y_i \ge 0$</td>
+          </tr>
+          <tr>
+            <td>$n$ Variables: $x_j \ge 0$</td>
+            <td>$n$ Dual Constraints: $\mathbf{A}^T \mathbf{y} \ge \mathbf{c}$</td>
+          </tr>
+          <tr>
+            <td>Equality constraint: $\sum a_{ij} x_j = b_i$</td>
+            <td>Unconstrained dual variable: $y_i \in \mathbb{R}$</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h4>Fundamental Duality Theorems:</h4>
+    <ul>
+      <li><strong>Weak Duality:</strong> If $\mathbf{x}$ is primal feasible and $\mathbf{y}$ is dual feasible, then $\mathbf{c}^T \mathbf{x} \le \mathbf{b}^T \mathbf{y}$. Any dual feasible solution provides an upper bound on the primal maximum.</li>
+      <li><strong>Strong Duality:</strong> If either the primal or the dual has an optimal finite solution, then both do, and their optimal values are identical:
+        $$\max \mathbf{c}^T \mathbf{x}^* = \min \mathbf{b}^T \mathbf{y}^*$$
+      </li>
+      <li><strong>Infeasibility Duality:</strong> If primal is unbounded, dual is infeasible. If primal is infeasible, dual is either unbounded or infeasible.</li>
+    </ul>
+  </div>
+
+  <!-- Subsection 5.3: ILP & Computational Complexity -->
+  <div class="guidance-subsection">
+    <h3><span class="step-badge">3</span> Integer Linear Programming (ILP) Complexity</h3>
+    <ul>
+      <li><strong>Standard LP:</strong> Solvable in polynomial time using Interior Point methods or the Ellipsoid algorithm. The Simplex algorithm is worst-case exponential but runs efficiently in practice.</li>
+      <li><strong>Integer Linear Programming (ILP):</strong> When variables are restricted to integer values ($x_j \in \mathbb{Z}$), the problem becomes <strong>NP-hard</strong>. Many NP-complete problems (e.g., 3-SAT, Vertex Cover) can be encoded directly as ILPs.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ========================================================================= -->
+<!-- 6. COURSE STANDARDS, RUNTIMES & READINESS -->
+<!-- ========================================================================= -->
+<section class="guidance-section" id="course-standards">
+  <div class="guidance-section__header">
+    <div class="guidance-section__title-wrap">
+      <span style="font-size: 1.6rem;">⏱️</span>
+      <h2 class="guidance-section__title">Course Standards, Runtimes &amp; Readiness</h2>
+    </div>
+    <span class="badge badge--runtime"><span class="badge__label">Staff Benchmark</span> Official Runtimes</span>
+  </div>
+  <p class="guidance-section__desc">
+    Canonical reference matrix for all textbook algorithms and prerequisite mathematical foundations.
+  </p>
+
+  <!-- Subsection 6.1: Master Course Big-O Catalog -->
+  <div class="guidance-subsection">
+    <h3><span class="step-badge">1</span> Master Course Big-O Runtime Matrix</h3>
+    <div class="guidance-table-wrap">
+      <table class="guidance-table">
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th>Algorithm / Operation</th>
+            <th>Standard Big-O Bound</th>
+            <th>Key Preconditions &amp; Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td rowspan="3"><strong>Data Structures</strong></td>
+            <td>Binary Search</td>
+            <td>$O(\log n)$</td>
+            <td>Array must be sorted</td>
+          </tr>
+          <tr>
+            <td>Binary Heap (Insert / Extract-Min)</td>
+            <td>$O(\log n)$</td>
+            <td>Building heap from $n$ elements takes $O(n)$</td>
+          </tr>
+          <tr>
+            <td>Hash Table (Insert / Lookup)</td>
+            <td>$O(1)$ expected</td>
+            <td>Assuming simple uniform hashing</td>
+          </tr>
+          <tr>
+            <td rowspan="4"><strong>Graph Traversals</strong></td>
+            <td>Breadth-First Search (BFS)</td>
+            <td>$O(V + E)$</td>
+            <td>Unweighted graphs; computes hop distances</td>
+          </tr>
+          <tr>
+            <td>Depth-First Search (DFS)</td>
+            <td>$O(V + E)$</td>
+            <td>Computes pre/post visit times; cycle checking</td>
+          </tr>
+          <tr>
+            <td>Topological Sort</td>
+            <td>$O(V + E)$</td>
+            <td>Graph must be a DAG (reverse post-visit DFS)</td>
+          </tr>
+          <tr>
+            <td>Kosaraju / Tarjan SCC</td>
+            <td>$O(V + E)$</td>
+            <td>Decomposes directed graph into strongly connected components</td>
+          </tr>
+          <tr>
+            <td rowspan="4"><strong>Shortest Paths</strong></td>
+            <td>DAG Shortest / Longest Path</td>
+            <td>$O(V + E)$</td>
+            <td>Directed Acyclic Graph; processes in topological order</td>
+          </tr>
+          <tr>
+            <td>Dijkstra's Algorithm</td>
+            <td>$O((V + E) \log V)$</td>
+            <td><strong>Non-negative edge weights only ($w \ge 0$)</strong></td>
+          </tr>
+          <tr>
+            <td>Bellman-Ford Algorithm</td>
+            <td>$O(V \cdot E)$</td>
+            <td>Arbitrary weights; detects reachable negative cycles</td>
+          </tr>
+          <tr>
+            <td>Floyd-Warshall All-Pairs</td>
+            <td>$O(V^3)$</td>
+            <td>All-pairs shortest paths on general graphs</td>
+          </tr>
+          <tr>
+            <td rowspan="2"><strong>Spanning Trees</strong></td>
+            <td>Kruskal's Algorithm</td>
+            <td>$O(E \log V)$</td>
+            <td>Uses Disjoint Set (Union-Find) with path compression</td>
+          </tr>
+          <tr>
+            <td>Prim's Algorithm</td>
+            <td>$O((V + E) \log V)$</td>
+            <td>Uses Min-Heap priority queue</td>
+          </tr>
+          <tr>
+            <td rowspan="3"><strong>Network Flow</strong></td>
+            <td>Ford-Fulkerson</td>
+            <td>$O(E \cdot C)$</td>
+            <td>Capacities must be integers; $C$ = max flow value</td>
+          </tr>
+          <tr>
+            <td>Edmonds-Karp</td>
+            <td>$O(V \cdot E^2)$</td>
+            <td>Uses BFS for shortest augmenting paths; strongly polynomial</td>
+          </tr>
+          <tr>
+            <td>Bipartite Matching</td>
+            <td>$O(V \cdot E)$</td>
+            <td>Via Edmonds-Karp with unit capacities</td>
+          </tr>
+          <tr>
+            <td rowspan="3"><strong>D&amp;C &amp; Selection</strong></td>
+            <td>FastSelect (Median-of-Medians)</td>
+            <td>$O(n)$</td>
+            <td>Deterministic worst-case linear time selection</td>
+          </tr>
+          <tr>
+            <td>MergeSort</td>
+            <td>$O(n \log n)$</td>
+            <td>Optimal comparison sort; divide-and-conquer</td>
+          </tr>
+          <tr>
+            <td>Karatsuba Multiplication</td>
+            <td>$O(n^{\log_2 3}) \approx O(n^{1.585})$</td>
+            <td>Multiplies two $n$-bit integers</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Subsection 6.2: Course Readiness & Prerequisite Math Review -->
+  <div class="guidance-subsection">
+    <h3><span class="step-badge">2</span> Course Readiness &amp; Math Review</h3>
+    <ul>
+      <li><strong>Mathematical Induction:</strong> State base case ($n=1$), formulate induction hypothesis ("Assume claim holds for all $k \le n$"), and prove inductive step for $n+1$.</li>
+      <li><strong>Logarithm Rules:</strong> $\log(a \cdot b) = \log a + \log b$; $\log(a^b) = b \log a$; $a^{\log_b c} = c^{\log_b a}$; $\log_b a = \frac{\ln a}{\ln b}$. Note that in computer science, $\log$ defaults to base 2 unless specified.</li>
+      <li><strong>Asymptotic Growth Hierarchy:</strong>
+        $$O(1) \ll O(\log \log n) \ll O(\log n) \ll O(\sqrt{n}) \ll O(n) \ll O(n \log n) \ll O(n^2) \ll O(n^3) \ll O(2^n) \ll O(n!)$$
+      </li>
+    </ul>
+  </div>
+
+  <!-- Subsection 6.3: Canonical Foundation Documents -->
+  <div class="guidance-subsection">
+    <h3><span class="step-badge">3</span> Canonical Foundation Documents</h3>
+    <div class="rules-grid">
+      <a class="rule-card" href="8077881_Common_Course_Runtimes.html">
+        <div class="rule-card__top">
+          <span class="rule-card__badge general">Reference</span>
+          <span class="badge badge--runtime"><span class="badge__label">Matrix</span> Master Catalog</span>
+        </div>
+        <div class="rule-card__title">Common Course Runtimes</div>
+        <div class="rule-card__desc">Official staff runtime reference card for all standard textbook algorithms, DP tables, graph traversals, and data structure operations.</div>
+        <div class="rule-card__tags">
+          <span class="rule-card__tag">O(V + E)</span>
+          <span class="rule-card__tag">O(V · E²)</span>
+          <span class="rule-card__tag">Master Theorem</span>
+        </div>
+      </a>
+
+      <a class="rule-card" href="8078163_Course_Readiness.html">
+        <div class="rule-card__top">
+          <span class="rule-card__badge general">Prerequisites</span>
+          <span class="badge badge--runtime"><span class="badge__label">Foundations</span> Discrete Math</span>
+        </div>
+        <div class="rule-card__title">Course Readiness &amp; Math Review</div>
+        <div class="rule-card__desc">Essential mathematical maturity review: proof by induction, discrete math, logarithm rules, asymptotic bounding, and common pitfalls.</div>
+        <div class="rule-card__tags">
+          <span class="rule-card__tag">Induction</span>
+          <span class="rule-card__tag">Logarithm Rules</span>
+          <span class="rule-card__tag">Asymptotics</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
 </main>
+
+<script src="../vendor/katex/katex.min.js"></script>
+<script src="../vendor/katex/contrib/auto-render.min.js"></script>
+<script>
+  function renderMath() {
+    if (window.renderMathInElement) {
+      renderMathInElement(document.body, {
+        delimiters: [
+          { left: '$$', right: '$$', display: true },
+          { left: '\\[', right: '\\]', display: true },
+          { left: '$', right: '$', display: false },
+          { left: '\\(', right: '\\)', display: false }
+        ],
+        throwOnError: false
+      });
+    }
+  }
+  document.addEventListener('DOMContentLoaded', renderMath);
+  try { renderMath(); } catch(e){}
+
+  // Real-time quick filter for guidance sections
+  document.addEventListener('DOMContentLoaded', () => {
+    const searchInput = document.getElementById('guidance-search');
+    if (!searchInput) return;
+
+    searchInput.addEventListener('input', (e) => {
+      const q = e.target.value.toLowerCase().trim();
+      const subsections = document.querySelectorAll('.guidance-subsection, .rule-card');
+      
+      subsections.forEach(el => {
+        if (!q) {
+          el.style.display = '';
+          return;
+        }
+        const text = el.innerText.toLowerCase();
+        if (text.includes(q)) {
+          el.style.display = '';
+        } else {
+          el.style.display = 'none';
+        }
+      });
+    });
+
+    // Pill active state sync with scroll
+    const pills = document.querySelectorAll('.guidance-pill');
+    const sections = document.querySelectorAll('.guidance-section');
+    window.addEventListener('scroll', () => {
+      let currentId = '';
+      sections.forEach(sec => {
+        const top = sec.getBoundingClientRect().top;
+        if (top <= 160) {
+          currentId = sec.getAttribute('id');
+        }
+      });
+      pills.forEach(pill => {
+        if (pill.getAttribute('href') === '#' + currentId) {
+          pill.classList.add('active');
+        } else {
+          pill.classList.remove('active');
+        }
+      });
+    }, { passive: true });
+  });
+</script>
 <script src="../site.js" defer></script>
 </body>
 </html>

@@ -143,7 +143,7 @@ the <code>min</code>/<code>max</code>.</li>
 are ready.</li>
 <li><strong>Where the answer lives</strong> — which cell holds the final
 result.</li>
-<li><strong>Runtime</strong> = (number of entries) × (work per
+<li><strong>Runtime</strong> =  (number of entries) × (work per
 entry).</li>
 </ol>
 <h3 id="w01-one-sequence-dp">One-sequence DP</h3>
@@ -154,7 +154,7 @@ Fill <span class="math inline"><em>i</em> = 2 → <em>n</em></span>;
 answer <span class="math inline"><em>F</em><sub><em>n</em></sub></span>;
 runtime <span class="math inline"><em>O</em>(<em>n</em>)</span>.</p>
 <p><strong>Longest Increasing Subsequence (LIS).</strong> Subproblem
-<span class="math inline"><em>L</em>(<em>i</em>)</span> = length of the
+<span class="math inline"><em>L</em>(<em>i</em>)</span> =  length of the
 longest increasing subsequence <strong>ending at</strong> index <span
 class="math inline"><em>i</em></span>. <span
 class="math display"><em>L</em>(<em>i</em>) = 1 + max ({ 0 } ∪ { <em>L</em>(<em>j</em>) : <em>j</em> &lt; <em>i</em>, <em>a</em><sub><em>j</em></sub> &lt; <em>a</em><sub><em>i</em></sub> }).</span></p>
@@ -194,7 +194,7 @@ class="math inline"><em>L</em>(<em>n</em>, <em>m</em>)</span>; runtime
 </ul>
 <h3 id="w01-capacity-dp">Capacity DP</h3>
 <p><strong>0/1 Knapsack.</strong> Subproblem <span
-class="math inline"><em>K</em>(<em>i</em>, <em>b</em>)</span> = max
+class="math inline"><em>K</em>(<em>i</em>, <em>b</em>)</span> =  max
 value using items <span class="math inline"> ≤ <em>i</em></span> within
 capacity <span class="math inline"><em>b</em></span>. <span
 class="math display"><em>K</em>(<em>i</em>, <em>b</em>) = max { <em>K</em>(<em>i</em> − 1, <em>b</em>),  <em>v</em><sub><em>i</em></sub> + <em>K</em>(<em>i</em> − 1, <em>b</em> − <em>w</em><sub><em>i</em></sub>) }  (second
@@ -224,7 +224,7 @@ Know which one a problem wants.</p>
 </blockquote>
 <h3 id="w01-interval-dp">Interval DP</h3>
 <p><strong>Chain Matrix Multiply.</strong> Subproblem <span
-class="math inline"><em>C</em>(<em>i</em>, <em>j</em>)</span> = min
+class="math inline"><em>C</em>(<em>i</em>, <em>j</em>)</span> =  min
 scalar multiplications to compute <span
 class="math inline"><em>A</em><sub><em>i</em></sub>⋯<em>A</em><sub><em>j</em></sub></span>
 (dimensions <span
@@ -392,8 +392,8 @@ on the take branch.</li>
 <p>Give the <strong>bottom-up</strong> recurrence + table, not a
 recursive/memoized function. Always finish with the runtime as #entries
 × work-per-entry. See <a
-href="W01_DP1-DP2/guidance/dynamic-programming-guidance.html">DP guidance</a> and <a
-href="W01_DP1-DP2/guidance/dp-recurrence-relations.html">DP recurrence
+href="../cs6515-algorithm-rules-and-guidelines/index.html#dynamic-programming">DP guidance</a> and <a
+href="../cs6515-algorithm-rules-and-guidelines/8077944_Dynamic_Programming_Recurrence_Relations.html">DP recurrence
 relations</a>.</p>
 <details>
 <summary><b>Go deeper</b> — readings · guidance · notes</summary>
@@ -402,15 +402,15 @@ relations</a>.</p>
 <li><a href="W01_DP1-DP2/readings/DPV-ch6-dynamic-programming.pdf">DPV §0.2,
 §6.2–6.5 (DP)</a> · <a href="W01_DP1-DP2/readings/DPV-ch0-prologue.pdf">§0
 prologue</a></li>
-<li><a href="W01_DP1-DP2/guidance/dynamic-programming-guidance.html">DP guidance</a>
-· <a href="W01_DP1-DP2/guidance/dp-recurrence-relations.html">DP recurrences</a> ·
-<a href="W01_DP1-DP2/guidance/course-readiness.html">Course readiness</a> · <a
-href="W01_DP1-DP2/guidance/common-course-runtimes.html">Common runtimes</a></li>
+<li><a href="../cs6515-algorithm-rules-and-guidelines/index.html#dynamic-programming">DP guidance</a>
+· <a href="../cs6515-algorithm-rules-and-guidelines/8077944_Dynamic_Programming_Recurrence_Relations.html">DP recurrences</a> ·
+<a href="../cs6515-algorithm-rules-and-guidelines/8078163_Course_Readiness.html">Course readiness</a> · <a
+href="../cs6515-algorithm-rules-and-guidelines/index.html#course-standards">Common runtimes</a></li>
 <li><a href="W01_DP1-DP2/notes/full-course-notes.html">Full course notes</a> · <a
 href="W01_DP1-DP2/notes/ga-notes.pdf">ga-notes.pdf</a></li>
 <li><a href="W01_DP1-DP2/lectures">lectures/</a> · <a
 href="W01_DP1-DP2/transcripts">transcripts/</a> · <a href="W01_DP1-DP2/readings">readings/</a>
-· <a href="W01_DP1-DP2/guidance">guidance/</a> · <a href="W01_DP1-DP2/notes">notes/</a></li>
+· <a href="../cs6515-algorithm-rules-and-guidelines/index.html#dynamic-programming">guidance/</a> · <a href="W01_DP1-DP2/notes">notes/</a></li>
 </ul>
 </details>
 
@@ -505,7 +505,7 @@ elements; a <em>subsequence</em> is any in-order subset (skipping
 allowed).</p>
 <ul>
 <li><strong>Subproblem:</strong> <span
-class="math inline"><em>L</em>(<em>i</em>)</span> = length of the LIS
+class="math inline"><em>L</em>(<em>i</em>)</span> =  length of the LIS
 <strong>ending at</strong> index <span
 class="math inline"><em>i</em></span>.</li>
 </ul>
@@ -545,7 +545,7 @@ class="math inline"><em>x</em><sub><em>i</em></sub></span> <em>or</em>
 leaving prefixes of <em>different</em> lengths — which a one-parameter
 table cannot express.</p>
 <p>Fix: two parameters. <span
-class="math inline"><em>L</em>(<em>i</em>, <em>j</em>)</span> = length
+class="math inline"><em>L</em>(<em>i</em>, <em>j</em>)</span> =  length
 of the LCS of <span class="math inline"><em>X</em>[1..<em>i</em>]</span>
 and <span class="math inline"><em>Y</em>[1..<em>j</em>]</span>.</p>
 <p><span class="math display">$$
@@ -585,7 +585,7 @@ alt="LCS table fill" /></p>
 <h4 id="w01-contiguous-subsequence-dpv-61">Contiguous subsequence (DPV
 6.1)</h4>
 <p>Max-sum contiguous subsequence. Subproblem <span
-class="math inline"><em>T</em>(<em>i</em>)</span> = max sum of a
+class="math inline"><em>T</em>(<em>i</em>)</span> =  max sum of a
 contiguous subsequence <strong>ending at</strong> <span
 class="math inline"><em>i</em></span>. Working small cases by hand shows
 a negative last element should not be ended on — zero it out:</p>
@@ -669,7 +669,7 @@ optimum at <span class="math inline"><em>i</em> = 3</span> requires
 having taken a <em>suboptimal</em> set at <span
 class="math inline"><em>i</em> = 2</span> (take object 2, not 1, to
 leave capacity for 3). Fix: add capacity to the state. <span
-class="math inline"><em>K</em>(<em>i</em>, <em>b</em>)</span> = max
+class="math inline"><em>K</em>(<em>i</em>, <em>b</em>)</span> =  max
 value using a subset of objects <span
 class="math inline">1..<em>i</em></span> with total weight <span
 class="math inline"> ≤ <em>b</em></span>:</p>
@@ -718,7 +718,7 @@ alt="Knapsack V2 (multiset)" /></p>
 (knapsack-style)</h4>
 <p>Pick states with <strong>smallest total population</strong> giving
 <span class="math inline"> ≥ <em>Z</em></span> electoral votes. <span
-class="math inline"><em>T</em>(<em>i</em>, <em>z</em>)</span> = min
+class="math inline"><em>T</em>(<em>i</em>, <em>z</em>)</span> =  min
 population to reach <span class="math inline"> ≥ <em>z</em></span> votes
 using states <span class="math inline">1..<em>i</em></span>. Base <span
 class="math inline"><em>T</em>(0, <em>z</em>) = ∞</span> (no states ⇒
@@ -750,7 +750,7 @@ alt="Parenthesization as a binary tree" /></p>
 <p><img src="../.assets/CS6515_images/DP1-006.png"
 alt="Binary-tree form of the problem" /></p>
 <p>Substring subproblem: <span
-class="math inline"><em>C</em>(<em>i</em>, <em>j</em>)</span> = min cost
+class="math inline"><em>C</em>(<em>i</em>, <em>j</em>)</span> =  min cost
 to compute <span
 class="math inline"><em>A</em><sub><em>i</em></sub>⋯<em>A</em><sub><em>j</em></sub></span>.
 Split at <span class="math inline"><em>l</em></span> into <span
@@ -1063,8 +1063,8 @@ one.</li>
 <p>Describe the split/recurse/combine <strong>in words</strong>, argue
 correctness, then write &amp; solve the recurrence. No pseudocode when
 the prompt asks for an algorithm. See <a
-href="W02_DC3-DC1/guidance/divide-and-conquer-guidance.html">D&amp;C guidance</a>
-and <a href="W02_DC3-DC1/guidance/solving-recurrences-approach.html">solving
+href="../cs6515-algorithm-rules-and-guidelines/index.html#divide-and-conquer">D&amp;C guidance</a>
+and <a href="../cs6515-algorithm-rules-and-guidelines/8103813_A_Conceptual_Approach_to_Solving_Recurrences.html">solving
 recurrences</a>.</p>
 <details>
 <summary><b>Go deeper</b> — readings · guidance · notes</summary>
@@ -1072,17 +1072,17 @@ recurrences</a>.</p>
 <ul>
 <li><a href="W02_DC3-DC1/readings/DPV-ch2-divide-and-conquer.pdf">DPV §2.1 (fast
 multiply), §2.2 (recurrences)</a></li>
-<li><a href="W02_DC3-DC1/guidance/divide-and-conquer-guidance.html">D&amp;C
-guidance</a> · <a href="W02_DC3-DC1/guidance/usable-dc-algorithms.html">Usable
+<li><a href="../cs6515-algorithm-rules-and-guidelines/index.html#divide-and-conquer">D&amp;C
+guidance</a> · <a href="../cs6515-algorithm-rules-and-guidelines/8093303_Usable_D&C_Algorithms.html">Usable
 D&amp;C algorithms</a> · <a
-href="W02_DC3-DC1/guidance/solving-recurrences-approach.html">Solving
-recurrences</a> · <a href="W02_DC3-DC1/guidance/common-course-runtimes.html">Common
+href="../cs6515-algorithm-rules-and-guidelines/8103813_A_Conceptual_Approach_to_Solving_Recurrences.html">Solving
+recurrences</a> · <a href="../cs6515-algorithm-rules-and-guidelines/index.html#course-standards">Common
 runtimes</a></li>
 <li><a href="W02_DC3-DC1/notes/full-course-notes.html">Full course notes</a> · <a
 href="W02_DC3-DC1/notes/ga-notes.pdf">ga-notes.pdf</a></li>
 <li><a href="W02_DC3-DC1/lectures">lectures/</a> · <a
 href="W02_DC3-DC1/transcripts">transcripts/</a> · <a href="W02_DC3-DC1/readings">readings/</a>
-· <a href="W02_DC3-DC1/guidance">guidance/</a> · <a href="W02_DC3-DC1/notes">notes/</a></li>
+· <a href="../cs6515-algorithm-rules-and-guidelines/index.html#divide-and-conquer">guidance/</a> · <a href="W02_DC3-DC1/notes">notes/</a></li>
 </ul>
 </details>
 
@@ -1526,7 +1526,7 @@ class="math inline"><em>O</em>(<em>n</em>)</span> result.</li>
 the recurrence and the <span
 class="math inline"><em>O</em>(<em>n</em>)</span> result; don't
 re-derive the constant fractions unless asked. See <a
-href="W03_DC2/guidance/divide-and-conquer-guidance.html">D&amp;C
+href="../cs6515-algorithm-rules-and-guidelines/index.html#divide-and-conquer">D&amp;C
 guidance</a>.</p>
 <details>
 <summary><b>Go deeper</b> — readings · guidance · notes</summary>
@@ -1534,15 +1534,15 @@ guidance</a>.</p>
 <ul>
 <li><a href="W03_DC2/readings/DPV-ch2-divide-and-conquer.pdf">DPV §2.3
 (sorting), §2.4 (median)</a></li>
-<li><a href="W03_DC2/guidance/divide-and-conquer-guidance.html">D&amp;C
-guidance</a> · <a href="W03_DC2/guidance/usable-dc-algorithms.html">Usable
+<li><a href="../cs6515-algorithm-rules-and-guidelines/index.html#divide-and-conquer">D&amp;C
+guidance</a> · <a href="../cs6515-algorithm-rules-and-guidelines/8093303_Usable_D&C_Algorithms.html">Usable
 D&amp;C algorithms</a> · <a
-href="W03_DC2/guidance/common-course-runtimes.html">Common runtimes</a></li>
+href="../cs6515-algorithm-rules-and-guidelines/index.html#course-standards">Common runtimes</a></li>
 <li><a href="W03_DC2/notes/full-course-notes.html">Full course notes</a> · <a
 href="W03_DC2/notes/ga-notes.pdf">ga-notes.pdf</a></li>
 <li><a href="W03_DC2/lectures">lectures/</a> · <a
 href="W03_DC2/transcripts">transcripts/</a> · <a href="W03_DC2/readings">readings/</a>
-· <a href="W03_DC2/guidance">guidance/</a> · <a href="W03_DC2/notes">notes/</a></li>
+· <a href="../cs6515-algorithm-rules-and-guidelines/index.html#divide-and-conquer">guidance/</a> · <a href="W03_DC2/notes">notes/</a></li>
 </ul>
 </details>
 
@@ -1786,7 +1786,7 @@ and back — a contradiction.</p>
 <h3 id="w04-shortest-paths-as-dp-dp3">Shortest paths as DP (DP3)</h3>
 <p><strong>Bellman-Ford</strong> — DP over <strong>number of
 edges</strong>. Let <span
-class="math inline">dist<sup>(<em>k</em>)</sup>(<em>v</em>)</span> =
+class="math inline">dist<sup>(<em>k</em>)</sup>(<em>v</em>)</span> = 
 shortest <span class="math inline"><em>s</em> → <em>v</em></span> path
 using <span class="math inline"> ≤ <em>k</em></span> edges: <span
 class="math display">dist<sup>(<em>k</em>)</sup>(<em>v</em>) = min (dist<sup>(<em>k</em> − 1)</sup>(<em>v</em>), min<sub>(<em>u</em>, <em>v</em>) ∈ <em>E</em></sub> dist<sup>(<em>k</em> − 1)</sup>(<em>u</em>) + <em>w</em>(<em>u</em>, <em>v</em>)).</span></p>
@@ -1898,7 +1898,7 @@ class="math inline"><em>G</em><sup><em>R</em></sup></span> gives highest
 post in <span
 class="math inline">{<em>A</em>, <em>B</em>, <em>C</em>}</span> (a
 source SCC of <span
-class="math inline"><em>G</em><sup><em>R</em></sup></span> = sink-side
+class="math inline"><em>G</em><sup><em>R</em></sup></span> =  sink-side
 of <span class="math inline"><em>G</em></span>).</li>
 <li>Processing <span class="math inline"><em>G</em></span> by decreasing
 <span class="math inline"><em>G</em><sup><em>R</em></sup></span> post
@@ -1923,8 +1923,8 @@ or mis-assigning truth (later SCC in topo order = true).</li>
 <h2 id="w04-how-to-answer-hw--exam">How to answer (HW / exam)</h2>
 <p>Graph problems = <strong>transform input/output around a black
 box</strong> (DFS, SCC, BFS, Dijkstra). Don't rewrite the black box. See
-<a href="W04_DP3-GR1-GR2_EXAM1/guidance/graph-theory-guidance.html">graph guidance</a> · <a
-href="W04_DP3-GR1-GR2_EXAM1/guidance/usable-black-boxes-graphs.html">usable black
+<a href="../cs6515-algorithm-rules-and-guidelines/index.html#graph-algorithms">graph guidance</a> · <a
+href="../cs6515-algorithm-rules-and-guidelines/8129088_Usable_Black_Boxes_for_Graphs.html">usable black
 boxes</a>.</p>
 <details>
 <summary><b>Go deeper</b> — readings · guidance · deep notes</summary>
@@ -1934,9 +1934,9 @@ boxes</a>.</p>
 (graphs)</a> · <a href="W04_DP3-GR1-GR2_EXAM1/readings/DPV-ch4-paths-in-graphs.pdf">§4.x
 (paths)</a> · <a href="W04_DP3-GR1-GR2_EXAM1/readings/DPV-ch6-dynamic-programming.pdf">§6.x
 (DP shortest path)</a></li>
-<li><a href="W04_DP3-GR1-GR2_EXAM1/guidance/graph-theory-guidance.html">Graph guidance</a> ·
-<a href="W04_DP3-GR1-GR2_EXAM1/guidance/usable-black-boxes-graphs.html">Black boxes</a> · <a
-href="W04_DP3-GR1-GR2_EXAM1/guidance/dynamic-programming-guidance.html">DP guidance</a></li>
+<li><a href="../cs6515-algorithm-rules-and-guidelines/index.html#graph-algorithms">Graph guidance</a> ·
+<a href="../cs6515-algorithm-rules-and-guidelines/8129088_Usable_Black_Boxes_for_Graphs.html">Black boxes</a> · <a
+href="../cs6515-algorithm-rules-and-guidelines/index.html#dynamic-programming">DP guidance</a></li>
 <li>Deep notes: <a href="W04_DP3-GR1-GR2_EXAM1/notes/GR0-graph-fundamentals.html">GR0
 fundamentals</a> · <a
 href="W04_DP3-GR1-GR2_EXAM1/notes/GR1-strongly-connected-components.html">GR1 SCC</a> · <a
@@ -1944,7 +1944,7 @@ href="W04_DP3-GR1-GR2_EXAM1/notes/GR2-2sat.html">GR2 2-SAT</a> · <a
 href="W04_DP3-GR1-GR2_EXAM1/notes/graphs-cheat-sheet.html">cheat sheet</a></li>
 <li><a href="W04_DP3-GR1-GR2_EXAM1/lectures">lectures/</a> · <a
 href="W04_DP3-GR1-GR2_EXAM1/transcripts">transcripts/</a> · <a href="W04_DP3-GR1-GR2_EXAM1/readings">readings/</a>
-· <a href="W04_DP3-GR1-GR2_EXAM1/guidance">guidance/</a> · <a href="W04_DP3-GR1-GR2_EXAM1/notes">notes/</a></li>
+· <a href="../cs6515-algorithm-rules-and-guidelines/index.html#graph-algorithms">guidance/</a> · <a href="W04_DP3-GR1-GR2_EXAM1/notes">notes/</a></li>
 </ul>
 </details>
 
@@ -2025,7 +2025,7 @@ alt="BFS animation" /></p>
         for all (v,w) ∈ E:
             if dist[w] = ∞:
                 dist[w] = dist[v] + 1; prev[w] = v; enqueue(Q, w)</code></pre>
-<p><strong>Dijkstra</strong> = BFS for
+<p><strong>Dijkstra</strong> =  BFS for
 <strong>positive</strong>-weighted graphs, <span
 class="math inline"><em>O</em>((|<em>V</em>|+|<em>E</em>|)log |<em>V</em>|)</span>
 with a min-heap; it fails on negative weights (use Bellman-Ford). Key
@@ -2111,7 +2111,7 @@ class="math inline"><em>E</em><sup><em>R</em></sup> = {(<em>w</em>, <em>v<
 vertex in <span
 class="math inline"><em>G</em><sup><em>R</em></sup></span> is in a
 <strong>source SCC of <span
-class="math inline"><em>G</em><sup><em>R</em></sup></span> = sink SCC of
+class="math inline"><em>G</em><sup><em>R</em></sup></span> =  sink SCC of
 <span class="math inline"><em>G</em></span></strong>.</p>
 <p><strong>SCC algorithm</strong> (<span
 class="math inline"><em>O</em>(<em>n</em> + <em>m</em>)</span>):</p>
@@ -2252,7 +2252,7 @@ edges.</p>
 <p><img src="../.assets/CS6515_images/DP1-008.png"
 alt="shortest-path setup" /></p>
 <p>For <span class="math inline"><em>z</em> ∈ <em>V</em></span>, <span
-class="math inline">dist (<em>z</em>)</span> = length of the shortest
+class="math inline">dist (<em>z</em>)</span> =  length of the shortest
 path from <span class="math inline"><em>s</em></span> to <span
 class="math inline"><em>z</em></span> (an array of length <span
 class="math inline"><em>n</em></span>). Dijkstra solves this in <span
@@ -2276,7 +2276,7 @@ class="math inline"><em>z</em></span> (single-source shortest path).</p>
 <p>With no negative cycle, a shortest path visits each vertex at most
 once, so it has <span class="math inline"> ≤ <em>n</em> − 1</span>
 edges. Condition on the <strong>number of edges</strong>: let <span
-class="math inline"><em>D</em>(<em>i</em>, <em>z</em>)</span> = length
+class="math inline"><em>D</em>(<em>i</em>, <em>z</em>)</span> =  length
 of the shortest <span class="math inline"><em>s</em> → <em>z</em></span>
 path using <span class="math inline"> ≤ <em>i</em></span> edges, <span
 class="math inline">0 ≤ <em>i</em> ≤ <em>n</em> − 1</span>, <span
@@ -2673,21 +2673,21 @@ class="math inline"><em>O</em>(<em>E</em>log <em>V</em>)</span>.</li>
 <span class="math inline"><em>O</em>(<em>E</em>log <em>V</em>)</span>
 runtimes; invoke the Cut Property for correctness rather than
 re-deriving from scratch. See <a
-href="W05_GR3/guidance/graph-theory-guidance.html">graph guidance</a>.</p>
+href="../cs6515-algorithm-rules-and-guidelines/index.html#graph-algorithms">graph guidance</a>.</p>
 <details>
 <summary><b>Go deeper</b> — readings · guidance · deep notes</summary>
 
 <ul>
 <li><a href="W05_GR3/readings/DPV-ch5-greedy-algorithms.pdf">DPV §5.1 (greedy /
 MST)</a></li>
-<li><a href="W05_GR3/guidance/graph-theory-guidance.html">Graph guidance</a> ·
-<a href="W05_GR3/guidance/usable-black-boxes-graphs.html">Black boxes</a> · <a
-href="W05_GR3/guidance/common-course-runtimes.html">Common runtimes</a></li>
+<li><a href="../cs6515-algorithm-rules-and-guidelines/index.html#graph-algorithms">Graph guidance</a> ·
+<a href="../cs6515-algorithm-rules-and-guidelines/8129088_Usable_Black_Boxes_for_Graphs.html">Black boxes</a> · <a
+href="../cs6515-algorithm-rules-and-guidelines/index.html#course-standards">Common runtimes</a></li>
 <li>Deep notes: <a href="W05_GR3/notes/GR3-minimum-spanning-tree.html">GR3
 MST</a> · <a href="W05_GR3/notes/graphs-cheat-sheet.html">cheat sheet</a></li>
 <li><a href="W05_GR3/lectures">lectures/</a> · <a
 href="W05_GR3/transcripts">transcripts/</a> · <a href="W05_GR3/readings">readings/</a>
-· <a href="W05_GR3/guidance">guidance/</a> · <a href="W05_GR3/notes">notes/</a></li>
+· <a href="../cs6515-algorithm-rules-and-guidelines/index.html#graph-algorithms">guidance/</a> · <a href="W05_GR3/notes">notes/</a></li>
 </ul>
 </details>
 
@@ -2931,7 +2931,7 @@ correct (via Cut Property)</h4>
 <p>At each step, when Kruskal adds <span
 class="math inline"><em>e</em> = (<em>v</em>, <em>w</em>)</span>: <span
 class="math inline"><em>v</em>, <em>w</em></span> are in different
-components; let <span class="math inline"><em>S</em></span> = the
+components; let <span class="math inline"><em>S</em></span> =  the
 component of <span class="math inline"><em>v</em></span>. No edge of
 <span class="math inline"><em>X</em></span> (so far) crosses this cut,
 and <span class="math inline"><em>e</em></span> is the minimum-weight
@@ -2957,7 +2957,7 @@ edge connecting each non-tree vertex to the tree.
 <strong>Runtime:</strong> <span
 class="math inline"><em>O</em>(|<em>E</em>|log |<em>V</em>|)</span>.
 <strong>Correctness:</strong> the Cut Property at each step with <span
-class="math inline"><em>S</em></span> = tree-so-far. Tracing the same
+class="math inline"><em>S</em></span> =  tree-so-far. Tracing the same
 graph from <span class="math inline"><em>A</em></span> gives the same
 MST, weight <span class="math inline">12</span>.</p>
 <h4 id="w05-7-kruskals-vs-prims">7. Kruskal's vs Prim's</h4>
@@ -2999,9 +2999,9 @@ class="math inline"><em>O</em>(|<em>E</em>|log |<em>V</em>|)</span></td>
 </tr>
 <tr>
 <td><strong>Correctness</strong></td>
-<td>Cut Property (<span class="math inline"><em>S</em></span> =
+<td>Cut Property (<span class="math inline"><em>S</em></span> = 
 component)</td>
-<td>Cut Property (<span class="math inline"><em>S</em></span> = tree so
+<td>Cut Property (<span class="math inline"><em>S</em></span> =  tree so
 far)</td>
 </tr>
 </tbody>
@@ -3223,7 +3223,7 @@ class="math inline"><em>O</em>(<em>m</em><sup>2</sup><em>n</em>)</span></td>
 <h2 id="w06-key-theorems--results">Key theorems &amp; results</h2>
 <h3 id="w06-max-flow--min-cut-theorem">Max-Flow / Min-Cut theorem</h3>
 <p><span
-class="math display">max<sub><em>f</em> feasible</sub>|<em>f</em>| = min<sub>(<em>S</em>, <em>T</em>) cut</sub><em>c</em>(<em>S</em>, <em>T</em>).</span></p>
+class="math display">\max_{f\text{ feasible}}|f| = \min_{(S, T)\text{ cut}}c(S, T).</span></p>
 <p>Three <strong>equivalent</strong> statements (each implies the
 others):</p>
 <ol type="1">
@@ -3236,7 +3236,7 @@ class="math inline">(<em>S</em>, <em>T</em>)</span> with <span
 class="math inline"><em>c</em>(<em>S</em>, <em>T</em>) = |<em>f</em>|</span>.</li>
 </ol>
 <p><em>Recovering the min-cut.</em> When Ford-Fulkerson stops, let <span
-class="math inline"><em>S</em></span> = all vertices <strong>reachable
+class="math inline"><em>S</em></span> =  all vertices <strong>reachable
 from <span class="math inline"><em>s</em></span></strong> in the final
 residual graph (and <span class="math inline"><em>T</em></span> the
 rest). Then <span class="math inline">(<em>S</em>, <em>T</em>)</span> is
@@ -3296,7 +3296,7 @@ re-derive Ford-Fulkerson internals. State your network (vertices, edges,
 capacities, <span class="math inline"><em>s</em></span>, <span
 class="math inline"><em>t</em></span>), call max-flow, then interpret
 the result (e.g. min-cut = the bottleneck set). Cite runtime from the <a
-href="W06_MF1-MF2/guidance/common-course-runtimes.html">common runtimes</a>
+href="../cs6515-algorithm-rules-and-guidelines/index.html#course-standards">common runtimes</a>
 conventions.</p>
 <details>
 <summary><b>Go deeper</b> — readings · guidance · transcript</summary>
@@ -3306,15 +3306,15 @@ conventions.</p>
 href="W06_MF1-MF2/readings/DPV-ch7-flows-and-linear-programming.pdf">DPV §7.2 —
 Flows on networks</a></li>
 <li><strong>Rules:</strong> <a
-href="W06_MF1-MF2/guidance/usable-black-boxes-graphs.html">Usable black boxes for
-graphs</a> · <a href="W06_MF1-MF2/guidance/graph-theory-guidance.html">Graph theory
-guidance</a> · <a href="W06_MF1-MF2/guidance/common-course-runtimes.html">Common
+href="../cs6515-algorithm-rules-and-guidelines/8129088_Usable_Black_Boxes_for_Graphs.html">Usable black boxes for
+graphs</a> · <a href="../cs6515-algorithm-rules-and-guidelines/index.html#graph-algorithms">Graph theory
+guidance</a> · <a href="../cs6515-algorithm-rules-and-guidelines/index.html#course-standards">Common
 runtimes</a></li>
 <li><strong>Notes:</strong> <a href="W06_MF1-MF2/notes/full-course-notes.html">full
 course notes</a> · <a href="W06_MF1-MF2/notes/ga-notes.pdf">ga-notes.pdf</a></li>
 <li><strong>All files:</strong> <a href="W06_MF1-MF2/lectures">lectures/</a> · <a
 href="W06_MF1-MF2/transcripts">transcripts/</a> · <a href="W06_MF1-MF2/readings">readings/</a>
-· <a href="W06_MF1-MF2/guidance">guidance/</a> · <a href="W06_MF1-MF2/notes">notes/</a></li>
+· <a href="../cs6515-algorithm-rules-and-guidelines/index.html#graph-algorithms">guidance/</a> · <a href="W06_MF1-MF2/notes">notes/</a></li>
 </ul>
 </details>
 
@@ -3361,7 +3361,7 @@ class="math inline"><em>E</em></span>; Wikipedia does not.)</p>
 <ul>
 <li><strong>Capacity constraint</strong> — flow cannot exceed capacity:
 <span
-class="math inline">∀<em>e</em> ∈ <em>E</em>, 0 ≤ <em>f</em><sub><em>e</em></sub> ≤ <em>c</em><sub><em>e</em></sub></span>.</li>
+class="math inline">\forall e \in E,\ 0 \le f_{e} \le c_{e}</span>.</li>
 <li><strong>Conservation of flow</strong> — at each internal vertex,
 inflow equals outflow: <span class="math display">$$
 \forall v \in V \setminus \{s,t\}:\quad
@@ -3479,20 +3479,20 @@ class="math inline"><em>c</em><sub><em>e</em></sub></span> and flow
 <span class="math inline"><em>f</em><sub><em>e</em></sub></span>.
 Construct it by:</p>
 <ul>
-<li>if <span class="math inline">$\overrightarrow{vw} \in E$</span> and
+<li>if <span class="math inline">\overrightarrow{vw} \in E</span> and
 <span
-class="math inline"><em>f</em><sub><em>v</em><em>w</em></sub> &lt; <em>c</em><sub><em>v</em><em>w</em></sub></span>:
-add forward edge <span class="math inline">$\overrightarrow{vw}$</span>
-to <span class="math inline"><em>G</em><sup><em>f</em></sup></span> with
+class="math inline">f_{vw} < c_{vw}</span>:
+add forward edge <span class="math inline">\overrightarrow{vw}</span>
+to <span class="math inline">G^{f}</span> with
 residual capacity <span
-class="math inline"><em>c</em><sub><em>v</em><em>w</em></sub> − <em>f</em><sub><em>v</em><em>w</em></sub></span>;</li>
-<li>if <span class="math inline">$\overrightarrow{vw} \in E$</span> and
+class="math inline">c_{vw} - f_{vw}</span>;</li>
+<li>if <span class="math inline">\overrightarrow{vw} \in E</span> and
 <span
-class="math inline"><em>f</em><sub><em>v</em><em>w</em></sub> &gt; 0</span>:
-add backward edge <span class="math inline">$\overrightarrow{wv}$</span>
-to <span class="math inline"><em>G</em><sup><em>f</em></sup></span> with
+class="math inline">f_{vw} > 0</span>:
+add backward edge <span class="math inline">\overrightarrow{wv}</span>
+to <span class="math inline">G^{f}</span> with
 capacity <span
-class="math inline"><em>f</em><sub><em>v</em><em>w</em></sub></span>.</li>
+class="math inline">f_{vw}</span>.</li>
 </ul>
 <p>As a residual-capacity case function: <span class="math display">$$
 C_f(u,v) = \begin{cases}
@@ -3710,7 +3710,7 @@ PDF</a></p>
 
 <h2 id="w06-agent-hint">Agent hint</h2>
 <p>Flow question → confirm it's Week 6 via <a
-href="../00_START_HERE/CURRENT_WEEK.html">CURRENT_WEEK</a>, model as
+href="../00_START_HERE/COURSE_ROADMAP.html">Course Roadmap</a>, model as
 a network, call max-flow, read the min-cut from reachability in <span
 class="math inline"><em>G</em><sub><em>f</em></sub></span>. Never modify
 the black box. Compare with W07 (Edmonds-Karp, <span
@@ -3771,7 +3771,7 @@ polynomial</h3>
 <li><strong>Pseudo-polynomial</strong> (Ford-Fulkerson, <span
 class="math inline"><em>O</em>(<em>m</em><em>C</em>)</span>): runtime
 depends on the <em>magnitude</em> of the numbers (<span
-class="math inline"><em>C</em></span> = max-flow value).</li>
+class="math inline"><em>C</em></span> =  max-flow value).</li>
 <li><strong>Strongly polynomial</strong> (Edmonds-Karp, <span
 class="math inline"><em>O</em>(<em>m</em><sup>2</sup><em>n</em>)</span>):
 runtime depends only on the <em>size</em> of the graph (<span
@@ -3880,7 +3880,7 @@ max-flow/min-cut theorem are identical to W6.</li>
 <p>Same black-box rule as W6: <strong>reduce to max-flow</strong>; when
 runtime matters, choose Edmonds-Karp for the strongly-polynomial <span
 class="math inline"><em>O</em>(<em>m</em><sup>2</sup><em>n</em>)</span>
-bound. See <a href="W07_MF4_EXAM2/guidance/usable-black-boxes-graphs.html">black
+bound. See <a href="../cs6515-algorithm-rules-and-guidelines/8129088_Usable_Black_Boxes_for_Graphs.html">black
 boxes</a>.</p>
 <details>
 <summary><b>Go deeper</b> — readings · guidance</summary>
@@ -3888,14 +3888,14 @@ boxes</a>.</p>
 <ul>
 <li><a href="W07_MF4_EXAM2/readings/DPV-ch7-flows-and-linear-programming.pdf">DPV §7.2
 (flows)</a></li>
-<li><a href="W07_MF4_EXAM2/guidance/graph-theory-guidance.html">Graph guidance</a> ·
-<a href="W07_MF4_EXAM2/guidance/usable-black-boxes-graphs.html">Black boxes</a> · <a
-href="W07_MF4_EXAM2/guidance/common-course-runtimes.html">Common runtimes</a></li>
+<li><a href="../cs6515-algorithm-rules-and-guidelines/index.html#graph-algorithms">Graph guidance</a> ·
+<a href="../cs6515-algorithm-rules-and-guidelines/8129088_Usable_Black_Boxes_for_Graphs.html">Black boxes</a> · <a
+href="../cs6515-algorithm-rules-and-guidelines/index.html#course-standards">Common runtimes</a></li>
 <li><a href="W07_MF4_EXAM2/notes/full-course-notes.html">Full course notes</a> · <a
 href="W07_MF4_EXAM2/notes/ga-notes.pdf">ga-notes.pdf</a></li>
 <li><a href="W07_MF4_EXAM2/lectures">lectures/</a> · <a
 href="W07_MF4_EXAM2/transcripts">transcripts/</a> · <a href="W07_MF4_EXAM2/readings">readings/</a>
-· <a href="W07_MF4_EXAM2/guidance">guidance/</a> · <a href="W07_MF4_EXAM2/notes">notes/</a></li>
+· <a href="../cs6515-algorithm-rules-and-guidelines/index.html#graph-algorithms">guidance/</a> · <a href="W07_MF4_EXAM2/notes">notes/</a></li>
 </ul>
 </details>
 
@@ -3909,7 +3909,7 @@ the Edmonds-Karp algorithm. Key take-aways from each:</p>
 <li>finds augmenting paths using either DFS or BFS</li>
 <li>runtime: <span
 class="math inline"><em>O</em>(<em>m</em><em>C</em>)</span> where <span
-class="math inline"><em>C</em></span> = size of the max flow</li>
+class="math inline"><em>C</em></span> =  size of the max flow</li>
 <li>assumes integer capacities</li>
 </ul></li>
 <li><strong>Edmonds-Karp</strong>
@@ -3939,7 +3939,7 @@ class="math inline"><em>P</em></span> in <span
 class="math inline"><em>G</em><sup><em>f</em></sup></span> (use DFS or
 BFS) — if no path: return <span
 class="math inline"><em>f</em></span></li>
-<li>Let <span class="math inline"><em>c</em>(<em>P</em>)</span> = min
+<li>Let <span class="math inline"><em>c</em>(<em>P</em>)</span> =  min
 capacity along <span class="math inline"><em>P</em></span> in <span
 class="math inline"><em>G</em><sup><em>f</em></sup></span></li>
 <li>Augment <span class="math inline"><em>f</em></span> by <span
@@ -3966,7 +3966,7 @@ class="math inline"><em>P</em></span> in <span
 class="math inline"><em>G</em><sup><em>f</em></sup></span> (use
 <strong>BFS</strong> — <strong>DFS removed</strong>) — if no path:
 return <span class="math inline"><em>f</em></span></li>
-<li>Let <span class="math inline"><em>c</em>(<em>P</em>)</span> = min
+<li>Let <span class="math inline"><em>c</em>(<em>P</em>)</span> =  min
 capacity along <span class="math inline"><em>P</em></span> in <span
 class="math inline"><em>G</em><sup><em>f</em></sup></span></li>
 <li>Augment <span class="math inline"><em>f</em></span> by <span
@@ -4020,7 +4020,7 @@ follows. Now we prove the lemma.</p>
 class="math inline"><em>G</em> = (<em>V</em>, <em>E</em>)</span>, start
 vertex <span class="math inline"><em>s</em> ∈ <em>V</em></span>, weights
 ignored</li>
-<li>Output: <span class="math inline">dist (<em>v</em>)</span> = min
+<li>Output: <span class="math inline">dist (<em>v</em>)</span> =  min
 number of edges from <span class="math inline"><em>s</em></span> to
 <span class="math inline"><em>v</em></span>, for all <span
 class="math inline"><em>v</em> ∈ <em>V</em></span></li>
@@ -4050,7 +4050,7 @@ class="math inline"><em>z</em> ∈ <em>V</em></span>, <span
 class="math inline">level(<em>z</em>)</span> does not decrease — it may
 increase or stay the same, but never decreases. To see why, consider
 which edges are inserted and removed for an original-flow edge <span
-class="math inline">$\overset{\rightarrow}{vw} \in E$</span> (4
+class="math inline">$\overrightarrow{vw} \in E$</span> (4
 cases):</p>
 <ul>
 <li><strong>Add <span class="math inline">(<em>v</em><em>w</em>)</span>
@@ -4109,13 +4109,13 @@ class="math inline">▫</span></p>
 <p><strong>Delete/Add effect.</strong> Take <span
 class="math inline">level(<em>v</em>) = <em>i</em></span>.</p>
 <ul>
-<li>Delete <span class="math inline">$\overset{\rightarrow}{vw}$</span>
+<li>Delete <span class="math inline">\overrightarrow{vw}</span>
 from <span class="math inline"><em>G</em><sup><em>f</em></sup></span>:
-then <span class="math inline">$\overset{\rightarrow}{vw} \in P$</span>,
+then <span class="math inline">\overrightarrow{vw} \in P</span>,
 implying <span
 class="math inline">level(<em>w</em>) = level(<em>v</em>) + 1 ≥ <em>i</em> + 1</span>.</li>
 <li>Later add it back: then <span
-class="math inline">$\overset{\rightarrow}{wv} \in P$</span>, implying
+class="math inline">\overrightarrow{wv} \in P</span>, implying
 <span
 class="math inline">level(<em>v</em>) = level(<em>w</em>) + 1 ≥ <em>i</em> + 2</span>.</li>
 </ul>
@@ -4374,13 +4374,13 @@ poly-time.</p>
 <li><a href="W08_NP1-NP2-NP3/readings/DPV-ch8-np-complete-problems.pdf">DPV §8.1–8.3
 (NP-complete problems)</a> · <a
 href="W08_NP1-NP2-NP3/readings/DPV-ch5-greedy-algorithms.pdf">§5.3 context</a></li>
-<li><a href="W08_NP1-NP2-NP3/guidance/common-course-runtimes.html">Common
+<li><a href="../cs6515-algorithm-rules-and-guidelines/index.html#course-standards">Common
 runtimes</a></li>
 <li><a href="W08_NP1-NP2-NP3/notes/full-course-notes.html">Full course notes</a> · <a
 href="W08_NP1-NP2-NP3/notes/ga-notes.pdf">ga-notes.pdf</a></li>
 <li><a href="W08_NP1-NP2-NP3/lectures">lectures/</a> · <a
 href="W08_NP1-NP2-NP3/transcripts">transcripts/</a> · <a href="W08_NP1-NP2-NP3/readings">readings/</a>
-· <a href="W08_NP1-NP2-NP3/guidance">guidance/</a> · <a href="W08_NP1-NP2-NP3/notes">notes/</a></li>
+· <a href="../cs6515-algorithm-rules-and-guidelines/index.html#np-completeness">guidance/</a> · <a href="W08_NP1-NP2-NP3/notes">notes/</a></li>
 </ul>
 </details>
 
@@ -5823,13 +5823,13 @@ slackness.</p>
 <ul>
 <li><a href="W09_LP1-LP2-LP3/readings/DPV-ch7-flows-and-linear-programming.pdf">DPV
 §7.1, §7.4, §7.6 (LP, duality, geometry)</a></li>
-<li><a href="W09_LP1-LP2-LP3/guidance/common-course-runtimes.html">Common
+<li><a href="../cs6515-algorithm-rules-and-guidelines/index.html#course-standards">Common
 runtimes</a></li>
 <li><a href="W09_LP1-LP2-LP3/notes/full-course-notes.html">Full course notes</a> · <a
 href="W09_LP1-LP2-LP3/notes/ga-notes.pdf">ga-notes.pdf</a></li>
 <li><a href="W09_LP1-LP2-LP3/lectures">lectures/</a> · <a
 href="W09_LP1-LP2-LP3/transcripts">transcripts/</a> · <a href="W09_LP1-LP2-LP3/readings">readings/</a>
-· <a href="W09_LP1-LP2-LP3/guidance">guidance/</a> · <a href="W09_LP1-LP2-LP3/notes">notes/</a></li>
+· <a href="../cs6515-algorithm-rules-and-guidelines/index.html#linear-programming">guidance/</a> · <a href="W09_LP1-LP2-LP3/notes">notes/</a></li>
 </ul>
 </details>
 
@@ -5863,7 +5863,7 @@ or (b) into the sink vertex. Which one we choose doesn't matter as they
 must be the same.</p>
 <ul>
 <li>Objective Function: <span
-class="math inline">$\max(\sum_{\overset{\rightarrow}{sv}}
+class="math inline">$\max(\sum_{\overrightarrow{sv}}
 f_{sv})$</span></li>
 <li>Constraints:
 <ul>
@@ -5872,8 +5872,8 @@ c_e$</span> - the flow can be at most the capacity</li>
 <li>for every <span
 class="math inline"><em>v</em> ∈ <em>V</em> \ {<em>s</em>, <em>t</em>}</span>
 <ul>
-<li><span class="math inline">$\sum_{\overset{\rightarrow}{wv}} f_{wv} =
-\sum_{\overset{\rightarrow}{vz}} f_{vz}$</span> Flow in == Flow out of
+<li><span class="math inline">$\sum_{\overrightarrow{wv}} f_{wv} =
+\sum_{\overrightarrow{vz}} f_{vz}$</span> Flow in == Flow out of
 v</li>
 <li>flow must be conserved</li>
 </ul></li>
@@ -5887,8 +5887,7 @@ production/manufacturing problem.</p>
 <em>how many of each should we produce</em> to maximize profit.</p>
 <p><strong>Details:</strong></p>
 <ul>
-<li>The profit on each unit of A is <span class="math inline">$1</span>,
-and for B it is <span class="math inline">$6</span></li>
+<li>The profit on each unit of A is &dollar;1, and for B it is &dollar;6</li>
 <li>The demand for A is <span class="math inline"> ≤ 300</span> units,
 and for B it is <span class="math inline"> ≤ 200</span> units</li>
 <li>We have a total of 700 hours capacity among our employees</li>
@@ -6017,9 +6016,7 @@ another three dimensional example.</p>
 <p>Let's twist the previous example and make it a bit harder.</p>
 <ul>
 <li>Three products A,B, C</li>
-<li>Profit: <span class="math inline">$1</span> for A, <span
-class="math inline">$6</span> for B, and <span
-class="math inline">$10</span> for C</li>
+<li>Profit: &dollar;1 for A, &dollar;6 for B, and &dollar;10 for C</li>
 <li>demand: <span class="math inline"> ≤ 300</span> for A, <span
 class="math inline"> ≤ 200</span> for B, unlimited demand for C</li>
 <li>hourly Supply: <span class="math inline"> ≤ 1000</span> in total, A
@@ -7021,13 +7018,13 @@ FPTAS for a true poly bound.</p>
 href="W10_LP4-NP4-NP5_EXAM3/readings/DPV-ch9-coping-with-np-completeness.pdf">§9 (coping)</a>
 · <a href="W10_LP4-NP4-NP5_EXAM3/readings/DPV-ch6-dynamic-programming.pdf">§6.7
 (knapsack)</a></li>
-<li><a href="W10_LP4-NP4-NP5_EXAM3/guidance/common-course-runtimes.html">Common
+<li><a href="../cs6515-algorithm-rules-and-guidelines/index.html#course-standards">Common
 runtimes</a></li>
 <li><a href="W10_LP4-NP4-NP5_EXAM3/notes/full-course-notes.html">Full course notes</a> · <a
 href="W10_LP4-NP4-NP5_EXAM3/notes/ga-notes.pdf">ga-notes.pdf</a></li>
 <li><a href="W10_LP4-NP4-NP5_EXAM3/lectures">lectures/</a> · <a
 href="W10_LP4-NP4-NP5_EXAM3/transcripts">transcripts/</a> · <a href="W10_LP4-NP4-NP5_EXAM3/readings">readings/</a>
-· <a href="W10_LP4-NP4-NP5_EXAM3/guidance">guidance/</a> · <a href="W10_LP4-NP4-NP5_EXAM3/notes">notes/</a></li>
+· <a href="../cs6515-algorithm-rules-and-guidelines/index.html#np-completeness">guidance/</a> · <a href="W10_LP4-NP4-NP5_EXAM3/notes">notes/</a></li>
 </ul>
 </details>
 
@@ -7306,7 +7303,7 @@ consequently <span
 class="math inline"><em>z</em><sub><em>j</em></sub> = 0</span> since
 it's not satisfied</li>
 <li>for any other setting/assignment of variables <span
-class="math inline"><em>z</em><sub><em>j</em></sub></span> = 0 or
+class="math inline"><em>z</em><sub><em>j</em></sub></span> =  0 or
 1.</li>
 <li>we can't force, or set, <span
 class="math inline"><em>z</em><sub><em>j</em></sub></span> to be 1.
@@ -7586,7 +7583,7 @@ inequality</li>
 <li>Let $\alpha = \hat{z_j^*} $</li>
 <li>We've shown above that : Pr(<span
 class="math inline"><em>c</em><sub><em>j</em></sub></span> is satisfied)
-$ge 1 - \left[1 - \frac{\alpha}{k} \right]^k $</li>
+$\ge 1 - \left[1 - \frac{\alpha}{k} \right]^k $</li>
 </ul>
 <p>The next step will require a proof of it's own</p>
 <ul>
@@ -8421,13 +8418,13 @@ and the no-false-negative guarantee.</p>
 (FFT)</a> · <a
 href="W11_Advanced-FFT-Crypto-Bloom/readings/DPV-ch1-algorithms-with-numbers.pdf">§1.1–1.5 (numbers,
 RSA, Bloom)</a></li>
-<li><a href="W11_Advanced-FFT-Crypto-Bloom/guidance/common-course-runtimes.html">Common
+<li><a href="../cs6515-algorithm-rules-and-guidelines/index.html#course-standards">Common
 runtimes</a></li>
 <li><a href="W11_Advanced-FFT-Crypto-Bloom/notes/full-course-notes.html">Full course notes</a> · <a
 href="W11_Advanced-FFT-Crypto-Bloom/notes/ga-notes.pdf">ga-notes.pdf</a></li>
 <li><a href="W11_Advanced-FFT-Crypto-Bloom/lectures">lectures/</a> · <a
 href="W11_Advanced-FFT-Crypto-Bloom/transcripts">transcripts/</a> · <a href="W11_Advanced-FFT-Crypto-Bloom/readings">readings/</a>
-· <a href="W11_Advanced-FFT-Crypto-Bloom/guidance">guidance/</a> · <a href="W11_Advanced-FFT-Crypto-Bloom/notes">notes/</a></li>
+· <a href="../cs6515-algorithm-rules-and-guidelines/index.html#course-standards">guidance/</a> · <a href="W11_Advanced-FFT-Crypto-Bloom/notes">notes/</a></li>
 </ul>
 </details>
 
@@ -10318,8 +10315,8 @@ rather easy to add though. We will make all our edges bidirectional. Our
 original construction was to create a edge with no direction. Now for
 every edge <span class="math inline"><em>e</em> ∈ <em>E</em></span> we
 create E' composed of <span
-class="math inline">$\overset{\rightarrow}{ij} \in E$</span> and <span
-class="math inline">$\overset{\rightarrow}{ji} \in E$</span>. each of
+class="math inline">$\overrightarrow{ij} \in E$</span> and <span
+class="math inline">$\overrightarrow{ji} \in E$</span>. each of
 these will also get the seperation penalty <span
 class="math inline"><em>P</em><sub><em>i</em><em>j</em></sub></span></p>
 <p>What we do next is add a source and sink vertices, s and t,</p>
@@ -10568,7 +10565,7 @@ class="math inline"><em>f</em><sub><em>i</em><em>n</em></sub><sup>′</sup>(<em>
 holds as it's the output of a max-flow algo. Let's look at <span
 class="math inline"><em>f</em><sub><em>i</em><em>n</em></sub><sup>′</sup>(<em>v</em>)</span>.</p>
 <p><span class="math inline">$\begin{split} f'_{in}(v) &amp; = f'(
-\overset{\rightarrow}{s'v}) + \sum_{u \in V} f'(u-\&gt;v) \\ &amp; =
+\overrightarrow{s'v}) + \sum_{u \in V} f'(u-\&gt;v) \\ &amp; =
 d_{in}(v) + \sum_{u \in V} (f(u-\&gt;v) - d(u-\&gt;v)) &amp; \text{
 rewrite f' in terms of f } \\ &amp; = \sum_{u \in V} f(u-\&gt;v) &amp;
 \text{ cancel out the demands as they both represent into v } \\ &amp; =
@@ -10683,11 +10680,11 @@ to augment this)</li>
 <p>However, this residual graph is not exactly the same as before.</p>
 <p>Given a flow <span class="math inline"><em>f</em></span> over <span
 class="math inline"><em>G</em></span><br />
-<span class="math inline">$c_f(\overset{\rightarrow}{vw}) =
-\begin{cases} C(\overset{\rightarrow}{vw}) -
-f(\overset{\rightarrow}{vw}) &amp; if (\overset{\rightarrow}{vw}) \in E
-\\ f(\overset{\rightarrow}{wv}) - d(\overset{\rightarrow}{wv}) &amp; if
-(\overset{\rightarrow}{wv}) \in E \\ 0 &amp; otherwise \\
+<span class="math inline">$c_f(\overrightarrow{vw}) =
+\begin{cases} C(\overrightarrow{vw}) -
+f(\overrightarrow{vw}) &amp; if (\overrightarrow{vw}) \in E
+\\ f(\overrightarrow{wv}) - d(\overrightarrow{wv}) &amp; if
+(\overrightarrow{wv}) \in E \\ 0 &amp; otherwise \\
 \end{cases}$</span></p>
 <ul>
 <li>Case 1 represents forward edges, thus this is the left over capacity
@@ -11207,6 +11204,10 @@ the whole course.</p>
 
   // 4) Math: render \( \) and \[ \] and $$ $$. Tolerate malformed legacy TeX.
   function renderMath() {
+    if (window.renderSiteMath) {
+      window.renderSiteMath();
+      return;
+    }
     if (window.renderMathInElement) {
       renderMathInElement(document.querySelector('.content, .all-weeks-content') || document.body, {
         delimiters: [
@@ -11218,13 +11219,16 @@ the whole course.</p>
         throwOnError: false,
         preProcess: function(math) {
           return math
+            .replace(/(?:&nbsp;|&#160;|\u00a0)([a-zA-Z]{2,})/g, ' \\text{ $1}')
+            .replace(/&(?:nbsp|#160);/gi, ' ')
+            .replace(/[\u2000-\u200b\u00a0]/g, ' ')
             .replace(/\\left\\\[/g, '\\left[')
             .replace(/\\right\\\]/g, '\\right]')
             .replace(/&amp;/g, '&')
             .replace(/&lt;/g, '<')
             .replace(/&gt;/g, '>');
         },
-        macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
+        macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow ', '\\O': '\\mathcal{O}' }
       });
     }
   }

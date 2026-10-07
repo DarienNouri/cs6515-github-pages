@@ -8,62 +8,63 @@
 <link rel="stylesheet" href="../theme.css">
 <link rel="stylesheet" href="../vendor/katex/katex.min.css">
 <link rel="stylesheet" href="../vendor/highlight/styles/tokyo-night-dark.min.css">
-
 </head>
 <body>
 <header class="topbar">
   <a class="home" href="../index.html">CS6515</a>
+  <span class="topbar__sep">/</span>
+  <a class="crumbloc" href="index.html">Algorithm Guidance</a>
+  <span class="topbar__sep">/</span>
   <span class="crumbloc">Usable D&amp;C Algorithms</span>
-<button class="search-trigger" type="button" data-search-trigger aria-label="Search site"><span class="search-trigger__label">Search</span><kbd data-search-shortcut>Cmd K</kbd></button>
+  <button class="search-trigger" type="button" data-search-trigger aria-label="Search site"><span class="search-trigger__label">Search</span><kbd data-search-shortcut>Cmd K</kbd></button>
 </header>
 <main class="content">
 <h1 id="usable-dc-algorithms">Usable D&amp;C Algorithms</h1>
-<h2 id="post">Post</h2>
-<p>For the divide and conquer section, you may use the algorithms
-presented in the course materials to help you solve presented
-problems.</p>
-<p>It may also be that the problem does not lend itself directly to one
-(or a combo) of the course algorithms, so you may choose to:</p>
-<ul>
-<li><p>Leverage divide and conquer techniques directly, avoiding the use
-of course algorithms; or,</p></li>
-<li><p>Make modifications to one or more of the course algorithms to
-make it fit the problem at hand</p></li>
-</ul>
-<p>Any modifications made to the course algorithms must be described and
-have the impact of the changes accounted for in the runtime
-analysis.</p>
-<p>Modifications listed below under "common modifications" do not need
-to be described in depth, but the use of a modified algorithm must be
-explicitly stated and an impact analysis must still be accounted for in
-the runtime analysis.</p>
-<p>Many divide and conquer algorithms exist beyond what is covered in
-this course; however, only those explicitly mentioned here may be used.
-The use of extra-curricular algorithms will result in
-penalties.Wikipedia entries are provided for supplemental reading, such
-as history and discovery of these algorithms.</p>
-<p>Where differences exist, this post represents the version used in
-this course.The following algorithms are available for use during the
-remainder of the course:</p>
-<p><strong>Binary Search</strong> (see also: <a
-href="https://en.wikipedia.org/wiki/Binary_search_algorithm"><span>https://en.wikipedia.org/wiki/Binary_search_algorithm</span></a>)-
-Input:</p>
-<ul>
-<li><p>A sorted list of comparable elements.</p></li>
-<li><p>A starting index.</p></li>
-<li><p>1 is assumed if not provided.</p></li>
-<li><p>An ending index.</p></li>
-<li><p>The size of the list (i.e., <code>n</code>) is assumed if the
-value is known.</p></li>
-<li><p>The target value.</p></li>
-<li><p>Output:</p></li>
-<li><p>The index of the first <strong>encountered</strong> match if one
-exists or "NOT FOUND" if no match could be found.</p></li>
-<li><p>Runtime:</p></li>
-<li><p><code>O(log n)</code></p></li>
-</ul>
-<p>Reference implementation:</p>
-<pre><code>binary_search(A, s=1, n, T)
+
+<div class="guidance-banner">
+  <div class="guidance-banner__tags">
+    <span class="badge badge--staff">Staff Guidance #65</span>
+    <span class="badge badge--blue">Divide &amp; Conquer</span>
+    <span class="badge badge--purple">Black-Box Whitelist</span>
+  </div>
+  <span class="text-muted">Approved course algorithms, reference pseudocode, and standard modifications</span>
+</div>
+
+<p class="lead">For the divide and conquer section, you may use the algorithms presented in the course materials to help you solve presented problems. In cases where differences exist, this post represents the definitive course version.</p>
+
+<section class="guidance-section">
+  <h2 id="policy">Black Box Policy &amp; Modification Rules</h2>
+  <p>If a problem does not lend itself directly to one of the standard course algorithms, you may choose to:</p>
+  <ul>
+    <li>Leverage divide and conquer techniques directly from scratch, avoiding the use of course algorithms; or,</li>
+    <li>Make modifications to one or more of the approved course algorithms to make it fit the problem at hand.</li>
+  </ul>
+  <div class="callout callout--warning">
+    <p><strong>Modification Requirements:</strong> Any modifications made to course algorithms must be clearly described, and the runtime impact of the changes must be accounted for in the runtime analysis.</p>
+  </div>
+  <div class="callout callout--danger">
+    <p><strong>Approved Algorithms Whitelist:</strong> Many divide and conquer algorithms exist beyond what is covered in this course; however, <strong>only those explicitly mentioned here may be used</strong>. The use of unapproved extracurricular algorithms will result in grading penalties.</p>
+  </div>
+</section>
+
+<section class="guidance-section">
+  <h2 id="binary-search">1. Binary Search</h2>
+  <p>Search a sorted list for a target key by repeatedly halving the search space.</p>
+  <ul>
+    <li><strong>Input:</strong>
+      <ul>
+        <li>A sorted list of comparable elements $A$.</li>
+        <li>A starting index $s$ (1 is assumed if not provided).</li>
+        <li>An ending index $n$ (length of list assumed if known).</li>
+        <li>The target value $T$.</li>
+      </ul>
+    </li>
+    <li><strong>Output:</strong> The index of the first encountered match if one exists, or "NOT FOUND" if no match is found.</li>
+    <li><strong>Runtime:</strong> $O(\log n)$</li>
+  </ul>
+
+  <h3>Reference Implementation</h3>
+  <pre><code class="language-plaintext">binary_search(A, s=1, n, T)
     L = s
     R = n
     while L ≤ R do
@@ -74,32 +75,27 @@ exists or "NOT FOUND" if no match could be found.</p></li>
             R = m − 1
         else
             return m
-    return unsuccessful
-</code></pre>
-<p>Common modifications:</p>
-<ul>
-<li><p>Finding the <strong>leftmost</strong> matching value.</p></li>
-<li><p>Finding the <strong>rightmost</strong> matching value.</p></li>
-<li><p>Finding the <strong>insertion point</strong> for a missing
-matching value.</p></li>
-</ul>
-<p><strong>Merge Sort</strong> (see also: <a
-href="https://en.wikipedia.org/wiki/Merge_sort"><span>https://en.wikipedia.org/wiki/Merge_sort</span></a>)-
-Input:</p>
-<ul>
-<li><p>A list of comparable elements.</p></li>
-<li><p>A starting index.</p></li>
-<li><p>1 is assumed if not provided.</p></li>
-<li><p>An ending index.</p></li>
-<li><p>The size of the list (i.e., <code>n</code>) is assumed if the
-value is known.</p></li>
-<li><p>Output:</p></li>
-<li><p>The original list, sorted in ascending order.</p></li>
-<li><p>Runtime:</p></li>
-<li><p><code>O(n log n)</code></p></li>
-</ul>
-<p>Reference implementation (based on DPV pp. 50-51):</p>
-<pre><code>merge_sort(A, s=1, n)
+    return unsuccessful</code></pre>
+
+  <h3>Common Modifications</h3>
+  <ul>
+    <li>Finding the <strong>leftmost</strong> matching value.</li>
+    <li>Finding the <strong>rightmost</strong> matching value.</li>
+    <li>Finding the <strong>insertion point</strong> for a missing target value.</li>
+  </ul>
+</section>
+
+<section class="guidance-section">
+  <h2 id="merge-sort">2. Merge Sort</h2>
+  <p>Canonical divide-and-conquer sorting algorithm based on DPV pp. 50–51.</p>
+  <ul>
+    <li><strong>Input:</strong> A list of comparable elements $A$, starting index $s$ (default 1), ending index $n$.</li>
+    <li><strong>Output:</strong> The original list, sorted in ascending order.</li>
+    <li><strong>Runtime:</strong> $O(n \log n)$</li>
+  </ul>
+
+  <h3>Reference Implementation</h3>
+  <pre><code class="language-plaintext">merge_sort(A, s=1, n)
     if n &gt; 1
         return merge(merge_sort(A[s ... n/2]),
                      merge_sort(A[n/2 + 1 ... n]))
@@ -116,29 +112,25 @@ merge(L[1 ... i], R[1 ... j])
         return L[1] + merge(L[2 ... i], R[1 ... j])
     else
         return R[1] + merge(L[1 ... i], R[2 ... j])</code></pre>
-<p>Common modifications:</p>
-<ul>
-<li>Returning the list in <strong>descending</strong> order.</li>
-</ul>
-<p><strong>Fast Select</strong> (see also: <a
-href="https://en.wikipedia.org/wiki/Selection_algorithm"><span>https://en.wikipedia.org/wiki/Selection_algorithm</span></a>)-
-Input:</p>
-<ul>
-<li><p>A list of comparable elements.</p></li>
-<li><p>A starting index.</p></li>
-<li><p>1 is assumed if not provided.</p></li>
-<li><p>An ending index.</p></li>
-<li><p>The size of the list (i.e., <code>n</code>) is assumed if the
-value is known.</p></li>
-<li><p>An integer <code>k</code></p></li>
-<li><p>Output:</p></li>
-<li><p>The <code>kth</code> smallest element from the original
-list.</p></li>
-<li><p>Runtime:</p></li>
-<li><p><code>O(n)</code></p></li>
-</ul>
-<p>Reference implementation (based on DC2.12):</p>
-<pre><code>fast_select(A, s=1, n, k)
+
+  <h3>Common Modifications</h3>
+  <ul>
+    <li>Returning the list in <strong>descending</strong> order.</li>
+    <li>Sorting pairs or tuples $(val, orig\_index)$ to preserve initial array positions.</li>
+  </ul>
+</section>
+
+<section class="guidance-section">
+  <h2 id="fast-select">3. Fast Select (Median of Medians)</h2>
+  <p>Deterministic linear-time selection algorithm based on DC2.12.</p>
+  <ul>
+    <li><strong>Input:</strong> A list of comparable elements $A$, starting index $s$ (default 1), ending index $n$, and rank integer $k$.</li>
+    <li><strong>Output:</strong> The $k$-th smallest element from the original list.</li>
+    <li><strong>Runtime:</strong> $O(n)$</li>
+  </ul>
+
+  <h3>Reference Implementation</h3>
+  <pre><code class="language-plaintext">fast_select(A, s=1, n, k)
     if n = 1
         return A[1]
 
@@ -180,25 +172,24 @@ list.</p></li>
         return fast_select(highs, k - lowSize - midSize)
     else
         return pivot</code></pre>
-<p>Common modifications:</p>
-<ul>
-<li>Return the <code>kth</code> <strong>largest</strong> element.</li>
-</ul>
-<p><strong>Fast Multiply</strong> (see also: <a
-href="https://en.wikipedia.org/wiki/Karatsuba_algorithm"><span>https://en.wikipedia.org/wiki/Karatsuba_algorithm</span></a>)-
-Input:</p>
-<ul>
-<li><p>An <code>n</code>-bit integer <code>x</code> such that
-<code>n = 2^k</code>.</p></li>
-<li><p>An <code>n</code>-bit integer <code>y</code> such that
-<code>n = 2^k</code>.</p></li>
-<li><p>Output:</p></li>
-<li><p>The product of <code>x</code> and <code>y</code>.</p></li>
-<li><p>Runtime:</p></li>
-<li><p><code>O(n^(log``2`` 3))</code></p></li>
-</ul>
-<p>Reference implementation (based on DPV p. 47, DC1.10)</p>
-<pre><code>fast_multiply(x[1 ... n], y[1 ... n])
+
+  <h3>Common Modifications</h3>
+  <ul>
+    <li>Returning the $k$-th <strong>largest</strong> element (by setting $k' = n - k + 1$).</li>
+  </ul>
+</section>
+
+<section class="guidance-section">
+  <h2 id="fast-multiply">4. Fast Multiply (Karatsuba Algorithm)</h2>
+  <p>Sub-quadratic integer multiplication algorithm based on DPV p. 47 and DC1.10.</p>
+  <ul>
+    <li><strong>Input:</strong> Two $n$-bit integers $x$ and $y$ such that $n = 2^k$.</li>
+    <li><strong>Output:</strong> The mathematical product $x \cdot y$.</li>
+    <li><strong>Runtime:</strong> $O(n^{\log_2 3}) \approx O(n^{1.585})$</li>
+  </ul>
+
+  <h3>Reference Implementation</h3>
+  <pre><code class="language-plaintext">fast_multiply(x[1 ... n], y[1 ... n])
     if n = 1
         return x * y
 
@@ -212,30 +203,78 @@ Input:</p>
     C = fast_multiply(xl + xr, yl + yr)
 
     return 2^n * A + 2^(n/2) * (C - A - B) + B</code></pre>
-<p>Common modifications:</p>
-<ul>
-<li>None.</li>
-</ul>
-<h2 id="responses-4">Responses (4)</h2>
-<ul>
-<li><p><strong>Comment</strong></p>
+
+  <h3>Common Modifications</h3>
+  <ul>
+    <li>None. Use as an atomic black box for large integer multiplication.</li>
+  </ul>
+</section>
+
+<!-- Executive AI Summary Card above Comments Dropdown -->
+<section class="discussion-summary" aria-labelledby="ai-summary-heading">
+  <div class="discussion-summary__header">
+    <span class="discussion-summary__badge">AI Summary</span>
+    <h3 id="ai-summary-heading" class="discussion-summary__title">Discussion Key Takeaways &amp; Staff Clarifications</h3>
+    <span class="discussion-summary__subtitle">4 discussion threads • Staff rulings</span>
+  </div>
+  <div class="discussion-summary__content">
+    <ul>
+      <li><strong>Memorization Expectation:</strong> You are expected to know, know how to use, and know how to modify all 4 algorithms above on exams. Cheat sheets or algorithm implementations will not be provided.</li>
+      <li><strong>Tracking Original Indices in Merge Sort:</strong> If an algorithm requires knowledge of original positions after sorting, pair elements as tuples $(A[i], i)$ prior to calling Merge Sort. The comparison is performed on the first key, retaining initial indices with $O(n \log n)$ total cost.</li>
+      <li><strong>Lecture Citation Notation:</strong> Identifiers such as <code>DC2.12</code> and <code>DC1.10</code> refer to the lecture lesson and slide numbers from the video modules.</li>
+      <li><strong>Common Modifications:</strong> Listed common modifications (e.g. finding the leftmost duplicate in Binary Search) may be referenced without full pseudocode re-specification, but you must clearly describe your adaptation and explicitly justify its runtime.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- Collapsible Comments Dropdown (Collapsed by Default) -->
+<details class="comments-collapse">
+  <summary class="comments-collapse__summary">
+    <div class="comments-collapse__title-group">
+      <span class="comments-collapse__chevron">▶</span>
+      <span>Responses</span>
+      <span class="comments-collapse__count-badge">4 threads</span>
+    </div>
+    <span class="comments-collapse__hint">Click to expand discussion</span>
+  </summary>
+  <div class="comments-collapse__body">
+    <ul class="thread-tree">
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--student">Student Question</span></div>
+    <div class="thread-comment__body">
 <blockquote>
 <p>Should we / are we supposed to memorize these algorithms?</p>
 </blockquote>
-<ul>
-<li><p><strong>Comment</strong></p>
+    </div>
+  </div>
+  <ul>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--staff">Staff / Instructor Response</span></div>
+    <div class="thread-comment__body">
 <blockquote>
 <p>You are expected to know, know how to use, and know how to modify any
 of the algorithms above.</p>
 </blockquote>
-<ul>
-<li><p><strong>Comment</strong></p>
+    </div>
+  </div>
+  <ul>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--student">Follow-up Discussion</span></div>
+    <div class="thread-comment__body">
 <blockquote>
 <p>Does this include full reference implementation or just the items
 presented in #9 (no code/pseudocode) ?</p>
 </blockquote>
-<ul>
-<li><strong>Comment</strong>
+    </div>
+  </div>
+  <ul>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--staff">Staff / Instructor Response</span></div>
+    <div class="thread-comment__body">
 <blockquote>
 <p>How you think about the internals is up to you.</p>
 <p>We've presented them as pseudocode above, as a way to concisely share
@@ -266,10 +305,18 @@ changes you've made. For example:</p>
 of n/2 bits still only requires a single pass of the bits, so this step
 remains O(n).</p>
 </blockquote>
-</blockquote></li>
-</ul></li>
-</ul></li>
-<li><p><strong>Comment</strong></p>
+</blockquote>
+    </div>
+  </div>
+</li>
+  </ul>
+</li>
+  </ul>
+</li>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--staff">Staff / Instructor Response</span></div>
+    <div class="thread-comment__body">
 <blockquote>
 <p>You don't need to memorize the code necessarily, you need to
 "memorize" something like this:</p>
@@ -284,21 +331,39 @@ search is O(log n) time.</p>
 algorithms above well enough to apply variations to them to solve
 problems that aren't just a trivial merge sort or binary search. Plus
 you need to explain what the final runtime is and how you derive it.</p>
-</blockquote></li>
-</ul></li>
-<li><p><strong>Comment</strong></p>
+</blockquote>
+    </div>
+  </div>
+</li>
+  </ul>
+</li>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--student">Student Question</span></div>
+    <div class="thread-comment__body">
 <blockquote>
 <p>Just a quick note for anyone who have the same problem as me. DC2.12
 and DC1.10 actually means the pseudocodes from the lecture. DC is just
 Divide&amp;Conquer not a textbook name like DPV.</p>
-</blockquote></li>
-<li><p><strong>Comment</strong></p>
+</blockquote>
+    </div>
+  </div>
+</li>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--student">Student Question</span></div>
+    <div class="thread-comment__body">
 <blockquote>
 <p>For mergesort, do we somehow have access to the original indexes of
 the values after sorting?</p>
 </blockquote>
-<ul>
-<li><strong>Comment</strong>
+    </div>
+  </div>
+  <ul>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--staff">Staff / Instructor Response</span></div>
+    <div class="thread-comment__body">
 <blockquote>
 <p>You could make a copy of the original inputs, if the original order
 is important.</p>
@@ -306,9 +371,16 @@ is important.</p>
 will be lost.</p>
 <p>Since <code>O(n log n)</code> will dominate <code>O(n)</code>, this
 extra copy should not impact the overall optimality of an algorithm.</p>
-</blockquote></li>
-</ul></li>
-<li><p><strong>Comment</strong></p>
+</blockquote>
+    </div>
+  </div>
+</li>
+  </ul>
+</li>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--student">Student Question</span></div>
+    <div class="thread-comment__body">
 <blockquote>
 <p>merge_sort(A, s=1, n) if n &gt; 1 return merge(merge_sort(A[s ...
 n/2], merge_sort(A[n/2 + 1 ... n]) else return A</p>
@@ -316,13 +388,25 @@ n/2], merge_sort(A[n/2 + 1 ... n]) else return A</p>
 <pre><code>    return merge(merge_sort(A[s ... n/2]),
                  merge_sort(A[n/2 + 1 ... n]))</code></pre>
 </blockquote>
-<ul>
-<li><strong>Comment</strong>
+    </div>
+  </div>
+  <ul>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--staff">Staff / Instructor Response</span></div>
+    <div class="thread-comment__body">
 <blockquote>
 <p>Looks like it!</p>
-</blockquote></li>
-</ul></li>
-</ul>
+</blockquote>
+    </div>
+  </div>
+</li>
+  </ul>
+</li>
+
+    </ul>
+  </div>
+</details>
 </main>
 
 <!-- code highlighting -->
@@ -366,20 +450,20 @@ n/2], merge_sort(A[n/2 + 1 ... n]) else return A</p>
       renderMathInElement(document.querySelector('.content, .all-weeks-content') || document.body, {
         delimiters: [
           { left: '$$', right: '$$', display: true },
-          { left: '\\[', right: '\\]', display: true },
+          { left: '\[', right: '\]', display: true },
           { left: '$', right: '$', display: false },
-          { left: '\\(', right: '\\)', display: false }
+          { left: '\(', right: '\)', display: false }
         ],
         throwOnError: false,
         preProcess: function(math) {
           return math
-            .replace(/\\left\\\[/g, '\\left[')
-            .replace(/\\right\\\]/g, '\\right]')
+            .replace(/\left\\[/g, '\left[')
+            .replace(/\right\\]/g, '\right]')
             .replace(/&amp;/g, '&')
             .replace(/&lt;/g, '<')
             .replace(/&gt;/g, '>');
         },
-        macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
+        macros: { '\R': '\mathbb{R}', '\set': '\{#1\}', '\n': '\overrightarrow' }
       });
     }
   }

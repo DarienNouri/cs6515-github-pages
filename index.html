@@ -1,121 +1,299 @@
 <!DOCTYPE html>
 <html lang="en"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>CS6515 — Graduate Algorithms</title>
+<link rel="stylesheet" href="vendor/fonts/fonts.css">
 <link rel="stylesheet" href="theme.css">
+<link rel="stylesheet" href="vendor/katex/katex.min.css">
 <style>
   .hero { margin: 1rem 0 2rem; }
-  .hero h1 { font-size: 2.1rem; margin-bottom:.3rem; }
-  .hero p { color: var(--muted); max-width: 44rem; line-height: 1.6; }
-  .section-label { color: var(--blue); text-transform: uppercase; letter-spacing:.08em; font-size:.8rem; font-weight: 700; margin: 2.2rem 0 .7rem; display: flex; align-items: center; justify-content: space-between; }
+  .hero h1 { font-size: 2.15rem; margin-bottom: .35rem; }
+  .hero__desc { color: var(--muted); max-width: 46rem; line-height: 1.6; font-size: 1.02rem; }
+  .section-label { color: var(--blue); text-transform: uppercase; letter-spacing: .08em; font-size: .8rem; font-weight: 700; margin: 2.2rem 0 .7rem; display: flex; align-items: center; justify-content: space-between; }
   .section-label .unit-exam { font-size: .72rem; color: var(--orange); font-weight: 600; text-transform: none; letter-spacing: normal; }
-  .card .unit-desc { font-size: .8rem; color: var(--muted); margin-top: .25rem; line-height: 1.4; }
-  .exam-tag { display:inline-block; margin-left:.4rem; font-size:.7rem; font-weight:700; color: var(--orange);
-              border:1px solid var(--orange); border-radius: 999px; padding: 0 .45rem; vertical-align: middle; }
+  .card .unit-desc { font-size: .8rem; color: var(--muted); margin-top: .3rem; line-height: 1.4; }
+  .card .card-modules { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.45rem; }
+  .card .module-pill { font: 700 0.68rem/1 var(--code); background: rgba(255, 255, 255, 0.06); border: 1px solid var(--border); color: var(--text-strong); padding: 0.2rem 0.45rem; border-radius: 4px; }
+  .card .card-week-badge { display: inline-flex; align-items: center; gap: 0.35rem; font: 800 0.72rem/1 var(--code); color: var(--blue); background: rgba(96, 165, 250, 0.12); border: 1px solid rgba(96, 165, 250, 0.25); padding: 0.2rem 0.5rem; border-radius: 4px; margin-bottom: 0.45rem; }
+  .exam-tag { display: inline-block; margin-left: .4rem; font-size: .7rem; font-weight: 700; color: #fca5a5;
+              border: 1px solid rgba(239, 68, 68, 0.4); background: rgba(239, 68, 68, 0.15); border-radius: 999px; padding: 0.05rem .45rem; vertical-align: middle; }
 </style></head><body>
 <header class="topbar"><a class="home" href="index.html">CS6515</a><span class="crumbloc">Home</span><button class="search-trigger" type="button" data-search-trigger aria-label="Search site"><span class="search-trigger__label">Search</span><kbd data-search-shortcut>Cmd K</kbd></button>
 </header>
 <main class="content">
 <div class="hero">
+  <div class="hero__badge"><span class="hero__badge-dot"></span> Complete 11-Week Course Curriculum &amp; Study Notes</div>
   <h1>CS 6515 — Intro to Graduate Algorithms</h1>
-  <p>Comprehensive course study materials, organized for deep review and AI-assisted lookup. Browse by core course unit, follow the weekly curriculum, or study by conceptual topic.</p>
+  <p class="hero__desc">Comprehensive course materials organized week-by-week: lectures, bottom-up DP tables, algorithm black boxes, worked examples, and exam review.</p>
+
+  <div class="hero__personal-note">
+    <p>
+      The official course format is shit—everything is scattered across Canvas modules, buried in random Ed threads, and split across disjointed PDFs. I put this together as a single centralized place to actually navigate and study: lectures in order, searchable transcripts, properly rendered math, and exam prep without jumping between five tabs.
+    </p>
+  </div>
+
+  <!-- Hero Week Fast-Track Strip -->
+  <div class="hero-week-bar">
+    <div class="hero-week-bar__header">
+      <span class="hero-week-bar__title">Direct Week Fast-Track:</span>
+      <div class="hero-week-bar__quicklinks">
+        <a class="hero-week-bar__quicklink" href="01_by_week/all-in-one.html">📚 All Weeks Stacked</a>
+        <a class="hero-week-bar__quicklink" href="00_START_HERE/EXAM_CRAM_SHEET.html">🎯 Exam Cram Sheets</a>
+      </div>
+    </div>
+    <div class="hero-week-bar__grid">
+      <a class="hero-week-pill" href="01_by_week/W01_DP1-DP2/index.html">
+        <span class="hero-week-pill__num">W01</span>
+        <span class="hero-week-pill__tag">DP Foundations</span>
+      </a>
+      <a class="hero-week-pill" href="01_by_week/W02_DC3-DC1/index.html">
+        <span class="hero-week-pill__num">W02</span>
+        <span class="hero-week-pill__tag">Divide &amp; Conquer</span>
+      </a>
+      <a class="hero-week-pill" href="01_by_week/W03_DC2/index.html">
+        <span class="hero-week-pill__num">W03</span>
+        <span class="hero-week-pill__tag">Linear Selection</span>
+      </a>
+      <a class="hero-week-pill has-exam" href="01_by_week/W04_DP3-GR1-GR2_EXAM1/index.html">
+        <span class="hero-week-pill__num">W04</span>
+        <span class="hero-week-pill__tag">DP3 · SCC · 2-SAT</span>
+        <span class="hero-week-pill__exam-badge">Exam 1</span>
+      </a>
+      <a class="hero-week-pill" href="01_by_week/W05_GR3/index.html">
+        <span class="hero-week-pill__num">W05</span>
+        <span class="hero-week-pill__tag">MST (Kruskal/Prim)</span>
+      </a>
+      <a class="hero-week-pill" href="01_by_week/W06_MF1-MF2/index.html">
+        <span class="hero-week-pill__num">W06</span>
+        <span class="hero-week-pill__tag">Max-Flow Basics</span>
+      </a>
+      <a class="hero-week-pill has-exam" href="01_by_week/W07_MF4_EXAM2/index.html">
+        <span class="hero-week-pill__num">W07</span>
+        <span class="hero-week-pill__tag">Edmonds-Karp</span>
+        <span class="hero-week-pill__exam-badge">Exam 2</span>
+      </a>
+      <a class="hero-week-pill" href="01_by_week/W08_NP1-NP2-NP3/index.html">
+        <span class="hero-week-pill__num">W08</span>
+        <span class="hero-week-pill__tag">NP-Completeness</span>
+      </a>
+      <a class="hero-week-pill" href="01_by_week/W09_LP1-LP2-LP3/index.html">
+        <span class="hero-week-pill__num">W09</span>
+        <span class="hero-week-pill__tag">Linear Programming</span>
+      </a>
+      <a class="hero-week-pill has-exam" href="01_by_week/W10_LP4-NP4-NP5_EXAM3/index.html">
+        <span class="hero-week-pill__num">W10</span>
+        <span class="hero-week-pill__tag">Approx · ILP</span>
+        <span class="hero-week-pill__exam-badge">Exam 3</span>
+      </a>
+      <a class="hero-week-pill" href="01_by_week/W11_Advanced-FFT-Crypto-Bloom/index.html">
+        <span class="hero-week-pill__num">W11</span>
+        <span class="hero-week-pill__tag">FFT · RSA · Bloom</span>
+      </a>
+    </div>
+  </div>
 </div>
 
-<div class="section-label">Core Resources</div>
-<div class="cardgrid">
-  <a class="card" href="00_START_HERE/COURSE_ROADMAP.html"><div class="t">Course Roadmap</div><div class="d">Curriculum shape, unit progression &amp; advice</div></a>
-  <a class="card" href="00_START_HERE/INDEX.html"><div class="t">Master Index</div><div class="d">Week ↔ module ↔ reading ↔ guidance ↔ exam</div></a>
-  <a class="card" href="module-week-schedule.html"><div class="t">Course Schedule</div><div class="d">Assigned lectures, homeworks &amp; quizzes</div></a>
-  <a class="card" href="01_by_week/all-in-one.html"><div class="t">All Weeks - Stacked</div><div class="d">Continuous review with collapsible modules</div></a>
-  <a class="card" href="00_START_HERE/COURSE_MAP.html"><div class="t">Course Map</div><div class="d">Mental model &amp; dependency graph</div></a>
-  <a class="card" href="cs6515-algorithm-rules-and-guidelines/index.html"><div class="t">Algorithm Guidelines</div><div class="d">Staff grading rubrics &amp; usable black boxes</div></a>
+<!-- PRIMARY COURSE SPINE: WEEKLY CURRICULUM -->
+<div class="section-label section-label--primary">
+  <span>Weekly Curriculum</span>
+  <span class="unit-exam">11 Weeks · Primary Course Track</span>
 </div>
 
 <div class="section-label">
   <span>Unit 1: Dynamic Programming &amp; Divide-and-Conquer</span>
-  <span class="unit-exam">Assessed on Exam 1</span>
+  <span class="unit-exam">Assessed on Exam 1 · Weeks 1–4</span>
 </div>
 <div class="cardgrid">
   <a class="card" href="01_by_week/W01_DP1-DP2/index.html">
-    <div class="t">Week 1 · Intro &amp; DP Foundations</div>
-    <div class="unit-desc">DP1 (FIB, LIS, LCS) &amp; DP2 (Knapsack, Chain Multiply)</div>
+    <div class="card-week-badge">Week 01</div>
+    <div class="t">Intro &amp; DP Foundations</div>
+    <div class="unit-desc">Fibonacci, Longest Increasing Subsequence (LIS), Longest Common Subsequence (LCS), Knapsack, Chain Multiply</div>
+    <div class="card-modules">
+      <span class="module-pill">DP1</span>
+      <span class="module-pill">DP2</span>
+      <span class="module-pill">DP V-Table</span>
+    </div>
   </a>
   <a class="card" href="01_by_week/W02_DC3-DC1/index.html">
-    <div class="t">Week 2 · Divide &amp; Conquer</div>
-    <div class="unit-desc">DC3 (Master Theorem, Recurrences) &amp; DC1 (Karatsuba)</div>
+    <div class="card-week-badge">Week 02</div>
+    <div class="t">Divide &amp; Conquer Foundations</div>
+    <div class="unit-desc">Master Theorem (Three Cases), Recurrence Relations, Karatsuba Fast Integer Multiplication</div>
+    <div class="card-modules">
+      <span class="module-pill">DC3</span>
+      <span class="module-pill">DC1</span>
+      <span class="module-pill">Master Thm</span>
+    </div>
   </a>
   <a class="card" href="01_by_week/W03_DC2/index.html">
-    <div class="t">Week 3 · Linear-Time Selection</div>
-    <div class="unit-desc">DC2 (QuickSelect, Median of Medians)</div>
+    <div class="card-week-badge">Week 03</div>
+    <div class="t">Linear-Time Selection</div>
+    <div class="unit-desc">QuickSelect (Expected O(n)), Median of Medians (Deterministic O(n) Selection), Split Analysis</div>
+    <div class="card-modules">
+      <span class="module-pill">DC2</span>
+      <span class="module-pill">QuickSelect</span>
+      <span class="module-pill">MoM 5</span>
+    </div>
   </a>
   <a class="card" href="01_by_week/W04_DP3-GR1-GR2_EXAM1/index.html">
-    <div class="t">Week 4 · DP on DAGs &amp; Exam 1 <span class="exam-tag">Exam 1</span></div>
-    <div class="unit-desc">DP3 (Shortest Paths) · Exam 1 covers Weeks 1–3</div>
+    <div class="card-week-badge">Week 04</div>
+    <div class="t">DP on DAGs, SCCs &amp; 2-SAT <span class="exam-tag">Exam 1 Window</span></div>
+    <div class="unit-desc">DP3 (DAG Shortest Paths), Kosaraju 2-DFS Strongly Connected Components, 2-SAT Implication Graphs</div>
+    <div class="card-modules">
+      <span class="module-pill">DP3</span>
+      <span class="module-pill">GR1</span>
+      <span class="module-pill">GR2</span>
+      <span class="module-pill">Exam 1</span>
+    </div>
   </a>
 </div>
 
 <div class="section-label">
   <span>Unit 2: Graph Algorithms &amp; Max-Flow</span>
-  <span class="unit-exam">Assessed on Exam 2</span>
+  <span class="unit-exam">Assessed on Exam 2 · Weeks 5–7</span>
 </div>
 <div class="cardgrid">
-  <a class="card" href="01_by_week/W04_DP3-GR1-GR2_EXAM1/index.html">
-    <div class="t">Week 4 · SCCs &amp; 2-SAT</div>
-    <div class="unit-desc">GR1 (Kosaraju, 2-DFS) &amp; GR2 (2-SAT Reachability)</div>
-  </a>
   <a class="card" href="01_by_week/W05_GR3/index.html">
-    <div class="t">Week 5 · Minimum Spanning Trees</div>
-    <div class="unit-desc">GR3 (Kruskal's with Union-Find, Prim's algorithm)</div>
+    <div class="card-week-badge">Week 05</div>
+    <div class="t">Minimum Spanning Trees</div>
+    <div class="unit-desc">Kruskal's Algorithm with Union-Find, Prim's Algorithm with Priority Queue, Cut Property Proofs</div>
+    <div class="card-modules">
+      <span class="module-pill">GR3</span>
+      <span class="module-pill">Kruskal</span>
+      <span class="module-pill">Prim</span>
+      <span class="module-pill">Cut Property</span>
+    </div>
   </a>
   <a class="card" href="01_by_week/W06_MF1-MF2/index.html">
-    <div class="t">Week 6 · Max-Flow Foundations</div>
-    <div class="unit-desc">MF1 (Ford-Fulkerson, Residuals) &amp; MF2 (Max-Flow/Min-Cut)</div>
+    <div class="card-week-badge">Week 06</div>
+    <div class="t">Max-Flow Foundations &amp; Duality</div>
+    <div class="unit-desc">Ford-Fulkerson Method, Residual Networks, Augmenting Paths, Max-Flow Min-Cut Theorem</div>
+    <div class="card-modules">
+      <span class="module-pill">MF1</span>
+      <span class="module-pill">MF2</span>
+      <span class="module-pill">Residual Graph</span>
+      <span class="module-pill">Min-Cut</span>
+    </div>
   </a>
   <a class="card" href="01_by_week/W07_MF4_EXAM2/index.html">
-    <div class="t">Week 7 · Edmonds-Karp &amp; Exam 2 <span class="exam-tag">Exam 2</span></div>
-    <div class="unit-desc">MF4 (Edmonds-Karp, Bipartite) · Exam 2 covers Weeks 4–7</div>
+    <div class="card-week-badge">Week 07</div>
+    <div class="t">Edmonds-Karp &amp; Matching <span class="exam-tag">Exam 2 Window</span></div>
+    <div class="unit-desc">Edmonds-Karp (BFS Augmenting Paths, O(V E^2)), Bipartite Matching, Disjoint Paths, Reductions</div>
+    <div class="card-modules">
+      <span class="module-pill">MF4</span>
+      <span class="module-pill">Edmonds-Karp</span>
+      <span class="module-pill">Bipartite</span>
+      <span class="module-pill">Exam 2</span>
+    </div>
   </a>
 </div>
 
 <div class="section-label">
-  <span>Unit 3: NP-Completeness &amp; Linear Programming</span>
-  <span class="unit-exam">Assessed on Exam 3</span>
+  <span>Unit 3: Intractability &amp; Linear Programming</span>
+  <span class="unit-exam">Assessed on Exam 3 · Weeks 8–10</span>
 </div>
 <div class="cardgrid">
   <a class="card" href="01_by_week/W08_NP1-NP2-NP3/index.html">
-    <div class="t">Week 8 · NP-Completeness &amp; Reductions</div>
-    <div class="unit-desc">NP1 (P vs NP, Verifiers), NP2 (3-SAT), NP3 (Graph Reductions)</div>
+    <div class="card-week-badge">Week 08</div>
+    <div class="t">NP-Completeness &amp; Reductions</div>
+    <div class="unit-desc">P vs NP, Polynomial Verifiers, 3-SAT, Independent Set, Vertex Cover, Clique, Hamiltonian Cycle</div>
+    <div class="card-modules">
+      <span class="module-pill">NP1</span>
+      <span class="module-pill">NP2</span>
+      <span class="module-pill">NP3</span>
+      <span class="module-pill">Reductions</span>
+    </div>
   </a>
   <a class="card" href="01_by_week/W09_LP1-LP2-LP3/index.html">
-    <div class="t">Week 9 · Linear Programming &amp; Duality</div>
-    <div class="unit-desc">LP1 (Formulation), LP2 (Simplex/Geometry), LP3 (Duality)</div>
+    <div class="card-week-badge">Week 09</div>
+    <div class="t">Linear Programming &amp; Duality</div>
+    <div class="unit-desc">Standard Form LP Formulations, Simplex Geometry, Extreme Points, Dual LP Derivations, Weak &amp; Strong Duality</div>
+    <div class="card-modules">
+      <span class="module-pill">LP1</span>
+      <span class="module-pill">LP2</span>
+      <span class="module-pill">LP3</span>
+      <span class="module-pill">Duality</span>
+    </div>
   </a>
   <a class="card" href="01_by_week/W10_LP4-NP4-NP5_EXAM3/index.html">
-    <div class="t">Week 10 · Approximation &amp; Exam 3 <span class="exam-tag">Exam 3</span></div>
-    <div class="unit-desc">LP4 (Max-SAT, ILP), NP4 (FPTAS), NP5 (Halting) · Exam 3 covers Weeks 8–10</div>
+    <div class="card-week-badge">Week 10</div>
+    <div class="t">Approx, ILP &amp; Undecidability <span class="exam-tag">Exam 3 Window</span></div>
+    <div class="unit-desc">Integer Linear Programming (ILP), Max-SAT 7/8 Approx, Knapsack FPTAS, Halting Problem, Rice's Theorem</div>
+    <div class="card-modules">
+      <span class="module-pill">LP4</span>
+      <span class="module-pill">NP4</span>
+      <span class="module-pill">NP5</span>
+      <span class="module-pill">Exam 3</span>
+    </div>
   </a>
 </div>
 
 <div class="section-label">
   <span>Unit 4: Advanced Topics &amp; Review</span>
-  <span class="unit-exam">Quiz 8 &amp; Final Prep</span>
+  <span class="unit-exam">Final Prep &amp; Quiz 8</span>
 </div>
 <div class="cardgrid">
   <a class="card" href="01_by_week/W11_Advanced-FFT-Crypto-Bloom/index.html">
-    <div class="t">Week 11 · FFT, Crypto, RSA &amp; Bloom Filters</div>
-    <div class="unit-desc">Fast Fourier Transform, Modular Arithmetic, RSA, Bloom Filters &amp; Cumulative Review</div>
+    <div class="card-week-badge">Week 11</div>
+    <div class="t">FFT, RSA Crypto &amp; Bloom Filters</div>
+    <div class="unit-desc">Polynomial Multiplication via FFT (O(n log n)), Modular Arithmetic, RSA Public Key Cryptography, Bloom Filter Hashing</div>
+    <div class="card-modules">
+      <span class="module-pill">FFT</span>
+      <span class="module-pill">RSA</span>
+      <span class="module-pill">Bloom</span>
+      <span class="module-pill">Review</span>
+    </div>
   </a>
 </div>
 
-<div class="section-label">By Conceptual Topic</div>
-<div class="cardgrid">
-  <a class="card" href="02_by_topic/DP_dynamic-programming/index.html"><div class="t">Dynamic Programming</div><div class="d">Subproblems, recurrences, memoization tables</div></a>
-  <a class="card" href="02_by_topic/DC_divide-and-conquer/index.html"><div class="t">Divide &amp; Conquer</div><div class="d">Master Theorem, Karatsuba, selection</div></a>
-  <a class="card" href="02_by_topic/GR_graphs/index.html"><div class="t">Graphs</div><div class="d">DFS/BFS, SCCs, 2-SAT, MST</div></a>
-  <a class="card" href="02_by_topic/MF_max-flow/index.html"><div class="t">Max-Flow</div><div class="d">Ford-Fulkerson, min-cut, Edmonds-Karp</div></a>
-  <a class="card" href="02_by_topic/NP_np-completeness/index.html"><div class="t">NP-Completeness</div><div class="d">Reductions, 3-SAT, Cook-Levin, hardness</div></a>
-  <a class="card" href="02_by_topic/LP_linear-programming/index.html"><div class="t">Linear Programming</div><div class="d">Formulation, simplex geometry, duality</div></a>
-  <a class="card" href="02_by_topic/ADV_advanced-topics/index.html"><div class="t">Advanced Topics</div><div class="d">FFT, modular arithmetic, RSA, Bloom filters</div></a>
+<!-- SECONDARY REFERENCE SECTION: CORE TOOLS & GUIDELINES -->
+<div class="section-label">
+  <span>Core Reference &amp; Study Tools</span>
+  <span class="unit-exam">Course Hub</span>
 </div>
-</main><script src="site.js" defer></script>
+<div class="cardgrid">
+  <a class="card" href="00_START_HERE/EXAM_CRAM_SHEET.html">
+    <div class="t">🎯 High-Yield Exam Cram Sheets</div>
+    <div class="d">Exam 1, 2, and 3 synthesized with interactive Active Recall practice &amp; black-box matrix</div>
+  </a>
+  <a class="card" href="00_START_HERE/COURSE_ROADMAP.html">
+    <div class="t">Course Roadmap</div>
+    <div class="d">Curriculum shape, unit progression, exam checkpoints &amp; study strategy</div>
+  </a>
+  <a class="card" href="00_START_HERE/INDEX.html">
+    <div class="t">Master Index</div>
+    <div class="d">Week ↔ module ↔ reading ↔ guidance ↔ exam comprehensive cross-reference</div>
+  </a>
+  <a class="card" href="module-week-schedule.html">
+    <div class="t">Course Schedule</div>
+    <div class="d">Assigned lectures, textbook readings, homeworks &amp; quiz cadence</div>
+  </a>
+  <a class="card" href="01_by_week/all-in-one.html">
+    <div class="t">All Weeks - Stacked</div>
+    <div class="d">Single continuous review page with collapsible modules and full text search</div>
+  </a>
+  <a class="card" href="cs6515-algorithm-rules-and-guidelines/index.html">
+    <div class="t">Algorithm Guidelines &amp; Rules</div>
+    <div class="d">Official staff grading rubrics, DP formatting rules &amp; permitted black-box algorithms</div>
+  </a>
+</div>
+
+<!-- SECONDARY SECTION: BY CONCEPTUAL TOPIC -->
+<div class="section-label">
+  <span>Browse by Conceptual Topic</span>
+  <span class="unit-exam">Thematic Index</span>
+</div>
+<div class="cardgrid">
+  <a class="card" href="02_by_topic/DP_dynamic-programming/index.html"><div class="t">Dynamic Programming</div><div class="d">Subproblems, recurrences, memoization tables (Weeks 1, 4)</div></a>
+  <a class="card" href="02_by_topic/DC_divide-and-conquer/index.html"><div class="t">Divide &amp; Conquer</div><div class="d">Master Theorem, Karatsuba, selection (Weeks 2, 3, 11)</div></a>
+  <a class="card" href="02_by_topic/GR_graphs/index.html"><div class="t">Graphs</div><div class="d">DFS/BFS, SCCs, 2-SAT, MST (Weeks 4, 5, 11)</div></a>
+  <a class="card" href="02_by_topic/MF_max-flow/index.html"><div class="t">Max-Flow</div><div class="d">Ford-Fulkerson, min-cut, Edmonds-Karp (Weeks 6, 7, 11)</div></a>
+  <a class="card" href="02_by_topic/NP_np-completeness/index.html"><div class="t">NP-Completeness</div><div class="d">Reductions, 3-SAT, Cook-Levin, hardness (Weeks 8, 10)</div></a>
+  <a class="card" href="02_by_topic/LP_linear-programming/index.html"><div class="t">Linear Programming</div><div class="d">Formulation, simplex geometry, duality (Weeks 9, 10)</div></a>
+  <a class="card" href="02_by_topic/ADV_advanced-topics/index.html"><div class="t">Advanced Topics</div><div class="d">FFT, modular arithmetic, RSA, Bloom filters (Week 11)</div></a>
+</div>
+</main>
+<script src="vendor/katex/katex.min.js"></script>
+<script src="vendor/katex/contrib/auto-render.min.js"></script>
+<script src="site.js" defer></script>
 </body></html>

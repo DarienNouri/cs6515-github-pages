@@ -60,7 +60,7 @@ subproblem output." The phrases "which includes <code>i</code>" and
 "ending at <code>a[i]</code>" would also imply this constraint. These
 are <em><strong>not</strong></em> referring to the range of indices
 considered for the subproblem, <code>1,2,...,i</code>, which is assumed
-inclusive <span class="math inline">[1, <em>i</em>]</span>.</p></li>
+inclusive <span class="math inline">\([1, i]\)</span>.</p></li>
 <li><p><strong>(b) Recurrence Definition</strong></p></li>
 <li><p>#10 #10 #10 Read, absorb, and love #10 #10 #10</p></li>
 <li><p>Expressed using <strong>mathematical</strong> notation - no
@@ -206,9 +206,7 @@ nor for exam solutions.</p>
 <ul>
 <li><strong>Comment</strong>
 <blockquote>
-<p>One mystery solved, <a
-href="https://edstem.org/us/courses/98593/discussion/8077944?comment=18708000">one
-mystery</a> remains.</p>
+<p>One mystery solved, one mystery remains.</p>
 </blockquote></li>
 </ul></li>
 </ul></li>
@@ -228,8 +226,7 @@ where 2 &lt;= i &lt;= n</p>
 <ul>
 <li><p><strong>Comment</strong></p>
 <blockquote>
-<p>This is discussed in Course Readiness: <a
-href="https://edstem.org/us/courses/98593/lessons/171116/slides/988492"><span>https://edstem.org/us/courses/98593/lessons/171116/slides/988492</span></a></p>
+<p>This is discussed in Course Readiness.</p>
 <p>Dr. Vigoda is taking advantage of null set evaluation to assume
 <code>max{}</code> would evaluate to 0 in those cases.</p>
 <p>We can definitely make this more explicit:</p>
@@ -344,11 +341,10 @@ x[1...i] and y[1...j]</p>
 <li><p><strong>Comment</strong></p>
 <blockquote>
 <p>This would be acceptable <em>if</em> there is a proper mathematical
-definition for <span class="math inline"><em>y</em></span>.
+definition for <span class="math inline">\(y\)</span>.
 Specifically:</p>
 <p><span
-class="math display"><em>y</em><sub><em>i</em></sub> = <em>x</em><sub><em>n</em> − <em>i</em> + 1</sub>
-for 1 ≤ <em>i</em> ≤ <em>n</em></span></p>
+class="math display">\[y_i = x_{n - i + 1} \quad \text{for } 1 \le i \le n\]</span></p>
 </blockquote>
 <ul>
 <li><p><strong>Comment</strong></p>
@@ -400,12 +396,7 @@ you give us an example?</p>
 <ul>
 <li><strong>Comment</strong>
 <blockquote>
-<ul>
-<li><p><a
-href="https://edstem.org/us/courses/98593/discussion/8077940?comment=18704036"><span>https://edstem.org/us/courses/98593/discussion/8077940?comment=18704036</span></a></p></li>
-<li><p><a
-href="https://edstem.org/us/courses/98593/discussion/8079608?comment=18709407"><span>https://edstem.org/us/courses/98593/discussion/8079608?comment=18709407</span></a></p></li>
-</ul>
+<p>Refer to the sample solutions and recurrence relation formatting examples above.</p>
 </blockquote></li>
 </ul></li>
 <li><p><strong>Comment</strong></p>
@@ -532,11 +523,11 @@ such as</p>
 <ul>
 <li><strong>Comment</strong>
 <blockquote>
-<p>The intermediate term <span class="math inline"><em>s</em></span> in
+<p>The intermediate term <span class="math inline">\(s\)</span> in
 the pseudocode is useful for controlling the iteration but isn't
 actually needed. Specifically, we control the iteration of <span
-class="math inline"><em>i</em></span> in reverse. Here's CMM pseudocode
-without <span class="math inline"><em>s</em></span>:</p>
+class="math inline">\(i\)</span> in reverse. Here's CMM pseudocode
+without <span class="math inline">\(s\)</span>:</p>
 <pre><code>for i = 1 to n:
   C[i, i] = 0
 for j = 2 to n:
@@ -562,11 +553,7 @@ solution.</p>
 <ul>
 <li><p><strong>Comment</strong></p>
 <blockquote>
-<p><a
-href="https://edstem.org/us/courses/98593/discussion/8077940?comment=18704036">https://edstem.org/us/courses/98593/discussion/8077940?comment=18704036</a></p>
-<p>And</p>
-<p><a
-href="https://edstem.org/us/courses/98593/discussion/8079608?comment=18709407">https://edstem.org/us/courses/98593/discussion/8079608?comment=18709407</a></p>
+<p>Refer to the sample solutions and recurrence relation formatting examples above.</p>
 </blockquote>
 <ul>
 <li><strong>Comment</strong>

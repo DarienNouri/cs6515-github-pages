@@ -1,3 +1,9 @@
 .DS_Store
 *.mp4
 
+.agents/*
+.agent/
+.claude/
+.codex/
+skills-lock.json
+package-lock.json

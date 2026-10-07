@@ -310,13 +310,12 @@ slackness.</p>
 <ul>
 <li><a href="readings/DPV-ch7-flows-and-linear-programming.pdf">DPV
 §7.1, §7.4, §7.6 (LP, duality, geometry)</a></li>
-<li><a href="guidance/common-course-runtimes.html">Common
-runtimes</a></li>
+<li><a href="../../cs6515-algorithm-rules-and-guidelines/index.html#linear-programming">Linear Programming &amp; Duality Rules</a> · <a href="../../cs6515-algorithm-rules-and-guidelines/index.html#course-standards">Common Runtimes</a></li>
 <li><a href="notes/full-course-notes.html">Full course notes</a> · <a
 href="notes/ga-notes.pdf">ga-notes.pdf</a></li>
 <li><a href="lectures/">lectures/</a> · <a
 href="transcripts/">transcripts/</a> · <a href="readings/">readings/</a>
-· <a href="guidance/">guidance/</a> · <a href="notes/">notes/</a></li>
+· <a href="../../cs6515-algorithm-rules-and-guidelines/index.html#linear-programming">guidance/</a> · <a href="notes/">notes/</a></li>
 </ul>
 </details>
 
@@ -350,7 +349,7 @@ or (b) into the sink vertex. Which one we choose doesn't matter as they
 must be the same.</p>
 <ul>
 <li>Objective Function: <span
-class="math inline">$\max(\sum_{\overset{\rightarrow}{sv}}
+class="math inline">$\max(\sum_{\overrightarrow{sv}}
 f_{sv})$</span></li>
 <li>Constraints:
 <ul>
@@ -359,8 +358,8 @@ c_e$</span> - the flow can be at most the capacity</li>
 <li>for every <span
 class="math inline"><em>v</em> ∈ <em>V</em> \ {<em>s</em>, <em>t</em>}</span>
 <ul>
-<li><span class="math inline">$\sum_{\overset{\rightarrow}{wv}} f_{wv} =
-\sum_{\overset{\rightarrow}{vz}} f_{vz}$</span> Flow in == Flow out of
+<li><span class="math inline">$\sum_{\overrightarrow{wv}} f_{wv} =
+\sum_{\overrightarrow{vz}} f_{vz}$</span> Flow in == Flow out of
 v</li>
 <li>flow must be conserved</li>
 </ul></li>
@@ -374,8 +373,7 @@ production/manufacturing problem.</p>
 <em>how many of each should we produce</em> to maximize profit.</p>
 <p><strong>Details:</strong></p>
 <ul>
-<li>The profit on each unit of A is <span class="math inline">$1</span>,
-and for B it is <span class="math inline">$6</span></li>
+<li>The profit on each unit of A is &dollar;1, and for B it is &dollar;6</li>
 <li>The demand for A is <span class="math inline"> ≤ 300</span> units,
 and for B it is <span class="math inline"> ≤ 200</span> units</li>
 <li>We have a total of 700 hours capacity among our employees</li>
@@ -504,9 +502,7 @@ another three dimensional example.</p>
 <p>Let's twist the previous example and make it a bit harder.</p>
 <ul>
 <li>Three products A,B, C</li>
-<li>Profit: <span class="math inline">$1</span> for A, <span
-class="math inline">$6</span> for B, and <span
-class="math inline">$10</span> for C</li>
+<li>Profit: &dollar;1 for A, &dollar;6 for B, and &dollar;10 for C</li>
 <li>demand: <span class="math inline"> ≤ 300</span> for A, <span
 class="math inline"> ≤ 200</span> for B, unlimited demand for C</li>
 <li>hourly Supply: <span class="math inline"> ≤ 1000</span> in total, A

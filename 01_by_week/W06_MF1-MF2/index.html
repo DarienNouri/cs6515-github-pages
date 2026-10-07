@@ -223,7 +223,7 @@ class="math inline"><em>O</em>(<em>m</em><sup>2</sup><em>n</em>)</span></td>
 <h2 id="key-theorems--results">Key theorems &amp; results</h2>
 <h3 id="max-flow--min-cut-theorem">Max-Flow / Min-Cut theorem</h3>
 <p><span
-class="math display">max<sub><em>f</em> feasible</sub>|<em>f</em>| = min<sub>(<em>S</em>, <em>T</em>) cut</sub><em>c</em>(<em>S</em>, <em>T</em>).</span></p>
+class="math display">\max_{f\text{ feasible}}|f| = \min_{(S, T)\text{ cut}}c(S, T).</span></p>
 <p>Three <strong>equivalent</strong> statements (each implies the
 others):</p>
 <ol type="1">
@@ -236,7 +236,7 @@ class="math inline">(<em>S</em>, <em>T</em>)</span> with <span
 class="math inline"><em>c</em>(<em>S</em>, <em>T</em>) = |<em>f</em>|</span>.</li>
 </ol>
 <p><em>Recovering the min-cut.</em> When Ford-Fulkerson stops, let <span
-class="math inline"><em>S</em></span> = all vertices <strong>reachable
+class="math inline"><em>S</em></span> =  all vertices <strong>reachable
 from <span class="math inline"><em>s</em></span></strong> in the final
 residual graph (and <span class="math inline"><em>T</em></span> the
 rest). Then <span class="math inline">(<em>S</em>, <em>T</em>)</span> is
@@ -296,7 +296,7 @@ re-derive Ford-Fulkerson internals. State your network (vertices, edges,
 capacities, <span class="math inline"><em>s</em></span>, <span
 class="math inline"><em>t</em></span>), call max-flow, then interpret
 the result (e.g. min-cut = the bottleneck set). Cite runtime from the <a
-href="guidance/common-course-runtimes.html">common runtimes</a>
+href="../../cs6515-algorithm-rules-and-guidelines/index.html#course-standards">Common Runtimes</a>
 conventions.</p>
 <details>
 <summary><b>Go deeper</b> — readings · guidance · transcript</summary>
@@ -306,15 +306,12 @@ conventions.</p>
 href="readings/DPV-ch7-flows-and-linear-programming.pdf">DPV §7.2 —
 Flows on networks</a></li>
 <li><strong>Rules:</strong> <a
-href="guidance/usable-black-boxes-graphs.html">Usable black boxes for
-graphs</a> · <a href="guidance/graph-theory-guidance.html">Graph theory
-guidance</a> · <a href="guidance/common-course-runtimes.html">Common
-runtimes</a></li>
+href="../../cs6515-algorithm-rules-and-guidelines/8129088_Usable_Black_Boxes_for_Graphs.html">Usable Black Boxes (Ford-Fulkerson)</a> · <a href="../../cs6515-algorithm-rules-and-guidelines/index.html#graph-algorithms">Graph Theory &amp; Flow Guidance</a> · <a href="../../cs6515-algorithm-rules-and-guidelines/index.html#course-standards">Common Runtimes</a></li>
 <li><strong>Notes:</strong> <a href="notes/full-course-notes.html">full
 course notes</a> · <a href="notes/ga-notes.pdf">ga-notes.pdf</a></li>
 <li><strong>All files:</strong> <a href="lectures/">lectures/</a> · <a
 href="transcripts/">transcripts/</a> · <a href="readings/">readings/</a>
-· <a href="guidance/">guidance/</a> · <a href="notes/">notes/</a></li>
+· <a href="../../cs6515-algorithm-rules-and-guidelines/index.html#graph-algorithms">guidance/</a> · <a href="notes/">notes/</a></li>
 </ul>
 </details>
 
@@ -361,7 +358,7 @@ class="math inline"><em>E</em></span>; Wikipedia does not.)</p>
 <ul>
 <li><strong>Capacity constraint</strong> — flow cannot exceed capacity:
 <span
-class="math inline">∀<em>e</em> ∈ <em>E</em>, 0 ≤ <em>f</em><sub><em>e</em></sub> ≤ <em>c</em><sub><em>e</em></sub></span>.</li>
+class="math inline">\forall e \in E,\ 0 \le f_{e} \le c_{e}</span>.</li>
 <li><strong>Conservation of flow</strong> — at each internal vertex,
 inflow equals outflow: <span class="math display">$$
 \forall v \in V \setminus \{s,t\}:\quad
@@ -479,18 +476,18 @@ class="math inline"><em>c</em><sub><em>e</em></sub></span> and flow
 <span class="math inline"><em>f</em><sub><em>e</em></sub></span>.
 Construct it by:</p>
 <ul>
-<li>if <span class="math inline">$\overrightarrow{vw} \in E$</span> and
+<li>if <span class="math inline">\overrightarrow{vw} \in E</span> and
 <span
-class="math inline"><em>f</em><sub><em>v</em><em>w</em></sub> &lt; <em>c</em><sub><em>v</em><em>w</em></sub></span>:
-add forward edge <span class="math inline">$\overrightarrow{vw}$</span>
-to <span class="math inline"><em>G</em><sup><em>f</em></sup></span> with
+class="math inline">f_{vw} < c_{vw}</span>:
+add forward edge <span class="math inline">\overrightarrow{vw}</span>
+to <span class="math inline">G^{f}</span> with
 residual capacity <span
-class="math inline"><em>c</em><sub><em>v</em><em>w</em></sub> − <em>f</em><sub><em>v</em><em>w</em></sub></span>;</li>
-<li>if <span class="math inline">$\overrightarrow{vw} \in E$</span> and
+class="math inline">c_{vw} - f_{vw}</span>;</li>
+<li>if <span class="math inline">\overrightarrow{vw} \in E</span> and
 <span
-class="math inline"><em>f</em><sub><em>v</em><em>w</em></sub> &gt; 0</span>:
-add backward edge <span class="math inline">$\overrightarrow{wv}$</span>
-to <span class="math inline"><em>G</em><sup><em>f</em></sup></span> with
+class="math inline">f_{vw} > 0</span>:
+add backward edge <span class="math inline">\overrightarrow{wv}</span>
+to <span class="math inline">G^{f}</span> with
 capacity <span
 class="math inline"><em>f</em><sub><em>v</em><em>w</em></sub></span>.</li>
 </ul>
@@ -755,6 +752,10 @@ if asked about runtime.</p>
 
   // 4) Math: render \( \) and \[ \] and $$ $$. Tolerate malformed legacy TeX.
   function renderMath() {
+    if (window.renderSiteMath) {
+      window.renderSiteMath();
+      return;
+    }
     if (window.renderMathInElement) {
       renderMathInElement(document.querySelector('.content, .all-weeks-content') || document.body, {
         delimiters: [
@@ -766,13 +767,16 @@ if asked about runtime.</p>
         throwOnError: false,
         preProcess: function(math) {
           return math
+            .replace(/(?:&nbsp;|&#160;|\u00a0)([a-zA-Z]{2,})/g, ' \\text{ $1}')
+            .replace(/&(?:nbsp|#160);/gi, ' ')
+            .replace(/[\u2000-\u200b\u00a0]/g, ' ')
             .replace(/\\left\\\[/g, '\\left[')
             .replace(/\\right\\\]/g, '\\right]')
             .replace(/&amp;/g, '&')
             .replace(/&lt;/g, '<')
             .replace(/&gt;/g, '>');
         },
-        macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
+        macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow ', '\\O': '\\mathcal{O}' }
       });
     }
   }

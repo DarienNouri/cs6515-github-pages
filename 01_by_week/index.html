@@ -17,14 +17,108 @@
 <button class="search-trigger" type="button" data-search-trigger aria-label="Search site"><span class="search-trigger__label">Search</span><kbd data-search-shortcut>Cmd K</kbd></button>
 </header>
 <main class="content">
-<h1 id="by-week--chronological-view">By Week — Chronological View</h1>
-<p>One folder per course week
-(<code>Wnn_&lt;modules&gt;</code>). Each contains a
-<code>index.html</code> plus <code>lectures/</code>,
-<code>readings/</code>, <code>guidance/</code>, <code>notes/</code>
-. Start at the <a href="../00_START_HERE/COURSE_ROADMAP.html">Course Roadmap</a> or browse below.</p>
-<p>For continuous review, open <a href="all-in-one.html">All Weeks -
-Stacked</a>.</p>
+<h1 id="by-week--chronological-view">Course Curriculum by Week</h1>
+<p class="lead">The central weekly progression of CS 6515. Each weekly directory contains an overview <code>index.html</code>, lecture recordings, textbook readings, homework guidance, and in-depth study notes.</p>
+<p>For a continuous, all-in-one single-page review, open <a href="all-in-one.html"><strong>All Weeks - Stacked</strong></a>.</p>
+
+<div class="section-label">
+  <span>Unit 1: Dynamic Programming &amp; Divide-and-Conquer</span>
+  <span class="unit-exam">Assessed on Exam 1 · Weeks 1–4</span>
+</div>
+<div class="cardgrid">
+  <a class="card" href="W01_DP1-DP2/index.html">
+    <div class="card-week-badge">Week 01</div>
+    <div class="t">Intro &amp; DP Foundations</div>
+    <div class="unit-desc">DP1 (FIB, LIS, LCS) &amp; DP2 (Knapsack, Chain Multiply)</div>
+    <div class="card-modules"><span class="module-pill">DP1</span><span class="module-pill">DP2</span><span class="module-pill">DP Tables</span></div>
+  </a>
+  <a class="card" href="W02_DC3-DC1/index.html">
+    <div class="card-week-badge">Week 02</div>
+    <div class="t">Divide &amp; Conquer Foundations</div>
+    <div class="unit-desc">DC3 (Master Theorem, Recurrences) &amp; DC1 (Karatsuba Multiply)</div>
+    <div class="card-modules"><span class="module-pill">DC3</span><span class="module-pill">DC1</span><span class="module-pill">Master Thm</span></div>
+  </a>
+  <a class="card" href="W03_DC2/index.html">
+    <div class="card-week-badge">Week 03</div>
+    <div class="t">Linear-Time Selection</div>
+    <div class="unit-desc">DC2 (QuickSelect, Median of Medians, Deterministic Selection)</div>
+    <div class="card-modules"><span class="module-pill">DC2</span><span class="module-pill">QuickSelect</span><span class="module-pill">MoM 5</span></div>
+  </a>
+  <a class="card" href="W04_DP3-GR1-GR2_EXAM1/index.html">
+    <div class="card-week-badge">Week 04</div>
+    <div class="t">DP on DAGs, SCCs &amp; 2-SAT <span class="exam-tag">Exam 1 Window</span></div>
+    <div class="unit-desc">DP3 (DAG Shortest Paths), Kosaraju 2-DFS SCCs, 2-SAT Implication Graphs</div>
+    <div class="card-modules"><span class="module-pill">DP3</span><span class="module-pill">GR1</span><span class="module-pill">GR2</span><span class="module-pill">Exam 1</span></div>
+  </a>
+</div>
+
+<div class="section-label">
+  <span>Unit 2: Graph Algorithms &amp; Max-Flow</span>
+  <span class="unit-exam">Assessed on Exam 2 · Weeks 5–7</span>
+</div>
+<div class="cardgrid">
+  <a class="card" href="W05_GR3/index.html">
+    <div class="card-week-badge">Week 05</div>
+    <div class="t">Minimum Spanning Trees</div>
+    <div class="unit-desc">GR3 (Kruskal's with Union-Find, Prim's Algorithm, Cut Property)</div>
+    <div class="card-modules"><span class="module-pill">GR3</span><span class="module-pill">Kruskal</span><span class="module-pill">Prim</span><span class="module-pill">Cut Property</span></div>
+  </a>
+  <a class="card" href="W06_MF1-MF2/index.html">
+    <div class="card-week-badge">Week 06</div>
+    <div class="t">Max-Flow Foundations &amp; Duality</div>
+    <div class="unit-desc">MF1 (Ford-Fulkerson, Residuals) &amp; MF2 (Max-Flow/Min-Cut)</div>
+    <div class="card-modules"><span class="module-pill">MF1</span><span class="module-pill">MF2</span><span class="module-pill">Residual Graph</span><span class="module-pill">Min-Cut</span></div>
+  </a>
+  <a class="card" href="W07_MF4_EXAM2/index.html">
+    <div class="card-week-badge">Week 07</div>
+    <div class="t">Edmonds-Karp &amp; Matching <span class="exam-tag">Exam 2 Window</span></div>
+    <div class="unit-desc">MF4 (Edmonds-Karp BFS Augmenting Paths, Bipartite Matching)</div>
+    <div class="card-modules"><span class="module-pill">MF4</span><span class="module-pill">Edmonds-Karp</span><span class="module-pill">Bipartite</span><span class="module-pill">Exam 2</span></div>
+  </a>
+</div>
+
+<div class="section-label">
+  <span>Unit 3: Intractability &amp; Linear Programming</span>
+  <span class="unit-exam">Assessed on Exam 3 · Weeks 8–10</span>
+</div>
+<div class="cardgrid">
+  <a class="card" href="W08_NP1-NP2-NP3/index.html">
+    <div class="card-week-badge">Week 08</div>
+    <div class="t">NP-Completeness &amp; Reductions</div>
+    <div class="unit-desc">NP1 (P vs NP, Verifiers), NP2 (3-SAT), NP3 (Graph Reductions)</div>
+    <div class="card-modules"><span class="module-pill">NP1</span><span class="module-pill">NP2</span><span class="module-pill">NP3</span><span class="module-pill">Reductions</span></div>
+  </a>
+  <a class="card" href="W09_LP1-LP2-LP3/index.html">
+    <div class="card-week-badge">Week 09</div>
+    <div class="t">Linear Programming &amp; Duality</div>
+    <div class="unit-desc">LP1 (Formulation), LP2 (Simplex/Geometry), LP3 (Duality)</div>
+    <div class="card-modules"><span class="module-pill">LP1</span><span class="module-pill">LP2</span><span class="module-pill">LP3</span><span class="module-pill">Duality</span></div>
+  </a>
+  <a class="card" href="W10_LP4-NP4-NP5_EXAM3/index.html">
+    <div class="card-week-badge">Week 10</div>
+    <div class="t">Approx, ILP &amp; Undecidability <span class="exam-tag">Exam 3 Window</span></div>
+    <div class="unit-desc">LP4 (Max-SAT, ILP), NP4 (FPTAS), NP5 (Halting Problem)</div>
+    <div class="card-modules"><span class="module-pill">LP4</span><span class="module-pill">NP4</span><span class="module-pill">NP5</span><span class="module-pill">Exam 3</span></div>
+  </a>
+</div>
+
+<div class="section-label">
+  <span>Unit 4: Advanced Topics &amp; Review</span>
+  <span class="unit-exam">Final Prep &amp; Quiz 8</span>
+</div>
+<div class="cardgrid">
+  <a class="card" href="W11_Advanced-FFT-Crypto-Bloom/index.html">
+    <div class="card-week-badge">Week 11</div>
+    <div class="t">FFT, RSA Crypto &amp; Bloom Filters</div>
+    <div class="unit-desc">Fast Fourier Transform, Modular Arithmetic, RSA, Bloom Filters &amp; Cumulative Review</div>
+    <div class="card-modules"><span class="module-pill">FFT</span><span class="module-pill">RSA</span><span class="module-pill">Bloom</span><span class="module-pill">Review</span></div>
+  </a>
+</div>
+
+<div class="section-label">
+  <span>Tabular Directory View</span>
+  <span class="unit-exam">Folder Breakdown</span>
+</div>
 <table>
 <thead>
 <tr>

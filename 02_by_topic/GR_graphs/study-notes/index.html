@@ -3,24 +3,512 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>02_by_topic/GR_graphs/study-notes - CS6515</title>
+<title>Graph Theory Study Suite (GR0–GR4) — All-in-One Interactive Hub — CS6515</title>
+<link rel="stylesheet" href="../../../vendor/fonts/fonts.css">
 <link rel="stylesheet" href="../../../theme.css">
+<link rel="stylesheet" href="../../../vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../../vendor/highlight/styles/tokyo-night-dark.min.css">
 </head>
 <body>
-<header class="topbar"><a class="home" href="../../../index.html">CS6515</a><span class="crumbloc">02_by_topic/GR_graphs/study-notes</span><button class="search-trigger" type="button" data-search-trigger aria-label="Search site"><span class="search-trigger__label">Search</span><kbd data-search-shortcut>Cmd K</kbd></button>
+<header class="topbar">
+  <div class="topbar__left">
+    <a class="home" href="../../../index.html">CS6515</a>
+    <span class="crumbloc">Graph Theory Study Suite</span>
+  </div>
+  <div class="topbar__actions">
+    <button class="search-trigger" type="button" data-search-trigger aria-label="Search site">
+      <span class="search-trigger__label">Search</span>
+      <kbd data-search-shortcut>Cmd K</kbd>
+    </button>
+  </div>
 </header>
-<main class="content">
-<h1>02_by_topic/GR_graphs/study-notes</h1>
-<ul>
-<li><a href="00-STUDY-PLAN.html">00-STUDY-PLAN.html</a></li>
-<li><a href="01-GR0-Graph-Fundamentals.html">01-GR0-Graph-Fundamentals.html</a></li>
-<li><a href="02-GR1-Strongly-Connected-Components.html">02-GR1-Strongly-Connected-Components.html</a></li>
-<li><a href="03-GR2-2SAT.html">03-GR2-2SAT.html</a></li>
-<li><a href="04-GR3-Minimum-Spanning-Tree.html">04-GR3-Minimum-Spanning-Tree.html</a></li>
-<li><a href="05-GR4-Markov-Chains-PageRank.html">05-GR4-Markov-Chains-PageRank.html</a></li>
-<li><a href="06-Graphs-Cheat-Sheet.html">06-Graphs-Cheat-Sheet.html</a></li>
-</ul>
+
+<main class="content" style="max-width: 56rem;">
+  <!-- Hero Section -->
+  <section class="study-hub-hero">
+    <h1 class="study-hub-hero__title">
+      <span>⚡ Graph Theory Study Suite</span>
+    </h1>
+    <p class="study-hub-hero__desc">
+      Master CS6515 graph algorithms across Weeks 4, 5, and 11. Read and review any note directly on this page via the on-demand interactive collapsibles below, or jump directly into standalone full-page view.
+    </p>
+    <div class="study-hub-stats">
+      <span class="study-hub-stat stat--accent">📚 7 Complete Guides</span>
+      <span class="study-hub-stat">🎯 GR0 · GR1 · GR2 · GR3 · GR4</span>
+      <span class="study-hub-stat stat--exam">⚔️ Exam 2 + Final Scope</span>
+      <span class="study-hub-stat">⚡ Instant Inline Previews</span>
+    </div>
+  </section>
+
+  <!-- Filter & Action Controls -->
+  <div class="study-hub-toolbar">
+    <div class="study-hub-filter">
+      <svg class="study-hub-filter__icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      <input type="search" id="hub-filter-input" placeholder="Filter by topic, algorithm, or concept (e.g. Kosaraju, Kruskal, 2-SAT)..." autocomplete="off" spellcheck="false">
+    </div>
+    <div class="study-hub-actions">
+      <button type="button" class="study-hub-btn" id="btn-expand-all">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        <span>Expand All</span>
+      </button>
+      <button type="button" class="study-hub-btn" id="btn-collapse-all">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"></polyline></svg>
+        <span>Collapse All</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Jump Bar -->
+  <nav class="study-hub-jump-bar" aria-label="Jump to module note">
+    <a href="#plan" class="study-jump-pill"><span class="pill-tag">PLAN</span> Master Study Plan</a>
+    <a href="#gr0" class="study-jump-pill"><span class="pill-tag">GR0</span> Fundamentals</a>
+    <a href="#gr1" class="study-jump-pill"><span class="pill-tag">GR1</span> Strongly Connected Components</a>
+    <a href="#gr2" class="study-jump-pill"><span class="pill-tag">GR2</span> 2-Satisfiability</a>
+    <a href="#gr3" class="study-jump-pill"><span class="pill-tag">GR3</span> Minimum Spanning Tree</a>
+    <a href="#gr4" class="study-jump-pill"><span class="pill-tag">GR4</span> Markov Chains & PageRank</a>
+    <a href="#cheat" class="study-jump-pill"><span class="pill-tag">CHEAT</span> Graphs Cheat Sheet</a>
+  </nav>
+
+  <!-- Collapsible Cards Container -->
+  <div class="study-notes-list" id="study-notes-container">
+
+    <!-- Card 0: Study Plan -->
+    <details class="study-note-card" id="plan" data-src="00-STUDY-PLAN.html">
+      <summary>
+        <div class="study-note-header__left">
+          <div class="study-note-badge-row">
+            <span class="study-module-badge study-module-badge--plan">Plan</span>
+            <span class="study-hub-stat">Master Strategy</span>
+            <span class="study-hub-stat stat--exam">Exam 2 Roadmap</span>
+          </div>
+          <div class="study-module-title">📋 Graphs Module — Master Study Plan</div>
+          <div class="study-module-desc">Strategic 4-week roadmap through graph theory, priority sequence, Exam 2 scoring breakdown, and homework mastery checklist.</div>
+          <div class="study-module-tags">
+            <span class="study-module-tag">Roadmap</span>
+            <span class="study-module-tag">Exam 2 Scope</span>
+            <span class="study-module-tag">Black-Box Strategy</span>
+            <span class="study-module-tag">W4, W5, W11</span>
+          </div>
+        </div>
+        <div class="study-note-header__right">
+          <a href="00-STUDY-PLAN.html" class="btn-open-full" onclick="event.stopPropagation()">Open Full Page ↗</a>
+          <span class="study-card-chevron">▼</span>
+        </div>
+      </summary>
+      <div class="study-note-body">
+        <div class="study-loader">
+          <div class="study-loader__spinner"></div>
+          <div>Click to load inline preview...</div>
+        </div>
+      </div>
+    </details>
+
+    <!-- Card 1: GR0 Fundamentals -->
+    <details class="study-note-card" id="gr0" data-src="01-GR0-Graph-Fundamentals.html">
+      <summary>
+        <div class="study-note-header__left">
+          <div class="study-note-badge-row">
+            <span class="study-module-badge study-module-badge--fund">GR0</span>
+            <span class="study-hub-stat stat--accent">Foundations</span>
+            <span class="study-hub-stat">O(V + E)</span>
+          </div>
+          <div class="study-module-title">⚡ GR0: Graph Fundamentals & Traversals</div>
+          <div class="study-module-desc">Adjacency matrix vs list representations, DFS & BFS traversal trees, tree/forward/back/cross edge classification, pre/post clocks, and DAG topological sorting.</div>
+          <div class="study-module-tags">
+            <span class="study-module-tag">DFS / BFS</span>
+            <span class="study-module-tag">Pre/Post Clock</span>
+            <span class="study-module-tag">Parenthesis Theorem</span>
+            <span class="study-module-tag">Topological Sort</span>
+            <span class="study-module-tag">Cycle Detection</span>
+          </div>
+        </div>
+        <div class="study-note-header__right">
+          <a href="01-GR0-Graph-Fundamentals.html" class="btn-open-full" onclick="event.stopPropagation()">Open Full Page ↗</a>
+          <span class="study-card-chevron">▼</span>
+        </div>
+      </summary>
+      <div class="study-note-body">
+        <div class="study-loader">
+          <div class="study-loader__spinner"></div>
+          <div>Click to load inline preview...</div>
+        </div>
+      </div>
+    </details>
+
+    <!-- Card 2: GR1 SCC -->
+    <details class="study-note-card" id="gr1" data-src="02-GR1-Strongly-Connected-Components.html">
+      <summary>
+        <div class="study-note-header__left">
+          <div class="study-note-badge-row">
+            <span class="study-module-badge study-module-badge--scc">GR1</span>
+            <span class="study-hub-stat stat--exam">Exam 2 Linchpin</span>
+            <span class="study-hub-stat stat--accent">2-Pass DFS</span>
+          </div>
+          <div class="study-module-title">🔄 GR1: Strongly Connected Components (SCC)</div>
+          <div class="study-module-desc">Kosaraju-Sharir 2-pass DFS algorithm, reverse graph \(G^R\), proving sink SCCs via largest post number in \(G^R\), metagraph DAG condensation, and complete step-by-step trace walkthroughs.</div>
+          <div class="study-module-tags">
+            <span class="study-module-tag">Kosaraju-Sharir</span>
+            <span class="study-module-tag">DFS on G^R</span>
+            <span class="study-module-tag">Largest Post in G^R</span>
+            <span class="study-module-tag">Sink SCC Detection</span>
+            <span class="study-module-tag">Metagraph DAG</span>
+          </div>
+        </div>
+        <div class="study-note-header__right">
+          <a href="02-GR1-Strongly-Connected-Components.html" class="btn-open-full" onclick="event.stopPropagation()">Open Full Page ↗</a>
+          <span class="study-card-chevron">▼</span>
+        </div>
+      </summary>
+      <div class="study-note-body">
+        <div class="study-loader">
+          <div class="study-loader__spinner"></div>
+          <div>Click to load inline preview...</div>
+        </div>
+      </div>
+    </details>
+
+    <!-- Card 3: GR2 2-SAT -->
+    <details class="study-note-card" id="gr2" data-src="03-GR2-2SAT.html">
+      <summary>
+        <div class="study-note-header__left">
+          <div class="study-note-badge-row">
+            <span class="study-module-badge study-module-badge--2sat">GR2</span>
+            <span class="study-hub-stat stat--accent">Linear Reduction</span>
+            <span class="study-hub-stat">Week 4</span>
+          </div>
+          <div class="study-module-title">🧩 GR2: 2-Satisfiability (2-SAT)</div>
+          <div class="study-module-desc">Constructing directed implication graphs from 2-CNF clauses, contradiction theorem (\(x_i \leftrightarrow \neg x_i\) in same SCC), topological component truth assignment in \(O(V+E)\).</div>
+          <div class="study-module-tags">
+            <span class="study-module-tag">2-CNF</span>
+            <span class="study-module-tag">Implication Graph</span>
+            <span class="study-module-tag">Contrapositive Edges</span>
+            <span class="study-module-tag">SCC Condition</span>
+            <span class="study-module-tag">Truth Assignment</span>
+          </div>
+        </div>
+        <div class="study-note-header__right">
+          <a href="03-GR2-2SAT.html" class="btn-open-full" onclick="event.stopPropagation()">Open Full Page ↗</a>
+          <span class="study-card-chevron">▼</span>
+        </div>
+      </summary>
+      <div class="study-note-body">
+        <div class="study-loader">
+          <div class="study-loader__spinner"></div>
+          <div>Click to load inline preview...</div>
+        </div>
+      </div>
+    </details>
+
+    <!-- Card 4: GR3 MST -->
+    <details class="study-note-card" id="gr3" data-src="04-GR3-Minimum-Spanning-Tree.html">
+      <summary>
+        <div class="study-note-header__left">
+          <div class="study-note-badge-row">
+            <span class="study-module-badge study-module-badge--mst">GR3</span>
+            <span class="study-hub-stat stat--exam">Greedy Proofs</span>
+            <span class="study-hub-stat stat--accent">Week 5</span>
+          </div>
+          <div class="study-module-title">🌲 GR3: Minimum Spanning Tree (MST)</div>
+          <div class="study-module-desc">Cut Property theorem & formal exchange argument proof, Kruskal's algorithm with Disjoint Set Union (path compression), Prim's algorithm with min-heaps, Cycle Property.</div>
+          <div class="study-module-tags">
+            <span class="study-module-tag">Cut Property Proof</span>
+            <span class="study-module-tag">Kruskal O(E log V)</span>
+            <span class="study-module-tag">Prim O(E log V)</span>
+            <span class="study-module-tag">Disjoint Sets (DSU)</span>
+            <span class="study-module-tag">Cycle Property</span>
+          </div>
+        </div>
+        <div class="study-note-header__right">
+          <a href="04-GR3-Minimum-Spanning-Tree.html" class="btn-open-full" onclick="event.stopPropagation()">Open Full Page ↗</a>
+          <span class="study-card-chevron">▼</span>
+        </div>
+      </summary>
+      <div class="study-note-body">
+        <div class="study-loader">
+          <div class="study-loader__spinner"></div>
+          <div>Click to load inline preview...</div>
+        </div>
+      </div>
+    </details>
+
+    <!-- Card 5: GR4 Markov & PageRank -->
+    <details class="study-note-card" id="gr4" data-src="05-GR4-Markov-Chains-PageRank.html">
+      <summary>
+        <div class="study-note-header__left">
+          <div class="study-note-badge-row">
+            <span class="study-module-badge study-module-badge--markov">GR4</span>
+            <span class="study-hub-stat">Week 11 Advanced</span>
+            <span class="study-hub-stat stat--accent">Stochastic</span>
+          </div>
+          <div class="study-module-title">🎲 GR4: Markov Chains & PageRank</div>
+          <div class="study-module-desc">Transition probability matrices, solving stationary distributions \(\pi P = \pi\), random walks on graphs, ergodicity conditions, and Google PageRank with damping parameter \(d\).</div>
+          <div class="study-module-tags">
+            <span class="study-module-tag">Transition Matrix</span>
+            <span class="study-module-tag">Stationary Distribution</span>
+            <span class="study-module-tag">Random Surfer Model</span>
+            <span class="study-module-tag">PageRank Damping d</span>
+            <span class="study-module-tag">Perron-Frobenius</span>
+          </div>
+        </div>
+        <div class="study-note-header__right">
+          <a href="05-GR4-Markov-Chains-PageRank.html" class="btn-open-full" onclick="event.stopPropagation()">Open Full Page ↗</a>
+          <span class="study-card-chevron">▼</span>
+        </div>
+      </summary>
+      <div class="study-note-body">
+        <div class="study-loader">
+          <div class="study-loader__spinner"></div>
+          <div>Click to load inline preview...</div>
+        </div>
+      </div>
+    </details>
+
+    <!-- Card 6: Cheat Sheet -->
+    <details class="study-note-card" id="cheat" data-src="06-Graphs-Cheat-Sheet.html">
+      <summary>
+        <div class="study-note-header__left">
+          <div class="study-note-badge-row">
+            <span class="study-module-badge study-module-badge--cheat">Cheat Sheet</span>
+            <span class="study-hub-stat stat--exam">Exam Reference</span>
+            <span class="study-hub-stat stat--accent">Black-Box Matrix</span>
+          </div>
+          <div class="study-module-title">📝 Graphs Cheat Sheet & Black Box Matrix</div>
+          <div class="study-module-desc">High-yield summary with standard algorithm runtime bounds, official staff black-box contracts, input/output formulations, and essential exam traps to avoid.</div>
+          <div class="study-module-tags">
+            <span class="study-module-tag">Black-Box Contracts</span>
+            <span class="study-module-tag">Runtime Matrix</span>
+            <span class="study-module-tag">Cut Property Template</span>
+            <span class="study-module-tag">Exam Traps</span>
+          </div>
+        </div>
+        <div class="study-note-header__right">
+          <a href="06-Graphs-Cheat-Sheet.html" class="btn-open-full" onclick="event.stopPropagation()">Open Full Page ↗</a>
+          <span class="study-card-chevron">▼</span>
+        </div>
+      </summary>
+      <div class="study-note-body">
+        <div class="study-loader">
+          <div class="study-loader__spinner"></div>
+          <div>Click to load inline preview...</div>
+        </div>
+      </div>
+    </details>
+
+  </div>
+
+  <hr style="margin: 3rem 0 1.5rem; border: none; border-top: 1px solid var(--border);">
+  <p style="color: var(--muted); font-size: 0.9rem;">
+    <em>Part of the CS6515 Course Materials. Chronological schedule: <a href="../../../01_by_week/index.html">01_by_week/</a> · Topic view: <a href="../../index.html">02_by_topic/</a>.</em>
+  </p>
 </main>
+
+<!-- Highlighting, KaTeX, and Mermaid -->
+<script src="../../../vendor/highlight/highlight.min.js"></script>
+<script src="../../../vendor/mermaid/mermaid.min.js"></script>
+<script src="../../../vendor/katex/katex.min.js"></script>
+<script src="../../../vendor/katex/contrib/auto-render.min.js"></script>
 <script src="../../../site.js" defer></script>
+
+<script>
+(function() {
+  function renderMath(target) {
+    if (window.renderMathInElement) {
+      renderMathInElement(target || document.body, {
+        delimiters: [
+          { left: '$$', right: '$$', display: true },
+          { left: '\\[', right: '\\]', display: true },
+          { left: '$', right: '$', display: false },
+          { left: '\\(', right: '\\)', display: false }
+        ],
+        throwOnError: false,
+        preProcess: function(math) {
+          return math
+            .replace(/\\left\\\[/g, '\\left[')
+            .replace(/\\right\\\]/g, '\\right]')
+            .replace(/&amp;/g, '&')
+            .replace(/&lt;/g, '<')
+            .replace(/&gt;/g, '>');
+        },
+        macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
+      });
+    }
+  }
+
+  async function loadNoteContent(card) {
+    const body = card.querySelector('.study-note-body');
+    if (!body || body.dataset.loaded === 'true') return;
+    const src = card.dataset.src;
+    if (!src) return;
+
+    body.innerHTML = `
+      <div class="study-loader">
+        <div class="study-loader__spinner"></div>
+        <div style="font-size: 0.9rem; color: var(--blue);">Loading note preview...</div>
+      </div>
+    `;
+
+    try {
+      const res = await fetch(src);
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const htmlText = await res.text();
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(htmlText, 'text/html');
+      const mainContent = doc.querySelector('main.content') || doc.body;
+
+      const cloned = mainContent.cloneNode(true);
+      const firstH1 = cloned.querySelector('h1');
+      if (firstH1) firstH1.remove();
+
+      body.innerHTML = '';
+      const wrapper = document.createElement('div');
+      wrapper.className = 'study-note-embedded';
+
+      const banner = document.createElement('div');
+      banner.className = 'study-note-embedded-banner';
+      banner.innerHTML = `
+        <span>📖 Reading <strong>${card.querySelector('.study-module-title').textContent}</strong> inline</span>
+        <div>
+          <a href="${src}" target="_blank" rel="noopener">Open Dedicated Full Page ↗</a>
+        </div>
+      `;
+      wrapper.appendChild(banner);
+      wrapper.appendChild(cloned);
+
+      const footer = document.createElement('div');
+      footer.className = 'study-note-embedded-footer';
+      footer.innerHTML = `
+        <button type="button" class="study-hub-btn btn-collapse-this">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"></polyline></svg>
+          <span>Collapse Note ▴</span>
+        </button>
+        <a href="${src}" class="btn-open-full">Open in Dedicated Full Page ↗</a>
+      `;
+      wrapper.appendChild(footer);
+      body.appendChild(wrapper);
+
+      footer.querySelector('.btn-collapse-this').addEventListener('click', function() {
+        card.removeAttribute('open');
+        card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      });
+
+      // Code highlighting
+      if (window.hljs) {
+        body.querySelectorAll('pre:not(.mermaid) > code').forEach(function(el) {
+          window.hljs.highlightElement(el);
+        });
+      }
+
+      // Mermaid diagrams
+      if (window.mermaid) {
+        body.querySelectorAll('pre > code.language-mermaid, pre > code.mermaid, pre.mermaid > code').forEach(function(c) {
+          const pre = c.closest('pre');
+          if (pre) {
+            pre.className = 'mermaid';
+            pre.textContent = c.textContent;
+          }
+        });
+        document.querySelectorAll('pre.mermaid').forEach(function(p) {
+          if (p.children.length > 0) p.textContent = p.textContent;
+        });
+        try {
+          window.mermaid.run({ nodes: body.querySelectorAll('pre.mermaid') });
+        } catch (e) {
+          console.warn('Mermaid render error:', e);
+        }
+      }
+
+      // Math
+      renderMath(body);
+
+      // Enhance study content if available
+      if (window.enhanceStudyContent) {
+        window.enhanceStudyContent(body);
+      }
+
+      body.dataset.loaded = 'true';
+    } catch (err) {
+      body.innerHTML = `
+        <div class="study-note-load-error">
+          <p>⚠️ Unable to load inline preview (${err.message}).</p>
+          <a href="${src}" class="btn-open-full" style="display:inline-flex; margin-top:0.5rem;">Open Standalone Note Page ↗</a>
+        </div>
+      `;
+    }
+  }
+
+  // Bind toggle events to cards
+  const cards = document.querySelectorAll('.study-note-card');
+  cards.forEach(function(card) {
+    card.addEventListener('toggle', function() {
+      if (card.open) {
+        loadNoteContent(card);
+      }
+    });
+  });
+
+  // Expand / Collapse All
+  const btnExpand = document.getElementById('btn-expand-all');
+  const btnCollapse = document.getElementById('btn-collapse-all');
+
+  if (btnExpand) {
+    btnExpand.addEventListener('click', function() {
+      cards.forEach(function(card) {
+        if (!card.hidden && card.style.display !== 'none') {
+          card.setAttribute('open', '');
+          loadNoteContent(card);
+        }
+      });
+    });
+  }
+
+  if (btnCollapse) {
+    btnCollapse.addEventListener('click', function() {
+      cards.forEach(function(card) {
+        card.removeAttribute('open');
+      });
+    });
+  }
+
+  // Search Filter
+  const filterInput = document.getElementById('hub-filter-input');
+  if (filterInput) {
+    filterInput.addEventListener('input', function() {
+      const q = filterInput.value.toLowerCase().trim();
+      cards.forEach(function(card) {
+        const text = (card.textContent || '').toLowerCase();
+        if (!q || text.includes(q)) {
+          card.style.display = '';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  }
+
+  // Deep linking via URL hash
+  function handleHash() {
+    const hash = window.location.hash.replace('#', '');
+    if (!hash) return;
+    const target = document.getElementById(hash);
+    if (target && target.classList.contains('study-note-card')) {
+      target.setAttribute('open', '');
+      loadNoteContent(target);
+      setTimeout(function() {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
+    }
+  }
+
+  window.addEventListener('hashchange', handleHash);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', handleHash);
+  } else {
+    handleHash();
+  }
+
+  // Initial math on hub elements
+  renderMath(document.querySelector('.study-hub-hero'));
+})();
+</script>
 </body>
 </html>

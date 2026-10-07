@@ -8,71 +8,158 @@
 <link rel="stylesheet" href="../theme.css">
 <link rel="stylesheet" href="../vendor/katex/katex.min.css">
 <link rel="stylesheet" href="../vendor/highlight/styles/tokyo-night-dark.min.css">
-
 </head>
 <body>
 <header class="topbar">
   <a class="home" href="../index.html">CS6515</a>
+  <span class="topbar__sep">/</span>
+  <a class="crumbloc" href="index.html">Algorithm Guidance</a>
+  <span class="topbar__sep">/</span>
   <span class="crumbloc">Course Readiness</span>
-<button class="search-trigger" type="button" data-search-trigger aria-label="Search site"><span class="search-trigger__label">Search</span><kbd data-search-shortcut>Cmd K</kbd></button>
+  <button class="search-trigger" type="button" data-search-trigger aria-label="Search site"><span class="search-trigger__label">Search</span><kbd data-search-shortcut>Cmd K</kbd></button>
 </header>
 <main class="content">
 <h1 id="course-readiness">Course Readiness</h1>
-<h2 id="post">Post</h2>
-<p>Course Readiness is a resource to help students prepare for the
-semester and/or assess readiness for the material. You can find these in
-Ed Lessons:</p>
-<p><img
-src="https://static.us.edusercontent.com/files/NDguJu4fdjGrvbtq2Hcpb05Z"
-alt="Image" /> Please use this thread as a place to ask clarifying
-questions or leave other feedback.</p>
-<h2 id="responses-6">Responses (6)</h2>
-<ul>
-<li><p><strong>Comment</strong></p>
+
+<div class="guidance-banner">
+  <div class="guidance-banner__tags">
+    <span class="badge badge--staff">Staff Guidance</span>
+    <span class="badge badge--blue">Course Readiness</span>
+    <span class="badge badge--purple">Prerequisites</span>
+  </div>
+  <span class="text-muted">Prerequisite knowledge, essential terminology, and foundational concepts</span>
+</div>
+
+<p class="lead">Course Readiness is an official resource designed to help students prepare for the semester and assess baseline readiness for Graduate Algorithms. You can access these modules directly in Ed Lessons.</p>
+
+<section class="guidance-section">
+  <h2 id="overview">Prerequisite Modules in Ed Lessons</h2>
+  <p>The Course Readiness lessons review critical mathematical foundations, discrete structures, and Big-O notation:</p>
+  <div class="media-container" style="margin: 1.5rem 0;">
+    <img src="https://static.us.edusercontent.com/files/NDguJu4fdjGrvbtq2Hcpb05Z" alt="Course Readiness in Ed Lessons" loading="lazy" style="max-width: 100%; border-radius: var(--radius-sm); border: 1px solid var(--border);">
+  </div>
+  <p>Please use this thread as a place to ask clarifying questions or leave other feedback regarding prerequisite readiness.</p>
+</section>
+
+<!-- Executive AI Summary Card above Comments Dropdown -->
+<section class="discussion-summary" aria-labelledby="ai-summary-heading">
+  <div class="discussion-summary__header">
+    <span class="discussion-summary__badge">AI Summary</span>
+    <h3 id="ai-summary-heading" class="discussion-summary__title">Discussion Key Takeaways &amp; Staff Clarifications</h3>
+    <span class="discussion-summary__subtitle">6 discussion threads • Staff rulings</span>
+  </div>
+  <div class="discussion-summary__content">
+    <ul>
+      <li><strong>Prerequisite Terminology is Tested Directly:</strong> All definitions in Course Readiness (e.g. sequence vs string vs substring vs subsequence) are considered prerequisite knowledge. Exams will NOT provide definitions, equation sheets, or reminders of standard terminology.</li>
+      <li><strong>Sequence vs. Substring vs. Subsequence:</strong>
+        <ul>
+          <li>A <em>substring</em> consists of contiguous elements within a string.</li>
+          <li>A <em>subsequence</em> is formed by deleting zero or more elements without changing the relative order of the remaining elements.</li>
+          <li>A <em>subset</em> carries no relative ordering.</li>
+          <li>Always distinguish strictly between the index $i$ and the element value $a[i]$.</li>
+        </ul>
+      </li>
+      <li><strong>Graph Data Structure Model:</strong> In CS6515, graphs are always modeled as adjacency lists consisting of an array of vertices where each array slot points to a singly-linked list of adjacent neighbors.</li>
+      <li><strong>Set Theory Foundations:</strong> Fluency with sets, subsets, unions, intersections, and partitions is critical for Graph Theory (cuts $S, V \setminus S$, bipartite sets) and NP-Completeness reductions.</li>
+      <li><strong>Boolean Satisfiability (SAT):</strong> An assignment maps variables to $\{T, F\}$; it is a <em>satisfying assignment</em> if and only if the entire boolean formula evaluates to True under that truth assignment.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- Collapsible Comments Dropdown (Collapsed by Default) -->
+<details class="comments-collapse">
+  <summary class="comments-collapse__summary">
+    <div class="comments-collapse__title-group">
+      <span class="comments-collapse__chevron">▶</span>
+      <span>Responses</span>
+      <span class="comments-collapse__count-badge">6 threads</span>
+    </div>
+    <span class="comments-collapse__hint">Click to expand discussion</span>
+  </summary>
+  <div class="comments-collapse__body">
+    <ul class="thread-tree">
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--student">Student Question</span></div>
+    <div class="thread-comment__body">
 <blockquote>
 <p>There are a lot of technical terms. Are we expected to know the
 definition of all of them (e.g. string vs sequence) or wil an exam have
 a reminder if a term is being used with a very specific definition?</p>
 </blockquote>
-<ul>
-<li><strong>Comment</strong>
+    </div>
+  </div>
+  <ul>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--staff">Staff / Instructor Response</span></div>
+    <div class="thread-comment__body">
 <blockquote>
 <p>Everything in the course readiness is considered prerequisite
 knowledge. We expect students coming into the course to already have
 background knowledge and not need terms like strings and sequence to be
 defined for them.</p>
-</blockquote></li>
-</ul></li>
-<li><p><strong>Comment</strong></p>
+</blockquote>
+    </div>
+  </div>
+</li>
+  </ul>
+</li>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--student">Student Question</span></div>
+    <div class="thread-comment__body">
 <blockquote>
 <p>I'd add some basic knowledge of Set Theory is helpful too. A lot of
 this course deals with concepts like sets, subsets, unions, and
 intersections. More the first two than the latter two, but still helpful
 to know a little about all of it.</p>
 </blockquote>
-<ul>
-<li><p><strong>Comment</strong></p>
+    </div>
+  </div>
+  <ul>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--staff">Staff / Instructor Response</span></div>
+    <div class="thread-comment__body">
 <blockquote>
 <p>These [set concepts] should <em>mostly</em> be hit on late in section
 2 (Graphy Theory) and mostly for section 3 (NP-Completeness), so there's
 also time to stretch out the supplemental learning as folks go.</p>
 </blockquote>
-<ul>
-<li><strong>Comment</strong>
+    </div>
+  </div>
+  <ul>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--student">Follow-up Discussion</span></div>
+    <div class="thread-comment__body">
 <blockquote>
 <p>It definitely adds up over time! Amazingly, all these seemingly
 disparate topics tie together in the end.</p>
-</blockquote></li>
-</ul></li>
-<li><p><strong>Comment</strong></p>
+</blockquote>
+    </div>
+  </div>
+</li>
+  </ul>
+</li>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--staff">Staff / Instructor Response</span></div>
+    <div class="thread-comment__body">
 <blockquote>
 <p>Set theory is covered a bit in the "Logic, Discrete Math, &amp;
-Proofs" since set theory is a big part of discrete math. (here: <a
-href="https://edstem.org/us/courses/98593/lessons/171116/slides/988491"><span>https://edstem.org/us/courses/98593/lessons/171116/slides/988491</span></a>
-)</p>
-</blockquote></li>
-</ul></li>
-<li><p><strong>Comment</strong></p>
+Proofs" since set theory is a big part of discrete math. </p>
+</blockquote>
+    </div>
+  </div>
+</li>
+  </ul>
+</li>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--student">Student Question</span></div>
+    <div class="thread-comment__body">
 <blockquote>
 <p>Some feedback from my side after having taken 8 classes: This class
 seems to be extremely "messy" with pinned posts all over the place, the
@@ -83,8 +170,13 @@ document, Canvas quizzes, homework, random study group posts, tight
 deadlines, hand holding by forcing us to go through Honorlock for the
 millionth time, etc. Very overwhelming to say the least.</p>
 </blockquote>
-<ul>
-<li><strong>Comment</strong>
+    </div>
+  </div>
+  <ul>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--staff">Staff / Instructor Response</span></div>
+    <div class="thread-comment__body">
 <blockquote>
 <p>Noted, and we're continually trying to figure out how to streamline
 it.</p>
@@ -100,22 +192,30 @@ swapped DP and DC a few times, we make some lectures optional and then
 required and then optional again across different semesters... putting
 the reading on a separate document makes all of that much easier and
 less prone to dumb mistakes.</p>
-</blockquote></li>
-</ul></li>
-<li><p><strong>Comment</strong></p>
+</blockquote>
+    </div>
+  </div>
+</li>
+  </ul>
+</li>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--student">Student Question</span></div>
+    <div class="thread-comment__body">
 <blockquote>
-<p><img
-src="https://static.us.edusercontent.com/files/kLuLdIlpiWMnY7aQ8jWHprsn"
-alt="Image" /> Hi, I was wondering if this term should be "linked lists"
+<p><img alt="Image" src="https://static.us.edusercontent.com/files/kLuLdIlpiWMnY7aQ8jWHprsn"/> Hi, I was wondering if this term should be "linked lists"
 here? My understanding is, the adjacency list is one array of all
 vertices, and each vertex points to a linked list. This change would
 better match the "Common Course Runtimes" thread:</p>
-<p><img
-src="https://static.us.edusercontent.com/files/E3dxhaZdkVaLUJMhtfUrVpwK"
-alt="Image" /></p>
+<p><img alt="Image" src="https://static.us.edusercontent.com/files/E3dxhaZdkVaLUJMhtfUrVpwK"/></p>
 </blockquote>
-<ul>
-<li><p><strong>Comment</strong></p>
+    </div>
+  </div>
+  <ul>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--staff">Staff / Instructor Response</span></div>
+    <div class="thread-comment__body">
 <blockquote>
 <p>That's fair, I updated to match the intent here:</p>
 <blockquote>
@@ -123,28 +223,42 @@ alt="Image" /></p>
 array is indexed by each vertex in the graph.</p>
 </blockquote>
 </blockquote>
-<ul>
-<li><p><strong>Comment</strong></p>
+    </div>
+  </div>
+  <ul>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--student">Follow-up Discussion</span></div>
+    <div class="thread-comment__body">
 <blockquote>
 <p>Thanks. Just to clarify, there must be some O(1) way to convert
 "vertex name" to "array position" without the use of external data
 structures (e.g. hash table), correct?</p>
 <p>e.g. vertex A always means array position 1, vertex B always means
 array position 2, ...</p>
-<p><img
-src="https://static.us.edusercontent.com/files/ndJbjzdfLa8GTU3PsRarde3u"
-alt="Image" /></p>
+<p><img alt="Image" src="https://static.us.edusercontent.com/files/ndJbjzdfLa8GTU3PsRarde3u"/></p>
 </blockquote>
-<ul>
-<li><p><strong>Comment</strong></p>
+    </div>
+  </div>
+  <ul>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--staff">Staff / Instructor Response</span></div>
+    <div class="thread-comment__body">
 <blockquote>
 <p>Yes!</p>
 <p>"Indexed by each vertex" is a very important convenience: it means we
 can always index into the list of vertices with no additional work, in
-<span class="math inline"><em>O</em>(1)</span>. With that context, our
+<span class="math inline">\(O(1)\)</span>. With that context, our
 operations don't depend on the exact labeling implementation.</p>
-</blockquote></li>
-<li><p><strong>Comment</strong></p>
+</blockquote>
+    </div>
+  </div>
+</li>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--staff">Staff / Instructor Response</span></div>
+    <div class="thread-comment__body">
 <blockquote>
 <blockquote>
 <p>e.g. vertex A always means array position 1, vertex B always means
@@ -157,25 +271,35 @@ as <strong>enumerable</strong>, which enables the runtimes we share.</p>
 numbers, sometimes labels.</p>
 <p>It's not something we'll focus on, other than capturing the
 implications here, so knowing it is the case is sufficient.</p>
-</blockquote></li>
-</ul></li>
-</ul></li>
-</ul></li>
-<li><p><strong>Comment</strong></p>
+</blockquote>
+    </div>
+  </div>
+</li>
+  </ul>
+</li>
+  </ul>
+</li>
+  </ul>
+</li>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--student">Student Question</span></div>
+    <div class="thread-comment__body">
 <blockquote>
-<p><img
-src="https://static.us.edusercontent.com/files/UZmkhMmPFmTE4RTOKbMiRbgf"
-alt="Image" /> Hi, I think "elements" was meant here. Each element in a
+<p><img alt="Image" src="https://static.us.edusercontent.com/files/UZmkhMmPFmTE4RTOKbMiRbgf"/> Hi, I think "elements" was meant here. Each element in a
 sequence has an index, but a sequence itself is composed of elements
 (not indices) - hence, I'd imagine that a subset of a sequence should
 also be composed of elements.</p>
 </blockquote>
-<ul>
-<li><p><strong>Comment</strong></p>
+    </div>
+  </div>
+  <ul>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--staff">Staff / Instructor Response</span></div>
+    <div class="thread-comment__body">
 <blockquote>
-<p><img
-src="https://static.us.edusercontent.com/files/YYqWJhBIDG1SXstuTcPphkCs"
-alt="Image" /> I have noticed several times that "indices" and
+<p><img alt="Image" src="https://static.us.edusercontent.com/files/YYqWJhBIDG1SXstuTcPphkCs"/> I have noticed several times that "indices" and
 "elements" are conflated in this course (e.g. when introducing the
 knapsack problem, the i refers both to an **element **in subset S AND
 the **index **of this element in the original list of n integer
@@ -183,50 +307,75 @@ weights).</p>
 <p>Is it acceptable for us to conflate these on exams, and "which one"
 can be interpreted via the context / probable intent?</p>
 </blockquote>
-<ul>
-<li><p><strong>Comment</strong></p>
+    </div>
+  </div>
+  <ul>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--student">Follow-up Discussion</span></div>
+    <div class="thread-comment__body">
 <blockquote>
 <blockquote>
 <p>Is it acceptable for us to conflate these on exams, and "which one"
 can be interpreted via the context / probable intent?</p>
 </blockquote>
-<p><a
-href="https://edstem.org/us/courses/98593/lessons/171110/slides/988468">https://edstem.org/us/courses/98593/lessons/171110/slides/988468</a></p>
 <p>We must strive to be better than an unmodifiiable Dr. Vigoda.</p>
 </blockquote>
-<ul>
-<li><strong>Comment</strong>
+    </div>
+  </div>
+  <ul>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--staff">Staff / Instructor Response</span></div>
+    <div class="thread-comment__body">
 <blockquote>
 <p>Maybe "subset S of object indices" would work better for this
 problem? Functionally, it seems "objects" and "object indices" actually
 are synonymous here</p>
-<p><img
-src="https://static.us.edusercontent.com/files/tyHnhdRnNd8gUUbX7yeOC2gX"
-alt="Image" /></p>
-</blockquote></li>
-</ul></li>
-</ul></li>
-</ul></li>
-<li><p><strong>Comment</strong></p>
+<p><img alt="Image" src="https://static.us.edusercontent.com/files/tyHnhdRnNd8gUUbX7yeOC2gX"/></p>
+</blockquote>
+    </div>
+  </div>
+</li>
+  </ul>
+</li>
+  </ul>
+</li>
+  </ul>
+</li>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--student">Student Question</span></div>
+    <div class="thread-comment__body">
 <blockquote>
-<p><img
-src="https://static.us.edusercontent.com/files/Dnim319NQ4JHsHv9ZgIKtSWb"
-alt="Image" /> This first sentence in "satisfying assignment" currently
+<p><img alt="Image" src="https://static.us.edusercontent.com/files/Dnim319NQ4JHsHv9ZgIKtSWb"/> This first sentence in "satisfying assignment" currently
 just describes a generic assignment. In order to be a "satisfying"
 assignment, the assignment has to be such that the boolean formula
 evaluates to True.</p>
 </blockquote>
-<ul>
-<li><strong>Comment</strong>
+    </div>
+  </div>
+  <ul>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--staff">Staff / Instructor Response</span></div>
+    <div class="thread-comment__body">
 <blockquote>
 <p>The first sentence describes the structure of the satisfying
 assignment. The second sentence introduces the qualifications for the
 boolean formula to be satisfied.</p>
 <p>Students have historically had misconceptions about the structure of
 the satisfying assignment so this is stated separately for emphasis.</p>
-</blockquote></li>
-</ul></li>
-</ul>
+</blockquote>
+    </div>
+  </div>
+</li>
+  </ul>
+</li>
+
+    </ul>
+  </div>
+</details>
 </main>
 
 <!-- code highlighting -->
@@ -270,20 +419,20 @@ the satisfying assignment so this is stated separately for emphasis.</p>
       renderMathInElement(document.querySelector('.content, .all-weeks-content') || document.body, {
         delimiters: [
           { left: '$$', right: '$$', display: true },
-          { left: '\\[', right: '\\]', display: true },
+          { left: '\[', right: '\]', display: true },
           { left: '$', right: '$', display: false },
-          { left: '\\(', right: '\\)', display: false }
+          { left: '\(', right: '\)', display: false }
         ],
         throwOnError: false,
         preProcess: function(math) {
           return math
-            .replace(/\\left\\\[/g, '\\left[')
-            .replace(/\\right\\\]/g, '\\right]')
+            .replace(/\left\\[/g, '\left[')
+            .replace(/\right\\]/g, '\right]')
             .replace(/&amp;/g, '&')
             .replace(/&lt;/g, '<')
             .replace(/&gt;/g, '>');
         },
-        macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
+        macros: { '\R': '\mathbb{R}', '\set': '\{#1\}', '\n': '\overrightarrow' }
       });
     }
   }

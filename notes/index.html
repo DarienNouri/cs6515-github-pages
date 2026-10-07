@@ -3,18 +3,76 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>notes - CS6515</title>
+<title>Course Notes — CS6515</title>
 <link rel="stylesheet" href="../theme.css">
 </head>
 <body>
-<header class="topbar"><a class="home" href="../index.html">CS6515</a><span class="crumbloc">notes</span><button class="search-trigger" type="button" data-search-trigger aria-label="Search site"><span class="search-trigger__label">Search</span><kbd data-search-shortcut>Cmd K</kbd></button>
+<header class="topbar">
+  <div class="topbar__left">
+    <a class="home" href="../index.html">CS6515</a>
+    <span class="crumbloc">Course Notes</span>
+  </div>
+  <div class="topbar__actions">
+    <button class="search-trigger" type="button" data-search-trigger aria-label="Search site">
+      <span class="search-trigger__label">Search</span>
+      <kbd data-search-shortcut>Cmd K</kbd>
+    </button>
+  </div>
 </header>
-<main class="content">
-<h1>notes</h1>
-<ul>
-<li><a href="ga-notes.pdf">ga-notes.pdf</a></li>
-<li><a href="graphs/">graphs/</a></li>
-</ul>
+<main class="content" style="max-width: 54rem;">
+  <h1>Course Study Notes & Syntheses</h1>
+  <p style="color:var(--muted); font-size:1.05rem; margin-bottom:2rem;">
+    Comprehensive student notes, lecture summaries, and gold-standard module walkthroughs gathered across all CS6515 units.
+  </p>
+
+  <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem; margin-bottom: 2.5rem;">
+    <!-- Card 1: Graph Study Suite Hub -->
+    <div class="study-note-card" style="padding: 1.5rem; display:flex; flex-direction:column; justify-content:space-between;">
+      <div>
+        <div class="study-note-badge-row">
+          <span class="study-module-badge study-module-badge--fund">Interactive Hub</span>
+          <span class="study-hub-stat stat--exam">Exam 2 Linchpin</span>
+        </div>
+        <h2 style="font-size:1.3rem; margin:0.4rem 0 0.5rem; color:#fff;">⚡ Graph Theory Study Suite</h2>
+        <p style="font-size:0.92rem; color:var(--muted); line-height:1.5; margin-bottom:1rem;">
+          Complete 7-part curriculum (GR0–GR4, Master Study Plan, and Cheat Sheet) with interactive on-demand inline previews, KaTeX math proofs, and Kosaraju/Kruskal walkthroughs.
+        </p>
+      </div>
+      <a href="../02_by_topic/GR_graphs/study-notes/" class="btn-open-full" style="justify-content:center; padding:0.6rem 1rem;">
+        Open Graph Study Suite ↗
+      </a>
+    </div>
+
+    <!-- Card 2: Full GA Notes PDF -->
+    <div class="study-note-card" style="padding: 1.5rem; display:flex; flex-direction:column; justify-content:space-between;">
+      <div>
+        <div class="study-note-badge-row">
+          <span class="study-module-badge study-module-badge--plan">PDF Document</span>
+          <span class="study-hub-stat">Full Course</span>
+        </div>
+        <h2 style="font-size:1.3rem; margin:0.4rem 0 0.5rem; color:#fff;">📑 Full Course GA Notes (PDF)</h2>
+        <p style="font-size:0.92rem; color:var(--muted); line-height:1.5; margin-bottom:1rem;">
+          Comprehensive 240+ page aggregated course notes document covering DP, Divide & Conquer, Graphs, Max-Flow, NP-Completeness, and Linear Programming.
+        </p>
+      </div>
+      <a href="ga-notes.pdf" class="btn-open-full" style="justify-content:center; padding:0.6rem 1rem;">
+        Download / View ga-notes.pdf ↗
+      </a>
+    </div>
+  </div>
+
+  <h2 style="font-size:1.15rem; color:#fff; border-bottom:1px solid var(--border); padding-bottom:0.5rem; margin-bottom:1rem;">
+    Direct Graph Module Shortcuts
+  </h2>
+  <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.6rem;">
+    <a href="../02_by_topic/GR_graphs/study-notes/00-STUDY-PLAN.html" class="study-jump-pill" style="padding:0.5rem 0.8rem;"><span class="pill-tag">PLAN</span> Master Study Plan</a>
+    <a href="../02_by_topic/GR_graphs/study-notes/01-GR0-Graph-Fundamentals.html" class="study-jump-pill" style="padding:0.5rem 0.8rem;"><span class="pill-tag">GR0</span> Fundamentals (DFS/BFS)</a>
+    <a href="../02_by_topic/GR_graphs/study-notes/02-GR1-Strongly-Connected-Components.html" class="study-jump-pill" style="padding:0.5rem 0.8rem;"><span class="pill-tag">GR1</span> Strongly Connected Components</a>
+    <a href="../02_by_topic/GR_graphs/study-notes/03-GR2-2SAT.html" class="study-jump-pill" style="padding:0.5rem 0.8rem;"><span class="pill-tag">GR2</span> 2-Satisfiability (2-SAT)</a>
+    <a href="../02_by_topic/GR_graphs/study-notes/04-GR3-Minimum-Spanning-Tree.html" class="study-jump-pill" style="padding:0.5rem 0.8rem;"><span class="pill-tag">GR3</span> Minimum Spanning Tree</a>
+    <a href="../02_by_topic/GR_graphs/study-notes/05-GR4-Markov-Chains-PageRank.html" class="study-jump-pill" style="padding:0.5rem 0.8rem;"><span class="pill-tag">GR4</span> Markov Chains & PageRank</a>
+    <a href="../02_by_topic/GR_graphs/study-notes/06-Graphs-Cheat-Sheet.html" class="study-jump-pill" style="padding:0.5rem 0.8rem;"><span class="pill-tag">CHEAT</span> 📝 Graphs Cheat Sheet</a>
+  </div>
 </main>
 <script src="../site.js" defer></script>
 </body>

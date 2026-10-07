@@ -20,6 +20,20 @@
     ["01_by_week/W11_Advanced-FFT-Crypto-Bloom/index.html", "Week 11 - Advanced Topics"]
   ];
 
+  const courseWeeks = [
+    { num: 1, id: "W01", path: "01_by_week/W01_DP1-DP2/index.html", title: "Intro & DP Foundations", modules: "DP1, DP2", topics: "Fibonacci, LIS, LCS, Knapsack, Chain Multiply", unit: "Unit 1: Dynamic Programming & Divide-and-Conquer", exam: null },
+    { num: 2, id: "W02", path: "01_by_week/W02_DC3-DC1/index.html", title: "Divide & Conquer Foundations", modules: "DC3, DC1", topics: "Master Theorem, Recurrences, Karatsuba Multiply", unit: "Unit 1: Dynamic Programming & Divide-and-Conquer", exam: null },
+    { num: 3, id: "W03", path: "01_by_week/W03_DC2/index.html", title: "Linear-Time Selection", modules: "DC2", topics: "QuickSelect, Median of Medians", unit: "Unit 1: Dynamic Programming & Divide-and-Conquer", exam: null },
+    { num: 4, id: "W04", path: "01_by_week/W04_DP3-GR1-GR2_EXAM1/index.html", title: "DP on DAGs, SCCs, 2-SAT", modules: "DP3, GR1, GR2", topics: "DAG Shortest Paths, Kosaraju SCC, 2-SAT", unit: "Unit 1: Dynamic Programming & Divide-and-Conquer", exam: "Exam 1" },
+    { num: 5, id: "W05", path: "01_by_week/W05_GR3/index.html", title: "Minimum Spanning Trees", modules: "GR3", topics: "Kruskal's, Prim's, Cut Property", unit: "Unit 2: Graph Algorithms & Network Flow", exam: null },
+    { num: 6, id: "W06", path: "01_by_week/W06_MF1-MF2/index.html", title: "Max-Flow Foundations", modules: "MF1, MF2", topics: "Ford-Fulkerson, Residual Graphs, Max-Flow/Min-Cut", unit: "Unit 2: Graph Algorithms & Network Flow", exam: null },
+    { num: 7, id: "W07", path: "01_by_week/W07_MF4_EXAM2/index.html", title: "Edmonds-Karp & Matching", modules: "MF4", topics: "Edmonds-Karp, Bipartite Matching", unit: "Unit 2: Graph Algorithms & Network Flow", exam: "Exam 2" },
+    { num: 8, id: "W08", path: "01_by_week/W08_NP1-NP2-NP3/index.html", title: "NP-Completeness & Reductions", modules: "NP1, NP2, NP3", topics: "P vs NP, 3-SAT, Independent Set, Vertex Cover", unit: "Unit 3: Intractability & Linear Programming", exam: null },
+    { num: 9, id: "W09", path: "01_by_week/W09_LP1-LP2-LP3/index.html", title: "Linear Programming & Duality", modules: "LP1, LP2, LP3", topics: "Formulations, Simplex Geometry, Duality", unit: "Unit 3: Intractability & Linear Programming", exam: null },
+    { num: 10, id: "W10", path: "01_by_week/W10_LP4-NP4-NP5_EXAM3/index.html", title: "Approximation & Undecidability", modules: "LP4, NP4, NP5", topics: "Max-SAT 7/8, ILP, Halting Problem", unit: "Unit 3: Intractability & Linear Programming", exam: "Exam 3" },
+    { num: 11, id: "W11", path: "01_by_week/W11_Advanced-FFT-Crypto-Bloom/index.html", title: "Advanced Topics & Review", modules: "FFT, RA1-3", topics: "Fast Fourier Transform, RSA Crypto, Bloom Filters", unit: "Unit 4: Advanced Topics & Review", exam: null }
+  ];
+
   const topicPages = [
     ["02_by_topic/DP_dynamic-programming/index.html", "Dynamic Programming"],
     ["02_by_topic/DC_divide-and-conquer/index.html", "Divide & Conquer"],
@@ -43,9 +57,11 @@
     ["01_by_week/index.html", "All Weeks"],
     ["01_by_week/all-in-one.html", "All Weeks - Stacked"],
     ["02_by_topic/index.html", "All Topics"],
+    ["cs6515-algorithm-rules-and-guidelines/index.html", "Rules & Guidance"],
     ["module-week-schedule.html", "Course Schedule"],
     ["textbooks/index.html", "Textbooks"],
-    ["notes/index.html", "Notes"]
+    ["notes/index.html", "Notes"],
+    ["02_by_topic/GR_graphs/study-notes/index.html", "Graph Study Suite"]
   ];
 
   const courseHierarchy = [
@@ -79,6 +95,7 @@
       title: "Unit 2: Graph Algorithms & Network Flow",
       badge: "Exam 2",
       items: [
+        { path: "02_by_topic/GR_graphs/study-notes/index.html", title: "⚡ Graph Theory Study Suite (GR0–GR4)", modules: "GR0–GR4", subtitle: "All-in-one interactive guides: DFS/BFS, SCCs, 2-SAT, MST, Markov & Cheat Sheet", badge: "Suite" },
         { path: "01_by_week/W05_GR3/index.html", title: "Week 5 — Minimum Spanning Trees", modules: "GR3", subtitle: "Kruskal's & Prim's, Cut Property" },
         { path: "01_by_week/W06_MF1-MF2/index.html", title: "Week 6 — Max-Flow Basics & Duality", modules: "MF1, MF2", subtitle: "Ford-Fulkerson, Max-Flow = Min-Cut" },
         { path: "01_by_week/W07_MF4_EXAM2/index.html", title: "Week 7 — Edmonds-Karp & Applications + Exam 2", modules: "MF4", subtitle: "Edmonds-Karp, Bipartite Matching · Exam 2 Window", exam: "Exam 2" }
@@ -114,13 +131,15 @@
       title: "Rules & Algorithm Guidelines",
       badge: "Staff Rules",
       items: [
-        { path: "cs6515-algorithm-rules-and-guidelines/8077881_Common_Course_Runtimes.html", title: "Common Course Runtimes", subtitle: "Standard runtime reference card" },
-        { path: "cs6515-algorithm-rules-and-guidelines/8077940_Dynamic_Programming_Guidance.html", title: "Dynamic Programming Guidance", subtitle: "Answer templates & grading rubric" },
-        { path: "cs6515-algorithm-rules-and-guidelines/8077944_Dynamic_Programming_Recurrence_Relations.html", title: "DP Recurrence Relations", subtitle: "State definitions & formulations" },
-        { path: "cs6515-algorithm-rules-and-guidelines/8093294_Divide_and_Conquer_Guidance.html", title: "Divide & Conquer Guidance", subtitle: "Master theorem & algorithm design" },
-        { path: "cs6515-algorithm-rules-and-guidelines/8093303_Usable_D&C_Algorithms.html", title: "Usable D&C Algorithms", subtitle: "Canonical building blocks allowed on exams" },
-        { path: "cs6515-algorithm-rules-and-guidelines/8129087_Graph_Theory_Guidance.html", title: "Graph Theory Guidance", subtitle: "Graph algorithm standards" },
-        { path: "cs6515-algorithm-rules-and-guidelines/8129088_Usable_Black_Boxes_for_Graphs.html", title: "Usable Black Boxes for Graphs", subtitle: "Standard graph algorithms permitted without proof" }
+        { path: "cs6515-algorithm-rules-and-guidelines/index.html", title: "⭐ Global Algorithm Rules & Guidance Hub", subtitle: "Unified course rules, rubrics, black-boxes & runtimes", badge: "Master Hub" },
+        { path: "cs6515-algorithm-rules-and-guidelines/index.html#dynamic-programming", title: "Dynamic Programming Guidance", subtitle: "3-part template, recurrences & rubric" },
+        { path: "cs6515-algorithm-rules-and-guidelines/index.html#graph-algorithms", title: "Graph Theory & DP on Graphs", subtitle: "Reduction flow, black boxes, DAG DP & flow" },
+        { path: "cs6515-algorithm-rules-and-guidelines/index.html#divide-and-conquer", title: "Divide & Conquer Guidance", subtitle: "Narrative format, Master Theorem & black boxes" },
+        { path: "cs6515-algorithm-rules-and-guidelines/index.html#np-completeness", title: "NP-Completeness & Reductions", subtitle: "Reduction direction, proof rubric & catalog" },
+        { path: "cs6515-algorithm-rules-and-guidelines/index.html#linear-programming", title: "Linear Programming & Duality", subtitle: "Formulation rules, duality recipe & ILP" },
+        { path: "cs6515-algorithm-rules-and-guidelines/index.html#course-standards", title: "Common Course Runtimes & Readiness", subtitle: "Official Big-O catalog & math foundations" },
+        { path: "cs6515-algorithm-rules-and-guidelines/8077940_Dynamic_Programming_Guidance.html", title: "DP Detailed Guidance Doc", subtitle: "Full staff grading rubric & examples" },
+        { path: "cs6515-algorithm-rules-and-guidelines/8129088_Usable_Black_Boxes_for_Graphs.html", title: "Graph Black Boxes Reference", subtitle: "Exhaustive inputs, arrays & runtimes" }
       ]
     }
   ];
@@ -208,6 +227,38 @@
       topbar.insertBefore(left, topbar.firstChild);
     }
 
+    let weeksBtn = left.querySelector("[data-weeks-trigger]");
+    if (!weeksBtn) {
+      weeksBtn = document.createElement("button");
+      weeksBtn.className = "weeks-trigger";
+      weeksBtn.type = "button";
+      weeksBtn.setAttribute("data-weeks-trigger", "");
+      weeksBtn.setAttribute("aria-expanded", "false");
+      weeksBtn.setAttribute("aria-label", "Browse course weeks");
+      weeksBtn.innerHTML = [
+        '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">',
+        '  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>',
+        '  <line x1="16" y1="2" x2="16" y2="6"></line>',
+        '  <line x1="8" y1="2" x2="8" y2="6"></line>',
+        '  <line x1="3" y1="10" x2="21" y2="10"></line>',
+        '</svg>',
+        '<span class="weeks-trigger__label">Weeks</span>',
+        '<span class="weeks-trigger__caret">▾</span>'
+      ].join("");
+
+      const homeEl = left.querySelector(".home, .topbar__brand");
+      if (homeEl && homeEl.nextSibling) {
+        left.insertBefore(weeksBtn, homeEl.nextSibling);
+      } else {
+        left.appendChild(weeksBtn);
+      }
+
+      const sep = document.createElement("span");
+      sep.className = "topbar__sep";
+      sep.textContent = "/";
+      left.insertBefore(sep, weeksBtn.nextSibling);
+    }
+
     let actions = topbar.querySelector(".topbar__actions");
     if (!actions) {
       actions = document.createElement("div");
@@ -267,10 +318,25 @@
       searchBtn.type = "button";
       searchBtn.setAttribute("data-search-trigger", "");
       searchBtn.setAttribute("aria-label", "Search site");
-      searchBtn.innerHTML = '<span class="search-trigger__label">Search</span><kbd data-search-shortcut></kbd>';
+      searchBtn.setAttribute("title", "Search course notes (Hotkey: ⌘K / Ctrl+K)");
+      searchBtn.innerHTML = [
+        '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">',
+        '  <circle cx="11" cy="11" r="8"></circle>',
+        '  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>',
+        '</svg>',
+        '<span class="search-trigger__label">Search</span>',
+        '<kbd data-search-shortcut></kbd>'
+      ].join("");
       actions.appendChild(searchBtn);
-    } else if (searchBtn.parentElement !== actions) {
-      actions.appendChild(searchBtn);
+    } else {
+      if (!searchBtn.querySelector("svg")) {
+        const svgStr = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>';
+        searchBtn.insertAdjacentHTML("afterbegin", svgStr);
+      }
+      searchBtn.setAttribute("title", "Search course notes (Hotkey: ⌘K / Ctrl+K)");
+      if (searchBtn.parentElement !== actions) {
+        actions.appendChild(searchBtn);
+      }
     }
 
     if (practiceBtn && searchBtn && practiceBtn.nextElementSibling !== searchBtn) {
@@ -329,6 +395,116 @@
     }
     overlay.hidden = true;
     document.documentElement.classList.remove("search-open");
+  }
+
+  function buildWeeksDropdown() {
+    if (document.querySelector("[data-weeks-dropdown]")) {
+      return document.querySelector("[data-weeks-dropdown]");
+    }
+
+    const currentPath = normalizePath(window.location.pathname);
+    const dropdown = document.createElement("div");
+    dropdown.className = "weeks-dropdown";
+    dropdown.hidden = true;
+    dropdown.setAttribute("data-weeks-dropdown", "");
+
+    const units = [
+      { name: "Unit 1: Dynamic Programming & Divide-and-Conquer", exam: "Exam 1", weeks: [1, 2, 3, 4] },
+      { name: "Unit 2: Graph Algorithms & Network Flow", exam: "Exam 2", weeks: [5, 6, 7] },
+      { name: "Unit 3: Intractability & Linear Programming", exam: "Exam 3", weeks: [8, 9, 10] },
+      { name: "Unit 4: Advanced Topics & Review", exam: "Final Prep", weeks: [11] }
+    ];
+
+    const unitsHtml = units.map(function (u) {
+      const weeksInUnit = courseWeeks.filter(function (w) { return u.weeks.indexOf(w.num) !== -1; });
+      const itemsHtml = weeksInUnit.map(function (w) {
+        const isCurrent = isCurrentPage(w.path, currentPath);
+        const examBadge = w.exam ? '<span class="weeks-item__exam">' + escapeHtml(w.exam) + '</span>' : '';
+        const currentPill = isCurrent ? '<span class="weeks-item__current-badge">HERE</span>' : '';
+
+        return [
+          '<a class="weeks-dropdown__item' + (isCurrent ? ' is-current' : '') + '" href="' + escapeHtml(hrefFor(w.path)) + '"' + (isCurrent ? ' aria-current="page"' : '') + '>',
+          '  <span class="weeks-item__num">' + escapeHtml(w.id) + '</span>',
+          '  <div class="weeks-item__content">',
+          '    <div class="weeks-item__title">Week ' + w.num + ' · ' + escapeHtml(w.title) + '</div>',
+          '    <div class="weeks-item__meta">' + escapeHtml(w.modules) + ' — ' + escapeHtml(w.topics) + '</div>',
+          '  </div>',
+          '  ' + examBadge,
+          '  ' + currentPill,
+          '</a>'
+        ].join("");
+      }).join("\n");
+
+      return [
+        '<div class="weeks-dropdown__unit">',
+        '  <div class="weeks-dropdown__unit-title">',
+        '    <span>' + escapeHtml(u.name.split(":")[0]) + '</span>',
+        '    <span class="weeks-dropdown__unit-exam">' + escapeHtml(u.exam) + '</span>',
+        '  </div>',
+        itemsHtml,
+        '</div>'
+      ].join("");
+    }).join("\n");
+
+    dropdown.innerHTML = [
+      '<div class="weeks-dropdown__header">',
+      '  <span class="weeks-dropdown__title">Course Curriculum (11 Weeks)</span>',
+      '  <a class="weeks-dropdown__link" href="' + escapeHtml(hrefFor('01_by_week/all-in-one.html')) + '">All Weeks Stacked ↗</a>',
+      '</div>',
+      unitsHtml,
+      '<div class="weeks-dropdown__footer">',
+      '  <a href="' + escapeHtml(hrefFor('01_by_week/index.html')) + '">',
+      '    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>',
+      '    <span>Chronological View</span>',
+      '  </a>',
+      '  <a href="' + escapeHtml(hrefFor('module-week-schedule.html')) + '">',
+      '    <span>Term Schedule ↗</span>',
+      '  </a>',
+      '</div>'
+    ].join("");
+
+    document.body.appendChild(dropdown);
+    return dropdown;
+  }
+
+  function openWeeksDropdown() {
+    const dropdown = buildWeeksDropdown();
+    const trigger = document.querySelector("[data-weeks-trigger]");
+    if (!dropdown || !trigger) return;
+
+    closeTreeDropdown();
+    closeSearch();
+
+    const rect = trigger.getBoundingClientRect();
+    dropdown.style.top = (rect.bottom + 6) + "px";
+    dropdown.style.left = Math.max(10, Math.min(rect.left, window.innerWidth - 450)) + "px";
+
+    dropdown.hidden = false;
+    trigger.setAttribute("aria-expanded", "true");
+
+    const currentItem = dropdown.querySelector(".weeks-dropdown__item.is-current");
+    if (currentItem) {
+      setTimeout(function () {
+        currentItem.scrollIntoView({ block: "nearest", behavior: "smooth" });
+      }, 50);
+    }
+  }
+
+  function closeWeeksDropdown() {
+    const dropdown = document.querySelector("[data-weeks-dropdown]");
+    const trigger = document.querySelector("[data-weeks-trigger]");
+    if (!dropdown) return;
+    dropdown.hidden = true;
+    if (trigger) trigger.setAttribute("aria-expanded", "false");
+  }
+
+  function toggleWeeksDropdown() {
+    const dropdown = document.querySelector("[data-weeks-dropdown]");
+    if (dropdown && !dropdown.hidden) {
+      closeWeeksDropdown();
+    } else {
+      openWeeksDropdown();
+    }
   }
 
   function buildTreeDropdown() {
@@ -670,6 +846,45 @@
     const next = currentIndex >= 0 && currentIndex < group.items.length - 1 ? group.items[currentIndex + 1] : null;
     const parent = group.home || ["index.html", "Home"];
 
+    // 0) In-content Week Quick-Switcher Strip (for week pages, module pages, and study notes)
+    if (!content.querySelector("[data-week-strip]")) {
+      const isWeekContext = group.context === "Week" ||
+                            path.startsWith("01_by_week/") ||
+                            path.includes("study-notes") ||
+                            courseWeeks.some(function(w) { return isCurrentPage(w.path, path); });
+      if (isWeekContext && path !== "01_by_week/all-in-one.html") {
+        const strip = document.createElement("nav");
+        strip.className = "week-strip";
+        strip.setAttribute("data-week-strip", "");
+        strip.setAttribute("aria-label", "Course week switcher");
+
+        const pillsHtml = courseWeeks.map(function (w) {
+          const isCurrent = isCurrentPage(w.path, path);
+          const examTag = w.exam ? '<span class="week-strip__exam-tag">' + (w.num === 4 ? 'E1' : w.num === 7 ? 'E2' : 'E3') + '</span>' : '';
+          return [
+            '<a class="week-strip__pill' + (isCurrent ? ' is-current' : '') + (w.exam ? ' has-exam' : '') + '" href="' + escapeHtml(hrefFor(w.path)) + '" title="Week ' + w.num + ' — ' + escapeHtml(w.title) + ' (' + escapeHtml(w.modules) + ')' + (w.exam ? ' · ' + w.exam : '') + '">',
+            '  <span>' + w.id + '</span>',
+            '  ' + examTag,
+            '</a>'
+          ].join("");
+        }).join("\n");
+
+        strip.innerHTML = [
+          '<span class="week-strip__label">Weeks</span>',
+          '<div class="week-strip__track">',
+          pillsHtml,
+          '</div>'
+        ].join("");
+
+        const firstEl = content.firstElementChild;
+        if (firstEl) {
+          content.insertBefore(strip, firstEl);
+        } else {
+          content.appendChild(strip);
+        }
+      }
+    }
+
     // 1) In-content Top Navigation Bar
     if (!content.querySelector("[data-top-nav]")) {
       // Clean up crappy legacy blockquote link lines (◀ ... All weeks ... ▶)
@@ -840,6 +1055,105 @@
     }
   }
 
+  function setupStickyMeasurements() {
+    function updateMeasurements() {
+      const topbar = document.querySelector(".topbar");
+      if (topbar) {
+        const h = topbar.getBoundingClientRect().height;
+        if (h > 0) {
+          document.documentElement.style.setProperty("--topbar-h", Math.round(h) + "px");
+        }
+      }
+      const toolbar = document.querySelector(".top-nav-bar, .guidance-toolbar");
+      if (toolbar) {
+        const th = toolbar.getBoundingClientRect().height;
+        if (th > 0) {
+          document.documentElement.style.setProperty("--toolbar-h", Math.round(th) + "px");
+        }
+      } else {
+        document.documentElement.style.setProperty("--toolbar-h", "0px");
+      }
+    }
+
+    updateMeasurements();
+    window.addEventListener("resize", updateMeasurements, { passive: true });
+    window.addEventListener("orientationchange", updateMeasurements, { passive: true });
+
+    const topbar = document.querySelector(".topbar");
+    if (topbar && "ResizeObserver" in window) {
+      const ro = new ResizeObserver(function () {
+        updateMeasurements();
+      });
+      ro.observe(topbar);
+    }
+
+    const toolbar = document.querySelector(".top-nav-bar, .guidance-toolbar");
+    if (toolbar && "ResizeObserver" in window) {
+      const roToolbar = new ResizeObserver(function () {
+        updateMeasurements();
+      });
+      roToolbar.observe(toolbar);
+    }
+  }
+
+  function setupStickyToolbar() {
+    const topNav = document.querySelector(".top-nav-bar");
+    if (!topNav) return;
+
+    let sentinel = document.querySelector("[data-top-nav-sentinel]");
+    if (!sentinel) {
+      sentinel = document.createElement("div");
+      sentinel.setAttribute("data-top-nav-sentinel", "");
+      sentinel.style.position = "relative";
+      sentinel.style.height = "1px";
+      sentinel.style.marginTop = "-1px";
+      sentinel.style.pointerEvents = "none";
+      sentinel.style.visibility = "hidden";
+      topNav.parentNode.insertBefore(sentinel, topNav);
+    }
+
+    function checkStuck() {
+      const topbar = document.querySelector(".topbar");
+      const topbarH = topbar ? topbar.getBoundingClientRect().height : 52;
+      const sentinelRect = sentinel.getBoundingClientRect();
+      if (sentinelRect.top < topbarH) {
+        topNav.classList.add("is-stuck");
+      } else {
+        topNav.classList.remove("is-stuck");
+      }
+    }
+
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver(
+        function (entries) {
+          const entry = entries[0];
+          const topbar = document.querySelector(".topbar");
+          const topbarH = topbar ? topbar.getBoundingClientRect().height : 52;
+          if (!entry.isIntersecting && entry.boundingClientRect.top < topbarH) {
+            topNav.classList.add("is-stuck");
+          } else if (entry.isIntersecting || entry.boundingClientRect.top >= topbarH) {
+            topNav.classList.remove("is-stuck");
+          }
+        },
+        { threshold: [0, 1] }
+      );
+      observer.observe(sentinel);
+    }
+
+    let scrollTicking = false;
+    window.addEventListener("scroll", function () {
+      if (!scrollTicking) {
+        window.requestAnimationFrame(function () {
+          checkStuck();
+          scrollTicking = false;
+        });
+        scrollTicking = true;
+      }
+    }, { passive: true });
+
+    checkStuck();
+  }
+
   function buildSidebarAndScrollspy() {
     const content = document.querySelector("main.content");
     if (!content || document.querySelector("[data-sidebar-toc]")) {
@@ -945,34 +1259,49 @@
         '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">',
         '  <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>',
         '</svg>',
-        '<span>Outline</span>'
+        '<span class="toc-trigger__label">Outline</span>'
       ].join("");
       actions.insertBefore(outlineBtn, actions.firstChild);
+    }
+
+    const topNavCenter = document.querySelector(".top-nav-bar__center");
+    if (topNavCenter && !topNavCenter.querySelector("[data-toc-drawer-toggle]")) {
+      const navOutlineBtn = document.createElement("button");
+      navOutlineBtn.className = "btn btn--outline-jump";
+      navOutlineBtn.type = "button";
+      navOutlineBtn.setAttribute("data-toc-drawer-toggle", "");
+      navOutlineBtn.setAttribute("aria-label", "Toggle page outline");
+      navOutlineBtn.innerHTML = '<span>Outline</span>';
+      topNavCenter.insertBefore(navOutlineBtn, topNavCenter.firstChild);
     }
 
     function openDrawer() {
       sidebar.classList.add("is-open");
       backdrop.classList.add("is-open");
-      if (outlineBtn) outlineBtn.setAttribute("aria-expanded", "true");
+      document.querySelectorAll("[data-toc-drawer-toggle]").forEach(function (btn) {
+        btn.setAttribute("aria-expanded", "true");
+      });
       document.documentElement.classList.add("sidebar-open");
     }
 
     function closeDrawer() {
       sidebar.classList.remove("is-open");
       backdrop.classList.remove("is-open");
-      if (outlineBtn) outlineBtn.setAttribute("aria-expanded", "false");
+      document.querySelectorAll("[data-toc-drawer-toggle]").forEach(function (btn) {
+        btn.setAttribute("aria-expanded", "false");
+      });
       document.documentElement.classList.remove("sidebar-open");
     }
 
-    if (outlineBtn) {
-      outlineBtn.addEventListener("click", function () {
+    document.querySelectorAll("[data-toc-drawer-toggle]").forEach(function (btn) {
+      btn.addEventListener("click", function () {
         if (sidebar.classList.contains("is-open")) {
           closeDrawer();
         } else {
           openDrawer();
         }
       });
-    }
+    });
 
     const closeBtn = sidebar.querySelector("[data-sidebar-close]");
     if (closeBtn) {
@@ -983,10 +1312,16 @@
 
     sidebar.addEventListener("click", function (event) {
       const link = event.target.closest(".sidebar-toc__link");
-      if (link && window.innerWidth <= 1120) {
+      if (link && window.innerWidth <= 960) {
         closeDrawer();
       }
     });
+
+    window.addEventListener("resize", function () {
+      if (window.innerWidth > 960 && sidebar.classList.contains("is-open")) {
+        closeDrawer();
+      }
+    }, { passive: true });
 
     function updateScrollspy() {
       const scrollPos = window.scrollY + 115;
@@ -1114,6 +1449,18 @@
 
   function bindEvents() {
     document.addEventListener("click", function (event) {
+      const weeksTrigger = event.target.closest("[data-weeks-trigger]");
+      if (weeksTrigger) {
+        event.preventDefault();
+        toggleWeeksDropdown();
+        return;
+      }
+
+      const weeksDropdown = document.querySelector("[data-weeks-dropdown]");
+      if (weeksDropdown && !weeksDropdown.hidden && !event.target.closest("[data-weeks-dropdown]")) {
+        closeWeeksDropdown();
+      }
+
       const treeTrigger = event.target.closest("[data-tree-trigger]");
       if (treeTrigger) {
         event.preventDefault();
@@ -1144,6 +1491,7 @@
       }
 
       if (event.key === "Escape") {
+        closeWeeksDropdown();
         closeTreeDropdown();
         closeSearch();
         const sidebar = document.querySelector("[data-sidebar-toc]");
@@ -1296,16 +1644,484 @@
     }
   }
 
+  function enhanceStudyContent() {
+    const content = document.querySelector(".content, .all-weeks-content");
+    if (!content) return;
+
+    // 1. Semantic Callouts: Tip, Intuition, Lemma, Claim, Reference, Warning
+    content.querySelectorAll("blockquote").forEach(function (bq) {
+      if (bq.classList.contains("callout--styled")) return;
+      const text = bq.textContent.trim();
+      if (text.includes("🎯") || text.includes("Exam Tip") || text.includes("Tip:")) {
+        bq.classList.add("callout--tip", "callout--styled");
+      } else if (text.includes("💡") || text.includes("Intuition")) {
+        bq.classList.add("callout--intuition", "callout--styled");
+      } else if (text.includes("📚") || text.includes("Reference:")) {
+        bq.classList.add("callout--ref", "callout--styled");
+      } else if (/^Lemma[:\s]/i.test(text) || text.includes("Lemma:")) {
+        bq.classList.add("callout--lemma", "callout--styled");
+      } else if (/^Claim[:\s]/i.test(text) || text.includes("Claim:")) {
+        bq.classList.add("callout--claim", "callout--styled");
+      } else if (/^Warning[:\s]/i.test(text) || text.includes("⚠️")) {
+        bq.classList.add("callout--warning", "callout--styled");
+      }
+    });
+
+    // 2. Multi-level List Hierarchy Tagging
+    content.querySelectorAll("ul, ol").forEach(function (list) {
+      if (list.closest(".algo-card__meta, .search-dialog, .sidebar-toc, .tree-dropdown, .top-nav-bar")) return;
+      let depth = 1;
+      let parent = list.parentElement;
+      while (parent && parent !== content) {
+        if (parent.tagName === "UL" || parent.tagName === "OL") {
+          depth++;
+        }
+        parent = parent.parentElement;
+      }
+      list.setAttribute("data-depth", String(depth));
+      list.classList.add("list-depth-" + Math.min(depth, 3));
+      if (depth > 1) {
+        list.classList.add("list-nested");
+      }
+    });
+
+    // 3. Elevate Standalone List Label Items (e.g. <li><p>Output:</p></li> or <li>Input:</li>)
+    content.querySelectorAll("li").forEach(function (li) {
+      if (li.closest(".algo-card, .search-dialog, .sidebar-toc, .tree-dropdown")) return;
+      const firstChild = li.firstElementChild;
+      const targetEl = (firstChild && firstChild.tagName === "P") ? firstChild : li;
+      if (!targetEl || !targetEl.childNodes || targetEl.childNodes.length === 0) return;
+      const firstNode = targetEl.childNodes[0];
+      if (firstNode.nodeType !== Node.TEXT_NODE) return;
+      const txt = firstNode.textContent.trim();
+      
+      const labelMap = {
+        "Input:": { cls: "spec-tag--input", text: "INPUT" },
+        "Output:": { cls: "spec-tag--output", text: "OUTPUT" },
+        "Runtime:": { cls: "spec-tag--runtime", text: "RUNTIME" },
+        "Internal:": { cls: "spec-tag--internal", text: "INTERNAL" },
+        "Implementation details:": { cls: "spec-tag--ref", text: "IMPLEMENTATION" },
+        "Common uses:": { cls: "spec-tag--uses", text: "COMMON USES" },
+        "Common modifications:": { cls: "spec-tag--mods", text: "MODIFICATIONS" },
+        "Reference implementation:": { cls: "spec-tag--ref", text: "REFERENCE" }
+      };
+
+      for (let key in labelMap) {
+        if (txt === key || txt.startsWith(key)) {
+          li.classList.add("spec-item");
+          const tagSpan = document.createElement("span");
+          tagSpan.className = "spec-tag " + labelMap[key].cls;
+          tagSpan.textContent = labelMap[key].text;
+          
+          firstNode.textContent = txt.slice(key.length).trim();
+          targetEl.insertBefore(tagSpan, firstNode);
+          break;
+        }
+      }
+    });
+
+    // 4. Algorithm Black Box Auto-Card Conversion
+    const paras = Array.from(content.querySelectorAll("p"));
+    paras.forEach(function (p) {
+      if (p.closest(".algo-card")) return;
+      const strong = p.querySelector("strong");
+      if (!strong) return;
+      
+      const pText = p.textContent;
+      const strongText = strong.textContent.trim();
+      const isAlgo = (pText.includes("Input:") || pText.includes("see also") || pText.includes("see also:")) &&
+                     strongText.length > 1 &&
+                     strongText !== "Comment" &&
+                     strongText !== "Note:" &&
+                     strongText !== "Output:" &&
+                     strongText !== "Runtime:";
+
+      if (!isAlgo) return;
+
+      const algoName = strongText;
+      const wikiLink = p.querySelector("a");
+      const wikiHref = wikiLink ? wikiLink.getAttribute("href") : "";
+
+      // Collect sibling elements belonging to this algorithm
+      const groupElements = [];
+      let sibling = p.nextElementSibling;
+      while (sibling) {
+        if (sibling.tagName === "H1" || sibling.tagName === "H2" || sibling.tagName === "HR") break;
+        if (sibling.tagName === "P" && sibling.querySelector("strong")) {
+          const sText = sibling.textContent;
+          const sStrong = sibling.querySelector("strong").textContent.trim();
+          if ((sText.includes("Input:") || sText.includes("see also")) && sStrong !== "Comment" && sStrong !== "Note:") {
+            break;
+          }
+        }
+        groupElements.push(sibling);
+        sibling = sibling.nextElementSibling;
+      }
+
+      if (groupElements.length === 0) return;
+
+      // Extract runtime
+      let runtimeStr = "";
+      const fullText = groupElements.map(function(el) { return el.textContent; }).join(" ");
+      const runtimeMatch = fullText.match(/Runtime:[\s\S]*?(?:<code>)?(O\([^)]+\))(?:<\/code>)?/i);
+      if (runtimeMatch) {
+        runtimeStr = runtimeMatch[1].trim();
+      }
+
+      // Build .algo-card
+      const card = document.createElement("article");
+      card.className = "algo-card";
+      const slugId = "algo-" + algoName.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+      card.setAttribute("id", slugId);
+
+      // Card Header
+      const header = document.createElement("div");
+      header.className = "algo-card__header";
+
+      const titleGroup = document.createElement("div");
+      titleGroup.className = "algo-card__title-group";
+      
+      const tag = document.createElement("span");
+      tag.className = "algo-card__tag";
+      tag.textContent = "Black Box Algorithm";
+      titleGroup.appendChild(tag);
+
+      const title = document.createElement("h3");
+      title.className = "algo-card__title";
+      title.textContent = algoName;
+      titleGroup.appendChild(title);
+
+      header.appendChild(titleGroup);
+
+      const meta = document.createElement("div");
+      meta.className = "algo-card__meta";
+
+      if (runtimeStr) {
+        const runtimeBadge = document.createElement("span");
+        runtimeBadge.className = "badge badge--runtime";
+        runtimeBadge.innerHTML = '<span class="badge__label">Runtime</span> <code>' + runtimeStr + '</code>';
+        meta.appendChild(runtimeBadge);
+      }
+
+      if (wikiHref) {
+        const linkBadge = document.createElement("a");
+        linkBadge.className = "badge badge--link";
+        linkBadge.href = wikiHref;
+        linkBadge.target = "_blank";
+        linkBadge.rel = "noopener noreferrer";
+        linkBadge.innerHTML = '<span>Wikipedia</span> <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17l9.2-9.2M17 17V8H8"/></svg>';
+        meta.appendChild(linkBadge);
+      }
+
+      header.appendChild(meta);
+      card.appendChild(header);
+
+      // Card Body
+      const body = document.createElement("div");
+      body.className = "algo-card__body";
+
+      // If the original paragraph had an Input section, add an Input header tag
+      const inputBadgeWrap = document.createElement("div");
+      inputBadgeWrap.className = "algo-section__header";
+      inputBadgeWrap.innerHTML = '<span class="spec-badge spec-badge--input">Input</span>';
+      body.appendChild(inputBadgeWrap);
+
+      // Move group elements into card body
+      groupElements.forEach(function (el) {
+        if (el.tagName === "P") {
+          const pContent = el.textContent.trim();
+          if (pContent.startsWith("Implementation details:")) {
+            el.innerHTML = '<span class="spec-badge spec-badge--ref">Implementation</span>';
+            el.className = "algo-section__header";
+          } else if (pContent.startsWith("Common uses:")) {
+            el.innerHTML = '<span class="spec-badge spec-badge--uses">Common Uses</span>';
+            el.className = "algo-section__header";
+          } else if (pContent.startsWith("Common modifications:")) {
+            el.innerHTML = '<span class="spec-badge spec-badge--mods">Modifications</span>';
+            el.className = "algo-section__header";
+          } else if (pContent.startsWith("Reference implementation:")) {
+            el.innerHTML = '<span class="spec-badge spec-badge--ref">Reference Implementation</span>';
+            el.className = "algo-section__header";
+          }
+        }
+        body.appendChild(el);
+      });
+
+      card.appendChild(body);
+
+      // Insert card before original paragraph, then remove original paragraph
+      p.parentNode.insertBefore(card, p);
+      p.parentNode.removeChild(p);
+    });
+
+    // 5. Example Blocks
+    content.querySelectorAll("h2, h3, h4").forEach(function (heading) {
+      if (heading.closest(".example-block")) return;
+      const hText = heading.textContent.toLowerCase();
+      if (hText.includes("example") || hText.includes("worked example")) {
+        heading.classList.add("example-heading");
+        const badge = document.createElement("span");
+        badge.className = "example-badge";
+        badge.textContent = "Worked Example";
+        heading.insertAdjacentElement("beforebegin", badge);
+      }
+    });
+  }
+
+  /* ==========================================================================
+     Universal Mathematical Engine & KaTeX Normalization
+     ========================================================================== */
+  const katexMacros = {
+    "\\R": "\\mathbb{R}",
+    "\\set": "\\{#1\\}",
+    "\\n": "\\overrightarrow ",
+    "\\O": "\\mathcal{O}"
+  };
+
+  function pandocToLatex(html) {
+    if (!html) return "";
+    let s = html.trim();
+    if (s.startsWith("$$") && s.endsWith("$$") && s.length > 4) {
+      s = s.slice(2, -2).trim();
+    } else if (s.startsWith("$") && s.endsWith("$") && s.length > 2) {
+      s = s.slice(1, -1).trim();
+    } else if (s.startsWith("\\[") && s.endsWith("\\]") && s.length > 4) {
+      s = s.slice(2, -2).trim();
+    } else if (s.startsWith("\\(") && s.endsWith("\\)") && s.length > 4) {
+      s = s.slice(2, -2).trim();
+    }
+    s = s.replace(/(^|[^\\])\$(\d)/g, "$1\\$$2");
+
+    // Handle words after non-breaking space in subscripts (e.g., f&nbsp;feasible, (S,T)&nbsp;cut)
+    s = s.replace(/(?:&nbsp;|&#160;|\u00a0)([a-zA-Z]{2,})/g, " \\text{ $1}");
+    s = s.replace(/&(?:nbsp|#160);/gi, " ");
+    s = s.replace(/&(?:thinsp|#8201);/gi, "\\,");
+    s = s.replace(/&(?:ensp|#8194);/gi, "\\;");
+    s = s.replace(/&(?:emsp|#8195);/gi, "\\quad ");
+    s = s.replace(/&minus;/gi, "-");
+    s = s.replace(/&times;/gi, " \\times ");
+    s = s.replace(/&middot;/gi, " \\cdot ");
+    s = s.replace(/&le;/gi, " \\le ");
+    s = s.replace(/&ge;/gi, " \\ge ");
+    s = s.replace(/&ne;/gi, " \\neq ");
+    s = s.replace(/[\u2000-\u200b\u00a0]/g, " ");
+
+    // Combining characters and special unicode
+    s = s.replace(/([a-zA-Z0-9])\u20d7/g, "\\vec{$1}");
+    s = s.replace(/([a-zA-Z0-9])[\u0304\u0305]/g, "\\bar{$1}");
+    s = s.replace(/[⌀∅]/g, "\\emptyset ");
+
+    s = s.replace(/≤/g, " \\le ").replace(/≥/g, " \\ge ");
+    s = s.replace(/≠/g, " \\neq ").replace(/≈/g, " \\approx ");
+    s = s.replace(/→/g, " \\to ").replace(/⇒/g, " \\Rightarrow ");
+    s = s.replace(/∈/g, " \\in ").replace(/∣/g, " \\mid ");
+    s = s.replace(/∧/g, " \\land ").replace(/∨/g, " \\lor ");
+    s = s.replace(/∀/g, " \\forall ").replace(/∃/g, " \\exists ");
+    s = s.replace(/𝒪/g, " \\mathcal{O} ");
+    s = s.replace(/[′’]/g, "'");
+    s = s.replace(/⊤/g, "^{\\top}");
+    s = s.replace(/⋆/g, "^*");
+    s = s.replace(/∥/g, " \\parallel ");
+    s = s.replace(/≢/g, " \\not\\equiv ");
+    s = s.replace(/[◼▫]/g, " \\blacksquare ");
+
+    // HTML tag normalization BEFORE stripping tags:
+    s = s.replace(/<sub>\s*<em>(.*?)<\/em>\s*<\/sub>/gi, "_{$1}");
+    s = s.replace(/<sup>\s*<em>(.*?)<\/em>\s*<\/sup>/gi, "^{$1}");
+    s = s.replace(/<\/?em>/gi, "");
+    s = s.replace(/<strong>(.*?)<\/strong>/gi, "\\mathbf{$1}");
+    s = s.replace(/<b>(.*?)<\/b>/gi, "\\mathbf{$1}");
+    s = s.replace(/<sub>(.*?)<\/sub>/gi, "_{$1}");
+    s = s.replace(/<sup>(.*?)<\/sup>/gi, "^{$1}");
+
+    // Strip remaining HTML tags safely without deleting math < and >
+    s = s.replace(/<[^>]+>/g, "");
+
+    // Now decode HTML entities safely
+    s = s.replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">");
+    s = s.replace(/>\s*=/g, " \\ge ").replace(/<\s*=/g, " \\le ");
+    s = s.replace(/\\begin\{split\}/g, "\\begin{aligned}").replace(/\\end\{split\}/g, "\\end{aligned}");
+    s = s.replace(/u-\\&gt;v/g, "u \\to v").replace(/u->v/g, "u \\to v");
+    s = s.replace(/\\\[/g, "[").replace(/\\\]/g, "]");
+    s = s.replace(/\\</g, "<").replace(/\\>/g, ">");
+    s = s.replace(/\\overrightarrow([A-Za-z])/g, "\\overrightarrow{$1}");
+    s = s.replace(/\\overset\{\\rightarrow\}\s*([A-Za-z])/g, "\\overrightarrow{$1}");
+    s = s.replace(/\\overset\{\\rightarrow\}/g, "\\overrightarrow ");
+    s = s.replace(/\\overset\{\\to\}/g, "\\overrightarrow ");
+    s = s.replace(/(?<!\\)\blog\b/g, "\\log");
+    s = s.replace(/(?<!\\)\bln\b/g, "\\ln");
+    s = s.replace(/−/g, "-");
+    s = s.replace(/×/g, " \\times ").replace(/÷/g, " \\div ");
+    s = s.replace(/±/g, " \\pm ");
+    s = s.replace(/·|⋅/g, " \\cdot ");
+    s = s.replace(/⋯|…/g, " \\dots ");
+    s = s.replace(/ℤ/g, " \\mathbb{Z} ").replace(/ℝ/g, " \\mathbb{R} ").replace(/ℕ/g, " \\mathbb{N} ");
+    s = s.replace(/Ω/g, " \\Omega ").replace(/Θ/g, " \\Theta ");
+    s = s.replace(/\bs\.t\.\b/g, "\\text{ s.t. }");
+    s = s.replace(/\bfor\b/g, "\\text{ for }");
+    s = s.replace(/\\\*/g, "\\cdot ");
+    s = s.replace(/%/g, "\\%");
+    s = s.replace(/\s+/g, " ").trim();
+    return s;
+  }
+
+  function loadKaTeXAssets(callback) {
+    if (typeof katex !== "undefined" && typeof renderMathInElement === "function") {
+      if (callback) callback();
+      return;
+    }
+    const cssPath = hrefFor("vendor/katex/katex.min.css");
+    const jsPath = hrefFor("vendor/katex/katex.min.js");
+    const autoPath = hrefFor("vendor/katex/contrib/auto-render.min.js");
+
+    if (!document.querySelector('link[href*="katex.min.css"]')) {
+      const link = document.createElement("link");
+      link.rel = "stylesheet";
+      link.href = cssPath;
+      document.head.appendChild(link);
+    }
+
+    function loadScript(src, next) {
+      const existing = document.querySelector('script[src="' + src + '"], script[src$="' + src.split("/").pop() + '"]');
+      if (existing) {
+        if (typeof katex !== "undefined" && (src.includes("katex.min.js") || typeof renderMathInElement === "function")) {
+          if (next) next();
+          return;
+        }
+        existing.addEventListener("load", function () {
+          if (next) next();
+        });
+        return;
+      }
+      const s = document.createElement("script");
+      s.src = src;
+      s.onload = next;
+      document.head.appendChild(s);
+    }
+
+    loadScript(jsPath, function () {
+      loadScript(autoPath, function () {
+        if (callback) callback();
+      });
+    });
+  }
+
+  function renderSiteMath(rootEl) {
+    const root = rootEl || document.querySelector(".content, .all-weeks-content") || document.body;
+    if (!root) return;
+
+    if (typeof katex === "undefined" || typeof renderMathInElement !== "function") {
+      const needsMath = root.querySelector(".math, [class*='math']") ||
+        /\$|\\\(|\\\[|\\le|\\ge|\\mathcal|\\sum|\\to/.test(root.textContent || "");
+      if (needsMath) {
+        loadKaTeXAssets(function () {
+          renderSiteMath(root);
+        });
+      }
+      return;
+    }
+
+    // 1. Process all .math.inline and .math.display elements
+    root.querySelectorAll(".math.inline, .math.display, span[class*='math']").forEach(function (el) {
+      const hasError = el.querySelector(".katex-error");
+      if (el.querySelector(".katex") && !hasError) return;
+
+      const isDisplay = el.classList.contains("display") ||
+        (el.parentElement && el.parentElement.tagName === "P" && el.parentElement.children.length === 1 && !el.parentElement.textContent.replace(el.textContent, "").trim());
+      const rawHtml = el.getAttribute("data-raw-math") || (hasError ? el.getAttribute("data-raw-math") : null) || el.innerHTML;
+      if (!el.getAttribute("data-raw-math")) {
+        el.setAttribute("data-raw-math", rawHtml);
+      }
+      const tex = pandocToLatex(rawHtml);
+      if (!tex) return;
+      try {
+        katex.render(tex, el, {
+          displayMode: isDisplay,
+          throwOnError: false,
+          macros: katexMacros
+        });
+        if (isDisplay) {
+          el.setAttribute("role", "region");
+          el.setAttribute("aria-label", "Mathematical formula");
+          el.setAttribute("tabindex", "0");
+        }
+      } catch (err) {
+        console.warn("KaTeX render span error:", err);
+      }
+    });
+
+    // 2. Auto-render delimiters across general text
+    try {
+      renderMathInElement(root, {
+        delimiters: [
+          { left: "$$", right: "$$", display: true },
+          { left: "\\[", right: "\\]", display: true },
+          { left: "$", right: "$", display: false },
+          { left: "\\(", right: "\\)", display: false }
+        ],
+        throwOnError: false,
+        preProcess: function (math) {
+          return math
+            .replace(/(?:&nbsp;|&#160;|\u00a0)([a-zA-Z]{2,})/g, " \\text{ $1}")
+            .replace(/&(?:nbsp|#160);/gi, " ")
+            .replace(/&(?:thinsp|#8201);/gi, "\\,")
+            .replace(/&(?:ensp|#8194);/gi, "\\;")
+            .replace(/&(?:emsp|#8195);/gi, "\\quad ")
+            .replace(/&minus;/gi, "-")
+            .replace(/&times;/gi, " \\times ")
+            .replace(/&middot;/gi, " \\cdot ")
+            .replace(/&le;/gi, " \\le ")
+            .replace(/&ge;/gi, " \\ge ")
+            .replace(/&ne;/gi, " \\neq ")
+            .replace(/[\u2000-\u200b\u00a0]/g, " ")
+            .replace(/([a-zA-Z0-9])\u20d7/g, "\\vec{$1}")
+            .replace(/([a-zA-Z0-9])[\u0304\u0305]/g, "\\bar{$1}")
+            .replace(/[⌀∅]/g, "\\emptyset ")
+            .replace(/\\left\\\[/g, "\\left[")
+            .replace(/\\right\\\]/g, "\\right]")
+            .replace(/\\\*/g, "\\cdot ")
+            .replace(/\\overrightarrow([A-Za-z])/g, "\\overrightarrow{$1}")
+            .replace(/\\overset\{\\rightarrow\}\s*([A-Za-z])/g, "\\overrightarrow{$1}")
+            .replace(/\\overset\{\\rightarrow\}/g, "\\overrightarrow ")
+            .replace(/\\overset\{\\to\}/g, "\\overrightarrow ")
+            .replace(/&amp;/g, "&")
+            .replace(/&lt;/g, "<")
+            .replace(/&gt;/g, ">");
+        },
+        macros: katexMacros
+      });
+    } catch (e) {
+      console.warn("KaTeX auto-render error:", e);
+    }
+  }
+
+  window.renderSiteMath = renderSiteMath;
+  window.renderMath = renderSiteMath;
+
+  function ensureViewportFit() {
+    const meta = document.querySelector('meta[name="viewport"]');
+    if (meta && !meta.content.includes("viewport-fit")) {
+      meta.content = meta.content + ", viewport-fit=cover";
+    }
+  }
+
   function init() {
-    ensureTopbar();
-    buildTreeDropdown();
-    buildSearchDialog();
-    injectNavigation();
-    buildSidebarAndScrollspy();
-    bindPageToc();
-    bindEvents();
-    loadSearchIndex();
-    initPracticeMode();
+    try { ensureViewportFit(); } catch (e) { console.warn("ensureViewportFit error:", e); }
+    try { renderSiteMath(); } catch (e) { console.warn("renderSiteMath error:", e); }
+    try { ensureTopbar(); } catch (e) { console.warn("ensureTopbar error:", e); }
+    try { buildWeeksDropdown(); } catch (e) { console.warn("buildWeeksDropdown error:", e); }
+    try { buildTreeDropdown(); } catch (e) { console.warn("buildTreeDropdown error:", e); }
+    try { buildSearchDialog(); } catch (e) { console.warn("buildSearchDialog error:", e); }
+    try { injectNavigation(); } catch (e) { console.warn("injectNavigation error:", e); }
+    try { setupStickyMeasurements(); } catch (e) { console.warn("setupStickyMeasurements error:", e); }
+    try { setupStickyToolbar(); } catch (e) { console.warn("setupStickyToolbar error:", e); }
+    try { buildSidebarAndScrollspy(); } catch (e) { console.warn("buildSidebarAndScrollspy error:", e); }
+    try { bindPageToc(); } catch (e) { console.warn("bindPageToc error:", e); }
+    try { bindEvents(); } catch (e) { console.warn("bindEvents error:", e); }
+    try { loadSearchIndex(); } catch (e) { console.warn("loadSearchIndex error:", e); }
+    try { initPracticeMode(); } catch (e) { console.warn("initPracticeMode error:", e); }
+    try { enhanceStudyContent(); } catch (e) { console.warn("enhanceStudyContent error:", e); }
+    try { renderSiteMath(); } catch (e) { console.warn("renderSiteMath error:", e); }
   }
 
   if (document.readyState === "loading") {

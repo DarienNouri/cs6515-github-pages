@@ -8,159 +8,146 @@
 <link rel="stylesheet" href="../theme.css">
 <link rel="stylesheet" href="../vendor/katex/katex.min.css">
 <link rel="stylesheet" href="../vendor/highlight/styles/tokyo-night-dark.min.css">
-
 </head>
 <body>
 <header class="topbar">
   <a class="home" href="../index.html">CS6515</a>
+  <span class="topbar__sep">/</span>
+  <a class="crumbloc" href="index.html">Algorithm Guidance</a>
+  <span class="topbar__sep">/</span>
   <span class="crumbloc">Graph Theory Guidance</span>
-<button class="search-trigger" type="button" data-search-trigger aria-label="Search site"><span class="search-trigger__label">Search</span><kbd data-search-shortcut>Cmd K</kbd></button>
+  <button class="search-trigger" type="button" data-search-trigger aria-label="Search site"><span class="search-trigger__label">Search</span><kbd data-search-shortcut>Cmd K</kbd></button>
 </header>
 <main class="content">
 <h1 id="graph-theory-guidance">Graph Theory Guidance</h1>
-<h2 id="post">Post</h2>
-<p>Below you will find information on how you should approach solving
-Graph Theory problems in this class. Feel free to ask questions about
-writing a Graph Theory solution in this thread.</p>
-<h2 id="context">Context</h2>
-<p>A graph theory problem is a form of
-<em><strong>reduction</strong></em>. You are given some problem to
-solve, and the challenge is to solve that problem by using one of the
-graph algorithms we study this semester. In other words, you
-<em><strong>reduce</strong></em> your problem to a graph problem such
-that a known algorithm can solve it for you.</p>
-<p>The <em><strong>known algorithms</strong></em> (#192) are treated as
-a <em><strong>black-box</strong></em> - you are not allowed to change /
-modify them in any way. You can (and often will) modify the original
-problem input in some way or create a graph which represents the input -
-this becomes the input to the black-box. You then use the outputs from
-the black-box (possibly with modification) to output a solution to the
-original problem.</p>
-<h2 id="rules">Rules</h2>
-<ul>
-<li><p>NO PSEUDOCODE - YOU WILL LOSE A LOT OF POINTS</p></li>
-<li><p>You <strong>may</strong> <strong>only</strong> use known black
-box algorithms (#192).</p></li>
-<li><p>You <strong>must use</strong> <strong>one or more</strong> black
-box algorithms (#192) to solve problems.</p></li>
-<li><p>You <strong>must not modify</strong> any black box algorithms
-(#192).</p></li>
-<li><p>Re-creating a black box with modifications is the same
-thing.</p></li>
-<li><p>All graphs are in adjacency list format (see below)</p></li>
-<li><p>You can assume you always have <code>n</code> and <code>m</code>
-for purposes of runtime analysis, where <code>n</code> represents the
-number of vertices |V| and <code>m</code> represents the number of edges
-|E|.</p></li>
-<li><p>#192 isn't exactly relevant here, but it's worth another
-link.</p></li>
-<li><p>See #8 for common course runtimes, including operations performed
-to graphs.</p></li>
-</ul>
-<h2 id="required-parts-of-a-graph-theory-solution">Required Parts of a
-Graph Theory Solution</h2>
-<ul>
-<li><p><strong><strong>(a) Algorithm</strong></strong></p></li>
-<li><p>Describe "how" to solve the problem in words (narrative/paragraph
-form)</p></li>
-<li><p>Bulleted steps are fine, but pseudocode/code is not
-allowed</p></li>
-<li><p>"Pseudocode" includes line-by-line restatement of code as
-words.</p></li>
-<li><p>If you find yourself using a lot of nested bullets, you might be
-erring on the side of line-by-line conversion of code into words, which
-is not a narrative.</p></li>
-<li><p>Describe what <strong>modifications are</strong>
-<strong>performed to the</strong> <strong>input</strong>, if
-any</p></li>
-<li><p>Detail the black box algorithm(s) being used</p></li>
-<li><p>What is passed in as input</p></li>
-<li><p>What is being used from its output</p></li>
-<li><p>Describe what <strong>modifications are performed to the
-output</strong>, if any</p></li>
-<li><p>Repeat as needed for any other black boxes</p></li>
-<li><p>Detail the final return for the problem's solution</p></li>
-<li><p><strong><strong>(b) Justification of
-Correctness</strong></strong></p></li>
-<li><p>Describe "why" your algorithm solves the problem, in words
-(narrative).</p></li>
-<li><p>This is not a formal inductive proof; informal justification is
-ok.</p></li>
-<li><p>Explain how your problem is solved by the black boxes
-used</p></li>
-<li><p>Explain how changing the inputs and/or outputs gets what you
-want</p></li>
-<li><p><strong><strong>(c) Runtime Analysis</strong></strong></p></li>
-<li><p>Analyze <strong>all</strong> steps of the algorithm in
-<strong>Big-O notation</strong>.</p></li>
-<li><p>Always, <em>always</em> in this course - worst case
-Big-O.</p></li>
-<li><p>Can explain/analyze in words and assert known black-box runtimes
-without further justification.</p></li>
-<li><p>Must include run time analysis for any pre/post
-processing</p></li>
-<li><p>See #8 for common runtimes when dealing with graphs.</p></li>
-<li><p>Provide an overall final runtime in (you guessed it) Big-O
-notation, fully simplified.</p></li>
-<li><p>If the problem specifies a target runtime, you must meet that for
-full credit. If we do not specify a runtime, faster (and correct) in Big
-O notation are worth more credit.</p></li>
-<li><p>While we work with worse-case runtimes, we also work with
-<em>tightest-bound</em> runtimes.</p></li>
-<li><p>That is, even though the worst case for an O(n+m) operation
-occurs when m= n^2, it is incorrect to state O(n^2) for such an
-operation unless we know something about the graph (e.g., it is a
-clique). O(n+m) is the tightest worse-case bound on such an
-operation</p></li>
-<li><p>Similarly, if we know the graph is a tree, then m = n-1 and
-O(n+m) operations collapse to O(n).</p></li>
-<li><p>When conveying the well-known runtimes of usable black boxes, you
-are not required to simplify it, even if the graph's constraints would
-allow for it.</p></li>
-</ul>
-<h2 id="graph-representation">Graph Representation</h2>
-<p>Graphs in this class, <strong><strong>unless stated
-otherwise</strong></strong>:</p>
-<ul>
-<li><p>Are simple graphs (no multi-edges or self-loops)</p></li>
-<li><p>Are always given in adjacency list format (see DPV
-3.1.1)</p></li>
-<li><p>An array of vertices that are pointers to linked lists of
-adjacent vertices, such that each element in the list represents an edge
-to another vertex.</p></li>
-<li><p>Vertices are assumed to be labeled in such a way where they can
-be found by indexing into the array.</p></li>
-<li><p>Can be connected or disconnected, undirected or directed, sparse
-or dense</p></li>
-<li><p>If unstated by the problem, you should assume any of these could
-be true</p></li>
-<li><p>Are connected and undirected when working with MSTs</p></li>
-<li><p>Are connected and directed when working with flow
-networks</p></li>
-</ul>
-<p>When working with graphs, there are a number of common actions that
-can be presented without needing to go into details. Some examples as
-follows:</p>
-<ul>
-<li><p>Reversing a graph:</p></li>
-<li><p>"Reverse the edges in the graph".</p></li>
-<li><p>Copying a graph:</p></li>
-<li><p>"Create a copy of G and call it GCopy".</p></li>
-<li><p>Creating subgraphs:</p></li>
-<li><p>"Create a copy of G called GEven that only keeps edges with even
-numbered weights".</p></li>
-<li><p>"Create a copy of G called GK that only keeps vertices with a
-degree &gt; k".</p></li>
-<li><p>"Create a residual graph of G called Grs that uses the flows from
-our run of EK".</p></li>
-</ul>
-<p>Unless the task can't directly be completed in this runtime, each of
-these are assumed to be <code>O(n + m)</code> operations.</p>
-<p>Please ask questions regarding the expectations for Graph Theory
-problems in this thread.</p>
-<h2 id="responses-7">Responses (7)</h2>
-<ul>
-<li><p><strong>Comment</strong></p>
+
+<div class="guidance-banner">
+  <div class="guidance-banner__tags">
+    <span class="badge badge--staff">Staff Guidance</span>
+    <span class="badge badge--blue">Graph Theory</span>
+    <span class="badge badge--teal">Reductions &amp; Black Boxes</span>
+  </div>
+  <span class="text-muted">Reduction methodology, strict black-box invariance, and adjacency list standards</span>
+</div>
+
+<p class="lead">Below you will find official information on how you should approach solving Graph Theory problems in CS6515. Feel free to ask questions about writing a Graph Theory solution in this thread.</p>
+
+<section class="guidance-section">
+  <h2 id="context">Context: The Reduction Philosophy</h2>
+  <p>A graph theory problem in this course is fundamentally an exercise in <em><strong>reduction</strong></em>. You are given a computational problem, and your objective is to reduce it to a graph formulation such that a known, unmodified course algorithm solves it for you.</p>
+
+  <div class="callout callout--danger">
+    <p><strong>Strict Black-Box Rule:</strong> Known course algorithms (Post #192) must be treated as <strong>atomic black boxes</strong>. You are <strong>not allowed to modify or alter</strong> their internal execution in any way. Re-implementing a known algorithm with minor modifications is explicitly prohibited and penalized.</p>
+  </div>
+
+  <p>Instead of changing the algorithm, you modify the problem input or construct an auxiliary graph $G' = (V', E')$ representing the problem state. This graph is passed into the black box. You then extract and post-process the black-box output to form your final answer.</p>
+</section>
+
+<section class="guidance-section">
+  <h2 id="rules">Mandatory Rules</h2>
+  <ul>
+    <li><strong>NO PSEUDOCODE:</strong> Solutions written as pseudocode will suffer substantial grade deductions. Write in conceptual English prose.</li>
+    <li><strong>Whitelist Only:</strong> You may only use approved black-box algorithms from the course whitelist.</li>
+    <li><strong>Black Boxes are Invariant:</strong> Never modify a black box algorithm internally.</li>
+    <li><strong>Adjacency List Model:</strong> All graphs are assumed to use standard adjacency list representations.</li>
+    <li><strong>Variables $n$ and $m$:</strong> Assume you always know $n = |V|$ (vertex count) and $m = |E|$ (edge count) for runtime calculations.</li>
+  </ul>
+</section>
+
+<section class="guidance-section">
+  <h2 id="required-parts-of-a-graph-theory-solution">Required Parts of a Graph Theory Solution (The 3-Part Rubric)</h2>
+
+  <h3>(a) Algorithm</h3>
+  <ul>
+    <li>Describe <em>"how"</em> to solve the problem in clear English words (narrative / paragraph form).</li>
+    <li>Bulleted conceptual steps are fine; line-by-line pseudocode is prohibited.</li>
+    <li>Describe what <strong>modifications or constructions are performed to the input</strong> (e.g. vertices $V'$, edges $E'$, capacities, or edge weights).</li>
+    <li>Explicitly name the black-box algorithm(s) invoked.</li>
+    <li>State what parameters are passed in as input to the black box.</li>
+    <li>State what data is extracted from its output.</li>
+    <li>Describe any <strong>post-processing</strong> performed on the output.</li>
+    <li>State the final return value.</li>
+  </ul>
+
+  <h3>(b) Justification of Correctness</h3>
+  <ul>
+    <li>Describe <em>"why"</em> your algorithm solves the problem in words (narrative).</li>
+    <li>Informal conceptual justification is expected; a formal inductive proof is not required.</li>
+    <li>Explain why your graph construction captures the constraints of the original problem.</li>
+    <li>Explain how the black box guarantees the desired property (e.g. shortest path, max flow, MST cut optimality) on your constructed graph.</li>
+  </ul>
+
+  <h3>(c) Runtime Analysis</h3>
+  <ul>
+    <li>Analyze <strong>all</strong> steps of your algorithm in worst-case Big-O notation.</li>
+    <li>Assert standard black-box runtimes without re-proving them (e.g. Dijkstra with min-heap is $O((n + m) \log n)$).</li>
+    <li>Analyze the runtime cost of all graph pre-processing and post-processing steps.</li>
+    <li>Provide an overall final runtime in fully simplified Big-O notation.</li>
+    <li>
+      <div class="callout callout--warning">
+        <p><strong>Tightest Worst-Case Bound:</strong> While we work with worst-case runtimes, we also require the <em>tightest bound</em>. For example, even though an $O(n + m)$ traversal reaches $O(n^2)$ when $m = O(n^2)$, it is incorrect to write $O(n^2)$ unless the graph is explicitly known to be dense or a clique. $O(n + m)$ is the correct, tightest worst-case bound.</p>
+      </div>
+    </li>
+    <li>If the graph is known to be a tree, $m = n - 1$, so $O(n + m)$ collapses to $O(n)$.</li>
+  </ul>
+</section>
+
+<section class="guidance-section">
+  <h2 id="graph-representation">Graph Representation &amp; Common Primitives</h2>
+  <p>Unless explicitly stated otherwise, all graphs in CS6515:</p>
+  <ul>
+    <li>Are simple graphs (no multi-edges and no self-loops).</li>
+    <li>Are stored in <strong>adjacency list format</strong>: an array of $n$ vertices where each element points to a singly-linked list of outgoing/incident edges.</li>
+    <li>Vertices can be looked up by array index in $O(1)$ time.</li>
+    <li>May be connected or disconnected, directed or undirected, sparse or dense (assume the general case unless specified).</li>
+    <li>MST problems assume connected, undirected graphs with weighted edges.</li>
+    <li>Max Flow problems assume connected, directed graphs with capacities $c(u, v) \ge 0$.</li>
+  </ul>
+
+  <h3>Standard Primitives (All $O(n + m)$ Cost)</h3>
+  <p>The following operations are standard and can be stated directly without low-level implementation details:</p>
+  <ul>
+    <li><strong>Reversing a graph:</strong> <em>"Reverse the edges of $G$ to form $G^{rev}$"</em> ($O(n + m)$).</li>
+    <li><strong>Copying a graph:</strong> <em>"Create a copy of $G$ called $G_{copy}$"</em> ($O(n + m)$).</li>
+    <li><strong>Filtering subgraphs:</strong> <em>"Create a subgraph $G'$ retaining only edges with even weight"</em> or <em>"retaining vertices with degree $> k$"</em> ($O(n + m)$).</li>
+    <li><strong>Constructing residual graphs:</strong> <em>"Create residual graph $G_f$ using the flows from Edmonds-Karp"</em> ($O(n + m)$).</li>
+  </ul>
+</section>
+
+<!-- Executive AI Summary Card above Comments Dropdown -->
+<section class="discussion-summary" aria-labelledby="ai-summary-heading">
+  <div class="discussion-summary__header">
+    <span class="discussion-summary__badge">AI Summary</span>
+    <h3 id="ai-summary-heading" class="discussion-summary__title">Discussion Key Takeaways &amp; Staff Clarifications</h3>
+    <span class="discussion-summary__subtitle">7 discussion threads • Staff rulings</span>
+  </div>
+  <div class="discussion-summary__content">
+    <ul>
+      <li><strong>Multiple Black Boxes &amp; Custom Traversals:</strong> Chaining multiple black-box algorithms or inserting an $O(n + m)$ custom BFS/DFS scan between black-box invocations is completely valid, as long as each black box itself remains unmodified.</li>
+      <li><strong>Direct Input Graph Modification:</strong> You may modify the input graph directly in pre-processing (or construct a new graph $G'$); just account for the $O(n + m)$ transformation cost.</li>
+      <li><strong>Adjacency List Size in Space Analysis:</strong> An undirected edge $\{u, v\}$ appears twice (in $u$'s list and $v$'s list), requiring $2m$ linked list nodes. In Big-O notation, constant factors drop, yielding $O(n + m)$ total space.</li>
+      <li><strong>Exam Proofs vs Lecture Proofs:</strong> Lectures emphasize proofs of the black boxes themselves (e.g. Cut Property, Dijkstra correctness). On exams, you do NOT re-prove the black box; your correctness argument focuses entirely on justifying why your <em>graph reduction</em> maps the original problem correctly into the black box.</li>
+      <li><strong>Tree Simplification:</strong> In trees, $m = n - 1$. An $O(n + m)$ traversal collapses to $O(n)$. When reporting black-box complexities (e.g. BFS is $O(n + m)$), simplifying to $O(n)$ on trees is valid but not strictly mandatory.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- Collapsible Comments Dropdown (Collapsed by Default) -->
+<details class="comments-collapse">
+  <summary class="comments-collapse__summary">
+    <div class="comments-collapse__title-group">
+      <span class="comments-collapse__chevron">▶</span>
+      <span>Responses</span>
+      <span class="comments-collapse__count-badge">7 threads</span>
+    </div>
+    <span class="comments-collapse__hint">Click to expand discussion</span>
+  </summary>
+  <div class="comments-collapse__body">
+    <ul class="thread-tree">
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--student">Student Question</span></div>
+    <div class="thread-comment__body">
 <blockquote>
 <p>Is that ok if my algorithm include 1 (or more) black box algorithm,
 but has also other non-trivial steps that traverse the graph? As an
@@ -173,49 +160,82 @@ the curriculum)</p>
 remove all vertices before that from the graph, and add one semester.
 Repeat this step until graph is empty.</p>
 </blockquote>
-<ul>
-<li><strong>Comment</strong>
+    </div>
+  </div>
+  <ul>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--staff">Staff / Instructor Response</span></div>
+    <div class="thread-comment__body">
 <blockquote>
 <p>Yes, it's common that, as part of your solutions, there may be
 pre-processing or post-processing work that takes place around the black
 box usage.</p>
 <p>This could be creating subgraphs, modifying graphs, performing graph
 traversal, doing calculations, etc.</p>
-</blockquote></li>
-</ul></li>
-<li><p><strong>Comment</strong></p>
+</blockquote>
+    </div>
+  </div>
+</li>
+  </ul>
+</li>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--student">Student Question</span></div>
+    <div class="thread-comment__body">
 <blockquote>
 <p>I see that it says its graded; only this homework is graded?</p>
 </blockquote>
-<ul>
-<li><p><strong>Comment</strong></p>
+    </div>
+  </div>
+  <ul>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--staff">Staff / Instructor Response</span></div>
+    <div class="thread-comment__body">
 <blockquote>
 <p>Is this for Homework 5?</p>
 <p>"Graded" generally means "marked for feedback".</p>
 <p>The weighting of those markings is unchanged from the syllabus.</p>
 </blockquote>
-<ul>
-<li><p><strong>Comment</strong></p>
+    </div>
+  </div>
+  <ul>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--student">Follow-up Discussion</span></div>
+    <div class="thread-comment__body">
 <blockquote>
 <p>yes; sorry I got confused when i saw highlighted word graded.
 Thanks</p>
-<p><img
-src="https://static.us.edusercontent.com/files/AU8WE2ivlBlQrqlh1MBpfXZg"
-alt="Image" /></p>
+<p><img alt="Image" src="https://static.us.edusercontent.com/files/AU8WE2ivlBlQrqlh1MBpfXZg"/></p>
 </blockquote>
-<ul>
-<li><strong>Comment</strong>
+    </div>
+  </div>
+  <ul>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--staff">Staff / Instructor Response</span></div>
+    <div class="thread-comment__body">
 <blockquote>
 <p>Yes. If you make a submission, the graders grade and so it goes.</p>
-</blockquote></li>
-</ul></li>
-</ul></li>
-</ul></li>
-<li><p><strong>Comment</strong></p>
+</blockquote>
+    </div>
+  </div>
+</li>
+  </ul>
+</li>
+  </ul>
+</li>
+  </ul>
+</li>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--student">Student Question</span></div>
+    <div class="thread-comment__body">
 <blockquote>
 <p>Just to clarify wording:</p>
 <blockquote>
-
 </blockquote>
 <p>Similarly, if we know the graph is a tree, then m = n-1 and O(n+m)
 operations collapse to O(n).</p>
@@ -224,8 +244,13 @@ tightest bound is O(n) or that even though we know it's a tree, the
 tightest bound should be reported as O(n+m) because that's what the
 operation runtime is</p>
 </blockquote>
-<ul>
-<li><p><strong>Comment</strong></p>
+    </div>
+  </div>
+  <ul>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--staff">Staff / Instructor Response</span></div>
+    <div class="thread-comment__body">
 <blockquote>
 <p>When it is a tree, we know that we have <code>n</code> vertices and
 exactly <code>n-1</code> edges.</p>
@@ -239,8 +264,13 @@ Kruskal's), then we have that <code>m &gt;= n-1</code> and
 <code>O(n)</code> becomes a tighter bound when performing work on the
 produced tree.</p>
 </blockquote>
-<ul>
-<li><p><strong>Comment</strong></p>
+    </div>
+  </div>
+  <ul>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--student">Follow-up Discussion</span></div>
+    <div class="thread-comment__body">
 <blockquote>
 <p>So just to clarify:</p>
 <p>Operate on the connected graph to produce your tree: O(m) but NOT
@@ -248,8 +278,13 @@ O(n) (since graph is connected, m &gt;= n-1)</p>
 <p>Operate on the produced tree: O(n) or O(m) (equivalent, because m = n
 - 1 for tree)</p>
 </blockquote>
-<ul>
-<li><p><strong>Comment</strong></p>
+    </div>
+  </div>
+  <ul>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--staff">Staff / Instructor Response</span></div>
+    <div class="thread-comment__body">
 <blockquote>
 <blockquote>
 <p>Operate on the produced tree: O(n) or O(m) (equivalent, because m = n
@@ -264,8 +299,13 @@ bound, if we go on to work on that tree.</p>
 is told to be a tree - then we do know they're equivalent, again based
 on a property of trees.</p>
 </blockquote>
-<ul>
-<li><strong>Comment</strong>
+    </div>
+  </div>
+  <ul>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--student">Follow-up Discussion</span></div>
+    <div class="thread-comment__body">
 <blockquote>
 <p>I think I was a bit loose on my definitions here, so let me clarify
 once more:</p>
@@ -273,37 +313,62 @@ once more:</p>
 <p>Operate on a generic connected graph (n-1 &lt;= m &lt;= n(n-1) for
 directed graph). So m = O(n^2) and n = O(m). Hence: O(n+m) = O(O(m) + m)
 = O(m). And also, O(n+m) = O(n + O(n^2)) = O(n^2).</p>
-</blockquote></li>
-</ul></li>
-</ul></li>
-</ul></li>
-</ul></li>
-<li><p><strong>Comment</strong></p>
+</blockquote>
+    </div>
+  </div>
+</li>
+  </ul>
+</li>
+  </ul>
+</li>
+  </ul>
+</li>
+  </ul>
+</li>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--student">Student Question</span></div>
+    <div class="thread-comment__body">
 <blockquote>
 <p>Why is the size of the adjacency list O(|E|) if each edge is
 represented twice? I would assume O(2|E|). Is this like runtime where we
 remove constant factors?</p>
 </blockquote>
-<ul>
-<li><strong>Comment</strong>
+    </div>
+  </div>
+  <ul>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--staff">Staff / Instructor Response</span></div>
+    <div class="thread-comment__body">
 <blockquote>
 <p>That's right, constant factors are ignored in Big-O notation. Just
 like how O(2n) == O(n).</p>
-</blockquote></li>
-</ul></li>
-<li><p><strong>Comment</strong></p>
+</blockquote>
+    </div>
+  </div>
+</li>
+  </ul>
+</li>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--student">Student Question</span></div>
+    <div class="thread-comment__body">
 <blockquote>
-<p><img
-src="https://static.us.edusercontent.com/files/MaHOW6072D7vYsR7wXvglGfi"
-alt="Image" /> I was looking at this example, and I was wondering if the
+<p><img alt="Image" src="https://static.us.edusercontent.com/files/MaHOW6072D7vYsR7wXvglGfi"/> I was looking at this example, and I was wondering if the
 task "find the vertex with largest degree" would have runtime:</p>
 <p>O(n) - if the metadata "number of edges" is stored on each vertex</p>
 <p>OR</p>
 <p>O(n+m) - if you need to count the number of edges manually</p>
 <p>But I'm not sure what is stored as metadata on each vertex?</p>
 </blockquote>
-<ul>
-<li><p><strong>Comment</strong></p>
+    </div>
+  </div>
+  <ul>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--staff">Staff / Instructor Response</span></div>
+    <div class="thread-comment__body">
 <blockquote>
 <p>The adjacency list, like our normal lists, do not store any metadata.
 So, no shortcuts on length finding.</p>
@@ -315,14 +380,27 @@ theory black boxes post in #192 also treats them this way.</p>
 you'll need to count the number of neighbors for every vertex in the
 adjacency list, and you'd end up at <code>O(n + m)</code> overall.</p>
 </blockquote>
-<ul>
-<li><strong>Comment</strong>
+    </div>
+  </div>
+  <ul>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--student">Follow-up Discussion</span></div>
+    <div class="thread-comment__body">
 <blockquote>
 <p>Thank you</p>
-</blockquote></li>
-</ul></li>
-</ul></li>
-<li><p><strong>Comment</strong></p>
+</blockquote>
+    </div>
+  </div>
+</li>
+  </ul>
+</li>
+  </ul>
+</li>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--student">Student Question</span></div>
+    <div class="thread-comment__body">
 <blockquote>
 <p>The lectures spend a lot of time on the proofs of correctness for
 these black box algorithms. The ed posts and homeworks make it seem like
@@ -331,8 +409,13 @@ what these blackboxes are doing so we can use them to solve graph
 problems. How important is it to study/memorize the proofs from the
 lectures?</p>
 </blockquote>
-<ul>
-<li><strong>Comment</strong>
+    </div>
+  </div>
+  <ul>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--staff">Staff / Instructor Response</span></div>
+    <div class="thread-comment__body">
 <blockquote>
 <blockquote>
 <p>How important is it to study/memorize the proofs from the
@@ -347,24 +430,42 @@ have exploited in some way to solve the problem. That would be a great
 thing to include for why your algorithm works.</p>
 <p>And then of course, there's the entire portion of the course that
 isn't free response questions...</p>
-</blockquote></li>
-</ul></li>
-<li><p><strong>Comment</strong></p>
+</blockquote>
+    </div>
+  </div>
+</li>
+  </ul>
+</li>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--student">Student Question</span></div>
+    <div class="thread-comment__body">
 <blockquote>
 <p>Can we modify an input graph G directly during the pre-processing
 stage or would we have to create a new graph G' before running our
 implementation? For example: we can remove an edge from G in O(1) time
 but creating a copy without the same edge could cost us O(n+m).</p>
 </blockquote>
-<ul>
-<li><strong>Comment</strong>
+    </div>
+  </div>
+  <ul>
+<li>
+  <div class="thread-comment">
+    <div class="thread-comment__author"><span class="badge badge--staff">Staff / Instructor Response</span></div>
+    <div class="thread-comment__body">
 <blockquote>
-<p>Either could work, depending on whether or not <span
-class="math inline"><em>G</em></span> is needed again later in the
+<p>Either could work, depending on whether or not <span class="math inline">\(G\)</span> is needed again later in the
 algorithm.</p>
-</blockquote></li>
-</ul></li>
-</ul>
+</blockquote>
+    </div>
+  </div>
+</li>
+  </ul>
+</li>
+
+    </ul>
+  </div>
+</details>
 </main>
 
 <!-- code highlighting -->
@@ -408,20 +509,20 @@ algorithm.</p>
       renderMathInElement(document.querySelector('.content, .all-weeks-content') || document.body, {
         delimiters: [
           { left: '$$', right: '$$', display: true },
-          { left: '\\[', right: '\\]', display: true },
+          { left: '\[', right: '\]', display: true },
           { left: '$', right: '$', display: false },
-          { left: '\\(', right: '\\)', display: false }
+          { left: '\(', right: '\)', display: false }
         ],
         throwOnError: false,
         preProcess: function(math) {
           return math
-            .replace(/\\left\\\[/g, '\\left[')
-            .replace(/\\right\\\]/g, '\\right]')
+            .replace(/\left\\[/g, '\left[')
+            .replace(/\right\\]/g, '\right]')
             .replace(/&amp;/g, '&')
             .replace(/&lt;/g, '<')
             .replace(/&gt;/g, '>');
         },
-        macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
+        macros: { '\R': '\mathbb{R}', '\set': '\{#1\}', '\n': '\overrightarrow' }
       });
     }
   }
