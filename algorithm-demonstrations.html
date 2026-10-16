@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Interactive, step-by-step algorithm walkthroughs: LCS, knapsack, merge sort, strongly connected components, and linear programming geometry.">
+<title>Interactive Algorithm Walkthroughs — CS6515</title>
+<link rel="stylesheet" href="vendor/fonts/fonts.css">
+<link rel="stylesheet" href="theme.css">
+<script src="site.js" defer></script>
+</head>
+<body>
+<header class="topbar"><a class="home" href="index.html">CS6515</a><span class="crumbloc">Interactive algorithm walkthroughs</span><button class="search-trigger" type="button" data-search-trigger aria-label="Search site"><span class="search-trigger__label">Search</span><kbd data-search-shortcut>Ctrl K</kbd></button></header>
+<main class="content">
+<h1>Interactive algorithm walkthroughs</h1>
+<p>Watch the state change, inspect the decision, and connect it to the algorithm's invariant. Each example starts paused. Use <strong>Next</strong> and <strong>Back</strong>, play automatically, or jump directly to a step. Choose another example to compare how the algorithm behaves.</p>
+<nav aria-label="Interactive walkthroughs"><ul>
+<li><a href="#lcs">LCS: filling and tracing a DP table</a></li>
+<li><a href="#knapsack">0/1 knapsack: take or skip an item</a></li>
+<li><a href="#merge-sort">Divide and conquer: split, then merge</a></li>
+<li><a href="#scc">Strongly connected components: two DFS passes</a></li>
+<li><a href="#linear-programming">Linear programming: constraints and objective lines</a></li>
+<li><a href="graph-demonstrations.html">More graph demos: BFS, MST, and maximum flow</a></li>
+</ul></nav>
+
+<section id="lcs">
+<h2>Longest common subsequence: fill the table, then trace back</h2>
+<p>Each cell L(i,j) stores the LCS length for two prefixes. A match uses the diagonal plus one; a mismatch chooses the larger of the upper and left cells. Row zero and column zero contain zero. Follow the highlighted dependencies, then trace a valid common subsequence backward from the final cell.</p>
+<div data-algorithm-visual="lcs"><p>The table fills row by row. Matching characters extend the diagonal solution; mismatches keep the better shorter-prefix solution. Backtracking recovers the characters in reverse order. If several choices tie, different valid longest subsequences may exist.</p></div>
+<p><a href="01_by_week/W01_DP1-DP2/index.html#two-sequence-dp">Read the two-sequence DP explanation in Week 1</a>.</p>
+</section>
+
+<section id="knapsack">
+<h2>0/1 knapsack: compare taking and skipping</h2>
+<p>K(i,b) stores the best value using the first i items with capacity b. Skipping reads K(i−1,b); taking reads the item's value plus K(i−1,b−weight), when it fits. Both choices read the previous row, so each item is available at most once.</p>
+<div data-algorithm-visual="knapsack"><p>Begin with zero items and zero value. Fill capacities for each item using the previous row, then trace backward to identify the selected items. Unlike unbounded knapsack, taking an item cannot reuse the current row.</p></div>
+<p><a href="01_by_week/W01_DP1-DP2/index.html#capacity-dp">Read the capacity DP explanation in Week 1</a>.</p>
+</section>
+
+<section id="merge-sort">
+<h2>Merge sort: divide, solve, and combine</h2>
+<p>Split an array until each subproblem has one element. Merge sorted halves by comparing their front elements. Equal keys come from the left half first, preserving their original order. The recursion has logarithmic depth, and a complete merge level processes all n elements.</p>
+<div data-algorithm-visual="merge-sort"><p>One-element arrays are already sorted. Each merge repeatedly chooses the smaller available front item and appends it to the output. The invariant is that this output is sorted and contains precisely the items consumed so far. Merge sort takes O(n log n) time.</p></div>
+<p><a href="01_by_week/W02_DC3-DC1/index.html#the-divide-and-conquer-schema">Read the divide-and-conquer explanation in Week 2</a>.</p>
+</section>
+
+<section id="scc">
+<h2>Strongly connected components: reverse, finish, discover</h2>
+<p>Vertices in one SCC can reach each other in both directions. First run DFS on the reversed graph and record finishing order. Then run DFS on the original graph in decreasing reversed-graph finishing order. Each new DFS tree discovers one component; collapsing those components produces a DAG.</p>
+<div data-algorithm-visual="scc"><p>Reverse every edge, perform a full DFS forest, and record each vertex as it finishes. Return to the original graph and process the reversed finishing order. An unvisited start vertex begins the next SCC. Edges between distinct components form the acyclic condensation graph.</p></div>
+<p><a href="01_by_week/W04_DP3-GR1-GR2_EXAM1/index.html#strongly-connected-components-gr1">Read the SCC explanation in Week 4</a>.</p>
+</section>
+
+<section id="linear-programming">
+<h2>Linear programming: feasible regions and objective lines</h2>
+<p>In this bounded example, x and y are nonnegative, x ≤ 4, y ≤ 3, and x+y ≤ 5. Add constraints to see their intersection, inspect its vertices, and move a linear objective line to the best feasible value.</p>
+<div data-algorithm-visual="linear-programming"><p>The feasible polygon has vertices (0,0), (4,0), (4,1), (2,3), and (0,3). Maximizing 2x+y gives value 9 at (4,1). Maximizing x+y instead gives value 5 along the entire edge from (4,1) to (2,3), illustrating that an LP optimum need not be unique.</p></div>
+<p><a href="01_by_week/W09_LP1-LP2-LP3/index.html#feasible-region--polytope">Read the LP geometry explanation in Week 9</a>.</p>
+</section>
+</main>
+</body>
+</html>

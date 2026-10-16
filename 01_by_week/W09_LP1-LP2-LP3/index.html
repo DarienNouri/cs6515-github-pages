@@ -41,34 +41,8 @@
     </a>
   </div>
 </nav>
-<h3 id="coursework">Coursework for this module</h3>
-<p class="syllabus-note"><em>Assignment numbering and scheduling follow the syllabus for your term; this list reflects the typical course structure.</em></p>
-<table>
-<thead>
-<tr>
-<th>Item</th>
-<th>Type</th>
-<th>Note</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>HW9</strong></td>
-<td>written</td>
-<td>LP formulation</td>
-</tr>
-<tr>
-<td><strong>HW10</strong></td>
-<td>written</td>
-<td>duality</td>
-</tr>
-<tr>
-<td><strong>Quiz 7</strong></td>
-<td>content</td>
-<td>NP + LP</td>
-</tr>
-</tbody>
-</table>
+<h3 id="coursework">Week 9 study focus</h3>
+<p>Formulate linear programs, derive duals, interpret feasible vertices, and verify bounds with dual certificates.</p>
 <details class="lecture-collapse">
 <summary><b>Watch the lecture</b> (Linear Programming)</summary>
 
@@ -135,6 +109,14 @@ segment between any two feasible points stays feasible.</p>
 across a convex polytope is maximized at a <strong>vertex</strong>
 (corner). So you never need the interior — only the finitely many
 corners. This is exactly why simplex works.</p>
+
+<details class="visual-walkthrough">
+<summary>Step-through visual: LP geometry: constraints and objective lines</summary>
+<p>Add constraints to reveal the feasible region, then move the objective line to the best feasible value.</p>
+<div data-algorithm-visual="linear-programming"><p>For x,y nonnegative, x≤4, y≤3, and x+y≤5, maximizing 2x+y gives value 9 at (4,1). Maximizing x+y instead gives value 5 along the edge from (4,1) to (2,3), so the optimum need not be unique.</p></div>
+<p><a href="../../algorithm-demonstrations.html#linear-programming">Open this walkthrough and compare the other algorithm visuals</a>.</p>
+</details>
+
 <h3 id="geometry--simplex">Geometry &amp; simplex</h3>
 <p><strong>Simplex</strong> starts at a vertex and repeatedly moves to
 an <strong>adjacent vertex with a better objective</strong>, stopping
@@ -373,7 +355,7 @@ production/manufacturing problem.</p>
 <em>how many of each should we produce</em> to maximize profit.</p>
 <p><strong>Details:</strong></p>
 <ul>
-<li>The profit on each unit of A is &dollar;1, and for B it is &dollar;6</li>
+<li>The profit on each unit of A is <span class="currency">&dollar;1,</span> and for B it is <span class="currency">&dollar;6</span></li>
 <li>The demand for A is <span class="math inline"> ≤ 300</span> units,
 and for B it is <span class="math inline"> ≤ 200</span> units</li>
 <li>We have a total of 700 hours capacity among our employees</li>
@@ -502,7 +484,7 @@ another three dimensional example.</p>
 <p>Let's twist the previous example and make it a bit harder.</p>
 <ul>
 <li>Three products A,B, C</li>
-<li>Profit: &dollar;1 for A, &dollar;6 for B, and &dollar;10 for C</li>
+<li>Profit: <span class="currency">&dollar;1</span> for A, <span class="currency">&dollar;6</span> for B, and <span class="currency">&dollar;10</span> for C</li>
 <li>demand: <span class="math inline"> ≤ 300</span> for A, <span
 class="math inline"> ≤ 200</span> for B, unlimited demand for C</li>
 <li>hourly Supply: <span class="math inline"> ≤ 1000</span> in total, A
@@ -603,7 +585,7 @@ class="math inline"><em>A</em><em>x</em> = <em>b</em></span>
 class="math inline">(−1)<em>A</em><em>x</em> ≥ <em>b</em></span></li>
 <li>and $ A x \ge b$</li>
 </ul></li>
-<li>what about a constraint like <span class="math inline">$x \&lt;
+<li>what about a constraint like <span class="math inline">$x &lt;
 100$</span>
 <ul>
 <li>NOT ALLOWED - LP does not allow for this as it is ill-defined. LP
@@ -1312,27 +1294,9 @@ a flow or matching problem, it may <em>be</em> an LP in disguise
   } catch (e) { console.error('Mermaid render error:', e); }
 
   // 4) Math: render \( \) and \[ \] and $$ $$. Tolerate malformed legacy TeX.
+  // All math, including legacy Pandoc fragments, uses the shared renderer.
   function renderMath() {
-    if (window.renderMathInElement) {
-      renderMathInElement(document.querySelector('.content, .all-weeks-content') || document.body, {
-        delimiters: [
-          { left: '$$', right: '$$', display: true },
-          { left: '\\[', right: '\\]', display: true },
-          { left: '$', right: '$', display: false },
-          { left: '\\(', right: '\\)', display: false }
-        ],
-        throwOnError: false,
-        preProcess: function(math) {
-          return math
-            .replace(/\\left\\\[/g, '\\left[')
-            .replace(/\\right\\\]/g, '\\right]')
-            .replace(/&amp;/g, '&')
-            .replace(/&lt;/g, '<')
-            .replace(/&gt;/g, '>');
-        },
-        macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
-      });
-    }
+    if (window.renderSiteMath) window.renderSiteMath();
   }
   try {
     renderMath();

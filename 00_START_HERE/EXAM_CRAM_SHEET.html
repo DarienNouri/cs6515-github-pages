@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CS 6515 — High-Yield Exam Cram Sheets & Black-Box Matrix — CS6515</title>
+<title>CS 6515 — High-Yield Review Sheets & Black-Box Matrix — CS6515</title>
 <link rel="stylesheet" href="../vendor/fonts/fonts.css">
 <link rel="stylesheet" href="../theme.css">
 <link rel="stylesheet" href="../vendor/katex/katex.min.css">
@@ -12,22 +12,22 @@
 <body>
 <header class="topbar">
   <a class="home" href="../index.html">CS6515</a>
-  <span class="crumbloc">High-Yield Exam Cram Sheets & Black-Box Matrix</span>
+  <span class="crumbloc">High-Yield Review Sheets & Black-Box Matrix</span>
   <button class="search-trigger" type="button" data-search-trigger aria-label="Search site"><span class="search-trigger__label">Search</span><kbd data-search-shortcut>Cmd K</kbd></button>
 </header>
 
 <main class="content">
 <div class="cram-hero">
-  <h1 class="cram-hero__title" id="high-yield-exam-cram-sheets">🎯 CS 6515 Master Exam Cram Sheets</h1>
+  <h1 class="cram-hero__title" id="high-yield-exam-cram-sheets">🎯 CS 6515 Master Review Sheets</h1>
   <p class="cram-hero__subtitle">
-    Synthesized exam-night cheat sheets, strict 5-part TA rubric checklists, canonical recurrence formulas, reduction graphs, and the authorized black-box algorithm catalog.
+    Synthesized weekly review sheets, strict 5-part TA rubric checklists, canonical recurrence formulas, reduction graphs, and the authorized black-box algorithm catalog.
     <br><strong>Tip:</strong> Toggle <strong>Practice Mode</strong> (press <kbd>Q</kbd>) to blur recurrences and answers for active recall testing.
   </p>
   <div class="cram-hero__pills">
     <a class="cram-pill" href="#rubric-checklist">📋 5-Part Rubric</a>
-    <a class="cram-pill" href="#exam-1">⚡ Exam 1 (DP & D&C)</a>
-    <a class="cram-pill" href="#exam-2">🕸️ Exam 2 (Graphs & Flow)</a>
-    <a class="cram-pill" href="#exam-3">🧩 Exam 3 (NP & LP)</a>
+    <a class="cram-pill" href="#exam-1">⚡ Weeks 1–4 (DP & D&C)</a>
+    <a class="cram-pill" href="#exam-2">🕸️ Weeks 4–7 (Graphs & Flow)</a>
+    <a class="cram-pill" href="#exam-3">🧩 Weeks 8–10 (NP & LP)</a>
     <a class="cram-pill" href="#black-box-matrix">📦 Black-Box Matrix</a>
   </div>
 </div>
@@ -110,9 +110,9 @@
 <hr />
 
 <!-- =======================================================================
-     SECTION 2: EXAM 1 MASTERY
+     SECTION 2: DP and divide-and-conquer practice MASTERY
      ======================================================================= -->
-<h2 id="exam-1">⚡ Exam 1 Mastery: DP Archetypes & Divide-and-Conquer</h2>
+<h2 id="exam-1">⚡ Weeks 1–4: DP Archetypes & Divide-and-Conquer</h2>
 <p>Weeks 1–4 · Modules DP1, DP2, DC3, DC1, DC2, DP3. Master these 7 DP archetypes and recurrence patterns.</p>
 
 <div class="cram-grid">
@@ -275,9 +275,9 @@
 <hr />
 
 <!-- =======================================================================
-     SECTION 3: EXAM 2 MASTERY
+     SECTION 3: graph and flow practice MASTERY
      ======================================================================= -->
-<h2 id="exam-2">🕸️ Exam 2 Mastery: Graph Algorithms & Network Flow</h2>
+<h2 id="exam-2">🕸️ Weeks 4–7: Graph Algorithms & Network Flow</h2>
 <p>Weeks 4–7 · Modules GR1, GR2, GR3, MF1, MF2, MF4. Graph reductions, cut property, and residual networks.</p>
 
 <div class="cram-grid">
@@ -355,9 +355,9 @@
 <hr />
 
 <!-- =======================================================================
-     SECTION 4: EXAM 3 MASTERY
+     SECTION 4: NP and LP practice MASTERY
      ======================================================================= -->
-<h2 id="exam-3">🧩 Exam 3 Mastery: NP-Completeness & Linear Programming</h2>
+<h2 id="exam-3">🧩 Weeks 8–10: NP-Completeness & Linear Programming</h2>
 <p>Weeks 8–10 · Modules NP1–NP5, LP1–LP4. Reduction directions, standard form, and duality.</p>
 
 <div class="cram-card" style="margin-bottom: 1.5rem;">
@@ -590,23 +590,21 @@ graph LR
 <script src="../vendor/katex/katex.min.js"></script>
 <script src="../vendor/katex/contrib/auto-render.min.js"></script>
 <script>
+  // All math, including legacy Pandoc fragments, uses the shared renderer.
   function renderMath() {
-    if (typeof renderMathInElement === 'function') {
-      renderMathInElement(document.body, {
-        delimiters: [
-          { left: '$$', right: '$$', display: true },
-          { left: '\\[', right: '\\]', display: true },
-          { left: '$', right: '$', display: false },
-          { left: '\\(', right: '\\)', display: false }
-        ],
-        throwOnError: false
-      });
-    }
+    if (window.renderSiteMath) window.renderSiteMath();
   }
   try { renderMath(); } catch (e) { console.error('Math error:', e); }
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', renderMath);
   }
+</script>
+<script src="../vendor/mermaid/mermaid.min.js"></script>
+<script>
+  mermaid.initialize({ startOnLoad: false, theme: 'dark', securityLevel: 'loose' });
+  mermaid.run({ querySelector: 'pre.mermaid' }).catch(function(error) {
+    console.error('Diagram render error:', error);
+  });
 </script>
 <script src="../site.js" defer></script>
 </body>

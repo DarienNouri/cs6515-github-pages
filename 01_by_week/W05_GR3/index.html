@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="../../vendor/katex/katex.min.css">
 <link rel="stylesheet" href="../../vendor/highlight/styles/tokyo-night-dark.min.css">
 
+<link rel="stylesheet" href="../../graph-demos.css">
 </head>
 <body>
 <header class="topbar">
@@ -42,29 +43,8 @@ Tree</h1>
     </a>
   </div>
 </nav>
-<h3 id="coursework">Coursework for this module</h3>
-<p class="syllabus-note"><em>Assignment numbering and scheduling follow the syllabus for your term; this list reflects the typical course structure.</em></p>
-<table>
-<thead>
-<tr>
-<th>Item</th>
-<th>Type</th>
-<th>Note</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>HW5</strong></td>
-<td>written</td>
-<td>MST problems</td>
-</tr>
-<tr>
-<td><strong>Quiz 4</strong></td>
-<td>format</td>
-<td>graph-theory answer format</td>
-</tr>
-</tbody>
-</table>
+<h3 id="coursework">Week 5 study focus</h3>
+<p>Trace Kruskal's and Prim's algorithms and prove safe edge choices with the cut and cycle properties.</p>
 <details class="lecture-collapse">
 <summary><b>Watch the lecture</b> (MST)</summary>
 
@@ -74,6 +54,13 @@ href="transcripts/05_Week_05_MST.txt">Transcript</a></p>
 </details>
 
 <hr />
+<section class="graph-demo-section" aria-label="Minimum spanning tree: edges and cycles">
+<h2>Minimum spanning tree: edges and cycles</h2>
+<p>Consider weighted edges from lightest to heaviest. Accept an edge when it joins different components; reject an edge when it closes a cycle. A connected graph finishes with one fewer tree edge than vertices.</p>
+<div data-graph-demo="kruskal"><p>Use the demonstration controls to follow each step when JavaScript is enabled.</p></div>
+<p><a href="../../graph-demonstrations.html#kruskal">Open graph demonstrations</a> to compare traversal, spanning trees, and flow.</p>
+</section>
+
 <h2 id="learning-objectives">Learning objectives</h2>
 <ul>
 <li>State <strong>and prove</strong> the Cut Property (exchange
@@ -709,27 +696,9 @@ notes</a>.</p>
   } catch (e) { console.error('Mermaid render error:', e); }
 
   // 4) Math: render \( \) and \[ \] and $$ $$. Tolerate malformed legacy TeX.
+  // All math, including legacy Pandoc fragments, uses the shared renderer.
   function renderMath() {
-    if (window.renderMathInElement) {
-      renderMathInElement(document.querySelector('.content, .all-weeks-content') || document.body, {
-        delimiters: [
-          { left: '$$', right: '$$', display: true },
-          { left: '\\[', right: '\\]', display: true },
-          { left: '$', right: '$', display: false },
-          { left: '\\(', right: '\\)', display: false }
-        ],
-        throwOnError: false,
-        preProcess: function(math) {
-          return math
-            .replace(/\\left\\\[/g, '\\left[')
-            .replace(/\\right\\\]/g, '\\right]')
-            .replace(/&amp;/g, '&')
-            .replace(/&lt;/g, '<')
-            .replace(/&gt;/g, '>');
-        },
-        macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
-      });
-    }
+    if (window.renderSiteMath) window.renderSiteMath();
   }
   try {
     renderMath();
@@ -739,5 +708,6 @@ notes</a>.</p>
   }
 </script>
 <script src="../../site.js" defer></script>
+<script src="../../graph-demos.js" defer></script>
 </body>
 </html>

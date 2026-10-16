@@ -43,34 +43,8 @@ Conquer Foundations</h1>
     </a>
   </div>
 </nav>
-<h3 id="coursework">Coursework for this module</h3>
-<p class="syllabus-note"><em>Assignment numbering and scheduling follow the syllabus for your term; this list reflects the typical course structure.</em></p>
-<table>
-<thead>
-<tr>
-<th>Item</th>
-<th>Type</th>
-<th>Note</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>HW2</strong></td>
-<td>written</td>
-<td>D&amp;C problems</td>
-</tr>
-<tr>
-<td><strong>Quiz 2</strong></td>
-<td>format</td>
-<td>how D&amp;C answers are graded</td>
-</tr>
-<tr>
-<td><strong>Logistics quizzes</strong></td>
-<td>onboarding</td>
-<td>due Week 2</td>
-</tr>
-</tbody>
-</table>
+<h3 id="coursework">Week 2 study focus</h3>
+<p>Solve recurrences with the Master Theorem and recursion trees; explain how Karatsuba combines three recursive products.</p>
 <details class="lecture-collapse">
 <summary><b>Watch the lecture</b> (D&C Foundations)</summary>
 
@@ -108,6 +82,14 @@ class="math inline"><em>a</em></span>) and <strong>how fast they
 shrink</strong> (<span class="math inline"><em>b</em></span>), measured
 against the combine cost (<span
 class="math inline"><em>n</em><sup><em>d</em></sup></span>).</p>
+
+<details class="visual-walkthrough">
+<summary>Step-through visual: Divide and conquer: split, then merge</summary>
+<p>Follow an array as it splits into smaller problems, then compare front items while merging sorted results.</p>
+<div data-algorithm-visual="merge-sort"><p>One-element arrays are sorted. During a merge, take the smaller front item; take from the left on a tie to preserve stability. Each complete merge level processes all n elements.</p></div>
+<p><a href="../../algorithm-demonstrations.html#merge-sort">Open this walkthrough and compare the other algorithm visuals</a>.</p>
+</details>
+
 <h3 id="master-theorem">Master theorem</h3>
 <p>For <span
 class="math inline"><em>T</em>(<em>n</em>) = <em>a</em> <em>T</em>(<em>n</em>/<em>b</em>) + <em>O</em>(<em>n</em><sup><em>d</em></sup>)</span>
@@ -571,27 +553,9 @@ Keep the algorithm narrative, not pseudocode.</p>
   } catch (e) { console.error('Mermaid render error:', e); }
 
   // 4) Math: render \( \) and \[ \] and $$ $$. Tolerate malformed legacy TeX.
+  // All math, including legacy Pandoc fragments, uses the shared renderer.
   function renderMath() {
-    if (window.renderMathInElement) {
-      renderMathInElement(document.querySelector('.content, .all-weeks-content') || document.body, {
-        delimiters: [
-          { left: '$$', right: '$$', display: true },
-          { left: '\\[', right: '\\]', display: true },
-          { left: '$', right: '$', display: false },
-          { left: '\\(', right: '\\)', display: false }
-        ],
-        throwOnError: false,
-        preProcess: function(math) {
-          return math
-            .replace(/\\left\\\[/g, '\\left[')
-            .replace(/\\right\\\]/g, '\\right]')
-            .replace(/&amp;/g, '&')
-            .replace(/&lt;/g, '<')
-            .replace(/&gt;/g, '>');
-        },
-        macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
-      });
-    }
+    if (window.renderSiteMath) window.renderSiteMath();
   }
   try {
     renderMath();

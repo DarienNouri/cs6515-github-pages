@@ -23,8 +23,8 @@
 <li><a href="#Basic-Details">Basic Details</a></li>
 <li><a href="#Textbooks">Textbooks</a></li>
 <li><a href="#Other-Resources">Other Resources</a></li>
-<li><a href="#Schedule">Schedule</a></li>
-<li><a href="#Grading">Grading</a> -Refresher</li>
+<li><a href="#schedule">Weekly study sequence</a></li>
+<li><a href="#refresher">Refresher</a></li>
 <li><a href="#Pseudo-Code">Pseudo Code</a></li>
 <li><a href="#Big-O-Notation">Big-O Notation</a></li>
 <li><a href="#Summary">Summary</a></li>
@@ -204,7 +204,7 @@ Strong</a> -LP4 Max-SAT Approximation
 <li><a href="#EX1-:-GR4-Markov-Chains-and-Page-Rank---todo">EX1 GR4
 Markov Chains and Page Rank - todo</a> -Slack Notes
 <ul>
-<li><a href="#DP-vs-Memoization">DP vs Memoization</a> -Exam 2</li>
+<li><a href="#DP-vs-Memoization">DP vs Memoization</a></li>
 <li><a href="#Week-2">Week 2</a> -Appendix</li>
 <li><a href="#Feasible-&amp;-Saturating-Solution">Feasible &amp;
 Saturating Solution</a></li>
@@ -272,55 +272,8 @@ href="https://mfleck.cs.illinois.edu/building-blocks/index-sp2020.html">https://
 <li>UIllinois: <a
 href="https://jeffe.cs.illinois.edu/teaching/algorithms/#notes">https://jeffe.cs.illinois.edu/teaching/algorithms/#notes</a></li>
 </ul>
-<h3 id="schedule">Schedule</h3>
-<ul>
-<li>W01 - Dynamic Programming (Lectures: DP1)</li>
-<li>W02 - Dynamic Programming (Lectures: DP2, DP3)</li>
-<li>W03 - Divide and Conquer I (Lectures: DC1, DC3, DC4)</li>
-<li>W04 - Divide and Conquer II (Lectures: DC5, DC2)
-<ul>
-<li>Exam 1 (W01-W04)</li>
-</ul></li>
-<li>W05 - Modular Arithmetic and RSA (Lectures: RA1, RA2)</li>
-<li>W06 - Graph Algorithm I (Lectures: GR1,GR2)</li>
-<li>W07 - Graph Algorithm II and Max Flow I (Lectures: GR3,MF1)</li>
-<li>W08 - Max Flow II (Lectures: MF2,MF3,MF5)</li>
-<li>W09 - Max Flow III (Lectures: MF4)
-<ul>
-<li>Exam 2 (W05-W09)</li>
-</ul></li>
-<li>W10 - Np Completeness (Lectures: NP1,NP2,NP3)</li>
-<li>W11 - Spring Break</li>
-<li>W12 - Linear Programming (Lectures: LP1,LP2,LP3)</li>
-<li>W13 - NP and LP (Lectures: LP4 &amp; NP4)</li>
-<li>W14 - More Complexity (Lectures: NP5)
-<ul>
-<li>Exam 3 (W10-W13)</li>
-</ul></li>
-<li>W15 - Markov Chains</li>
-<li>W16 - Final Week
-<ul>
-<li>Final Exam - Cumulative - Optional</li>
-</ul></li>
-</ul>
-<h3 id="grading">Grading</h3>
-<ul>
-<li>14% Homework</li>
-<li>7% Coding Projects</li>
-<li>7% Mini-Quizzes</li>
-<li>3% Logistic Quizzes</li>
-<li>69% Exams
-<ul>
-<li>23% a piece</li>
-</ul></li>
-</ul>
-<!-- -->
-
-<ul>
-<li>A [85-100%]</li>
-<li>B [70-85%]</li>
-<li>C [50-70%]</li>
-</ul>
+<h3 id="schedule">Weekly study sequence</h3>
+<p>Use the <a href="../../index.html">weekly course overview</a> for the topic sequence and links to each week.</p>
 <h2 id="refresher">Refresher</h2>
 <h3 id="pseudo-code">Pseudo Code</h3>
 <p>There doesn't appear to be a definitive guide to pseudo code. In the
@@ -438,8 +391,7 @@ class="math inline"><em>Θ</em></span></p>
 <ul>
 <li>Omega: <span class="math inline"><em>f</em>(<em>n</em>)</span> is
 <span class="math inline"><em>Ω</em>(<em>g</em>(<em>n</em>))</span> iff
-for some constant c and <span class="math inline">$N_0
-\\ f(N) \ge c\cdot g(n)$</span> for all N &gt; <span
+for some constant c and <span class="math inline">$N_0\text{ such that }f(N)\ge c\,g(N)$</span> for all N &gt; <span
 class="math inline"><em>N</em><sub>0</sub></span>
 <ul>
 <li>this describes the lower bound of complexity</li>
@@ -518,9 +470,9 @@ class="math inline"><em>u</em> → <em>v</em></span> we would label u the
 tail and v the head.</p>
 <p>Mathematically we write</p>
 <ul>
-<li>$\mathcal{V} = \ v_0, \cdots , v_n $</li>
-<li>$\mathcal{E} = \ e_0, \cdots , e_m $</li>
-<li>$\mathcal{G} = \ \mathcal{V}, \mathcal{E} $</li>
+<li>$\mathcal{V} = \{v_0, \ldots, v_n\}$</li>
+<li>$\mathcal{E} = \{e_0, \ldots, e_m\}$</li>
+<li>$\mathcal{G} = (\mathcal{V}, \mathcal{E})$</li>
 </ul>
 <!-- -->
 
@@ -771,7 +723,7 @@ would require the value Fib1(n-3). And they would compute it
 independently. Frankly this is unnecassary. if we can devise a method
 where by we can re-use computation it would reduce the running time by
 50%!</p>
-<p><strong><span class="math inline">Algorithm</span></strong></p>
+<p><strong>Algorithm</strong></p>
 <pre><code>Fib2(n)
 
 F[0]=0
@@ -848,9 +800,9 @@ a few minutes later you&#39;ll see that it&#39;s the last digit that makes the d
 Now we need to move towards designing an algorithm. There is really no silver bullet approach. In a nutshell if you can do it by hand then you can get a computer to do it.</code></pre>
 <p>In this case after some trial and error we came up with the following
 recurrance<br />
-$L(i) = 1 + max_j\L(j) : a_j &lt; a_i \ j &lt; i $</p>
+$L(i) = 1 + \max(\{0\} \cup \{L(j) : a_j &lt; a_i,\ j &lt; i\})$</p>
 <p>Now we can design an algorithm that</p>
-<p><strong><span class="math inline">Algorithm</span></strong></p>
+<p><strong>Algorithm</strong></p>
 <pre><code>LIS(a1,s2,...,an):
 for i=1-&gt;n:
     L(i)=1
@@ -1032,10 +984,9 @@ not used in the optimal solution -&gt; L(i,j)=L(i,j-1)</li>
 </ul></li>
 </ul>
 <p>We can summarize as<br />
-$ L(i,j) \begin{cases} max\L(i-1,j), L(i,j-1)\ &amp; X_i \ne Y_j \ 1+
-L(i-1,j) &amp; X_i = Y_j \ \end{cases}$</p>
+$L(i,j) = \begin{cases} 0 &amp; i=0 \text{ or } j=0, \\ \max\{L(i-1,j), L(i,j-1)\} &amp; X_i \ne Y_j, \\ 1 + L(i-1,j-1) &amp; X_i = Y_j. \end{cases}$</p>
 <p>Finally we can implement our algorithm</p>
-<p><strong><span class="math inline">Algorithm</span></strong></p>
+<p><strong>Algorithm</strong></p>
 <pre><code>LCS(X,Y):
     for i = 0 -&gt; n : L(i,0)=0
     for j = 0 -&gt; n : L(0,j)=0
@@ -1145,7 +1096,7 @@ find the optimal strategy)</p>
 <p>Problem Description</p>
 <ul>
 <li>Given: a sequence of coins with values <span
-class="math inline"><em>v</em><sub>0</sub>, <em>v</em><sub>1</sub>, ⋯, <em>v</em>_<em>n</em> − 1</span>
+class="math inline">$v_0,v_1,\ldots,v_{n-1}$</span>
 <ul>
 <li>let's say {5,10,100,25}</li>
 </ul></li>
@@ -1241,9 +1192,7 @@ we try a brute force approach comparing each character at the same
 index.<br />
 Then the cost is</p>
 <ul>
-<li>$\large C(i,j) = min\
-replace(x[i],y[j])+D(i+1,j+1),insert(y[j])+D(i,j+1),delete(x[i])+D(i+1,j)
-\ $</li>
+<li><span class="math display">$C(i,j)=\min\left\{\begin{aligned}&amp;\operatorname{replace}(x[i],y[j])+D(i+1,j+1),\\&amp;\operatorname{insert}(y[j])+D(i,j+1),\\&amp;\operatorname{delete}(x[i])+D(i+1,j)\end{aligned}\right\}$</span></li>
 <li>note that func:replace advances both indices but insert &amp; delete
 advance only the affected string
 <ul>
@@ -1251,7 +1200,7 @@ advance only the affected string
 that is next in the unaffected string</li>
 </ul></li>
 </ul>
-<p><strong><span class="math inline">Algorithm</span></strong></p>
+<p><strong>Algorithm</strong></p>
 <pre><code>for i=0-&gt;m: E(i,0)=i
 for j=1-&gt;n: E(0,j)=j
 
@@ -1299,7 +1248,7 @@ and the subset of their individual values. And we're trying to maximize
 that sum. We're trying to find the subset of objects with maximum
 value,</p>
 <ul>
-<li>$\large max\left\\sum_{i \in S} v_i \right$</li>
+<li>$\large \max\left\{\sum_{i \in S} v_i\right\}$</li>
 </ul>
 <p>Let's summarize the problem one more time just to make sure everybody
 understands.</p>
@@ -1309,7 +1258,7 @@ class="math inline"><em>w</em><sub><em>i</em></sub></span> and values
 that</p>
 <ul>
 <li><span class="math inline">$\large \sum_{i \in S} w_i \le B$</span>
-AND $\large max\left\\sum_{i \in S} v_i \right$</li>
+AND $\large \max\left\{\sum_{i \in S} v_i\right\}$</li>
 </ul>
 <p>Our goal is to find the subset of objects, a subset of 1 through n,
 where that subset fits in the backpack. So the chosen subset has total
@@ -1391,7 +1340,7 @@ input.</li>
 <li>Therefore, we let K(i) be the max value achievable using a subset of
 the first i objects.
 <ul>
-<li>$\large K(i) = max\left\\sum_{i\in S} v_i \right$</li>
+<li>$\large K(i) = \max\left\{\sum_{i\in S} v_i\right\}$</li>
 <li>All we've changed is we've changed the set of objects available to
 us from the first N objects 1 through N to a subset of objects 1 through
 I.</li>
@@ -1469,7 +1418,7 @@ thus        K(0,b) = 0 is our max value
 
 For the first col of our table, b=0
 this        K(i,0) = 0 as we have no space in our backpack to store objects, kinda sucks eh</code></pre>
-<p><strong><span class="math inline">Algorithm</span></strong></p>
+<p><strong>Algorithm</strong></p>
 <pre><code>for b=0-&gt;B: K(0,b)=0
 for i=0-&gt;n: K(i,0)=0
 for i=1-&gt;n:
@@ -1596,8 +1545,7 @@ class="math inline"> ≤ <em>b</em></span></li>
 </ul>
 <p>Recurrance: Try all possibilities for the last object to add</p>
 <ul>
-<li>$\large K(b)=\underset{i}max \left\ v_i + K(b-w_i) : 1 \le i \le n,
-w_i \le b \right$</li>
+<li>$\large K(b)=\max_{i:\,1 \le i \le n,\ w_i \le b}\{v_i + K(b-w_i)\}$</li>
 </ul>
 <p>So, the recurrence for k of b is going to be, we're going to try all
 possibilities for the last object to add and we're going to take the
@@ -1677,7 +1625,7 @@ needed</p>
 class="math inline">$P_i + T(i-1,z-v\[i\])$</span></li>
 <li>we also may want to skip it and take <span
 class="math inline"><em>T</em>(<em>i</em> − 1, <em>z</em>)</span></li>
-<li>so we take the min of the two: $\min\T(i-1,z) , P_i + T(i-1,z-v[i])
+<li>so we take the min of the two: $\min\{T(i-1,z), P_i + T(i-1,z-v[i])\}
 $</li>
 </ul>
 <p>Suppose v[i] &gt;= z, ie the number of votes provided is greater than
@@ -1694,8 +1642,8 @@ class="math inline"><em>P</em><sub><em>i</em></sub>, <em>T</em>(<em>i</em> �
 <ul>
 <li>Base: T(0,z) = <span class="math inline">∞</span> for <span
 class="math inline">0 ≤ <em>z</em> ≤ <em>Z</em></span></li>
-<li>if v[i] &lt; z then $\min\T(i-1,z) , P_i + T(i-1,z-v[i]) $</li>
-<li>if v[i] &gt;= z then $\min\P_i, T(i-1,z) $</li>
+<li>if v[i] &lt; z then $\min\{T(i-1,z), P_i + T(i-1,z-v[i])\} $</li>
+<li>if v[i] &gt;= z then $\min\{P_i, T(i-1,z)\} $</li>
 <li>where <span
 class="math inline">1 ≤ <em>z</em> ≤ <em>Z</em></span></li>
 </ul>
@@ -1749,7 +1697,7 @@ cost.</p>
 <p>Suppose we have two matrices W(a x b) and Y(b x c)<br />
 Then Z = WxY is of size (a x c)<br />
 also we can compute <span
-class="math inline"><em>Z</em>_<em>i</em><em>j</em> = ∑_<em>k</em> = 1<sup><em>b</em></sup><em>W</em>_<em>i</em>, <em>k</em> ⋅ <em>Y</em>_<em>k</em>, <em>j</em></span></p>
+class="math inline">$Z_{ij}=\sum_{k=1}^{b} W_{i,k}\cdot Y_{k,j}$</span></p>
 <p>roughly speaking, for the full multiplications, there will be</p>
 <ul>
 <li>b multiplications</li>
@@ -1764,8 +1712,7 @@ almost always need number to minimize/maximize.)</p>
 <ul>
 <li>given n matrices <span
 class="math inline"><em>A</em><sub>1</sub>, <em>A</em><sub>2</sub>, ⋯, <em>A</em><sub><em>n</em></sub></span></li>
-<li>where <span class="math inline"><em>A</em><sub><em>i</em></sub> is
-<em>m</em>_<em>i</em> − 1 × <em>m</em><sub><em>i</em></sub></span>
+<li>where <span class="math inline">$A_i\text{ is }m_{i-1}\times m_i$</span>
 <ul>
 <li>This is our input - we don't care about actual values since we're
 not computing</li>
@@ -1814,7 +1761,7 @@ class="math inline"><em>A</em><sub><em>i</em></sub>, ..., <em>A</em><sub><em
 class="math inline"><em>A</em><sub><em>i</em></sub>, ..., <em>A</em><sub><em>l</em></sub></span>
 = C(i,l) = cost is m_i-1 x m_l</li>
 <li>and Right node is <span
-class="math inline"><em>A</em>_<em>l</em> + 1, ..., <em>A</em><sub><em>j</em></sub></span>
+class="math inline">$A_{l+1},\ldots,A_j$</span>
 = C(l,j) = cost is m_l+1 x m_j</li>
 <li>final cost of <span
 class="math inline"><em>A</em><sub><em>i</em></sub>, ..., <em>A</em><sub><em>j</em></sub></span>
@@ -1830,8 +1777,7 @@ locally</li>
 </ul></li>
 <li>finally
 <ul>
-<li>$\large C(i,j)=\underset{l}min\left\ C(i,l)+C(l+1,j) +(m_{i-1} m_l
-m_j) \ i \le l \le j-1 \right$</li>
+<li>$\large C(i,j)=\min_{i \le l &lt; j}\{C(i,l)+C(l+1,j)+m_{i-1}m_lm_j\}$</li>
 <li>minimum l over the sum of the left cost, the right cost, and the
 merging cost</li>
 </ul></li>
@@ -1840,7 +1786,7 @@ merging cost</li>
 j-1. And for that specific L, the cost is the cost for the left subtree
 C(i,l) plus the costs for the optimal right subtrees C(l+1,j) plus the
 cost of merging that left subtree with that right subtree which is <span
-class="math inline">(<em>m</em>_<em>i</em> − 1<em>m</em><sub><em>l</em></sub><em>m</em><sub><em>j</em></sub>)</span>.
+class="math inline">$(m_{i-1}m_lm_j)$</span>.
 We take the sum of those three terms and we take the L which minimizes
 that sum some That's our recurrence for C(i,j).</p>
 <p>Before we detail the Pseudocode for this dynamic programming
@@ -1859,7 +1805,7 @@ we go until we get to C(1,n) which is the upper most corner.</p>
 alt="DP1-007" /></p>
 <p>Now, we can go ahead and detail our Pseudocode for our dynamic
 programming algorithm.</p>
-<p><strong><span class="math inline">Algorithm</span></strong></p>
+<p><strong>Algorithm</strong></p>
 <pre><code>ChainMultiply(m0,m1,...,mn):
 for i=1 -&gt; n, C(i,i)=0                                         O(n)
 for s=1 -&gt; n-1:                                                O(n)
@@ -2023,8 +1969,7 @@ class="math inline">∞</span></p>
 <li>In order to find D(i,z) we must find the best y, minimum w(y,z), as
 there may be many with different weights
 <ul>
-<li>ie $\large D(i,z) = \underset{y:\overrightarrow{yz} \in E}{min}\
-D(i-1,y) + w(y,z) $
+<li>ie $D(i,z)=\min_{y:\,\overrightarrow{yz}\in E}\{D(i-1,y)+w(y,z)\}$
 <ul>
 <li>where D(i-1,y) is the shortest path from s -&gt; y using at most i-1
 edges</li>
@@ -2036,8 +1981,7 @@ edges</li>
 alt="DP1-010" /></p>
 <p><strong>Note:</strong></p>
 <ul>
-<li><p>$\large D(i,z) = \underset{y:\overrightarrow{yz} \in E}{min}\
-D(i-1,y) + w(y,z) $</p>
+<li><p>$D(i,z)=\min_{y:\,\overrightarrow{yz}\in E}\{D(i-1,y)+w(y,z)\}$</p>
 <ul>
 <li>is the shortest path from s to z through y using exactly i
 edges</li>
@@ -2053,8 +1997,7 @@ previous solution D(i-1,z)</li>
 </ul></li>
 <li><p>Our final recurrance relationship is defined as</p>
 <ul>
-<li>$\large D(i,z) = min\ D(i-1,z) , \underset{y}{min}\ D(i-1,y) +
-w(y,z) \ $</li>
+<li>$D(i,z)=\min\{D(i-1,z),\min_{y:\,\overrightarrow{yz}\in E}\{D(i-1,y)+w(y,z)\}\}$</li>
 </ul></li>
 </ul>
 <p>Here's a nice animated gif to help visualize:</p>
@@ -2062,8 +2005,8 @@ w(y,z) \ $</li>
 src="../../../.assets/CS6515_images/Bellman-Ford_algorithm_example.gif"
 alt="Bellman-Ford_algorithm_example" /></p>
 <h3 id="algo-bellman-ford">Algo Bellman Ford</h3>
-<p><strong><span class="math inline">Algorithm - aka:
-Bellman-Ford</span></strong></p>
+<p><strong>Algorithm - aka:
+Bellman-Ford</strong></p>
 <pre><code>Input: G=(V,E),S,w
 
 for all z in V
@@ -2234,11 +2177,10 @@ For i &gt;= 0:
 <p>Now we put it all together. Recall that we want the shortest path,
 t/f we will take the min of the two cases above</p>
 <blockquote>
-<p>$\large D(i,s,t) = min\ D(i-1,s,t), D(i-1,s,i) + D(i-1,i,t) $</p>
+<p>$D(i,s,t)=\min\{D(i-1,s,t),D(i-1,s,i)+D(i-1,i,t)\}$</p>
 </blockquote>
 <h3 id="algo-floyd-warshall">Algo: Floyd-Warshall</h3>
-<p><strong><span
-class="math inline">Floyd-Warshall</span></strong><br />
+<p><strong>Floyd-Warshall</strong><br />
 Note <strong>this algo allows neg weights - but assumes NO negative
 weight cycles</strong></p>
 <pre><code>Inputs: G, w
@@ -2447,9 +2389,9 @@ to understand why let's do a quick review of logarithms.</p>
 logarithm is the power to which a number must be raised in order to get
 some other number. For example, the base 2 logarithm of 16 is 4, because
 2 raised to the power of 4 is 16. <span
-class="math display">log _216 = 4 since 2<sup>4</sup> = 16</span></p>
+class="math display">$\log_2 16=4\text{ since }2^4=16$</span></p>
 <p>Of course we may be working in some other base like say 4 then <span
-class="math display">log _416 = 2 since 4<sup>2</sup> = 16</span></p>
+class="math display">$\log_4 16=2\text{ since }4^2=16$</span></p>
 <p>Now back to our algorithm. At each step we divide the search space by
 1/2, and perform a check. Thus our initial assessment would be
 T(n/2)+O(1). We focus on T(n/2), as O(1) is insignificant. As we saw in
@@ -2564,9 +2506,9 @@ for convenience)</li>
 </ul>
 <ol type="1">
 <li>break x into two halves <span
-class="math inline"><em>x</em><sub><em>l</em></sub> = <em>x</em>_<em>L</em><em>e</em><em>f</em><em>t</em></span>
+class="math inline">$x_l=x_{\mathrm{Left}}$</span>
 and <span
-class="math inline"><em>x</em><sub><em>r</em></sub> = <em>x</em>_<em>R</em><em>i</em><em>g</em><em>h</em><em>t</em></span>
+class="math inline">$x_r=x_{\mathrm{Right}}$</span>
 (we'll use n/2 as the breakpoint)</li>
 <li>do the same with y to get <span
 class="math inline"><em>y</em><sub><em>l</em></sub></span> and <span
@@ -2574,7 +2516,7 @@ class="math inline"><em>y</em><sub><em>r</em></sub></span></li>
 </ol>
 <p>Example</p>
 <ul>
-<li><span class="math inline"><em>x</em> = 182 = (10110110)_2</span> so
+<li><span class="math inline">$x=182=(10110110)_2$</span> so
 <span class="math inline"><em>x</em><sub><em>l</em></sub> = 1011</span>
 and <span
 class="math inline"><em>x</em><sub><em>r</em></sub> = 0110</span></li>
@@ -2600,7 +2542,7 @@ $</li>
 y. Now recall x and y are both n-bit numbers, so we're trying to compute
 the product of these two n-bit numbers. This gives us a natural, albeit
 naive, recursive algorithm for computing the product of x times y.</p>
-<pre><code>Input: n-bit integers x,y $n=2^k$ k is a positive integer
+<pre class="pseudocode">Input: n-bit integers x,y <span class="math inline">$n=2^k$</span> k is a positive integer
 Output: z=xy
 
 EasyMultiply(x,y):   
@@ -2613,7 +2555,7 @@ EasyMultiply(x,y):
     C = EasyMultiply(x_l,y_r)
     D = EasyMultiply(x_r,y_l)
     Z = 2^n A + 2^(n/2)(C+D)+B    
-return Z</code></pre>
+return Z</pre>
 <p>Run Time analysis</p>
 <ul>
 <li>The partitioning steps require O(n) for each input</li>
@@ -2708,7 +2650,7 @@ determine the dominant term</li>
 class="math inline"> = <em>O</em>(3<sup><em>l</em><em>o</em><em>g</em><sub>2</sub><em>n</em></sup>)</span>
 (recall that by definition <span
 class="math inline">3 = 2<sup><em>l</em><em>o</em><em>g</em><sub>2</sub>3</sup></span>)</li>
-<li>$= O(n^{\log_2 3} $ (<span
+<li>$=O(n^{\log_2 3})$ (<span
 class="math inline"><em>l</em><em>o</em><em>g</em><sub>2</sub>3</span>
 is approx 1.59)</li>
 </ul>
@@ -2724,13 +2666,13 @@ a cost as we have to work harder to recombine the terms</p>
 <li>Then
 <ul>
 <li><span
-class="math inline"><em>x</em><sub><em>l</em></sub> = (1011)_2 = 11</span>
+class="math inline">$x_l=(1011)_2=11$</span>
 and <span
-class="math inline"><em>x</em><sub><em>r</em></sub> = (0110)_2 = 6</span></li>
+class="math inline">$x_r=(0110)_2=6$</span></li>
 <li><span
-class="math inline"><em>y</em><sub><em>l</em></sub> = (1001)_2 = 9</span>
+class="math inline">$y_l=(1001)_2=9$</span>
 and <span
-class="math inline"><em>y</em><sub><em>r</em></sub> = (1010)_2 = 10</span></li>
+class="math inline">$y_r=(1010)_2=10$</span></li>
 <li><span class="math inline">$x_l y_l=11\cdot 9=99$</span></li>
 <li><span class="math inline">$x_r y_r=6\cdot 10=60$</span></li>
 <li><span
@@ -2758,7 +2700,7 @@ class="math inline">$A=\[a_1,...,a_n\]$</span> of n numbers
 elements can be a bit ambiguous.
 <ul>
 <li>So let's define the median of A as follows:</li>
-<li>$median(A)=\lceil \frac{n}{2} \rceil $'th smallest number</li>
+<li>$\operatorname{median}(A)=\lceil n/2\rceil$'th smallest number</li>
 <li>hence: for n odd, say n=2l+1, then median is the (l+1)'st
 smallest</li>
 </ul></li>
@@ -2819,9 +2761,9 @@ element. Which must be in one of the three sets above. I wish to iterate
 that k is the position it's not the element!!<br />
 So</p>
 <ul>
-<li>if <span class="math inline">$k \&lt; 4$</span> then we want the
+<li>if <span class="math inline">$k &lt; 4$</span> then we want the
 k'th smallest in A &lt; p (because it has 4 elements)</li>
-<li>if <span class="math inline">$4 \&lt; k \le 6$</span> then we can
+<li>if <span class="math inline">$4 &lt; k \le 6$</span> then we can
 just choose 11</li>
 <li>else if <span class="math inline"><em>k</em> &gt; 6</span> then we
 want the (k-6)'th element in A &lt; p</li>
@@ -2832,7 +2774,7 @@ case, we don't even have to recurse at all. Whereas QuickSort has to
 recursively sort these two lists, we don't. We just need to find the
 median. So we will identify the right list to recurse on, locate the
 k'th element, and go on our merry way.</p>
-<p><strong><span class="math inline">Algorithm</span></strong></p>
+<p><strong>Algorithm</strong></p>
 <pre><code>Select(A,k):
 Choose a pivot p           
 Partition A in A &lt; p, A = p, A &gt; p          
@@ -2857,8 +2799,8 @@ even divide A into many more sets. for ex Say 100 subsets, then T(n) =
 T(0.99n)+O(n) which still solves to O(n). We now have a general intution
 to build a strategy</p>
 <p>Let's say a pivot p is good if <span
-class="math inline">$\|A_{\&lt;p}\| \le 3n/4$</span> and <span
-class="math inline">∥<em>A</em>_ <em>p</em>∥ ≤ 3<em>n</em>/4</span>.</p>
+class="math inline">$\|A_{&lt;p}\| \le 3n/4$</span> and <span
+class="math inline">$\lVert A_p\rVert\le 3n/4$</span>.</p>
 <ul>
 <li>this means that the number of elements less than our pivot is at
 most 3n/4,</li>
@@ -2940,8 +2882,8 @@ fixed at a constant 5, it never grows
 needed!!</li>
 </ul></li>
 </ul>
-<p><strong><span class="math inline">FastSelect
-Algorithm</span></strong></p>
+<p><strong>FastSelect
+Algorithm</strong></p>
 <pre><code>Input:   A - an unsorted array of size n
          k an integer with 1 &lt;= k &lt;= n 
 Output:  k&#39;th smallest element of A
@@ -2967,8 +2909,8 @@ if k &lt;= |A_&lt;p|:
 if k &gt; |A_&gt;p| + |A_=p|:
     then return FastSelect(A_&gt;p,k-|A_&lt;p|-|A_=p|)
 else return p</code></pre>
-<p><strong><span class="math inline">FastSelect Running
-Time</span></strong></p>
+<p><strong>FastSelect Running
+Time</strong></p>
 <ul>
 <li>Breaking A into n/5 groups -&gt; take O(n)</li>
 <li>Sorting all the groups -&gt; take O(1) per group = O(n)</li>
@@ -3067,14 +3009,12 @@ class="math inline">4<sup><em>l</em><em>o</em><em>g</em><sub>2</sub><em>n</em></
 <p>A quick refresher</p>
 <ul>
 <li>Consider some alpha <span
-class="math inline"><em>α</em> 0</span></li>
+class="math inline">$\alpha &gt; 0$</span></li>
 <li>Then
 <ul>
 <li><span
-class="math inline">∑_<em>j</em> = 0<sup><em>k</em></sup><em>α</em><sup><em>j</em></sup> = 1 + <em>α</em> + <em>α</em><sup>2</sup> + ⋯ + <em>α</em><sup><em>k</em></sup></span></li>
-<li>$ = \begin{cases} O(\alpha^k) &amp; \text{ if } \alpha &gt; 1 \ O(k)
-&amp; \text{ if } \alpha = 1 \ O(1) &amp; \text{ if } \alpha &lt; 1 \
-\end{cases}$</li>
+class="math inline">$\sum_{j=0}^{k}\alpha^j=1+\alpha+\alpha^2+\cdots+\alpha^k$</span></li>
+<li>$\sum_{j=0}^k \alpha^j = \begin{cases} O(\alpha^k) &amp; \text{if } \alpha &gt; 1 \\ O(k) &amp; \text{if } \alpha = 1 \\ O(1) &amp; \text{if } 0 &lt; \alpha &lt; 1 \end{cases}$</li>
 </ul></li>
 </ul>
 <p><strong>Polynomials</strong></p>
@@ -3159,9 +3099,7 @@ Generalization</h3>
 class="math inline"><em>T</em>(<em>n</em>) = <em>a</em><em>T</em>(<em>n</em>/<em>b</em>) + <em>O</em>(<em>n</em><sup><em>d</em></sup>)</span>,
 for a&gt;0, b&gt;0,d<span class="math inline">≥</span>0<br />
 Then<br />
-$ T(n) = \begin{cases} &amp; = O(n^d) &amp; \text{ if } d &gt; \log_b a
-\ &amp; = O(n^d \log n) &amp; \text{ if } d = \log_b a \ &amp; = O(n^{
-\log_b a}) &amp; \text{ if } d &lt; \log_b a \ \end{cases}$</p>
+$T(n) = \begin{cases} O(n^d) &amp; \text{if } d &gt; \log_b a \\ O(n^d \log n) &amp; \text{if } d = \log_b a \\ O(n^{\log_b a}) &amp; \text{if } d &lt; \log_b a \end{cases}$</p>
 <p><strong>General Recurrance</strong></p>
 <p>Applicable when <span
 class="math inline"><em>T</em>(<em>n</em>)</span> is of the form <span
@@ -3220,9 +3158,9 @@ to use the beautiful divide and conquer algorithm known as FFT.</p>
 <p>So here's the set up. We have a pair of polynomials</p>
 <ul>
 <li><span
-class="math inline"><em>A</em>(<em>x</em>) = <em>a</em><sub>0</sub> + <em>a</em><sub>1</sub><em>x</em> + <em>a</em><sub>2</sub><em>x</em><sup>2</sup> + ⋯ + <em>a</em>_<em>n</em> − 1<em>x</em><sup><em>n</em> − 1</sup></span></li>
+class="math inline">$A(x)=a_0+a_1x+a_2x^2+\cdots+a_{n-1}x^{n-1}$</span></li>
 <li><span
-class="math inline"><em>B</em>(<em>x</em>) = <em>b</em><sub>0</sub> + <em>b</em><sub>1</sub><em>x</em> + <em>b</em><sub>2</sub><em>x</em><sup>2</sup> + ⋯ + <em>b</em>_<em>n</em> − 1<em>x</em><sup><em>n</em> − 1</sup></span></li>
+class="math inline">$B(x)=b_0+b_1x+b_2x^2+\cdots+b_{n-1}x^{n-1}$</span></li>
 </ul>
 <p>The goal is to compute the product polynomial</p>
 <ul>
@@ -3231,7 +3169,7 @@ class="math inline"><em>C</em>(<em>x</em>) = <em>A</em>(<em>x</em>)<em>B</em
 <li>which we expect to have the form
 <ul>
 <li><span
-class="math inline"><em>c</em><sub>0</sub> + <em>c</em><sub>1</sub><em>x</em> + <em>c</em><sub>2</sub><em>x</em><sup>2</sup> + ⋯ + <em>c</em>_2<em>n</em> − 1<em>x</em><sup>2<em>n</em> − 2</sup></span></li>
+class="math inline">$c_0+c_1x+c_2x^2+\cdots+c_{2n-1}x^{2n-2}$</span></li>
 <li>Since the degree of C of X is at most 2n-2</li>
 </ul></li>
 <li>where $c_k = a_0 b_k + a_1 b_{k-1} + \cdots + a_k b_0 $
@@ -3245,9 +3183,9 @@ This doesn't, however, change the problem.</p>
 <li>Use vector notation for the polynomial coefficients
 <ul>
 <li><span
-class="math inline"><em>A</em> = (<em>a</em><sub>0</sub>, <em>a</em><sub>1</sub>, <em>a</em><sub>2</sub>,,⋯, <em>a</em>_<em>n</em> − 1)</span></li>
+class="math inline">$A=(a_0,a_1,a_2,\ldots,a_{n-1})$</span></li>
 <li><span
-class="math inline"><em>B</em> = (<em>b</em><sub>0</sub>, <em>b</em><sub>1</sub>, <em>b</em><sub>2</sub>,,⋯, <em>b</em>_<em>n</em> − 1)</span></li>
+class="math inline">$B=(b_0,b_1,b_2,\ldots,b_{n-1})$</span></li>
 <li><span class="math inline">$C = A\cdot B = (c_0,c_1,c_2,, \cdots
 ,c_{2n-2})$</span>
 <ul>
@@ -3285,7 +3223,7 @@ back to our polynomials</p>
 <ul>
 <li><ol type="1">
 <li>Coefficients: which we used above <span
-class="math inline"><em>A</em> = (<em>a</em><sub>0</sub>, <em>a</em><sub>1</sub>, <em>a</em><sub>2</sub>,,⋯, <em>a</em>_<em>n</em> − 1)</span></li>
+class="math inline">$A=(a_0,a_1,a_2,\ldots,a_{n-1})$</span></li>
 </ol></li>
 <li><ol type="1">
 <li>Values: at each term, ie <span
@@ -3307,14 +3245,14 @@ value approach makes multiplication easier so let's look at an
 example.</p>
 <p>So suppose that we know the polynomial A(x) and B(x) evaluated at the
 same 2n points, (<span class="math inline"><em>x</em><sub>1</sub></span>
--&gt; <span class="math inline"><em>x</em>_2<em>n</em>)</span></p>
+-&gt; <span class="math inline">$x_{2n})$</span></p>
 <ul>
 <li>ie given
 <ul>
 <li><span
-class="math inline"><em>A</em>(<em>x</em><sub>1</sub>), <em>A</em>(<em>x</em><sub>2</sub>), ⋯, <em>A</em>(<em>x</em>_2<em>n</em>)</span></li>
+class="math inline">$A(x_1),A(x_2),\ldots,A(x_{2n})$</span></li>
 <li><span
-class="math inline"><em>B</em>(<em>x</em><sub>1</sub>), <em>B</em>(<em>x</em><sub>2</sub>), ⋯, <em>B</em>(<em>x</em>_2<em>n</em>)</span></li>
+class="math inline">$B(x_1),B(x_2),\ldots,B(x_{2n})$</span></li>
 <li>At the same 2n points</li>
 </ul></li>
 <li>Then we can compute the product polynomial C(x) at these 2n points
@@ -3349,12 +3287,12 @@ coefficients to the values.</p>
 <li>Given a polonomial of degree n
 <ul>
 <li><span
-class="math inline"><em>A</em>(<em>x</em>) = <em>a</em><sub>0</sub> + <em>a</em><sub>1</sub><em>x</em> + <em>a</em><sub>2</sub><em>x</em><sup>2</sup> + ⋯ + <em>a</em>_<em>n</em> − 1<em>x</em><sup><em>n</em> − 1</sup></span></li>
+class="math inline">$A(x)=a_0+a_1x+a_2x^2+\cdots+a_{n-1}x^{n-1}$</span></li>
 <li>we represent this as <span
-class="math inline"><em>A</em> = (<em>a</em><sub>0</sub>, <em>a</em><sub>1</sub>, <em>a</em><sub>2</sub>, ⋯, <em>a</em>_<em>n</em> − 1)</span></li>
+class="math inline">$A=(a_0,a_1,a_2,\ldots,a_{n-1})$</span></li>
 </ul></li>
 <li>Goal is to compute: <span
-class="math inline"><em>A</em>(<em>x</em><sub>1</sub>), <em>A</em>(<em>x</em><sub>2</sub>), ⋯, <em>A</em>(<em>x</em>_2<em>n</em>)</span>
+class="math inline">$A(x_1),A(x_2),\ldots,A(x_{2n})$</span>
 <ul>
 <li>for any 2n points that we get to choose</li>
 </ul></li>
@@ -3362,7 +3300,7 @@ class="math inline"><em>A</em>(<em>x</em><sub>1</sub>), <em>A</em>(<em>x</em><
 <p>So let's suppose <span
 class="math inline"><em>x</em><sub>1</sub>, ..., <em>x</em><sub><em>n</em></sub></span>
 are the opposties of <span
-class="math inline"><em>x</em>_<em>n</em> + 1, ..., <em>x</em>_2<em>n</em></span><br />
+class="math inline">$x_{n+1},\ldots,x_{2n}$</span><br />
 Then <span class="math inline">$x_{n+1}=-x_1, \\
 x_{n+2}=-x_2,...,x_{2n}=-x_n$</span><br />
 (let call this the <span class="math inline">±</span> property)</p>
@@ -3372,9 +3310,9 @@ different.</p>
 <p>After splitting we have</p>
 <ul>
 <li><span
-class="math inline"><em>A</em>_<em>e</em><em>v</em><em>e</em><em>n</em> = (<em>a</em><sub>0</sub>, <em>a</em><sub>2</sub>, ⋯, <em>a</em>_<em>n</em> − 2)</span></li>
+class="math inline">$A_{\mathrm{even}}=(a_0,a_2,\ldots,a_{n-2})$</span></li>
 <li>and <span
-class="math inline"><em>A</em>_<em>e</em><em>v</em><em>e</em><em>n</em> = (<em>a</em><sub>1</sub>, <em>a</em><sub>3</sub>, ⋯, <em>a</em>_<em>n</em> − 1)</span></li>
+class="math inline">$A_{\mathrm{odd}}=(a_1,a_3,\ldots,a_{n-1})$</span></li>
 </ul>
 <p>Which we can put back into a polynomial (using y to help alleviate
 any confusion)</p>
@@ -3397,7 +3335,7 @@ off-by-one</li>
 approach. We've divided the polynomial and we have yet to conquer.</p>
 <p>Now that we know $A(x) = A_{even}(x^2) + x A_{odd}(x^2) $ it's pretty
 simple to translate A(x) into <span
-class="math inline"><em>A</em>(<em>x</em><sub>1</sub>), <em>A</em>(<em>x</em><sub>2</sub>), ⋯, <em>A</em>(<em>x</em>_2<em>n</em>)</span>
+class="math inline">$A(x_1),A(x_2),\ldots,A(x_{2n})$</span>
 all we need to do is</p>
 <ul>
 <li>compute at some point i, and use our <span
@@ -3412,35 +3350,35 @@ $</li>
 <p>So now</p>
 <ul>
 <li>given <span
-class="math inline"><em>A</em>_<em>e</em><em>v</em><em>e</em><em>n</em>(<em>y</em><sub>1</sub>), ..., <em>A</em>_<em>e</em><em>v</em><em>e</em><em>n</em>(<em>y</em><sub><em>n</em></sub>)</span>
+class="math inline">$A_{\mathrm{even}}(y_1),\ldots,A_{\mathrm{even}}(y_n)$</span>
 and <span
-class="math inline"><em>A</em>_<em>o</em><em>d</em><em>d</em>(<em>y</em><sub>1</sub>), ..., <em>A</em>_<em>o</em><em>d</em><em>d</em>(<em>y</em><sub><em>n</em></sub>)</span></li>
+class="math inline">$A_{\mathrm{odd}}(y_1),\ldots,A_{\mathrm{odd}}(y_n)$</span></li>
 <li>for <span
 class="math inline"><em>y</em><sub>1</sub> = <em>x</em><sub>1</sub><sup>2</sup>, ..., <em>y</em><sub><em>n</em></sub> = <em>x</em><sub><em>n</em></sub><sup>2</sup></span></li>
 <li>we compute <span
-class="math inline"><em>A</em>(<em>x</em><sub>1</sub>), <em>A</em>(<em>x</em><sub>2</sub>), ⋯, <em>A</em>(<em>x</em>_2<em>n</em>)</span></li>
+class="math inline">$A(x_1),A(x_2),\ldots,A(x_{2n})$</span></li>
 <li>in just O(n) time</li>
 </ul>
 <p><strong>FFT-Summary</strong><br />
 To get <span class="math inline"><em>A</em>(<em>x</em>)</span> of deg
 <span class="math inline"> ≤ <em>n</em> − 1</span> at 2n points <span
-class="math inline"><em>x</em><sub>1</sub>, ...<em>x</em>_2<em>n</em></span>
+class="math inline">$x_1,\ldots,x_{2n}$</span>
 of our choosing.</p>
 <ul>
 <li>1: We define <span
-class="math inline"><em>A</em>_<em>e</em><em>v</em><em>e</em><em>n</em></span>
+class="math inline">$A_{\mathrm{even}}$</span>
 and <span
-class="math inline"><em>A</em>_<em>o</em><em>d</em><em>d</em></span> of
+class="math inline">$A_{\mathrm{odd}}$</span> of
 deg <span class="math inline"> ≤ (<em>n</em>/2) − 1</span></li>
 <li>2: We recursively evaluate <span
 class="math inline"><em>A</em>(<em>x</em>)</span> at n points using
 $A(x) = A_{even}(x^2) + x A_{odd}(x^2) $
 <ul>
 <li>Recall <span
-class="math inline"><em>y</em><sub>1</sub> = <em>x</em><sub>1</sub><sup>2</sup> = <em>x</em>_<em>n</em> + 1<sup>2</sup>, ..., <em>y</em><sub><em>n</em></sub> = <em>x</em><sub><em>n</em></sub><sup>2</sup> = <em>x</em>_2<em>n</em><sup>2</sup></span></li>
+class="math inline">$y_1=x_1^2=x_{n+1}^2,\ldots,y_n=x_n^2=x_{2n}^2$</span></li>
 </ul></li>
 <li>3: In O(n) time we get A(x) at points <span
-class="math inline"><em>x</em><sub>1</sub>, ...<em>x</em>_2<em>n</em></span></li>
+class="math inline">$x_1,\ldots,x_{2n}$</span></li>
 </ul>
 <p>This leads to a runtime of <span
 class="math inline">2<em>T</em>(<em>n</em>) + <em>O</em>(<em>n</em>) = <em>O</em>(<em>n</em><em>l</em><em>o</em><em>g</em><em>n</em>)</span>,
@@ -3452,13 +3390,13 @@ level of recursion. Which may come as a bit of surprise. Consider what
 the <span class="math inline">±</span> prop means</p>
 <ul>
 <li>Initially we choose <span
-class="math inline"><em>x</em>_<em>n</em> + 1 = −<em>x</em><sub>1</sub>, ...</span></li>
+class="math inline">$x_{n+1}=-x_1,\ldots$</span></li>
 <li>next we choose <span
 class="math inline"><em>y</em><sub>1</sub> = <em>x</em><sub>1</sub><sup>2</sup>, ...</span></li>
 <li>Which implies that <span
-class="math inline"><em>y</em><sub>1</sub> = −<em>y</em>_(<em>n</em>/2) + 1, ...</span></li>
+class="math inline">$y_1=-y_{(n/2)+1},\ldots$</span></li>
 <li>but then <span
-class="math inline"><em>x</em><sub>1</sub><sup>2</sup> = −<em>x</em>_(<em>n</em>/2) + 1</span>
+class="math inline">$x_1^2=-x_{(n/2)+1}$</span>
 which would mean that the square of x is a negative number ...
 <ul>
 <li>if you're beginning to imagine the root of -1 you're on the right
@@ -3615,7 +3553,7 @@ class="math inline"><em>n</em> = 2<sup><em>k</em></sup></span>, the
 <li>similarly
 <ul>
 <li><span
-class="math inline">(<em>ω</em><sub><em>n</em></sub><sup>(<em>n</em>/2) + <em>j</em></sup>)<sup>2</sup> = (−<em>ω</em><sub><em>n</em></sub><sup><em>j</em></sup>)<sup>2</sup> = <em>ω</em>_<em>n</em>/2<sup><em>j</em></sup></span></li>
+class="math inline">$(\omega_n^{(n/2)+j})^2=(-\omega_n^j)^2=\omega_{n/2}^j$</span></li>
 </ul></li>
 </ul>
 <p>Now we are ready to move forward in our FFT algorithm. It should not
@@ -3670,29 +3608,29 @@ the first N over two are opposite of the last N over two. Also recall
 that the second poperty demonstrated that the square of the n'th roots
 are the (n/2)'nd roots.</p>
 <p>So we'll take the polynomial A(x) and split into <span
-class="math inline"><em>A</em>_<em>e</em><em>v</em><em>e</em><em>n</em></span>
+class="math inline">$A_{\mathrm{even}}$</span>
 and <span
-class="math inline"><em>A</em>_<em>o</em><em>d</em><em>d</em></span>.
+class="math inline">$A_{\mathrm{odd}}$</span>.
 Each with at most degree <span
 class="math inline">(<em>n</em>/2) − 1</span>. Then we'll recursively
 evaluate <span
-class="math inline"><em>A</em>_<em>e</em><em>v</em><em>e</em><em>n</em></span>
+class="math inline">$A_{\mathrm{even}}$</span>
 and <span
-class="math inline"><em>A</em>_<em>o</em><em>d</em><em>d</em></span> at
+class="math inline">$A_{\mathrm{odd}}$</span> at
 the (n'th roots)^2. Which because of property 2 is just the (n/2)nd
 roots. Evaluation requires 2T(n/2) time</p>
 <p>Finally, once we have <span
-class="math inline"><em>A</em>_<em>e</em><em>v</em><em>e</em><em>n</em></span>
+class="math inline">$A_{\mathrm{even}}$</span>
 and <span
-class="math inline"><em>A</em>_<em>o</em><em>d</em><em>d</em></span> at
+class="math inline">$A_{\mathrm{odd}}$</span> at
 the (n/2)nd roots then it will require O(n) time to get A(x) at the n'th
 roots. Using our handy little formula: <span
-class="math inline"><em>A</em>(<em>x</em>) = <em>A</em>_<em>e</em><em>v</em><em>e</em><em>n</em>(<em>x</em><sup>2</sup>) + <em>x</em><em>A</em>_<em>o</em><em>d</em><em>d</em></span></p>
+class="math inline">$A(x)=A_{\mathrm{even}}(x^2)+xA_{\mathrm{odd}}$</span></p>
 <p><strong><span class="math inline">FFT Pseudocode - Version
 1</span></strong></p>
 <p>FFT(a,<span class="math inline"><em>ω</em></span>):</p>
 <p>INPUT: Coefficients <span
-class="math inline"><em>a</em> = (<em>a</em><sub>0</sub>, <em>a</em><sub>1</sub>, ..., <em>a</em>_<em>n</em> − 1)</span>
+class="math inline">$a=(a_0,a_1,\ldots,a_{n-1})$</span>
 for polynomial <span
 class="math inline"><em>A</em>(<em>x</em>)</span></p>
 <ul>
@@ -3706,9 +3644,9 @@ class="math inline"><em>A</em>(<em>ω</em><sup>0</sup>), <em>A</em>(<em>ω</em
 Let</p>
 <ul>
 <li>a_even = <span
-class="math inline">(<em>a</em><sub>0</sub>, <em>a</em><sub>2</sub>, ..., <em>a</em>_<em>n</em> − 2)</span></li>
+class="math inline">$(a_0,a_2,\ldots,a_{n-2})$</span></li>
 <li>a_odd = <span
-class="math inline">(<em>a</em><sub>1</sub>, <em>a</em><sub>3</sub>, ..., <em>a</em>_<em>n</em> − 1)</span></li>
+class="math inline">$(a_1,a_3,\ldots,a_{n-1})$</span></li>
 </ul>
 <p>(s_0,s<em>2,...,s</em>{n/2-1}) = FFT(a_even,<span
 class="math inline"><em>ω</em><sup>2</sup></span>) returns A_even(<span
@@ -3738,11 +3676,11 @@ notice the subtraction in the second equation</p>
 <p>Here's a more compact version</p>
 <p><strong><span class="math inline">FFT Pseudocode - Version
 2</span></strong></p>
-<pre><code>FFT(a,w):
+<pre class="pseudocode">FFT(a,w):
 If n=1, return A(1)                  # Our base case
 
-a_even = $(a_0,a_2,...,a_{n-2})$     # Now the split   O(n)
-a_odd = $(a_1,a_3,...,a_{n-1})$
+a_even = <span class="math inline">$(a_0,a_2,...,a_{n-2})$</span>     # Now the split   O(n)
+a_odd = <span class="math inline">$(a_1,a_3,...,a_{n-1})$</span>
 
 s[:] = FFT(a_even,w^2)               # T(n/2) 
 t[:] = FFT(a_odd,w^2)                # T(n/2) 
@@ -3751,7 +3689,7 @@ for j = 0 -&gt; (n/2)-1:                # O(n)
     r[j] = s[j] + w^j t[j]
     r[(n/2)+j] = s[j] - w^j t[j]
 
-return r[:]</code></pre>
+return r[:]</pre>
 <p>Total Run Time: 2*T(n/2)+O(n) = solves to O(n log n)</p>
 <h3 id="example">Example</h3>
 <p><strong>Suppose a=(1,0,0,0) are the coefficients of a polynomial.
@@ -3797,12 +3735,12 @@ this is going to give us a polynomial A(x) at the two nth root
 unity.</p>
 <ul>
 <li><span
-class="math inline">(<em>r</em><sub>0</sub>, <em>r</em><sub>1</sub>, ..., <em>r</em>_2<em>n</em> − 1) = <em>F</em><em>F</em><em>T</em>(<em>a</em>, <em>ω</em>_2<em>n</em>)</span></li>
+class="math inline">$(r_0,r_1,\ldots,r_{2n-1})=\operatorname{FFT}(a,\omega_{2n})$</span></li>
 </ul>
 <p>Similarly for B(x)</p>
 <ul>
 <li><span
-class="math inline">(<em>s</em><sub>0</sub>, <em>s</em><sub>1</sub>, ..., <em>s</em>_2<em>n</em> − 1) = <em>F</em><em>F</em><em>T</em>(<em>b</em>, <em>ω</em>_2<em>n</em>)</span></li>
+class="math inline">$(s_0,s_1,\ldots,s_{2n-1})=\operatorname{FFT}(b,\omega_{2n})$</span></li>
 </ul>
 <p>Now we can compute C(x) at the two nth roots of unity</p>
 <ul>
@@ -3832,7 +3770,7 @@ class="math inline"><em>x</em><sub><em>j</em></sub></span>:</p>
 <p>$A(x_j) = a_0 + a_1 x_j + a_2 x_j^2 + \cdots + a_{n-1} x_j^{n-1}
 $<br />
 <span
-class="math inline"> = (1, <em>x</em><sub><em>j</em></sub>, <em>x</em><sub><em>j</em></sub><sup>2</sup>, ..., <em>x</em><sub><em>j</em></sub><sup><em>n</em> − 1</sup>) × (<em>a</em><sub>0</sub>, <em>a</em><sub>1</sub>, <em>a</em><sub>2</sub>, ..., <em>a</em>_<em>n</em> − 1)</span></p>
+class="math inline">$=(1,x_j,x_j^2,\ldots,x_j^{n-1})\times(a_0,a_1,a_2,\ldots,a_{n-1})$</span></p>
 </blockquote>
 <p>So for n points it gets rather tedious to write this all out so we
 switch to matrix notation:<br />
@@ -3957,7 +3895,7 @@ n is the number of bits</li>
 <li>define A = (a,padding to N)
 <ul>
 <li>ie <span
-class="math inline"><em>a</em><sub>0</sub>, <em>a</em><sub>1</sub>, ⋯, <em>a</em>_<em>n</em> − 1, 0, 0, ...</span></li>
+class="math inline">$a_0,a_1,\ldots,a_{n-1},0,0,\ldots$</span></li>
 </ul></li>
 <li>do the same for B</li>
 </ol>
@@ -4012,9 +3950,9 @@ class="math inline"><em>C</em> = <em>A</em> × <em>B</em></span></p>
 <li><p>FFT is a transformation algorithm</p>
 <ul>
 <li>it converts from coefficients to values, when <span
-class="math inline"><em>ω</em>_2<em>n</em></span> is used</li>
+class="math inline">$\omega_{2n}$</span> is used</li>
 <li>it converts from values to coefficients, when <span
-class="math inline"><em>ω</em>_2<em>n</em><sup>−1</sup></span> is used
+class="math inline">$\omega_{2n}^{-1}$</span> is used
 (but don't forget to scale! by 1/2n )</li>
 </ul></li>
 <li><p>FFT requires input vector of length <span
@@ -4029,13 +3967,13 @@ back into the real number system</li>
 <li>this is generally done using the inverse fft</li>
 </ul></li>
 <li><p>Inverse FFT is just FFT evaluated at the inverse roots of unity
-<span class="math inline"><em>ω</em>_2<em>n</em><sup>−1</sup></span></p>
+<span class="math inline">$\omega_{2n}^{-1}$</span></p>
 <ul>
-<li><span class="math inline"><em>ω</em>_2<em>n</em><sup>−1</sup></span>
+<li><span class="math inline">$\omega_{2n}^{-1}$</span>
 go clockwise</li>
-<li><span class="math inline"><em>ω</em>_2<em>n</em><sup>−1</sup></span>
+<li><span class="math inline">$\omega_{2n}^{-1}$</span>
 are the mirrored/flipped values of <span
-class="math inline"><em>ω</em>_2<em>n</em></span></li>
+class="math inline">$\omega_{2n}$</span></li>
 </ul></li>
 </ol>
 <h2 id="dc6-summary">DC6: Summary</h2>
@@ -4188,7 +4126,7 @@ class="math inline"><em>x</em><sup>2</sup> ≡ <em>a</em><sub>1</sub><em>x</
 class="math inline"><em>x</em><sup>3</sup> ≡ <em>a</em><sub>2</sub><em>x</em> mod  <em>N</em> = <em>a</em><sub>3</sub></span></li>
 <li><span class="math inline">⋯</span></li>
 <li><span
-class="math inline"><em>x</em><sup><em>y</em></sup> ≡ <em>a</em>_<em>y</em> − 1<em>x</em> mod  <em>N</em> = <em>a</em><sub><em>n</em></sub></span></li>
+class="math inline">$x^y\equiv a_{y-1}x\bmod N=a_n$</span></li>
 </ul>
 <p>Each of these lines is roughly O(n^2), O(n) to multiply a &amp; x and
 O(n) to take the mod N. The number of lines or rounds is roughly <span
@@ -4219,7 +4157,7 @@ class="math inline"><em>x</em><sup>2</sup> ≡ <em>a</em><sub>1</sub><sup>2<
 class="math inline"><em>x</em><sup>4</sup> ≡ <em>a</em><sub>2</sub><sup>2</sup> mod  <em>N</em> = <em>a</em><sub>4</sub></span></li>
 <li><span class="math inline">⋯</span></li>
 <li><span
-class="math inline"><em>x</em><sup><em>y</em></sup> ≡ <em>a</em>_<em>y</em> − 1<em>x</em> mod  <em>N</em> = <em>a</em><sub><em>n</em></sub></span></li>
+class="math inline">$x^y\equiv a_{y-1}x\bmod N=a_n$</span></li>
 </ul>
 <p>Consider our example from before <span
 class="math inline">7<sup>25</sup><em>m</em><em>o</em><em>d</em>23</span></p>
@@ -4239,8 +4177,8 @@ class="math inline">7<sup>16</sup> ≡ 12<sup>2</sup> ≡ 144 ≡ 6�
 class="math inline">7<sup>25</sup> ≡ 7<sup>16</sup> × 7<sup>8</sup> × 7 ≡ 6 × 12 × 7 ≡ 72 × 7 ≡ 3 × 7 ≡ 21 mod  23</span></li>
 <li>Final answer 21</li>
 </ul>
-<p><strong><span class="math inline">ModExp
-Algorithm</span></strong></p>
+<p><strong>ModExp
+Algorithm</strong></p>
 <p>First we state a key observation which should be trivial</p>
 <ul>
 <li>for even y, <span
@@ -4371,7 +4309,7 @@ must divide both x and y</li>
 <li>thus one these common divisors must be the greatest</li>
 </ul>
 <p>We will now use this to develop an algorithm<br />
-<strong><span class="math inline">Euclids Algo</span></strong></p>
+<strong>Euclids Algo</strong></p>
 <pre><code>Euclid(x,y)
 
 Input  : Integers x,y where x &gt;= y &gt;= 0
@@ -4395,8 +4333,8 @@ This means our algo will run for at most 2n rounds.</p>
 <p>Our final runtime will t/f be <span
 class="math inline"><em>O</em>(<em>n</em><sup>3</sup>)</span></p>
 <h3 id="extended-euclid">Extended Euclid</h3>
-<p><strong><span class="math inline">Extended Euclid
-Algo</span></strong></p>
+<p><strong>Extended Euclid
+Algo</strong></p>
 <p><strong>Computing Inverses</strong><br />
 This is an extended version of euclid's algorithm. This version however
 will return and extra two parameters <span
@@ -4737,7 +4675,7 @@ number, this can be done by</p>
 <ul>
 <li>take the binary representation of the text, this will result in an
 even larger message length,</li>
-<li>in this scenario we will want <span class="math inline">$m \&lt;
+<li>in this scenario we will want <span class="math inline">$m &lt;
 2^n$</span>, which is segments of length <span
 class="math inline">2<sup><em>n</em></sup></span> this is little n</li>
 <li>where we constrain n to we find p and q such that <span
@@ -4745,7 +4683,7 @@ class="math inline"><em>N</em> ≥ 2<sup><em>n</em></sup></span></li>
 <li>which put together implies that m &lt; N as needed</li>
 </ul>
 <p>m also shouldn't be too small. Suppose for example if we take e=3 and
-<span class="math inline">$m^3 \&lt; N$</span></p>
+<span class="math inline">$m^3 &lt; N$</span></p>
 <ul>
 <li>then <span
 class="math inline"><em>m</em><sup><em>e</em></sup> mod  <em>N</em></span>
@@ -4927,13 +4865,13 @@ witnesses, ie the numbers z<span class="math inline">∈</span>
 algorithm. The reader may also recall that these are the same numbers
 that must all be relatively prime for prime number p. So it makes that
 some are witnesses to a composite r.</p>
-<p><strong><span class="math inline">Primality Test -
-Simple</span></strong></p>
+<p><strong>Primality Test -
+Simple</strong></p>
 <pre><code>Input: n-bit number r
 
 1. Choose z randomly from {1,2,3,...,r-1}
-2. Compute z^(r-1) \equiv 1 mod r
-3. If z^(r-1) \equiv 1 mod r
+2. Compute z^(r-1) ≡ 1 mod r
+3. If z^(r-1) ≡ 1 mod r
     then r is prime     - output true
     else r is composite - output false</code></pre>
 <ul>
@@ -4964,16 +4902,16 @@ prime.</li>
 <li>and we perform the fermat test same as before</li>
 </ul></li>
 </ul>
-<p><strong><span class="math inline">Primality Test -
-Better</span></strong></p>
+<p><strong>Primality Test -
+Better</strong></p>
 <pre><code>Input: n-bit number r
 
 1. Choose z1,z2,...,zk randomly from {1,2,3,...,r-1}
 
 2.  for i=1-&gt;k
-    Compute (z_i)^(r-1) \equiv 1 mod r
+    Compute (z_i)^(r-1) ≡ 1 mod r
 
-3. If for all i, z^(r-1) \equiv 1 mod r
+3. If for all i, z^(r-1) ≡ 1 mod r
     then r is prime     - output true
     else r is composite - output false</code></pre>
 <ul>
@@ -5043,10 +4981,10 @@ mathematically as G={V,E}. One of the most characteristics of a graph is
 whether or not it is directed. Consider the following illustration.</p>
 <p><img src="../../../.assets/CS6515_images/GA1-001.png"
 alt="GA1-001" /></p>
-<p>In these examples $V=\ V_1, V_2, V_3 $. For the undirected graph on
-the left we would write $E = \ (V_1,V_2), (V_1,V_3), (V_2,V_3) $ as
+<p>In these examples $V=\{V_1,V_2,V_3\}$. For the undirected graph on
+the left we would write $E=\{(V_1,V_2),(V_1,V_3),(V_2,V_3)\}$ as
 unordered pairs. But for the directed graph on the right we would write
-$E = \ (V_1,V_2), (V_1,V_3), (V_2,V_3) $, which appears the same but
+$E=\{(V_1,V_2),(V_1,V_3),(V_2,V_3)\}$, which appears the same but
 here these are ordered pairs and this quality must be remembered.</p>
 <p>There are two standard methods for representing a graph:</p>
 <ul>
@@ -5150,7 +5088,7 @@ discovery is pushed forward</li>
 <li>see gif below</li>
 </ul>
 <p>BFS Animation</p>
-<p><strong><span class="math inline">BFS Algorithm</span></strong></p>
+<p><strong>BFS Algorithm</strong></p>
 <ul>
 <li>unweighted edges</li>
 </ul>
@@ -5163,7 +5101,7 @@ Output : 2 arrays, dist &amp; prev
 
 for all v in V:
     dist(v)= min num of edges from s to v
-    # using \infinity if not defined/unreachable
+    # using infinity if not defined/unreachable
     prev(v)
 
 Runs in O(n+m)</code></pre>
@@ -5243,8 +5181,8 @@ graphs
 support our use case. We want to be able to find a path between
 connected vertices. So in this case we will need to keep track of the
 predecessor vertex when we first visit a vertex.</p>
-<p><strong><span class="math inline">DFS Algo for Undirected
-Graphs</span></strong></p>
+<p><strong>DFS Algo for Undirected
+Graphs</strong></p>
 <pre><code>DFS(G):
 input : G=(V,E) in adjacency list representation (linked list)
 output: vertices labelled by connected components
@@ -5297,8 +5235,8 @@ explored edges</p>
 <li>add pre/post numbers</li>
 </ul></li>
 </ul>
-<p><strong><span class="math inline">DFS Algo for directed
-Graphs</span></strong></p>
+<p><strong>DFS Algo for directed
+Graphs</strong></p>
 <pre><code>DFS(G):
 input : G=(V,E) in adjacency list representation (linked list)
 output: vertices labelled by connected components
@@ -5672,7 +5610,7 @@ vertices are marked and have been removed. Voila we have our SCCs.</p>
 alt="GA1-010" /></p>
 <p>You'll notice the ordering looks a bit wonky right? It's in reverse
 topological order, thankfully we can work with this.</p>
-<p><strong><span class="math inline">SCC Algorithm</span></strong></p>
+<p><strong>SCC Algorithm</strong></p>
 <pre><code>StronglyConnectedComponents(G):
     Input  : directed graph G(V,E) in adjacency list rep.
     Output : 
@@ -5712,7 +5650,7 @@ visited. if <span
 class="math inline"><em>u</em> ∈ <em>S</em><sup>′</sup></span>, then we
 visit and finish all of S' before visiting any of S because S' has no
 path to S, S &amp; S' are distinct. Hence post(w) &gt; post(z) for all
-$z \in S \cup S' - \u$. This proves the claim.</p>
+$z \in (S \cup S') \setminus \{u\}$. This proves the claim.</p>
 <p><strong>Proof: Claim</strong><br />
 Let u be the first vertex in <span
 class="math inline"><em>S</em> ∪ <em>S</em><sup>′</sup></span> that is
@@ -5720,7 +5658,7 @@ visited. if <span
 class="math inline"><em>u</em> ∈ <em>S</em><sup>′</sup></span>, then we
 visit and finish all of S' before visiting any of S because S' has no
 path to S, S &amp; S' are distinct. Hence post(w) &gt; post(z) for all
-$z \in S \cup S' - \u$. This proves the claim.</p>
+$z \in (S \cup S') \setminus \{u\}$. This proves the claim.</p>
 <p><img src="../../../.assets/CS6515_images/GA1-009.png"
 alt="GA1-009" /></p>
 <h3 id="graphsearch-summary">GraphSearch-Summary</h3>
@@ -5783,14 +5721,14 @@ back</li>
 <li>Output:
 <ul>
 <li><span
-class="math inline"><em>G</em>_<em>s</em><em>c</em><em>c</em> = (<em>V</em>_<em>s</em><em>c</em><em>c</em>, <em>E</em>_<em>s</em><em>c</em><em>c</em>)</span>
+class="math inline">$G_{\mathrm{scc}}=(V_{\mathrm{scc}},E_{\mathrm{scc}})$</span>
 this is the metagraph, or DAG of Strongly connected components
 <ul>
 <li><strong>NOTE</strong></li>
 <li><span
-class="math inline"><em>V</em>_<em>s</em><em>c</em><em>c</em>, <em>E</em>_<em>s</em><em>c</em><em>c</em></span>
+class="math inline">$V_{\mathrm{scc}},E_{\mathrm{scc}}$</span>
 refer to <span
-class="math inline"><em>G</em>_<em>s</em><em>c</em><em>c</em></span> the
+class="math inline">$G_{\mathrm{scc}}$</span> the
 metagraph</li>
 <li>These provide a grouping number to the vertices in the underlying
 graph G</li>
@@ -6203,7 +6141,7 @@ class="math inline"><em>λ</em><sub>0</sub> = <em>α</em></span> and
 $\lambda_l = \beta $</p>
 <ul>
 <li>Consider the subpath <span
-class="math inline"><em>λ</em><sub><em>i</em></sub> → <em>λ</em>_<em>i</em> + 1</span>
+class="math inline">$\lambda_i\to\lambda_{i+1}$</span>
 <ul>
 <li>this comes from the clause <span
 class="math inline">$(\bar{\lambda_i} \vee \lambda_{i+1})$</span></li>
@@ -6802,12 +6740,12 @@ class="math inline">∀<em>e</em> ∈ <em>E</em>, 0 ≤ <em>f</em><sub
 <li>Conservation of flow, each node must have an out flow equal to it's
 inflow
 <ul>
-<li>$\forall v \in V - \ s \cup t $ flow-in to v = flow out of v</li>
-<li><span class="math inline">∑<em>f</em>_<em>w</em><em>v</em></span>
+<li>$\forall v \in V \setminus \{s,t\}$ flow-in to v = flow out of v</li>
+<li><span class="math inline">$\sum f_{wv}$</span>
 over <span class="math inline">$\overset{\rightarrow}{wv} \in
 E$</span></li>
 <li>is equal to <span
-class="math inline">∑<em>f</em>_<em>v</em><em>z</em></span> over <span
+class="math inline">$\sum f_{vz}$</span> over <span
 class="math inline">$\overset{\rightarrow}{vz} \in
 E$</span></li>
 </ul></li>
@@ -6945,22 +6883,22 @@ is somewhat straight forward</p>
 <ul>
 <li>if <span class="math inline">$\overset{\rightarrow}{vw} \in
 E$</span> and <span
-class="math inline"><em>f</em>_<em>v</em><em>w</em> &lt; <em>c</em>_<em>v</em><em>w</em></span>
+class="math inline">$f_{vw}&lt;c_{vw}$</span>
 <ul>
 <li>then add <span
 class="math inline">$\overset{\rightarrow}{vw}$</span> to <span
 class="math inline"><em>G</em><sup><em>f</em></sup></span> with capacity
 <span
-class="math inline"><em>c</em>_<em>v</em><em>w</em> − <em>f</em>_<em>v</em><em>w</em></span></li>
+class="math inline">$c_{vw}-f_{vw}$</span></li>
 </ul></li>
 <li>if <span class="math inline">$\overset{\rightarrow}{vw} \in
 E$</span> and <span
-class="math inline"><em>f</em>_<em>v</em><em>w</em> &gt; 0</span>
+class="math inline">$f_{vw}&gt;0$</span>
 <ul>
 <li>then add <span
 class="math inline">$\overset{\rightarrow}{ww}$</span> to <span
 class="math inline"><em>G</em><sup><em>f</em></sup></span> with capacity
-<span class="math inline"><em>f</em>_<em>v</em><em>w</em></span></li>
+<span class="math inline">$f_{vw}$</span></li>
 <li>this is a backward edge like the example above</li>
 </ul></li>
 </ul>
@@ -6970,8 +6908,8 @@ that says the same thing</p>
 Given a flow <span class="math inline"><em>f</em></span> over <span
 class="math inline"><em>G</em></span><br />
 <span class="math inline">$C_f(u,v) = \begin{cases} C(u,v) - f(u,v)
-&amp; if (u,v) \in E \\ f(u,v) &amp;
-if (v,u) \in E \\ 0 &amp; otherwise \\ \end{cases}$</span></p>
+&amp; \text{if } (u,v) \in E \\ f(v,u) &amp;
+\text{if } (v,u) \in E \\ 0 &amp; \text{otherwise} \end{cases}$</span></p>
 <h3 id="ford-fulkerson-algo">Ford Fulkerson Algo</h3>
 <pre><code>1. set f_e = 0 for all e in E
 
@@ -7037,7 +6975,7 @@ class="math inline"><em>s</em>, <em>t</em> ∈ <em>V</em></span>) &amp;
 capcities <span
 class="math inline"><em>c</em><sub><em>e</em></sub> 0</span><br />
 OUTPUT: flow <span class="math inline">$f^*$</span> of max size, (<span
-class="math inline"><em>s</em><em>i</em><em>z</em><em>e</em>(<em>f</em>) = <em>f</em>_<em>o</em><em>u</em><em>t</em>(<em>s</em>) = <em>f</em>_<em>i</em><em>n</em>(<em>t</em>)</span>)</p>
+class="math inline">$\operatorname{size}(f)=f_{\mathrm{out}}(s)=f_{\mathrm{in}}(t)$</span>)</p>
 <p>When does ford-fulkerson stop running? When there are no remaining
 augmenting path in residual graph of G, <span
 class="math inline">$G^{f^*}$</span></p>
@@ -7095,8 +7033,8 @@ st-cut, with a capacity of 12, which just so happens to be the max flow:
 alt="MF2-003" /></p>
 <p>Do you think it would be possible to go lower than this? I hope not
 because what we've just illustrated is the MaxFlow MinCut theorem.</p>
-<p><strong><span class="math inline">MaxFlow-MinCut
-Theorem</span></strong> For any flow network the size of the max flow is
+<p><strong>MaxFlow-MinCut
+Theorem</strong> For any flow network the size of the max flow is
 the minimum capacity of an st-cut.</p>
 <p>Sketch of proof: To prove equality we prove (1) max flow is at most
 the min st-cut, and (2) max flow is at least the min st-cut. Put
@@ -7116,7 +7054,7 @@ from L to R. The flow cannot escape L any other way! The total
 capacities of these edges is 27, so the total possible flow is 27, so
 the flow is bounded by 27.</p>
 <p>Formally, we claim that <span
-class="math inline"><em>s</em><em>i</em><em>z</em><em>e</em>(<em>f</em>) = <em>f</em>_<em>o</em><em>u</em><em>t</em>(<em>L</em>) − <em>f</em>_<em>i</em><em>n</em>(<em>L</em>)</span>
+class="math inline">$\operatorname{size}(f)=f_{\mathrm{out}}(L)-f_{\mathrm{in}}(L)$</span>
 (this is a NOT a typo)</p>
 <ul>
 <li><span class="math inline">$\large f_{out}(L) =
@@ -7164,28 +7102,28 @@ we can safely remove it
 <li>so we take it outside</li>
 </ul></li>
 <li>this results in the summation of <span
-class="math inline"><em>f</em>_<em>o</em><em>u</em><em>t</em> − <em>f</em>_<em>i</em><em>n</em></span>
+class="math inline">$f_{\mathrm{out}}-f_{\mathrm{in}}$</span>
 over the same vertices
 <ul>
 <li>which we know is 0 due to the conservation of energy</li>
 </ul></li>
 <li>This leaves us with <span
-class="math inline"><em>f</em>_<em>o</em><em>u</em><em>t</em>(<em>s</em>)</span>
+class="math inline">$f_{\mathrm{out}}(s)$</span>
 which we know is the size of the flow</li>
 <li>This ends the proof of <span
-class="math inline"><em>s</em><em>i</em><em>z</em><em>e</em>(<em>f</em>) = <em>f</em>_<em>o</em><em>u</em><em>t</em>(<em>L</em>) − <em>f</em>_<em>i</em><em>n</em>(<em>L</em>)</span>
+class="math inline">$\operatorname{size}(f)=f_{\mathrm{out}}(L)-f_{\mathrm{in}}(L)$</span>
 <img src="../../../.assets/CS6515_images/MF2-004.png"
 alt="MF2-004" /></li>
 </ul>
 <p>Now we want to demonstrate that <span
 class="math inline"><em>s</em><em>i</em><em>z</em><em>e</em>(<em>f</em>) ≤ <em>c</em><em>a</em><em>p</em><em>a</em><em>c</em><em>i</em><em>t</em><em>y</em>(<em>L</em>, <em>R</em>)</span><br />
 From above we observe that <span
-class="math inline"><em>s</em><em>i</em><em>z</em><em>e</em>(<em>f</em>) = <em>f</em>_<em>o</em><em>u</em><em>t</em>(<em>L</em>) − <em>f</em>_<em>i</em><em>n</em>(<em>L</em>)</span><br />
+class="math inline">$\operatorname{size}(f)=f_{\mathrm{out}}(L)-f_{\mathrm{in}}(L)$</span><br />
 This implies that <span
-class="math inline"><em>f</em>_<em>o</em><em>u</em><em>t</em>(<em>L</em>) − <em>f</em>_<em>i</em><em>n</em>(<em>L</em>) ≤ <em>f</em>_<em>o</em><em>u</em><em>t</em>(<em>L</em>)</span><br />
+class="math inline">$f_{\mathrm{out}}(L)-f_{\mathrm{in}}(L)\le f_{\mathrm{out}}(L)$</span><br />
 But the flow out of L can't exceed the capacity of the cut(L,R)<br />
 hence <span
-class="math inline"><em>f</em>_<em>o</em><em>u</em><em>t</em>(<em>L</em>) − <em>f</em>_<em>i</em><em>n</em>(<em>L</em>) ≤ <em>f</em>_<em>o</em><em>u</em><em>t</em>(<em>L</em>) ≤ <em>c</em><em>a</em><em>p</em><em>a</em><em>c</em><em>i</em><em>t</em><em>y</em>(<em>L</em>, <em>R</em>)</span></p>
+class="math inline">$f_{\mathrm{out}}(L)-f_{\mathrm{in}}(L)\le f_{\mathrm{out}}(L)\le\operatorname{capacity}(L,R)$</span></p>
 <p>This proves that <span
 class="math inline"><em>s</em><em>i</em><em>z</em><em>e</em>(<em>f</em>) ≤ <em>c</em><em>a</em><em>p</em><em>a</em><em>c</em><em>i</em><em>t</em><em>y</em>(<em>L</em>, <em>R</em>)</span>
 and thus max flow <span class="math inline">≤</span> min st-cut
@@ -7262,17 +7200,14 @@ flow along these edges must be fully capacitated, ie saturated. hence
 the flow out of L is simply the capacity of L -&gt; R <span
 class="math display">$$\forall
 \overset{\rightarrow}{vw} \in E, v\in L, w\in R $$</span><br />
-<span class="math display">$$ f_{vw}^* = c_{vw} \\ f^{\cdot out}(L) =
-capacity(L,R) $$</span></p>
+<span class="math display">$$f_{vw}^*=c_{vw},\qquad f^{*}_{\mathrm{out}}(L)=\operatorname{capacity}(L,R)$$</span></p>
 <p>Now let's consider the edges going from R to L, in our original
 graph<br />
 <span class="math display">$$\forall \overset{\rightarrow}{zy} \in E,
 z\in R, y\in L $$</span><br />
-<span class="math display">$$ f_{zy}^* = 0 \\ f^{\cdot out}(L) = 0
-$$</span></p>
+<span class="math display">$$f_{zy}^*=0,\qquad f^{*}_{\mathrm{in}}(L)=0$$</span></p>
 <p>We can put these together to get<br />
-<span class="math display">$$ size(f^*) = f^{\cdot out}(L) - f^{\cdot in}(L) =
-capacity(L,R) - 0 $$</span> which is what we wanted</p>
+<span class="math display">$$\operatorname{size}(f^*)=f^{*}_{\mathrm{out}}(L)-f^{*}_{\mathrm{in}}(L)=\operatorname{capacity}(L,R)-0$$</span> which is what we wanted</p>
 <p>so Let's review</p>
 <ul>
 <li>We wanted to show max size(f) <span class="math inline">≥</span> min
@@ -7360,7 +7295,7 @@ class="math inline"><em>G</em><sup><em>f</em></sup></span></li>
 </ol></li>
 </ul>
 <h3 id="edmonds-karp">Edmonds Karp</h3>
-<p><strong><span class="math inline">Edmonds Karp</span></strong> We've
+<p><strong>Edmonds Karp</strong> We've
 bold the tweaks we've made</p>
 <p><strong>Input</strong> Flow network G=(V,E) with capacities c(e) &gt;
 0 <strong>Integers REMOVED</strong></p>
@@ -7762,11 +7697,11 @@ which is what we would expect</li>
 outflows, ie the validity of the flow! To do this we need to prove that
 for any <span class="math inline"><em>v</em> ∈ <em>V</em></span>-{s,t},
 <span
-class="math inline"><em>f</em>_<em>i</em><em>n</em>(<em>v</em>) = <em>f</em>_<em>o</em><em>u</em><em>t</em>(<em>v</em>)</span>.
+class="math inline">$f_{\mathrm{in}}(v)=f_{\mathrm{out}}(v)$</span>.
 We know that <span
-class="math inline"><em>f</em><sup>′</sup>_<em>i</em><em>n</em>(<em>v</em>) = <em>f</em><sup>′</sup>_<em>o</em><em>u</em><em>t</em>(<em>v</em>)</span>
+class="math inline">$f^{\prime}_{\mathrm{in}}(v)=f^{\prime}_{\mathrm{out}}(v)$</span>
 holds as it's the output of a max-flow algo. Let's look at <span
-class="math inline"><em>f</em><sup>′</sup>_<em>i</em><em>n</em>(<em>v</em>)</span>.</p>
+class="math inline">$f^{\prime}_{\mathrm{in}}(v)$</span>.</p>
 <p><span class="math inline">$\begin{split} f'_{in}(v) &amp; = f'(
 \overset{\rightarrow}{s'v}) +
 \sum_{u \in V} f'(u-\&gt;v) \\ &amp; = d_{in}(v) + \sum_{u \in V}
@@ -7781,7 +7716,7 @@ is just the inflow f\\in } \end{split}$</span></p>
 flow into v in G. A similar arguement can be made for the outflow of v
 in both G' and G. Together they give us the original statement that we
 wanted to prove, namely <span
-class="math inline"><em>f</em>_<em>i</em><em>n</em>(<em>v</em>) = <em>f</em>_<em>o</em><em>u</em><em>t</em>(<em>v</em>)</span>.
+class="math inline">$f_{\mathrm{in}}(v)=f_{\mathrm{out}}(v)$</span>.
 t/f f is a valid flow as required.</p>
 <p>In addition to proving the implication we've also shown how to
 construct the feasible flow</p>
@@ -7805,10 +7740,10 @@ original G), let f'(e) = f(e) - d(e)</li>
 <li>for <span class="math inline"><em>v</em> ∈ <em>V</em></span>
 <ul>
 <li>let f'(s'-&gt;v) = <span
-class="math inline"><em>d</em>_<em>i</em><em>n</em><em>t</em><em>o</em>(<em>v</em>)</span>
+class="math inline">$d_{\mathrm{into}}(v)$</span>
 in order for it to be fully saturated</li>
 <li>let f'(v-&gt;t') = <span
-class="math inline"><em>d</em>_<em>o</em><em>u</em><em>t</em><em>o</em><em>f</em>(<em>v</em>)</span></li>
+class="math inline">$d_{\mathrm{outof}}(v)$</span></li>
 <li>let f'(t'-&gt;s') = size(f)</li>
 </ul></li>
 </ul>
@@ -7824,29 +7759,29 @@ class="math inline">⟹</span> f'(e) <span class="math inline">≤</span>
 c(e) - d(e) = c'(e)</li>
 </ul>
 <p>Now we check validity, <span
-class="math inline"><em>f</em><sup>′</sup>_<em>i</em><em>n</em>(<em>v</em>) = <em>f</em><sup>′</sup>_<em>o</em><em>u</em><em>t</em>(<em>v</em>)</span>.<br />
+class="math inline">$f^{\prime}_{\mathrm{in}}(v)=f^{\prime}_{\mathrm{out}}(v)$</span>.<br />
 We know that <span
-class="math inline"><em>f</em>_<em>i</em><em>n</em>(<em>v</em>) = <em>f</em>_<em>o</em><em>u</em><em>t</em>(<em>v</em>)</span>,
+class="math inline">$f_{\mathrm{in}}(v)=f_{\mathrm{out}}(v)$</span>,
 Let's see if/how can use this. Recall that <span
-class="math inline"><em>f</em><sup>′</sup>_<em>i</em><em>n</em>(<em>v</em>)</span>
+class="math inline">$f^{\prime}_{\mathrm{in}}(v)$</span>
 is the total demand from s' into v, <span
-class="math inline"><em>d</em>_<em>i</em><em>n</em><em>t</em><em>o</em>(<em>v</em>)</span>.
+class="math inline">$d_{\mathrm{into}}(v)$</span>.
 Plus the sum of all the internal vertices in V, which we can write in
 terms of the original G as <span
-class="math inline">∑_<em>u</em> ∈ <em>V</em>(<em>f</em>(<em>u</em><em>v</em>) − <em>d</em>(<em>u</em><em>v</em>))</span></p>
+class="math inline">$\sum_{u\in V}(f(uv)-d(uv))$</span></p>
 <ul>
 <li>ie <span
-class="math inline"><em>f</em><sup>′</sup>_<em>i</em><em>n</em>(<em>v</em>) = <em>d</em>_<em>i</em><em>n</em><em>t</em><em>o</em>(<em>v</em>) + ∑_<em>u</em> ∈ <em>V</em>(<em>f</em>(<em>u</em><em>v</em>) − <em>d</em>(<em>u</em><em>v</em>))</span></li>
+class="math inline">$f^{\prime}_{\mathrm{in}}(v)=d_{\mathrm{into}}(v)+\sum_{u\in V}(f(uv)-d(uv))$</span></li>
 <li>we cancel out the demand terms as they are the same and will offset
 each other, leaving us with</li>
 <li><span
-class="math inline"><em>f</em><sup>′</sup>_<em>i</em><em>n</em>(<em>v</em>) = ∑_<em>u</em> ∈ <em>V</em><em>f</em>(<em>u</em><em>v</em>) = <em>f</em>_<em>i</em><em>n</em>(<em>v</em>)</span></li>
+class="math inline">$f^{\prime}_{\mathrm{in}}(v)=\sum_{u\in V}f(uv)=f_{\mathrm{in}}(v)$</span></li>
 <li>similarly we can show that</li>
 <li><span
-class="math inline"><em>f</em><sup>′</sup>_<em>o</em><em>u</em><em>t</em>(<em>v</em>) = ∑_<em>u</em> ∈ <em>V</em><em>f</em>(<em>v</em><em>u</em>) = <em>f</em>_<em>o</em><em>u</em><em>t</em>(<em>v</em>)</span></li>
+class="math inline">$f^{\prime}_{\mathrm{out}}(v)=\sum_{u\in V}f(vu)=f_{\mathrm{out}}(v)$</span></li>
 </ul>
 <p>Putting these together yields <span
-class="math inline"><em>f</em><sup>′</sup>_<em>i</em><em>n</em>(<em>v</em>) = <em>f</em><sup>′</sup>_<em>o</em><em>u</em><em>t</em>(<em>v</em>)</span>
+class="math inline">$f^{\prime}_{\mathrm{in}}(v)=f^{\prime}_{\mathrm{out}}(v)$</span>
 which is our goal. hence f' is a valid flow</p>
 <p>We've now proven that G has a feasible flow if and only if our
 constructed G' has a saturating flow.</p>
@@ -7934,7 +7869,7 @@ weight or likelihood that pixel i is part of the background</li>
 class="math inline">(<em>i</em>, <em>j</em>) ∈ <em>E</em></span></p>
 <ul>
 <li>Let <span
-class="math inline"><em>P</em>_<em>i</em><em>j</em> ≥ 0</span> be the
+class="math inline">$P_{ij}\ge0$</span> be the
 seperation cost, the cost of seperating pixels i &amp; j into different
 objects</li>
 </ul>
@@ -7948,7 +7883,7 @@ you can see where this is going? Clearly a pixel cannot belong to both F
 &amp; B so this defines a cut. so we can compute the weight/capacity of
 this cut just as before.</p>
 <p><span
-class="math display"><em>w</em>(<em>F</em>, <em>B</em>) = ∑_<em>i</em> ∈ <em>F</em><em>f</em><sub><em>i</em></sub> + ∑_<em>j</em> ∈ <em>B</em><em>b</em><sub><em>j</em></sub> − ∑_<em>i</em> ∈ <em>F</em>, <em>j</em> ∈ <em>B</em><em>P</em>_<em>i</em><em>j</em> − ∑_<em>j</em> ∈ <em>F</em>, <em>i</em> ∈ <em>B</em><em>P</em>_<em>i</em><em>j</em></span></p>
+class="math display">$w(F,B)=\sum_{i\in F}f_i+\sum_{j\in B}b_j-\sum_{i\in F,\,j\in B}P_{ij}-\sum_{j\in F,\,i\in B}P_{ij}$</span></p>
 <p>This defines a weight for an assignment of pixels to foreground and
 background. Now our image segmentation becomes just an optimization
 problem! Our goal is to maximize the weight w(F,B), we do this by
@@ -7962,14 +7897,14 @@ src="../../../.assets/CS6515_images/MF3-002.png" alt="MF3-002" /></p>
 <p>What this means is that</p>
 <ul>
 <li>for <span
-class="math inline"><em>L</em> = ∑_<em>i</em> ∈ <em>V</em>(<em>f</em><sub><em>i</em></sub> + <em>b</em><sub><em>i</em></sub>)</span></li>
+class="math inline">$L=\sum_{i\in V}(f_i+b_i)$</span></li>
 <li><span
-class="math inline"><em>w</em>(<em>F</em>, <em>B</em>) = ∑_<em>i</em> ∈ <em>F</em><em>f</em><sub><em>i</em></sub> + ∑_<em>j</em> ∈ <em>B</em><em>b</em><sub><em>j</em></sub> − ∑_<em>i</em> ∈ <em>F</em>, <em>j</em> ∈ <em>B</em><em>P</em>_<em>i</em><em>j</em></span>
+class="math inline">$w(F,B)=\sum_{i\in F}f_i+\sum_{j\in B}b_j-\sum_{i\in F,\,j\in B}P_{ij}$</span>
 <ul>
 <li>this is the same as before</li>
 </ul></li>
 <li><span
-class="math inline"><em>w</em><sup>′</sup>(<em>F</em>, <em>B</em>) = ∑_<em>i</em> ∈ <em>F</em><em>b</em><sub><em>i</em></sub> + ∑_<em>j</em> ∈ <em>B</em><em>f</em><sub><em>j</em></sub> + ∑_<em>i</em> ∈ <em>F</em>, <em>j</em> ∈ <em>B</em><em>P</em>_<em>i</em><em>j</em></span>
+class="math inline">$w^{\prime}(F,B)=\sum_{i\in F}b_i+\sum_{j\in B}f_j+\sum_{i\in F,\,j\in B}P_{ij}$</span>
 <ul>
 <li>this one takes some explanation</li>
 <li>sum of background likelihoods of pixels in the foreground</li>
@@ -8002,7 +7937,7 @@ create E' composed of <span
 class="math inline">$\overset{\rightarrow}{ij} \in E$</span> and <span
 class="math inline">$\overset{\rightarrow}{ji} \in
 E$</span>. each of these will also get the seperation penalty <span
-class="math inline"><em>P</em>_<em>i</em><em>j</em></span></p>
+class="math inline">$P_{ij}$</span></p>
 <p>What we do next is add a source and sink vertices, s and t,</p>
 <ul>
 <li>foregrounds: <span
@@ -8043,7 +7978,7 @@ but only those whose direction is outwards</li>
 <li>for <span
 class="math inline">(<em>i</em>, <em>j</em>) ∈ <em>E</em> : <em>i</em> ∈ <em>F</em>, <em>j</em> ∈ <em>B</em></span>
 get i -&gt; j with capacity <span
-class="math inline"><em>P</em>_<em>i</em><em>j</em></span></li>
+class="math inline">$P_{ij}$</span></li>
 </ul>
 <p>Summing all of these yields capacity(F,B) which is w'(F,B)</p>
 <p>Let's summarize what we've done to arrive at a solution</p>
@@ -8281,9 +8216,9 @@ class="math inline"><em>v</em><sub>1</sub>, ..., <em>v</em><sub><em>n</em></
 <li>Output: subset S of objects with
 <ul>
 <li>total weight <span
-class="math inline">∑_<em>i</em> ∈ <em>S</em><em>w</em><sub><em>i</em></sub>≤</span>B,</li>
+class="math inline">$\sum_{i\in S}w_i\le$</span>B,</li>
 <li>and total value <span
-class="math inline">∑_<em>i</em> ∈ <em>S</em><em>v</em><sub><em>i</em></sub> ≥ <em>g</em></span>
+class="math inline">$\sum_{i\in S}v_i\ge g$</span>
 (previously we tried to maximize sum)</li>
 <li>No if no such subset S exists</li>
 </ul></li>
@@ -8299,9 +8234,9 @@ prove that now.</p>
 <p>Let's assume that we're given the weights and values, a capcity B, a
 goal g, and a Solution S. To check this solution we need to check the
 conditions: (1) total weight <span
-class="math inline">∑_<em>i</em> ∈ <em>S</em><em>w</em><sub><em>i</em></sub>≤</span>B,
+class="math inline">$\sum_{i\in S}w_i\le$</span>B,
 and (2) total value <span
-class="math inline">∑_<em>i</em> ∈ <em>S</em><em>v</em><sub><em>i</em></sub> ≥ <em>g</em></span>.
+class="math inline">$\sum_{i\in S}v_i\ge g$</span>.
 We're just summing up at most order numbers which can be done/checked in
 O(n) time. We can check a proposed solution in polynomial time and thus
 this version of knapsack is in NP.</p>
@@ -8534,12 +8469,12 @@ into a 3SAT algo</li>
 \wedge (\bar{y} \vee \bar{x_1}
 \vee \bar{x_4})$</span></li>
 <li>replace <span class="math inline"><em>C</em><sub>2</sub></span> with
-<span class="math inline"><em>C</em><sup>′</sup>_2</span></li>
+<span class="math inline">$C^{\prime}_2$</span></li>
 <li>we claim that these are equivalent</li>
 </ul></li>
 <li>Claim: <span class="math inline"><em>C</em><sub>2</sub></span> is
 satisfiable <span class="math inline">⇔</span> <span
-class="math inline"><em>C</em><sup>′</sup>_2</span> is satisfiable</li>
+class="math inline">$C^{\prime}_2$</span> is satisfiable</li>
 <li>It follows then that if our claim is true then our formulas are also
 equivalent, and we have found our f' since the replacement of clauses
 would lead to an input that is valid for 3SAT</li>
@@ -8555,7 +8490,7 @@ Claim</p>
 \vee \bar{x_4})$</span></li>
 </ul>
 <p>Forward <span
-class="math inline"><em>C</em><sub>2</sub> ⟹ <em>C</em><sup>′</sup>_2</span>,
+class="math inline">$C_2\implies C^{\prime}_2$</span>,
 take a satisfying assignment for <span
 class="math inline"><em>C</em><sub>2</sub></span></p>
 <ul>
@@ -8568,12 +8503,12 @@ class="math inline"><em>x</em><sub>2</sub> = <em>F</em></span> or <span
 class="math inline"><em>x</em><sub>3</sub> = <em>T</em></span>, then we
 take y=T, again we choose y to satisy the other clause</li>
 <li>In either case both clauses of <span
-class="math inline"><em>C</em><sup>′</sup>_2</span> are satisfied</li>
+class="math inline">$C^{\prime}_2$</span> are satisfied</li>
 </ul>
 <p>Backwards: <span
-class="math inline"><em>C</em><sup>′</sup>_2 ⟹ <em>C</em><sub>2</sub></span>,
+class="math inline">$C^{\prime}_2\implies C_2$</span>,
 take a satisfying assignment for <span
-class="math inline"><em>C</em><sup>′</sup>_2</span></p>
+class="math inline">$C^{\prime}_2$</span></p>
 <ul>
 <li>if y=T, then clause 1 is satisfied. This implies that <span
 class="math inline"><em>x</em><sub>1</sub> = <em>F</em></span> or <span
@@ -8641,7 +8576,7 @@ class="math inline"><em>a</em><sub><em>i</em></sub></span> is a
 literal.</p>
 <ul>
 <li>first we will create k-3 new variables (<span
-class="math inline"><em>y</em><sub>1</sub>, <em>y</em><sub>2</sub>, ⋯, <em>a</em>_<em>k</em> − 3</span>)</li>
+class="math inline">$y_1,y_2,\ldots,a_{k-3}$</span>)</li>
 <li>Second we replace C with k-2 clauses
 <ul>
 <li>$C' = (a_1 \vee a_2 \vee y_1) \wedge (\bar{y_1} \vee a_3 \vee y_2)
@@ -8673,10 +8608,10 @@ class="math inline"><em>a</em><sub><em>i</em></sub> = <em>T</em><em>r</em><e
 <ul>
 <li>we have that the (i-1)st clause of C' is also satisfied,</li>
 <li>we set <span
-class="math inline"><em>y</em><sub>1</sub> = <em>y</em><sub>2</sub> = ⋯ = <em>y</em>_<em>i</em> − 2 = <em>T</em><em>r</em><em>u</em><em>e</em></span>
+class="math inline">$y_1=y_2=\cdots=y_{i-2}=\mathrm{True}$</span>
 to satisfy clauses 1 to (i-2)</li>
 <li>we set <span
-class="math inline"><em>y</em>_<em>i</em> = <em>y</em>_<em>i</em> + 1 = ⋯ = <em>y</em>_<em>k</em> − 2 = <em>F</em><em>a</em><em>l</em><em>s</em><em>e</em></span>
+class="math inline">$y_i=y_{i+1}=\cdots=y_{k-2}=\mathrm{False}$</span>
 to satisfy the remaining clauses</li>
 </ul></li>
 </ul>
@@ -8684,7 +8619,7 @@ to satisfy the remaining clauses</li>
 class="math inline"><em>C</em><sup>′</sup> ⟹ <em>C</em></span>,</p>
 <ul>
 <li>Take an assignment of <span
-class="math inline"><em>a</em><sub>1</sub>, ⋯, <em>a</em><sub><em>k</em></sub>, <em>y</em><sub>1</sub>, ⋯, <em>y</em>_<em>k</em> − 2</span>
+class="math inline">$a_1,\ldots,a_k,y_1,\ldots,y_{k-2}$</span>
 that satisfies C'</li>
 <li>all we need to do is prove that at least one <span
 class="math inline"><em>a</em><sub><em>i</em></sub></span> is true</li>
@@ -8701,11 +8636,11 @@ is false</li>
 <li>we keep going until the last clause</li>
 <li>clause k-2: <span class="math inline">$\bar{y_{k-3}}$</span> is
 false because of the previous clause, and <span
-class="math inline"><em>a</em>_<em>k</em> − 1, <em>a</em>_<em>k</em></span>
+class="math inline">$a_{k-1},a_k$</span>
 are false by assumption
 <ul>
 <li>this contradicts our initial supposition that <span
-class="math inline"><em>a</em><sub>1</sub>, ⋯, <em>a</em><sub><em>k</em></sub>, <em>y</em><sub>1</sub>, ⋯, <em>y</em>_<em>k</em> − 2</span>
+class="math inline">$a_1,\ldots,a_k,y_1,\ldots,y_{k-2}$</span>
 satisfies C'</li>
 </ul></li>
 <li>This means that a_i must be true for some i</li>
@@ -9044,7 +8979,7 @@ class="math inline"><em>Ḡ</em> = (<em>V</em>, <em>Ē</em>)</span>, we c
 think of this as the complement of the original graph. It doesn't make
 sense to take the complete of the vertices so we leave these alone. The
 Complement of the edges are the set of all edges between two vertices
-that are NOT in E. ie $\bar{E}=\(x,y):(x,y)\not\in E $. Armed with these
+that are NOT in E. ie $\overline{E}=\{(x,y) : x,y \in V,\ x \ne y,\ (x,y)\notin E\}$. Armed with these
 new constructions we can formalize the notion of oppositeness.</p>
 <p><strong>Observation:</strong> S is a clique in <span
 class="math inline"><em>Ḡ</em></span> <span class="math inline">⇔</span>
@@ -9218,7 +9153,7 @@ O(nB) is not polynomial in it's runtime (due to the B term).</p>
 class="math inline"><em>a</em><sub>1</sub>, ..., <em>a</em><sub><em>n</em></sub></span>
 &amp; t</li>
 <li>Output: subset S of {1,...,n} s.t. <span
-class="math inline">∑_<em>i</em> ∈ <em>S</em><em>a</em><sub><em>i</em></sub> = <em>t</em></span>
+class="math inline">$\sum_{i\in S}a_i=t$</span>
 if it exists
 <ul>
 <li>else No</li>
@@ -9249,14 +9184,14 @@ class="math inline">3<em>S</em><em>A</em><em>T</em> → <em>S</em><em>u</em>
 <p>Input to subset-sum consists of 2n+2m+1 numbers:</p>
 <ul>
 <li>2n for the n variables, <span
-class="math inline"><em>v</em><sub>1</sub>, <em>v</em><sup>′</sup>_1</span>
+class="math inline">$v_1,v^{\prime}_1$</span>
 for <span class="math inline">$x_1,\bar{x_1}$</span>, <span
-class="math inline"><em>v</em><sub>2</sub>, <em>v</em><sup>′</sup>_2</span>
+class="math inline">$v_2,v^{\prime}_2$</span>
 for <span class="math inline">$x_2,\bar{x_2}$</span>, etc etc</li>
 <li>2m for the m clauses, <span
-class="math inline"><em>s</em><sub>1</sub>, <em>s</em><sup>′</sup>_1</span>
+class="math inline">$s_1,s^{\prime}_1$</span>
 for 1st clause, <span
-class="math inline"><em>s</em><sub>2</sub>, <em>s</em><sup>′</sup>_2</span>
+class="math inline">$s_2,s^{\prime}_2$</span>
 for 2nd clause, etc etc</li>
 <li>+1 for the sum, t</li>
 </ul>
@@ -9277,9 +9212,9 @@ class="math inline"><em>v</em><sub><em>i</em></sub></span> in S whenever
 true. ie <span
 class="math inline"><em>v</em><sub><em>i</em></sub> ∈ <em>S</em> ⇔ <em>x</em><sub><em>i</em></sub> = <em>T</em><em>r</em><em>u</em><em>e</em></span>.
 Similarly <span
-class="math inline"><em>v</em><sup>′</sup>_<em>i</em></span> corresponds
+class="math inline">$v^{\prime}_i$</span> corresponds
 to <span class="math inline">$\bar{x_i}$</span> and we include <span
-class="math inline"><em>v</em><sup>′</sup>_<em>i</em></span> in S
+class="math inline">$v^{\prime}_i$</span> in S
 whenever <span
 class="math inline"><em>x</em><sub><em>i</em></sub></span> is false. Of
 course an assignment to a 3SAT problem cannot include both cases as that
@@ -9287,16 +9222,16 @@ would be a contradiction. So for the subset-sum problem to work only one
 scenario must exist. Either <span
 class="math inline"><em>v</em><sub><em>i</em></sub> ∈ <em>S</em></span>
 or <span
-class="math inline"><em>v</em><sup>′</sup>_<em>i</em> ∈ <em>S</em></span>
+class="math inline">$v^{\prime}_i\in S$</span>
 but we cannot include both nor can we include neither. We will achieve
 this by setting the i'th digit of <span
-class="math inline"><em>v</em><sub><em>i</em></sub>, <em>v</em><sup>′</sup>_<em>i</em>, <em>t</em></span>
+class="math inline">$v_i,v^{\prime}_i,t$</span>
 to 1, and for all other digits and numbers the i'th digit is set to 0.
 Recall as well that since we are using base 10 numbering each digit will
 behave independently of each other. Furthermore, the i'th digit of t
 will be 1 if only <span
 class="math inline"><em>v</em><sub><em>i</em></sub></span> or <span
-class="math inline"><em>v</em><sup>′</sup>_<em>i</em></span> is in S,
+class="math inline">$v^{\prime}_i$</span> is in S,
 but not both/neither.</p>
 <p>Here's an example. Rows represent literals and the columns represent
 the variables and the clauses. <img
@@ -9315,9 +9250,9 @@ then place a 1 in digit n+j for <span
 class="math inline"><em>v</em><sub><em>i</em></sub></span></li>
 <li>if <span class="math inline">$\bar{x_i} \in C_j$</span> then place a
 1 in digit n+j for <span
-class="math inline"><em>v</em><sup>′</sup>_<em>i</em></span><br />
+class="math inline">$v^{\prime}_i$</span><br />
 What this does is encode the clause into the literals <span
-class="math inline"><em>v</em><sub><em>i</em></sub>, <em>v</em><sup>′</sup>_<em>i</em></span></li>
+class="math inline">$v_i,v^{\prime}_i$</span></li>
 </ul>
 <p>For our example we get the following <img
 src="../../../.assets/CS6515_images/NP-016.png" alt="NP-016" /></p>
@@ -9345,16 +9280,16 @@ put a 1 in digit n+j for <span
 class="math inline"><em>v</em><sub><em>i</em></sub></span></li>
 <li>if <span class="math inline">$\bar{x_i} \in C_j$</span> put a 1 in
 digit n+j for <span
-class="math inline"><em>v</em><sup>′</sup>_<em>i</em></span></li>
+class="math inline">$v^{\prime}_i$</span></li>
 </ul></li>
 <li>Put a 3 in digit n+j of t</li>
 <li>Use <span
-class="math inline"><em>s</em><sub><em>j</em></sub>, <em>s</em><sup>′</sup>_<em>j</em></span>
+class="math inline">$s_j,s^{\prime}_j$</span>
 as buffers
 <ul>
 <li>put a 1 in digit n+j of <span
 class="math inline"><em>s</em><sub><em>j</em></sub></span> &amp; <span
-class="math inline"><em>s</em><sup>′</sup>_<em>j</em></span></li>
+class="math inline">$s^{\prime}_j$</span></li>
 </ul></li>
 <li>put a 0 in digit n+j of all other numbers</li>
 </ul>
@@ -9367,7 +9302,7 @@ class="math inline">1 ≤ <em>i</em> ≤ <em>n</em></span>:</p>
 <ul>
 <li>to get 1 in digit i: include <span
 class="math inline"><em>v</em><sub><em>i</em></sub></span> or <span
-class="math inline"><em>v</em><sup>′</sup>_<em>i</em></span> <strong>but
+class="math inline">$v^{\prime}_i$</span> <strong>but
 not both</strong>
 <ul>
 <li>if <span
@@ -9375,7 +9310,7 @@ class="math inline"><em>v</em><sub><em>i</em></sub> ∈ <em>S</em></span>
 then set <span
 class="math inline"><em>x</em><sub><em>i</em></sub> = <em>T</em></span></li>
 <li>if <span
-class="math inline"><em>v</em><sup>′</sup>_<em>i</em> ∈ <em>S</em></span>
+class="math inline">$v^{\prime}_i\in S$</span>
 then set <span
 class="math inline"><em>x</em><sub><em>i</em></sub> = <em>F</em></span></li>
 </ul></li>
@@ -9402,11 +9337,11 @@ class="math inline"><em>C</em><sub><em>j</em></sub></span>. If we
 satisfy exactly one literal in <span
 class="math inline"><em>C</em><sub><em>j</em></sub></span>, then we use
 both <span class="math inline"><em>s</em><sub><em>j</em></sub></span>
-and <span class="math inline"><em>s</em><sup>′</sup>_<em>j</em></span>
+and <span class="math inline">$s^{\prime}_j$</span>
 as buffer numbers and get 3. If we satisfy exactly two literals in this
 clause, then we either include <span
 class="math inline"><em>s</em><sub><em>j</em></sub></span> and <span
-class="math inline"><em>s</em><sup>′</sup>_<em>j</em></span> in our
+class="math inline">$s^{\prime}_j$</span> in our
 subset S, and that gives us a sum of three. If we satisfy exactly three
 literals in this clause, then we don't need to use either of these
 buffer numbers, S_j or S_j prime. Just using these three satisfied
@@ -9437,7 +9372,7 @@ Add <span class="math inline"><em>v</em><sub><em>i</em></sub></span> to
 S</li>
 <li>if <span
 class="math inline"><em>x</em><sub><em>i</em></sub> = <em>F</em></span>:
-Add <span class="math inline"><em>v</em><sup>′</sup>_<em>i</em></span>
+Add <span class="math inline">$v^{\prime}_i$</span>
 to S</li>
 <li>This means that the i'th digit of t is exactly 1, so the i'th digit
 of t is correct</li>
@@ -9651,7 +9586,7 @@ f_{sv})$</span></li>
 <ul>
 <li>for every <span class="math inline">$e \in E \\ 0 \le f_e \le
 c_e$</span> - the flow can be at most the capacity</li>
-<li>for every $v \in V - \s,t$
+<li>for every $v \in V \setminus \{s,t\}$
 <ul>
 <li><span class="math inline">$\sum_{\overset{\rightarrow}{wv}} f_{wv}
 =
@@ -9671,7 +9606,7 @@ of each should we sell to maximize profit?</li>
 </ul>
 <p>Details</p>
 <ul>
-<li>The profit on each unit of A is &dollar;1, and for B it is &dollar;6</li>
+<li>The profit on each unit of A is <span class="currency">&dollar;1,</span> and for B it is <span class="currency">&dollar;6</span></li>
 <li>The demand for A is <span class="math inline"> ≤ 300</span> units,
 and for B it is <span class="math inline"> ≤ 200</span> units</li>
 <li>We have a total of 700 hours capacity among our employees
@@ -9891,7 +9826,7 @@ class="math inline"><em>A</em><em>x</em> = <em>b</em></span>
 class="math inline">(−1)<em>A</em><em>x</em> ≥ <em>b</em></span></li>
 <li>and $ A x \ge b$</li>
 </ul></li>
-<li>what about a constraint like <span class="math inline">$x \&lt;
+<li>what about a constraint like <span class="math inline">$x &lt;
 100$</span>
 <ul>
 <li>NOT ALLOWED - LP does not allow for this as it is ill-defined. LP
@@ -10221,8 +10156,7 @@ y_3\cdot (3) + y_4\cdot (4)$</span> should also be satified</li>
 <ul>
 <li><span class="math inline">$y_1\cdot (1) + y_2\cdot (2) + y_3\cdot (3) +
 y_4\cdot (4)$</span></li>
-<li>$\iff y_1 x1 + y_2 x2 + y_3(x1 + 3x2 + 2x3) + y_4(x2 + 3x3) \le 300
-y_1 + 200 y_2 + 1000y_3 + 500y_4 $
+<li>$\iff y_1 x_1+y_2 x_2+y_3(x_1+3x_2+2x_3)+y_4(x_2+3x_3)\le 300y_1+200y_2+1000y_3+500y_4$
 <ul>
 <li>what we've done here is multiply the constraints by the y vector in
 rowwise fashion to get the linear combination</li>
@@ -10301,16 +10235,16 @@ alt="NP-021" /></p>
 <p>Now things can get a little weird</p>
 <ul>
 <li>Suppose you have a primal lp, call it <span
-class="math inline"><em>L</em><em>P</em>_<em>p</em><em>r</em><em>i</em><em>m</em><em>a</em><em>l</em></span></li>
+class="math inline">$\operatorname{LP}_{\mathrm{primal}}$</span></li>
 <li>then we can find/create the dual LP, call it <span
-class="math inline"><em>L</em><em>P</em>_<em>d</em><em>u</em><em>a</em><em>l</em></span>
+class="math inline">$\operatorname{LP}_{\mathrm{dual}}$</span>
 <ul>
 <li>to put it in canonical form we multiply by -1,</li>
 <li>results in flipping the inequalities in the constraints</li>
 <li>as well as flipping the min to a max in the objective function</li>
 </ul></li>
 <li>Now what's the dual of -1*<span
-class="math inline"><em>L</em><em>P</em>_<em>d</em><em>u</em><em>a</em><em>l</em></span>?</li>
+class="math inline">$\operatorname{LP}_{\mathrm{dual}}$</span>?</li>
 <li>Suppose we compute the dual of the dual
 <ul>
 <li>we get another dual</li>
@@ -10451,7 +10385,7 @@ dual LP</p>
 class="math inline"><em>c</em><sup><em>T</em></sup><em>x</em> ≤ <em>b</em><sup><em>T</em></sup><em>y</em></span>
 <ul>
 <li>ie <span
-class="math inline"><em>L</em><em>P</em>_<em>p</em><em>r</em><em>i</em><em>m</em><em>a</em><em>l</em>(<em>x</em>) ≤ <em>L</em><em>P</em>_<em>d</em><em>u</em><em>a</em><em>l</em>(<em>y</em>)</span>
+class="math inline">$\operatorname{LP}_{\mathrm{primal}}(x)\le\operatorname{LP}_{\mathrm{dual}}(y)$</span>
 for feasible points x and y</li>
 </ul></li>
 <li>in other words the dual LP at any feasible point is an upper bound
@@ -10602,8 +10536,7 @@ F &amp; \text{with probability 0.5} \\ \end{cases}$</span></p>
 <p>Now we measure the performance of this assignment</p>
 <ul>
 <li>Let w = number of satisified clauses, then</li>
-<li>Then we could compute the expected value of w as $E[W] = \sum_0^m l
-* pr(W=l) $
+<li>Then we could compute the expected value of w as $E[W]=\sum_{l=0}^{m}l\,\Pr(W=l)$
 <ul>
 <li>if you tried this it would be rather difficult. Problem here is that
 clauses can contain the same variables thus there is a high correlation
@@ -10618,7 +10551,7 @@ class="math inline"><em>c</em><sub><em>j</em></sub></span><br />
 &amp; \text{otherwise} \\ \end{cases}$</span></p>
 <p>If we now sum these Ws we should get the number of satisfied clauses
 W. ie <span
-class="math inline"><em>W</em> = ∑_<em>j</em> = 0<sup><em>m</em></sup><em>w</em><sub><em>j</em></sub></span><br />
+class="math inline">$W=\sum_{j=0}^{m}w_j$</span><br />
 So now we can work some magic on the original expected value as</p>
 <ul>
 <li><span class="math inline">$E\[W\] = E\[\sum_{j=0}^m
@@ -10847,18 +10780,14 @@ class="math inline"><em>C</em><sub><em>j</em></sub><sup>−</sup></span></li>
 <p>Now we can formalize our reduction as</p>
 <ul>
 <li>Obj: max(<span
-class="math inline">∑_<em>j</em> = 1<sup><em>m</em></sup><em>z</em><sub><em>j</em></sub></span>)</li>
+class="math inline">$\sum_{j=1}^{m}z_j$</span>)</li>
 <li>subject to the constraints
 <ul>
-<li><span class="math inline">$\forall i \in \\1,2,...,n\\: \\ 0 \le y_i
-\le 1$</span></li>
-<li><span class="math inline">$\forall j \in \\1,2,...,n\\: \\ 0 \le z_i
-\le 1$</span></li>
-<li>and <span class="math inline">$(\sum y_i \in C_j^+) + \sum (1-y_i)
-\in C_j^- \\ \ge z_j$</span></li>
+<li><span class="math inline">$\forall i \in \{1,2,\ldots,n\}: 0 \le y_i \le 1$</span></li>
+<li><span class="math inline">$\forall j \in \{1,2,\ldots,n\}: 0 \le z_j \le 1$</span></li>
+<li>and <span class="math inline">$\sum_{i\in C_j^+}y_i+\sum_{i\in C_j^-}(1-y_i)\ge z_j$</span></li>
 <li>and <span
-class="math inline"><em>y</em><sub><em>i</em></sub><sup>′</sup><em>s</em>
-and <em>z</em><sub><em>j</em></sub><sup>′</sup><em>s</em></span> are
+class="math inline">$y_i\text{ and }z_j$</span> are
 integers</li>
 </ul></li>
 </ul>
@@ -10866,16 +10795,14 @@ integers</li>
 <ul>
 <li>What is the optimal value of the objective function?
 <ul>
-<li>well thats just <span class="math inline">$z_1^* + z_2\cdot  + ... +
-z_n^*$</span></li>
+<li>well thats just <span class="math inline">$z_1^*+z_2^*+\cdots+z_n^*$</span></li>
 <li>recall that this is <span class="math inline">$m^*$</span> which is
 the max number of satisfied clauses</li>
 </ul></li>
 </ul>
 <p><strong>LP Integer Relaxation</strong></p>
 <p>Now all we will do is drop is the last constraint (<span
-class="math inline"><em>y</em><sub><em>i</em></sub><sup>′</sup><em>s</em>
-and <em>z</em><sub><em>j</em></sub><sup>′</sup><em>s</em></span> are
+class="math inline">$y_i\text{ and }z_j$</span> are
 integers). This doesn't break our formulation. What it does however is
 allow us to treat it like a standard LP problem.</p>
 <p>Of course we don't want to get confused, between the ILP version and
@@ -10913,10 +10840,8 @@ class="math inline"><em>y</em><sub><em>i</em></sub> and
 <p>Recall that in both our ILP as well as our LP formulation we have the
 constraints</p>
 <ul>
-<li><span class="math inline">$\forall i \in \\1,2,...,n\\: \\ 0 \le y_i
-\le 1$</span></li>
-<li><span class="math inline">$\forall j \in \\1,2,...,n\\: \\ 0 \le z_i
-\le 1$</span></li>
+<li><span class="math inline">$\forall i \in \{1,2,\ldots,n\}: 0 \le y_i \le 1$</span></li>
+<li><span class="math inline">$\forall j \in \{1,2,\ldots,n\}: 0 \le z_j \le 1$</span></li>
 </ul>
 <p>Consequently these will be between 0 and 1 and can be thought of as
 probabilities. So we will round up/down with the same probability. Note
@@ -11059,7 +10984,7 @@ inequality</li>
 <li>Let $\alpha = \hat{z_j^*} $</li>
 <li>We've shown above that : Pr(<span
 class="math inline"><em>c</em><sub><em>j</em></sub></span> is satisfied)
-$ge 1 - \left[1 - \frac{\alpha}{k} \right]^k $</li>
+$\ge 1 - \left[1 - \frac{\alpha}{k} \right]^k$</li>
 </ul>
 <p>The next step will require a proof of it's own</p>
 <ul>
@@ -11072,7 +10997,7 @@ above</li>
 <p>At a high level the steps to the proof are as follows</p>
 <ul>
 <li>first we show that the second derivative is less than 0, ie <span
-class="math inline">$f"(\alpha) \&lt; 0$</span></li>
+class="math inline">$f"(\alpha) &lt; 0$</span></li>
 <li>this means it's concave and has only one peak area</li>
 <li>next let $\beta = \left( 1-(1-\frac{1}{k})^k \right) $</li>
 <li>then what can you say about <span
@@ -11216,7 +11141,7 @@ from our P^2 matrix
 alt="GR4-001" /></p>
 <p><img src="../../../.assets/CS6515_images/NP-003.png"
 alt="NP-003" /></p>
-<p><strong><span class="math inline">Bernoulli</span></strong></p>
+<p><strong>Bernoulli</strong></p>
 <p><img src="../../../.assets/CS6515_images/GA1-011.png"
 alt="GA1-011" /></p>
 <h2 id="slack-notes">Slack Notes</h2>
@@ -11241,7 +11166,7 @@ n</p>
 <p>( In general ) memoization has recursion, DP using tabulation is
 iterative</p>
 <p>some thing something</p>
-<h2 id="exam-2">Exam 2</h2>
+<h2 id="exam-2">Graph and flow review</h2>
 <ul>
 <li><p>Topics: (RA[1:2]) + (GR[1:3]) + (MF[1:5])</p></li>
 <li><p>Kruskal: Scan all edges by increasing weight; if adding an edge
@@ -11293,27 +11218,9 @@ alt="MF5-011" /></p>
   } catch (e) { console.error('Mermaid render error:', e); }
 
   // 4) Math: render \( \) and \[ \] and $$ $$. Tolerate malformed legacy TeX.
+  // All math, including legacy Pandoc fragments, uses the shared renderer.
   function renderMath() {
-    if (window.renderMathInElement) {
-      renderMathInElement(document.querySelector('.content, .all-weeks-content') || document.body, {
-        delimiters: [
-          { left: '$$', right: '$$', display: true },
-          { left: '\\[', right: '\\]', display: true },
-          { left: '$', right: '$', display: false },
-          { left: '\\(', right: '\\)', display: false }
-        ],
-        throwOnError: false,
-        preProcess: function(math) {
-          return math
-            .replace(/\\left\\\[/g, '\\left[')
-            .replace(/\\right\\\]/g, '\\right]')
-            .replace(/&amp;/g, '&')
-            .replace(/&lt;/g, '<')
-            .replace(/&gt;/g, '>');
-        },
-        macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
-      });
-    }
+    if (window.renderSiteMath) window.renderSiteMath();
   }
   try {
     renderMath();

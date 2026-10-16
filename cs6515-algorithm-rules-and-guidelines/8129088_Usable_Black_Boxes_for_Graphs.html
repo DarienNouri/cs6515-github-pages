@@ -319,10 +319,10 @@ eg x$ lie in the same strongly connected component.</li>
   </div>
   <div class="discussion-summary__content">
     <ul>
-      <li><strong>Algorithm Names Given on Exam 2:</strong> Unlike Exam 1, the names of graph black-box algorithms are provided on Exam 2. However, you must know their exact input/output interfaces, runtime complexities, and applicability constraints.</li>
+      <li><strong>Graph Algorithm Interfaces:</strong> Know the exact input/output interfaces, runtime complexities, and applicability constraints of graph algorithms.</li>
       <li><strong>Max Flow Algorithm Output Details:</strong> Calling Ford-Fulkerson or Edmonds-Karp returns both the aggregate maximum flow value and the individual flow allocations $f(e)$ on each edge, as well as the $(S, T)$ min-cut.</li>
       <li><strong>Dijkstra vs. Uniform-Cost Search (UCS):</strong> Always refer to Dijkstra's Algorithm as "Dijkstra" rather than "UCS" to ensure seamless grading against official rubric benchmarks.</li>
-      <li><strong>Tracing by Hand on Exams:</strong> Exam 2 frequently asks students to trace standard algorithms (e.g. Dijkstra relaxation steps, Kruskal union-find steps, augmenting path augmentations in FF) on a provided toy graph.</li>
+      <li><strong>Tracing Algorithms:</strong> Practice tracing standard algorithms (e.g. Dijkstra relaxation steps, Kruskal union-find steps, augmenting path augmentations in FF) on a provided toy graph.</li>
       <li><strong>DFS Traversal Order:</strong> Never assume alphabetical tie-breaking in DFS; visitation order is determined solely by the ordering of vertices in the underlying adjacency list.</li>
       <li><strong>Output Array Indexing:</strong> All outputs (<code>dist[]</code>, <code>prev[]</code>, <code>ccnum[]</code>) are indexed in $O(1)$ by vertex ID, except Topological Sort's <code>order[]</code> which is indexed $1 \dots n$ from source to sink.</li>
       <li><strong>Kruskal's Sorting Runtime:</strong> Sorting $m$ edges takes $O(m \log m) = O(m \log n)$ because $m \le n^2 \implies \log m \le 2 \log n$. Together with union-find, Kruskal's total runtime is $O(m \log n)$.</li>
@@ -350,7 +350,7 @@ eg x$ lie in the same strongly connected component.</li>
 <blockquote>
 <p>Thanks for posting this! I have two questions:</p>
 <ol type="1">
-<li><p>Will the name of each algorithm provided in exam 2? Or, do we
+<li><p>Will the name of each algorithm provided in graph and flow practice? Or, do we
 need to memorize the name?</p></li>
 <li><p>For max flow algorithms, output <code>flow[]</code> is indexed by
 edge. Does that mean edges can be indexed as 1, 2, ... m, and looking up
@@ -366,7 +366,7 @@ an edge takes O(1) time (similar to the indexing of vertices)?</p></li>
     <div class="thread-comment__body">
 <blockquote>
 <blockquote>
-<p>Will the name of each algorithm provided in exam 2?</p>
+<p>Will the name of each algorithm provided in graph and flow practice?</p>
 </blockquote>
 <p>Questions on the exam will be presented similarly to the homework
 questions.</p>
@@ -846,27 +846,9 @@ exists).</p>
   } catch (e) { console.error('Mermaid render error:', e); }
 
   // 4) Math: render \( \) and \[ \] and $$ $$. Tolerate malformed legacy TeX.
+  // All math, including legacy Pandoc fragments, uses the shared renderer.
   function renderMath() {
-    if (window.renderMathInElement) {
-      renderMathInElement(document.querySelector('.content, .all-weeks-content') || document.body, {
-        delimiters: [
-          { left: '$$', right: '$$', display: true },
-          { left: '\[', right: '\]', display: true },
-          { left: '$', right: '$', display: false },
-          { left: '\(', right: '\)', display: false }
-        ],
-        throwOnError: false,
-        preProcess: function(math) {
-          return math
-            .replace(/\left\\[/g, '\left[')
-            .replace(/\right\\]/g, '\right]')
-            .replace(/&amp;/g, '&')
-            .replace(/&lt;/g, '<')
-            .replace(/&gt;/g, '>');
-        },
-        macros: { '\R': '\mathbb{R}', '\set': '\{#1\}', '\n': '\overrightarrow' }
-      });
-    }
+    if (window.renderSiteMath) window.renderSiteMath();
   }
   try {
     renderMath();

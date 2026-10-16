@@ -1,0 +1,39 @@
+.av-scc { color: var(--text, #cbd5e1); }
+.av-scc-graph-caption { margin: .4rem 0 .65rem; font-weight: 650; font-size: .9rem; }
+.av-scc-canvas { overflow-x: auto; border: 1px solid var(--border, #293247); border-radius: .55rem; background: var(--bg-elevated, #0d0e15); }
+.av-scc-canvas svg { display: block; width: 100%; min-width: 390px; height: auto; max-height: 380px; }
+.av-scc-edge { color: #91a0b7; }
+.av-scc-edge path, .av-scc-edge polyline { fill: none; stroke: currentColor; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+.av-scc-edge-tree path { stroke-dasharray: 7 4; }
+.av-scc-edge-current { color: #fbbf24; }
+.av-scc-edge-current path, .av-scc-edge-current polyline { stroke-width: 4; }
+.av-scc-edge-condensed { color: #c7d2fe; }
+.av-scc-node circle { fill: #1b2639; stroke: #94a3b8; stroke-width: 2; }
+.av-scc-node-active circle { fill: #24364d; stroke: #7dd3fc; stroke-width: 3; }
+.av-scc-node-finished circle { fill: #22413b; stroke: #6ee7b7; }
+.av-scc-node-c1 circle { fill: #113f38; stroke: #6ee7b7; }
+.av-scc-node-c2 circle { fill: #352a58; stroke: #c4b5fd; }
+.av-scc-node-c3 circle { fill: #173f5b; stroke: #7dd3fc; }
+.av-scc-node-current circle { stroke: #fbbf24; stroke-width: 4; }
+.av-scc-label { fill: #f8fafc; font: 700 21px var(--ui, sans-serif); text-anchor: middle; }
+.av-scc-detail { fill: #d3ddeb; font: 500 13px var(--mono, monospace); text-anchor: middle; }
+.av-scc-members { fill: #f1f5f9; font: 600 14px var(--ui, sans-serif); text-anchor: middle; }
+.av-scc-key { font-size: .77rem; line-height: 1.6; margin: .65rem 0 1rem; color: var(--muted, #a5b4c8); }
+.av-scc-state { margin: 1rem 0; padding: .7rem .85rem; border-left: 3px solid #7dd3fc; background: var(--bg-elevated, #0d1623); font-size: .8rem; }
+.av-scc-state > div + div { margin-top: .6rem; }
+.av-scc-state dt { font-weight: 650; }
+.av-scc-state dd { margin: .2rem 0 0; overflow-wrap: anywhere; font-family: var(--mono, monospace); }
+.av-scc-table-wrap { overflow-x: auto; }
+.av-scc-table { display: table; width: 100%; margin: 0; font-size: .8rem; }
+.av-scc-table caption { text-align: left; font-size: .77rem; line-height: 1.6; padding: .4rem 0; color: var(--muted, #a5b4c8); }
+.av-scc-table th, .av-scc-table td { padding: .4rem .55rem; }
+.av-scc-table thead th { white-space: normal; }
+.av-scc-row-current { background: #483716; color: #fef3c7; }
+.av-scc-result { margin: 1rem 0 0; font-size: .85rem; line-height: 1.7; }
+@media (max-width: 520px) {
+  .av-scc-state { padding: .6rem; }
+  .av-scc-table th, .av-scc-table td { padding: .4rem; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .av-scc-node circle { transition: stroke .15s ease, fill .15s ease; }
+}

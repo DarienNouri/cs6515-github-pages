@@ -712,6 +712,7 @@ a:focus-visible {
   outline-offset: 2px;
   border-radius: 3px;
 }
+.content a { overflow-wrap: anywhere; }
 .content a:visited { color: #a78bfa; }
 .topbar a, .topbar a:visited, .card, .card:visited, .btn, .btn:visited, .sidebar-toc a, .sidebar-toc a:visited {
   color: inherit;
@@ -805,7 +806,6 @@ pre code.hljs, .hljs {
 /* ==========================================================================
    Mathematical Typography & KaTeX
    ========================================================================== */
-.katex,
 .math,
 .math.inline {
   font-family: var(--math);
@@ -814,28 +814,31 @@ pre code.hljs, .hljs {
   text-rendering: optimizeLegibility;
 }
 .katex {
+  /* KaTeX positions glyphs using its own font metrics. Extra letter spacing,
+     synthetic weights and resized script wrappers distort those positions. */
+  font-family: KaTeX_Main, "Times New Roman", serif;
   font-size: 1.12em !important;
+  letter-spacing: normal;
 }
 .math.inline {
   font-size: 1.08em;
   padding: 0 0.12em;
   overflow-wrap: break-word;
 }
-.math.inline em,
-.katex .mathnormal {
+.math.inline em {
   font-family: var(--math);
   font-style: italic;
   color: var(--math-var) !important;
   font-weight: 500;
+}
+.katex .mathnormal {
+  color: var(--math-var) !important;
 }
 .katex .mord,
 .katex .mbin,
 .katex .mrel,
 .katex .mop {
   color: var(--text-strong);
-}
-.katex .msupsub {
-  font-size: 0.88em;
 }
 .math.inline sub,
 .math.inline sup {
@@ -872,7 +875,7 @@ pre code.hljs, .hljs {
   text-align: center;
   position: relative;
   scrollbar-width: thin;
-  scrollbar-color: var(--border-hover) transparent;
+  scrollbar-color: var(--border) transparent;
 }
 
 /* Neutralize duplicate nested KaTeX display boxes inside Pandoc containers */
@@ -936,7 +939,7 @@ blockquote .katex-display {
 .katex-display::-webkit-scrollbar-thumb,
 .math.display::-webkit-scrollbar-thumb,
 .math.inline::-webkit-scrollbar-thumb {
-  background: var(--border-hover);
+  background: var(--border);
   border-radius: 4px;
 }
 .katex-display::-webkit-scrollbar-thumb:hover,
@@ -1760,7 +1763,7 @@ details:has(video) video {
   background: #000;
 }
 
-.figgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 0.75rem; margin: 0.75rem 0; }
+.figgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr)); gap: 0.75rem; margin: 0.75rem 0; }
 .figgrid img { width: 100%; height: auto; background: #fff; border: 1px solid var(--border); border-radius: var(--radius-sm); }
 .figgrid figure { margin: 0; }
 .figgrid figcaption { font-size: 0.76rem; color: var(--subtle); text-align: center; margin-top: 0.25rem; }
@@ -2127,23 +2130,56 @@ details:has(video) video {
   }
 }
 
+/* Keep both week-navigation labels reachable on the narrowest phone screens. */
+@media (max-width: 360px) {
+  .top-nav-bar {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+  .top-nav-bar__left,
+  .top-nav-bar__right {
+    min-width: 0;
+  }
+  .top-nav-bar__right {
+    justify-content: flex-end;
+  }
+  .top-nav-bar__center {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+  .top-nav-bar__left .btn,
+  .top-nav-bar__right .btn {
+    max-width: 100%;
+    white-space: normal;
+    height: auto;
+    line-height: 1.25;
+  }
+}
+
 /* ==========================================================================
    Mermaid Diagrams
    ========================================================================== */
-pre.mermaid {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.mermaid {
+  display: block;
   background: var(--panel);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 1.25rem;
   overflow-x: auto;
   margin: 1.4rem 0;
-}
-pre.mermaid svg {
   max-width: 100%;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+  -webkit-overflow-scrolling: touch;
+}
+.mermaid svg {
+  display: block;
+  /* The renderer supplies the natural viewBox width. Preserve readable node
+     labels on phones and scroll wide diagrams instead of shrinking all text. */
+  width: var(--diagram-width, 100%);
+  max-width: none !important;
   height: auto;
+  margin-inline: auto;
 }
 
 /* ==========================================================================
@@ -2383,18 +2419,19 @@ body.quiz-mode-active .is-revealed {
 
 .cram-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr));
   gap: 1.25rem;
   margin: 1.5rem 0 2.5rem;
 }
 
 @media (max-width: 640px) {
   .cram-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 
 .cram-card {
+  min-width: 0;
   background: var(--surface-1, rgba(22, 27, 34, 0.7));
   border: 1px solid var(--border-subtle, rgba(255, 255, 255, 0.1));
   border-radius: var(--radius-md, 10px);
@@ -2414,6 +2451,7 @@ body.quiz-mode-active .is-revealed {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
+  flex-wrap: wrap;
   gap: 0.5rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   padding-bottom: 0.5rem;
@@ -2651,6 +2689,7 @@ body.quiz-mode-active .is-revealed {
 }
 
 .algo-card__title-group {
+  min-width: 0;
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
@@ -2733,10 +2772,17 @@ body.quiz-mode-active .is-revealed {
 .algo-card__body {
   padding: 1.35rem 1.45rem;
   display: grid;
+  /* An implicit auto column grows to a long equation/table's minimum width,
+     hiding the whole card body behind the card's rounded overflow clip. */
+  grid-template-columns: minmax(0, 1fr);
   gap: 1.25rem;
+}
+.algo-card__body > * {
+  min-width: 0;
 }
 
 .algo-section {
+  min-width: 0;
   display: flex;
   flex-direction: column;
   gap: 0.45rem;
@@ -3806,6 +3852,11 @@ blockquote.callout--ref strong {
   background: linear-gradient(90deg, #38bdf8, #818cf8, #c084fc);
 }
 
+.study-hub-hero > div > div,
+.study-note-content {
+  min-width: 0;
+}
+
 .study-hub-hero__title {
   font-size: 2.1rem;
   font-weight: 800;
@@ -4256,4 +4307,57 @@ blockquote.callout--ref strong {
   .study-note-body {
     padding: 1.25rem 1rem;
   }
+}
+
+/* Compact, native disclosures for each topic's supporting resources. */
+details.topic-resources,
+details.topic-resources[open] {
+  margin: 0.25rem 0 0.8rem;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  color: var(--muted);
+  font-size: 0.8rem;
+  line-height: 1.5;
+  min-width: 0;
+  max-width: 100%;
+}
+details.topic-resources > summary {
+  display: list-item;
+  list-style: revert;
+  list-style-position: inside;
+  width: fit-content;
+  max-width: 100%;
+  padding: 0.2rem 0;
+  color: var(--muted);
+  font: inherit;
+  font-weight: 500;
+}
+details.topic-resources > summary::before {
+  content: none;
+}
+details.topic-resources > summary::-webkit-details-marker {
+  display: revert;
+}
+details.topic-resources > summary:hover {
+  color: var(--text-strong);
+}
+details.topic-resources > summary:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+.topic-resources__links {
+  margin: 0.25rem 0 0.55rem;
+  padding-left: 1.25rem;
+  min-width: 0;
+  max-width: 100%;
+}
+.topic-resources__links > li {
+  margin: 0.25rem 0;
+  color: var(--muted);
+}
+.topic-resources__links a {
+  overflow-wrap: anywhere;
 }

@@ -1,0 +1,1464 @@
+{
+  "base_url": "https://dariennouri.github.io/cs6515-github-pages/",
+  "combined_source": "https://dariennouri.github.io/cs6515-github-pages/course-source.html",
+  "text_source": "https://dariennouri.github.io/cs6515-github-pages/course-source.txt",
+  "distinct_sources": 144,
+  "word_count": 453281,
+  "sources": [
+    {
+      "path": "00_START_HERE/COURSE_MAP.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/00_START_HERE/COURSE_MAP.html",
+      "title": "Course Map — CS 6515 Intro to Graduate Algorithms — CS6515",
+      "sha256": "f49dc104617e9869c8994699c7aca3148d5fcd27631aea4fce0e1a090aaadd1a"
+    },
+    {
+      "path": "00_START_HERE/COURSE_ROADMAP.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/00_START_HERE/COURSE_ROADMAP.html",
+      "title": "Course Roadmap & Study Guide — CS6515",
+      "sha256": "7877f46aaeeb2f0f352471085f7f164e0300588ad21cb575683eca25881c9009"
+    },
+    {
+      "path": "00_START_HERE/EXAM_CRAM_SHEET.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/00_START_HERE/EXAM_CRAM_SHEET.html",
+      "title": "CS 6515 — High-Yield Review Sheets & Black-Box Matrix — CS6515",
+      "sha256": "81f8f6fc55560766e3236a55c1237420ed4d2d1827efaf0d39222f06dfb01f78"
+    },
+    {
+      "path": "00_START_HERE/INDEX.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/00_START_HERE/INDEX.html",
+      "title": "CS 6515 — Master Index (Week ↔︎ Module ↔︎ Lecture ↔︎ Reading ↔︎\nGuidance) — CS6515",
+      "sha256": "bff4c12920dd683231f58eb612625f3ab2624deaa04425b257ec9801393f304d"
+    },
+    {
+      "path": "00_START_HERE/reading-index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/00_START_HERE/reading-index.html",
+      "title": "DPV Reading Index — CS 6515 — CS6515",
+      "sha256": "b477967a916cd23b69db31ca68cf577ed4070bda8c4bc26a0dca7a33e112e433"
+    },
+    {
+      "path": "01_by_week/W01_DP1-DP2/guidance/common-course-runtimes.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W01_DP1-DP2/guidance/common-course-runtimes.html",
+      "title": "Common Course Runtimes — CS6515",
+      "sha256": "c22aceeb603161adf458ac8394c9afe388a15b5686371f6708c574c1ffb62436"
+    },
+    {
+      "path": "01_by_week/W01_DP1-DP2/guidance/course-readiness.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W01_DP1-DP2/guidance/course-readiness.html",
+      "title": "Course Readiness — CS6515",
+      "sha256": "112b769a8ac548814637ec5d1857f4e32260baeccb563c5e1584822858157e0b"
+    },
+    {
+      "path": "01_by_week/W01_DP1-DP2/guidance/dp-recurrence-relations.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W01_DP1-DP2/guidance/dp-recurrence-relations.html",
+      "title": "Dynamic Programming Recurrence Relations — CS6515",
+      "sha256": "498219225100ca54ff9b7cf4c61311babb9715a0bec679a487721f8f396af1cf"
+    },
+    {
+      "path": "01_by_week/W01_DP1-DP2/guidance/dynamic-programming-guidance.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W01_DP1-DP2/guidance/dynamic-programming-guidance.html",
+      "title": "Dynamic Programming Guidance — CS6515",
+      "sha256": "4c2d8217f74db5fc30be4c5f30deb5bc4153d9aefda6970a91f497c985d418f8"
+    },
+    {
+      "path": "01_by_week/W01_DP1-DP2/guidance/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W01_DP1-DP2/guidance/index.html",
+      "title": "Guidance Consolidated — CS6515",
+      "sha256": "7378c2051d601a34d5bfb550b8286164d61980dddf4092a05bf1264b20882e84"
+    },
+    {
+      "path": "01_by_week/W01_DP1-DP2/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W01_DP1-DP2/index.html",
+      "title": "Week 1 — Intro & Dynamic Programming — CS6515",
+      "sha256": "ae232fcbff29607b7d71485f51d4b6f65d7854b4050428af1eada68577b7f574"
+    },
+    {
+      "path": "01_by_week/W01_DP1-DP2/lectures/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W01_DP1-DP2/lectures/index.html",
+      "title": "W01_DP1-DP2 lectures - CS6515",
+      "sha256": "80540bebeac05348cd71979caec20f146b772023a12b80d96a8a02eb914ae944"
+    },
+    {
+      "path": "01_by_week/W01_DP1-DP2/notes/full-course-notes.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W01_DP1-DP2/notes/full-course-notes.html",
+      "title": "CS6515 - Intro to Graduate Algorithms¶ — CS6515",
+      "sha256": "448eb59108349ae4e0a5e46903230d1e16bd107223782a4807ab2032330dcf5b"
+    },
+    {
+      "path": "01_by_week/W01_DP1-DP2/notes/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W01_DP1-DP2/notes/index.html",
+      "title": "01_by_week/W01_DP1-DP2/notes - CS6515",
+      "sha256": "c91f976c28352a7293820fadbc78e377ed621542692c6bcb303a67fc94c9c1a1"
+    },
+    {
+      "path": "01_by_week/W01_DP1-DP2/readings/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W01_DP1-DP2/readings/index.html",
+      "title": "01_by_week/W01_DP1-DP2/readings - CS6515",
+      "sha256": "a48f2f845f0711021789fa470297a3e1810e05e5d0cdb3db82e9ca524739aaec"
+    },
+    {
+      "path": "01_by_week/W01_DP1-DP2/transcripts/01_Week_01_Intro_DP.txt",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W01_DP1-DP2/transcripts/01_Week_01_Intro_DP.txt",
+      "title": "01 Week 01 Intro DP",
+      "sha256": "f0961a09e74c2d1ae1ee8171da2dc0cfa886ae182ae89eb3ffd6bf79ba0cb120"
+    },
+    {
+      "path": "01_by_week/W01_DP1-DP2/transcripts/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W01_DP1-DP2/transcripts/index.html",
+      "title": "01_by_week/W01_DP1-DP2/transcripts - CS6515",
+      "sha256": "da7221f53512c5a2d711f42883abd3da2f0ccbf34de320ee5f8d8e303cfce491"
+    },
+    {
+      "path": "01_by_week/W02_DC3-DC1/guidance/common-course-runtimes.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W02_DC3-DC1/guidance/common-course-runtimes.html",
+      "title": "Common Course Runtimes — CS6515",
+      "sha256": "c22aceeb603161adf458ac8394c9afe388a15b5686371f6708c574c1ffb62436",
+      "duplicate_of": "01_by_week/W01_DP1-DP2/guidance/common-course-runtimes.html"
+    },
+    {
+      "path": "01_by_week/W02_DC3-DC1/guidance/divide-and-conquer-guidance.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W02_DC3-DC1/guidance/divide-and-conquer-guidance.html",
+      "title": "Divide and Conquer Guidance — CS6515",
+      "sha256": "472e7215dc34a3cdd91ffa3588945e4b5134aecbe45879a01697cbeb74561701"
+    },
+    {
+      "path": "01_by_week/W02_DC3-DC1/guidance/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W02_DC3-DC1/guidance/index.html",
+      "title": "Guidance Consolidated — CS6515",
+      "sha256": "4c66fe259fdc2916d34f615617777927fc238955b917474e4b5c593c11d8e1da"
+    },
+    {
+      "path": "01_by_week/W02_DC3-DC1/guidance/solving-recurrences-approach.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W02_DC3-DC1/guidance/solving-recurrences-approach.html",
+      "title": "A Conceptual Approach to Solving Recurrences — CS6515",
+      "sha256": "2ef253ac50255aa3a1fc11d4c04d48dd0c29d417b3612cc7df3b43d3c428c3de"
+    },
+    {
+      "path": "01_by_week/W02_DC3-DC1/guidance/usable-dc-algorithms.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W02_DC3-DC1/guidance/usable-dc-algorithms.html",
+      "title": "Usable D&C Algorithms — CS6515",
+      "sha256": "39c459a4ec43f7fe69c61feb95ec37bd59c401a52a1787ed823810f4c9d33fd2"
+    },
+    {
+      "path": "01_by_week/W02_DC3-DC1/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W02_DC3-DC1/index.html",
+      "title": "Week 2 — Divide & Conquer Foundations — CS6515",
+      "sha256": "8463bbbafb57bbb1c7af7f3c796ee6ac452f1110616863865c7f5fe0dc7e2407"
+    },
+    {
+      "path": "01_by_week/W02_DC3-DC1/lectures/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W02_DC3-DC1/lectures/index.html",
+      "title": "W02_DC3-DC1 lectures - CS6515",
+      "sha256": "1caee7e678e689a9107165d102544b0ff5c031dde43a109e100af035e4b6bc06"
+    },
+    {
+      "path": "01_by_week/W02_DC3-DC1/notes/full-course-notes.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W02_DC3-DC1/notes/full-course-notes.html",
+      "title": "CS6515 - Intro to Graduate Algorithms¶ — CS6515",
+      "sha256": "448eb59108349ae4e0a5e46903230d1e16bd107223782a4807ab2032330dcf5b",
+      "duplicate_of": "01_by_week/W01_DP1-DP2/notes/full-course-notes.html"
+    },
+    {
+      "path": "01_by_week/W02_DC3-DC1/notes/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W02_DC3-DC1/notes/index.html",
+      "title": "01_by_week/W02_DC3-DC1/notes - CS6515",
+      "sha256": "dfe7bff1a5a569055a2aaeabf91fa6e1bd672c4a01eb33b5d44521e73776727a"
+    },
+    {
+      "path": "01_by_week/W02_DC3-DC1/readings/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W02_DC3-DC1/readings/index.html",
+      "title": "01_by_week/W02_DC3-DC1/readings - CS6515",
+      "sha256": "b238565187a4c69fedbba0dc3915406b8e94578217e1d481163b9466ba6fb57b"
+    },
+    {
+      "path": "01_by_week/W02_DC3-DC1/transcripts/02_Week_02_Divide_Conquer_Foundations.txt",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W02_DC3-DC1/transcripts/02_Week_02_Divide_Conquer_Foundations.txt",
+      "title": "02 Week 02 Divide Conquer Foundations",
+      "sha256": "763284e773a8cf0db999d6dab3bc052feb86fce7575e68128ae25491ac29fa21"
+    },
+    {
+      "path": "01_by_week/W02_DC3-DC1/transcripts/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W02_DC3-DC1/transcripts/index.html",
+      "title": "01_by_week/W02_DC3-DC1/transcripts - CS6515",
+      "sha256": "9bba38f40d16c33df1882b859c2186530ca904c7fcaecb09c867f441c315ac3b"
+    },
+    {
+      "path": "01_by_week/W03_DC2/guidance/common-course-runtimes.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W03_DC2/guidance/common-course-runtimes.html",
+      "title": "Common Course Runtimes — CS6515",
+      "sha256": "c22aceeb603161adf458ac8394c9afe388a15b5686371f6708c574c1ffb62436",
+      "duplicate_of": "01_by_week/W01_DP1-DP2/guidance/common-course-runtimes.html"
+    },
+    {
+      "path": "01_by_week/W03_DC2/guidance/divide-and-conquer-guidance.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W03_DC2/guidance/divide-and-conquer-guidance.html",
+      "title": "Divide and Conquer Guidance — CS6515",
+      "sha256": "472e7215dc34a3cdd91ffa3588945e4b5134aecbe45879a01697cbeb74561701",
+      "duplicate_of": "01_by_week/W02_DC3-DC1/guidance/divide-and-conquer-guidance.html"
+    },
+    {
+      "path": "01_by_week/W03_DC2/guidance/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W03_DC2/guidance/index.html",
+      "title": "Guidance Consolidated — CS6515",
+      "sha256": "4c66fe259fdc2916d34f615617777927fc238955b917474e4b5c593c11d8e1da",
+      "duplicate_of": "01_by_week/W02_DC3-DC1/guidance/index.html"
+    },
+    {
+      "path": "01_by_week/W03_DC2/guidance/usable-dc-algorithms.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W03_DC2/guidance/usable-dc-algorithms.html",
+      "title": "Usable D&C Algorithms — CS6515",
+      "sha256": "39c459a4ec43f7fe69c61feb95ec37bd59c401a52a1787ed823810f4c9d33fd2",
+      "duplicate_of": "01_by_week/W02_DC3-DC1/guidance/usable-dc-algorithms.html"
+    },
+    {
+      "path": "01_by_week/W03_DC2/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W03_DC2/index.html",
+      "title": "Week 3 — Linear-Time Median (D&C) — CS6515",
+      "sha256": "e6bb1518379f7d98c8d028cbf1023dc21cc1ab3954258226bcaa15d055dcdea1"
+    },
+    {
+      "path": "01_by_week/W03_DC2/lectures/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W03_DC2/lectures/index.html",
+      "title": "W03_DC2 lectures - CS6515",
+      "sha256": "028a392d0e486b1101481d7bf329ca154284170484da6205c67e36bb3f32c498"
+    },
+    {
+      "path": "01_by_week/W03_DC2/notes/full-course-notes.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W03_DC2/notes/full-course-notes.html",
+      "title": "CS6515 - Intro to Graduate Algorithms¶ — CS6515",
+      "sha256": "448eb59108349ae4e0a5e46903230d1e16bd107223782a4807ab2032330dcf5b",
+      "duplicate_of": "01_by_week/W01_DP1-DP2/notes/full-course-notes.html"
+    },
+    {
+      "path": "01_by_week/W03_DC2/notes/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W03_DC2/notes/index.html",
+      "title": "01_by_week/W03_DC2/notes - CS6515",
+      "sha256": "a2246892b237278a460ec7862f9e7aa228cc768f812f086c3fbf2ac2441cd68d"
+    },
+    {
+      "path": "01_by_week/W03_DC2/readings/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W03_DC2/readings/index.html",
+      "title": "01_by_week/W03_DC2/readings - CS6515",
+      "sha256": "a3452af5651c16a253f99fa0bc1044261f55d2dd30aa951b4ed3b7cf168cd31b"
+    },
+    {
+      "path": "01_by_week/W03_DC2/transcripts/03_Week_03_Linear_Time_Median.txt",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W03_DC2/transcripts/03_Week_03_Linear_Time_Median.txt",
+      "title": "03 Week 03 Linear Time Median",
+      "sha256": "e112a7137b51e3f29e5a4e7391463d6926854aa4cb6f2089090d38fdefacb795"
+    },
+    {
+      "path": "01_by_week/W03_DC2/transcripts/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W03_DC2/transcripts/index.html",
+      "title": "01_by_week/W03_DC2/transcripts - CS6515",
+      "sha256": "cffae070356c8c386ac8d366c558c69ff5011ad233a91e1fb4452e401873d61d"
+    },
+    {
+      "path": "01_by_week/W04_DP3-GR1-GR2_EXAM1/guidance/common-course-runtimes.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W04_DP3-GR1-GR2_EXAM1/guidance/common-course-runtimes.html",
+      "title": "Common Course Runtimes — CS6515",
+      "sha256": "c22aceeb603161adf458ac8394c9afe388a15b5686371f6708c574c1ffb62436",
+      "duplicate_of": "01_by_week/W01_DP1-DP2/guidance/common-course-runtimes.html"
+    },
+    {
+      "path": "01_by_week/W04_DP3-GR1-GR2_EXAM1/guidance/dynamic-programming-guidance.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W04_DP3-GR1-GR2_EXAM1/guidance/dynamic-programming-guidance.html",
+      "title": "Dynamic Programming Guidance — CS6515",
+      "sha256": "4c2d8217f74db5fc30be4c5f30deb5bc4153d9aefda6970a91f497c985d418f8",
+      "duplicate_of": "01_by_week/W01_DP1-DP2/guidance/dynamic-programming-guidance.html"
+    },
+    {
+      "path": "01_by_week/W04_DP3-GR1-GR2_EXAM1/guidance/graph-theory-guidance.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W04_DP3-GR1-GR2_EXAM1/guidance/graph-theory-guidance.html",
+      "title": "Graph Theory Guidance — CS6515",
+      "sha256": "b7f6721bbef7b06be32b24f2312441060d43559df74c8c08d0f8e4b516af6eee"
+    },
+    {
+      "path": "01_by_week/W04_DP3-GR1-GR2_EXAM1/guidance/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W04_DP3-GR1-GR2_EXAM1/guidance/index.html",
+      "title": "Guidance Consolidated — CS6515",
+      "sha256": "2eb2bc5e6486443abace00108cc358568c68b97e37711419db951916901d37c3"
+    },
+    {
+      "path": "01_by_week/W04_DP3-GR1-GR2_EXAM1/guidance/usable-black-boxes-graphs.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W04_DP3-GR1-GR2_EXAM1/guidance/usable-black-boxes-graphs.html",
+      "title": "Usable Black Boxes for Graphs — CS6515",
+      "sha256": "e11a260ba1b31e74d3bc1f196bbe9d2674b049c464f81573639fde31c8350c57"
+    },
+    {
+      "path": "01_by_week/W04_DP3-GR1-GR2_EXAM1/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W04_DP3-GR1-GR2_EXAM1/index.html",
+      "title": "Week 4 — DP Shortest Paths + Graph Intro (SCC,\n2-SAT) — CS6515",
+      "sha256": "bd1f9ebc794877e0ad0239960c02715435d589abf20559ab82074a77d3df3d8e"
+    },
+    {
+      "path": "01_by_week/W04_DP3-GR1-GR2_EXAM1/lectures/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W04_DP3-GR1-GR2_EXAM1/lectures/index.html",
+      "title": "W04_DP3-GR1-GR2_EXAM1 lectures - CS6515",
+      "sha256": "b75467feddde4206468e860d832bc00f3b50438b5082f7fdf60392faf202b977"
+    },
+    {
+      "path": "01_by_week/W04_DP3-GR1-GR2_EXAM1/notes/GR0-graph-fundamentals.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W04_DP3-GR1-GR2_EXAM1/notes/GR0-graph-fundamentals.html",
+      "title": "GR0: Graph Fundamentals — CS6515",
+      "sha256": "5dbccd7eda989a297107b9eb563c4333aeefa3504c4ac945beafc8cef1b073e1"
+    },
+    {
+      "path": "01_by_week/W04_DP3-GR1-GR2_EXAM1/notes/GR1-strongly-connected-components.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W04_DP3-GR1-GR2_EXAM1/notes/GR1-strongly-connected-components.html",
+      "title": "GR1: Strongly Connected Components — CS6515",
+      "sha256": "db5338cfecc519471a56554e92aad7e181c28eace524ea67c868e2b5871c19d3"
+    },
+    {
+      "path": "01_by_week/W04_DP3-GR1-GR2_EXAM1/notes/GR2-2sat.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W04_DP3-GR1-GR2_EXAM1/notes/GR2-2sat.html",
+      "title": "GR2: 2-Satisfiability (2-SAT) — CS6515",
+      "sha256": "1c8d4c92aaeeabdea37d086b6c09a81e503da4957ee3905407b3ac983fa8336a"
+    },
+    {
+      "path": "01_by_week/W04_DP3-GR1-GR2_EXAM1/notes/full-course-notes.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W04_DP3-GR1-GR2_EXAM1/notes/full-course-notes.html",
+      "title": "CS6515 - Intro to Graduate Algorithms¶ — CS6515",
+      "sha256": "448eb59108349ae4e0a5e46903230d1e16bd107223782a4807ab2032330dcf5b",
+      "duplicate_of": "01_by_week/W01_DP1-DP2/notes/full-course-notes.html"
+    },
+    {
+      "path": "01_by_week/W04_DP3-GR1-GR2_EXAM1/notes/graphs-cheat-sheet.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W04_DP3-GR1-GR2_EXAM1/notes/graphs-cheat-sheet.html",
+      "title": "📝 Graphs Cheat Sheet — CS 6515 — CS6515",
+      "sha256": "8f99c1b6246f6c19105590eabc01e8ea0fd95e654a6d1c48451ea47a314f2a94"
+    },
+    {
+      "path": "01_by_week/W04_DP3-GR1-GR2_EXAM1/notes/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W04_DP3-GR1-GR2_EXAM1/notes/index.html",
+      "title": "01_by_week/W04_DP3-GR1-GR2_EXAM1/notes - CS6515",
+      "sha256": "ff0260dccb0946dbb2d349338aded7e2a9dc902c0f1712a9cd4c2da8024a6549"
+    },
+    {
+      "path": "01_by_week/W04_DP3-GR1-GR2_EXAM1/readings/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W04_DP3-GR1-GR2_EXAM1/readings/index.html",
+      "title": "01_by_week/W04_DP3-GR1-GR2_EXAM1/readings - CS6515",
+      "sha256": "c371d871770506abacc203ae1de9a77d4f584b8cf58e4a798a691cf4b5381891"
+    },
+    {
+      "path": "01_by_week/W04_DP3-GR1-GR2_EXAM1/transcripts/04_Week_04_DP_Graph_Intro.txt",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W04_DP3-GR1-GR2_EXAM1/transcripts/04_Week_04_DP_Graph_Intro.txt",
+      "title": "04 Week 04 DP Graph Intro",
+      "sha256": "75d928cb9ba3cd42b1cd72c4f8d758d8a5474f6615ad89dea200086033d13b4a"
+    },
+    {
+      "path": "01_by_week/W04_DP3-GR1-GR2_EXAM1/transcripts/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W04_DP3-GR1-GR2_EXAM1/transcripts/index.html",
+      "title": "01_by_week/W04_DP3-GR1-GR2_EXAM1/transcripts - CS6515",
+      "sha256": "39538e59bb1179dd8225f5246084eeae2e6eff70ab7feddc3526c7eee7fd7504"
+    },
+    {
+      "path": "01_by_week/W05_GR3/guidance/common-course-runtimes.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W05_GR3/guidance/common-course-runtimes.html",
+      "title": "Common Course Runtimes — CS6515",
+      "sha256": "c22aceeb603161adf458ac8394c9afe388a15b5686371f6708c574c1ffb62436",
+      "duplicate_of": "01_by_week/W01_DP1-DP2/guidance/common-course-runtimes.html"
+    },
+    {
+      "path": "01_by_week/W05_GR3/guidance/graph-theory-guidance.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W05_GR3/guidance/graph-theory-guidance.html",
+      "title": "Graph Theory Guidance — CS6515",
+      "sha256": "b7f6721bbef7b06be32b24f2312441060d43559df74c8c08d0f8e4b516af6eee",
+      "duplicate_of": "01_by_week/W04_DP3-GR1-GR2_EXAM1/guidance/graph-theory-guidance.html"
+    },
+    {
+      "path": "01_by_week/W05_GR3/guidance/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W05_GR3/guidance/index.html",
+      "title": "Guidance Consolidated — CS6515",
+      "sha256": "551b5ec4f03d8305bb02e424d50c2c3bc8d25c20afb6891e935f072a6dadeabe"
+    },
+    {
+      "path": "01_by_week/W05_GR3/guidance/usable-black-boxes-graphs.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W05_GR3/guidance/usable-black-boxes-graphs.html",
+      "title": "Usable Black Boxes for Graphs — CS6515",
+      "sha256": "e11a260ba1b31e74d3bc1f196bbe9d2674b049c464f81573639fde31c8350c57",
+      "duplicate_of": "01_by_week/W04_DP3-GR1-GR2_EXAM1/guidance/usable-black-boxes-graphs.html"
+    },
+    {
+      "path": "01_by_week/W05_GR3/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W05_GR3/index.html",
+      "title": "Week 5 — Minimum Spanning Tree — CS6515",
+      "sha256": "5a71fc51f01d3ea66a6073f8c075524c87b29d8bdd619bf353e216d9fdfcb7c4"
+    },
+    {
+      "path": "01_by_week/W05_GR3/lectures/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W05_GR3/lectures/index.html",
+      "title": "W05_GR3 lectures - CS6515",
+      "sha256": "ac72a76a1b0f22cc38d4692862c8c85ef4f9a4a78e3f9b5eaa4b422ad690e86e"
+    },
+    {
+      "path": "01_by_week/W05_GR3/notes/GR3-minimum-spanning-tree.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W05_GR3/notes/GR3-minimum-spanning-tree.html",
+      "title": "GR3: Minimum Spanning Tree — CS6515",
+      "sha256": "c08f333215e40974941d4c6b1bd3e19725422f3b987585e25003e1198eaee71c"
+    },
+    {
+      "path": "01_by_week/W05_GR3/notes/full-course-notes.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W05_GR3/notes/full-course-notes.html",
+      "title": "CS6515 - Intro to Graduate Algorithms¶ — CS6515",
+      "sha256": "448eb59108349ae4e0a5e46903230d1e16bd107223782a4807ab2032330dcf5b",
+      "duplicate_of": "01_by_week/W01_DP1-DP2/notes/full-course-notes.html"
+    },
+    {
+      "path": "01_by_week/W05_GR3/notes/graphs-cheat-sheet.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W05_GR3/notes/graphs-cheat-sheet.html",
+      "title": "📝 Graphs Cheat Sheet — CS 6515 — CS6515",
+      "sha256": "8f99c1b6246f6c19105590eabc01e8ea0fd95e654a6d1c48451ea47a314f2a94",
+      "duplicate_of": "01_by_week/W04_DP3-GR1-GR2_EXAM1/notes/graphs-cheat-sheet.html"
+    },
+    {
+      "path": "01_by_week/W05_GR3/notes/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W05_GR3/notes/index.html",
+      "title": "01_by_week/W05_GR3/notes - CS6515",
+      "sha256": "f1673ff4bddab015f5fa1056b17c198413af6f0df2208732db8a70ffd08b2566"
+    },
+    {
+      "path": "01_by_week/W05_GR3/readings/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W05_GR3/readings/index.html",
+      "title": "01_by_week/W05_GR3/readings - CS6515",
+      "sha256": "10e28cc18f79afa999b49d618839cd4295fb23f5392d643b31a41d430d954f8e"
+    },
+    {
+      "path": "01_by_week/W05_GR3/transcripts/05_Week_05_MST.txt",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W05_GR3/transcripts/05_Week_05_MST.txt",
+      "title": "05 Week 05 MST",
+      "sha256": "dc56640d9d892e150f074005d1120ea32acb13cc43553f9b61e028bcdf09f45d"
+    },
+    {
+      "path": "01_by_week/W05_GR3/transcripts/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W05_GR3/transcripts/index.html",
+      "title": "01_by_week/W05_GR3/transcripts - CS6515",
+      "sha256": "7adb12aa7e19e1e59ea34decf2eb292afd1ec2314ec1afc7f007d01868fb3bba"
+    },
+    {
+      "path": "01_by_week/W06_MF1-MF2/guidance/common-course-runtimes.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W06_MF1-MF2/guidance/common-course-runtimes.html",
+      "title": "Common Course Runtimes — CS6515",
+      "sha256": "c22aceeb603161adf458ac8394c9afe388a15b5686371f6708c574c1ffb62436",
+      "duplicate_of": "01_by_week/W01_DP1-DP2/guidance/common-course-runtimes.html"
+    },
+    {
+      "path": "01_by_week/W06_MF1-MF2/guidance/graph-theory-guidance.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W06_MF1-MF2/guidance/graph-theory-guidance.html",
+      "title": "Graph Theory Guidance — CS6515",
+      "sha256": "b7f6721bbef7b06be32b24f2312441060d43559df74c8c08d0f8e4b516af6eee",
+      "duplicate_of": "01_by_week/W04_DP3-GR1-GR2_EXAM1/guidance/graph-theory-guidance.html"
+    },
+    {
+      "path": "01_by_week/W06_MF1-MF2/guidance/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W06_MF1-MF2/guidance/index.html",
+      "title": "Guidance Consolidated — CS6515",
+      "sha256": "e439f81ac5a12e1291ab122e940314d696211437fa43f1af36da755563bb9c6f"
+    },
+    {
+      "path": "01_by_week/W06_MF1-MF2/guidance/usable-black-boxes-graphs.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W06_MF1-MF2/guidance/usable-black-boxes-graphs.html",
+      "title": "Usable Black Boxes for Graphs — CS6515",
+      "sha256": "e11a260ba1b31e74d3bc1f196bbe9d2674b049c464f81573639fde31c8350c57",
+      "duplicate_of": "01_by_week/W04_DP3-GR1-GR2_EXAM1/guidance/usable-black-boxes-graphs.html"
+    },
+    {
+      "path": "01_by_week/W06_MF1-MF2/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W06_MF1-MF2/index.html",
+      "title": "Week 6 — Max-Flow Basics — CS6515",
+      "sha256": "94e3775bb873df8f79601a01828b7f5ef989c98025d0ff929063c4303bad9043"
+    },
+    {
+      "path": "01_by_week/W06_MF1-MF2/lectures/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W06_MF1-MF2/lectures/index.html",
+      "title": "W06_MF1-MF2 lectures - CS6515",
+      "sha256": "7508696077ec098e9b29bf3e9dcf8c62f6af37e0dcda8027ea8d0afcd1f56262"
+    },
+    {
+      "path": "01_by_week/W06_MF1-MF2/notes/full-course-notes.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W06_MF1-MF2/notes/full-course-notes.html",
+      "title": "CS6515 - Intro to Graduate Algorithms¶ — CS6515",
+      "sha256": "448eb59108349ae4e0a5e46903230d1e16bd107223782a4807ab2032330dcf5b",
+      "duplicate_of": "01_by_week/W01_DP1-DP2/notes/full-course-notes.html"
+    },
+    {
+      "path": "01_by_week/W06_MF1-MF2/notes/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W06_MF1-MF2/notes/index.html",
+      "title": "01_by_week/W06_MF1-MF2/notes - CS6515",
+      "sha256": "c15812420ad7835402e4b235439e000ee911bdc6454701c99cbcac5944f6ffb7"
+    },
+    {
+      "path": "01_by_week/W06_MF1-MF2/readings/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W06_MF1-MF2/readings/index.html",
+      "title": "01_by_week/W06_MF1-MF2/readings - CS6515",
+      "sha256": "836b80ac61dd62274a8b31ef230d3858e4cdecb0cb50da75af3970ec1b0c51fa"
+    },
+    {
+      "path": "01_by_week/W06_MF1-MF2/transcripts/06_Week_06_Max_Flow_Basics.txt",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W06_MF1-MF2/transcripts/06_Week_06_Max_Flow_Basics.txt",
+      "title": "06 Week 06 Max Flow Basics",
+      "sha256": "394ffb247737e55b8bfafa8562dc6cdddc1d103d69c467ac590486c1a1420a8c"
+    },
+    {
+      "path": "01_by_week/W06_MF1-MF2/transcripts/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W06_MF1-MF2/transcripts/index.html",
+      "title": "01_by_week/W06_MF1-MF2/transcripts - CS6515",
+      "sha256": "51a3c58f796a5ac54228e7c3a15b567c463218371688bfba99b02ff098afde56"
+    },
+    {
+      "path": "01_by_week/W07_MF4_EXAM2/guidance/common-course-runtimes.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W07_MF4_EXAM2/guidance/common-course-runtimes.html",
+      "title": "Common Course Runtimes — CS6515",
+      "sha256": "c22aceeb603161adf458ac8394c9afe388a15b5686371f6708c574c1ffb62436",
+      "duplicate_of": "01_by_week/W01_DP1-DP2/guidance/common-course-runtimes.html"
+    },
+    {
+      "path": "01_by_week/W07_MF4_EXAM2/guidance/graph-theory-guidance.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W07_MF4_EXAM2/guidance/graph-theory-guidance.html",
+      "title": "Graph Theory Guidance — CS6515",
+      "sha256": "b7f6721bbef7b06be32b24f2312441060d43559df74c8c08d0f8e4b516af6eee",
+      "duplicate_of": "01_by_week/W04_DP3-GR1-GR2_EXAM1/guidance/graph-theory-guidance.html"
+    },
+    {
+      "path": "01_by_week/W07_MF4_EXAM2/guidance/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W07_MF4_EXAM2/guidance/index.html",
+      "title": "Guidance Consolidated — CS6515",
+      "sha256": "e2073a30409b50793fbc0093c9629786978bfe9ae982386fdb16feb8ded7e9ca"
+    },
+    {
+      "path": "01_by_week/W07_MF4_EXAM2/guidance/usable-black-boxes-graphs.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W07_MF4_EXAM2/guidance/usable-black-boxes-graphs.html",
+      "title": "Usable Black Boxes for Graphs — CS6515",
+      "sha256": "e11a260ba1b31e74d3bc1f196bbe9d2674b049c464f81573639fde31c8350c57",
+      "duplicate_of": "01_by_week/W04_DP3-GR1-GR2_EXAM1/guidance/usable-black-boxes-graphs.html"
+    },
+    {
+      "path": "01_by_week/W07_MF4_EXAM2/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W07_MF4_EXAM2/index.html",
+      "title": "Week 7 — Edmonds-Karp — CS6515",
+      "sha256": "3cae8fd56047ce8d7d661ae78f978d74de12642178319604931a2318369c639b"
+    },
+    {
+      "path": "01_by_week/W07_MF4_EXAM2/lectures/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W07_MF4_EXAM2/lectures/index.html",
+      "title": "W07_MF4_EXAM2 lectures - CS6515",
+      "sha256": "6eb28ec91656db060b1889f50d941416e4efe892daaec1daa8a3629dd753629e"
+    },
+    {
+      "path": "01_by_week/W07_MF4_EXAM2/notes/full-course-notes.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W07_MF4_EXAM2/notes/full-course-notes.html",
+      "title": "CS6515 - Intro to Graduate Algorithms¶ — CS6515",
+      "sha256": "448eb59108349ae4e0a5e46903230d1e16bd107223782a4807ab2032330dcf5b",
+      "duplicate_of": "01_by_week/W01_DP1-DP2/notes/full-course-notes.html"
+    },
+    {
+      "path": "01_by_week/W07_MF4_EXAM2/notes/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W07_MF4_EXAM2/notes/index.html",
+      "title": "01_by_week/W07_MF4_EXAM2/notes - CS6515",
+      "sha256": "e211eb369a832e0927edbc3d2f77014d8d93f15c28dd71c20c9558473a016ab4"
+    },
+    {
+      "path": "01_by_week/W07_MF4_EXAM2/readings/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W07_MF4_EXAM2/readings/index.html",
+      "title": "01_by_week/W07_MF4_EXAM2/readings - CS6515",
+      "sha256": "a71db060aae510f90d4709c00d09bbfeff7a14d25841e895eca33bb22bac96aa"
+    },
+    {
+      "path": "01_by_week/W07_MF4_EXAM2/transcripts/07_Week_07_Edmonds_Karp.txt",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W07_MF4_EXAM2/transcripts/07_Week_07_Edmonds_Karp.txt",
+      "title": "07 Week 07 Edmonds Karp",
+      "sha256": "7eb401545a492ada9a423885d04513bdc477cd2388cf53fa178e9490b5ccb336"
+    },
+    {
+      "path": "01_by_week/W07_MF4_EXAM2/transcripts/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W07_MF4_EXAM2/transcripts/index.html",
+      "title": "01_by_week/W07_MF4_EXAM2/transcripts - CS6515",
+      "sha256": "42d36d02a1e5c93c7a517b35bff485b19cf860d948f629b1158e40d7a2777049"
+    },
+    {
+      "path": "01_by_week/W08_NP1-NP2-NP3/guidance/common-course-runtimes.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W08_NP1-NP2-NP3/guidance/common-course-runtimes.html",
+      "title": "Common Course Runtimes — CS6515",
+      "sha256": "c22aceeb603161adf458ac8394c9afe388a15b5686371f6708c574c1ffb62436",
+      "duplicate_of": "01_by_week/W01_DP1-DP2/guidance/common-course-runtimes.html"
+    },
+    {
+      "path": "01_by_week/W08_NP1-NP2-NP3/guidance/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W08_NP1-NP2-NP3/guidance/index.html",
+      "title": "Guidance Consolidated — CS6515",
+      "sha256": "ce0f5d4e893f79f2ae7c71957239bde11aede273e04353fad48ba7769e386a92"
+    },
+    {
+      "path": "01_by_week/W08_NP1-NP2-NP3/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W08_NP1-NP2-NP3/index.html",
+      "title": "Week 8 — NP-Completeness & Reductions — CS6515",
+      "sha256": "61b323f7e5b08af3ddf504d2bbf85c8720a74ed42a37d9f186e61c4b81bc44c2"
+    },
+    {
+      "path": "01_by_week/W08_NP1-NP2-NP3/lectures/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W08_NP1-NP2-NP3/lectures/index.html",
+      "title": "W08_NP1-NP2-NP3 lectures - CS6515",
+      "sha256": "681672d27467cc547b9c0e4ba95d923788f1df92edeb209cb80f1b9a53c93889"
+    },
+    {
+      "path": "01_by_week/W08_NP1-NP2-NP3/notes/full-course-notes.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W08_NP1-NP2-NP3/notes/full-course-notes.html",
+      "title": "CS6515 - Intro to Graduate Algorithms¶ — CS6515",
+      "sha256": "448eb59108349ae4e0a5e46903230d1e16bd107223782a4807ab2032330dcf5b",
+      "duplicate_of": "01_by_week/W01_DP1-DP2/notes/full-course-notes.html"
+    },
+    {
+      "path": "01_by_week/W08_NP1-NP2-NP3/notes/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W08_NP1-NP2-NP3/notes/index.html",
+      "title": "01_by_week/W08_NP1-NP2-NP3/notes - CS6515",
+      "sha256": "a0b4e854b9ca8d9bfcfba240a7d11685518f007e1c3dac99d04ff803cbd0cbe6"
+    },
+    {
+      "path": "01_by_week/W08_NP1-NP2-NP3/readings/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W08_NP1-NP2-NP3/readings/index.html",
+      "title": "01_by_week/W08_NP1-NP2-NP3/readings - CS6515",
+      "sha256": "a29f8c93f71452064bbcedd4bea8169b5dfcfa8994d492ade254d2714bfa1d47"
+    },
+    {
+      "path": "01_by_week/W08_NP1-NP2-NP3/transcripts/08_Week_08_NP_Reductions.txt",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W08_NP1-NP2-NP3/transcripts/08_Week_08_NP_Reductions.txt",
+      "title": "08 Week 08 NP Reductions",
+      "sha256": "fe07a380fa1c5918e5c64b355f043092858d5733973546bdcdb0459bb93a7d43"
+    },
+    {
+      "path": "01_by_week/W08_NP1-NP2-NP3/transcripts/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W08_NP1-NP2-NP3/transcripts/index.html",
+      "title": "01_by_week/W08_NP1-NP2-NP3/transcripts - CS6515",
+      "sha256": "e43c4753e93c33ddef896f7ef18fac78d6f9f7d9336c665f63beda26f8276cc4"
+    },
+    {
+      "path": "01_by_week/W09_LP1-LP2-LP3/guidance/common-course-runtimes.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W09_LP1-LP2-LP3/guidance/common-course-runtimes.html",
+      "title": "Common Course Runtimes — CS6515",
+      "sha256": "c22aceeb603161adf458ac8394c9afe388a15b5686371f6708c574c1ffb62436",
+      "duplicate_of": "01_by_week/W01_DP1-DP2/guidance/common-course-runtimes.html"
+    },
+    {
+      "path": "01_by_week/W09_LP1-LP2-LP3/guidance/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W09_LP1-LP2-LP3/guidance/index.html",
+      "title": "Guidance Consolidated — CS6515",
+      "sha256": "cdbdae16a3f2f75063e667364899d95388ec77d59b91740d85963b369e5c069c"
+    },
+    {
+      "path": "01_by_week/W09_LP1-LP2-LP3/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W09_LP1-LP2-LP3/index.html",
+      "title": "Week 9 — Linear Programming — CS6515",
+      "sha256": "a9303e806cd3d5395ec88977093e14f669fa87fb7957c30498b9fbeadc965f81"
+    },
+    {
+      "path": "01_by_week/W09_LP1-LP2-LP3/lectures/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W09_LP1-LP2-LP3/lectures/index.html",
+      "title": "W09_LP1-LP2-LP3 lectures - CS6515",
+      "sha256": "2dc67390daf568c4beb48ffcce0c527063fd517a3e9d8037935522129338048c"
+    },
+    {
+      "path": "01_by_week/W09_LP1-LP2-LP3/notes/full-course-notes.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W09_LP1-LP2-LP3/notes/full-course-notes.html",
+      "title": "CS6515 - Intro to Graduate Algorithms¶ — CS6515",
+      "sha256": "448eb59108349ae4e0a5e46903230d1e16bd107223782a4807ab2032330dcf5b",
+      "duplicate_of": "01_by_week/W01_DP1-DP2/notes/full-course-notes.html"
+    },
+    {
+      "path": "01_by_week/W09_LP1-LP2-LP3/notes/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W09_LP1-LP2-LP3/notes/index.html",
+      "title": "01_by_week/W09_LP1-LP2-LP3/notes - CS6515",
+      "sha256": "a64de5647116e6c42e98046fc9d44432f5e3018a114b345279c656d7b223dcc5"
+    },
+    {
+      "path": "01_by_week/W09_LP1-LP2-LP3/readings/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W09_LP1-LP2-LP3/readings/index.html",
+      "title": "01_by_week/W09_LP1-LP2-LP3/readings - CS6515",
+      "sha256": "72866f36254cd4d9029b53b465fdc8f320a1ddc5ef0322a2fccacdeb988bd8ab"
+    },
+    {
+      "path": "01_by_week/W09_LP1-LP2-LP3/transcripts/09_Week_09_Linear_Programming.txt",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W09_LP1-LP2-LP3/transcripts/09_Week_09_Linear_Programming.txt",
+      "title": "09 Week 09 Linear Programming",
+      "sha256": "6f6c0629771b01e3830d9fc20b32a72497d4aec9dbc73960ad8ab9c61e209457"
+    },
+    {
+      "path": "01_by_week/W09_LP1-LP2-LP3/transcripts/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W09_LP1-LP2-LP3/transcripts/index.html",
+      "title": "01_by_week/W09_LP1-LP2-LP3/transcripts - CS6515",
+      "sha256": "af5199709a72e7ed621afe4448b6cc3b1e14884f86ae2a60e2459be3adef1cf1"
+    },
+    {
+      "path": "01_by_week/W10_LP4-NP4-NP5_EXAM3/guidance/common-course-runtimes.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W10_LP4-NP4-NP5_EXAM3/guidance/common-course-runtimes.html",
+      "title": "Common Course Runtimes — CS6515",
+      "sha256": "c22aceeb603161adf458ac8394c9afe388a15b5686371f6708c574c1ffb62436",
+      "duplicate_of": "01_by_week/W01_DP1-DP2/guidance/common-course-runtimes.html"
+    },
+    {
+      "path": "01_by_week/W10_LP4-NP4-NP5_EXAM3/guidance/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W10_LP4-NP4-NP5_EXAM3/guidance/index.html",
+      "title": "Guidance Consolidated — CS6515",
+      "sha256": "d96b815a4e19e4c97b115e8a07a583baaf443871240b7b7a1264ee6ffc408267"
+    },
+    {
+      "path": "01_by_week/W10_LP4-NP4-NP5_EXAM3/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W10_LP4-NP4-NP5_EXAM3/index.html",
+      "title": "Week 10 — Approximation & Undecidability — CS6515",
+      "sha256": "4636c935642764fb78088d59d35c41c5e183ee0493981fcacfdb6b32977a8944"
+    },
+    {
+      "path": "01_by_week/W10_LP4-NP4-NP5_EXAM3/lectures/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W10_LP4-NP4-NP5_EXAM3/lectures/index.html",
+      "title": "W10_LP4-NP4-NP5_EXAM3 lectures - CS6515",
+      "sha256": "afc325b5455719e3446a158f25b3b45c551f3665cd9a5a4f11968683403d2d0c"
+    },
+    {
+      "path": "01_by_week/W10_LP4-NP4-NP5_EXAM3/notes/full-course-notes.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W10_LP4-NP4-NP5_EXAM3/notes/full-course-notes.html",
+      "title": "CS6515 - Intro to Graduate Algorithms¶ — CS6515",
+      "sha256": "448eb59108349ae4e0a5e46903230d1e16bd107223782a4807ab2032330dcf5b",
+      "duplicate_of": "01_by_week/W01_DP1-DP2/notes/full-course-notes.html"
+    },
+    {
+      "path": "01_by_week/W10_LP4-NP4-NP5_EXAM3/notes/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W10_LP4-NP4-NP5_EXAM3/notes/index.html",
+      "title": "01_by_week/W10_LP4-NP4-NP5_EXAM3/notes - CS6515",
+      "sha256": "acd64d59ea8ad70bb8ad1d66896d81631c0fe023e69af1f5ff45e235f2597c80"
+    },
+    {
+      "path": "01_by_week/W10_LP4-NP4-NP5_EXAM3/readings/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W10_LP4-NP4-NP5_EXAM3/readings/index.html",
+      "title": "01_by_week/W10_LP4-NP4-NP5_EXAM3/readings - CS6515",
+      "sha256": "651deeb719219f21d6dc7d8ec057cc860c91929d6b28bd0024e0786f1d710b1f"
+    },
+    {
+      "path": "01_by_week/W10_LP4-NP4-NP5_EXAM3/transcripts/10_Week_10_Approximation_Undecidability.txt",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W10_LP4-NP4-NP5_EXAM3/transcripts/10_Week_10_Approximation_Undecidability.txt",
+      "title": "10 Week 10 Approximation Undecidability",
+      "sha256": "384a600f855445227889c9a8477e7516c9b4c28509af9cf0be57fd7f7ca41e0d"
+    },
+    {
+      "path": "01_by_week/W10_LP4-NP4-NP5_EXAM3/transcripts/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W10_LP4-NP4-NP5_EXAM3/transcripts/index.html",
+      "title": "01_by_week/W10_LP4-NP4-NP5_EXAM3/transcripts - CS6515",
+      "sha256": "9fb16a87b68f60cf5ad5a1297b52da110bcbc12acd97f96340c0ee7d8e478f72"
+    },
+    {
+      "path": "01_by_week/W11_Advanced-FFT-Crypto-Bloom/guidance/common-course-runtimes.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W11_Advanced-FFT-Crypto-Bloom/guidance/common-course-runtimes.html",
+      "title": "Common Course Runtimes — CS6515",
+      "sha256": "c22aceeb603161adf458ac8394c9afe388a15b5686371f6708c574c1ffb62436",
+      "duplicate_of": "01_by_week/W01_DP1-DP2/guidance/common-course-runtimes.html"
+    },
+    {
+      "path": "01_by_week/W11_Advanced-FFT-Crypto-Bloom/guidance/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W11_Advanced-FFT-Crypto-Bloom/guidance/index.html",
+      "title": "Guidance Consolidated — CS6515",
+      "sha256": "0fe9296e1fe7b9e73ab1e7a87f61b461b9f0820a2c11622fa016232fd925cf7b"
+    },
+    {
+      "path": "01_by_week/W11_Advanced-FFT-Crypto-Bloom/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W11_Advanced-FFT-Crypto-Bloom/index.html",
+      "title": "Week 11 — Advanced Topics — CS6515",
+      "sha256": "028b3ba3e8420ed55a3b87754677fa93ab9c608045882e70a9d50629c87c618f"
+    },
+    {
+      "path": "01_by_week/W11_Advanced-FFT-Crypto-Bloom/lectures/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W11_Advanced-FFT-Crypto-Bloom/lectures/index.html",
+      "title": "W11_Advanced-FFT-Crypto-Bloom lectures - CS6515",
+      "sha256": "723eb7f5543ea4daaccdf0cc895681fcba04c2bcdec4e6139b75d1558f2f4f6b"
+    },
+    {
+      "path": "01_by_week/W11_Advanced-FFT-Crypto-Bloom/notes/full-course-notes.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W11_Advanced-FFT-Crypto-Bloom/notes/full-course-notes.html",
+      "title": "CS6515 - Intro to Graduate Algorithms¶ — CS6515",
+      "sha256": "448eb59108349ae4e0a5e46903230d1e16bd107223782a4807ab2032330dcf5b",
+      "duplicate_of": "01_by_week/W01_DP1-DP2/notes/full-course-notes.html"
+    },
+    {
+      "path": "01_by_week/W11_Advanced-FFT-Crypto-Bloom/notes/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W11_Advanced-FFT-Crypto-Bloom/notes/index.html",
+      "title": "01_by_week/W11_Advanced-FFT-Crypto-Bloom/notes - CS6515",
+      "sha256": "8e5b92028108fe49781bdc3c7d272bbbff60f048224798bd0f0b16e96538ed50"
+    },
+    {
+      "path": "01_by_week/W11_Advanced-FFT-Crypto-Bloom/readings/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W11_Advanced-FFT-Crypto-Bloom/readings/index.html",
+      "title": "01_by_week/W11_Advanced-FFT-Crypto-Bloom/readings - CS6515",
+      "sha256": "31b82ec2cb84ac48f216a85b6d27f44e52bba1f20bf146a65a25af5a852065fa"
+    },
+    {
+      "path": "01_by_week/W11_Advanced-FFT-Crypto-Bloom/transcripts/11A_FFT.txt",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W11_Advanced-FFT-Crypto-Bloom/transcripts/11A_FFT.txt",
+      "title": "11A FFT",
+      "sha256": "14c4a52f8205b8b8a814ffa053e539a0bf2040b2bf3ebcbc476c7d911bc2ed46"
+    },
+    {
+      "path": "01_by_week/W11_Advanced-FFT-Crypto-Bloom/transcripts/11B_Graph_Flow_Applications.txt",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W11_Advanced-FFT-Crypto-Bloom/transcripts/11B_Graph_Flow_Applications.txt",
+      "title": "11B Graph Flow Applications",
+      "sha256": "4f5a2c04207c37d03ca577062af6c46c0f8959211adad9e8e677d1666e8eeca9"
+    },
+    {
+      "path": "01_by_week/W11_Advanced-FFT-Crypto-Bloom/transcripts/11C_Number_Theory_Crypto.txt",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W11_Advanced-FFT-Crypto-Bloom/transcripts/11C_Number_Theory_Crypto.txt",
+      "title": "11C Number Theory Crypto",
+      "sha256": "e4993732d83bf8dd17d0b38e3a05f7f85c509410b7d89f364a30eb9562539244"
+    },
+    {
+      "path": "01_by_week/W11_Advanced-FFT-Crypto-Bloom/transcripts/11D_Bloom_Filters.txt",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W11_Advanced-FFT-Crypto-Bloom/transcripts/11D_Bloom_Filters.txt",
+      "title": "11D Bloom Filters",
+      "sha256": "9d32ac4375f2c98548303c93ea187934a493cd2bfcbd793c7574ad9f0b8e4702"
+    },
+    {
+      "path": "01_by_week/W11_Advanced-FFT-Crypto-Bloom/transcripts/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W11_Advanced-FFT-Crypto-Bloom/transcripts/index.html",
+      "title": "01_by_week/W11_Advanced-FFT-Crypto-Bloom/transcripts - CS6515",
+      "sha256": "2fd5f5006bd25a1b75aa73013e7439dc4ad398c2376d524cc0f2e840a3892c39"
+    },
+    {
+      "path": "01_by_week/all-in-one.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/all-in-one.html",
+      "title": "All Weeks - Stacked - CS6515",
+      "sha256": "a49407493ab798603dbc23efec5f73384dbda97306a4f178c5f11489c08e5b42"
+    },
+    {
+      "path": "01_by_week/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/index.html",
+      "title": "By Week — CS6515",
+      "sha256": "8661fc7dc57d30e66fcccc3f98a3048dc11d98e4a25c36fbf088d0cddedd9d8b"
+    },
+    {
+      "path": "02_by_topic/ADV_advanced-topics/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/02_by_topic/ADV_advanced-topics/index.html",
+      "title": "Advanced Topics (Week 11) — CS6515",
+      "sha256": "93c363097b456c79b315c5a7ab40696e10c9bfded715f8abc8f3f48eaded6673"
+    },
+    {
+      "path": "02_by_topic/DC_divide-and-conquer/divide-and-conquer-guidance.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/02_by_topic/DC_divide-and-conquer/divide-and-conquer-guidance.html",
+      "title": "Divide and Conquer Guidance — CS6515",
+      "sha256": "472e7215dc34a3cdd91ffa3588945e4b5134aecbe45879a01697cbeb74561701",
+      "duplicate_of": "01_by_week/W02_DC3-DC1/guidance/divide-and-conquer-guidance.html"
+    },
+    {
+      "path": "02_by_topic/DC_divide-and-conquer/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/02_by_topic/DC_divide-and-conquer/index.html",
+      "title": "Divide & Conquer (DC) — CS6515",
+      "sha256": "4c0672a3ca862e62d41eb204b6a72eb55ce6a8b11809ccec2da4b052858e589a"
+    },
+    {
+      "path": "02_by_topic/DC_divide-and-conquer/solving-recurrences-approach.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/02_by_topic/DC_divide-and-conquer/solving-recurrences-approach.html",
+      "title": "A Conceptual Approach to Solving Recurrences — CS6515",
+      "sha256": "2ef253ac50255aa3a1fc11d4c04d48dd0c29d417b3612cc7df3b43d3c428c3de",
+      "duplicate_of": "01_by_week/W02_DC3-DC1/guidance/solving-recurrences-approach.html"
+    },
+    {
+      "path": "02_by_topic/DC_divide-and-conquer/usable-dc-algorithms.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/02_by_topic/DC_divide-and-conquer/usable-dc-algorithms.html",
+      "title": "Usable D&C Algorithms — CS6515",
+      "sha256": "39c459a4ec43f7fe69c61feb95ec37bd59c401a52a1787ed823810f4c9d33fd2",
+      "duplicate_of": "01_by_week/W02_DC3-DC1/guidance/usable-dc-algorithms.html"
+    },
+    {
+      "path": "02_by_topic/DP_dynamic-programming/dp-recurrence-relations.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/02_by_topic/DP_dynamic-programming/dp-recurrence-relations.html",
+      "title": "Dynamic Programming Recurrence Relations — CS6515",
+      "sha256": "498219225100ca54ff9b7cf4c61311babb9715a0bec679a487721f8f396af1cf",
+      "duplicate_of": "01_by_week/W01_DP1-DP2/guidance/dp-recurrence-relations.html"
+    },
+    {
+      "path": "02_by_topic/DP_dynamic-programming/dynamic-programming-guidance.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/02_by_topic/DP_dynamic-programming/dynamic-programming-guidance.html",
+      "title": "Dynamic Programming Guidance — CS6515",
+      "sha256": "4c2d8217f74db5fc30be4c5f30deb5bc4153d9aefda6970a91f497c985d418f8",
+      "duplicate_of": "01_by_week/W01_DP1-DP2/guidance/dynamic-programming-guidance.html"
+    },
+    {
+      "path": "02_by_topic/DP_dynamic-programming/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/02_by_topic/DP_dynamic-programming/index.html",
+      "title": "Dynamic Programming (DP) — CS6515",
+      "sha256": "80510d7cec4e24074199b0b371d186af63f4858940a9780b28ad9e64e4320aa6"
+    },
+    {
+      "path": "02_by_topic/GR_graphs/graph-theory-guidance.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/02_by_topic/GR_graphs/graph-theory-guidance.html",
+      "title": "Graph Theory Guidance — CS6515",
+      "sha256": "b7f6721bbef7b06be32b24f2312441060d43559df74c8c08d0f8e4b516af6eee",
+      "duplicate_of": "01_by_week/W04_DP3-GR1-GR2_EXAM1/guidance/graph-theory-guidance.html"
+    },
+    {
+      "path": "02_by_topic/GR_graphs/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/02_by_topic/GR_graphs/index.html",
+      "title": "Graphs (GR) — CS6515",
+      "sha256": "add1896d4ca3611e4ee6675dab7130ff720bb292e3232a6ea2186a3bf694dff1"
+    },
+    {
+      "path": "02_by_topic/GR_graphs/study-notes/00-STUDY-PLAN.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/02_by_topic/GR_graphs/study-notes/00-STUDY-PLAN.html",
+      "title": "📋 Graphs Module — Master Study Plan — CS6515",
+      "sha256": "8b3db9254c3ae724b07318e34f16c3055fdee60220511f7aa22b86bdd7aafc97"
+    },
+    {
+      "path": "02_by_topic/GR_graphs/study-notes/01-GR0-Graph-Fundamentals.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/02_by_topic/GR_graphs/study-notes/01-GR0-Graph-Fundamentals.html",
+      "title": "GR0: Graph Fundamentals — CS6515",
+      "sha256": "344119d7d744372623205e95107e275afb78e81c13dd2314743d2a6cf8f41457"
+    },
+    {
+      "path": "02_by_topic/GR_graphs/study-notes/02-GR1-Strongly-Connected-Components.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/02_by_topic/GR_graphs/study-notes/02-GR1-Strongly-Connected-Components.html",
+      "title": "GR1: Strongly Connected Components — CS6515",
+      "sha256": "923c69bd429e376ca605b4ae76e0e5af68170c032b9feae1a568b7aff67a9568"
+    },
+    {
+      "path": "02_by_topic/GR_graphs/study-notes/03-GR2-2SAT.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/02_by_topic/GR_graphs/study-notes/03-GR2-2SAT.html",
+      "title": "GR2: 2-Satisfiability (2-SAT) — CS6515",
+      "sha256": "1c8d4c92aaeeabdea37d086b6c09a81e503da4957ee3905407b3ac983fa8336a",
+      "duplicate_of": "01_by_week/W04_DP3-GR1-GR2_EXAM1/notes/GR2-2sat.html"
+    },
+    {
+      "path": "02_by_topic/GR_graphs/study-notes/04-GR3-Minimum-Spanning-Tree.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/02_by_topic/GR_graphs/study-notes/04-GR3-Minimum-Spanning-Tree.html",
+      "title": "GR3: Minimum Spanning Tree — CS6515",
+      "sha256": "953981240766582d8d1e9c50bcf0f7602e70f8ceb9b21b49cd841c9ec04604f2"
+    },
+    {
+      "path": "02_by_topic/GR_graphs/study-notes/05-GR4-Markov-Chains-PageRank.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/02_by_topic/GR_graphs/study-notes/05-GR4-Markov-Chains-PageRank.html",
+      "title": "GR4: Markov Chains & PageRank — CS6515",
+      "sha256": "5752c456ff98a97cdab337b6a26f7f0ad57d607ec543b52ac355415909c41f9c"
+    },
+    {
+      "path": "02_by_topic/GR_graphs/study-notes/06-Graphs-Cheat-Sheet.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/02_by_topic/GR_graphs/study-notes/06-Graphs-Cheat-Sheet.html",
+      "title": "📝 Graphs Cheat Sheet — CS 6515 — CS6515",
+      "sha256": "8f99c1b6246f6c19105590eabc01e8ea0fd95e654a6d1c48451ea47a314f2a94",
+      "duplicate_of": "01_by_week/W04_DP3-GR1-GR2_EXAM1/notes/graphs-cheat-sheet.html"
+    },
+    {
+      "path": "02_by_topic/GR_graphs/study-notes/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/02_by_topic/GR_graphs/study-notes/index.html",
+      "title": "Graph Theory Study Suite (GR0–GR4) — All-in-One Interactive Hub — CS6515",
+      "sha256": "ce6fbc7ee0292d2f8b1ee4917c98d8135d61589f91924057d15263554d337ac2"
+    },
+    {
+      "path": "02_by_topic/GR_graphs/usable-black-boxes-graphs.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/02_by_topic/GR_graphs/usable-black-boxes-graphs.html",
+      "title": "Usable Black Boxes for Graphs — CS6515",
+      "sha256": "e11a260ba1b31e74d3bc1f196bbe9d2674b049c464f81573639fde31c8350c57",
+      "duplicate_of": "01_by_week/W04_DP3-GR1-GR2_EXAM1/guidance/usable-black-boxes-graphs.html"
+    },
+    {
+      "path": "02_by_topic/LP_linear-programming/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/02_by_topic/LP_linear-programming/index.html",
+      "title": "Linear Programming (LP) — CS6515",
+      "sha256": "68c7a6893222eae7b96832c093c0758dde15d4234950a458e7428428005c05b6"
+    },
+    {
+      "path": "02_by_topic/MF_max-flow/graph-theory-guidance.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/02_by_topic/MF_max-flow/graph-theory-guidance.html",
+      "title": "Graph Theory Guidance — CS6515",
+      "sha256": "b7f6721bbef7b06be32b24f2312441060d43559df74c8c08d0f8e4b516af6eee",
+      "duplicate_of": "01_by_week/W04_DP3-GR1-GR2_EXAM1/guidance/graph-theory-guidance.html"
+    },
+    {
+      "path": "02_by_topic/MF_max-flow/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/02_by_topic/MF_max-flow/index.html",
+      "title": "Max-Flow (MF) — CS6515",
+      "sha256": "f9889579c9411e4d1e4433d71962d1750173b3dc4d57b8c78c1134b36b22c79b"
+    },
+    {
+      "path": "02_by_topic/MF_max-flow/usable-black-boxes-graphs.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/02_by_topic/MF_max-flow/usable-black-boxes-graphs.html",
+      "title": "Usable Black Boxes for Graphs — CS6515",
+      "sha256": "e11a260ba1b31e74d3bc1f196bbe9d2674b049c464f81573639fde31c8350c57",
+      "duplicate_of": "01_by_week/W04_DP3-GR1-GR2_EXAM1/guidance/usable-black-boxes-graphs.html"
+    },
+    {
+      "path": "02_by_topic/NP_np-completeness/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/02_by_topic/NP_np-completeness/index.html",
+      "title": "NP-Completeness (NP) — CS6515",
+      "sha256": "e033e52335faed585cfb0d86f5406fc3371a6b8c7f4aede058b270ba26f8a61d"
+    },
+    {
+      "path": "02_by_topic/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/02_by_topic/index.html",
+      "title": "By Topic — CS6515",
+      "sha256": "15048916898d2a8c01261852e1cca61b9ba93136da95fff6c6581f883ea355ce"
+    },
+    {
+      "path": "CS6515_Lectures_by_course_order/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/CS6515_Lectures_by_course_order/index.html",
+      "title": "CS6515 lecture videos - CS6515",
+      "sha256": "0eef24e1f999cfe41c01473337e73b0df43884e77c59b8720e5ec1e1fca923be"
+    },
+    {
+      "path": "algorithm-demonstrations.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/algorithm-demonstrations.html",
+      "title": "Interactive Algorithm Walkthroughs — CS6515",
+      "sha256": "6aad8d186891812ff847715db9efab40c92437536a8876afe9afd7ddee3b4ec6"
+    },
+    {
+      "path": "cs6515-algorithm-rules-and-guidelines/8077881_Common_Course_Runtimes.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/cs6515-algorithm-rules-and-guidelines/8077881_Common_Course_Runtimes.html",
+      "title": "Common Course Runtimes — CS6515",
+      "sha256": "0020db454ef1485591093f03411fe55e516ec9c2fe100f2aa9f2b1e300bb9b75"
+    },
+    {
+      "path": "cs6515-algorithm-rules-and-guidelines/8077940_Dynamic_Programming_Guidance.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/cs6515-algorithm-rules-and-guidelines/8077940_Dynamic_Programming_Guidance.html",
+      "title": "Dynamic Programming Guidance — CS6515",
+      "sha256": "543e95a2bded7b644e72d671b7db1ca14c15a221e174c483f066dff1b562682d"
+    },
+    {
+      "path": "cs6515-algorithm-rules-and-guidelines/8077944_Dynamic_Programming_Recurrence_Relations.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/cs6515-algorithm-rules-and-guidelines/8077944_Dynamic_Programming_Recurrence_Relations.html",
+      "title": "Dynamic Programming Recurrence Relations — CS6515",
+      "sha256": "c4c8fda523026927b6c421f8c81aed99309d2d99eb1674427cb49e8cfd846300"
+    },
+    {
+      "path": "cs6515-algorithm-rules-and-guidelines/8078163_Course_Readiness.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/cs6515-algorithm-rules-and-guidelines/8078163_Course_Readiness.html",
+      "title": "Course Readiness — CS6515",
+      "sha256": "0e07833e26be69d8358e77ae7cfad2dd904b6639d43d19c2095ebae157ee5e72"
+    },
+    {
+      "path": "cs6515-algorithm-rules-and-guidelines/8093294_Divide_and_Conquer_Guidance.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/cs6515-algorithm-rules-and-guidelines/8093294_Divide_and_Conquer_Guidance.html",
+      "title": "Divide and Conquer Guidance — CS6515",
+      "sha256": "9d909703681b275c0604a5614c671beb8b4257b50220901ae19d75e316b8ca59"
+    },
+    {
+      "path": "cs6515-algorithm-rules-and-guidelines/8093303_Usable_D&C_Algorithms.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/cs6515-algorithm-rules-and-guidelines/8093303_Usable_D%26C_Algorithms.html",
+      "title": "Usable D&C Algorithms — CS6515",
+      "sha256": "278e8dbc09d24a81e09c14ce5962a9366fab8a9d9e334ed6e1c479728c023a57"
+    },
+    {
+      "path": "cs6515-algorithm-rules-and-guidelines/8103813_A_Conceptual_Approach_to_Solving_Recurrences.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/cs6515-algorithm-rules-and-guidelines/8103813_A_Conceptual_Approach_to_Solving_Recurrences.html",
+      "title": "A Conceptual Approach to Solving Recurrences — CS6515",
+      "sha256": "0f4d72e9c29fc513278d7a14bb9ad59242fa7db83c3d1f37e3f4bb5c1de2633c"
+    },
+    {
+      "path": "cs6515-algorithm-rules-and-guidelines/8129087_Graph_Theory_Guidance.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/cs6515-algorithm-rules-and-guidelines/8129087_Graph_Theory_Guidance.html",
+      "title": "Graph Theory Guidance — CS6515",
+      "sha256": "87e6bf0901a066a1e23c9a20060d120dc793923f7b3bd15e5ba863df09c29b1e"
+    },
+    {
+      "path": "cs6515-algorithm-rules-and-guidelines/8129088_Usable_Black_Boxes_for_Graphs.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/cs6515-algorithm-rules-and-guidelines/8129088_Usable_Black_Boxes_for_Graphs.html",
+      "title": "Usable Black Boxes for Graphs — CS6515",
+      "sha256": "90e8e1afeced4d636d087c35bb031020485ccd44441cf52ff603a44151a71fd8"
+    },
+    {
+      "path": "cs6515-algorithm-rules-and-guidelines/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/cs6515-algorithm-rules-and-guidelines/index.html",
+      "title": "Official Algorithm Rules & Guidance — CS6515",
+      "sha256": "9a8585c7df26ce67c1c10ed79654c821796f609e0298b5c11eed1675e012de5f"
+    },
+    {
+      "path": "graph-demonstrations.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/graph-demonstrations.html",
+      "title": "Graph Algorithm Demonstrations — CS6515",
+      "sha256": "7f877601ebf571fcd1e2e24021058fae864eb7b57c5900c74c9aaed571887e03"
+    },
+    {
+      "path": "index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/index.html",
+      "title": "CS6515 — Graduate Algorithms",
+      "sha256": "2e501e3a1daa8d8512bd694f13085e3df77eb06fabb09418fc361f8cc0c48ec3"
+    },
+    {
+      "path": "module-week-schedule.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/module-week-schedule.html",
+      "title": "Weekly Study Plan — CS6515",
+      "sha256": "8333c093d98f63f94f67df6c0ff966c0dee8be3c9d9e8aca8040df3ffe144ea1"
+    },
+    {
+      "path": "notes/graphs/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/notes/graphs/index.html",
+      "title": "Graph Theory Study Suite (GR0–GR4) — CS6515",
+      "sha256": "3a5c1d16e2806f94289e7e8d2605a64e1a4abcf80483f8f129fbbd5016cd98a9"
+    },
+    {
+      "path": "notes/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/notes/index.html",
+      "title": "Course Notes — CS6515",
+      "sha256": "017859ede0e3efecef5f07c38f23ce46dd614bac5871bbc3a70e8766603dc191"
+    },
+    {
+      "path": "textbooks/examples-md/00-prologue-dpv-examples.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/textbooks/examples-md/00-prologue-dpv-examples.html",
+      "title": "DPV ch00 exercises — CS6515",
+      "sha256": "942262ec03673cfe138cddb262eb3cd3422c1bb3aeb236206341a3d2dd8f438d"
+    },
+    {
+      "path": "textbooks/examples-md/01-algorithms-with-numbers-dpv-examples.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/textbooks/examples-md/01-algorithms-with-numbers-dpv-examples.html",
+      "title": "DPV ch01 exercises — CS6515",
+      "sha256": "b12b0ce7a676194959ab0a869d4d7507f7b47a740007cd81cd6dd0b1d8f7a74c"
+    },
+    {
+      "path": "textbooks/examples-md/02-divide-and-conquer-dpv-examples.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/textbooks/examples-md/02-divide-and-conquer-dpv-examples.html",
+      "title": "DPV ch02 exercises — CS6515",
+      "sha256": "09ed3c523a5ccf6ba260728a7462453d8985a74951e192f2086b01c01de6e994"
+    },
+    {
+      "path": "textbooks/examples-md/03-decompositions-of-graphs-dpv-examples.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/textbooks/examples-md/03-decompositions-of-graphs-dpv-examples.html",
+      "title": "DPV ch03 exercises — CS6515",
+      "sha256": "f4592231c33149c955171049688a9b68b4345ea811c6df028bcef93f439fe76a"
+    },
+    {
+      "path": "textbooks/examples-md/04-paths-in-graphs-dpv-examples.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/textbooks/examples-md/04-paths-in-graphs-dpv-examples.html",
+      "title": "DPV ch04 exercises — CS6515",
+      "sha256": "b3ae636712ced2244fbbf3e36ada44d10cca2a722198cd1194920e43b4406d39"
+    },
+    {
+      "path": "textbooks/examples-md/05-greedy-algorithms-dpv-examples.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/textbooks/examples-md/05-greedy-algorithms-dpv-examples.html",
+      "title": "DPV ch05 exercises — CS6515",
+      "sha256": "cb3e65acdfd12428fa1abc51395a26913773a06c56a95ec635aa79ddc2131051"
+    },
+    {
+      "path": "textbooks/examples-md/06-dynamic-programming-dpv-examples.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/textbooks/examples-md/06-dynamic-programming-dpv-examples.html",
+      "title": "DPV ch06 exercises — CS6515",
+      "sha256": "59326c0a31390b6f926b1b66653538c6c2ffddb36f3dcc4385af3418c2973386"
+    },
+    {
+      "path": "textbooks/examples-md/07-linear-programming-dpv-examples.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/textbooks/examples-md/07-linear-programming-dpv-examples.html",
+      "title": "DPV ch07 exercises — CS6515",
+      "sha256": "aa7362d1167408a6cbeafb916f61531ba50716512984a91590d1fac9b1b84ed1"
+    },
+    {
+      "path": "textbooks/examples-md/08-np-complete-problems-dpv-examples.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/textbooks/examples-md/08-np-complete-problems-dpv-examples.html",
+      "title": "DPV ch08 exercises — CS6515",
+      "sha256": "a3ae430255507addf648e90d21cbd8c587000ee74a4381f7531bc85a9854cfc6"
+    },
+    {
+      "path": "textbooks/examples-md/09-coping-with-np-completeness-dpv-examples.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/textbooks/examples-md/09-coping-with-np-completeness-dpv-examples.html",
+      "title": "DPV ch09 exercises — CS6515",
+      "sha256": "7b1f894ed70636b220b3d134fdf90bdbf619724b13bc421f1d674d63a70709f8"
+    },
+    {
+      "path": "textbooks/examples-md/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/textbooks/examples-md/index.html",
+      "title": "textbooks/examples-md - CS6515",
+      "sha256": "aa5d9fe992b627e7716c1215cdb3adcb550eef38dceb47dbf6c2e64e9bd9d6cc"
+    },
+    {
+      "path": "textbooks/index.html",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/textbooks/index.html",
+      "title": "textbooks - CS6515",
+      "sha256": "26dd3bb9e9decdd307ce6ad914cba60a716adb29b2f4c20785368fa821459a57"
+    }
+  ],
+  "pdfs": [
+    {
+      "path": "01_by_week/W01_DP1-DP2/notes/ga-notes.pdf",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W01_DP1-DP2/notes/ga-notes.pdf",
+      "title": "ga notes"
+    },
+    {
+      "path": "01_by_week/W01_DP1-DP2/readings/DPV-ch0-examples.pdf",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W01_DP1-DP2/readings/DPV-ch0-examples.pdf",
+      "title": "DPV ch0 examples"
+    },
+    {
+      "path": "01_by_week/W01_DP1-DP2/readings/DPV-ch0-prologue.pdf",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W01_DP1-DP2/readings/DPV-ch0-prologue.pdf",
+      "title": "DPV ch0 prologue"
+    },
+    {
+      "path": "01_by_week/W01_DP1-DP2/readings/DPV-ch6-dynamic-programming.pdf",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W01_DP1-DP2/readings/DPV-ch6-dynamic-programming.pdf",
+      "title": "DPV ch6 dynamic programming"
+    },
+    {
+      "path": "01_by_week/W01_DP1-DP2/readings/DPV-ch6-examples.pdf",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W01_DP1-DP2/readings/DPV-ch6-examples.pdf",
+      "title": "DPV ch6 examples"
+    },
+    {
+      "path": "01_by_week/W02_DC3-DC1/notes/ga-notes.pdf",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W02_DC3-DC1/notes/ga-notes.pdf",
+      "title": "ga notes"
+    },
+    {
+      "path": "01_by_week/W02_DC3-DC1/readings/DPV-ch2-divide-and-conquer.pdf",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W02_DC3-DC1/readings/DPV-ch2-divide-and-conquer.pdf",
+      "title": "DPV ch2 divide and conquer"
+    },
+    {
+      "path": "01_by_week/W02_DC3-DC1/readings/DPV-ch2-examples.pdf",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W02_DC3-DC1/readings/DPV-ch2-examples.pdf",
+      "title": "DPV ch2 examples"
+    },
+    {
+      "path": "01_by_week/W03_DC2/notes/ga-notes.pdf",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W03_DC2/notes/ga-notes.pdf",
+      "title": "ga notes"
+    },
+    {
+      "path": "01_by_week/W03_DC2/readings/DPV-ch2-divide-and-conquer.pdf",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W03_DC2/readings/DPV-ch2-divide-and-conquer.pdf",
+      "title": "DPV ch2 divide and conquer"
+    },
+    {
+      "path": "01_by_week/W03_DC2/readings/DPV-ch2-examples.pdf",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W03_DC2/readings/DPV-ch2-examples.pdf",
+      "title": "DPV ch2 examples"
+    },
+    {
+      "path": "01_by_week/W04_DP3-GR1-GR2_EXAM1/notes/ga-notes.pdf",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W04_DP3-GR1-GR2_EXAM1/notes/ga-notes.pdf",
+      "title": "ga notes"
+    },
+    {
+      "path": "01_by_week/W04_DP3-GR1-GR2_EXAM1/readings/DPV-ch3-examples.pdf",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W04_DP3-GR1-GR2_EXAM1/readings/DPV-ch3-examples.pdf",
+      "title": "DPV ch3 examples"
+    },
+    {
+      "path": "01_by_week/W04_DP3-GR1-GR2_EXAM1/readings/DPV-ch3-graph-decompositions.pdf",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W04_DP3-GR1-GR2_EXAM1/readings/DPV-ch3-graph-decompositions.pdf",
+      "title": "DPV ch3 graph decompositions"
+    },
+    {
+      "path": "01_by_week/W04_DP3-GR1-GR2_EXAM1/readings/DPV-ch4-examples.pdf",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W04_DP3-GR1-GR2_EXAM1/readings/DPV-ch4-examples.pdf",
+      "title": "DPV ch4 examples"
+    },
+    {
+      "path": "01_by_week/W04_DP3-GR1-GR2_EXAM1/readings/DPV-ch4-paths-in-graphs.pdf",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W04_DP3-GR1-GR2_EXAM1/readings/DPV-ch4-paths-in-graphs.pdf",
+      "title": "DPV ch4 paths in graphs"
+    },
+    {
+      "path": "01_by_week/W04_DP3-GR1-GR2_EXAM1/readings/DPV-ch6-dynamic-programming.pdf",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W04_DP3-GR1-GR2_EXAM1/readings/DPV-ch6-dynamic-programming.pdf",
+      "title": "DPV ch6 dynamic programming"
+    },
+    {
+      "path": "01_by_week/W04_DP3-GR1-GR2_EXAM1/readings/DPV-ch6-examples.pdf",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W04_DP3-GR1-GR2_EXAM1/readings/DPV-ch6-examples.pdf",
+      "title": "DPV ch6 examples"
+    },
+    {
+      "path": "01_by_week/W05_GR3/notes/ga-notes.pdf",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W05_GR3/notes/ga-notes.pdf",
+      "title": "ga notes"
+    },
+    {
+      "path": "01_by_week/W05_GR3/readings/DPV-ch5-examples.pdf",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W05_GR3/readings/DPV-ch5-examples.pdf",
+      "title": "DPV ch5 examples"
+    },
+    {
+      "path": "01_by_week/W05_GR3/readings/DPV-ch5-greedy-algorithms.pdf",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W05_GR3/readings/DPV-ch5-greedy-algorithms.pdf",
+      "title": "DPV ch5 greedy algorithms"
+    },
+    {
+      "path": "01_by_week/W06_MF1-MF2/notes/ga-notes.pdf",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W06_MF1-MF2/notes/ga-notes.pdf",
+      "title": "ga notes"
+    },
+    {
+      "path": "01_by_week/W06_MF1-MF2/readings/DPV-ch7-examples.pdf",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W06_MF1-MF2/readings/DPV-ch7-examples.pdf",
+      "title": "DPV ch7 examples"
+    },
+    {
+      "path": "01_by_week/W06_MF1-MF2/readings/DPV-ch7-flows-and-linear-programming.pdf",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W06_MF1-MF2/readings/DPV-ch7-flows-and-linear-programming.pdf",
+      "title": "DPV ch7 flows and linear programming"
+    },
+    {
+      "path": "01_by_week/W07_MF4_EXAM2/notes/ga-notes.pdf",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W07_MF4_EXAM2/notes/ga-notes.pdf",
+      "title": "ga notes"
+    },
+    {
+      "path": "01_by_week/W07_MF4_EXAM2/readings/DPV-ch7-examples.pdf",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W07_MF4_EXAM2/readings/DPV-ch7-examples.pdf",
+      "title": "DPV ch7 examples"
+    },
+    {
+      "path": "01_by_week/W07_MF4_EXAM2/readings/DPV-ch7-flows-and-linear-programming.pdf",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W07_MF4_EXAM2/readings/DPV-ch7-flows-and-linear-programming.pdf",
+      "title": "DPV ch7 flows and linear programming"
+    },
+    {
+      "path": "01_by_week/W08_NP1-NP2-NP3/notes/ga-notes.pdf",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W08_NP1-NP2-NP3/notes/ga-notes.pdf",
+      "title": "ga notes"
+    },
+    {
+      "path": "01_by_week/W08_NP1-NP2-NP3/readings/DPV-ch5-greedy-algorithms.pdf",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W08_NP1-NP2-NP3/readings/DPV-ch5-greedy-algorithms.pdf",
+      "title": "DPV ch5 greedy algorithms"
+    },
+    {
+      "path": "01_by_week/W08_NP1-NP2-NP3/readings/DPV-ch8-examples.pdf",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W08_NP1-NP2-NP3/readings/DPV-ch8-examples.pdf",
+      "title": "DPV ch8 examples"
+    },
+    {
+      "path": "01_by_week/W08_NP1-NP2-NP3/readings/DPV-ch8-np-complete-problems.pdf",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W08_NP1-NP2-NP3/readings/DPV-ch8-np-complete-problems.pdf",
+      "title": "DPV ch8 np complete problems"
+    },
+    {
+      "path": "01_by_week/W09_LP1-LP2-LP3/notes/ga-notes.pdf",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W09_LP1-LP2-LP3/notes/ga-notes.pdf",
+      "title": "ga notes"
+    },
+    {
+      "path": "01_by_week/W09_LP1-LP2-LP3/readings/DPV-ch7-examples.pdf",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W09_LP1-LP2-LP3/readings/DPV-ch7-examples.pdf",
+      "title": "DPV ch7 examples"
+    },
+    {
+      "path": "01_by_week/W09_LP1-LP2-LP3/readings/DPV-ch7-flows-and-linear-programming.pdf",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W09_LP1-LP2-LP3/readings/DPV-ch7-flows-and-linear-programming.pdf",
+      "title": "DPV ch7 flows and linear programming"
+    },
+    {
+      "path": "01_by_week/W10_LP4-NP4-NP5_EXAM3/notes/ga-notes.pdf",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W10_LP4-NP4-NP5_EXAM3/notes/ga-notes.pdf",
+      "title": "ga notes"
+    },
+    {
+      "path": "01_by_week/W10_LP4-NP4-NP5_EXAM3/readings/DPV-ch6-dynamic-programming.pdf",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W10_LP4-NP4-NP5_EXAM3/readings/DPV-ch6-dynamic-programming.pdf",
+      "title": "DPV ch6 dynamic programming"
+    },
+    {
+      "path": "01_by_week/W10_LP4-NP4-NP5_EXAM3/readings/DPV-ch7-examples.pdf",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W10_LP4-NP4-NP5_EXAM3/readings/DPV-ch7-examples.pdf",
+      "title": "DPV ch7 examples"
+    },
+    {
+      "path": "01_by_week/W10_LP4-NP4-NP5_EXAM3/readings/DPV-ch7-flows-and-linear-programming.pdf",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W10_LP4-NP4-NP5_EXAM3/readings/DPV-ch7-flows-and-linear-programming.pdf",
+      "title": "DPV ch7 flows and linear programming"
+    },
+    {
+      "path": "01_by_week/W10_LP4-NP4-NP5_EXAM3/readings/DPV-ch8-examples.pdf",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W10_LP4-NP4-NP5_EXAM3/readings/DPV-ch8-examples.pdf",
+      "title": "DPV ch8 examples"
+    },
+    {
+      "path": "01_by_week/W10_LP4-NP4-NP5_EXAM3/readings/DPV-ch8-np-complete-problems.pdf",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W10_LP4-NP4-NP5_EXAM3/readings/DPV-ch8-np-complete-problems.pdf",
+      "title": "DPV ch8 np complete problems"
+    },
+    {
+      "path": "01_by_week/W10_LP4-NP4-NP5_EXAM3/readings/DPV-ch9-coping-with-np-completeness.pdf",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W10_LP4-NP4-NP5_EXAM3/readings/DPV-ch9-coping-with-np-completeness.pdf",
+      "title": "DPV ch9 coping with np completeness"
+    },
+    {
+      "path": "01_by_week/W10_LP4-NP4-NP5_EXAM3/readings/DPV-ch9-examples.pdf",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W10_LP4-NP4-NP5_EXAM3/readings/DPV-ch9-examples.pdf",
+      "title": "DPV ch9 examples"
+    },
+    {
+      "path": "01_by_week/W11_Advanced-FFT-Crypto-Bloom/notes/ga-notes.pdf",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W11_Advanced-FFT-Crypto-Bloom/notes/ga-notes.pdf",
+      "title": "ga notes"
+    },
+    {
+      "path": "01_by_week/W11_Advanced-FFT-Crypto-Bloom/readings/DPV-ch1-algorithms-with-numbers.pdf",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W11_Advanced-FFT-Crypto-Bloom/readings/DPV-ch1-algorithms-with-numbers.pdf",
+      "title": "DPV ch1 algorithms with numbers"
+    },
+    {
+      "path": "01_by_week/W11_Advanced-FFT-Crypto-Bloom/readings/DPV-ch1-examples.pdf",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W11_Advanced-FFT-Crypto-Bloom/readings/DPV-ch1-examples.pdf",
+      "title": "DPV ch1 examples"
+    },
+    {
+      "path": "01_by_week/W11_Advanced-FFT-Crypto-Bloom/readings/DPV-ch2-divide-and-conquer-FFT.pdf",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W11_Advanced-FFT-Crypto-Bloom/readings/DPV-ch2-divide-and-conquer-FFT.pdf",
+      "title": "DPV ch2 divide and conquer FFT"
+    },
+    {
+      "path": "01_by_week/W11_Advanced-FFT-Crypto-Bloom/readings/DPV-ch2-examples.pdf",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/01_by_week/W11_Advanced-FFT-Crypto-Bloom/readings/DPV-ch2-examples.pdf",
+      "title": "DPV ch2 examples"
+    },
+    {
+      "path": "02_by_topic/ADV_advanced-topics/DPV-ch1-algorithms-with-numbers.pdf",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/02_by_topic/ADV_advanced-topics/DPV-ch1-algorithms-with-numbers.pdf",
+      "title": "DPV ch1 algorithms with numbers"
+    },
+    {
+      "path": "02_by_topic/ADV_advanced-topics/DPV-ch2-divide-and-conquer-FFT.pdf",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/02_by_topic/ADV_advanced-topics/DPV-ch2-divide-and-conquer-FFT.pdf",
+      "title": "DPV ch2 divide and conquer FFT"
+    },
+    {
+      "path": "02_by_topic/DC_divide-and-conquer/DPV-ch2-divide-and-conquer.pdf",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/02_by_topic/DC_divide-and-conquer/DPV-ch2-divide-and-conquer.pdf",
+      "title": "DPV ch2 divide and conquer"
+    },
+    {
+      "path": "02_by_topic/DP_dynamic-programming/DPV-ch6-dynamic-programming.pdf",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/02_by_topic/DP_dynamic-programming/DPV-ch6-dynamic-programming.pdf",
+      "title": "DPV ch6 dynamic programming"
+    },
+    {
+      "path": "02_by_topic/GR_graphs/DPV-ch3-graph-decompositions.pdf",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/02_by_topic/GR_graphs/DPV-ch3-graph-decompositions.pdf",
+      "title": "DPV ch3 graph decompositions"
+    },
+    {
+      "path": "02_by_topic/GR_graphs/DPV-ch4-paths-in-graphs.pdf",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/02_by_topic/GR_graphs/DPV-ch4-paths-in-graphs.pdf",
+      "title": "DPV ch4 paths in graphs"
+    },
+    {
+      "path": "02_by_topic/GR_graphs/DPV-ch5-greedy-algorithms.pdf",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/02_by_topic/GR_graphs/DPV-ch5-greedy-algorithms.pdf",
+      "title": "DPV ch5 greedy algorithms"
+    },
+    {
+      "path": "02_by_topic/LP_linear-programming/DPV-ch7-flows-and-linear-programming.pdf",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/02_by_topic/LP_linear-programming/DPV-ch7-flows-and-linear-programming.pdf",
+      "title": "DPV ch7 flows and linear programming"
+    },
+    {
+      "path": "02_by_topic/MF_max-flow/DPV-ch7-flows-and-linear-programming.pdf",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/02_by_topic/MF_max-flow/DPV-ch7-flows-and-linear-programming.pdf",
+      "title": "DPV ch7 flows and linear programming"
+    },
+    {
+      "path": "02_by_topic/NP_np-completeness/DPV-ch8-np-complete-problems.pdf",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/02_by_topic/NP_np-completeness/DPV-ch8-np-complete-problems.pdf",
+      "title": "DPV ch8 np complete problems"
+    },
+    {
+      "path": "02_by_topic/NP_np-completeness/DPV-ch9-coping-with-np-completeness.pdf",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/02_by_topic/NP_np-completeness/DPV-ch9-coping-with-np-completeness.pdf",
+      "title": "DPV ch9 coping with np completeness"
+    },
+    {
+      "path": "notes/ga-notes.pdf",
+      "url": "https://dariennouri.github.io/cs6515-github-pages/notes/ga-notes.pdf",
+      "title": "ga notes"
+    }
+  ]
+}

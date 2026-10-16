@@ -25,6 +25,14 @@ href="../../00_START_HERE/INDEX.html">Master Index</a>).</p>
 multiplication (Karatsuba), recurrences (W2), linear-time median (W3),
 FFT (W11). Write answers as narrative algorithm / correctness / runtime:
 <a href="../../cs6515-algorithm-rules-and-guidelines/index.html#divide-and-conquer">D&amp;C guidance</a>.</p>
+
+<details class="visual-walkthrough">
+<summary>Step-through visual: Divide and conquer: split, then merge</summary>
+<p>Follow an array as it splits into smaller problems, then compare front items while merging sorted results.</p>
+<div data-algorithm-visual="merge-sort"><p>One-element arrays are sorted. During a merge, take the smaller front item; take from the left on a tie to preserve stability. Each complete merge level processes all n elements.</p></div>
+<p><a href="../../algorithm-demonstrations.html#merge-sort">Open this walkthrough and compare the other algorithm visuals</a>.</p>
+</details>
+
 <h2 id="material-in-this-folder">Material in this folder</h2>
 <ul>
 <li><a
@@ -84,27 +92,9 @@ href="../../01_by_week/index.html"><code>../../01_by_week/</code></a>.</em></p>
   } catch (e) { console.error('Mermaid render error:', e); }
 
   // 4) Math: render \( \) and \[ \] and $$ $$. Tolerate malformed legacy TeX.
+  // All math, including legacy Pandoc fragments, uses the shared renderer.
   function renderMath() {
-    if (window.renderMathInElement) {
-      renderMathInElement(document.querySelector('.content, .all-weeks-content') || document.body, {
-        delimiters: [
-          { left: '$$', right: '$$', display: true },
-          { left: '\\[', right: '\\]', display: true },
-          { left: '$', right: '$', display: false },
-          { left: '\\(', right: '\\)', display: false }
-        ],
-        throwOnError: false,
-        preProcess: function(math) {
-          return math
-            .replace(/\\left\\\[/g, '\\left[')
-            .replace(/\\right\\\]/g, '\\right]')
-            .replace(/&amp;/g, '&')
-            .replace(/&lt;/g, '<')
-            .replace(/&gt;/g, '>');
-        },
-        macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
-      });
-    }
+    if (window.renderSiteMath) window.renderSiteMath();
   }
   try {
     renderMath();

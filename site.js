@@ -21,17 +21,17 @@
   ];
 
   const courseWeeks = [
-    { num: 1, id: "W01", path: "01_by_week/W01_DP1-DP2/index.html", title: "Intro & DP Foundations", modules: "DP1, DP2", topics: "Fibonacci, LIS, LCS, Knapsack, Chain Multiply", unit: "Unit 1: Dynamic Programming & Divide-and-Conquer", exam: null },
-    { num: 2, id: "W02", path: "01_by_week/W02_DC3-DC1/index.html", title: "Divide & Conquer Foundations", modules: "DC3, DC1", topics: "Master Theorem, Recurrences, Karatsuba Multiply", unit: "Unit 1: Dynamic Programming & Divide-and-Conquer", exam: null },
-    { num: 3, id: "W03", path: "01_by_week/W03_DC2/index.html", title: "Linear-Time Selection", modules: "DC2", topics: "QuickSelect, Median of Medians", unit: "Unit 1: Dynamic Programming & Divide-and-Conquer", exam: null },
-    { num: 4, id: "W04", path: "01_by_week/W04_DP3-GR1-GR2_EXAM1/index.html", title: "DP on DAGs, SCCs, 2-SAT", modules: "DP3, GR1, GR2", topics: "DAG Shortest Paths, Kosaraju SCC, 2-SAT", unit: "Unit 1: Dynamic Programming & Divide-and-Conquer", exam: "Exam 1" },
-    { num: 5, id: "W05", path: "01_by_week/W05_GR3/index.html", title: "Minimum Spanning Trees", modules: "GR3", topics: "Kruskal's, Prim's, Cut Property", unit: "Unit 2: Graph Algorithms & Network Flow", exam: null },
-    { num: 6, id: "W06", path: "01_by_week/W06_MF1-MF2/index.html", title: "Max-Flow Foundations", modules: "MF1, MF2", topics: "Ford-Fulkerson, Residual Graphs, Max-Flow/Min-Cut", unit: "Unit 2: Graph Algorithms & Network Flow", exam: null },
-    { num: 7, id: "W07", path: "01_by_week/W07_MF4_EXAM2/index.html", title: "Edmonds-Karp & Matching", modules: "MF4", topics: "Edmonds-Karp, Bipartite Matching", unit: "Unit 2: Graph Algorithms & Network Flow", exam: "Exam 2" },
-    { num: 8, id: "W08", path: "01_by_week/W08_NP1-NP2-NP3/index.html", title: "NP-Completeness & Reductions", modules: "NP1, NP2, NP3", topics: "P vs NP, 3-SAT, Independent Set, Vertex Cover", unit: "Unit 3: Intractability & Linear Programming", exam: null },
-    { num: 9, id: "W09", path: "01_by_week/W09_LP1-LP2-LP3/index.html", title: "Linear Programming & Duality", modules: "LP1, LP2, LP3", topics: "Formulations, Simplex Geometry, Duality", unit: "Unit 3: Intractability & Linear Programming", exam: null },
-    { num: 10, id: "W10", path: "01_by_week/W10_LP4-NP4-NP5_EXAM3/index.html", title: "Approximation & Undecidability", modules: "LP4, NP4, NP5", topics: "Max-SAT 7/8, ILP, Halting Problem", unit: "Unit 3: Intractability & Linear Programming", exam: "Exam 3" },
-    { num: 11, id: "W11", path: "01_by_week/W11_Advanced-FFT-Crypto-Bloom/index.html", title: "Advanced Topics & Review", modules: "FFT, RA1-3", topics: "Fast Fourier Transform, RSA Crypto, Bloom Filters", unit: "Unit 4: Advanced Topics & Review", exam: null }
+    { num: 1, id: "W01", path: "01_by_week/W01_DP1-DP2/index.html", title: "Intro & DP Foundations", modules: "DP1, DP2", topics: "Fibonacci, LIS, LCS, Knapsack, Chain Multiply", unit: "Unit 1: Dynamic Programming & Divide-and-Conquer" },
+    { num: 2, id: "W02", path: "01_by_week/W02_DC3-DC1/index.html", title: "Divide & Conquer Foundations", modules: "DC3, DC1", topics: "Master Theorem, Recurrences, Karatsuba Multiply", unit: "Unit 1: Dynamic Programming & Divide-and-Conquer" },
+    { num: 3, id: "W03", path: "01_by_week/W03_DC2/index.html", title: "Linear-Time Selection", modules: "DC2", topics: "QuickSelect, Median of Medians", unit: "Unit 1: Dynamic Programming & Divide-and-Conquer" },
+    { num: 4, id: "W04", path: "01_by_week/W04_DP3-GR1-GR2_EXAM1/index.html", title: "DP on DAGs, SCCs, 2-SAT", modules: "DP3, GR1, GR2", topics: "DAG Shortest Paths, Kosaraju SCC, 2-SAT", unit: "Unit 1: Dynamic Programming & Divide-and-Conquer" },
+    { num: 5, id: "W05", path: "01_by_week/W05_GR3/index.html", title: "Minimum Spanning Trees", modules: "GR3", topics: "Kruskal's, Prim's, Cut Property", unit: "Unit 2: Graph Algorithms & Network Flow" },
+    { num: 6, id: "W06", path: "01_by_week/W06_MF1-MF2/index.html", title: "Max-Flow Foundations", modules: "MF1, MF2", topics: "Ford-Fulkerson, Residual Graphs, Max-Flow/Min-Cut", unit: "Unit 2: Graph Algorithms & Network Flow" },
+    { num: 7, id: "W07", path: "01_by_week/W07_MF4_EXAM2/index.html", title: "Edmonds-Karp & Matching", modules: "MF4", topics: "Edmonds-Karp, Bipartite Matching", unit: "Unit 2: Graph Algorithms & Network Flow" },
+    { num: 8, id: "W08", path: "01_by_week/W08_NP1-NP2-NP3/index.html", title: "NP-Completeness & Reductions", modules: "NP1, NP2, NP3", topics: "P vs NP, 3-SAT, Independent Set, Vertex Cover", unit: "Unit 3: Intractability & Linear Programming" },
+    { num: 9, id: "W09", path: "01_by_week/W09_LP1-LP2-LP3/index.html", title: "Linear Programming & Duality", modules: "LP1, LP2, LP3", topics: "Formulations, Simplex Geometry, Duality", unit: "Unit 3: Intractability & Linear Programming" },
+    { num: 10, id: "W10", path: "01_by_week/W10_LP4-NP4-NP5_EXAM3/index.html", title: "Approximation & Undecidability", modules: "LP4, NP4, NP5", topics: "Max-SAT 7/8, ILP, Halting Problem", unit: "Unit 3: Intractability & Linear Programming" },
+    { num: 11, id: "W11", path: "01_by_week/W11_Advanced-FFT-Crypto-Bloom/index.html", title: "Advanced Topics & Review", modules: "FFT, RA1-3", topics: "Fast Fourier Transform, RSA Crypto, Bloom Filters", unit: "Unit 4: Advanced Topics & Review" }
   ];
 
   const topicPages = [
@@ -58,9 +58,12 @@
     ["01_by_week/all-in-one.html", "All Weeks - Stacked"],
     ["02_by_topic/index.html", "All Topics"],
     ["cs6515-algorithm-rules-and-guidelines/index.html", "Rules & Guidance"],
-    ["module-week-schedule.html", "Course Schedule"],
+    ["module-week-schedule.html", "Weekly Study Plan"],
     ["textbooks/index.html", "Textbooks"],
     ["notes/index.html", "Notes"],
+    ["content-index.html", "Content & imports"],
+    ["graph-demonstrations.html", "Graph demonstrations"],
+    ["algorithm-demonstrations.html", "Interactive algorithm walkthroughs"],
     ["02_by_topic/GR_graphs/study-notes/index.html", "Graph Study Suite"]
   ];
 
@@ -70,11 +73,14 @@
       title: "Foundations & Study Hub",
       badge: "Hub",
       items: [
-        { path: "00_START_HERE/COURSE_ROADMAP.html", title: "Course Roadmap & Study Guide", subtitle: "Curriculum roadmap & exam checkpoints" },
-        { path: "00_START_HERE/EXAM_CRAM_SHEET.html", title: "🎯 High-Yield Exam Cram Sheets & Black-Box Matrix", subtitle: "Exam 1, 2, 3 synthesized with interactive Active Recall practice", badge: "High Yield" },
-        { path: "00_START_HERE/INDEX.html", title: "Master Index", subtitle: "Week ↔ Module ↔ Reading ↔ Guidance ↔ Exam" },
+        { path: "00_START_HERE/COURSE_ROADMAP.html", title: "Course Roadmap & Study Guide", subtitle: "Curriculum roadmap & weekly topics" },
+        { path: "00_START_HERE/EXAM_CRAM_SHEET.html", title: "🎯 High-Yield Review Sheets & Black-Box Matrix", subtitle: "Weekly topics with interactive active recall practice", badge: "High Yield" },
+        { path: "00_START_HERE/INDEX.html", title: "Master Index", subtitle: "Week ↔ Module ↔ Reading ↔ Guidance" },
         { path: "00_START_HERE/COURSE_MAP.html", title: "Course Dependency Map", subtitle: "Mental model & prerequisite graph" },
-        { path: "module-week-schedule.html", title: "Weekly Module Schedule", subtitle: "Lecture assignments & quiz cadence" },
+        { path: "content-index.html", title: "Content & imports", subtitle: "Course source for NotebookLM and other reading tools" },
+        { path: "graph-demonstrations.html", title: "Graph demonstrations", subtitle: "Step through graph algorithms and their properties" },
+        { path: "algorithm-demonstrations.html", title: "Interactive algorithm walkthroughs", subtitle: "DP tables, split and merge, graph components, and LP geometry" },
+        { path: "module-week-schedule.html", title: "Weekly Study Plan", subtitle: "Weekly lectures and suggested practice" },
         { path: "01_by_week/all-in-one.html", title: "All Weeks Stacked", subtitle: "Single continuous review page" },
         { path: "01_by_week/index.html", title: "By Week Chronological View", subtitle: "All weekly directory cards" }
       ]
@@ -82,33 +88,33 @@
     {
       id: "unit-1",
       title: "Unit 1: Dynamic Programming & Divide-and-Conquer",
-      badge: "Exam 1",
+      badge: "Weeks 1–4",
       items: [
         { path: "01_by_week/W01_DP1-DP2/index.html", title: "Week 1 — Intro & Dynamic Programming", modules: "DP1, DP2", subtitle: "Fibonacci, LIS, LCS, Knapsack, Chain Multiply" },
         { path: "01_by_week/W02_DC3-DC1/index.html", title: "Week 2 — Divide & Conquer Foundations", modules: "DC3, DC1", subtitle: "Master Theorem, Recurrences, Karatsuba Multiply" },
         { path: "01_by_week/W03_DC2/index.html", title: "Week 3 — Linear-Time Median & Selection", modules: "DC2", subtitle: "QuickSelect, Median of Medians" },
-        { path: "01_by_week/W04_DP3-GR1-GR2_EXAM1/index.html", title: "Week 4 — DP3, SCC, 2-SAT + Exam 1", modules: "DP3, GR1, GR2", subtitle: "Shortest Paths, SCCs, 2-SAT · Exam 1 Window", exam: "Exam 1" }
+        { path: "01_by_week/W04_DP3-GR1-GR2_EXAM1/index.html", title: "Week 4 — DP3, SCC, 2-SAT", modules: "DP3, GR1, GR2", subtitle: "Shortest Paths, SCCs, 2-SAT" }
       ]
     },
     {
       id: "unit-2",
       title: "Unit 2: Graph Algorithms & Network Flow",
-      badge: "Exam 2",
+      badge: "Weeks 5–7",
       items: [
         { path: "02_by_topic/GR_graphs/study-notes/index.html", title: "⚡ Graph Theory Study Suite (GR0–GR4)", modules: "GR0–GR4", subtitle: "All-in-one interactive guides: DFS/BFS, SCCs, 2-SAT, MST, Markov & Cheat Sheet", badge: "Suite" },
         { path: "01_by_week/W05_GR3/index.html", title: "Week 5 — Minimum Spanning Trees", modules: "GR3", subtitle: "Kruskal's & Prim's, Cut Property" },
         { path: "01_by_week/W06_MF1-MF2/index.html", title: "Week 6 — Max-Flow Basics & Duality", modules: "MF1, MF2", subtitle: "Ford-Fulkerson, Max-Flow = Min-Cut" },
-        { path: "01_by_week/W07_MF4_EXAM2/index.html", title: "Week 7 — Edmonds-Karp & Applications + Exam 2", modules: "MF4", subtitle: "Edmonds-Karp, Bipartite Matching · Exam 2 Window", exam: "Exam 2" }
+        { path: "01_by_week/W07_MF4_EXAM2/index.html", title: "Week 7 — Edmonds-Karp & Applications", modules: "MF4", subtitle: "Edmonds-Karp, Bipartite Matching" }
       ]
     },
     {
       id: "unit-3",
       title: "Unit 3: Intractability, LP & Advanced Topics",
-      badge: "Exam 3",
+      badge: "Weeks 8–11",
       items: [
         { path: "01_by_week/W08_NP1-NP2-NP3/index.html", title: "Week 8 — NP-Completeness Foundations", modules: "NP1, NP2, NP3", subtitle: "Reductions, 3-SAT, Independent Set, Vertex Cover" },
         { path: "01_by_week/W09_LP1-LP2-LP3/index.html", title: "Week 9 — Linear Programming Foundations", modules: "LP1, LP2, LP3", subtitle: "Formulations, Simplex Geometry, Duality" },
-        { path: "01_by_week/W10_LP4-NP4-NP5_EXAM3/index.html", title: "Week 10 — Approx, ILP & Undecidability + Exam 3", modules: "LP4, NP4, NP5", subtitle: "Max-SAT Approx, ILP, Halting Problem · Exam 3 Window", exam: "Exam 3" },
+        { path: "01_by_week/W10_LP4-NP4-NP5_EXAM3/index.html", title: "Week 10 — Approx, ILP & Undecidability", modules: "LP4, NP4, NP5", subtitle: "Max-SAT Approx, ILP, Halting Problem" },
         { path: "01_by_week/W11_Advanced-FFT-Crypto-Bloom/index.html", title: "Week 11 — Advanced Topics & Review", modules: "FFT, RA1-3", subtitle: "Fast Fourier Transform, RSA, Bloom Filters" }
       ]
     },
@@ -409,17 +415,16 @@
     dropdown.setAttribute("data-weeks-dropdown", "");
 
     const units = [
-      { name: "Unit 1: Dynamic Programming & Divide-and-Conquer", exam: "Exam 1", weeks: [1, 2, 3, 4] },
-      { name: "Unit 2: Graph Algorithms & Network Flow", exam: "Exam 2", weeks: [5, 6, 7] },
-      { name: "Unit 3: Intractability & Linear Programming", exam: "Exam 3", weeks: [8, 9, 10] },
-      { name: "Unit 4: Advanced Topics & Review", exam: "Final Prep", weeks: [11] }
+      { name: "Unit 1: Dynamic Programming & Divide-and-Conquer", range: "Weeks 1–4", weeks: [1, 2, 3, 4] },
+      { name: "Unit 2: Graph Algorithms & Network Flow", range: "Weeks 5–7", weeks: [5, 6, 7] },
+      { name: "Unit 3: Intractability & Linear Programming", range: "Weeks 8–10", weeks: [8, 9, 10] },
+      { name: "Unit 4: Advanced Topics & Review", range: "Week 11", weeks: [11] }
     ];
 
     const unitsHtml = units.map(function (u) {
       const weeksInUnit = courseWeeks.filter(function (w) { return u.weeks.indexOf(w.num) !== -1; });
       const itemsHtml = weeksInUnit.map(function (w) {
         const isCurrent = isCurrentPage(w.path, currentPath);
-        const examBadge = w.exam ? '<span class="weeks-item__exam">' + escapeHtml(w.exam) + '</span>' : '';
         const currentPill = isCurrent ? '<span class="weeks-item__current-badge">HERE</span>' : '';
 
         return [
@@ -429,7 +434,6 @@
           '    <div class="weeks-item__title">Week ' + w.num + ' · ' + escapeHtml(w.title) + '</div>',
           '    <div class="weeks-item__meta">' + escapeHtml(w.modules) + ' — ' + escapeHtml(w.topics) + '</div>',
           '  </div>',
-          '  ' + examBadge,
           '  ' + currentPill,
           '</a>'
         ].join("");
@@ -439,7 +443,7 @@
         '<div class="weeks-dropdown__unit">',
         '  <div class="weeks-dropdown__unit-title">',
         '    <span>' + escapeHtml(u.name.split(":")[0]) + '</span>',
-        '    <span class="weeks-dropdown__unit-exam">' + escapeHtml(u.exam) + '</span>',
+        '    <span class="weeks-dropdown__unit-exam">' + escapeHtml(u.range) + '</span>',
         '  </div>',
         itemsHtml,
         '</div>'
@@ -458,7 +462,7 @@
       '    <span>Chronological View</span>',
       '  </a>',
       '  <a href="' + escapeHtml(hrefFor('module-week-schedule.html')) + '">',
-      '    <span>Term Schedule ↗</span>',
+      '    <span>Weekly Study Plan ↗</span>',
       '  </a>',
       '</div>'
     ].join("");
@@ -532,7 +536,6 @@
       const itemsHtml = group.items.map(function (item) {
         const isCurrent = isCurrentPage(item.path, currentPath);
         const moduleBadge = item.modules ? '<span class="tree-node__module">' + escapeHtml(item.modules) + '</span>' : '';
-        const examBadge = item.exam ? '<span class="tree-node__exam">' + escapeHtml(item.exam) + '</span>' : '';
         const currentPill = isCurrent ? '<span class="tree-node__current-badge">YOU ARE HERE</span>' : '';
         const descHtml = item.subtitle ? '<span class="tree-node__desc">' + escapeHtml(item.subtitle) + '</span>' : '';
 
@@ -543,7 +546,6 @@
           '    <div class="tree-node__row">',
           '      <span class="tree-node__title">' + escapeHtml(item.title) + '</span>',
           '      ' + moduleBadge,
-          '      ' + examBadge,
           '    </div>',
           '    ' + descHtml,
           '  </div>',
@@ -860,11 +862,9 @@
 
         const pillsHtml = courseWeeks.map(function (w) {
           const isCurrent = isCurrentPage(w.path, path);
-          const examTag = w.exam ? '<span class="week-strip__exam-tag">' + (w.num === 4 ? 'E1' : w.num === 7 ? 'E2' : 'E3') + '</span>' : '';
           return [
-            '<a class="week-strip__pill' + (isCurrent ? ' is-current' : '') + (w.exam ? ' has-exam' : '') + '" href="' + escapeHtml(hrefFor(w.path)) + '" title="Week ' + w.num + ' — ' + escapeHtml(w.title) + ' (' + escapeHtml(w.modules) + ')' + (w.exam ? ' · ' + w.exam : '') + '">',
+            '<a class="week-strip__pill' + (isCurrent ? ' is-current' : '') + '" href="' + escapeHtml(hrefFor(w.path)) + '" title="Week ' + w.num + ' — ' + escapeHtml(w.title) + ' (' + escapeHtml(w.modules) + ')' + '">',
             '  <span>' + w.id + '</span>',
-            '  ' + examTag,
             '</a>'
           ].join("");
         }).join("\n");
@@ -970,15 +970,13 @@
         '<div class="top-nav-bar__right">', nextBtn, '</div>'
       ].join("");
 
-      const h1 = content.querySelector("h1");
-      const sub = content.querySelector(".module-subtitle");
-      if (sub && sub.nextSibling) {
-        content.insertBefore(topNav, sub.nextSibling);
-      } else if (h1 && h1.nextSibling) {
-        content.insertBefore(topNav, h1.nextSibling);
-      } else {
-        content.insertBefore(topNav, content.firstChild);
+      // The homepage heading lives inside .hero. insertBefore requires a
+      // direct child of content, including when search refreshes navigation.
+      let headingBlock = content.querySelector(".module-subtitle") || content.querySelector("h1");
+      while (headingBlock && headingBlock.parentNode !== content) {
+        headingBlock = headingBlock.parentElement;
       }
+      content.insertBefore(topNav, headingBlock ? headingBlock.nextSibling : content.firstChild);
     }
 
     // 2) Bottom Navigation Cards & Quick Actions
@@ -1355,8 +1353,12 @@
       if (activeLink && sidebar.scrollHeight > sidebar.clientHeight) {
         const linkRect = activeLink.getBoundingClientRect();
         const sidebarRect = sidebar.getBoundingClientRect();
-        if (linkRect.bottom > sidebarRect.bottom - 40 || linkRect.top < sidebarRect.top + 40) {
-          activeLink.scrollIntoView({ block: "nearest", behavior: "smooth" });
+        // scrollIntoView can scroll the document as well as the sidebar, moving
+        // the formula a reader just navigated to. Move only the sidebar itself.
+        if (linkRect.bottom > sidebarRect.bottom - 40) {
+          sidebar.scrollTop += linkRect.bottom - (sidebarRect.bottom - 40);
+        } else if (linkRect.top < sidebarRect.top + 40) {
+          sidebar.scrollTop += linkRect.top - (sidebarRect.top + 40);
         }
       }
     }
@@ -1644,8 +1646,8 @@
     }
   }
 
-  function enhanceStudyContent() {
-    const content = document.querySelector(".content, .all-weeks-content");
+  function enhanceStudyContent(rootEl) {
+    const content = rootEl || document.querySelector(".content, .all-weeks-content");
     if (!content) return;
 
     // 1. Semantic Callouts: Tip, Intuition, Lemma, Claim, Reference, Warning
@@ -1866,11 +1868,15 @@
         heading.insertAdjacentElement("beforebegin", badge);
       }
     });
+    if (window.enhanceTopicResources) window.enhanceTopicResources(content);
+    ensureCourseVisuals(content);
   }
 
   /* ==========================================================================
      Universal Mathematical Engine & KaTeX Normalization
      ========================================================================== */
+  window.enhanceStudyContent = enhanceStudyContent;
+
   const katexMacros = {
     "\\R": "\\mathbb{R}",
     "\\set": "\\{#1\\}",
@@ -1878,9 +1884,63 @@
     "\\O": "\\mathcal{O}"
   };
 
+  function normalizeMathWords(source, isPandoc) {
+    const operators = new Set(["min", "max", "log", "ln", "sin", "cos", "tan", "exp", "gcd", "det", "Pr", "lim", "inf", "sup"]);
+    const namedFunctions = new Set(["capacity", "size", "dist", "rank", "lcm"]);
+    const prose = new Set(["otherwise", "if", "only", "option", "second", "for", "or", "and", "where", "with", "feasible", "cut", "when"]);
+    let result = "";
+    for (let i = 0; i < source.length;) {
+      if (source[i] === "\\") {
+        const command = source.slice(i).match(/^\\(?:[A-Za-z]+|.)/);
+        const token = command ? command[0] : "\\";
+        result += token;
+        i += token.length;
+        // Text and named operators must retain their own words, including min,
+        // max, and for. Rewriting inside these groups silently changes notation.
+        if (/^\\(?:text\w*|operatorname|mathrm|mathsf|mathtt)$/.test(token)) {
+          while (/\s/.test(source[i] || "") && i < source.length) result += source[i++];
+          if (source[i] === "{") {
+            let depth = 0;
+            do {
+              const c = source[i++];
+              result += c;
+              if (c === "\\" && i < source.length) { result += source[i++]; continue; }
+              if (c === "{") depth++;
+              if (c === "}") depth--;
+            } while (i < source.length && depth > 0);
+          }
+        }
+        continue;
+      }
+      const word = source.slice(i).match(/^[A-Za-z]+/);
+      if (word) {
+        const value = word[0];
+        if (isPandoc && prose.has(value)) {
+          let end = i + value.length;
+          let next;
+          while ((next = source.slice(end).match(/^\s+([A-Za-z]+)/)) && prose.has(next[1])) end += next[0].length;
+          result += "\\text{ " + source.slice(i, end) + " }";
+          i = end;
+          continue;
+        }
+        result += operators.has(value) ? "\\" + value :
+          namedFunctions.has(value) ? "\\operatorname{" + value + "}" : value;
+        i += value.length;
+      } else {
+        result += source[i++];
+      }
+    }
+    return result;
+  }
+
   function pandocToLatex(html) {
     if (!html) return "";
     let s = html.trim();
+    // Pandoc's HTML representation uses literal braces for visible sets. TeX
+    // treats those same braces as invisible groups. Preserve them before adding
+    // our generated subscript/superscript groups, but leave authored TeX intact.
+    const isPandoc = !/\\[A-Za-z]+|(?<!\\)[_^]\{|^\$|^\\[([]/.test(s);
+    if (isPandoc) s = s.replace(/(?<!\\)([{}])/g, "\\$1");
     if (s.startsWith("$$") && s.endsWith("$$") && s.length > 4) {
       s = s.slice(2, -2).trim();
     } else if (s.startsWith("$") && s.endsWith("$") && s.length > 2) {
@@ -1926,13 +1986,19 @@
     s = s.replace(/[◼▫]/g, " \\blacksquare ");
 
     // HTML tag normalization BEFORE stripping tags:
-    s = s.replace(/<sub>\s*<em>(.*?)<\/em>\s*<\/sub>/gi, "_{$1}");
-    s = s.replace(/<sup>\s*<em>(.*?)<\/em>\s*<\/sup>/gi, "^{$1}");
+    // Some older exports split the word log into three italic variables, which
+    // otherwise merges with neighboring n's into the invalid operator nlogn.
+    s = s.replace(/<em>l<\/em>\s*<em>o<\/em>\s*<em>g<\/em>/gi, " \\log ");
     s = s.replace(/<\/?em>/gi, "");
     s = s.replace(/<strong>(.*?)<\/strong>/gi, "\\mathbf{$1}");
     s = s.replace(/<b>(.*?)<\/b>/gi, "\\mathbf{$1}");
-    s = s.replace(/<sub>(.*?)<\/sub>/gi, "_{$1}");
-    s = s.replace(/<sup>(.*?)<\/sup>/gi, "^{$1}");
+    let previousScripts;
+    do {
+      previousScripts = s;
+      // Convert innermost scripts first: 2^(2^2006) must not become 2^22006.
+      s = s.replace(/<(sub|sup)\b[^>]*>((?:(?!<\/?(?:sub|sup)\b)[\s\S])*)<\/\1>/gi,
+        function (_, tag, body) { return (tag.toLowerCase() === "sub" ? "_" : "^") + "{" + body + "}"; });
+    } while (s !== previousScripts);
 
     // Strip remaining HTML tags safely without deleting math < and >
     s = s.replace(/<[^>]+>/g, "");
@@ -1948,8 +2014,6 @@
     s = s.replace(/\\overset\{\\rightarrow\}\s*([A-Za-z])/g, "\\overrightarrow{$1}");
     s = s.replace(/\\overset\{\\rightarrow\}/g, "\\overrightarrow ");
     s = s.replace(/\\overset\{\\to\}/g, "\\overrightarrow ");
-    s = s.replace(/(?<!\\)\blog\b/g, "\\log");
-    s = s.replace(/(?<!\\)\bln\b/g, "\\ln");
     s = s.replace(/−/g, "-");
     s = s.replace(/×/g, " \\times ").replace(/÷/g, " \\div ");
     s = s.replace(/±/g, " \\pm ");
@@ -1958,11 +2022,10 @@
     s = s.replace(/ℤ/g, " \\mathbb{Z} ").replace(/ℝ/g, " \\mathbb{R} ").replace(/ℕ/g, " \\mathbb{N} ");
     s = s.replace(/Ω/g, " \\Omega ").replace(/Θ/g, " \\Theta ");
     s = s.replace(/\bs\.t\.\b/g, "\\text{ s.t. }");
-    s = s.replace(/\bfor\b/g, "\\text{ for }");
     s = s.replace(/\\\*/g, "\\cdot ");
-    s = s.replace(/%/g, "\\%");
+    s = s.replace(/(?<!\\)%/g, "\\%");
     s = s.replace(/\s+/g, " ").trim();
-    return s;
+    return normalizeMathWords(s, isPandoc);
   }
 
   function loadKaTeXAssets(callback) {
@@ -2022,7 +2085,11 @@
     }
 
     // 1. Process all .math.inline and .math.display elements
-    root.querySelectorAll(".math.inline, .math.display, span[class*='math']").forEach(function (el) {
+    root.querySelectorAll(".math").forEach(function (el) {
+      // KaTeX emits classes such as mathnormal and katex-mathml. Those are
+      // renderer output, never source formulas; visiting them corrupts good math.
+      if (el.closest(".katex, .katex-display")) return;
+      if (el.closest("pre, code") && !el.closest("pre.pseudocode")) return;
       const hasError = el.querySelector(".katex-error");
       if (el.querySelector(".katex") && !hasError) return;
 
@@ -2053,6 +2120,7 @@
     // 2. Auto-render delimiters across general text
     try {
       renderMathInElement(root, {
+        ignoredClasses: ["currency"],
         delimiters: [
           { left: "$$", right: "$$", display: true },
           { left: "\\[", right: "\\]", display: true },
@@ -2061,7 +2129,7 @@
         ],
         throwOnError: false,
         preProcess: function (math) {
-          return math
+          const normalized = math
             .replace(/(?:&nbsp;|&#160;|\u00a0)([a-zA-Z]{2,})/g, " \\text{ $1}")
             .replace(/&(?:nbsp|#160);/gi, " ")
             .replace(/&(?:thinsp|#8201);/gi, "\\,")
@@ -2087,6 +2155,7 @@
             .replace(/&amp;/g, "&")
             .replace(/&lt;/g, "<")
             .replace(/&gt;/g, ">");
+          return normalizeMathWords(normalized, false);
         },
         macros: katexMacros
       });
@@ -2098,12 +2167,80 @@
   window.renderSiteMath = renderSiteMath;
   window.renderMath = renderSiteMath;
 
+  function sizeSiteDiagrams(rootEl) {
+    const root = rootEl || document;
+    const diagrams = Array.from(root.querySelectorAll("pre.mermaid svg"));
+    if (root.matches && root.matches("pre.mermaid svg")) diagrams.push(root);
+    diagrams.forEach(function (svg) {
+      const width = svg.viewBox && svg.viewBox.baseVal.width;
+      if (width > 0 && Number.isFinite(width)) {
+        svg.style.setProperty("--diagram-width", Math.ceil(width) + "px");
+      }
+    });
+  }
+
+  function watchDiagramSizes() {
+    sizeSiteDiagrams();
+    // Mermaid inserts SVG asynchronously, including in the inline note reader.
+    // Preserve its readable intrinsic width and let its container scroll.
+    const observer = new MutationObserver(function (records) {
+      records.forEach(function (record) {
+        if (record.type === "attributes") sizeSiteDiagrams(record.target);
+        record.addedNodes.forEach(function (node) {
+          if (node.nodeType === Node.ELEMENT_NODE) sizeSiteDiagrams(node);
+        });
+      });
+    });
+    observer.observe(document.querySelector("main") || document.body, {
+      childList: true, subtree: true, attributes: true, attributeFilter: ["viewBox"]
+    });
+  }
+  window.sizeSiteDiagrams = sizeSiteDiagrams;
+
   function ensureViewportFit() {
     const meta = document.querySelector('meta[name="viewport"]');
     if (meta && !meta.content.includes("viewport-fit")) {
       meta.content = meta.content + ", viewport-fit=cover";
     }
   }
+
+  function loadTopicResources() {
+    if (window.enhanceTopicResources) { window.enhanceTopicResources(); return; }
+    if (document.querySelector('script[data-topic-resources-script]')) return;
+    const script = document.createElement('script');
+    script.src = hrefFor('topic-resources.js');
+    script.dataset.topicResourcesScript = '';
+    document.head.appendChild(script);
+  }
+
+  let courseVisualAssets;
+  function ensureCourseVisuals(rootEl) {
+    const root = rootEl || document;
+    if (!root.querySelector('[data-algorithm-visual]') && !(root.matches && root.matches('[data-algorithm-visual]'))) return;
+    if (window.initializeCourseVisuals) { window.initializeCourseVisuals(root); return; }
+    if (!courseVisualAssets) {
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = hrefFor('algorithm-visuals.css');
+      document.head.appendChild(link);
+      const load = function (path) {
+        return new Promise(function (resolve, reject) {
+          const script = document.createElement('script');
+          script.src = hrefFor(path);
+          script.onload = resolve;
+          script.onerror = function () { reject(new Error('Could not load ' + path)); };
+          document.head.appendChild(script);
+        });
+      };
+      courseVisualAssets = Promise.all([
+        'visuals/dp.js', 'visuals/divide-conquer.js', 'visuals/scc.js', 'visuals/linear-programming.js'
+      ].map(load)).then(function () { return load('algorithm-visuals.js'); });
+    }
+    return courseVisualAssets.then(function () {
+      window.initializeCourseVisuals(root);
+    }).catch(function (error) { console.warn('Interactive walkthrough error:', error); });
+  }
+  window.ensureCourseVisuals = ensureCourseVisuals;
 
   function init() {
     try { ensureViewportFit(); } catch (e) { console.warn("ensureViewportFit error:", e); }
@@ -2122,6 +2259,8 @@
     try { initPracticeMode(); } catch (e) { console.warn("initPracticeMode error:", e); }
     try { enhanceStudyContent(); } catch (e) { console.warn("enhanceStudyContent error:", e); }
     try { renderSiteMath(); } catch (e) { console.warn("renderSiteMath error:", e); }
+    try { watchDiagramSizes(); } catch (e) { console.warn("Diagram sizing error:", e); }
+    try { loadTopicResources(); } catch (e) { console.warn("Study references error:", e); }
   }
 
   if (document.readyState === "loading") {

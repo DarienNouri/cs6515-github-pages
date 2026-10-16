@@ -185,43 +185,43 @@ there is a unique shortest path from <span
 class="math inline"><em>s</em></span> to <span
 class="math inline"><em>u</em></span>. (Note: usp <span
 class="math inline">[<em>s</em>]=</span> true.)</p>
-<pre><code>Figure 4.16 Operations on a binary heap.
-procedure insert( $h, x$ )
-bubbleup ( $h, x,|h|+1$ )
-procedure decreasekey ( $h, x$ )
-bubbleup $\left(h, x, h^{-1}(x)\right)$
-function deletemin $(h)$
-if $|h|=0$ :
+<pre class="pseudocode">Figure 4.16 Operations on a binary heap.
+procedure insert( <span class="math inline">$h, x$</span> )
+bubbleup ( <span class="math inline">$h, x,|h|+1$</span> )
+procedure decreasekey ( <span class="math inline">$h, x$</span> )
+bubbleup <span class="math inline">$\left(h, x, h^{-1}(x)\right)$</span>
+function deletemin <span class="math inline">$(h)$</span>
+if <span class="math inline">$|h|=0$</span> :
     return null
 else:
-    $x=h(1)$
-    siftdown ( $h, h(|h|), 1$ )
-    return $x$
-function makeheap $(S)$
-$h=$ empty array of size $|S|$
-for $x \in S$ :
-    $h(|h|+1)=x$
-for $i=|S|$ downto 1:
-    siftdown $(h, h(i), i)$
-return $h$
-procedure bubbleup $(h, x, i)$
-(place element $x$ in position $i$ of $h$, and let it bubble up)
-$p=\lceil i / 2\rceil$
-while $i \neq 1$ and $\operatorname{key}(h(p))&gt;\operatorname{key}(x)$ :
-    $h(i)=h(p) ; \quad i=p ; \quad p=\lceil i / 2\rceil$
-$h(i)=x$
-procedure siftdown $(h, x, i)$
-(place element $x$ in position $i$ of $h$, and let it sift down)
-$c=\operatorname{minchild}(h, i)$
-while $c \neq 0$ and $\operatorname{key}(h(c))&lt;\operatorname{key}(x)$ :
-    $h(i)=h(c) ; \quad i=c ; \quad c=\operatorname{minchild}(h, i)$
-$h(i)=x$
-function minchild ( $h, i$ )
-(return the index of the smallest child of $h(i)$ )
-if $2 i&gt;|h|$ :
+    <span class="math inline">$x=h(1)$</span>
+    siftdown ( <span class="math inline">$h, h(|h|), 1$</span> )
+    return <span class="math inline">$x$</span>
+function makeheap <span class="math inline">$(S)$</span>
+<span class="math inline">$h=$</span> empty array of size <span class="math inline">$|S|$</span>
+for <span class="math inline">$x \in S$</span> :
+    <span class="math inline">$h(|h|+1)=x$</span>
+for <span class="math inline">$i=|S|$</span> downto 1:
+    siftdown <span class="math inline">$(h, h(i), i)$</span>
+return <span class="math inline">$h$</span>
+procedure bubbleup <span class="math inline">$(h, x, i)$</span>
+(place element <span class="math inline">$x$</span> in position <span class="math inline">$i$</span> of <span class="math inline">$h$</span>, and let it bubble up)
+<span class="math inline">$p=\lceil i / 2\rceil$</span>
+while <span class="math inline">$i \neq 1$</span> and <span class="math inline">$\operatorname{key}(h(p))&gt;\operatorname{key}(x)$</span> :
+    <span class="math inline">$h(i)=h(p) ; \quad i=p ; \quad p=\lceil i / 2\rceil$</span>
+<span class="math inline">$h(i)=x$</span>
+procedure siftdown <span class="math inline">$(h, x, i)$</span>
+(place element <span class="math inline">$x$</span> in position <span class="math inline">$i$</span> of <span class="math inline">$h$</span>, and let it sift down)
+<span class="math inline">$c=\operatorname{minchild}(h, i)$</span>
+while <span class="math inline">$c \neq 0$</span> and <span class="math inline">$\operatorname{key}(h(c))&lt;\operatorname{key}(x)$</span> :
+    <span class="math inline">$h(i)=h(c) ; \quad i=c ; \quad c=\operatorname{minchild}(h, i)$</span>
+<span class="math inline">$h(i)=x$</span>
+function minchild ( <span class="math inline">$h, i$</span> )
+(return the index of the smallest child of <span class="math inline">$h(i)$</span> )
+if <span class="math inline">$2 i&gt;|h|$</span> :
     return 0 (no children)
 else:
-    return $\arg \min \{\operatorname{key}(h(j)): 2 i \leq j \leq \min \{|h|, 2 i+1\}\}$</code></pre>
+    return <span class="math inline">$\arg \min \{\operatorname{key}(h(j)): 2 i \leq j \leq \min \{|h|, 2 i+1\}\}$</span></pre>
 <h3 id="416">4.16</h3>
 <p>Section 4.5.2 describes a way of storing a complete binary tree of
 <span class="math inline"><em>n</em></span> nodes in an array indexed by
@@ -451,7 +451,7 @@ class="math inline"><em>R</em> = max<sub>(<em>i</em>, <em>j</em>) ∈ 
 role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1"><pre><code>${ }^{2}$ See: R. E. Tarjan, Data Structures and Network Algorithms, Society for Industrial and Applied Mathematics, 1983.</code></pre>
+<li id="fn1"><p><sup>2</sup> See: R. E. Tarjan, Data Structures and Network Algorithms, Society for Industrial and Applied Mathematics, 1983.</p>
 <a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></li>
 </ol>
 </section>
@@ -493,27 +493,9 @@ role="doc-endnotes">
   } catch (e) { console.error('Mermaid render error:', e); }
 
   // 4) Math: render \( \) and \[ \] and $$ $$. Tolerate malformed legacy TeX.
+  // All math, including legacy Pandoc fragments, uses the shared renderer.
   function renderMath() {
-    if (window.renderMathInElement) {
-      renderMathInElement(document.querySelector('.content, .all-weeks-content') || document.body, {
-        delimiters: [
-          { left: '$$', right: '$$', display: true },
-          { left: '\\[', right: '\\]', display: true },
-          { left: '$', right: '$', display: false },
-          { left: '\\(', right: '\\)', display: false }
-        ],
-        throwOnError: false,
-        preProcess: function(math) {
-          return math
-            .replace(/\\left\\\[/g, '\\left[')
-            .replace(/\\right\\\]/g, '\\right]')
-            .replace(/&amp;/g, '&')
-            .replace(/&lt;/g, '<')
-            .replace(/&gt;/g, '>');
-        },
-        macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
-      });
-    }
+    if (window.renderSiteMath) window.renderSiteMath();
   }
   try {
     renderMath();

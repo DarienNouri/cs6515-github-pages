@@ -17,16 +17,16 @@
 </header>
 <main class="content">
 <h1 id="course-roadmap">Course Roadmap &amp; Study Guide</h1>
-<p>A comprehensive roadmap for mastering <strong>CS 6515: Introduction to Graduate Algorithms</strong>. This guide breaks down the curriculum into its core units, maps them to exam checkpoints, and provides direct links to the relevant weekly materials, textbook readings, and staff guidelines.</p>
+<p>A comprehensive roadmap for mastering <strong>CS 6515: Introduction to Graduate Algorithms</strong>. This guide breaks down the curriculum into its core units, maps them to weekly topics, and provides direct links to the relevant weekly materials, textbook readings, and staff guidelines.</p>
 
 <div class="cardgrid" style="margin: 1.5rem 0 2rem;">
   <a class="card" href="INDEX.html"><div class="t">Master Index</div><div class="d">Week ↔ module ↔ reading ↔ guidance</div></a>
-  <a class="card" href="../module-week-schedule.html"><div class="t">Module Schedule</div><div class="d">Lecture assignments &amp; quiz cadence</div></a>
+  <a class="card" href="../module-week-schedule.html"><div class="t">Weekly Study Plan</div><div class="d">Weekly lectures and suggested practice</div></a>
   <a class="card" href="../01_by_week/all-in-one.html"><div class="t">All Weeks - Stacked</div><div class="d">Continuous review of all modules</div></a>
   <a class="card" href="COURSE_MAP.html"><div class="t">Course Map</div><div class="d">Mental model &amp; dependency graph</div></a>
 </div>
 
-<h2 id="unit-1">Unit 1: Dynamic Programming &amp; Divide-and-Conquer (Exam 1)</h2>
+<h2 id="unit-1">Unit 1: Dynamic Programming &amp; Divide-and-Conquer (Weeks 1–4)</h2>
 <p>The first unit focuses on algorithmic design principles where problems exhibit optimal substructure or recursive decomposition.</p>
 <ul>
   <li><strong>Week 1 — Intro &amp; Dynamic Programming (DP1, DP2):</strong> Fibonacci, Longest Increasing Subsequence (LIS), Longest Common Subsequence (LCS), Knapsack (with and without repetition), and Matrix Chain Multiplication.
@@ -43,10 +43,10 @@
   </li>
 </ul>
 <blockquote>
-  <p><strong>Exam 1 Checkpoint:</strong> Covers content from Weeks 1–3 (DP1–DP2, DC1–DC3). DP answers must follow the strict 7-step bottom-up format.</p>
+  <p><strong>Weeks 1–4 practice:</strong> Review DP1–DP3 and DC1–DC3. DP answers must follow the strict 7-step bottom-up format.</p>
 </blockquote>
 
-<h2 id="unit-2">Unit 2: Graph Algorithms &amp; Max-Flow (Exam 2)</h2>
+<h2 id="unit-2">Unit 2: Graph Algorithms &amp; Max-Flow (Weeks 4–7)</h2>
 <p>The second unit transitions into graph representations, depth-first search properties, and network flow optimization.</p>
 <ul>
   <li><strong>Week 4 (Graph Portion) — Strongly Connected Components &amp; 2-SAT (GR1, GR2):</strong> DFS pre/post numbering, Kosaraju's 2-pass algorithm, DAG of SCCs, and reduction of 2-SAT to SCC reachability.
@@ -63,10 +63,10 @@
   </li>
 </ul>
 <blockquote>
-  <p><strong>Exam 2 Checkpoint:</strong> Covers content from Weeks 4–7 (DP3, GR1–GR3, MF1–MF2, MF4). Standard graph algorithms and Ford-Fulkerson must be used as black boxes without internal modifications.</p>
+  <p><strong>Weeks 4–7 practice:</strong> Review DP3, GR1–GR3, MF1–MF2, and MF4. Standard graph algorithms and Ford-Fulkerson must be used as black boxes without internal modifications.</p>
 </blockquote>
 
-<h2 id="unit-3">Unit 3: NP-Completeness &amp; Linear Programming (Exam 3)</h2>
+<h2 id="unit-3">Unit 3: NP-Completeness &amp; Linear Programming (Weeks 8–10)</h2>
 <p>The third unit addresses computational complexity (what problems cannot be solved efficiently) and general continuous optimization (linear programming).</p>
 <ul>
   <li><strong>Week 8 — NP-Completeness &amp; Reductions (NP1, NP2, NP3):</strong> P vs NP, verification, polynomial-time reductions, Circuit-SAT, 3-SAT, Independent Set, Vertex Cover, and Clique.
@@ -80,7 +80,7 @@
   </li>
 </ul>
 <blockquote>
-  <p><strong>Exam 3 Checkpoint:</strong> Covers content from Weeks 8–10 (NP1–NP5, LP1–LP4). Ensure reduction directions are correct (\(A \le_p B\) means transforming instance of known hard problem \(A\) into \(B\)).</p>
+  <p><strong>Weeks 8–10 practice:</strong> Review NP1–NP5 and LP1–LP4. Ensure reduction directions are correct (\(A \le_p B\) means transforming instance of known hard problem \(A\) into \(B\)).</p>
 </blockquote>
 
 <h2 id="unit-4">Unit 4: Advanced Topics &amp; Cumulative Review</h2>
@@ -131,27 +131,9 @@
   } catch (e) { console.error('Mermaid render error:', e); }
 
   // 4) Math: render \( \) and \[ \] and $$ $$. Tolerate malformed legacy TeX.
+  // All math, including legacy Pandoc fragments, uses the shared renderer.
   function renderMath() {
-    if (window.renderMathInElement) {
-      renderMathInElement(document.querySelector('.content, .all-weeks-content') || document.body, {
-        delimiters: [
-          { left: '$$', right: '$$', display: true },
-          { left: '\\[', right: '\\]', display: true },
-          { left: '$', right: '$', display: false },
-          { left: '\\(', right: '\\)', display: false }
-        ],
-        throwOnError: false,
-        preProcess: function(math) {
-          return math
-            .replace(/\\left\\\[/g, '\\left[')
-            .replace(/\\right\\\]/g, '\\right]')
-            .replace(/&amp;/g, '&')
-            .replace(/&lt;/g, '<')
-            .replace(/&gt;/g, '>');
-        },
-        macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
-      });
-    }
+    if (window.renderSiteMath) window.renderSiteMath();
   }
   try {
     renderMath();

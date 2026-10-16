@@ -137,7 +137,7 @@ it, right?</p>
 src="https://static.us.edusercontent.com/files/uXvY6z1o0n7PY7Kg0ekLTgbW"
 alt="Image" /> You could wait until closer to the end of the semester,
 or you could mix it in now while it's contextually related.</p>
-<p>Watcher's choice. It is not covered scope for Exam 1.</p>
+<p>Study FFT with the advanced topics in Week 11.</p>
 </blockquote></li>
 </ul></li>
 <li><p><strong>Comment</strong></p>
@@ -332,9 +332,7 @@ or is that provided on exams?</p>
 <ul>
 <li><strong>Comment</strong>
 <blockquote>
-<p>You are not required to memorize it, but it hasn't be provided on
-exams to date and unless Dr. Brito chooses to exclude it, would be
-covered as part of the scope under Exam 1.</p>
+<p>Practice deriving the runtime from the recurrence and understand how the algorithm obtains its bound.</p>
 </blockquote></li>
 </ul></li>
 </ul></li>
@@ -426,27 +424,9 @@ sufficient.</p>
   } catch (e) { console.error('Mermaid render error:', e); }
 
   // 4) Math: render \( \) and \[ \] and $$ $$. Tolerate malformed legacy TeX.
+  // All math, including legacy Pandoc fragments, uses the shared renderer.
   function renderMath() {
-    if (window.renderMathInElement) {
-      renderMathInElement(document.querySelector('.content, .all-weeks-content') || document.body, {
-        delimiters: [
-          { left: '$$', right: '$$', display: true },
-          { left: '\\[', right: '\\]', display: true },
-          { left: '$', right: '$', display: false },
-          { left: '\\(', right: '\\)', display: false }
-        ],
-        throwOnError: false,
-        preProcess: function(math) {
-          return math
-            .replace(/\\left\\\[/g, '\\left[')
-            .replace(/\\right\\\]/g, '\\right]')
-            .replace(/&amp;/g, '&')
-            .replace(/&lt;/g, '<')
-            .replace(/&gt;/g, '>');
-        },
-        macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
-      });
-    }
+    if (window.renderSiteMath) window.renderSiteMath();
   }
   try {
     renderMath();

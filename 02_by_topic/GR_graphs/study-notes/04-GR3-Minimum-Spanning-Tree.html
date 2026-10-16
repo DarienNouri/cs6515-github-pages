@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="../../../vendor/katex/katex.min.css">
 <link rel="stylesheet" href="../../../vendor/highlight/styles/tokyo-night-dark.min.css">
 
+<link rel="stylesheet" href="../../../graph-demos.css">
 </head>
 <body>
 <header class="topbar">
@@ -24,6 +25,13 @@ MST) MST is our first greedy algorithm that provably works. The key is
 the Cut Property.</p>
 </blockquote>
 <hr />
+<section class="graph-demo-section" aria-label="Minimum spanning tree: edges and cycles">
+<h2>Minimum spanning tree: edges and cycles</h2>
+<p>Consider weighted edges from lightest to heaviest. Accept an edge when it joins different components; reject an edge when it closes a cycle. A connected graph finishes with one fewer tree edge than vertices.</p>
+<div data-graph-demo="kruskal"><p>Use the demonstration controls to follow each step when JavaScript is enabled.</p></div>
+<p><a href="../../../graph-demonstrations.html#kruskal">Open graph demonstrations</a> to compare traversal, spanning trees, and flow.</p>
+</section>
+
 <h2 id="1-problem-definition">1. Problem Definition</h2>
 <blockquote>
 <p><strong>Given:</strong> An undirected, connected graph G = (V, E)
@@ -485,27 +493,9 @@ increase</td>
   } catch (e) { console.error('Mermaid render error:', e); }
 
   // 4) Math: render \( \) and \[ \] and $$ $$. Tolerate malformed legacy TeX.
+  // All math, including legacy Pandoc fragments, uses the shared renderer.
   function renderMath() {
-    if (window.renderMathInElement) {
-      renderMathInElement(document.querySelector('.content, .all-weeks-content') || document.body, {
-        delimiters: [
-          { left: '$$', right: '$$', display: true },
-          { left: '\\[', right: '\\]', display: true },
-          { left: '$', right: '$', display: false },
-          { left: '\\(', right: '\\)', display: false }
-        ],
-        throwOnError: false,
-        preProcess: function(math) {
-          return math
-            .replace(/\\left\\\[/g, '\\left[')
-            .replace(/\\right\\\]/g, '\\right]')
-            .replace(/&amp;/g, '&')
-            .replace(/&lt;/g, '<')
-            .replace(/&gt;/g, '>');
-        },
-        macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
-      });
-    }
+    if (window.renderSiteMath) window.renderSiteMath();
   }
   try {
     renderMath();
@@ -515,5 +505,6 @@ increase</td>
   }
 </script>
 <script src="../../../site.js" defer></script>
+<script src="../../../graph-demos.js" defer></script>
 </body>
 </html>

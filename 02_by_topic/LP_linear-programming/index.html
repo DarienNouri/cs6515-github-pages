@@ -23,6 +23,14 @@ weeks it spans (modules scatter across the schedule — see <a
 href="../../00_START_HERE/INDEX.html">Master Index</a>).</p>
 <p>Standard form, polytope geometry, duality (W9); LP-relaxation,
 rounding, and Max-SAT approximation / ILP hardness (W10).</p>
+
+<details class="visual-walkthrough">
+<summary>Step-through visual: LP geometry: constraints and objective lines</summary>
+<p>Add constraints to reveal the feasible region, then move the objective line to the best feasible value.</p>
+<div data-algorithm-visual="linear-programming"><p>For x,y nonnegative, x≤4, y≤3, and x+y≤5, maximizing 2x+y gives value 9 at (4,1). Maximizing x+y instead gives value 5 along the edge from (4,1) to (2,3), so the optimum need not be unique.</p></div>
+<p><a href="../../algorithm-demonstrations.html#linear-programming">Open this walkthrough and compare the other algorithm visuals</a>.</p>
+</details>
+
 <h2 id="material-in-this-folder">Material in this folder</h2>
 <ul>
 <li><a
@@ -74,27 +82,9 @@ href="../../01_by_week/index.html"><code>../../01_by_week/</code></a>.</em></p>
   } catch (e) { console.error('Mermaid render error:', e); }
 
   // 4) Math: render \( \) and \[ \] and $$ $$. Tolerate malformed legacy TeX.
+  // All math, including legacy Pandoc fragments, uses the shared renderer.
   function renderMath() {
-    if (window.renderMathInElement) {
-      renderMathInElement(document.querySelector('.content, .all-weeks-content') || document.body, {
-        delimiters: [
-          { left: '$$', right: '$$', display: true },
-          { left: '\\[', right: '\\]', display: true },
-          { left: '$', right: '$', display: false },
-          { left: '\\(', right: '\\)', display: false }
-        ],
-        throwOnError: false,
-        preProcess: function(math) {
-          return math
-            .replace(/\\left\\\[/g, '\\left[')
-            .replace(/\\right\\\]/g, '\\right]')
-            .replace(/&amp;/g, '&')
-            .replace(/&lt;/g, '<')
-            .replace(/&gt;/g, '>');
-        },
-        macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
-      });
-    }
+    if (window.renderSiteMath) window.renderSiteMath();
   }
   try {
     renderMath();

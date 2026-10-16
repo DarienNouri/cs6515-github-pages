@@ -621,11 +621,11 @@ class="math inline"><em>k</em></span>; show how the algorithm can be
 modified to also return this value <span
 class="math inline"><em>k</em></span>.</p>
 <p><strong>(c)</strong> Now consider a recursive scheme:</p>
-<pre><code>procedure find-path $((0,0) \rightarrow(n, m))$
-compute the value $k$ above
-find-path( $(0,0) \rightarrow(k, m / 2)$ )
-find-path $((k, m / 2) \rightarrow(n, m))$
-concatenate these two paths, with $k$ in the middle</code></pre>
+<pre class="pseudocode">procedure find-path <span class="math inline">$((0,0) \rightarrow(n, m))$</span>
+compute the value <span class="math inline">$k$</span> above
+find-path( <span class="math inline">$(0,0) \rightarrow(k, m / 2)$</span> )
+find-path <span class="math inline">$((k, m / 2) \rightarrow(n, m))$</span>
+concatenate these two paths, with <span class="math inline">$k$</span> in the middle</pre>
 <p>Show that this scheme can be made to run in <span
 class="math inline"><em>O</em>(<em>m</em><em>n</em>)</span> time and
 <span class="math inline"><em>O</em>(<em>n</em>)</span> space.</p>
@@ -664,12 +664,11 @@ class="math inline"><em>y</em> = <em>T</em><em>A</em><em>C</em><em>G</em><em
 An alignment of <span class="math inline"><em>x</em></span> and <span
 class="math inline"><em>y</em></span> is a way of matching up these two
 strings by writing them in columns, for instance:</p>
-<p>$$ \begin{array}{ccccccc}</p>
-<ul>
-<li>&amp; A &amp; T &amp; - &amp; G &amp; C &amp; C \ T &amp; A &amp; -
-&amp; C &amp; G &amp; C &amp; A \end{array} $$</li>
-</ul>
-<p>Here the "_" indicates a "gap." The characters of each string must
+<p><span class="math display">$$\begin{array}{ccccccc}
+- &amp; A &amp; T &amp; - &amp; G &amp; C &amp; C \\
+T &amp; A &amp; - &amp; C &amp; G &amp; C &amp; A
+\end{array}$$</span></p>
+<p>Here the dash indicates a "gap." The characters of each string must
 appear in order, and each column must contain a character from at least
 one of the strings. The score of an alignment is specified by a scoring
 matrix <span class="math inline"><em>δ</em></span> of size <span
@@ -791,7 +790,7 @@ a time.)</p>
 role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1"><pre><code>${ }^{2}$ In fact, there is also a $O\left(n \log ^{2} n\right)$ algorithm within your reach.</code></pre>
+<li id="fn1"><p><sup>2</sup> In fact, there is also a $O\left(n \log ^{2} n\right)$ algorithm within your reach.</p>
 <a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></li>
 </ol>
 </section>
@@ -833,27 +832,9 @@ role="doc-endnotes">
   } catch (e) { console.error('Mermaid render error:', e); }
 
   // 4) Math: render \( \) and \[ \] and $$ $$. Tolerate malformed legacy TeX.
+  // All math, including legacy Pandoc fragments, uses the shared renderer.
   function renderMath() {
-    if (window.renderMathInElement) {
-      renderMathInElement(document.querySelector('.content, .all-weeks-content') || document.body, {
-        delimiters: [
-          { left: '$$', right: '$$', display: true },
-          { left: '\\[', right: '\\]', display: true },
-          { left: '$', right: '$', display: false },
-          { left: '\\(', right: '\\)', display: false }
-        ],
-        throwOnError: false,
-        preProcess: function(math) {
-          return math
-            .replace(/\\left\\\[/g, '\\left[')
-            .replace(/\\right\\\]/g, '\\right]')
-            .replace(/&amp;/g, '&')
-            .replace(/&lt;/g, '<')
-            .replace(/&gt;/g, '>');
-        },
-        macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
-      });
-    }
+    if (window.renderSiteMath) window.renderSiteMath();
   }
   try {
     renderMath();

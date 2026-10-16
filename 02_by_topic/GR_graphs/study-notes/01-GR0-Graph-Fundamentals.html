@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="../../../vendor/katex/katex.min.css">
 <link rel="stylesheet" href="../../../vendor/highlight/styles/tokyo-night-dark.min.css">
 
+<link rel="stylesheet" href="../../../graph-demos.css">
 </head>
 <body>
 <header class="topbar">
@@ -24,6 +25,13 @@ Graphs) This is the foundation for everything. If you struggled with
 graphs before, this is where we fix that.</p>
 </blockquote>
 <hr />
+<section class="graph-demo-section" aria-label="Breadth-first search: shortest-path layers">
+<h2>Breadth-first search: shortest-path layers</h2>
+<p>Start at A, visit neighbors in queue order, and discover shortest paths by number of edges. Each newly discovered node has distance one greater than its parent.</p>
+<div data-graph-demo="bfs"><p>Use the demonstration controls to follow each step when JavaScript is enabled.</p></div>
+<p><a href="../../../graph-demonstrations.html#bfs">Open graph demonstrations</a> to compare traversal, spanning trees, and flow.</p>
+</section>
+
 <h2 id="1-what-is-a-graph">1. What Is a Graph?</h2>
 <p>A <strong>graph</strong> G = (V, E) consists of:</p>
 <ul>
@@ -572,27 +580,9 @@ follows.</p>
   } catch (e) { console.error('Mermaid render error:', e); }
 
   // 4) Math: render \( \) and \[ \] and $$ $$. Tolerate malformed legacy TeX.
+  // All math, including legacy Pandoc fragments, uses the shared renderer.
   function renderMath() {
-    if (window.renderMathInElement) {
-      renderMathInElement(document.querySelector('.content, .all-weeks-content') || document.body, {
-        delimiters: [
-          { left: '$$', right: '$$', display: true },
-          { left: '\\[', right: '\\]', display: true },
-          { left: '$', right: '$', display: false },
-          { left: '\\(', right: '\\)', display: false }
-        ],
-        throwOnError: false,
-        preProcess: function(math) {
-          return math
-            .replace(/\\left\\\[/g, '\\left[')
-            .replace(/\\right\\\]/g, '\\right]')
-            .replace(/&amp;/g, '&')
-            .replace(/&lt;/g, '<')
-            .replace(/&gt;/g, '>');
-        },
-        macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
-      });
-    }
+    if (window.renderSiteMath) window.renderSiteMath();
   }
   try {
     renderMath();
@@ -602,5 +592,6 @@ follows.</p>
   }
 </script>
 <script src="../../../site.js" defer></script>
+<script src="../../../graph-demos.js" defer></script>
 </body>
 </html>

@@ -441,7 +441,7 @@ determine satisfiability of the task at hand</p></li>
 <blockquote>
 <p>Thanks for posting this! I have two questions:</p>
 <ol type="1">
-<li><p>Will the name of each algorithm provided in exam 2? Or, do we
+<li><p>Will the name of each algorithm provided in graph and flow practice? Or, do we
 need to memorize the name?</p></li>
 <li><p>For max flow algorithms, output <code>flow[]</code> is indexed by
 edge. Does that mean edges can be indexed as 1, 2, ... m, and looking up
@@ -452,7 +452,7 @@ an edge takes O(1) time (similar to the indexing of vertices)?</p></li>
 <li><p><strong>Comment</strong></p>
 <blockquote>
 <blockquote>
-<p>Will the name of each algorithm provided in exam 2?</p>
+<p>Will the name of each algorithm provided in graph and flow practice?</p>
 </blockquote>
 <p>Questions on the exam will be presented similarly to the homework
 questions.</p>
@@ -783,27 +783,9 @@ exists).</p>
   } catch (e) { console.error('Mermaid render error:', e); }
 
   // 4) Math: render \( \) and \[ \] and $$ $$. Tolerate malformed legacy TeX.
+  // All math, including legacy Pandoc fragments, uses the shared renderer.
   function renderMath() {
-    if (window.renderMathInElement) {
-      renderMathInElement(document.querySelector('.content, .all-weeks-content') || document.body, {
-        delimiters: [
-          { left: '$$', right: '$$', display: true },
-          { left: '\\[', right: '\\]', display: true },
-          { left: '$', right: '$', display: false },
-          { left: '\\(', right: '\\)', display: false }
-        ],
-        throwOnError: false,
-        preProcess: function(math) {
-          return math
-            .replace(/\\left\\\[/g, '\\left[')
-            .replace(/\\right\\\]/g, '\\right]')
-            .replace(/&amp;/g, '&')
-            .replace(/&lt;/g, '<')
-            .replace(/&gt;/g, '>');
-        },
-        macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
-      });
-    }
+    if (window.renderSiteMath) window.renderSiteMath();
   }
   try {
     renderMath();

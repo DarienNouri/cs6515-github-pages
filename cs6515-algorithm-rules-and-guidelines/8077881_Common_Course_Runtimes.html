@@ -226,7 +226,7 @@
       <li><strong>Tombstone Array Removal Hazard:</strong> Marking deleted elements with "tombstone" values avoids shifting, but students frequently blunder by picking a tombstone value that is also a valid input value.</li>
       <li><strong>DP Table Complexity:</strong> DP tables follow standard array rules. Initializing/creating a 1D vector $T[1 \dots n]$ takes $O(n)$ time; cell lookup $T[i]$ takes $O(1)$. Initializing a 2D table $T[1 \dots n, 1 \dots n]$ takes $O(n^2)$ time; cell lookup $T[i, j]$ takes $O(1)$.</li>
       <li><strong>Adjacency List Single Edge Lookup is $O(n)$:</strong> Finding vertex $u$ is $O(1)$ via array index, but finding whether edge $(u, v)$ exists requires scanning $u$'s linked list of neighbors. In a dense or adversarial graph, vertex $u$ can have up to $n - 1$ edges, resulting in worst-case $O(n)$.</li>
-      <li><strong>No Exam Formula Sheet:</strong> Basic runtime analysis and data structure mechanics are prerequisite competencies tested directly on exams; no reference sheet or note-card will be provided for Exam 1.</li>
+      <li><strong>Runtime Foundations:</strong> Practice basic runtime analysis and data structure operations when analyzing algorithms.</li>
     </ul>
   </div>
 </section>
@@ -391,7 +391,7 @@
               </div>
               <div class="thread-comment__body">
                 <p>The problems on the exam will be presented similarly to how the problems are presented to you on the homework.</p>
-                <p>Historically, the information you're asking for is not part of the exam 1 experience.</p>
+
               </div>
             </div>
             <ul>
@@ -415,8 +415,8 @@
                           <p>Just curious why that is the case that there isn't a simple "note-card" provided for runtimes and blackbox functions and such?</p>
                         </blockquote>
                         <p>The first half of the information is prerequisite knowledge students are expected to have prior to coming into the course. The ability to demonstrate that through the <strong>analysis</strong> of algorithms is being assessed.</p>
-                        <p>The second half is that there are a trivially few number of black boxes for exam 1, so knowing what they are, how to work them, and all those trivial details is part of what is being assessed.</p>
-                        <p>For future exams, when the number of black boxes are more, their names will likely be provided on the exam (at least, they have been historically).</p>
+                        <p>The second half is that there are a trivially few number of black boxes for DP and divide-and-conquer practice, so knowing what they are, how to work them, and all those trivial details is part of what is being assessed.</p>
+
                       </div>
                     </div>
                   </li>
@@ -502,27 +502,9 @@
   } catch (e) { console.error('Mermaid render error:', e); }
 
   // 4) Math: render \( \) and \[ \] and $$ $$. Tolerate malformed legacy TeX.
+  // All math, including legacy Pandoc fragments, uses the shared renderer.
   function renderMath() {
-    if (window.renderMathInElement) {
-      renderMathInElement(document.querySelector('.content, .all-weeks-content') || document.body, {
-        delimiters: [
-          { left: '$$', right: '$$', display: true },
-          { left: '\[', right: '\]', display: true },
-          { left: '$', right: '$', display: false },
-          { left: '\(', right: '\)', display: false }
-        ],
-        throwOnError: false,
-        preProcess: function(math) {
-          return math
-            .replace(/\left\\[/g, '\left[')
-            .replace(/\right\\]/g, '\right]')
-            .replace(/&amp;/g, '&')
-            .replace(/&lt;/g, '<')
-            .replace(/&gt;/g, '>');
-        },
-        macros: { '\R': '\mathbb{R}', '\set': '\{#1\}', '\n': '\overrightarrow' }
-      });
-    }
+    if (window.renderSiteMath) window.renderSiteMath();
   }
   try {
     renderMath();

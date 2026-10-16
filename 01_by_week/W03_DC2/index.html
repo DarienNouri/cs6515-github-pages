@@ -42,39 +42,8 @@
     </a>
   </div>
 </nav>
-<h3 id="coursework">Coursework for this module</h3>
-<p class="syllabus-note"><em>Assignment numbering and scheduling follow the syllabus for your term; this list reflects the typical course structure.</em></p>
-<table>
-<thead>
-<tr>
-<th>Item</th>
-<th>Type</th>
-<th>Note</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>HW3</strong></td>
-<td>coding</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>HW4</strong></td>
-<td>coding</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>Quiz 3</strong></td>
-<td>content</td>
-<td>DP + D&amp;C</td>
-</tr>
-<tr>
-<td><strong>Mock Exam</strong></td>
-<td>practice</td>
-<td>no due date — exam-format rehearsal</td>
-</tr>
-</tbody>
-</table>
+<h3 id="coursework">Week 3 study focus</h3>
+<p>Trace QuickSelect and median-of-medians, implement selection, and justify the linear-time recurrence.</p>
 <details class="lecture-collapse">
 <summary><b>Watch the lecture</b> (Linear-Time Median)</summary>
 
@@ -404,8 +373,7 @@ PDF</a></p>
 <p>Selection question → use median-of-medians as a black box, cite <span
 class="math inline"><em>T</em>(<em>n</em>) ≤ <em>T</em>(<em>n</em>/5) + <em>T</em>(7<em>n</em>/10) + <em>O</em>(<em>n</em>) = <em>O</em>(<em>n</em>)</span>,
 and note the <span class="math inline">$\tfrac{9}{10}&lt;1$</span>
-collapse. This is the last unit before <strong>Exam 1</strong> (covers
-W1–3).</p>
+collapse.</p>
 </main>
 
 <!-- code highlighting -->
@@ -444,27 +412,9 @@ W1–3).</p>
   } catch (e) { console.error('Mermaid render error:', e); }
 
   // 4) Math: render \( \) and \[ \] and $$ $$. Tolerate malformed legacy TeX.
+  // All math, including legacy Pandoc fragments, uses the shared renderer.
   function renderMath() {
-    if (window.renderMathInElement) {
-      renderMathInElement(document.querySelector('.content, .all-weeks-content') || document.body, {
-        delimiters: [
-          { left: '$$', right: '$$', display: true },
-          { left: '\\[', right: '\\]', display: true },
-          { left: '$', right: '$', display: false },
-          { left: '\\(', right: '\\)', display: false }
-        ],
-        throwOnError: false,
-        preProcess: function(math) {
-          return math
-            .replace(/\\left\\\[/g, '\\left[')
-            .replace(/\\right\\\]/g, '\\right]')
-            .replace(/&amp;/g, '&')
-            .replace(/&lt;/g, '<')
-            .replace(/&gt;/g, '>');
-        },
-        macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
-      });
-    }
+    if (window.renderSiteMath) window.renderSiteMath();
   }
   try {
     renderMath();

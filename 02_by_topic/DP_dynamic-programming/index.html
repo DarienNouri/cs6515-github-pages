@@ -26,6 +26,22 @@ Fibonacci, LIS, LCS, Knapsack, Chain Matrix Multiply (W1); Shortest
 Paths / Bellman-Ford (W4). Answer template and recurrence rules: <a
 href="../../cs6515-algorithm-rules-and-guidelines/index.html#dynamic-programming">DP guidance</a>, <a
 href="../../cs6515-algorithm-rules-and-guidelines/8077944_Dynamic_Programming_Recurrence_Relations.html">DP recurrences</a>.</p>
+
+<details class="visual-walkthrough">
+<summary>Step-through visual: LCS: fill and trace the DP table</summary>
+<p>Fill the table one cell at a time. Compare matching characters and see which earlier cells determine each answer.</p>
+<div data-algorithm-visual="lcs"><p>A match extends the diagonal answer by one. A mismatch keeps the larger upper or left answer. After filling the table, follow the chosen dependencies backward to recover a longest common subsequence.</p></div>
+<p><a href="../../algorithm-demonstrations.html#lcs">Open this walkthrough and compare the other algorithm visuals</a>.</p>
+</details>
+
+
+<details class="visual-walkthrough">
+<summary>Step-through visual: 0/1 knapsack: take or skip an item</summary>
+<p>Watch each item compete for capacity, compare the two choices, then trace the chosen items.</p>
+<div data-algorithm-visual="knapsack"><p>Both taking and skipping an item read the previous row. Taking it adds its value and reduces the remaining capacity by its weight. This prevents reusing an item, unlike unbounded knapsack.</p></div>
+<p><a href="../../algorithm-demonstrations.html#knapsack">Open this walkthrough and compare the other algorithm visuals</a>.</p>
+</details>
+
 <h2 id="material-in-this-folder">Material in this folder</h2>
 <ul>
 <li><a
@@ -81,27 +97,9 @@ href="../../01_by_week/index.html"><code>../../01_by_week/</code></a>.</em></p>
   } catch (e) { console.error('Mermaid render error:', e); }
 
   // 4) Math: render \( \) and \[ \] and $$ $$. Tolerate malformed legacy TeX.
+  // All math, including legacy Pandoc fragments, uses the shared renderer.
   function renderMath() {
-    if (window.renderMathInElement) {
-      renderMathInElement(document.querySelector('.content, .all-weeks-content') || document.body, {
-        delimiters: [
-          { left: '$$', right: '$$', display: true },
-          { left: '\\[', right: '\\]', display: true },
-          { left: '$', right: '$', display: false },
-          { left: '\\(', right: '\\)', display: false }
-        ],
-        throwOnError: false,
-        preProcess: function(math) {
-          return math
-            .replace(/\\left\\\[/g, '\\left[')
-            .replace(/\\right\\\]/g, '\\right]')
-            .replace(/&amp;/g, '&')
-            .replace(/&lt;/g, '<')
-            .replace(/&gt;/g, '>');
-        },
-        macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
-      });
-    }
+    if (window.renderSiteMath) window.renderSiteMath();
   }
   try {
     renderMath();

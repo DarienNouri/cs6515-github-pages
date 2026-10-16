@@ -37,23 +37,8 @@
     <span class="btn btn--disabled" aria-disabled="true">End →</span>
   </div>
 </nav>
-<h3 id="due-this-week">Due this week</h3>
-<table>
-<thead>
-<tr>
-<th>Item</th>
-<th>Type</th>
-<th>Note</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Quiz 8</strong></td>
-<td>cumulative</td>
-<td>covers the whole course</td>
-</tr>
-</tbody>
-</table>
+<h3 id="due-this-week">Week 11 study focus</h3>
+<p>Connect FFT, modular arithmetic, RSA, Bloom filters, and flow applications, then review the weekly topics together.</p>
 <blockquote>
 <p>This week is a <strong>grab-bag</strong> of four shorter lectures.
 Pick by sub-topic below.</p>
@@ -303,7 +288,7 @@ class="math inline"><em>O</em>(log <em>n</em>)</span> squaring.</li>
 <strong>cannot</strong>; only false positives.</li>
 </ul>
 <h2 id="how-to-answer-hw--exam">How to answer (HW / exam)</h2>
-<p>These run lighter than the exam units. FFT → cite <span
+<p>These topics extend the earlier weekly units. FFT → cite <span
 class="math inline"><em>O</em>(<em>n</em>log <em>n</em>)</span> and the
 eval/multiply/interpolate pipeline. Flow apps → state the network
 (vertices, edges, capacities, <span
@@ -881,11 +866,11 @@ notice the subtraction in the second equation</p>
 <p>Here's a more compact version</p>
 <p><strong><span class="math inline">FFT Pseudocode - Version
 2</span></strong></p>
-<pre><code>FFT(a,w):
+<pre class="pseudocode">FFT(a,w):
 If n=1, return A(1)                  # Our base case
 
-a_even = $(a_0,a_2,...,a_{n-2})$     # Now the split   O(n)
-a_odd = $(a_1,a_3,...,a_{n-1})$
+a_even = <span class="math inline">$(a_0,a_2,...,a_{n-2})$</span>     # Now the split   O(n)
+a_odd = <span class="math inline">$(a_1,a_3,...,a_{n-1})$</span>
 
 s[:] = FFT(a_even,w^2)               # T(n/2) 
 t[:] = FFT(a_odd,w^2)                # T(n/2) 
@@ -894,7 +879,7 @@ for j = 0 -&gt; (n/2)-1:                # O(n)
     r[j] = s[j] + w^j t[j]
     r[(n/2)+j] = s[j] - w^j t[j]
 
-return r[:]</code></pre>
+return r[:]</pre>
 <p>Total Run Time: 2*T(n/2)+O(n) = solves to O(n log n)</p>
 <h5 id="example">Example</h5>
 <p><strong>Suppose a=(1,0,0,0) are the coefficients of a polynomial.
@@ -1324,8 +1309,8 @@ class="math inline">7<sup>16</sup> ≡ 12<sup>2</sup> ≡ 144 ≡ 6�
 class="math inline">7<sup>25</sup> ≡ 7<sup>16</sup> × 7<sup>8</sup> × 7 ≡ 6 × 12 × 7 ≡ 72 × 7 ≡ 3 × 7 ≡ 21 mod  23</span></li>
 <li>Final answer 21</li>
 </ul>
-<p><strong><span class="math inline">ModExp
-Algorithm</span></strong></p>
+<p><strong>ModExp
+Algorithm</strong></p>
 <p>First we state a key observation which should be trivial</p>
 <ul>
 <li>for even y, <span
@@ -1460,7 +1445,7 @@ must divide both x and y</li>
 <li>thus one these common divisors must be the greatest</li>
 </ul>
 <p>We will now use this to develop an algorithm<br />
-<strong><span class="math inline">Euclids Algo</span></strong></p>
+<strong>Euclids Algo</strong></p>
 <pre><code>Euclid(x,y)
 
 Input  : Integers x,y where x &gt;= y &gt;= 0
@@ -1484,8 +1469,8 @@ This means our algo will run for at most 2n rounds.</p>
 <p>Our final runtime will t/f be <span
 class="math inline"><em>O</em>(<em>n</em><sup>3</sup>)</span></p>
 <h5 id="extended-euclid">Extended Euclid</h5>
-<p><strong><span class="math inline">Extended Euclid
-Algo</span></strong></p>
+<p><strong>Extended Euclid
+Algo</strong></p>
 <p><strong>Computing Inverses</strong><br />
 This is an extended version of euclid's algorithm. This version however
 will return and extra two parameters <span
@@ -1830,7 +1815,7 @@ number, this can be done by</p>
 <ul>
 <li>take the binary representation of the text, this will result in an
 even larger message length,</li>
-<li>in this scenario we will want <span class="math inline">$m \&lt;
+<li>in this scenario we will want <span class="math inline">$m &lt;
 2^n$</span>, which is segments of length <span
 class="math inline">2<sup><em>n</em></sup></span> this is little n</li>
 <li>where we constrain n to we find p and q such that <span
@@ -1838,7 +1823,7 @@ class="math inline"><em>N</em> ≥ 2<sup><em>n</em></sup></span></li>
 <li>which put together implies that m &lt; N as needed</li>
 </ul>
 <p>m also shouldn't be too small. Suppose for example if we take e=3 and
-<span class="math inline">$m^3 \&lt; N$</span></p>
+<span class="math inline">$m^3 &lt; N$</span></p>
 <ul>
 <li>then <span
 class="math inline"><em>m</em><sup><em>e</em></sup> mod  <em>N</em></span>
@@ -2020,13 +2005,13 @@ witnesses, ie the numbers z<span class="math inline">∈</span>
 algorithm. The reader may also recall that these are the same numbers
 that must all be relatively prime for prime number p. So it makes that
 some are witnesses to a composite r.</p>
-<p><strong><span class="math inline">Primality Test -
-Simple</span></strong></p>
+<p><strong>Primality Test -
+Simple</strong></p>
 <pre><code>Input: n-bit number r
 
 1. Choose z randomly from {1,2,3,...,r-1}
-2. Compute z^(r-1) \equiv 1 mod r
-3. If z^(r-1) \equiv 1 mod r
+2. Compute z^(r-1) ≡ 1 mod r
+3. If z^(r-1) ≡ 1 mod r
     then r is prime     - output true
     else r is composite - output false</code></pre>
 <ul>
@@ -2057,16 +2042,16 @@ prime.</li>
 <li>and we perform the fermat test same as before</li>
 </ul></li>
 </ul>
-<p><strong><span class="math inline">Primality Test -
-Better</span></strong></p>
+<p><strong>Primality Test -
+Better</strong></p>
 <pre><code>Input: n-bit number r
 
 1. Choose z1,z2,...,zk randomly from {1,2,3,...,r-1}
 
 2.  for i=1-&gt;k
-    Compute (z_i)^(r-1) \equiv 1 mod r
+    Compute (z_i)^(r-1) ≡ 1 mod r
 
-3. If for all i, z^(r-1) \equiv 1 mod r
+3. If for all i, z^(r-1) ≡ 1 mod r
     then r is prime     - output true
     else r is composite - output false</code></pre>
 <ul>
@@ -3062,8 +3047,7 @@ PDF</a></p>
 <p>Route by sub-topic: FFT→11A (eval at roots of unity, <span
 class="math inline"><em>O</em>(<em>n</em>log <em>n</em>)</span>), flow
 apps→11B (reduce to max-flow), modular/RSA→11C (fast mod-exp + factoring
-security), Bloom→11D (no false negatives). Quiz 8 is cumulative across
-the whole course.</p>
+security), Bloom→11D (no false negatives). Use this week for cumulative review of the whole course.</p>
 </main>
 
 <!-- code highlighting -->
@@ -3102,27 +3086,9 @@ the whole course.</p>
   } catch (e) { console.error('Mermaid render error:', e); }
 
   // 4) Math: render \( \) and \[ \] and $$ $$. Tolerate malformed legacy TeX.
+  // All math, including legacy Pandoc fragments, uses the shared renderer.
   function renderMath() {
-    if (window.renderMathInElement) {
-      renderMathInElement(document.querySelector('.content, .all-weeks-content') || document.body, {
-        delimiters: [
-          { left: '$$', right: '$$', display: true },
-          { left: '\\[', right: '\\]', display: true },
-          { left: '$', right: '$', display: false },
-          { left: '\\(', right: '\\)', display: false }
-        ],
-        throwOnError: false,
-        preProcess: function(math) {
-          return math
-            .replace(/\\left\\\[/g, '\\left[')
-            .replace(/\\right\\\]/g, '\\right]')
-            .replace(/&amp;/g, '&')
-            .replace(/&lt;/g, '<')
-            .replace(/&gt;/g, '>');
-        },
-        macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
-      });
-    }
+    if (window.renderSiteMath) window.renderSiteMath();
   }
   try {
     renderMath();

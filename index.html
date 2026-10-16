@@ -3,6 +3,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>CS6515 — Graduate Algorithms</title>
+<meta name="description" content="Graduate algorithms organized by week: dynamic programming, graphs, flow, reductions, and interactive demonstrations. Includes a complete course source for reading tools.">
+<meta name="robots" content="index,follow">
+<link rel="sitemap" type="application/xml" href="sitemap.xml">
+<link rel="alternate" type="text/plain" title="Complete course text" href="course-source.txt">
+<link rel="alternate" type="application/json" title="Course source manifest" href="content-manifest.json">
 <link rel="stylesheet" href="vendor/fonts/fonts.css">
 <link rel="stylesheet" href="theme.css">
 <link rel="stylesheet" href="vendor/katex/katex.min.css">
@@ -25,11 +30,11 @@
 <div class="hero">
   <div class="hero__badge"><span class="hero__badge-dot"></span> Complete 11-Week Course Curriculum &amp; Study Notes</div>
   <h1>CS 6515 — Intro to Graduate Algorithms</h1>
-  <p class="hero__desc">Comprehensive course materials organized week-by-week: lectures, bottom-up DP tables, algorithm black boxes, worked examples, and exam review.</p>
+  <p class="hero__desc">Comprehensive course materials organized week-by-week: lectures, bottom-up DP tables, algorithm black boxes, worked examples, and weekly review.</p>
 
   <div class="hero__personal-note">
     <p>
-      The official course format is shit—everything is scattered across Canvas modules, buried in random Ed threads, and split across disjointed PDFs. I put this together as a single centralized place to actually navigate and study: lectures in order, searchable transcripts, properly rendered math, and exam prep without jumping between five tabs.
+      The official course format is shit—everything is scattered across Canvas modules, buried in random Ed threads, and split across disjointed PDFs. I put this together as a single centralized place to actually navigate and study: lectures in order, searchable transcripts, properly rendered math, and practice without jumping between five tabs.
     </p>
   </div>
 
@@ -39,7 +44,7 @@
       <span class="hero-week-bar__title">Direct Week Fast-Track:</span>
       <div class="hero-week-bar__quicklinks">
         <a class="hero-week-bar__quicklink" href="01_by_week/all-in-one.html">📚 All Weeks Stacked</a>
-        <a class="hero-week-bar__quicklink" href="00_START_HERE/EXAM_CRAM_SHEET.html">🎯 Exam Cram Sheets</a>
+        <a class="hero-week-bar__quicklink" href="00_START_HERE/EXAM_CRAM_SHEET.html">🎯 Review Sheets</a>
       </div>
     </div>
     <div class="hero-week-bar__grid">
@@ -55,10 +60,9 @@
         <span class="hero-week-pill__num">W03</span>
         <span class="hero-week-pill__tag">Linear Selection</span>
       </a>
-      <a class="hero-week-pill has-exam" href="01_by_week/W04_DP3-GR1-GR2_EXAM1/index.html">
+      <a class="hero-week-pill" href="01_by_week/W04_DP3-GR1-GR2_EXAM1/index.html">
         <span class="hero-week-pill__num">W04</span>
         <span class="hero-week-pill__tag">DP3 · SCC · 2-SAT</span>
-        <span class="hero-week-pill__exam-badge">Exam 1</span>
       </a>
       <a class="hero-week-pill" href="01_by_week/W05_GR3/index.html">
         <span class="hero-week-pill__num">W05</span>
@@ -68,10 +72,9 @@
         <span class="hero-week-pill__num">W06</span>
         <span class="hero-week-pill__tag">Max-Flow Basics</span>
       </a>
-      <a class="hero-week-pill has-exam" href="01_by_week/W07_MF4_EXAM2/index.html">
+      <a class="hero-week-pill" href="01_by_week/W07_MF4_EXAM2/index.html">
         <span class="hero-week-pill__num">W07</span>
         <span class="hero-week-pill__tag">Edmonds-Karp</span>
-        <span class="hero-week-pill__exam-badge">Exam 2</span>
       </a>
       <a class="hero-week-pill" href="01_by_week/W08_NP1-NP2-NP3/index.html">
         <span class="hero-week-pill__num">W08</span>
@@ -81,10 +84,9 @@
         <span class="hero-week-pill__num">W09</span>
         <span class="hero-week-pill__tag">Linear Programming</span>
       </a>
-      <a class="hero-week-pill has-exam" href="01_by_week/W10_LP4-NP4-NP5_EXAM3/index.html">
+      <a class="hero-week-pill" href="01_by_week/W10_LP4-NP4-NP5_EXAM3/index.html">
         <span class="hero-week-pill__num">W10</span>
         <span class="hero-week-pill__tag">Approx · ILP</span>
-        <span class="hero-week-pill__exam-badge">Exam 3</span>
       </a>
       <a class="hero-week-pill" href="01_by_week/W11_Advanced-FFT-Crypto-Bloom/index.html">
         <span class="hero-week-pill__num">W11</span>
@@ -94,6 +96,21 @@
   </div>
 </div>
 
+<section class="cardgrid" aria-label="Study tools">
+  <a class="card" href="algorithm-demonstrations.html">
+    <div class="t">Interactive algorithm walkthroughs</div>
+    <div class="unit-desc">Fill DP tables, split and merge an array, discover graph components, and explore LP geometry one step at a time.</div>
+  </a>
+  <a class="card" href="graph-demonstrations.html">
+    <div class="t">Graph demonstrations</div>
+    <div class="unit-desc">Step through traversal, spanning trees, and network flow. Watch each node and edge change as the algorithm runs.</div>
+  </a>
+  <a class="card" href="content-index.html">
+    <div class="t">Content &amp; imports</div>
+    <div class="unit-desc">Find every lesson, or import the complete course source into NotebookLM and other reading tools.</div>
+  </a>
+</section>
+
 <!-- PRIMARY COURSE SPINE: WEEKLY CURRICULUM -->
 <div class="section-label section-label--primary">
   <span>Weekly Curriculum</span>
@@ -102,7 +119,7 @@
 
 <div class="section-label">
   <span>Unit 1: Dynamic Programming &amp; Divide-and-Conquer</span>
-  <span class="unit-exam">Assessed on Exam 1 · Weeks 1–4</span>
+  <span class="unit-exam">Weeks 1–4</span>
 </div>
 <div class="cardgrid">
   <a class="card" href="01_by_week/W01_DP1-DP2/index.html">
@@ -137,20 +154,19 @@
   </a>
   <a class="card" href="01_by_week/W04_DP3-GR1-GR2_EXAM1/index.html">
     <div class="card-week-badge">Week 04</div>
-    <div class="t">DP on DAGs, SCCs &amp; 2-SAT <span class="exam-tag">Exam 1 Window</span></div>
+    <div class="t">DP on DAGs, SCCs &amp; 2-SAT</div>
     <div class="unit-desc">DP3 (DAG Shortest Paths), Kosaraju 2-DFS Strongly Connected Components, 2-SAT Implication Graphs</div>
     <div class="card-modules">
       <span class="module-pill">DP3</span>
       <span class="module-pill">GR1</span>
       <span class="module-pill">GR2</span>
-      <span class="module-pill">Exam 1</span>
     </div>
   </a>
 </div>
 
 <div class="section-label">
   <span>Unit 2: Graph Algorithms &amp; Max-Flow</span>
-  <span class="unit-exam">Assessed on Exam 2 · Weeks 5–7</span>
+  <span class="unit-exam">Weeks 5–7</span>
 </div>
 <div class="cardgrid">
   <a class="card" href="01_by_week/W05_GR3/index.html">
@@ -177,20 +193,19 @@
   </a>
   <a class="card" href="01_by_week/W07_MF4_EXAM2/index.html">
     <div class="card-week-badge">Week 07</div>
-    <div class="t">Edmonds-Karp &amp; Matching <span class="exam-tag">Exam 2 Window</span></div>
+    <div class="t">Edmonds-Karp &amp; Matching</div>
     <div class="unit-desc">Edmonds-Karp (BFS Augmenting Paths, O(V E^2)), Bipartite Matching, Disjoint Paths, Reductions</div>
     <div class="card-modules">
       <span class="module-pill">MF4</span>
       <span class="module-pill">Edmonds-Karp</span>
       <span class="module-pill">Bipartite</span>
-      <span class="module-pill">Exam 2</span>
     </div>
   </a>
 </div>
 
 <div class="section-label">
   <span>Unit 3: Intractability &amp; Linear Programming</span>
-  <span class="unit-exam">Assessed on Exam 3 · Weeks 8–10</span>
+  <span class="unit-exam">Weeks 8–10</span>
 </div>
 <div class="cardgrid">
   <a class="card" href="01_by_week/W08_NP1-NP2-NP3/index.html">
@@ -217,20 +232,19 @@
   </a>
   <a class="card" href="01_by_week/W10_LP4-NP4-NP5_EXAM3/index.html">
     <div class="card-week-badge">Week 10</div>
-    <div class="t">Approx, ILP &amp; Undecidability <span class="exam-tag">Exam 3 Window</span></div>
+    <div class="t">Approx, ILP &amp; Undecidability</div>
     <div class="unit-desc">Integer Linear Programming (ILP), Max-SAT 7/8 Approx, Knapsack FPTAS, Halting Problem, Rice's Theorem</div>
     <div class="card-modules">
       <span class="module-pill">LP4</span>
       <span class="module-pill">NP4</span>
       <span class="module-pill">NP5</span>
-      <span class="module-pill">Exam 3</span>
     </div>
   </a>
 </div>
 
 <div class="section-label">
   <span>Unit 4: Advanced Topics &amp; Review</span>
-  <span class="unit-exam">Final Prep &amp; Quiz 8</span>
+  <span class="unit-exam">Week 11 · Cumulative review</span>
 </div>
 <div class="cardgrid">
   <a class="card" href="01_by_week/W11_Advanced-FFT-Crypto-Bloom/index.html">
@@ -253,20 +267,20 @@
 </div>
 <div class="cardgrid">
   <a class="card" href="00_START_HERE/EXAM_CRAM_SHEET.html">
-    <div class="t">🎯 High-Yield Exam Cram Sheets</div>
-    <div class="d">Exam 1, 2, and 3 synthesized with interactive Active Recall practice &amp; black-box matrix</div>
+    <div class="t">🎯 High-Yield Review Sheets</div>
+    <div class="d">Weekly topics synthesized with interactive Active Recall practice &amp; black-box matrix</div>
   </a>
   <a class="card" href="00_START_HERE/COURSE_ROADMAP.html">
     <div class="t">Course Roadmap</div>
-    <div class="d">Curriculum shape, unit progression, exam checkpoints &amp; study strategy</div>
+    <div class="d">Curriculum shape, unit progression, weekly topics &amp; study strategy</div>
   </a>
   <a class="card" href="00_START_HERE/INDEX.html">
     <div class="t">Master Index</div>
-    <div class="d">Week ↔ module ↔ reading ↔ guidance ↔ exam comprehensive cross-reference</div>
+    <div class="d">Week ↔ module ↔ reading ↔ guidance comprehensive cross-reference</div>
   </a>
   <a class="card" href="module-week-schedule.html">
-    <div class="t">Course Schedule</div>
-    <div class="d">Assigned lectures, textbook readings, homeworks &amp; quiz cadence</div>
+    <div class="t">Weekly Study Plan</div>
+    <div class="d">Weekly lectures, textbook readings, and suggested practice</div>
   </a>
   <a class="card" href="01_by_week/all-in-one.html">
     <div class="t">All Weeks - Stacked</div>

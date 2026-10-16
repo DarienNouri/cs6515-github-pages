@@ -43,7 +43,7 @@ $$</span></p>
 <p>Duckwheat is produced in Kansas and Mexico and consumed in New York
 and California. Kansas produces 15 shnupells of duckwheat and Mexico 8.
 Meanwhile, New York consumes 10 shnupells and California 13. The
-transportation costs per shnupell are &dollar;4 from Mexico to New York, &dollar;1 from Mexico to California, &dollar;2 from Kansas to New York, and &dollar;3 and from Kansas to California. Write a
+transportation costs per shnupell are <span class="currency">&dollar;4</span> from Mexico to New York, <span class="currency">&dollar;1</span> from Mexico to California, <span class="currency">&dollar;2</span> from Kansas to New York, and <span class="currency">&dollar;3</span> and from Kansas to California. Write a
 linear program that decides the amounts of duckwheat (in shnupells and
 fractions of a shnupell) to be transported from each producer to each
 consumer, so as to minimize the overall transportation cost.</p>
@@ -54,20 +54,20 @@ and the cargo company may choose to carry any amount of each, upto the
 maximum available limits given below.</p>
 <ul>
 <li>Material 1 has density 2 tons/cubic meter, maximum available amount
-40 cubic meters, and revenue &dollar;1,000
+40 cubic meters, and revenue <span class="currency">&dollar;1,000</span>
 per cubic meter.</li>
 <li>Material 2 has density 1 ton/cubic meter, maximum available amount
-30 cubic meters, and revenue &dollar;1,200
+30 cubic meters, and revenue <span class="currency">&dollar;1,200</span>
 per cubic meter.</li>
 <li>Material 3 has density 3 tons/cubic meter, maximum available amount
-20 cubic meters, and revenue &dollar;12,000
+20 cubic meters, and revenue <span class="currency">&dollar;12,000</span>
 per cubic meter.</li>
 </ul>
 <p>Write a linear program that optimizes revenue within the
 constraints.</p>
 <h3 id="74">7.4</h3>
 <p>Moe is deciding how much Regular Duff beer and how much Duff Strong
-beer to order each week. Regular Duff costs Moe &dollar;1 per pint and he sells it at &dollar;2 per pint; Duff Strong costs Moe &dollar;1.50 per pint and he sells it at &dollar;3 per pint. However, as part of a
+beer to order each week. Regular Duff costs Moe <span class="currency">&dollar;1</span> per pint and he sells it at <span class="currency">&dollar;2</span> per pint; Duff Strong costs Moe <span class="currency">&dollar;1.50</span> per pint and he sells it at <span class="currency">&dollar;3</span> per pint. However, as part of a
 complicated marketing scam, the Duff company will only sell a pint of
 Duff Strong for each two pints or more of Regular Duff that Moe buys.
 Furthermore, due to past events that are better left untold, Duff will
@@ -79,8 +79,8 @@ Moe's profit. Solve the program geometrically.</p>
 <p>The Canine Products company offers two dog foods, Frisky Pup and
 Husky Hound, that are made from a blend of cereal and meat. A package of
 Frisky Pup requires 1 pound of cereal and 1.5 pounds of meat, and sells
-for &dollar;7. A package of Husky Hound uses 2
-pounds of cereal and 1 pound of meat, and sells for &dollar;6. Raw cereal costs &dollar;1 per pound and raw meat costs &dollar;2 per pound. It also costs &dollar;1.40 to package the Frisky Pup and &dollar;0.60 to package the Husky Hound. A total of
+for <span class="currency">&dollar;7.</span> A package of Husky Hound uses 2
+pounds of cereal and 1 pound of meat, and sells for <span class="currency">&dollar;6.</span> Raw cereal costs <span class="currency">&dollar;1</span> per pound and raw meat costs <span class="currency">&dollar;2</span> per pound. It also costs <span class="currency">&dollar;1.40</span> to package the Frisky Pup and <span class="currency">&dollar;0.60</span> to package the Husky Hound. A total of
 240,000 pounds of cereal and 180,000 pounds of meat are available each
 month. The only production bottleneck is that the factory can only
 package 110,000 bags of Frisky Pup per month. Needless to say,
@@ -709,27 +709,9 @@ iterations will be needed.</p>
   } catch (e) { console.error('Mermaid render error:', e); }
 
   // 4) Math: render \( \) and \[ \] and $$ $$. Tolerate malformed legacy TeX.
+  // All math, including legacy Pandoc fragments, uses the shared renderer.
   function renderMath() {
-    if (window.renderMathInElement) {
-      renderMathInElement(document.querySelector('.content, .all-weeks-content') || document.body, {
-        delimiters: [
-          { left: '$$', right: '$$', display: true },
-          { left: '\\[', right: '\\]', display: true },
-          { left: '$', right: '$', display: false },
-          { left: '\\(', right: '\\)', display: false }
-        ],
-        throwOnError: false,
-        preProcess: function(math) {
-          return math
-            .replace(/\\left\\\[/g, '\\left[')
-            .replace(/\\right\\\]/g, '\\right]')
-            .replace(/&amp;/g, '&')
-            .replace(/&lt;/g, '<')
-            .replace(/&gt;/g, '>');
-        },
-        macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
-      });
-    }
+    if (window.renderSiteMath) window.renderSiteMath();
   }
   try {
     renderMath();

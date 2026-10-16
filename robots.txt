@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://dariennouri.github.io/cs6515-github-pages/sitemap.xml

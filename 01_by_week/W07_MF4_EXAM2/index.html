@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="../../vendor/katex/katex.min.css">
 <link rel="stylesheet" href="../../vendor/highlight/styles/tokyo-night-dark.min.css">
 
+<link rel="stylesheet" href="../../graph-demos.css">
 </head>
 <body>
 <header class="topbar">
@@ -19,7 +20,7 @@
 <main class="content">
 <h1 id="week-7--edmonds-karp">Week 7 — Edmonds-Karp</h1>
 <div class="module-subtitle">
-  <span>Module <strong>MF4</strong> (Edmonds-Karp) · <strong>Exam 2 Window</strong> (covers Weeks 4–7)</span>
+  <span>Module <strong>MF4</strong> (Edmonds-Karp)</span>
 </div>
 <nav class="top-nav-bar" data-top-nav aria-label="Top page navigation">
   <div class="top-nav-bar__left">
@@ -41,19 +42,8 @@
     </a>
   </div>
 </nav>
-<h3 id="exam-2-this-week">EXAM 2 Window</h3>
-<table>
-<tbody>
-<tr>
-<td><strong>Assessment</strong></td>
-<td><strong>Exam 2</strong> (format and scheduling per course syllabus)</td>
-</tr>
-<tr>
-<td><strong>Coverage</strong></td>
-<td><strong>Weeks 4–7</strong> — DP3, GR1–GR3, MF1–MF2, MF4</td>
-</tr>
-</tbody>
-</table>
+<h3 id="exam-2-this-week">Week 7 study focus</h3>
+<p>Trace Edmonds-Karp BFS augmentations and reduce bipartite matching to a flow network.</p>
 <details class="lecture-collapse">
 <summary><b>Watch the lecture</b> (Edmonds-Karp)</summary>
 
@@ -63,6 +53,13 @@ href="transcripts/07_Week_07_Edmonds_Karp.txt">Transcript</a></p>
 </details>
 
 <hr />
+<section class="graph-demo-section" aria-label="Maximum flow: augmenting paths">
+<h2>Maximum flow: augmenting paths</h2>
+<p>Follow a source-to-sink path with positive residual capacity. Increase flow by its bottleneck and update forward and reverse residual capacities. When no augmenting path remains, the flow is maximum.</p>
+<div data-graph-demo="flow"><p>Use the demonstration controls to follow each step when JavaScript is enabled.</p></div>
+<p><a href="../../graph-demonstrations.html#flow">Open graph demonstrations</a> to compare traversal, spanning trees, and flow.</p>
+</section>
+
 <h2 id="learning-objectives">Learning objectives</h2>
 <ul>
 <li>Explain Edmonds-Karp as Ford-Fulkerson with one rule: pick the
@@ -466,8 +463,7 @@ PDF</a></p>
 <p>Max-flow runtime question → Edmonds-Karp <span
 class="math inline"><em>O</em>(<em>m</em><sup>2</sup><em>n</em>)</span>
 (BFS, capacity-independent) vs Ford-Fulkerson <span
-class="math inline"><em>O</em>(<em>m</em><em>C</em>)</span>.
-<strong>Exam 2 (W4–7) opens this week.</strong></p>
+class="math inline"><em>O</em>(<em>m</em><em>C</em>)</span>.</p>
 </main>
 
 <!-- code highlighting -->
@@ -506,34 +502,9 @@ class="math inline"><em>O</em>(<em>m</em><em>C</em>)</span>.
   } catch (e) { console.error('Mermaid render error:', e); }
 
   // 4) Math: render \( \) and \[ \] and $$ $$. Tolerate malformed legacy TeX.
+  // All math, including legacy Pandoc fragments, uses the shared renderer.
   function renderMath() {
-    if (window.renderSiteMath) {
-      window.renderSiteMath();
-      return;
-    }
-    if (window.renderMathInElement) {
-      renderMathInElement(document.querySelector('.content, .all-weeks-content') || document.body, {
-        delimiters: [
-          { left: '$$', right: '$$', display: true },
-          { left: '\\[', right: '\\]', display: true },
-          { left: '$', right: '$', display: false },
-          { left: '\\(', right: '\\)', display: false }
-        ],
-        throwOnError: false,
-        preProcess: function(math) {
-          return math
-            .replace(/(?:&nbsp;|&#160;|\u00a0)([a-zA-Z]{2,})/g, ' \\text{ $1}')
-            .replace(/&(?:nbsp|#160);/gi, ' ')
-            .replace(/[\u2000-\u200b\u00a0]/g, ' ')
-            .replace(/\\left\\\[/g, '\\left[')
-            .replace(/\\right\\\]/g, '\\right]')
-            .replace(/&amp;/g, '&')
-            .replace(/&lt;/g, '<')
-            .replace(/&gt;/g, '>');
-        },
-        macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow ', '\\O': '\\mathcal{O}' }
-      });
-    }
+    if (window.renderSiteMath) window.renderSiteMath();
   }
   try {
     renderMath();
@@ -543,5 +514,6 @@ class="math inline"><em>O</em>(<em>m</em><em>C</em>)</span>.
   }
 </script>
 <script src="../../site.js" defer></script>
+<script src="../../graph-demos.js" defer></script>
 </body>
 </html>

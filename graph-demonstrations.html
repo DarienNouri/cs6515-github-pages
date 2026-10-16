@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Step through breadth-first search, Kruskal’s minimum spanning tree, and maximum-flow augmenting paths with accessible graph animations and complete text walkthroughs.">
+<title>Graph Algorithm Demonstrations — CS6515</title>
+<link rel="stylesheet" href="vendor/fonts/fonts.css">
+<link rel="stylesheet" href="theme.css">
+<link rel="stylesheet" href="graph-demos.css">
+<script src="site.js" defer></script>
+<script src="graph-demos.js" defer></script>
+</head>
+<body>
+<header class="topbar">
+  <a class="home" href="index.html">CS6515</a>
+  <span class="crumbloc">Graph algorithm demonstrations</span>
+  <button class="search-trigger" type="button" data-search-trigger aria-label="Search site"><span class="search-trigger__label">Search</span><kbd data-search-shortcut>Cmd K</kbd></button>
+</header>
+<main class="content">
+<h1>Graph algorithm demonstrations</h1>
+<p>Watch the graph change one step at a time, then connect each decision to its invariant. These examples support the graph material in weeks 4–7. Use <strong>Next</strong> and <strong>Back</strong> to inspect a single step, or <strong>Play</strong> to advance automatically. Every animation starts paused; the complete text walkthroughs also work without JavaScript.</p>
+<nav aria-label="Graph demonstrations">
+<ul>
+<li><a href="#bfs">Breadth-first search: shortest-path layers</a></li>
+<li><a href="#kruskal">Kruskal: the cut and cycle properties</a></li>
+<li><a href="#flow">Maximum flow: residual capacity and augmenting paths</a></li>
+<li><a href="algorithm-demonstrations.html#scc">Strongly connected components: two DFS passes</a></li>
+</ul>
+</nav>
+<p>For DP tables, split-and-merge recursion, and LP geometry, open the <a href="algorithm-demonstrations.html">interactive algorithm walkthroughs</a>.</p>
+
+<section id="bfs" class="graph-demo-section" aria-labelledby="bfs-heading">
+<h2 id="bfs-heading">Breadth-first search: shortest-path layers</h2>
+<p>BFS explores an <strong>unweighted, undirected graph</strong> in increasing distance from a source. The FIFO queue holds discovered vertices whose adjacency lists still need to be processed. A vertex’s distance is fixed the first time it enters the queue. BFS runs in O(|V| + |E|) with adjacency lists; it minimizes the number of edges, so weighted shortest paths require a different algorithm.</p>
+<div data-graph-demo="bfs"><p>Enable JavaScript for the interactive graph, or read the complete walkthrough below.</p></div>
+<details>
+<summary>Graph and complete BFS walkthrough</summary>
+<p>Vertices: A, B, C, D, E, F. Undirected edges: A–B, A–C, B–D, B–E, C–E, D–E, D–F, E–F. The source is A, and neighbors are examined alphabetically.</p>
+<ol>
+<li>Set distance(A) = 0 and queue = [A]. All other distances begin at infinity.</li>
+<li>Remove A. Discover B and C at distance 1; queue = [B, C]. Their parent is A.</li>
+<li>Remove B. A is already discovered. Discover D and E at distance 2; queue = [C, D, E]. Their parent is B.</li>
+<li>Remove C. A and E are already discovered; queue = [D, E].</li>
+<li>Remove D. B and E are already discovered. Discover F at distance 3, with parent D; queue = [E, F].</li>
+<li>Remove E. Its neighbors B, C, D, F are already discovered; queue = [F].</li>
+<li>Remove F. D and E are already discovered; the queue becomes empty.</li>
+</ol>
+<p><strong>Result:</strong> distance(A)=0, distance(B)=distance(C)=1, distance(D)=distance(E)=2, distance(F)=3. The BFS tree contains A–B, A–C, B–D, B–E, D–F. One shortest path to F is A → B → D → F, containing three edges.</p>
+<p><strong>Invariant:</strong> vertices leave the queue in nondecreasing distance order. Discovering a neighbor of a distance-d vertex assigns distance d+1. Marking on enqueue prevents duplicate queue entries.</p>
+</details>
+<p>Continue with <a href="01_by_week/W04_DP3-GR1-GR2_EXAM1/notes/GR0-graph-fundamentals.html">graph fundamentals</a> and the <a href="02_by_topic/GR_graphs/index.html">graph study materials</a>.</p>
+</section>
+
+<section id="kruskal" class="graph-demo-section" aria-labelledby="kruskal-heading">
+<h2 id="kruskal-heading">Kruskal: the cut and cycle properties</h2>
+<p>For a connected, weighted, undirected graph, Kruskal builds a minimum spanning tree by scanning edges from lightest to heaviest. Accept an edge only when it joins two different components. The accepted edges always form a forest. Sorting dominates the runtime: O(|E| log |V|) for a simple graph, with union–find tracking the components.</p>
+<div data-graph-demo="kruskal"><p>Enable JavaScript for the interactive graph, or read the complete walkthrough below.</p></div>
+<details>
+<summary>Graph and complete Kruskal walkthrough</summary>
+<p>Vertices: A, B, C, D, E. Edges and weights in sorted order: A–B (1), B–C (2), B–D (3), A–C (4), C–D (5), D–E (6), C–E (7).</p>
+<ol>
+<li>Start with components {A}, {B}, {C}, {D}, {E}.</li>
+<li>Accept A–B (1), joining A and B. Total weight = 1.</li>
+<li>Accept B–C (2), joining {A,B} and {C}. Total weight = 3.</li>
+<li>Accept B–D (3), joining {A,B,C} and {D}. Total weight = 6.</li>
+<li>Reject A–C (4). A and C are already connected through B, so this edge would create the cycle A–B–C–A.</li>
+<li>Reject C–D (5). C and D are already connected through B, so this edge would create the cycle C–B–D–C.</li>
+<li>Accept D–E (6), joining {A,B,C,D} and {E}. Total weight = 12.</li>
+<li>Reject C–E (7). Its endpoints are already connected. The algorithm could instead stop as soon as four edges were selected.</li>
+</ol>
+<p><strong>Result:</strong> the MST is {A–B, B–C, B–D, D–E}, with total weight 1+2+3+6=12 and |V|−1=4 edges.</p>
+<p><strong>Cut property:</strong> a lightest edge across a cut that respects the current forest can safely extend that forest to an MST. Each accepted edge joins two components and is lightest across such a cut.</p>
+<p><strong>Cycle property:</strong> a uniquely heaviest edge on a cycle belongs to no MST. All weights in this example are distinct. With tied weights, rejecting an edge that forms a cycle still preserves Kruskal’s correctness, but that rejected edge may belong to a different MST.</p>
+</details>
+<p>Continue with the <a href="01_by_week/W05_GR3/notes/GR3-minimum-spanning-tree.html">minimum spanning tree chapter</a>.</p>
+</section>
+
+<section id="flow" class="graph-demo-section" aria-labelledby="flow-heading">
+<h2 id="flow-heading">Maximum flow: residual capacity and augmenting paths</h2>
+<p>A flow respects every directed edge’s capacity and conserves flow at all vertices except the source s and sink t. For an original edge u → v with capacity c and flow f, the residual graph has forward capacity c−f and reverse capacity f. Reverse arcs allow earlier flow to be canceled. Edmonds–Karp uses BFS to choose a shortest augmenting path in the residual graph and runs in O(|V| |E|²).</p>
+<div data-graph-demo="flow"><p>Enable JavaScript for the interactive graph, or read the complete walkthrough below.</p></div>
+<details>
+<summary>Network and complete maximum-flow walkthrough</summary>
+<p>Vertices: s, a, b, t. Directed capacities: s → a = 3, s → b = 2, a → b = 1, a → t = 2, b → t = 3. Every initial flow is 0. The drawing labels original edges as flow/capacity; the state table also lists both forward and reverse residual capacities.</p>
+<ol>
+<li>BFS in the residual graph finds s → a → t. Its residual capacities are 3 and 2, so augment by min(3,2)=2. The flow value becomes 2.</li>
+<li>The next shortest residual path is s → b → t. Its residual capacities are 2 and 3, so augment by 2. The flow value becomes 4.</li>
+<li>The next path is s → a → b → t. Its residual capacities are 1, 1, 1, so augment by 1. The flow value becomes 5.</li>
+<li>No residual path from s reaches t. Both edges leaving s are saturated, so the residual reachable set is {s}. The cut from {s} to {a,b,t} has capacity 3+2=5.</li>
+</ol>
+<p><strong>Final flow:</strong> s → a: 3/3; s → b: 2/2; a → b: 1/1; a → t: 2/2; b → t: 3/3. At a, incoming 3 equals outgoing 1+2. At b, incoming 2+1 equals outgoing 3. Source outflow and sink inflow are both 5.</p>
+<p><strong>Optimality certificate:</strong> the flow value equals the capacity of the cut ({s}, {a,b,t}), so max-flow/min-cut proves this flow is maximum. This small example creates reverse residual arcs but never needs to use them; other networks can require rerouting along a reverse arc.</p>
+</details>
+<p>Continue with <a href="01_by_week/W06_MF1-MF2/index.html">maximum-flow foundations in week 6</a> and <a href="01_by_week/W07_MF4_EXAM2/index.html">Edmonds–Karp in week 7</a>.</p>
+</section>
+</main>
+</body>
+</html>

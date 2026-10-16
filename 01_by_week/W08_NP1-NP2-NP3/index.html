@@ -43,29 +43,8 @@ Reductions</span>
     </a>
   </div>
 </nav>
-<h3 id="coursework">Coursework for this module</h3>
-<p class="syllabus-note"><em>Assignment numbering and scheduling follow the syllabus for your term; this list reflects the typical course structure.</em></p>
-<table>
-<thead>
-<tr>
-<th>Item</th>
-<th>Type</th>
-<th>Note</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>HW8</strong></td>
-<td>written</td>
-<td>reductions</td>
-</tr>
-<tr>
-<td><strong>Quiz 6</strong></td>
-<td>format</td>
-<td>NP answer format</td>
-</tr>
-</tbody>
-</table>
+<h3 id="coursework">Week 8 study focus</h3>
+<p>Write polynomial-time reductions with the correct direction and prove both implications for SAT and graph problems.</p>
 <details class="lecture-collapse">
 <summary><b>Watch the lecture</b> (NP & Reductions)</summary>
 
@@ -1251,7 +1230,7 @@ class="math inline"><em>Ḡ</em> = (<em>V</em>, <em>Ē</em>)</span>, we c
 think of this as the complement of the original graph. It doesn't make
 sense to take the complete of the vertices so we leave these alone. The
 Complement of the edges are the set of all edges between two vertices
-that are NOT in E. ie $\bar{E}=\(x,y):(x,y)\not\in E $. Armed with these
+that are NOT in E. ie $\overline{E}=\{(x,y) : x,y \in V,\ x \ne y,\ (x,y)\notin E\}$. Armed with these
 new constructions we can formalize the notion of oppositeness.</p>
 <p><strong>Observation:</strong> S is a clique in <span
 class="math inline"><em>Ḡ</em></span> <span class="math inline">⇔</span>
@@ -1472,27 +1451,9 @@ lists the standard chain (IS ↔︎ VC ↔︎ Clique).</p>
   } catch (e) { console.error('Mermaid render error:', e); }
 
   // 4) Math: render \( \) and \[ \] and $$ $$. Tolerate malformed legacy TeX.
+  // All math, including legacy Pandoc fragments, uses the shared renderer.
   function renderMath() {
-    if (window.renderMathInElement) {
-      renderMathInElement(document.querySelector('.content, .all-weeks-content') || document.body, {
-        delimiters: [
-          { left: '$$', right: '$$', display: true },
-          { left: '\\[', right: '\\]', display: true },
-          { left: '$', right: '$', display: false },
-          { left: '\\(', right: '\\)', display: false }
-        ],
-        throwOnError: false,
-        preProcess: function(math) {
-          return math
-            .replace(/\\left\\\[/g, '\\left[')
-            .replace(/\\right\\\]/g, '\\right]')
-            .replace(/&amp;/g, '&')
-            .replace(/&lt;/g, '<')
-            .replace(/&gt;/g, '>');
-        },
-        macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
-      });
-    }
+    if (window.renderSiteMath) window.renderSiteMath();
   }
   try {
     renderMath();

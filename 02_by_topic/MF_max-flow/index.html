@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="../../vendor/katex/katex.min.css">
 <link rel="stylesheet" href="../../vendor/highlight/styles/tokyo-night-dark.min.css">
 
+<link rel="stylesheet" href="../../graph-demos.css">
 </head>
 <body>
 <header class="topbar">
@@ -25,6 +26,13 @@ href="../../00_START_HERE/INDEX.html">Master Index</a>).</p>
 (W6), Edmonds-Karp (W7), plus flow applications (W11). Bridges graphs
 into LP duality. Reduce to the max-flow black box: <a
 href="usable-black-boxes-graphs.html">black boxes</a>.</p>
+<section class="graph-demo-section" aria-label="Maximum flow: augmenting paths">
+<h2>Maximum flow: augmenting paths</h2>
+<p>Follow a source-to-sink path with positive residual capacity. Increase flow by its bottleneck and update forward and reverse residual capacities. When no augmenting path remains, the flow is maximum.</p>
+<div data-graph-demo="flow"><p>Use the demonstration controls to follow each step when JavaScript is enabled.</p></div>
+<p><a href="../../graph-demonstrations.html#flow">Open graph demonstrations</a> to compare traversal, spanning trees, and flow.</p>
+</section>
+
 <h2 id="material-in-this-folder">Material in this folder</h2>
 <ul>
 <li><a
@@ -82,27 +90,9 @@ href="../../01_by_week/index.html"><code>../../01_by_week/</code></a>.</em></p>
   } catch (e) { console.error('Mermaid render error:', e); }
 
   // 4) Math: render \( \) and \[ \] and $$ $$. Tolerate malformed legacy TeX.
+  // All math, including legacy Pandoc fragments, uses the shared renderer.
   function renderMath() {
-    if (window.renderMathInElement) {
-      renderMathInElement(document.querySelector('.content, .all-weeks-content') || document.body, {
-        delimiters: [
-          { left: '$$', right: '$$', display: true },
-          { left: '\\[', right: '\\]', display: true },
-          { left: '$', right: '$', display: false },
-          { left: '\\(', right: '\\)', display: false }
-        ],
-        throwOnError: false,
-        preProcess: function(math) {
-          return math
-            .replace(/\\left\\\[/g, '\\left[')
-            .replace(/\\right\\\]/g, '\\right]')
-            .replace(/&amp;/g, '&')
-            .replace(/&lt;/g, '<')
-            .replace(/&gt;/g, '>');
-        },
-        macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
-      });
-    }
+    if (window.renderSiteMath) window.renderSiteMath();
   }
   try {
     renderMath();
@@ -112,5 +102,6 @@ href="../../01_by_week/index.html"><code>../../01_by_week/</code></a>.</em></p>
   }
 </script>
 <script src="../../site.js" defer></script>
+<script src="../../graph-demos.js" defer></script>
 </body>
 </html>

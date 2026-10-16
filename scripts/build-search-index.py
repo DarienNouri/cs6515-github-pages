@@ -19,6 +19,9 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "search-index.json")
 
 SKIP_DIRS = {".git", "vendor", ".assets", "node_modules"}
+# The importer source repeats the lessons below; indexing it would duplicate
+# every result and substantially increase the browser's search download.
+SKIP_FILES = {"course-source.html"}
 
 # Elements whose contents are not visible page text.
 DROP_BLOCKS = re.compile(
@@ -65,6 +68,8 @@ def main() -> int:
     for dirpath, dirnames, filenames in os.walk(ROOT):
         dirnames[:] = sorted(d for d in dirnames if d not in SKIP_DIRS)
         for name in sorted(filenames):
+            if name in SKIP_FILES:
+                continue
             full = os.path.join(dirpath, name)
             rel = os.path.relpath(full, ROOT)
             if name.endswith(".html"):

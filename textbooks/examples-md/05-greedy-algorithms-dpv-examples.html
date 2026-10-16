@@ -399,11 +399,11 @@ undirected graph <span
 class="math inline"><em>G</em> = (<em>V</em>, <em>E</em>)</span> (in
 adjacency list format) with edge weights <span
 class="math inline">{<em>w</em><sub><em>e</em></sub>}</span>.</p>
-<pre><code>sort the edges according to their weights
-for each edge $e \in E$, in decreasing order of $w_{e}$ :
-    if $e$ is part of a cycle of $G$ :
-        $G=G-e$ (that is, remove $e$ from $G$ )
-return $G$</code></pre>
+<pre class="pseudocode">sort the edges according to their weights
+for each edge <span class="math inline">$e \in E$</span>, in decreasing order of <span class="math inline">$w_{e}$</span> :
+    if <span class="math inline">$e$</span> is part of a cycle of <span class="math inline">$G$</span> :
+        <span class="math inline">$G=G-e$</span> (that is, remove <span class="math inline">$e$</span> from <span class="math inline">$G$</span> )
+return <span class="math inline">$G$</span></pre>
 <p>Prove that this algorithm is correct.</p>
 <p><strong>(c)</strong> On each iteration, the algorithm must check
 whether there is a cycle containing a specific edge <span
@@ -673,27 +673,9 @@ least <span class="math inline">log <em>n</em></span> sets.</p>
   } catch (e) { console.error('Mermaid render error:', e); }
 
   // 4) Math: render \( \) and \[ \] and $$ $$. Tolerate malformed legacy TeX.
+  // All math, including legacy Pandoc fragments, uses the shared renderer.
   function renderMath() {
-    if (window.renderMathInElement) {
-      renderMathInElement(document.querySelector('.content, .all-weeks-content') || document.body, {
-        delimiters: [
-          { left: '$$', right: '$$', display: true },
-          { left: '\\[', right: '\\]', display: true },
-          { left: '$', right: '$', display: false },
-          { left: '\\(', right: '\\)', display: false }
-        ],
-        throwOnError: false,
-        preProcess: function(math) {
-          return math
-            .replace(/\\left\\\[/g, '\\left[')
-            .replace(/\\right\\\]/g, '\\right]')
-            .replace(/&amp;/g, '&')
-            .replace(/&lt;/g, '<')
-            .replace(/&gt;/g, '>');
-        },
-        macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
-      });
-    }
+    if (window.renderSiteMath) window.renderSiteMath();
   }
   try {
     renderMath();

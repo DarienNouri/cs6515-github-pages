@@ -21,7 +21,7 @@ Undecidability</span>
 <h1 id="week-10--approximation--undecidability">Week 10 — Approximation
 &amp; Undecidability</h1>
 <div class="module-subtitle">
-  <span>Modules <strong>LP4</strong> (Max-SAT approx / ILP), <strong>NP4</strong> (Knapsack), <strong>NP5</strong> (Halting Problem) · <strong>Exam 3 Window</strong> (covers Weeks 8–10)</span>
+  <span>Modules <strong>LP4</strong> (Max-SAT approx / ILP), <strong>NP4</strong> (Knapsack), <strong>NP5</strong> (Halting Problem)</span>
 </div>
 <nav class="top-nav-bar" data-top-nav aria-label="Top page navigation">
   <div class="top-nav-bar__left">
@@ -43,19 +43,8 @@ Undecidability</span>
     </a>
   </div>
 </nav>
-<h3 id="exam-3-this-week">EXAM 3 Window</h3>
-<table>
-<tbody>
-<tr>
-<td><strong>Assessment</strong></td>
-<td><strong>Exam 3</strong> (format and scheduling per course syllabus)</td>
-</tr>
-<tr>
-<td><strong>Coverage</strong></td>
-<td><strong>Weeks 8–10</strong> — NP1–NP5, LP1–LP4</td>
-</tr>
-</tbody>
-</table>
+<h3 id="exam-3-this-week">Week 10 study focus</h3>
+<p>Analyze approximation guarantees, compare pseudo-polynomial algorithms with FPTAS, and explain undecidability proofs.</p>
 <details class="lecture-collapse">
 <summary><b>Watch the lecture</b> (Approximation & Undecidability)</summary>
 
@@ -843,7 +832,7 @@ above</li>
 <p>At a high level the steps to the proof are as follows</p>
 <ul>
 <li>first we show that the second derivative is less than 0, ie <span
-class="math inline">$f"(\alpha) \&lt; 0$</span></li>
+class="math inline">$f"(\alpha) &lt; 0$</span></li>
 <li>this means it's concave and has only one peak area</li>
 <li>next let $\beta = \left( 1-(1-\frac{1}{k})^k \right) $</li>
 <li>then what can you say about <span
@@ -1376,8 +1365,7 @@ PDF</a></p>
 <p>Approximation → relax ILP→LP, round, prove the ratio against <span
 class="math inline">OPT<sub><em>L</em><em>P</em></sub></span>. "No
 algorithm" = undecidable (Halting), not just NP-hard. Knapsack DP is
-pseudo-polynomial; FPTAS for true poly. <strong>Exam 3 (W8–10) opens
-this week.</strong></p>
+pseudo-polynomial; FPTAS for true poly.</p>
 </main>
 
 <!-- code highlighting -->
@@ -1416,27 +1404,9 @@ this week.</strong></p>
   } catch (e) { console.error('Mermaid render error:', e); }
 
   // 4) Math: render \( \) and \[ \] and $$ $$. Tolerate malformed legacy TeX.
+  // All math, including legacy Pandoc fragments, uses the shared renderer.
   function renderMath() {
-    if (window.renderMathInElement) {
-      renderMathInElement(document.querySelector('.content, .all-weeks-content') || document.body, {
-        delimiters: [
-          { left: '$$', right: '$$', display: true },
-          { left: '\\[', right: '\\]', display: true },
-          { left: '$', right: '$', display: false },
-          { left: '\\(', right: '\\)', display: false }
-        ],
-        throwOnError: false,
-        preProcess: function(math) {
-          return math
-            .replace(/\\left\\\[/g, '\\left[')
-            .replace(/\\right\\\]/g, '\\right]')
-            .replace(/&amp;/g, '&')
-            .replace(/&lt;/g, '<')
-            .replace(/&gt;/g, '>');
-        },
-        macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
-      });
-    }
+    if (window.renderSiteMath) window.renderSiteMath();
   }
   try {
     renderMath();

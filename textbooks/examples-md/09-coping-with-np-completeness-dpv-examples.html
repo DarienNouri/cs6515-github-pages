@@ -94,10 +94,10 @@ class="math inline">cost (<em>T</em><sub><em>i</em> + 1</sub>) ≤ cos
 for all <span class="math inline"><em>i</em> &lt; <em>k</em></span>.</p>
 <p><strong>(c)</strong> Consider the following local search algorithm
 which is given as input an undirected graph G.</p>
-<pre><code>Let $T$ be any spanning tree of $G$
-while there is an edge-swap ( $e, e^{\prime}$ ) which reduces $\operatorname{cost}(T)$ :
-    $T \leftarrow T+e-e^{\prime}$
-return $T$</code></pre>
+<pre class="pseudocode">Let <span class="math inline">$T$</span> be any spanning tree of <span class="math inline">$G$</span>
+while there is an edge-swap ( <span class="math inline">$e, e^{\prime}$</span> ) which reduces <span class="math inline">$\operatorname{cost}(T)$</span> :
+    <span class="math inline">$T \leftarrow T+e-e^{\prime}$</span>
+return <span class="math inline">$T$</span></pre>
 <p>Show that this procedure always returns a minimum spanning tree. At
 most how many iterations does it take?</p>
 <h3 id="96">9.6</h3>
@@ -176,10 +176,10 @@ Obviously, max CUT is about maximizing <span
 class="math inline"><em>w</em>(<em>S</em>)</span> over all subsets of
 <span class="math inline"><em>V</em></span>. Consider the following
 local search algorithm for MAX CUT:</p>
-<pre><code>start with any $S \subseteq V$
-while there is a subset $S^{\prime} \subseteq V$ such that
-    $\| S^{\prime}|-|S||=1$ and $w\left(S^{\prime}\right)&gt;w(S)$ do:
-        set $S=S^{\prime}$</code></pre>
+<pre class="pseudocode">start with any <span class="math inline">$S \subseteq V$</span>
+while there is a subset <span class="math inline">$S^{\prime} \subseteq V$</span> such that
+    <span class="math inline">$\left|\,|S^{\prime}|-|S|\,\right|=1$</span> and <span class="math inline">$w\left(S^{\prime}\right)&gt;w(S)$</span> do:
+        set <span class="math inline">$S=S^{\prime}$</span></pre>
 <p><strong>(a)</strong> Show that this is an approximation algorithm for
 MAX CUT with ratio 2 .</p>
 <p><strong>(b)</strong> But is it a polynomial-time algorithm?</p>
@@ -259,27 +259,9 @@ and SET COVER problems.</p>
   } catch (e) { console.error('Mermaid render error:', e); }
 
   // 4) Math: render \( \) and \[ \] and $$ $$. Tolerate malformed legacy TeX.
+  // All math, including legacy Pandoc fragments, uses the shared renderer.
   function renderMath() {
-    if (window.renderMathInElement) {
-      renderMathInElement(document.querySelector('.content, .all-weeks-content') || document.body, {
-        delimiters: [
-          { left: '$$', right: '$$', display: true },
-          { left: '\\[', right: '\\]', display: true },
-          { left: '$', right: '$', display: false },
-          { left: '\\(', right: '\\)', display: false }
-        ],
-        throwOnError: false,
-        preProcess: function(math) {
-          return math
-            .replace(/\\left\\\[/g, '\\left[')
-            .replace(/\\right\\\]/g, '\\right]')
-            .replace(/&amp;/g, '&')
-            .replace(/&lt;/g, '<')
-            .replace(/&gt;/g, '>');
-        },
-        macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
-      });
-    }
+    if (window.renderSiteMath) window.renderSiteMath();
   }
   try {
     renderMath();

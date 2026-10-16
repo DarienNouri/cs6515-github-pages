@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="../../vendor/katex/katex.min.css">
 <link rel="stylesheet" href="../../vendor/highlight/styles/tokyo-night-dark.min.css">
 
+<link rel="stylesheet" href="../../graph-demos.css">
 </head>
 <body>
 <header class="topbar">
@@ -41,34 +42,8 @@
     </a>
   </div>
 </nav>
-<h3 id="coursework">Coursework for this module</h3>
-<p class="syllabus-note"><em>Assignment numbering and scheduling follow the syllabus for your term; this list reflects the typical course structure.</em></p>
-<table>
-<thead>
-<tr>
-<th>Item</th>
-<th>Type</th>
-<th>Note</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>HW6</strong></td>
-<td>written</td>
-<td>flow modeling / reductions</td>
-</tr>
-<tr>
-<td><strong>HW7</strong></td>
-<td>coding</td>
-<td>implement max-flow</td>
-</tr>
-<tr>
-<td><strong>Quiz 5</strong></td>
-<td>graph content</td>
-<td>covers graph theory</td>
-</tr>
-</tbody>
-</table>
+<h3 id="coursework">Week 6 study focus</h3>
+<p>Construct residual networks, find augmenting paths, check flow conservation, and verify a maximum flow with a minimum cut.</p>
 <details class="lecture-collapse">
 <summary><b>Watch the lecture</b> (Max Flow Basics)</summary>
 
@@ -79,6 +54,13 @@ transcript</a></p>
 </details>
 
 <hr />
+<section class="graph-demo-section" aria-label="Maximum flow: augmenting paths">
+<h2>Maximum flow: augmenting paths</h2>
+<p>Follow a source-to-sink path with positive residual capacity. Increase flow by its bottleneck and update forward and reverse residual capacities. When no augmenting path remains, the flow is maximum.</p>
+<div data-graph-demo="flow"><p>Use the demonstration controls to follow each step when JavaScript is enabled.</p></div>
+<p><a href="../../graph-demonstrations.html#flow">Open graph demonstrations</a> to compare traversal, spanning trees, and flow.</p>
+</section>
+
 <h2 id="learning-objectives">Learning objectives</h2>
 <ul>
 <li>Model a real problem as a <strong>flow network</strong> and reduce
@@ -494,7 +476,7 @@ class="math inline"><em>f</em><sub><em>v</em><em>w</em></sub></span>.</li>
 <p>As a residual-capacity case function: <span class="math display">$$
 C_f(u,v) = \begin{cases}
 c(u,v) - f(u,v) &amp; \text{if } (u,v) \in E,\\
-f(u,v) &amp; \text{if } (v,u) \in E,\\
+f(v,u) &amp; \text{if } (v,u) \in E,\\
 0 &amp; \text{otherwise.}
 \end{cases}
 $$</span></p>
@@ -751,34 +733,9 @@ if asked about runtime.</p>
   } catch (e) { console.error('Mermaid render error:', e); }
 
   // 4) Math: render \( \) and \[ \] and $$ $$. Tolerate malformed legacy TeX.
+  // All math, including legacy Pandoc fragments, uses the shared renderer.
   function renderMath() {
-    if (window.renderSiteMath) {
-      window.renderSiteMath();
-      return;
-    }
-    if (window.renderMathInElement) {
-      renderMathInElement(document.querySelector('.content, .all-weeks-content') || document.body, {
-        delimiters: [
-          { left: '$$', right: '$$', display: true },
-          { left: '\\[', right: '\\]', display: true },
-          { left: '$', right: '$', display: false },
-          { left: '\\(', right: '\\)', display: false }
-        ],
-        throwOnError: false,
-        preProcess: function(math) {
-          return math
-            .replace(/(?:&nbsp;|&#160;|\u00a0)([a-zA-Z]{2,})/g, ' \\text{ $1}')
-            .replace(/&(?:nbsp|#160);/gi, ' ')
-            .replace(/[\u2000-\u200b\u00a0]/g, ' ')
-            .replace(/\\left\\\[/g, '\\left[')
-            .replace(/\\right\\\]/g, '\\right]')
-            .replace(/&amp;/g, '&')
-            .replace(/&lt;/g, '<')
-            .replace(/&gt;/g, '>');
-        },
-        macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow ', '\\O': '\\mathcal{O}' }
-      });
-    }
+    if (window.renderSiteMath) window.renderSiteMath();
   }
   try {
     renderMath();
@@ -788,5 +745,6 @@ if asked about runtime.</p>
   }
 </script>
 <script src="../../site.js" defer></script>
+<script src="../../graph-demos.js" defer></script>
 </body>
 </html>

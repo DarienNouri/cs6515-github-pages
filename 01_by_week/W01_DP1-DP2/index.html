@@ -39,39 +39,8 @@ Programming</h1>
     </a>
   </div>
 </nav>
-<h3 id="coursework">Coursework for this module</h3>
-<p class="syllabus-note"><em>Assignment numbering and scheduling follow the syllabus for your term; this list reflects the typical course structure.</em></p>
-<table>
-<thead>
-<tr>
-<th>Item</th>
-<th>Type</th>
-<th>Note</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Readiness Check</strong></td>
-<td>self-assess</td>
-<td>no due date — confirms prerequisites</td>
-</tr>
-<tr>
-<td><strong>Logistics quizzes</strong></td>
-<td>onboarding</td>
-<td>communication, academic integrity</td>
-</tr>
-<tr>
-<td><strong>HW1</strong></td>
-<td>written</td>
-<td>DP problems</td>
-</tr>
-<tr>
-<td><strong>Quiz 1</strong></td>
-<td>format</td>
-<td>how DP answers are graded</td>
-</tr>
-</tbody>
-</table>
+<h3 id="coursework">Week 1 study focus</h3>
+<p>Check prerequisite knowledge, then practice defining DP states, recurrences, base cases, fill order, and runtime for LIS, LCS, knapsack, and matrix-chain multiplication.</p>
 <details class="lecture-collapse">
 <summary><b>Watch the lecture</b> (Intro & DP)</summary>
 
@@ -172,6 +141,14 @@ $$</span></p>
 class="math inline"><em>L</em>(<em>n</em>, <em>m</em>)</span>; runtime
 <span class="math inline"><em>O</em>(<em>n</em><em>m</em>)</span>.</li>
 </ul>
+
+<details class="visual-walkthrough">
+<summary>Step-through visual: LCS: fill and trace the DP table</summary>
+<p>Fill the table one cell at a time. Compare matching characters and see which earlier cells determine each answer.</p>
+<div data-algorithm-visual="lcs"><p>A match extends the diagonal answer by one. A mismatch keeps the larger upper or left answer. After filling the table, follow the chosen dependencies backward to recover a longest common subsequence.</p></div>
+<p><a href="../../algorithm-demonstrations.html#lcs">Open this walkthrough and compare the other algorithm visuals</a>.</p>
+</details>
+
 <h3 id="capacity-dp">Capacity DP</h3>
 <p><strong>0/1 Knapsack.</strong> Subproblem <span
 class="math inline"><em>K</em>(<em>i</em>, <em>b</em>)</span> =  max
@@ -202,6 +179,14 @@ class="math inline"><em>K</em>(<em>i</em> − 1, ⋅)</span> in the take
 branch — is the entire difference between 0/1 and unbounded knapsack.
 Know which one a problem wants.</p>
 </blockquote>
+
+<details class="visual-walkthrough">
+<summary>Step-through visual: 0/1 knapsack: take or skip an item</summary>
+<p>Watch each item compete for capacity, compare the two choices, then trace the chosen items.</p>
+<div data-algorithm-visual="knapsack"><p>Both taking and skipping an item read the previous row. Taking it adds its value and reduces the remaining capacity by its weight. This prevents reusing an item, unlike unbounded knapsack.</p></div>
+<p><a href="../../algorithm-demonstrations.html#knapsack">Open this walkthrough and compare the other algorithm visuals</a>.</p>
+</details>
+
 <h3 id="interval-dp">Interval DP</h3>
 <p><strong>Chain Matrix Multiply.</strong> Subproblem <span
 class="math inline"><em>C</em>(<em>i</em>, <em>j</em>)</span> =  min
@@ -830,27 +815,9 @@ expectations from the DP guidance docs.</p>
   } catch (e) { console.error('Mermaid render error:', e); }
 
   // 4) Math: render \( \) and \[ \] and $$ $$. Tolerate malformed legacy TeX.
+  // All math, including legacy Pandoc fragments, uses the shared renderer.
   function renderMath() {
-    if (window.renderMathInElement) {
-      renderMathInElement(document.querySelector('.content, .all-weeks-content') || document.body, {
-        delimiters: [
-          { left: '$$', right: '$$', display: true },
-          { left: '\\[', right: '\\]', display: true },
-          { left: '$', right: '$', display: false },
-          { left: '\\(', right: '\\)', display: false }
-        ],
-        throwOnError: false,
-        preProcess: function(math) {
-          return math
-            .replace(/\\left\\\[/g, '\\left[')
-            .replace(/\\right\\\]/g, '\\right]')
-            .replace(/&amp;/g, '&')
-            .replace(/&lt;/g, '<')
-            .replace(/&gt;/g, '>');
-        },
-        macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
-      });
-    }
+    if (window.renderSiteMath) window.renderSiteMath();
   }
   try {
     renderMath();

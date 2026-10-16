@@ -447,11 +447,11 @@ running time of the algorithm, and solve the recurrence.</p>
 class="math inline"><em>n</em></span> digits (where <span
 class="math inline"><em>n</em></span> is a power of 2 ) into binary. The
 algorithm is the following:</p>
-<pre><code>function dec2bin(x)
-    if $n=1$ : return binary $[x]$
+<pre class="pseudocode">function dec2bin(x)
+    if <span class="math inline">$n=1$</span> : return binary <span class="math inline">$[x]$</span>
     else:
-        split $x$ into two decimal numbers $x_{L}, x_{R}$ with $n / 2$ digits each
-        return ???</code></pre>
+        split <span class="math inline">$x$</span> into two decimal numbers <span class="math inline">$x_{L}, x_{R}$</span> with <span class="math inline">$n / 2$</span> digits each
+        return ???</pre>
 <p>Here binary[.] is a vector that contains the binary representation of
 all one-digit integers. That is, binary <span
 class="math inline">[0] = 0<sub>2</sub></span>, binary <span
@@ -730,27 +730,9 @@ class="math inline"><em>O</em>(<em>n</em>log <em>n</em>)</span> ?</p>
   } catch (e) { console.error('Mermaid render error:', e); }
 
   // 4) Math: render \( \) and \[ \] and $$ $$. Tolerate malformed legacy TeX.
+  // All math, including legacy Pandoc fragments, uses the shared renderer.
   function renderMath() {
-    if (window.renderMathInElement) {
-      renderMathInElement(document.querySelector('.content, .all-weeks-content') || document.body, {
-        delimiters: [
-          { left: '$$', right: '$$', display: true },
-          { left: '\\[', right: '\\]', display: true },
-          { left: '$', right: '$', display: false },
-          { left: '\\(', right: '\\)', display: false }
-        ],
-        throwOnError: false,
-        preProcess: function(math) {
-          return math
-            .replace(/\\left\\\[/g, '\\left[')
-            .replace(/\\right\\\]/g, '\\right]')
-            .replace(/&amp;/g, '&')
-            .replace(/&lt;/g, '<')
-            .replace(/&gt;/g, '>');
-        },
-        macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
-      });
-    }
+    if (window.renderSiteMath) window.renderSiteMath();
   }
   try {
     renderMath();

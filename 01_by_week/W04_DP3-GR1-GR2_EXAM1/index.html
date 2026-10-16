@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="../../vendor/katex/katex.min.css">
 <link rel="stylesheet" href="../../vendor/highlight/styles/tokyo-night-dark.min.css">
 
+<link rel="stylesheet" href="../../graph-demos.css">
 </head>
 <body>
 <header class="topbar">
@@ -22,7 +23,7 @@
 <h1 id="week-4--dp-shortest-paths--graph-intro-scc-2-sat">Week 4 — DP
 Shortest Paths + Graph Intro (SCC, 2-SAT)</h1>
 <div class="module-subtitle">
-  <span>Modules <strong>DP3</strong> (Shortest Paths), <strong>GR1</strong> (SCC), <strong>GR2</strong> (2-SAT) · <strong>Exam 1 Window</strong> (covers Weeks 1–3)</span>
+  <span>Modules <strong>DP3</strong> (Shortest Paths), <strong>GR1</strong> (SCC), <strong>GR2</strong> (2-SAT)</span>
 </div>
 <nav class="top-nav-bar" data-top-nav aria-label="Top page navigation">
   <div class="top-nav-bar__left">
@@ -44,19 +45,8 @@ Shortest Paths + Graph Intro (SCC, 2-SAT)</h1>
     </a>
   </div>
 </nav>
-<h3 id="exam-1-this-week">EXAM 1 Window</h3>
-<table>
-<tbody>
-<tr>
-<td><strong>Assessment</strong></td>
-<td><strong>Exam 1</strong> (format and scheduling per course syllabus)</td>
-</tr>
-<tr>
-<td><strong>Coverage</strong></td>
-<td><strong>Weeks 1–3</strong> — DP1–DP2, DC1–DC3</td>
-</tr>
-</tbody>
-</table>
+<h3 id="exam-1-this-week">Week 4 study focus</h3>
+<p>Trace DFS and SCC decomposition, build a 2-SAT implication graph, and compare shortest-path dynamic programs.</p>
 <details class="lecture-collapse">
 <summary><b>Watch the lecture</b> (DP & Graph Intro)</summary>
 
@@ -66,6 +56,13 @@ Shortest Paths + Graph Intro (SCC, 2-SAT)</h1>
 </details>
 
 <hr />
+<section class="graph-demo-section" aria-label="Breadth-first search: shortest-path layers">
+<h2>Breadth-first search: shortest-path layers</h2>
+<p>Start at A, visit neighbors in queue order, and discover shortest paths by number of edges. Each newly discovered node has distance one greater than its parent.</p>
+<div data-graph-demo="bfs"><p>Use the demonstration controls to follow each step when JavaScript is enabled.</p></div>
+<p><a href="../../graph-demonstrations.html#bfs">Open graph demonstrations</a> to compare traversal, spanning trees, and flow.</p>
+</section>
+
 <h2 id="learning-objectives">Learning objectives</h2>
 <ul>
 <li>Run <strong>DFS</strong>, compute pre/post numbers, classify the
@@ -115,6 +112,14 @@ class="math inline"><em>G</em><sup><em>R</em></sup></span>) lies in a
 class="math inline"><em>G</em></span>. Peeling sink SCCs in that order
 isolates one SCC per DFS tree.</li>
 </ul>
+
+<details class="visual-walkthrough">
+<summary>Step-through visual: SCCs: two DFS passes and the component DAG</summary>
+<p>Watch finishing order on the reversed graph guide component discovery in the original graph.</p>
+<div data-algorithm-visual="scc"><p>First run a complete DFS forest on the reversed graph. Then process vertices on the original graph in decreasing reversed-graph finishing order. Each new DFS tree identifies one SCC. Contracting the SCCs yields a DAG.</p></div>
+<p><a href="../../algorithm-demonstrations.html#scc">Open this walkthrough and compare the other algorithm visuals</a>.</p>
+</details>
+
 <h3 id="2-sat-gr2">2-SAT (GR2)</h3>
 <p><strong>Definition.</strong> Decide a 2-CNF formula (each clause has
 2 literals). Build the <strong>implication graph</strong> on <span
@@ -743,8 +748,7 @@ class="math inline"><em>G</em></span> by decreasing post. For 2-SAT
 build the implication graph, run SCC, check <span
 class="math inline"><em>x</em><sub><em>i</em></sub></span> vs <span
 class="math inline">¬<em>x</em><sub><em>i</em></sub></span>. Deep
-walkthroughs in <a href="notes/">notes/</a>. Exam 1 (W1–3) opens this
-week.</p>
+walkthroughs in <a href="notes/">notes/</a>.</p>
 </main>
 
 <!-- code highlighting -->
@@ -783,27 +787,9 @@ week.</p>
   } catch (e) { console.error('Mermaid render error:', e); }
 
   // 4) Math: render \( \) and \[ \] and $$ $$. Tolerate malformed legacy TeX.
+  // All math, including legacy Pandoc fragments, uses the shared renderer.
   function renderMath() {
-    if (window.renderMathInElement) {
-      renderMathInElement(document.querySelector('.content, .all-weeks-content') || document.body, {
-        delimiters: [
-          { left: '$$', right: '$$', display: true },
-          { left: '\\[', right: '\\]', display: true },
-          { left: '$', right: '$', display: false },
-          { left: '\\(', right: '\\)', display: false }
-        ],
-        throwOnError: false,
-        preProcess: function(math) {
-          return math
-            .replace(/\\left\\\[/g, '\\left[')
-            .replace(/\\right\\\]/g, '\\right]')
-            .replace(/&amp;/g, '&')
-            .replace(/&lt;/g, '<')
-            .replace(/&gt;/g, '>');
-        },
-        macros: { '\\R': '\\mathbb{R}', '\\set': '\\{#1\\}', '\\n': '\\overrightarrow' }
-      });
-    }
+    if (window.renderSiteMath) window.renderSiteMath();
   }
   try {
     renderMath();
@@ -813,5 +799,6 @@ week.</p>
   }
 </script>
 <script src="../../site.js" defer></script>
+<script src="../../graph-demos.js" defer></script>
 </body>
 </html>
